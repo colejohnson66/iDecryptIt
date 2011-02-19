@@ -39,6 +39,7 @@
     End Sub
 
     Private Sub btniPhone33_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPhone33.Click
+        ' 1.x Final
         key1a420.Text = "Unavailable"
         key1a543a.Text = "Unavailable"
         key1c25.Text = "Unavailable"
@@ -51,6 +52,11 @@
         key4a93.Text = "Unavailable"
         key4a102.Text = "Unavailable"
         key4b1.Text = "Unavailable"
+        ' 1.x Beta
         key5a147p.Text = "Unavailable"
+        ' 2.x Final
+        key5a345final.Text = "Unavailable"
+        key5a347.Text = "Unavailable"
+        key5b108.Text = "Unavailable"
     End Sub
 End Class

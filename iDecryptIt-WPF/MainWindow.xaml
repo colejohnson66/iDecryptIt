@@ -167,7 +167,7 @@
             <TabItem Header="2.x Final" Name="v2Final">
                 <Grid>
                     <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,6,0,0" Name="lbl5a345final" Text="2.0 (5A345)" VerticalAlignment="Top" />
-                    <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,35,0,0" Name="lbl5a347" Text="2.0 (5A347a)" VerticalAlignment="Top" />
+                    <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,35,0,0" Name="lbl5a347" Text="2.0 (5A347)" VerticalAlignment="Top" />
                     <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,64,0,0" Name="lbl5b108" Text="2.0.1 (5B108)" VerticalAlignment="Top" />
                     <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,93,0,0" Name="lbl5c1" Text="2.0.2 (5C1)" VerticalAlignment="Top" />
                     <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,122,0,0" Name="lbl5f136" Text="2.1 (5F126)" VerticalAlignment="Top" />
