@@ -34,14 +34,26 @@
             </ribbon:Ribbon.ApplicationMenu>
             <ribbon:RibbonTab x:Name="HomeTab" Header="Home">
                 <ribbon:RibbonGroup x:Name="VFDecrypt" Header="VFDecrypt" LargeImageSource="/iDecryptIt-WPF;component/Images/d.png">
-                    <ribbon:RibbonButton x:Name="btnDecrypt" LargeImageSource="/iDecryptIt-WPF;component/Images/d.png" Label="Decrypt" CornerRadius="5" />
+                    <ribbon:RibbonButton x:Name="btnDecrypt"
+                                         LargeImageSource="/iDecryptIt-WPF;component/Images/d.png"
+                                         Label="Decrypt"
+                                         CornerRadius="5"
+                                         ToolTipTitle="Decrypt"
+                                         ToolTipDescription="After inputing the key and selecting an input and output file, click here and wait and you will get your decrypted DMG!"
+                                         ToolTipImageSource="Images/d.png" />
                     <ribbon:RibbonTextBox x:Name="textDecryptKey" Label="Key: " />
                     <ribbon:RibbonTextBox x:Name="textInputFileName" Label="Input File: " />
                     <ribbon:RibbonButton x:Name="btnSelectVFDecryptInutFile" Label="Select Input File" />
                     <ribbon:RibbonTextBox x:Name="textOuputFileName" Label="Output File: " />
                 </ribbon:RibbonGroup>
                 <ribbon:RibbonGroup x:Name="Extract" Header="Extract" LargeImageSource="/iDecryptIt-WPF;component/Images/e.png">
-                    <ribbon:RibbonButton x:Name="btnExtract" LargeImageSource="Images/7zip_32.png" Label="Extact" CornerRadius="5" />
+                    <ribbon:RibbonButton x:Name="btnExtract"
+                                         LargeImageSource="Images/7zip_32.png"
+                                         Label="Extact"
+                                         CornerRadius="5"
+                                         ToolTipTitle="7-ZIP Extract"
+                                         ToolTipDescription="After decrypting the DMG, you can also extract it!"
+                                         ToolTipImageSource="Images\7zip_32.png"/>
                     <ribbon:RibbonTextBox x:Name="textExtractFileName" Label="Input File: " />
                     <ribbon:RibbonTextBox x:Name="textExtractDir" Label="Extract Directory: " />
                     <ribbon:RibbonButton x:Name="btnSelectExtractFile" Label="Select Input File" />
@@ -69,11 +81,23 @@
             </ribbon:RibbonTab>
             <ribbon:RibbonTab x:Name="KeyListTab" Header="Keys">
                 <ribbon:RibbonGroup x:Name="iPad_group" Header="iPad" LargeImageSource="Images\iPad1,1_32.png">
-                    <ribbon:RibbonButton x:Name="btniPad" LargeImageSource="Images\iPad1,1_32.png" Label="iPad" CornerRadius="5" />
+                    <ribbon:RibbonButton x:Name="btniPad"
+                                         LargeImageSource="Images\iPad1,1_32.png"
+                                         Label="iPad"
+                                         CornerRadius="5"
+                                         ToolTipTitle="iPad"
+                                         ToolTipDescription="iPad keys"
+                                         ToolTipImageSource="Images\iPad1,1_32.png" />
                     <ribbon:RibbonButton x:Name="btniPad1g" SmallImageSource="Images\iPad1,1_16.png" Label="iPad 1G" />
                 </ribbon:RibbonGroup>
                 <ribbon:RibbonGroup x:Name="iPhone_group" Header="iPhone" LargeImageSource="Images\iPhone3,3_32.png">
-                    <ribbon:RibbonButton x:Name="btniPhone" LargeImageSource="Images\iPhone3,1_32.png" Label="iPhone" CornerRadius="5" />
+                    <ribbon:RibbonButton x:Name="btniPhone"
+                                         LargeImageSource="Images\iPhone3,3_32.png"
+                                         Label="iPhone"
+                                         CornerRadius="5"
+                                         ToolTipTitle="iPad"
+                                         ToolTipDescription="iPhone keys"
+                                         ToolTipImageSource="Images\iPhone3,3_32.png"/>
                     <ribbon:RibbonButton x:Name="btniPhone1g" SmallImageSource="Images\iPhone1,1_16.png" Label="iPhone 1G" />
                     <ribbon:RibbonButton x:Name="btniPhone3g" SmallImageSource="Images\iPhone1,2_16.png" Label="iPhone 3G" />
                     <ribbon:RibbonButton x:Name="btniPhone3gs" SmallImageSource="Images\iPhone2,1_16.png" Label="iPhone 3GS" />
@@ -81,14 +105,26 @@
                     <ribbon:RibbonButton x:Name="btniPhone4CDMA" SmallImageSource="Images\iPhone3,3_16.png" Label="iPhone 4 CDMA" />
                 </ribbon:RibbonGroup>
                 <ribbon:RibbonGroup x:Name="iPod_group" Header="iPod touch" LargeImageSource="Images\iPod4,1_32.png">
-                    <ribbon:RibbonButton x:Name="btniPod" LargeImageSource="Images\iPod4,1_32.png" Label="iPod touch" CornerRadius="5" />
+                    <ribbon:RibbonButton x:Name="btniPod"
+                                         LargeImageSource="Images\iPod4,1_32.png"
+                                         Label="iPod touch"
+                                         CornerRadius="5"
+                                         ToolTipTitle="iPod touch"
+                                         ToolTipDescription="iPod touch keys"
+                                         ToolTipImageSource="Images\iPod4,1_32.png"/>
                     <ribbon:RibbonButton x:Name="btniPod1g" SmallImageSource="Images\iPod1,1_16.png" Label="iPod touch 1G" />
                     <ribbon:RibbonButton x:Name="btniPod2g" SmallImageSource="Images\iPod2,1_16.png" Label="iPod touch 2G" />
                     <ribbon:RibbonButton x:Name="btniPod3g" SmallImageSource="Images\iPod3,1_16.png" Label="iPod touch 3G" />
                     <ribbon:RibbonButton x:Name="btniPod4g" SmallImageSource="Images\iPod4,1_16.png" Label="iPod touch 4" />
                 </ribbon:RibbonGroup>
                 <ribbon:RibbonGroup x:Name="iTV_group" Header="Apple TV" LargeImageSource="Images\AppleTV2,1_32.png">
-                    <ribbon:RibbonButton x:Name="btniTV" LargeImageSource="Images\AppleTV2,1_32.png" Label="Apple TV" CornerRadius="5" />
+                    <ribbon:RibbonButton x:Name="btniTV"
+                                         LargeImageSource="Images\AppleTV2,1_32.png"
+                                         Label="Apple TV"
+                                         CornerRadius="5"
+                                         ToolTipTitle="Apple TV"
+                                         ToolTipDescription="Apple TV keys"
+                                         ToolTipImageSource="Images\AppleTV2,1_32.png" />
                     <ribbon:RibbonButton x:Name="btniTV2g" SmallImageSource="Images\AppleTV2,1_16.png" Label="Apple TV 2G" />
                 </ribbon:RibbonGroup>
             </ribbon:RibbonTab>
