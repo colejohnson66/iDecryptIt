@@ -260,7 +260,7 @@
                 <Grid>
                     <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,6,0,0" Name="lbl8a293" Text="4.0 (8A293)" VerticalAlignment="Top" />
                     <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,35,0,0" Name="lbl8a306" Text="4.0.1 (8A306)" VerticalAlignment="Top" />
-                    <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,64,0,0" Name="lbl8a400" Text="4.0.2 (9A400)" VerticalAlignment="Top" />
+                    <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,64,0,0" Name="lbl8a400" Text="4.0.2 (8A400)" VerticalAlignment="Top" />
                     <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,93,0,0" Name="lbl8b117" Text="4.1 (8B117)" VerticalAlignment="Top" />
                     <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,122,0,0" Name="lbl8b118" Text="4.1 (8B118)" VerticalAlignment="Top" />
                     <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,151,0,0" Name="lbl8c148" Text="4.2.1 (8C148)" VerticalAlignment="Top" />
