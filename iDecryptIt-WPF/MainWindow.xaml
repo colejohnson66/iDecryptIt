@@ -257,10 +257,39 @@
                 </Grid>
             </TabItem>
             <TabItem Header="4.x Final" Name="v4Final">
-                <Grid></Grid>
+                <Grid>
+                    <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,6,0,0" Name="lbl8a293" Text="4.0 (8A293)" VerticalAlignment="Top" />
+                    <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,35,0,0" Name="lbl8a306" Text="4.0.1 (8A306)" VerticalAlignment="Top" />
+                    <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,64,0,0" Name="lbl8a400" Text="4.0.2 (9A400)" VerticalAlignment="Top" />
+                    <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,93,0,0" Name="lbl8b117" Text="4.1 (8B117)" VerticalAlignment="Top" />
+                    <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,122,0,0" Name="lbl8b118" Text="4.1 (8B118)" VerticalAlignment="Top" />
+                    <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,151,0,0" Name="lbl8c148" Text="4.2.1 (8C148)" VerticalAlignment="Top" />
+                    <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,180,0,0" Name="lbl8e200" Text="4.2.6 (8E200)" VerticalAlignment="Top" />
+                    <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,209,0,0" Name="lbl8m89" Text="ATV4.1 (8M89)" VerticalAlignment="Top" />
+                    <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,238,0,0" Name="lbl8c150" Text="ATV4.2 (8C150)" VerticalAlignment="Top" />
+                    <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,267,0,0" Name="lbl8c154" Text="ATV4.2.1 (8C154)" VerticalAlignment="Top" />
+                    <TextBox Height="23" HorizontalAlignment="Left" Margin="103,6,6,0" Name="key8a293" VerticalAlignment="Top" Width="859" />
+                    <TextBox Height="23" HorizontalAlignment="Left" Margin="103,35,0,0" Name="key8a306" VerticalAlignment="Top" Width="859" />
+                    <TextBox Height="23" HorizontalAlignment="Left" Margin="103,64,0,0" Name="key8a400" VerticalAlignment="Top" Width="859" />
+                    <TextBox Height="23" HorizontalAlignment="Left" Margin="103,93,0,0" Name="key8b117" VerticalAlignment="Top" Width="859" />
+                    <TextBox Height="23" HorizontalAlignment="Left" Margin="103,122,0,0" Name="key8b118" VerticalAlignment="Top" Width="859" />
+                    <TextBox Height="23" HorizontalAlignment="Left" Margin="103,151,0,0" Name="key8c148" VerticalAlignment="Top" Width="859" />
+                    <TextBox Height="23" HorizontalAlignment="Left" Margin="103,180,0,0" Name="key8e200" VerticalAlignment="Top" Width="859" />
+                    <TextBox Height="23" HorizontalAlignment="Left" Margin="103,209,0,0" Name="key8m89" VerticalAlignment="Top" Width="859" />
+                    <TextBox Height="23" HorizontalAlignment="Left" Margin="103,238,0,0" Name="key8c150" VerticalAlignment="Top" Width="859" />
+                    <TextBox Height="23" HorizontalAlignment="Left" Margin="103,267,0,0" Name="key8c154" VerticalAlignment="Top" Width="859" />
+                    <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,286,0,0" Name="ATV4xFINAL_warning" Text="On the Apple TV, 4.1 displays on the Settings as 4.0, 4.2 displays as 4.1, and 4.2.1 as 4.1.1." VerticalAlignment="Top" />
+                </Grid>
             </TabItem>
             <TabItem Header="4.x Beta" Name="v4Beta">
-                <Grid></Grid>
+                <Grid>
+                    <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,6,0,0" Name="lbl8f5148b" Text="4.3b1 (8F5148b)" VerticalAlignment="Top" />
+                    <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,35,0,0" Name="lbl8f5153d" Text="4.3b2 (8F5153d)" VerticalAlignment="Top" />
+                    <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,64,0,0" Name="lbl8f5166b" Text="4.3b3 (8F5166b)" VerticalAlignment="Top" />
+                    <TextBox Height="23" HorizontalAlignment="Left" Margin="103,6,6,0" Name="key8f5148b" VerticalAlignment="Top" Width="859" />
+                    <TextBox Height="23" HorizontalAlignment="Left" Margin="103,35,0,0" Name="key8f5153d" VerticalAlignment="Top" Width="859" />
+                    <TextBox Height="23" HorizontalAlignment="Left" Margin="103,64,0,0" Name="key8f5166b" VerticalAlignment="Top" Width="859" />
+                </Grid>
             </TabItem>
             <TabItem Header="5.x Final" Name="v5Final">
                 <Grid></Grid>
