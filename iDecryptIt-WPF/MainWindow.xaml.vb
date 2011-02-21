@@ -86,5 +86,27 @@
         key7b367.Text = "Unavailable"
         key7b405.Text = "Unavailable"
         key7b500.Text = "Unavailable"
+        ' 3.x Beta
+        key7a238j.Text = "Unavailable"
+        key7a259g.Text = "Unavailable"
+        key7a280f.Text = "Unavailable"
+        key7a300g.Text = "Unavailable"
+        key7a312g.Text = "Unavailable"
+        key7c97d.Text = "Unavailable"
+        key7c106c.Text = "Unavailable"
+        key7c116a.Text = "Unavailable"
+        ' 4.x Final
+        key8a293final.Text = "Unavailable"
+        key8a306.Text = "Unavailable"
+        key8a400.Text = "Unavailable"
+        key8b117.Text = "Unavailable"
+        key8b118.Text = "Unavailable"
+        key8c148final.Text = "Unavailable"
+        key8c148a.Text = "Unavailable"
+        key8e200.Text = "Unavailable"
+        ' 4.x Final ATV
+        key8m89.Text = "Unavailable"
+        key8c150.Text = "Unavailable"
+        key8c154.Text = "Unavailable"
     End Sub
 End Class
