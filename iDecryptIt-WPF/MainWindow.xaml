@@ -72,11 +72,14 @@
                     <ribbon:RibbonButton x:Name="btnColeStuff" SmallImageSource="Images/colestuff_16.png" Label="About Cole Stuff" />
                 </ribbon:RibbonGroup>
                 <ribbon:RibbonGroup x:Name="FAQ" Header="FAQ" LargeImageSource="Images/faq_32.png">
-                    <ribbon:RibbonButton x:Name="faq_WhyTypeIn" Label="Why Must I Type In the locations of the DMGs?" />
                     <ribbon:RibbonButton x:Name="faq_Ribbon" Label="Where did you get the Ribbon for iDecryptIt?" />
                     <ribbon:RibbonButton x:Name="faq_Donate" Label="iDecryptIt is amazing! Where can I donate?" />
                     <ribbon:RibbonButton x:Name="faq_MoreColeStuff" Label="Where can I find more products by Cole Stuff?" />
                     <ribbon:RibbonButton x:Name="faq_WhyAnotherGUI" Label="Why another GUI? Arn't there already too many?" />
+                    <ribbon:RibbonButton x:Name="faq_IncorrectKey" Label="I found an incorrect key!" />
+                    <ribbon:RibbonButton x:Name="faq_MissingKey" Label="Why are some keys missing?" />
+                    <ribbon:RibbonButton x:Name="faq_NewKey" Label="I found a missing key!" />
+                    <ribbon:RibbonButton x:Name="faq_NoBuild" Label="5.0 just came out, the keys arn't here!" />
                 </ribbon:RibbonGroup>
             </ribbon:RibbonTab>
             <ribbon:RibbonTab x:Name="KeyListTab" Header="Keys">
