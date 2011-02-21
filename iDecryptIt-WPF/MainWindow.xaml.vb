@@ -37,6 +37,21 @@
             Me.textExtractFileName.Text = extractofd.FileName
         End If
     End Sub
+    Private Sub btniPad11_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPad11.Click
+
+    End Sub
+    Private Sub btniPhone11_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPad11.Click
+
+    End Sub
+    Private Sub btniPhone12_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPad11.Click
+
+    End Sub
+    Private Sub btniPhone21_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPad11.Click
+
+    End Sub
+    Private Sub btniPad31_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPad11.Click
+
+    End Sub
     Private Sub btniPhone33_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPhone33.Click
         ' 1.x Final
         key1a420.Text = "Unavailable"
@@ -108,5 +123,41 @@
         key8m89.Text = "Unavailable"
         key8c150.Text = "Unavailable"
         key8c154.Text = "Unavailable"
+        ' 4.x Beta
+        key8a230m.Text = "Unavailable"
+        key8a248c.Text = "Unavailable"
+        key8a260b.Text = "Unavailable"
+        key8a274b.Text = "Unavailable"
+        key8a293beta.Text = "Unavailable"
+        key8b5080.Text = "Unavailable"
+        key8b5080c.Text = "Unavailable"
+        key8b5080.Text = "Unavailable"
+        key8b5080c.Text = "Unavailable"
+        key8b5091b.Text = "Unavailable"
+        key8c5091e.Text = "Unavailable"
+        key8c5101c.Text = "Unavailable"
+        key8c5115c.Text = "Unavailable"
+        key8c134.Text = "Unavailable"
+        key8c134b.Text = "Unavailable"
+        key8c148beta.Text = "Unavailable"
+        key8f5148b.Text = "Unavailable"
+        key8f5153d.Text = "Unavailable"
+        key8f5166b.Text = "Unavailable"
+        ' 4.x Beta ATV
+        key8f5148b.Text = "Unavailable"
+        key8f5153d.Text = "Unavailable"
+        key8f5166b.Text = "Unavailable"
+    End Sub
+    Private Sub btniPod11_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPad11.Click
+
+    End Sub
+    Private Sub btniPod21_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPad11.Click
+
+    End Sub
+    Private Sub btniPod31_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPad11.Click
+
+    End Sub
+    Private Sub btniPod41_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPad11.Click
+
     End Sub
 End Class
