@@ -23,14 +23,6 @@ C:\Users\Cole\documents\visual studio 2010\Projects\iDecryptIt-WPF\iDecryptIt-WP
 C:\Users\Cole\documents\visual studio 2010\Projects\iDecryptIt-WPF\iDecryptIt-WPF\bin\Debug\iDecryptIt-WPF.application
 C:\Users\Cole\documents\visual studio 2010\Projects\iDecryptIt-WPF\iDecryptIt-WPF\obj\x86\Debug\iDecryptIt-WPF.exe.manifest
 C:\Users\Cole\documents\visual studio 2010\Projects\iDecryptIt-WPF\iDecryptIt-WPF\obj\x86\Debug\iDecryptIt-WPF.application
-C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\obj\x86\Debug\iDecryptIt-WPF.exe
-C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\obj\x86\Debug\iDecryptIt-WPF.xml
-C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\obj\x86\Debug\iDecryptIt-WPF.pdb
-C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\bin\Debug\iDecryptIt-WPF.exe.manifest
-C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\bin\Debug\iDecryptIt-WPF.application
-C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\bin\Debug\iDecryptIt-WPF.exe
-C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\bin\Debug\iDecryptIt-WPF.pdb
-C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\bin\Debug\iDecryptIt-WPF.xml
 C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\bin\Debug\Microsoft.Windows.Shell.dll
 C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\bin\Debug\RibbonControlsLibrary.dll
 C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\bin\Debug\RibbonControlsLibrary.pdb
@@ -41,10 +33,18 @@ C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\obj\x86\Debug\ResolveAssem
 C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\obj\x86\Debug\MainWindow.baml
 C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\obj\x86\Debug\MainWindow.g.vb
 C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\obj\x86\Debug\Application.g.vb
-C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\obj\x86\Debug\iDecryptIt-WPF_MarkupCompile.cache
-C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\obj\x86\Debug\iDecryptIt-WPF.g.resources
 C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\obj\x86\Debug\iDecryptIt_WPF.Resources.resources
 C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\obj\x86\Debug\GenerateResource.read.1.tlog
 C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\obj\x86\Debug\GenerateResource.write.1.tlog
-C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\obj\x86\Debug\iDecryptIt-WPF.exe.manifest
-C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\obj\x86\Debug\iDecryptIt-WPF.application
+C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\bin\Debug\iDecryptIt.exe.manifest
+C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\bin\Debug\iDecryptIt.application
+C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\bin\Debug\iDecryptIt.exe
+C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\bin\Debug\iDecryptIt.pdb
+C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\bin\Debug\iDecryptIt.xml
+C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\obj\x86\Debug\iDecryptIt_MarkupCompile.cache
+C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\obj\x86\Debug\iDecryptIt.g.resources
+C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\obj\x86\Debug\iDecryptIt.exe.manifest
+C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\obj\x86\Debug\iDecryptIt.application
+C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\obj\x86\Debug\iDecryptIt.exe
+C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\obj\x86\Debug\iDecryptIt.xml
+C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\obj\x86\Debug\iDecryptIt.pdb

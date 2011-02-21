@@ -4,7 +4,7 @@
         xmlns:ribbon="clr-namespace:Microsoft.Windows.Controls.Ribbon;assembly=RibbonControlsLibrary"
         Title="iDecryptIt" 
         x:Name="RibbonWindow"
-        Icon="/iDecryptIt-WPF;component/app.ico"
+        Icon="app.ico"
         FontFamily="Comic Sans MS"
         MaxWidth="1024"
         MaxHeight="768"
@@ -26,16 +26,16 @@
         <ribbon:Ribbon x:Name="Ribbon" Grid.Row="3" FontFamily="Comic Sans MS">
             <ribbon:Ribbon.ApplicationMenu>
                 <ribbon:RibbonApplicationMenu SmallImageSource="Images\idecryptit_16.png" Width="56" Height="24">
-                    <ribbon:RibbonApplicationMenuItem Header="iDecryptIt" x:Name="Menu_iDecryptIt" ImageSource="/iDecryptIt-WPF;component/Images/appicon.ico" QuickAccessToolBarImageSource="/iDecryptIt-WPF;component/Images/appicon.ico" />
-                    <ribbon:RibbonApplicationMenuItem Header="About" x:Name="Menu_About" ImageSource="/iDecryptIt-WPF;component/Images/a.png" />
-                    <ribbon:RibbonApplicationMenuItem Header="Check for Updates" x:Name="Menu_Check4Updates" ImageSource="/iDecryptIt-WPF;component/Images/u.png" />
-                    <ribbon:RibbonApplicationMenuItem Header="Changelog" x:Name="Menu_Changelog" ImageSource="/iDecryptIt-WPF;component/Images/c.png" />
+                    <ribbon:RibbonApplicationMenuItem Header="iDecryptIt" x:Name="Menu_iDecryptIt" ImageSource="Images/appicon.ico" QuickAccessToolBarImageSource="Images/appicon.ico" />
+                    <ribbon:RibbonApplicationMenuItem Header="About" x:Name="Menu_About" ImageSource="Images/a.png" />
+                    <ribbon:RibbonApplicationMenuItem Header="Check for Updates" x:Name="Menu_Check4Updates" ImageSource="Images/u.png" />
+                    <ribbon:RibbonApplicationMenuItem Header="Changelog" x:Name="Menu_Changelog" ImageSource="Images/c.png" />
                 </ribbon:RibbonApplicationMenu>
             </ribbon:Ribbon.ApplicationMenu>
             <ribbon:RibbonTab x:Name="HomeTab" Header="Home">
-                <ribbon:RibbonGroup x:Name="VFDecrypt" Header="VFDecrypt" LargeImageSource="/iDecryptIt-WPF;component/Images/d.png">
+                <ribbon:RibbonGroup x:Name="VFDecrypt" Header="VFDecrypt" LargeImageSource="Images/d.png">
                     <ribbon:RibbonButton x:Name="btnDecrypt"
-                                         LargeImageSource="/iDecryptIt-WPF;component/Images/d.png"
+                                         LargeImageSource="Images/d.png"
                                          Label="Decrypt"
                                          CornerRadius="5"
                                          ToolTipTitle="Decrypt"
@@ -46,7 +46,7 @@
                     <ribbon:RibbonButton x:Name="btnSelectVFDecryptInutFile" Label="Select Input File" />
                     <ribbon:RibbonTextBox x:Name="textOuputFileName" Label="Output File: " />
                 </ribbon:RibbonGroup>
-                <ribbon:RibbonGroup x:Name="Extract" Header="Extract" LargeImageSource="/iDecryptIt-WPF;component/Images/e.png">
+                <ribbon:RibbonGroup x:Name="Extract" Header="Extract" LargeImageSource="Images/e.png">
                     <ribbon:RibbonButton x:Name="btnExtract"
                                          LargeImageSource="Images/7zip_32.png"
                                          Label="Extact"
@@ -66,7 +66,7 @@
                     <ribbon:RibbonButton x:Name="btnColeStuffSite" LargeImageSource="Images\colestuff_32.png" Label="Cole Stuff Site" CornerRadius="5" />
                     <ribbon:RibbonButton x:Name="btnWikipediaPage" LargeImageSource="Images\wikipedia_32.png" Label="Wikipedia User Page" CornerRadius="5" />
                 </ribbon:RibbonGroup>
-                <ribbon:RibbonGroup x:Name="About" Header="About" LargeImageSource="/iDecryptIt-WPF;component/Images/a.png">
+                <ribbon:RibbonGroup x:Name="About" Header="About" LargeImageSource="Images/a.png">
                     <ribbon:RibbonButton x:Name="btnAbout" SmallImageSource="Images/idecryptit_16.png" Label="About iDecryptIt" />
                     <ribbon:RibbonButton x:Name="btnVFDecrypt" SmallImageSource="Images/theiphonewiki_16.png" Label="About VFDecrypt" />
                     <ribbon:RibbonButton x:Name="btnColeStuff" SmallImageSource="Images/colestuff_16.png" Label="About Cole Stuff" />
@@ -231,7 +231,7 @@
                     <TextBox Height="23" HorizontalAlignment="Left" Margin="103,122,0,0" Name="key7c146" VerticalAlignment="Top" Width="859" />
                     <TextBox Height="23" HorizontalAlignment="Left" Margin="103,151,0,0" Name="key7d11" VerticalAlignment="Top" Width="859" />
                     <TextBox Height="23" HorizontalAlignment="Left" Margin="103,180,0,0" Name="key7e18" VerticalAlignment="Top" Width="859" />
-                    <TextBox Height="23" HorizontalAlignment="Left" Margin="103,209,0,0" Name="key7b267" VerticalAlignment="Top" Width="859" />
+                    <TextBox Height="23" HorizontalAlignment="Left" Margin="103,209,0,0" Name="key7b367" VerticalAlignment="Top" Width="859" />
                     <TextBox Height="23" HorizontalAlignment="Left" Margin="103,238,0,0" Name="key7b405" VerticalAlignment="Top" Width="859" />
                     <TextBox Height="23" HorizontalAlignment="Left" Margin="103,267,0,0" Name="key7b500" VerticalAlignment="Top" Width="859" />
                 </Grid>
@@ -278,7 +278,7 @@
                     <TextBox Height="23" HorizontalAlignment="Left" Margin="103,209,0,0" Name="key8m89" VerticalAlignment="Top" Width="859" />
                     <TextBox Height="23" HorizontalAlignment="Left" Margin="103,238,0,0" Name="key8c150" VerticalAlignment="Top" Width="859" />
                     <TextBox Height="23" HorizontalAlignment="Left" Margin="103,267,0,0" Name="key8c154" VerticalAlignment="Top" Width="859" />
-                    <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,286,0,0" Name="ATV4xFINAL_warning" Text="On the Apple TV, 4.1 displays on the Settings as 4.0, 4.2 displays as 4.1, and 4.2.1 as 4.1.1." VerticalAlignment="Top" />
+                    <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,296,0,0" Name="ATV4xFINAL_warning" Text="On the Apple TV, 4.1 displays on the Settings as 4.0, 4.2 displays as 4.1, and 4.2.1 as 4.1.1." VerticalAlignment="Top" />
                 </Grid>
             </TabItem>
             <TabItem Header="4.x Beta" Name="v4Beta">

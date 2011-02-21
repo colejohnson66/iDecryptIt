@@ -37,7 +37,6 @@
             Me.textExtractFileName.Text = extractofd.FileName
         End If
     End Sub
-
     Private Sub btniPhone33_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPhone33.Click
         ' 1.x Final
         key1a420.Text = "Unavailable"
@@ -58,5 +57,34 @@
         key5a345final.Text = "Unavailable"
         key5a347.Text = "Unavailable"
         key5b108.Text = "Unavailable"
+        key5c1.Text = "Unavailable"
+        key5f136.Text = "Unavailable"
+        key5f137.Text = "Unavailable"
+        key5f138.Text = "Unavailable"
+        key5g77.Text = "Unavailable"
+        key5g77a.Text = "Unavailable"
+        key5h11.Text = "Unavailable"
+        key5h11a.Text = "Unavailable"
+        ' 2.x Beta
+        key5a225c.Text = "Unavailable"
+        key5a240d.Text = "Unavailable"
+        key5a258f.Text = "Unavailable"
+        key5a274d.Text = "Unavailable"
+        key5a292g.Text = "Unavailable"
+        key5a308.Text = "Unavailable"
+        key5a331.Text = "Unavailable"
+        key5a345beta.Text = "Unavailable"
+        key5f90.Text = "Unavailable"
+        ' 3.x Final
+        key7a341.Text = "Unavailable"
+        key7a400.Text = "Unavailable"
+        key7c144.Text = "Unavailable"
+        key7c145.Text = "Unavailable"
+        key7c146.Text = "Unavailable"
+        key7d11.Text = "Unavailable"
+        key7e18.Text = "Unavailable"
+        key7b367.Text = "Unavailable"
+        key7b405.Text = "Unavailable"
+        key7b500.Text = "Unavailable"
     End Sub
 End Class
