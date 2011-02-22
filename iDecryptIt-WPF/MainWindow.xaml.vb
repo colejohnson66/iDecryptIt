@@ -13,7 +13,7 @@
         Me.webBrowser.Navigate(New Uri("http://en.wikipedia.org/wiki/User:Colejohnson66"))
     End Sub
     Private Sub btnAbout_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnAbout.Click
-        Me.webBrowser.Navigate(New Uri("file:///C:/Program%20Files/Cole%20Stuff/help/about_iDecryptIt.html"))
+        Me.webBrowser.Navigate(New Uri("file:///C:/Cole%20Stuff/help/about_iDecryptIt.html"))
     End Sub
     Private Sub btnSelectVFDecryptInutFile_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnSelectVFDecryptInutFile.Click
         Dim decrypt As New Microsoft.Win32.OpenFileDialog()
