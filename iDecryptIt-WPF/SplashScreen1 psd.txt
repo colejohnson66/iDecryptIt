@@ -1,0 +1,2 @@
+Q: Where is the Splash Screen in psd (Photoshop Document)?
+A: Well, I don't have Photoshop, so you get a Paint.NET version (getpaint.net) (Windows XP SP3+, Vista SP2+, 7+).  It works the same as Photoshop, but is free and has no Mac version as it relies on the .NET Framework that is not available for Macs.
