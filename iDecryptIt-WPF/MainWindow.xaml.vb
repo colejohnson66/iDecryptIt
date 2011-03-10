@@ -128,7 +128,6 @@
         key8f5148b.Text = "7620a160832d8ed43aee376179d28eccf51d50ac38caccd5990db6f10849aa39e3fdc942"
         key8f5153d.Text = "3c9787acfa79fea382ec4f4d00c0f8c59f241df42cf36ab647be085476173e5625cc687a"
         key8f5166b.Text = "55f5f54a3e2e1c84b3a90a50cc2c5e9c2754f2b8bfc8abcf3d3778f8fb2ba34cfca6ea96"
-        key8f190.Text = "None Published"
         ' 4.x Beta ATV
         key8f5148b.Text = "Unavailable"
         key8f5153d.Text = "Unavailable"
@@ -225,7 +224,6 @@
         key8f5148b.Text = "Unavailable"
         key8f5153d.Text = "Unavailable"
         key8f5166b.Text = "Unavailable"
-        key8f190.Text = "Unavailable"
         ' 4.x Beta ATV
         key8f5148b.Text = "Unavailable"
         key8f5153d.Text = "Unavailable"
@@ -322,7 +320,6 @@
         key8f5148b.Text = "Unavailable"
         key8f5153d.Text = "Unavailable"
         key8f5166b.Text = "Unavailable"
-        key8f190.Text = "Unavailable"
         ' 4.x Beta ATV
         key8f5148b.Text = "Unavailable"
         key8f5153d.Text = "Unavailable"
@@ -419,7 +416,6 @@
         key8f5148b.Text = "Unavailable"
         key8f5153d.Text = "Unavailable"
         key8f5166b.Text = "Unavailable"
-        key8f190.Text = "Unavailable"
         ' 4.x Beta ATV
         key8f5148b.Text = "Unavailable"
         key8f5153d.Text = "Unavailable"
@@ -516,7 +512,6 @@
         key8f5148b.Text = "Unavailable"
         key8f5153d.Text = "Unavailable"
         key8f5166b.Text = "Unavailable"
-        key8f190.Text = "Unavailable"
         ' 4.x Beta ATV
         key8f5148b.Text = "Unavailable"
         key8f5153d.Text = "Unavailable"
@@ -710,7 +705,6 @@
         key8f5148b.Text = "Unavailable"
         key8f5153d.Text = "Unavailable"
         key8f5166b.Text = "Unavailable"
-        key8f190.Text = "Unavailable"
         ' 4.x Beta ATV
         key8f5148b.Text = "Unavailable"
         key8f5153d.Text = "Unavailable"
@@ -807,7 +801,6 @@
         key8f5148b.Text = "Unavailable"
         key8f5153d.Text = "Unavailable"
         key8f5166b.Text = "Unavailable"
-        key8f190.Text = "Unavailable"
         ' 4.x Beta ATV
         key8f5148b.Text = "Unavailable"
         key8f5153d.Text = "Unavailable"
@@ -904,7 +897,6 @@
         key8f5148b.Text = "Unavailable"
         key8f5153d.Text = "Unavailable"
         key8f5166b.Text = "Unavailable"
-        key8f190.Text = "Unavailable"
         ' 4.x Beta ATV
         key8f5148b.Text = "Unavailable"
         key8f5153d.Text = "Unavailable"
@@ -1001,7 +993,6 @@
         key8f5148b.Text = "Unavailable"
         key8f5153d.Text = "Unavailable"
         key8f5166b.Text = "Unavailable"
-        key8f190.Text = "Unavailable"
         ' 4.x Beta ATV
         key8f5148b.Text = "Unavailable"
         key8f5153d.Text = "Unavailable"
@@ -1098,13 +1089,12 @@
         key8f5148b.Text = "Unavailable"
         key8f5153d.Text = "Unavailable"
         key8f5166b.Text = "Unavailable"
-        key8f190.Text = "Unavailable"
         ' 4.x Beta ATV
         key8f5148b.Text = "cc3e4b2e78940fb3cffce2f3d4a9a5e6a8a45bce77afa71c6445991203d01fa0bb5c6ab0"
         key8f5153d.Text = "85ba2b2d95c89df504f54869b98d0eb26a63f269570e8882cb323b1b753f4f41446a1f0a"
         key8f5166b.Text = "b87f853c8f45aab846ebb507fbfca1039ab3dd7aed32076599d79070bc05240f59957064"
     End Sub
     Private Sub faq_IncorrectKey_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles faq_IncorrectKey.Click
-        txtFAQAnswer.Text = "Ok, so The iPhone Wiki is wrong, what do you do? You contact Cole Johnson at coleharrisjohnson@gmail.com with the build number and the version number.  I will publish a patch build with a correct key or with 'Unavailable'."
+        txtFAQAnswer.Text = "Ok, so The iPhone Wiki (www.theiphonewiki.com) is wrong, what do you do? You contact Cole Johnson at coleharrisjohnson@gmail.com with the build number and the version number.  I will publish a patch build with a correct key or with 'Unavailable'."
     End Sub
 End Class
