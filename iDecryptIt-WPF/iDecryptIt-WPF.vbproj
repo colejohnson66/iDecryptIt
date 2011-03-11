@@ -277,5 +277,16 @@
     <Resource Include="Images\wikipedia_256.png" />
     <Resource Include="Images\wikipedia_32.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iPad2,1_16.png" />
+    <Resource Include="Images\iPad2,1_256.png" />
+    <Resource Include="Images\iPad2,1_32.png" />
+    <Resource Include="Images\iPad2,2_16.png" />
+    <Resource Include="Images\iPad2,2_256.png" />
+    <Resource Include="Images\iPad2,2_32.png" />
+    <Resource Include="Images\iPad2,3_16.png" />
+    <Resource Include="Images\iPad2,3_256.png" />
+    <Resource Include="Images\iPad2,3_32.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
