@@ -92,9 +92,9 @@
                                          ToolTipDescription="iPad keys"
                                          ToolTipImageSource="Images\iPad1,1_32.png" />
                     <ribbon:RibbonButton x:Name="btniPad11" SmallImageSource="Images\iPad1,1_16.png" Label="iPad 1G" />
-                    <ribbon:RibbonButton x:Name="btniPad21" Label="iPad 2 (Wi-Fi)" />
-                    <ribbon:RibbonButton x:Name="btniPad22" Label="iPad 2 (GSM)" />
-                    <ribbon:RibbonButton x:Name="btniPad23" Label="iPad 2 (CDMA)" />
+                    <ribbon:RibbonButton x:Name="btniPad21" SmallImageSource="Images\iPad2,1_16.png" Label="iPad 2 (Wi-Fi)" />
+                    <ribbon:RibbonButton x:Name="btniPad22" SmallImageSource="Images\iPad2,2_16.png" Label="iPad 2 (GSM)" />
+                    <ribbon:RibbonButton x:Name="btniPad23" SmallImageSource="Images\iPad2,3_16.png" Label="iPad 2 (CDMA)" />
                 </ribbon:RibbonGroup>
                 <ribbon:RibbonGroup x:Name="iPhone_group" Header="iPhone" LargeImageSource="Images\iPhone3,3_32.png">
                     <ribbon:RibbonButton x:Name="btniPhone"
