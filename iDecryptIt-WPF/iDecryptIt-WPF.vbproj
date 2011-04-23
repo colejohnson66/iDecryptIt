@@ -200,12 +200,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\icon-iPad.png" />
-    <Resource Include="Images\icon-iPhone.png" />
-    <Resource Include="Images\icon-iTouch.png" />
-    <Resource Include="Images\icon-iTV.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\a.png" />
     <Resource Include="Images\u.png" />
   </ItemGroup>
@@ -287,6 +281,37 @@
     <Resource Include="Images\iPad2,3_16.png" />
     <Resource Include="Images\iPad2,3_256.png" />
     <Resource Include="Images\iPad2,3_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iPod_128.png" />
+    <Resource Include="Images\iPod_16.png" />
+    <Resource Include="Images\iPod_256.png" />
+    <Resource Include="Images\iPod_32.png" />
+    <Resource Include="Images\iPod_512.png" />
+    <Resource Include="Images\iPod_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\idecryptit_64.png" />
+    <Resource Include="Images\iPad_128.png" />
+    <Resource Include="Images\iPad_16.png" />
+    <Resource Include="Images\iPad_256.png" />
+    <Resource Include="Images\iPad_32.png" />
+    <Resource Include="Images\iPad_64.png" />
+    <Resource Include="Images\iPhone_128.png" />
+    <Resource Include="Images\iPhone_16.png" />
+    <Resource Include="Images\iPhone_256.png" />
+    <Resource Include="Images\iPhone_32.png" />
+    <Resource Include="Images\iPhone_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\idecryptit_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\AppleTV_128.png" />
+    <Resource Include="Images\AppleTV_16.png" />
+    <Resource Include="Images\AppleTV_256.png" />
+    <Resource Include="Images\AppleTV_32.png" />
+    <Resource Include="Images\AppleTV_64.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

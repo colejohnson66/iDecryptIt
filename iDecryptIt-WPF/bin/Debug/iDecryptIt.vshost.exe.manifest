@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="iDecryptIt.exe" size="1249280">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="iDecryptIt.exe" size="1411584">
       <assemblyIdentity name="iDecryptIt" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>QyzTEaqloiAcpneU5JcInlMgRVQ=</dsig:DigestValue>
+        <dsig:DigestValue>GZVA1DtRWZ9cDqgokb1Z7oscxOU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -78,13 +78,13 @@
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="app.ico" size="37660">
+  <file name="app.ico" size="28851">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>nsGD/a8hrvXa3/hA+CEPH5lhVfM=</dsig:DigestValue>
+      <dsig:DigestValue>JLcttrR5+ezKtMSeVTu80Nmw8hA=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>

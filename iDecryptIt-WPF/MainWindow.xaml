@@ -85,7 +85,7 @@
             <ribbon:RibbonTab x:Name="KeyListTab" Header="Keys">
                 <ribbon:RibbonGroup x:Name="iPad_group" Header="iPad" LargeImageSource="Images\iPad1,1_32.png">
                     <ribbon:RibbonButton x:Name="btniPad"
-                                         LargeImageSource="Images\iPad1,1_32.png"
+                                         LargeImageSource="Images\iPad_32.png"
                                          Label="iPad"
                                          CornerRadius="5"
                                          ToolTipTitle="iPad"
@@ -98,7 +98,7 @@
                 </ribbon:RibbonGroup>
                 <ribbon:RibbonGroup x:Name="iPhone_group" Header="iPhone" LargeImageSource="Images\iPhone3,3_32.png">
                     <ribbon:RibbonButton x:Name="btniPhone"
-                                         LargeImageSource="Images\iPhone3,3_32.png"
+                                         LargeImageSource="Images\iPhone_32.png"
                                          Label="iPhone"
                                          CornerRadius="5"
                                          ToolTipTitle="iPad"
@@ -112,7 +112,7 @@
                 </ribbon:RibbonGroup>
                 <ribbon:RibbonGroup x:Name="iPod_group" Header="iPod touch" LargeImageSource="Images\iPod4,1_32.png">
                     <ribbon:RibbonButton x:Name="btniPod"
-                                         LargeImageSource="Images\iPod4,1_32.png"
+                                         LargeImageSource="Images\iPod_32.png"
                                          Label="iPod touch"
                                          CornerRadius="5"
                                          ToolTipTitle="iPod touch"
@@ -125,7 +125,7 @@
                 </ribbon:RibbonGroup>
                 <ribbon:RibbonGroup x:Name="AppleTV_group" Header="Apple TV" LargeImageSource="Images\AppleTV2,1_32.png">
                     <ribbon:RibbonButton x:Name="btniTV"
-                                         LargeImageSource="Images\AppleTV2,1_32.png"
+                                         LargeImageSource="Images\AppleTV_32.png"
                                          Label="Apple TV"
                                          CornerRadius="5"
                                          ToolTipTitle="Apple TV"
@@ -274,11 +274,12 @@
                     <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,180,0,0" Name="lbl8c148a" Text="4.2.1 (8C148a)" VerticalAlignment="Top" />
                     <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,209,0,0" Name="lbl8e128" Text="4.2.5 (8E128)" VerticalAlignment="Top" />
                     <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,238,0,0" Name="lbl8e200" Text="4.2.6 (8E200)" VerticalAlignment="Top" />
-                    <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,267,0,0" Name="lbl8f190final" Text="4.3 (8F190)" VerticalAlignment="Top" />
-                    <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,296,0,0" Name="lbl8f191" Text="4.3 (8F191)" VerticalAlignment="Top" />
-                    <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,325,0,0" Name="lbl8g4" Text="4.3.1 (8G4)" VerticalAlignment="Top" />
-                    <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,354,0,0" Name="lbl8h7" Text="4.3.2 (8H7)" VerticalAlignment="Top" />
-                    <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,383,0,0" Name="lbl8h8" Text="4.3.2 (8H8)" VerticalAlignment="Top" />
+                    <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,267,0,0" Name="lbl8e303" Text="4.2.7 (8E303)" VerticalAlignment="Top" />
+                    <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,296,0,0" Name="lbl8f190final" Text="4.3 (8F190)" VerticalAlignment="Top" />
+                    <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,325,0,0" Name="lbl8f191" Text="4.3 (8F191)" VerticalAlignment="Top" />
+                    <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,354,0,0" Name="lbl8g4" Text="4.3.1 (8G4)" VerticalAlignment="Top" />
+                    <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,383,0,0" Name="lbl8h7" Text="4.3.2 (8H7)" VerticalAlignment="Top" />
+                    <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,412,0,0" Name="lbl8h8" Text="4.3.2 (8H8)" VerticalAlignment="Top" />
                     <TextBox Height="23" HorizontalAlignment="Left" Margin="103,6,6,0" Name="key8a293final" VerticalAlignment="Top" Width="859" />
                     <TextBox Height="23" HorizontalAlignment="Left" Margin="103,35,0,0" Name="key8a306" VerticalAlignment="Top" Width="859" />
                     <TextBox Height="23" HorizontalAlignment="Left" Margin="103,64,0,0" Name="key8a400" VerticalAlignment="Top" Width="859" />
@@ -288,11 +289,12 @@
                     <TextBox Height="23" HorizontalAlignment="Left" Margin="103,180,0,0" Name="key8c148a" VerticalAlignment="Top" Width="859" />
                     <TextBox Height="23" HorizontalAlignment="Left" Margin="103,209,0,0" Name="key8e128" VerticalAlignment="Top" Width="859" />
                     <TextBox Height="23" HorizontalAlignment="Left" Margin="103,238,0,0" Name="key8e200" VerticalAlignment="Top" Width="859" />
-                    <TextBox Height="23" HorizontalAlignment="Left" Margin="103,267,0,0" Name="key8f190final" VerticalAlignment="Top" Width="859" />
-                    <TextBox Height="23" HorizontalAlignment="Left" Margin="103,296,0,0" Name="key8f191" VerticalAlignment="Top" Width="859" />
-                    <TextBox Height="23" HorizontalAlignment="Left" Margin="103,325,0,0" Name="key8g4" VerticalAlignment="Top" Width="859" />
-                    <TextBox Height="23" HorizontalAlignment="Left" Margin="103,354,0,0" Name="key8h7" VerticalAlignment="Top" Width="859" />
-                    <TextBox Height="23" HorizontalAlignment="Left" Margin="103,383,0,0" Name="key8h8" VerticalAlignment="Top" Width="859" />
+                    <TextBox Height="23" HorizontalAlignment="Left" Margin="103,267,0,0" Name="key8e303" VerticalAlignment="Top" Width="859" />
+                    <TextBox Height="23" HorizontalAlignment="Left" Margin="103,296,0,0" Name="key8f190final" VerticalAlignment="Top" Width="859" />
+                    <TextBox Height="23" HorizontalAlignment="Left" Margin="103,325,0,0" Name="key8f191" VerticalAlignment="Top" Width="859" />
+                    <TextBox Height="23" HorizontalAlignment="Left" Margin="103,354,0,0" Name="key8g4" VerticalAlignment="Top" Width="859" />
+                    <TextBox Height="23" HorizontalAlignment="Left" Margin="103,383,0,0" Name="key8h7" VerticalAlignment="Top" Width="859" />
+                    <TextBox Height="23" HorizontalAlignment="Left" Margin="103,412,0,0" Name="key8h8" VerticalAlignment="Top" Width="859" />
                 </Grid>
             </TabItem>
             <TabItem Header="4.x Beta" Name="v4Beta">
