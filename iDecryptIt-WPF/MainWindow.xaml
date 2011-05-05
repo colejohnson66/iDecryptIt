@@ -208,6 +208,7 @@
                     <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,180,0,0" Name="lbl5a331" Text="2.0b7 (5A331)" VerticalAlignment="Top" />
                     <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,209,0,0" Name="lbl5a345beta" Text="2.0b8GM (5A345)" VerticalAlignment="Top" />
                     <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,238,0,0" Name="lbl5f90" Text="2.1b1 (5F90)" VerticalAlignment="Top" />
+                    <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,267,0,0" Name="lbl5g27" Text="2.2b1 (5G27)" VerticalAlignment="Top" />
                     <TextBox Height="23" HorizontalAlignment="Left" Margin="103,6,0,0" Name="key5a225c" VerticalAlignment="Top" Width="859" />
                     <TextBox Height="23" HorizontalAlignment="Left" Margin="103,35,0,0" Name="key5a240d" VerticalAlignment="Top" Width="859" />
                     <TextBox Height="23" HorizontalAlignment="Left" Margin="103,64,0,0" Name="key5a258f" VerticalAlignment="Top" Width="859" />
@@ -215,8 +216,9 @@
                     <TextBox Height="23" HorizontalAlignment="Left" Margin="103,122,0,0" Name="key5a292g" VerticalAlignment="Top" Width="859" />
                     <TextBox Height="23" HorizontalAlignment="Left" Margin="103,151,0,0" Name="key5a308" VerticalAlignment="Top" Width="859" />
                     <TextBox Height="23" HorizontalAlignment="Left" Margin="103,180,0,0" Name="key5a331" VerticalAlignment="Top" Width="859" />
-                    <TextBox Height="23" HorizontalAlignment="Left" Margin="103,209,0,0" Name="key5a345beta" VerticalAlignment="Top" Width="859" />
+                    <TextBox Height="23" HorizontalAlignment="Left" Margin="110,209,0,0" Name="key5a345beta" VerticalAlignment="Top" Width="852" />
                     <TextBox Height="23" HorizontalAlignment="Left" Margin="103,238,0,0" Name="key5f90" VerticalAlignment="Top" Width="859" />
+                    <TextBox Height="23" HorizontalAlignment="Left" Margin="103,267,0,0" Name="key5g27" VerticalAlignment="Top" Width="859" />
                 </Grid>
             </TabItem>
             <TabItem Header="3.x Final" Name="v3Final">
