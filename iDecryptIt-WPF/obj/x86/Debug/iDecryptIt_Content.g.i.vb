@@ -11,5 +11,8 @@
 Option Strict Off
 Option Explicit On
 
-<Assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/appletv_64.png")> 
+<Assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("7z/7za.exe"),  _
+ Assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("vfdecrypt/cygcrypto-0.9.8.dll"),  _
+ Assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("vfdecrypt/cygwin1.dll"),  _
+ Assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("vfdecrypt/vfdecrypt.exe")> 
 

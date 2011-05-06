@@ -48,3 +48,8 @@ C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\obj\x86\Debug\iDecryptIt.a
 C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\obj\x86\Debug\iDecryptIt.exe
 C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\obj\x86\Debug\iDecryptIt.xml
 C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\obj\x86\Debug\iDecryptIt.pdb
+C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\bin\Debug\VFDecrypt\cygcrypto-0.9.8.dll
+C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\bin\Debug\VFDecrypt\cygwin1.dll
+C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\bin\Debug\VFDecrypt\vfdecrypt.exe
+C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\obj\x86\Debug\iDecryptIt_Content.g.vb
+C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\bin\Debug\7z\7za.exe

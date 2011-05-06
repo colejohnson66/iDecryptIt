@@ -1,5 +1,5 @@
-﻿Class MainWindow
-
+﻿Imports System.IO
+Class MainWindow
     Private Sub btnVFDecryptSite_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnVFDecryptSite.Click
         Me.webBrowser.Navigate(New Uri("http://theiphonewiki.com/wiki/index.php?title=VFDecrypt"))
     End Sub
@@ -39,7 +39,6 @@
     End Sub
     Private Sub btniPad11_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPad11.Click
         ' 1.x Final
-        key1a420.Text = "Unavailable"
         key1a543a.Text = "Unavailable"
         key1c25.Text = "Unavailable"
         key1c28.Text = "Unavailable"
@@ -143,7 +142,6 @@
     End Sub
     Private Sub btniPad21_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPad21.Click
         ' 1.x Final
-        key1a420.Text = "Unavailable"
         key1a543a.Text = "Unavailable"
         key1c25.Text = "Unavailable"
         key1c28.Text = "Unavailable"
@@ -247,7 +245,6 @@
     End Sub
     Private Sub btniPad22_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPad22.Click
         ' 1.x Final
-        key1a420.Text = "Unavailable"
         key1a543a.Text = "Unavailable"
         key1c25.Text = "Unavailable"
         key1c28.Text = "Unavailable"
@@ -351,7 +348,6 @@
     End Sub
     Private Sub btniPad23_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPad23.Click
         ' 1.x Final
-        key1a420.Text = "Unavailable"
         key1a543a.Text = "Unavailable"
         key1c25.Text = "Unavailable"
         key1c28.Text = "Unavailable"
@@ -455,59 +451,58 @@
     End Sub
     Private Sub btniPhone11_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPhone11.Click
         ' 1.x Final
-        key1a420.Text = "Unavailable"
-        key1a543a.Text = "Unavailable"
-        key1c25.Text = "Unavailable"
-        key1c28.Text = "Unavailable"
+        key1a543a.Text = "28c909fc6d322fa18940f03279d70880e59a4507998347c70d5b8ca7ef090ecccc15e82d"
+        key1c25.Text = "7d5962d0b582ec2557c2cade50de90f4353a1c1de07b74212513fef9cc71fb890574bfe5 (This doesn't"
+        key1c28.Text = "7d5962d0b582ec2557c2cade50de90f4353a1c1de07b74212513fef9cc71fb890574bfe5 look right)"
         key3a100a.Text = "Unavailable"
         key3a101a.Text = "Unavailable"
-        key3a109a.Text = "Unavailable"
+        key3a109a.Text = "f45de7637a62b200950e550f4144696d7ff3dc5f0b19c8efdf194c88f3bc2fa808fea3b3"
         key3a110a.Text = "Unavailable"
-        key3b48b.Text = "Unavailable"
-        key4a93.Text = "Unavailable"
-        key4a102.Text = "Unavailable"
+        key3b48b.Text = "70e11d7209602ada5b15fbecc1709ad4910d0ad010bb9a9125b78f9f50e25f3e05c595e2"
+        key4a93.Text = "11070c11d93b9be5069b643204451ed95aad37df7b332d10e48fd3d23c62fca517055816"
+        key4a102.Text = "d0a0c0977bd4b6350b256d6650ec9eca419b6f961f593e74b7e5b93e010b698ca6cca1fe"
         key4b1.Text = "Unavailable"
         ' 1.x Beta
-        key5a147p.Text = "Unavailable"
+        key5a147p.Text = "86bec353ddfbe3fb750e9d7905801f79791e69acf65d16930d288e697644c76f16c4f16d"
         ' 2.x Final
         key5a345final.Text = "Unavailable"
-        key5a347.Text = "Unavailable"
-        key5b108.Text = "Unavailable"
-        key5c1.Text = "Unavailable"
-        key5f136.Text = "Unavailable"
+        key5a347.Text = "2cfca55aabb22fde7746e6a034f738b7795458be9902726002a8341995558990f41e3755 (This doesn't"
+        key5b108.Text = "2cfca55aabb22fde7746e6a034f738b7795458be9902726002a8341995558990f41e3755 look right)"
+        key5c1.Text = "31e3ff09ff046d5237187346ee893015354d2135e3f0f39480be63dd2a18444961c2da5d"
+        key5f136.Text = "562ca0f7963eafb462da74a9c1f01a45c30a7eb5f1f493feceecae03ee6521a334f4ff68"
         key5f137.Text = "Unavailable"
         key5f138.Text = "Unavailable"
-        key5g77.Text = "Unavailable"
+        key5g77.Text = "dc39d88afe4cbd8a3f36824b8fd68acf04ac72718c09100816c5cb89889b8079e96802f0"
         key5g77a.Text = "Unavailable"
-        key5h11.Text = "Unavailable"
+        key5h11.Text = "ee4eeeb62240c1378c739696dff9fef2c88834e98877f55a29c147e7d5b137967197392a"
         key5h11a.Text = "Unavailable"
         ' 2.x Beta
-        key5a225c.Text = "Unavailable"
-        key5a240d.Text = "Unavailable"
-        key5a258f.Text = "Unavailable"
-        key5a274d.Text = "Unavailable"
-        key5a292g.Text = "Unavailable"
-        key5a308.Text = "Unavailable"
-        key5a331.Text = "Unavailable"
-        key5a345beta.Text = "Unavailable"
-        key5f90.Text = "Unavailable"
-        key5g27.Text = "Unavailable"
+        key5a225c.Text = "ea14f3ec624c7fdbd52e108aa92d13b16f6b0b940c841f7bbc7792099dae45da928d13e7"
+        key5a240d.Text = "e24bfab40a2e5d3dc25e089291846e5615b640897ae8b424946c587bcf53b201a1041d36"
+        key5a258f.Text = "198d6602ba2ad2d427adf7058045fff5f20d05846622c186cca3d423ad03b5bc3f43c61c"
+        key5a274d.Text = "589df25eaa4ff0a5e29e1425fb99bf50957888ff098ba2fcb72cf130f40e15e00bcf2fc7"
+        key5a292g.Text = "890b1fbf22975e0d4be2ea3f9bc5c87f38fd8158394fd31cf80a43ad25547573bbd0ec4e"
+        key5a308.Text = "3964ca8d8bf5d3715cdc172986f2d9606672c54d5e0aa3f3a892166b4e54e4cefef21279"
+        key5a331.Text = "33d9a9832a108fc5084fc9329d6e84e38edf06e380554c49376b70e951f8a8d1ed943f819"
+        key5a345beta.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key5f90.Text = "f61c14aa0d53386dd42c49163686e8ccdeb86d14aafdecfe99c2e12c41a7f9f2811daa3d"
+        key5g27.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
         ' 3.x Final
-        key7a341.Text = "Unavailable"
-        key7a400.Text = "Unavailable"
-        key7c144.Text = "Unavailable"
+        key7a341.Text = "25cce378de209d8fb6ec45ecbe7525695272b81fe38bbad76e979ac3921c3614ed162c87"
+        key7a400.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key7c144.Text = "dbe476ed0d8c1ecf7cd514463f2ca5a6f71b6f244d98ebaa9203fd527c1ecbf2bb5f143f"
         key7c145.Text = "Unavailable"
         key7c146.Text = "Unavailable"
-        key7d11.Text = "Unavailable"
-        key7e18.Text = "Unavailable"
+        key7d11.Text = "fe431a1e436e5298d3c871359768aab43189fd5e7375a2ced3405dd8a223879a4d64a28e"
+        key7e18.Text = "3c0f821663316c08a0a059c2979ecf47d13b363de3a44010d0de0b0a5cf878cfe39d00c3"
         key7b367.Text = "Unavailable"
         key7b405.Text = "Unavailable"
         key7b500.Text = "Unavailable"
         ' 3.x Beta
         key7a238j.Text = "Unavailable"
         key7a259g.Text = "Unavailable"
-        key7a280f.Text = "Unavailable"
-        key7a300g.Text = "Unavailable"
+        key7a280f.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key7a300g.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
         key7a312g.Text = "Unavailable"
         key7c97d.Text = "Unavailable"
         key7c106c.Text = "Unavailable"
@@ -559,7 +554,6 @@
     End Sub
     Private Sub btniPhone12_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPhone12.Click
         ' 1.x Final
-        key1a420.Text = "Unavailable"
         key1a543a.Text = "Unavailable"
         key1c25.Text = "Unavailable"
         key1c28.Text = "Unavailable"
@@ -663,7 +657,6 @@
     End Sub
     Private Sub btniPhone21_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPhone21.Click
         ' 1.x Final
-        key1a420.Text = "Unavailable"
         key1a543a.Text = "Unavailable"
         key1c25.Text = "Unavailable"
         key1c28.Text = "Unavailable"
@@ -767,7 +760,6 @@
     End Sub
     Private Sub btniPhone31_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPhone31.Click
         ' 1.x Final
-        key1a420.Text = "Unavailable"
         key1a543a.Text = "Unavailable"
         key1c25.Text = "Unavailable"
         key1c28.Text = "Unavailable"
@@ -871,7 +863,6 @@
     End Sub
     Private Sub btniPhone33_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPhone33.Click
         ' 1.x Final
-        key1a420.Text = "Unavailable"
         key1a543a.Text = "Unavailable"
         key1c25.Text = "Unavailable"
         key1c28.Text = "Unavailable"
@@ -975,7 +966,6 @@
     End Sub
     Private Sub btniPod11_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPod11.Click
         ' 1.x Final
-        key1a420.Text = "Unavailable"
         key1a543a.Text = "Unavailable"
         key1c25.Text = "Unavailable"
         key1c28.Text = "Unavailable"
@@ -1079,7 +1069,6 @@
     End Sub
     Private Sub btniPod21_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPod21.Click
         ' 1.x Final
-        key1a420.Text = "Unavailable"
         key1a543a.Text = "Unavailable"
         key1c25.Text = "Unavailable"
         key1c28.Text = "Unavailable"
@@ -1183,7 +1172,6 @@
     End Sub
     Private Sub btniPod31_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPod31.Click
         ' 1.x Final
-        key1a420.Text = "Unavailable"
         key1a543a.Text = "Unavailable"
         key1c25.Text = "Unavailable"
         key1c28.Text = "Unavailable"
@@ -1287,7 +1275,6 @@
     End Sub
     Private Sub btniPod41_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPod41.Click
         ' 1.x Final
-        key1a420.Text = "Unavailable"
         key1a543a.Text = "Unavailable"
         key1c25.Text = "Unavailable"
         key1c28.Text = "Unavailable"
@@ -1391,7 +1378,6 @@
     End Sub
     Private Sub btnAppleTV21_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnAppleTV21.Click
         ' 1.x Final
-        key1a420.Text = "Unavailable"
         key1a543a.Text = "Unavailable"
         key1c25.Text = "Unavailable"
         key1c28.Text = "Unavailable"
@@ -1493,7 +1479,34 @@
         key8f5166b.Text = "b87f853c8f45aab846ebb507fbfca1039ab3dd7aed32076599d79070bc05240f59957064"
         key8f190beta.Text = "Unavailable"
     End Sub
-    Private Sub faq_IncorrectKey_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles faq_IncorrectKey.Click
-        txtFAQAnswer.Text = "Ok, so The iPhone Wiki (www.theiphonewiki.com) is wrong, what do you do? You contact Cole Johnson at coleharrisjohnson@gmail.com with the build number and the version number.  I will publish a patch build with a correct key or with 'Unavailable'."
+    Private Sub btn1a420_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btn1a420.Click
+        Me.webBrowser.Navigate(New Uri("http://rapidshare.com/files/207764160/iphoneproto.zip"))
+    End Sub
+    Private Sub MainWindow_Initialized(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Initialized
+        ' Initialize
+        Dim rundir As String = Directory.GetCurrentDirectory()
+        Dim tempdir As String = Path.GetTempPath
+        Dim runtemp As String = tempdir + "\iDecryptIt\"
+        Dim vfdecrypt As String = "\VFDecrypt\"
+        Dim sevenzip As String = "\7z\"
+        ' If iDecryptIt dir already exists, delete it
+        If My.Computer.FileSystem.DirectoryExists(tempdir + "\iDecryptIt") Then
+            My.Computer.FileSystem.DeleteDirectory(tempdir + "\iDecryptIt", FileIO.DeleteDirectoryOption.DeleteAllContents)
+        End If
+        ' Create dir
+        My.Computer.FileSystem.CreateDirectory(tempdir + "iDecryptIt")
+        ' VFDecrypt files
+        My.Computer.FileSystem.CopyFile(rundir + vfdecrypt + "cygcrypto-0.9.8.dll", runtemp + "cygcrypto-0.9.8.dll")
+        My.Computer.FileSystem.CopyFile(rundir + vfdecrypt + "cygwin1.dll", runtemp + "cygwin1.dll")
+        My.Computer.FileSystem.CopyFile(rundir + vfdecrypt + "vfdecrypt.exe", runtemp + "vfdecrypt.exe")
+        ' 7z files
+        My.Computer.FileSystem.CopyFile(rundir + sevenzip + "7za.exe", runtemp + "7za.exe")
+    End Sub
+    Private Sub MainWindow_Unloaded(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles Me.Unloaded
+        ' Delete Temp files
+        Dim tempdir As String = Path.GetTempPath
+        If My.Computer.FileSystem.DirectoryExists(tempdir + "\iDecryptIt") Then
+            My.Computer.FileSystem.DeleteDirectory(tempdir + "\iDecryptIt", FileIO.DeleteDirectoryOption.DeleteAllContents)
+        End If
     End Sub
 End Class

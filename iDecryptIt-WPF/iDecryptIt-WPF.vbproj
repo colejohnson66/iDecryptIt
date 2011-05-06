@@ -30,7 +30,7 @@
     <SuiteName>Cole Stuff</SuiteName>
     <MinimumRequiredVersion>1.0.0.0</MinimumRequiredVersion>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>174</ApplicationRevision>
+    <ApplicationRevision>180</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -163,6 +163,7 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
     </EmbeddedResource>
+    <None Include="7z\7-zip.chm" />
     <None Include="iDecryptIt-WPF_TemporaryKey.pfx" />
     <None Include="My Project\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -228,9 +229,6 @@
     <Resource Include="Images\DMG_16.png" />
     <Resource Include="Images\DMG_256.png" />
     <Resource Include="Images\DMG_32.png" />
-    <Resource Include="Images\faq_16.png" />
-    <Resource Include="Images\faq_256.png" />
-    <Resource Include="Images\faq_32.png" />
     <Resource Include="Images\idecryptit_16.png" />
     <Resource Include="Images\idecryptit_256.png" />
     <Resource Include="Images\idecryptit_32.png" />
@@ -312,6 +310,22 @@
     <Resource Include="Images\AppleTV_256.png" />
     <Resource Include="Images\AppleTV_32.png" />
     <Resource Include="Images\AppleTV_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="7z\7za.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="7z\license.txt" />
+    <Resource Include="7z\readme.txt" />
+    <Content Include="VFDecrypt\cygcrypto-0.9.8.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="VFDecrypt\cygwin1.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="VFDecrypt\vfdecrypt.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
