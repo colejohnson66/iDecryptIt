@@ -42,7 +42,7 @@
                                          ToolTipTitle="Decrypt"
                                          ToolTipDescription="After inputing the key and selecting an input and output file, click here and wait and you will get your decrypted DMG!"
                                          ToolTipImageSource="Images/d.png" />
-                    <ribbon:RibbonTextBox x:Name="textDecryptKey" Label="Key: " />
+                    <ribbon:RibbonTextBox x:Name="textDecryptKey" Label="Key: "/>
                     <ribbon:RibbonTextBox x:Name="textInputFileName" Label="Input File: " />
                     <ribbon:RibbonButton x:Name="btnSelectVFDecryptInutFile" Label="Select Input File" />
                     <ribbon:RibbonTextBox x:Name="textOuputFileName" Label="Output File: " />
@@ -342,13 +342,15 @@
                     <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,35,0,0" Name="lbl8c150" Text="4.1/4.2 (8C150)" VerticalAlignment="Top" />
                     <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,64,0,0" Name="lbl8c154" Text="4.1.1/4.2.1 (8C154)" VerticalAlignment="Top" />
                     <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,93,0,0" Name="lbl8f191m" Text="4.2/4.3 (8F191m)" VerticalAlignment="Top" />
-                    <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,122,0,0" Name="lbl8f202" Text="4.2.1/4.3.1 (8F202)" VerticalAlignment="Top" />
+                    <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,122,0,0" Name="lbl8f202" Text="4.2.1/4.3 (8F202)" VerticalAlignment="Top" />
+                    <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,151,0,0" Name="lbl8f305" Text="4.2.2/4.3 (8F305)" VerticalAlignment="Top" />
                     <TextBox Height="23" HorizontalAlignment="Left" Margin="115,6,0,0" Name="key8m89" VerticalAlignment="Top" Width="847" />
                     <TextBox Height="23" HorizontalAlignment="Left" Margin="115,35,0,0" Name="key8c150" VerticalAlignment="Top" Width="847" />
                     <TextBox Height="23" HorizontalAlignment="Left" Margin="115,64,0,0" Name="key8c154" VerticalAlignment="Top" Width="847" />
                     <TextBox Height="23" HorizontalAlignment="Left" Margin="115,93,0,0" Name="key8f191m" VerticalAlignment="Top" Width="847" />
                     <TextBox Height="23" HorizontalAlignment="Left" Margin="115,122,0,0" Name="key8f202" VerticalAlignment="Top" Width="847" />
-                    <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,151,0,0" Name="ATV4xFINAL_warning" Text="On the Apple TV, 4.1 displays on the Settings as 4.0, 4.2 displays as 4.1, 4.2.1 as 4.1.1, 4.3 (8F191m) as 4.2, and 4.3 (8F202) as 4.2.1." VerticalAlignment="Top" />
+                    <TextBox Height="23" HorizontalAlignment="Left" Margin="115,151,0,0" Name="keey8f205" VerticalAlignment="Top" Width="847" />
+                    <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,180,0,0" Name="ATV4xFINAL_warning" Text="On this page, the version number on the left is what the Apple TV reports, while the one on the right is the Apple version" VerticalAlignment="Top" />
                 </Grid>
             </TabItem>
             <TabItem Header="FAQ" Name="FAQAnswer">

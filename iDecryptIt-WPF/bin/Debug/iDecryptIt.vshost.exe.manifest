@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="iDecryptIt.exe" size="1415680">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="iDecryptIt.exe" size="1419264">
       <assemblyIdentity name="iDecryptIt" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>dyGE81XKVf6oja+to1V9z4rPJKw=</dsig:DigestValue>
+        <dsig:DigestValue>LyM8S5wYfA+kBlAXjNRx5xf2kMU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
