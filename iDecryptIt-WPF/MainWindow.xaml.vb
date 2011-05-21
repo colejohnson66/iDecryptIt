@@ -120,6 +120,7 @@ Class MainWindow
         key8c154.Text = "Unavailable"
         key8f191m.Text = "Unavailable"
         key8f202.Text = "Unavailable"
+        key8f305.Text = "Unavailable"
         ' 4.x Beta
         key8a230m.Text = "Unavailable"
         key8a248c.Text = "Unavailable"
@@ -223,6 +224,7 @@ Class MainWindow
         key8c154.Text = "Unavailable"
         key8f191m.Text = "Unavailable"
         key8f202.Text = "Unavailable"
+        key8f305.Text = "Unavailable"
         ' 4.x Beta
         key8a230m.Text = "Unavailable"
         key8a248c.Text = "Unavailable"
@@ -326,6 +328,7 @@ Class MainWindow
         key8c154.Text = "Unavailable"
         key8f191m.Text = "Unavailable"
         key8f202.Text = "Unavailable"
+        key8f305.Text = "Unavailable"
         ' 4.x Beta
         key8a230m.Text = "Unavailable"
         key8a248c.Text = "Unavailable"
@@ -429,6 +432,7 @@ Class MainWindow
         key8c154.Text = "Unavailable"
         key8f191m.Text = "Unavailable"
         key8f202.Text = "Unavailable"
+        key8f305.Text = "Unavailable"
         ' 4.x Beta
         key8a230m.Text = "Unavailable"
         key8a248c.Text = "Unavailable"
@@ -532,6 +536,7 @@ Class MainWindow
         key8c154.Text = "Unavailable"
         key8f191m.Text = "Unavailable"
         key8f202.Text = "Unavailable"
+        key8f305.Text = "Unavailable"
         ' 4.x Beta
         key8a230m.Text = "Unavailable"
         key8a248c.Text = "Unavailable"
@@ -635,6 +640,7 @@ Class MainWindow
         key8c154.Text = "Unavailable"
         key8f191m.Text = "Unavailable"
         key8f202.Text = "Unavailable"
+        key8f305.Text = "Unavailable"
         ' 4.x Beta
         key8a230m.Text = "0da2d3316d5ee7cd1858e4035e451387cd8156e97535fb09028859e68e5b7b39a6649552"
         key8a248c.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
@@ -738,6 +744,7 @@ Class MainWindow
         key8c154.Text = "Unavailable"
         key8f191m.Text = "Unavailable"
         key8f202.Text = "Unavailable"
+        key8f305.Text = "Unavailable"
         ' 4.x Beta
         key8a230m.Text = "62ea9bf9971e6c410231646f916f80330f9cbc1d1c585f0c03dab6b6f7158dc0a9c5efaf"
         key8a248c.Text = "4fea9105d8445961cbeef29f06d93685af4b7f45a02eaf7f7cdc8f78784762df3f1072c7"
@@ -841,6 +848,7 @@ Class MainWindow
         key8c154.Text = "Unavailable"
         key8f191m.Text = "Unavailable"
         key8f202.Text = "Unavailable"
+        key8f305.Text = "Unavailable"
         ' 4.x Beta
         key8a230m.Text = "Unavailable"
         key8a248c.Text = "Unavailable"
@@ -944,6 +952,7 @@ Class MainWindow
         key8c154.Text = "Unavailable"
         key8f191m.Text = "Unavailable"
         key8f202.Text = "Unavailable"
+        key8f305.Text = "Unavailable"
         ' 4.x Beta
         key8a230m.Text = "Unavailable"
         key8a248c.Text = "Unavailable"
@@ -1047,6 +1056,7 @@ Class MainWindow
         key8c154.Text = "Unavailable"
         key8f191m.Text = "Unavailable"
         key8f202.Text = "Unavailable"
+        key8f305.Text = "Unavailable"
         ' 4.x Beta
         key8a230m.Text = "Unavailable"
         key8a248c.Text = "Unavailable"
@@ -1150,6 +1160,7 @@ Class MainWindow
         key8c154.Text = "Unavailable"
         key8f191m.Text = "Unavailable"
         key8f202.Text = "Unavailable"
+        key8f305.Text = "Unavailable"
         ' 4.x Beta
         key8a230m.Text = "d88fa434f6a8c50fd49cd0923879da5c3079c59c0e534cff521a9cecbcad48d84b4daef0"
         key8a248c.Text = "80ad427daeaa34ce51d6f85510c9b69e97ac81961a0b0a7f0c1d4bc61a8d7d02d46d8a7e"
@@ -1253,6 +1264,7 @@ Class MainWindow
         key8c154.Text = "Unavailable"
         key8f191m.Text = "Unavailable"
         key8f202.Text = "Unavailable"
+        key8f305.Text = "Unavailable"
         ' 4.x Beta
         key8a230m.Text = "382dee11b9d80387b16ac2030ee1e903b78d9743a31a18bcafc922b7921eca85ab0aebf7"
         key8a248c.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
@@ -1356,6 +1368,7 @@ Class MainWindow
         key8c154.Text = "Unavailable"
         key8f191m.Text = "Unavailable"
         key8f202.Text = "Unavailable"
+        key8f305.Text = "Unavailable"
         ' 4.x Beta
         key8a230m.Text = "Unavailable"
         key8a248c.Text = "Unavailable"
@@ -1459,6 +1472,7 @@ Class MainWindow
         key8c154.Text = "5407d28e075f5a2e06fddb7ad00123aa5a528bd6c2850d5fa0908a4dcae7dd3e00a9cdb2"
         key8f191m.Text = "a30f67f64a546a28bfd5c6e2e43d14fd8111c55641fc6dc392891e2b14e7e8138db9344c"
         key8f202.Text = "7fb6a5a1a5d74ceb61180c8740065b79ac87a5c15e554ad4b147ae9e1446254acc9d5e4a"
+        key8f305.Text = "f607711d4db94bba7a4866f095aed082c8485bfbcd0f411f1e65158f585915edd5cfeec1"
         ' 4.x Beta
         key8a230m.Text = "Unavailable"
         key8a248c.Text = "Unavailable"
@@ -1478,9 +1492,6 @@ Class MainWindow
         key8f5153d.Text = "85ba2b2d95c89df504f54869b98d0eb26a63f269570e8882cb323b1b753f4f41446a1f0a"
         key8f5166b.Text = "b87f853c8f45aab846ebb507fbfca1039ab3dd7aed32076599d79070bc05240f59957064"
         key8f190beta.Text = "Unavailable"
-    End Sub
-    Private Sub btn1a420_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btn1a420.Click
-        Me.webBrowser.Navigate(New Uri("http://rapidshare.com/files/207764160/iphoneproto.zip"))
     End Sub
     Private Sub MainWindow_Initialized(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Initialized
         ' Initialize

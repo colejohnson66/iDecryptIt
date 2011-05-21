@@ -349,7 +349,7 @@
                     <TextBox Height="23" HorizontalAlignment="Left" Margin="115,64,0,0" Name="key8c154" VerticalAlignment="Top" Width="847" />
                     <TextBox Height="23" HorizontalAlignment="Left" Margin="115,93,0,0" Name="key8f191m" VerticalAlignment="Top" Width="847" />
                     <TextBox Height="23" HorizontalAlignment="Left" Margin="115,122,0,0" Name="key8f202" VerticalAlignment="Top" Width="847" />
-                    <TextBox Height="23" HorizontalAlignment="Left" Margin="115,151,0,0" Name="keey8f205" VerticalAlignment="Top" Width="847" />
+                    <TextBox Height="23" HorizontalAlignment="Left" Margin="115,151,0,0" Name="key8f305" VerticalAlignment="Top" Width="847" />
                     <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,180,0,0" Name="ATV4xFINAL_warning" Text="On this page, the version number on the left is what the Apple TV reports, while the one on the right is the Apple version" VerticalAlignment="Top" />
                 </Grid>
             </TabItem>
