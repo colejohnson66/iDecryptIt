@@ -831,7 +831,7 @@ Class MainWindow
         key7c106c.Text = "Unavailable"
         key7c116a.Text = "Unavailable"
         ' 4.x Final
-        key8a293final.Text = "c635877cd2505d640589c04d5329253248f562f22c83fa6894306e44f1f41ec457926320"
+        key8a293final.Text = "8b2915719d9f90ba5521faad1eadbb3d942991bd55e5a0709f26e9db3931517e054afa50"
         key8a306.Text = "ebd8aea30e78053112c4062690723fc5ee8e53865d4d6591b64a08216337c5a7aefbc806"
         key8a400.Text = "28bded3ee52eda2f36a241009a493db357b8f19543c07bd3820a35498a1788ce4aa0c54c"
         key8b117.Text = "2ab6aea67470994ec3453791ac75f6497c081edd1991e560a61dd666ac4b73f43c781739"
@@ -946,7 +946,7 @@ Class MainWindow
         key8e128.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
         key8e200.Text = "723ded674deb1cba56a142542a0b06d2a483297f8056c0cfa70346c0724e1b0e03feded6"
         key8e303.Text = "612f78042ddc5337ab1abecfb59a07e88ed3e80665a035ef02c3c48045057fc29ab0a4b5"
-        key8e401.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key8e401.Text = "d8e162215f27c016ed8d1849c6059f99984c766c72cec4a1df63724491c8e5b19c0e6fb2"
         key8f190final.Text = "Unavailable"
         key8f191.Text = "Unavailable"
         key8g4.Text = "Unavailable"
