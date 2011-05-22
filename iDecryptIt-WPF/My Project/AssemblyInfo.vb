@@ -11,11 +11,11 @@ Imports System.Windows
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("iDecryptIt_WPF")> 
-<Assembly: AssemblyDescription("")> 
-<Assembly: AssemblyCompany("")> 
-<Assembly: AssemblyProduct("iDecryptIt_WPF")> 
-<Assembly: AssemblyCopyright("Copyright @  2010")> 
+<Assembly: AssemblyTitle("iDecryptIt-WPF")> 
+<Assembly: AssemblyDescription("Decrypt the Root FS on the iPhone")> 
+<Assembly: AssemblyCompany("Cole Stuff")> 
+<Assembly: AssemblyProduct("iDecryptIt")> 
+<Assembly: AssemblyCopyright("(C) Cole Stuff 2010-2011")> 
 <Assembly: AssemblyTrademark("")> 
 <Assembly: ComVisible(false)>
 
@@ -57,3 +57,5 @@ Imports System.Windows
 
 <Assembly: AssemblyVersion("1.0.0.0")> 
 <Assembly: AssemblyFileVersion("1.0.0.0")> 
+
+<Assembly: NeutralResourcesLanguageAttribute("en-US")> 

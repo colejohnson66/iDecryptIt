@@ -33,7 +33,6 @@ C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\obj\x86\Debug\ResolveAssem
 C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\obj\x86\Debug\MainWindow.baml
 C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\obj\x86\Debug\MainWindow.g.vb
 C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\obj\x86\Debug\Application.g.vb
-C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\obj\x86\Debug\iDecryptIt_WPF.Resources.resources
 C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\obj\x86\Debug\GenerateResource.read.1.tlog
 C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\obj\x86\Debug\GenerateResource.write.1.tlog
 C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\bin\Debug\iDecryptIt.exe.manifest
@@ -53,3 +52,4 @@ C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\bin\Debug\VFDecrypt\cygwin
 C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\bin\Debug\VFDecrypt\vfdecrypt.exe
 C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\obj\x86\Debug\iDecryptIt_Content.g.vb
 C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\bin\Debug\7z\7za.exe
+C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\obj\x86\Debug\iDecryptIt_WPF.Resources.resources
