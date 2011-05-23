@@ -1,29 +1,30 @@
 ﻿Imports System.IO
 Class MainWindow
-    Private Sub btnVFDecryptSite_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnVFDecryptSite.Click
-        Me.webBrowser.Navigate(New Uri("http://theiphonewiki.com/wiki/index.php?title=VFDecrypt"))
-    End Sub
-    Private Sub btnIDecryptItSite_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnIDecryptItSite.Click
-        Me.webBrowser.Navigate(New Uri("http://cole.freehostingcloud.com/wiki/iDecryptIt"))
-    End Sub
-    Private Sub btnColeStuffSite_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnColeStuffSite.Click
-        Me.webBrowser.Navigate(New Uri("http://cole.freehostingcloud.com/wiki/Cole_Stuff"))
-    End Sub
-    Private Sub btnWikipediaPage_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnWikipediaPage.Click
-        Me.webBrowser.Navigate(New Uri("http://en.wikipedia.org/wiki/User:Colejohnson66"))
-    End Sub
     Private Sub btnAbout_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnAbout.Click
-        Me.webBrowser.Navigate(New Uri("file:///C:/Cole%20Stuff/help/about_iDecryptIt.html"))
+        'Find run dir
+        Dim rundir As String = Directory.GetCurrentDirectory()
+        Dim helpdir As String = rundir + "\help\"
+        Me.webBrowser.Navigate(New Uri(helpdir + "about_iDecryptIt.html"))
+    End Sub
+    Private Sub btnREADME_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnREADME.Click
+        'Find run dir
+        Dim rundir As String = Directory.GetCurrentDirectory()
+        Dim helpdir As String = rundir + "\help\"
+        Me.webBrowser.Navigate(New Uri(helpdir + "README.html"))
     End Sub
     Private Sub btnSelectVFDecryptInutFile_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnSelectVFDecryptInutFile.Click
         Dim decrypt As New Microsoft.Win32.OpenFileDialog()
         decrypt.FileName = ""
         decrypt.DefaultExt = ".dmg"
-        decrypt.Filter = "DMG Files (DMG)|*.dmg"
+        decrypt.Filter = "Apple Disk Images (.dmg)|*.dmg"
         Dim result? As Boolean = decrypt.ShowDialog()
 
         If result = True Then
+            ' Fill in text boxes on ribbon
             Me.textInputFileName.Text = decrypt.FileName
+            Me.textOuputFileName.Text = decrypt.FileName
+            ' Replace '.dmg' with '_decrypted.dmg'
+            Me.textOuputFileName.Text = Replace(textOuputFileName.Text, ".dmg", "_decrypted.dmg")
         End If
     End Sub
     Private Sub btnSelectExtractFile_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnSelectExtractFile.Click
@@ -1527,7 +1528,7 @@ Class MainWindow
         ' 7z files
         My.Computer.FileSystem.CopyFile(rundir + sevenzip + "7za.exe", runtemp + "7za.exe")
     End Sub
-    Private Sub MainWindow_Unloaded(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles Me.Unloaded
+    Private Sub MainWindow_Closed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Closed
         ' Delete Temp files
         Dim tempdir As String = Path.GetTempPath
         If My.Computer.FileSystem.DirectoryExists(tempdir + "\iDecryptIt") Then

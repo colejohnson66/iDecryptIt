@@ -42,10 +42,11 @@
                                          ToolTipTitle="Decrypt"
                                          ToolTipDescription="After inputing the key and selecting an input and output file, click here and wait and you will get your decrypted DMG!"
                                          ToolTipImageSource="Images/d.png" />
-                    <ribbon:RibbonTextBox x:Name="textDecryptKey" Label="Key: "/>
-                    <ribbon:RibbonTextBox x:Name="textInputFileName" Label="Input File: " />
+                    <ribbon:RibbonTextBox x:Name="textInputFileName" Label="Input File: " TextBoxWidth="250" />
+                    <ribbon:RibbonTextBox x:Name="textOuputFileName" Label="Output File: " TextBoxWidth="250" />
                     <ribbon:RibbonButton x:Name="btnSelectVFDecryptInutFile" Label="Select Input File" />
-                    <ribbon:RibbonTextBox x:Name="textOuputFileName" Label="Output File: " />
+                    <ribbon:RibbonTextBox x:Name="textDecryptKey" Label="Key: " />
+                    <ribbon:RibbonButton x:Name="btnClearKey" Label="Clear Key" />
                 </ribbon:RibbonGroup>
                 <ribbon:RibbonGroup x:Name="Extract" Header="Extract" LargeImageSource="Images/e.png">
                     <ribbon:RibbonButton x:Name="btnExtract"
@@ -61,16 +62,11 @@
                 </ribbon:RibbonGroup>
             </ribbon:RibbonTab>
             <ribbon:RibbonTab x:Name="HelpTab" Header="Help">
-                <ribbon:RibbonGroup x:Name="WebSites" Header="Web Sites">
-                    <ribbon:RibbonButton x:Name="btnVFDecryptSite" LargeImageSource="Images\theiphonewiki_32.png" Label="VFDecrypt Site" CornerRadius="5" />
-                    <ribbon:RibbonButton x:Name="btnIDecryptItSite" LargeImageSource="Images\idecryptit_32.png" Label="iDecryptIt Site" CornerRadius="5" />
-                    <ribbon:RibbonButton x:Name="btnColeStuffSite" LargeImageSource="Images\colestuff_32.png" Label="Cole Stuff Site" CornerRadius="5" />
-                    <ribbon:RibbonButton x:Name="btnWikipediaPage" LargeImageSource="Images\wikipedia_32.png" Label="Wikipedia User Page" CornerRadius="5" />
-                </ribbon:RibbonGroup>
                 <ribbon:RibbonGroup x:Name="About" Header="About" LargeImageSource="Images/a.png">
-                    <ribbon:RibbonButton x:Name="btnAbout" SmallImageSource="Images/idecryptit_16.png" Label="About iDecryptIt" />
-                    <ribbon:RibbonButton x:Name="btnVFDecrypt" SmallImageSource="Images/theiphonewiki_16.png" Label="About VFDecrypt" />
-                    <ribbon:RibbonButton x:Name="btnColeStuff" SmallImageSource="Images/colestuff_16.png" Label="About Cole Stuff" />
+                    <ribbon:RibbonButton x:Name="btnAbout" LargeImageSource="Images/idecryptit_32.png" Label="About iDecryptIt" />
+                    <ribbon:RibbonButton x:Name="btnVFDecrypt" LargeImageSource="Images/theiphonewiki_32.png" Label="About VFDecrypt" />
+                    <ribbon:RibbonButton x:Name="btnColeStuff" LargeImageSource="Images/colestuff_32.png" Label="About Cole Stuff" />
+                    <ribbon:RibbonButton x:Name="btnREADME" Label="Readme" />
                 </ribbon:RibbonGroup>
             </ribbon:RibbonTab>
             <ribbon:RibbonTab x:Name="KeyListTab" Header="Keys">

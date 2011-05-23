@@ -53,3 +53,14 @@ C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\bin\Debug\VFDecrypt\vfdecr
 C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\obj\x86\Debug\iDecryptIt_Content.g.vb
 C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\bin\Debug\7z\7za.exe
 C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\obj\x86\Debug\iDecryptIt_WPF.Resources.resources
+C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\bin\Debug\help\about_iDecryptIt.html
+C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\bin\Debug\help\README.html
+C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\bin\Debug\7z\7-zip.chm
+C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\bin\Debug\7z\license.txt
+C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\bin\Debug\7z\readme.txt
+C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\bin\Debug\help\images\author.jpg
+C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\bin\Debug\help\images\colestuff_logo.png
+C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\bin\Debug\help\images\GNU GPL 3 Logo.png
+C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\bin\Debug\help\images\icon.ico
+C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\bin\Debug\help\images\icon.png
+C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\bin\Debug\help\images\theiphonewiki_logo.png
