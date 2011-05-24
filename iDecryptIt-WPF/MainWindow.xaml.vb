@@ -1,10 +1,35 @@
 ﻿Imports System.IO
 Class MainWindow
+    Sub DoCMD(ByVal file As String, ByVal arg As String)
+        ' Taken from iH8snow's iDecrypter (hope you don't mind) :)
+        Dim procNlite As New Process
+        procNlite.StartInfo.FileName = file
+        procNlite.StartInfo.Arguments = " " & arg
+        procNlite.StartInfo.WindowStyle = 1
+        procNlite.Start()
+        procNlite.WaitForExit()
+    End Sub
+    Private Sub btnDecrypt_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnDecrypt.Click
+        ' Get run dir
+        Dim rundir As String = Directory.GetCurrentDirectory()
+        Dim vfdecrypt As String = rundir + "\VFDecrypt\"
+        ' Execute
+        DoCMD(vfdecrypt + "vfdecrypt.exe", _
+            " -i " & Chr(34) & Me.textInputFileName.Text & Chr(34) & _
+            " -k " & Me.textDecryptKey.Text & " " & _
+            " -o " & Chr(34) & Me.textOuputFileName.Text & Chr(34))
+    End Sub
     Private Sub btnAbout_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnAbout.Click
         'Find run dir
         Dim rundir As String = Directory.GetCurrentDirectory()
         Dim helpdir As String = rundir + "\help\"
         Me.webBrowser.Navigate(New Uri(helpdir + "about_iDecryptIt.html"))
+    End Sub
+    Private Sub btnChangelog_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnChangelog.Click
+        'Find run dir
+        Dim rundir As String = Directory.GetCurrentDirectory()
+        Dim helpdir As String = rundir + "\help\"
+        Me.webBrowser.Navigate(New Uri(helpdir + "changelog.html"))
     End Sub
     Private Sub btnREADME_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnREADME.Click
         'Find run dir
@@ -22,9 +47,7 @@ Class MainWindow
         If result = True Then
             ' Fill in text boxes on ribbon
             Me.textInputFileName.Text = decrypt.FileName
-            Me.textOuputFileName.Text = decrypt.FileName
-            ' Replace '.dmg' with '_decrypted.dmg'
-            Me.textOuputFileName.Text = Replace(textOuputFileName.Text, ".dmg", "_decrypted.dmg")
+            Me.textOuputFileName.Text = Replace(decrypt.FileName, ".dmg", "_decrypted.dmg")
         End If
     End Sub
     Private Sub btnSelectExtractFile_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnSelectExtractFile.Click
@@ -1507,33 +1530,6 @@ Class MainWindow
         key8f5153d.Text = "85ba2b2d95c89df504f54869b98d0eb26a63f269570e8882cb323b1b753f4f41446a1f0a"
         key8f5166b.Text = "b87f853c8f45aab846ebb507fbfca1039ab3dd7aed32076599d79070bc05240f59957064"
         key8f190beta.Text = "Unavailable"
-    End Sub
-    Private Sub MainWindow_Initialized(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Initialized
-        ' Initialize
-        Dim rundir As String = Directory.GetCurrentDirectory()
-        Dim tempdir As String = Path.GetTempPath
-        Dim runtemp As String = tempdir + "\iDecryptIt\"
-        Dim vfdecrypt As String = "\VFDecrypt\"
-        Dim sevenzip As String = "\7z\"
-        ' If iDecryptIt dir already exists, delete it
-        If My.Computer.FileSystem.DirectoryExists(tempdir + "\iDecryptIt") Then
-            My.Computer.FileSystem.DeleteDirectory(tempdir + "\iDecryptIt", FileIO.DeleteDirectoryOption.DeleteAllContents)
-        End If
-        ' Create dir
-        My.Computer.FileSystem.CreateDirectory(tempdir + "iDecryptIt")
-        ' VFDecrypt files
-        My.Computer.FileSystem.CopyFile(rundir + vfdecrypt + "cygcrypto-0.9.8.dll", runtemp + "cygcrypto-0.9.8.dll")
-        My.Computer.FileSystem.CopyFile(rundir + vfdecrypt + "cygwin1.dll", runtemp + "cygwin1.dll")
-        My.Computer.FileSystem.CopyFile(rundir + vfdecrypt + "vfdecrypt.exe", runtemp + "vfdecrypt.exe")
-        ' 7z files
-        My.Computer.FileSystem.CopyFile(rundir + sevenzip + "7za.exe", runtemp + "7za.exe")
-    End Sub
-    Private Sub MainWindow_Closed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Closed
-        ' Delete Temp files
-        Dim tempdir As String = Path.GetTempPath
-        If My.Computer.FileSystem.DirectoryExists(tempdir + "\iDecryptIt") Then
-            My.Computer.FileSystem.DeleteDirectory(tempdir + "\iDecryptIt", FileIO.DeleteDirectoryOption.DeleteAllContents)
-        End If
     End Sub
     Private Sub btnClearKey_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnClearKey.Click
         Me.textDecryptKey.Text = ""

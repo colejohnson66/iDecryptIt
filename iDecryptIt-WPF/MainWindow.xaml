@@ -54,11 +54,15 @@
                 </ribbon:RibbonGroup>
             </ribbon:RibbonTab>
             <ribbon:RibbonTab x:Name="HelpTab" Header="Help">
-                <ribbon:RibbonGroup x:Name="About" Header="About" LargeImageSource="Images/a.png">
+                <ribbon:RibbonGroup x:Name="HelpGroup" Header="Help" LargeImageSource="Images/a.png">
                     <ribbon:RibbonButton x:Name="btnAbout" LargeImageSource="Images/idecryptit_32.png" Label="About iDecryptIt" />
                     <ribbon:RibbonButton x:Name="btnVFDecrypt" LargeImageSource="Images/theiphonewiki_32.png" Label="About VFDecrypt" />
                     <ribbon:RibbonButton x:Name="btnColeStuff" LargeImageSource="Images/colestuff_32.png" Label="About Cole Stuff" />
                     <ribbon:RibbonButton x:Name="btnREADME" Label="Readme" />
+                </ribbon:RibbonGroup>
+                <ribbon:RibbonGroup x:Name="ExtrasGroup" Header="Extras">
+                    <ribbon:RibbonButton x:Name="btnCheck4Updates" LargeImageSource="Images/System-software-update_32.png" Label="Check for Updates" />
+                    <ribbon:RibbonButton x:Name="btnChangelog" LargeImageSource="Images/Gnome-logviewer_32.png" Label="Changelog" />
                 </ribbon:RibbonGroup>
             </ribbon:RibbonTab>
             <ribbon:RibbonTab x:Name="KeyListTab" Header="Keys">
@@ -111,12 +115,6 @@
                                          ToolTipDescription="Apple TV keys"
                                          ToolTipImageSource="Images\AppleTV2,1_32.png" />
                     <ribbon:RibbonButton x:Name="btnAppleTV21" SmallImageSource="Images\AppleTV2,1_16.png" Label="Apple TV 2G" />
-                </ribbon:RibbonGroup>
-            </ribbon:RibbonTab>
-            <ribbon:RibbonTab x:Name="ExtrasTab" Header="Extras">
-                <ribbon:RibbonGroup x:Name="ExtrasGroup" Header="Extras">
-                    <ribbon:RibbonButton x:Name="btnCheck4Updates" LargeImageSource="Images/System-software-update_32.png" Label="Check for Updates" />
-                    <ribbon:RibbonButton x:Name="btnChangelog" LargeImageSource="Images/Gnome-logviewer_32.png" Label="Changelog" />
                 </ribbon:RibbonGroup>
             </ribbon:RibbonTab>
         </ribbon:Ribbon>
@@ -351,12 +349,6 @@
                     <TextBox Height="23" HorizontalAlignment="Left" Margin="115,122,0,0" Name="key8f202" VerticalAlignment="Top" Width="847" />
                     <TextBox Height="23" HorizontalAlignment="Left" Margin="115,151,0,0" Name="key8f305" VerticalAlignment="Top" Width="847" />
                     <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,180,0,0" Name="ATV4xFINAL_warning" Text="On this page, the version number on the left is what the Apple TV reports, while the one on the right is the Apple version" VerticalAlignment="Top" />
-                </Grid>
-            </TabItem>
-            <TabItem Header="FAQ" Name="FAQAnswer">
-                <Grid>
-                    <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,6,0,0" Name="lblFAQAnswer" Text="FAQ Answer" VerticalAlignment="Top" />
-                    <TextBox Height="525" HorizontalAlignment="Left" Margin="84,6,0,0" Name="txtFAQAnswer" VerticalAlignment="Top" Width="878" AcceptsReturn="True" TextWrapping="Wrap" />
                 </Grid>
             </TabItem>
             <TabItem Header="Web" Name="WebMenu">

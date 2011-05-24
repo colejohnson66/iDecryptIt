@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <asmv1:assembly manifestVersion="1.0" xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1">
-  <asmv1:assemblyIdentity version="1.0.0.223" name="iDecryptIt.exe" publicKeyToken="0000000000000000" language="en-US" processorArchitecture="x86" type="win32" />
+  <asmv1:assemblyIdentity version="1.0.0.231" name="iDecryptIt.exe" publicKeyToken="0000000000000000" language="en-US" processorArchitecture="x86" type="win32" />
   <description asmv2:iconFile="app.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="iDecryptIt.exe" size="1958912">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="iDecryptIt.exe" size="1957376">
       <assemblyIdentity name="iDecryptIt" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>QJOg+U/jlV7IEbNj4zvOg3VZkFA=</dsig:DigestValue>
+        <dsig:DigestValue>y7G0TizFqM8+TsavGa9Y+tUOaR8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -123,13 +123,13 @@
       <dsig:DigestValue>MHPiOBtYpg512lgle33T0OWkRk0=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="help\about_iDecryptIt.html" size="1710">
+  <file name="help\about_iDecryptIt.html" size="1603">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>PEe9tTKESY2cfQ44bXVU9dsxheg=</dsig:DigestValue>
+      <dsig:DigestValue>8eOSJ2Kjk87MXmwV0stxTRkOFVQ=</dsig:DigestValue>
     </hash>
   </file>
   <file name="help\images\author.jpg" size="405316">
@@ -186,13 +186,13 @@
       <dsig:DigestValue>5K4fDy/4NlGI1C1mkf9WhWpXjSM=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="help\README.html" size="41633">
+  <file name="help\README.html" size="41233">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>Q1FnemA94Oe/zxVtoq6JTufZufQ=</dsig:DigestValue>
+      <dsig:DigestValue>Beju4XKst42+PxAoj2tQXCMeCl8=</dsig:DigestValue>
     </hash>
   </file>
   <file name="VFDecrypt\cygcrypto-0.9.8.dll" size="1089024">
