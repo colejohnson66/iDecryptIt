@@ -1535,4 +1535,7 @@ Class MainWindow
             My.Computer.FileSystem.DeleteDirectory(tempdir + "\iDecryptIt", FileIO.DeleteDirectoryOption.DeleteAllContents)
         End If
     End Sub
+    Private Sub btnClearKey_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnClearKey.Click
+        Me.textDecryptKey.Text = ""
+    End Sub
 End Class

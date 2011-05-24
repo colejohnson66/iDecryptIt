@@ -25,14 +25,6 @@
         </Grid.RowDefinitions>
 
         <ribbon:Ribbon x:Name="Ribbon" Grid.Row="3" FontFamily="Comic Sans MS">
-            <ribbon:Ribbon.ApplicationMenu>
-                <ribbon:RibbonApplicationMenu SmallImageSource="Images/idecryptit_16.png" Width="56" Height="24">
-                    <ribbon:RibbonApplicationMenuItem Header="iDecryptIt" x:Name="Menu_iDecryptIt" ImageSource="Images/idecryptit_32.png" QuickAccessToolBarImageSource="Images/appicon.ico" />
-                    <ribbon:RibbonApplicationMenuItem Header="About" x:Name="Menu_About" ImageSource="Images/a.png" />
-                    <ribbon:RibbonApplicationMenuItem Header="Check for Updates" x:Name="Menu_Check4Updates" ImageSource="Images/u.png" />
-                    <ribbon:RibbonApplicationMenuItem Header="Changelog" x:Name="Menu_Changelog" ImageSource="Images/c.png" />
-                </ribbon:RibbonApplicationMenu>
-            </ribbon:Ribbon.ApplicationMenu>
             <ribbon:RibbonTab x:Name="HomeTab" Header="Home">
                 <ribbon:RibbonGroup x:Name="VFDecrypt" Header="VFDecrypt" LargeImageSource="Images/d.png">
                     <ribbon:RibbonButton x:Name="btnDecrypt"
@@ -119,6 +111,12 @@
                                          ToolTipDescription="Apple TV keys"
                                          ToolTipImageSource="Images\AppleTV2,1_32.png" />
                     <ribbon:RibbonButton x:Name="btnAppleTV21" SmallImageSource="Images\AppleTV2,1_16.png" Label="Apple TV 2G" />
+                </ribbon:RibbonGroup>
+            </ribbon:RibbonTab>
+            <ribbon:RibbonTab x:Name="ExtrasTab" Header="Extras">
+                <ribbon:RibbonGroup x:Name="ExtrasGroup" Header="Extras">
+                    <ribbon:RibbonButton x:Name="btnCheck4Updates" LargeImageSource="Images/System-software-update_32.png" Label="Check for Updates" />
+                    <ribbon:RibbonButton x:Name="btnChangelog" LargeImageSource="Images/Gnome-logviewer_32.png" Label="Changelog" />
                 </ribbon:RibbonGroup>
             </ribbon:RibbonTab>
         </ribbon:Ribbon>

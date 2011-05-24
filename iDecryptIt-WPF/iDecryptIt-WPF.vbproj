@@ -30,7 +30,7 @@
     <SuiteName>Cole Stuff</SuiteName>
     <MinimumRequiredVersion>1.0.0.0</MinimumRequiredVersion>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>215</ApplicationRevision>
+    <ApplicationRevision>223</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -207,13 +207,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\a.png" />
-    <Resource Include="Images\u.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\c.png" />
-  </ItemGroup>
-  <ItemGroup>
     <SplashScreen Include="SplashScreen1.png" />
   </ItemGroup>
   <ItemGroup>
@@ -351,6 +344,38 @@
     <Content Include="help\README.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Images\System-software-update_128.png" />
+    <Resource Include="Images\System-software-update_16.png" />
+    <Resource Include="Images\System-software-update_256.png" />
+    <Resource Include="Images\System-software-update_32.png" />
+    <Resource Include="Images\System-software-update_48.png" />
+    <Resource Include="Images\System-software-update_64.png" />
+    <Resource Include="Images\Software-update-available_48.png" />
+    <Resource Include="Images\Software-update-available_64.png" />
+    <Resource Include="Images\Software-update-urgent_128.png" />
+    <Resource Include="Images\Software-update-urgent_16.png" />
+    <Resource Include="Images\Software-update-urgent_256.png" />
+    <Resource Include="Images\Software-update-urgent_32.png" />
+    <Resource Include="Images\Software-update-urgent_48.png" />
+    <Resource Include="Images\Software-update-urgent_64.png" />
+    <Resource Include="Images\Package-x-generic_128.png" />
+    <Resource Include="Images\Package-x-generic_16.png" />
+    <Resource Include="Images\Package-x-generic_256.png" />
+    <Resource Include="Images\Package-x-generic_32.png" />
+    <Resource Include="Images\Package-x-generic_48.png" />
+    <Resource Include="Images\Package-x-generic_64.png" />
+    <Resource Include="Images\Software-update-available_128.png" />
+    <Resource Include="Images\Software-update-available_16.png" />
+    <Resource Include="Images\Software-update-available_256.png" />
+    <Resource Include="Images\Software-update-available_32.png" />
+    <Resource Include="Images\Gnome-logviewer_128.png" />
+    <Resource Include="Images\Gnome-logviewer_16.png" />
+    <Resource Include="Images\Gnome-logviewer_256.png" />
+    <Resource Include="Images\Gnome-logviewer_32.png" />
+    <Resource Include="Images\Gnome-logviewer_48.png" />
+    <Resource Include="Images\Gnome-logviewer_64.png" />
+    <Resource Include="Images\idecryptit_48.png" />
+    <Resource Include="Images\a.png" />
     <Content Include="VFDecrypt\cygcrypto-0.9.8.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
