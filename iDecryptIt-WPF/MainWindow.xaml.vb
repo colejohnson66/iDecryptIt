@@ -1,6 +1,72 @@
 ﻿Imports System.IO
 Class MainWindow
-    Sub DoCMD(ByVal file As String, ByVal arg As String)
+    ' File paths
+    Private rundir As String = Directory.GetCurrentDirectory()
+    Private vfdecryptdir As String = rundir + "\VFDecrypt\"
+    Private helpdir As String = rundir + "\help\"
+    ' Current build id
+    Private majorversion As String = "1"
+    Private minorversion As String = "0"
+    Private build As String = "1C31"
+    Private version As String = majorversion + "." + minorversion + ".0." + build
+    ' Available build id
+    Private updatemajorversion As String = ""
+    Private updateminorversion As String = ""
+    Private updatebuild As String = ""
+    Private update As String = updatemajorversion + "." + updateminorversion + ".0." + updatebuild
+    ' Update URLs
+    Private updatemajorversionurl As String = "http://theiphonewiki.com/wiki/index.php?title=User:Balloonhead66/Latest_stable_software_release/iDecryptIt/major&action=raw"
+    Private updateminorversionurl As String = "http://theiphonewiki.com/wiki/index.php?title=User:Balloonhead66/Latest_stable_software_release/iDecryptIt/minor&action=raw"
+    Private updatebuildurl As String = "http://theiphonewiki.com/wiki/index.php?title=User:Balloonhead66/Latest_stable_software_release/iDecryptIt/build&action=raw"
+    Private Sub btnCheck4Updates_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnCheck4Updates.Click
+        Call cleanup()
+        Try
+            Dim clientCheck = New System.Net.WebClient()
+            ' Let's check! (If unable to contact The iPhone Wiki, throw exception)
+            clientCheck.DownloadFile(updatemajorversionurl, rundir + "\major.txt")
+            clientCheck.DownloadFile(updateminorversionurl, rundir + "\minor.txt")
+            clientCheck.DownloadFile(updatebuildurl, rundir + "\build.txt")
+            ' File Loaders
+            Dim majorchecker As New System.IO.StreamReader(rundir + "\major.txt")
+            Dim minorchecker As New System.IO.StreamReader(rundir + "\minor.txt")
+            Dim buildchecker As New System.IO.StreamReader(rundir + "\build.txt")
+            ' Set strings to files
+            txtVersion.Text = majorchecker.ReadToEnd
+            updatemajorversion = txtVersion.Text
+            txtVersion.Text = minorchecker.ReadToEnd
+            updateminorversion = txtVersion.Text
+            txtVersion.Text = buildchecker.ReadToEnd
+            updatebuild = txtVersion.Text
+            ' Close lock handle on files
+            majorchecker.Close()
+            minorchecker.Close()
+            buildchecker.Close()
+            Call compare()
+        Catch ex As Exception
+            MsgBox("Unable to contact The iPhone Wiki to download version info!", MsgBoxStyle.OkOnly, "Error!")
+        End Try
+    End Sub
+    Public Sub cleanup()
+        File.Delete(rundir + "\major.txt")
+        File.Delete(rundir + "\minor.txt")
+        File.Delete(rundir + "\build.txt")
+    End Sub
+    Public Sub compare()
+        If majorversion = updatemajorversion Then
+            If minorversion = updateminorversion Then
+                If build = updatebuild Then
+                    MsgBox("You have the latest version!", MsgBoxStyle.OkOnly, "Update Checker")
+                Else
+                    MsgBox("iDecryptIt installed version: " + version + Chr(13) + Chr(10) + "Latest version: " + update, MsgBoxStyle.Information, "Update available")
+                End If
+            Else
+                MsgBox("iDecryptIt installed version: " + version + Chr(13) + Chr(10) + "Latest version: " + update, MsgBoxStyle.Information, "Update available")
+            End If
+        Else
+            MsgBox("iDecryptIt installed version: " + version + Chr(13) + Chr(10) + "Latest version: " + update, MsgBoxStyle.Information, "Update available")
+        End If
+    End Sub
+    Private Sub DoCMD(ByVal file As String, ByVal arg As String)
         ' Taken from iH8snow's iDecrypter (hope you don't mind) :)
         Dim procNlite As New Process
         procNlite.StartInfo.FileName = file
@@ -10,31 +76,18 @@ Class MainWindow
         procNlite.WaitForExit()
     End Sub
     Private Sub btnDecrypt_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnDecrypt.Click
-        ' Get run dir
-        Dim rundir As String = Directory.GetCurrentDirectory()
-        Dim vfdecrypt As String = rundir + "\VFDecrypt\"
-        ' Execute
-        DoCMD(vfdecrypt + "vfdecrypt.exe", _
+        DoCMD(vfdecryptdir + "vfdecrypt.exe", _
             " -i " & Chr(34) & Me.textInputFileName.Text & Chr(34) & _
             " -k " & Me.textDecryptKey.Text & " " & _
             " -o " & Chr(34) & Me.textOuputFileName.Text & Chr(34))
     End Sub
     Private Sub btnAbout_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnAbout.Click
-        'Find run dir
-        Dim rundir As String = Directory.GetCurrentDirectory()
-        Dim helpdir As String = rundir + "\help\"
         Me.webBrowser.Navigate(New Uri(helpdir + "about_iDecryptIt.html"))
     End Sub
     Private Sub btnChangelog_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnChangelog.Click
-        'Find run dir
-        Dim rundir As String = Directory.GetCurrentDirectory()
-        Dim helpdir As String = rundir + "\help\"
         Me.webBrowser.Navigate(New Uri(helpdir + "changelog.html"))
     End Sub
     Private Sub btnREADME_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnREADME.Click
-        'Find run dir
-        Dim rundir As String = Directory.GetCurrentDirectory()
-        Dim helpdir As String = rundir + "\help\"
         Me.webBrowser.Navigate(New Uri(helpdir + "README.html"))
     End Sub
     Private Sub btnSelectVFDecryptInutFile_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnSelectVFDecryptInutFile.Click
@@ -1533,5 +1586,11 @@ Class MainWindow
     End Sub
     Private Sub btnClearKey_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnClearKey.Click
         Me.textDecryptKey.Text = ""
+    End Sub
+    Private Sub MainWindow_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles Me.Closing
+        Call cleanup()
+    End Sub
+    Private Sub MainWindow_Loaded(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles Me.Loaded
+        Call cleanup()
     End Sub
 End Class

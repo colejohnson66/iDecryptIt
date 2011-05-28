@@ -64,3 +64,4 @@ C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\bin\Debug\help\images\GNU 
 C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\bin\Debug\help\images\icon.ico
 C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\bin\Debug\help\images\icon.png
 C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\bin\Debug\help\images\theiphonewiki_logo.png
+C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\bin\Debug\help\changelog.html

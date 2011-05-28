@@ -16,6 +16,7 @@ Option Explicit On
  Assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("7z/license.txt"),  _
  Assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("7z/readme.txt"),  _
  Assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("help/about_idecryptit.html"),  _
+ Assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("help/changelog.html"),  _
  Assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("help/images/author.jpg"),  _
  Assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("help/images/colestuff_logo.png"),  _
  Assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("help/images/gnu%20gpl%203%20logo.png"),  _
