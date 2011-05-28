@@ -7,7 +7,7 @@ Class MainWindow
     ' Current build id
     Private majorversion As String = "1"
     Private minorversion As String = "0"
-    Private build As String = "1C31"
+    Private build As String = "1C52"
     Private version As String = majorversion + "." + minorversion + ".0." + build
     ' Available build id
     Private updatemajorversion As String = ""
