@@ -1,70 +1,18 @@
 ﻿Imports System.IO
-Class MainWindow
+Public Class MainWindow
+    ' Windows
+    Public updatepane As Window = New Window1
     ' File paths
-    Private rundir As String = Directory.GetCurrentDirectory()
-    Private vfdecryptdir As String = rundir + "\VFDecrypt\"
-    Private helpdir As String = rundir + "\help\"
-    ' Current build id
-    Private majorversion As String = "1"
-    Private minorversion As String = "0"
-    Private build As String = "1C52"
-    Private version As String = majorversion + "." + minorversion + ".0." + build
-    ' Available build id
-    Private updatemajorversion As String = ""
-    Private updateminorversion As String = ""
-    Private updatebuild As String = ""
-    Private update As String = updatemajorversion + "." + updateminorversion + ".0." + updatebuild
-    ' Update URLs
-    Private updatemajorversionurl As String = "http://theiphonewiki.com/wiki/index.php?title=User:Balloonhead66/Latest_stable_software_release/iDecryptIt/major&action=raw"
-    Private updateminorversionurl As String = "http://theiphonewiki.com/wiki/index.php?title=User:Balloonhead66/Latest_stable_software_release/iDecryptIt/minor&action=raw"
-    Private updatebuildurl As String = "http://theiphonewiki.com/wiki/index.php?title=User:Balloonhead66/Latest_stable_software_release/iDecryptIt/build&action=raw"
-    Private Sub btnCheck4Updates_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnCheck4Updates.Click
-        Call cleanup()
-        Try
-            Dim clientCheck = New System.Net.WebClient()
-            ' Let's check! (If unable to contact The iPhone Wiki, throw exception)
-            clientCheck.DownloadFile(updatemajorversionurl, rundir + "\major.txt")
-            clientCheck.DownloadFile(updateminorversionurl, rundir + "\minor.txt")
-            clientCheck.DownloadFile(updatebuildurl, rundir + "\build.txt")
-            ' File Loaders
-            Dim majorchecker As New System.IO.StreamReader(rundir + "\major.txt")
-            Dim minorchecker As New System.IO.StreamReader(rundir + "\minor.txt")
-            Dim buildchecker As New System.IO.StreamReader(rundir + "\build.txt")
-            ' Set strings to files
-            txtVersion.Text = majorchecker.ReadToEnd
-            updatemajorversion = txtVersion.Text
-            txtVersion.Text = minorchecker.ReadToEnd
-            updateminorversion = txtVersion.Text
-            txtVersion.Text = buildchecker.ReadToEnd
-            updatebuild = txtVersion.Text
-            ' Close lock handle on files
-            majorchecker.Close()
-            minorchecker.Close()
-            buildchecker.Close()
-            Call compare()
-        Catch ex As Exception
-            MsgBox("Unable to contact The iPhone Wiki to download version info!", MsgBoxStyle.OkOnly, "Error!")
-        End Try
-    End Sub
+    Public rundir As String = Directory.GetCurrentDirectory()
+    Public vfdecryptdir As String = rundir + "\VFDecrypt\"
+    Public helpdir As String = rundir + "\help\"
     Public Sub cleanup()
-        File.Delete(rundir + "\major.txt")
-        File.Delete(rundir + "\minor.txt")
         File.Delete(rundir + "\build.txt")
     End Sub
-    Public Sub compare()
-        If majorversion = updatemajorversion Then
-            If minorversion = updateminorversion Then
-                If build = updatebuild Then
-                    MsgBox("You have the latest version!", MsgBoxStyle.OkOnly, "Update Checker")
-                Else
-                    MsgBox("iDecryptIt installed version: " + version + Chr(13) + Chr(10) + "Latest version: " + update, MsgBoxStyle.Information, "Update available")
-                End If
-            Else
-                MsgBox("iDecryptIt installed version: " + version + Chr(13) + Chr(10) + "Latest version: " + update, MsgBoxStyle.Information, "Update available")
-            End If
-        Else
-            MsgBox("iDecryptIt installed version: " + version + Chr(13) + Chr(10) + "Latest version: " + update, MsgBoxStyle.Information, "Update available")
-        End If
+    Private Sub btnCheck4Updates_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnCheck4Updates.Click
+        ' Cleanup and then make updatepane object
+        Call cleanup()
+        updatepane.Show()
     End Sub
     Private Sub DoCMD(ByVal file As String, ByVal arg As String)
         ' Taken from iH8snow's iDecrypter (hope you don't mind) :)

@@ -18,6 +18,14 @@ Application Entry Point.
 	<summary>
 Application
 </summary>
+</member><member name="M:iDecryptIt_WPF.Window1.InitializeComponent">
+	<summary>
+InitializeComponent
+</summary>
+</member><member name="T:iDecryptIt_WPF.Window1">
+	<summary>
+Window1
+</summary>
 </member><member name="M:iDecryptIt_WPF.MainWindow.InitializeComponent">
 	<summary>
 InitializeComponent

@@ -354,7 +354,6 @@
             <TabItem Header="Web" Name="WebMenu">
                 <Grid>
                     <WebBrowser Height="525" HorizontalAlignment="Left" Margin="6,6,0,0" Name="webBrowser" VerticalAlignment="Top" Width="956" />
-                    <TextBox Height="23" HorizontalAlignment="Left" Margin="718,428,0,0" Name="txtVersion" VerticalAlignment="Top" Width="120" Visibility="Hidden" />
                 </Grid>
             </TabItem>
         </TabControl>

@@ -65,3 +65,6 @@ C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\bin\Debug\help\images\icon
 C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\bin\Debug\help\images\icon.png
 C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\bin\Debug\help\images\theiphonewiki_logo.png
 C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\bin\Debug\help\changelog.html
+C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\obj\x86\Debug\Window1.baml
+C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\obj\x86\Debug\Window1.g.vb
+C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\obj\x86\Debug\Application.baml
