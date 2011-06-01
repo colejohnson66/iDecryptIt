@@ -54,10 +54,6 @@ Public Class Window1
     Private Sub btnBottom_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnBottom.Click
         If bottombutton = "1" Then
             Me.Close()
-        Else
-            donothing()
         End If
-    End Sub
-    Public Sub donothing()
     End Sub
 End Class

@@ -1,7 +1,11 @@
 ﻿Imports System.IO
 Public Class MainWindow
+    ' Localization
+    Public localizelang As Microsoft.Win32.RegistryKey
+    Public selectedlang As String
     ' Windows
     Public updatepane As Window = New Window1
+    Public updatepaneopened As Boolean = False
     ' File paths
     Public rundir As String = Directory.GetCurrentDirectory()
     Public vfdecryptdir As String = rundir + "\VFDecrypt\"
@@ -10,9 +14,11 @@ Public Class MainWindow
         File.Delete(rundir + "\build.txt")
     End Sub
     Private Sub btnCheck4Updates_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnCheck4Updates.Click
-        ' Cleanup and then make updatepane object
-        Call cleanup()
-        updatepane.Show()
+        If updatepaneopened = False Then
+            updatepaneopened = True
+            Call cleanup()
+            updatepane.Show()
+        End If
     End Sub
     Private Sub DoCMD(ByVal file As String, ByVal arg As String)
         ' Taken from iH8snow's iDecrypter (hope you don't mind) :)
@@ -1540,5 +1546,18 @@ Public Class MainWindow
     End Sub
     Private Sub MainWindow_Loaded(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles Me.Loaded
         Call cleanup()
+        Call localize()
+    End Sub
+    Public Sub localize()
+        localizelang = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\\Cole Stuff\\iDecryptIt", True)
+        If localizelang Is Nothing Then
+            localizelang = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("SOFTWARE\\Cole Stuff\\iDecryptIt")
+            localizelang = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\\Cole Stuff\\iDecryptIt", True)
+            ' Open window to select language and then set language to registry
+
+            localizelang.SetValue("language", selectedlang)
+        End If
+        ' Failsafe
+        localizelang = localizelang.GetValue("language","en-US")
     End Sub
 End Class
