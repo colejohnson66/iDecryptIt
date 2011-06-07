@@ -5,28 +5,19 @@
         Title="iDecryptIt" 
         x:Name="RibbonWindow"
         Icon="app.ico"
-        FontFamily="Comic Sans MS"
         WindowStyle="ThreeDBorderWindow"
-        mc:Ignorable="d"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         Height="768"
         Width="1024"
         ResizeMode="CanMinimize">
-
     <Grid x:Name="LayoutRoot">
         <Grid.RowDefinitions>
             <RowDefinition Height="135"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
-        <ribbon:Ribbon x:Name="Ribbon" Grid.Row="0" FontFamily="Comic Sans MS">
+        <ribbon:Ribbon x:Name="Ribbon" Grid.Row="0" Height="135">
             <ribbon:RibbonTab x:Name="HomeTab" Header="Home">
                 <ribbon:RibbonGroup x:Name="VFDecrypt" Header="VFDecrypt" LargeImageSource="Images/d.png">
-                    <ribbon:RibbonButton x:Name="btnDecrypt"
-                                         LargeImageSource="Images/d.png"
-                                         Label="Decrypt"
-                                         CornerRadius="5" />
+                    <ribbon:RibbonButton x:Name="btnDecrypt" LargeImageSource="Images/d.png" Label="Decrypt" />
                     <ribbon:RibbonTextBox x:Name="textInputFileName" Label="Input File: " TextBoxWidth="250" />
                     <ribbon:RibbonTextBox x:Name="textOuputFileName" Label="Output File: " TextBoxWidth="250" />
                     <ribbon:RibbonButton x:Name="btnSelectVFDecryptInutFile" Label="Select Input File" />
@@ -34,10 +25,7 @@
                     <ribbon:RibbonButton x:Name="btnClearKey" Label="Clear Key" />
                 </ribbon:RibbonGroup>
                 <ribbon:RibbonGroup x:Name="Extract" Header="Extract" LargeImageSource="Images/e.png">
-                    <ribbon:RibbonButton x:Name="btnExtract"
-                                         LargeImageSource="Images/7zip_32.png"
-                                         Label="Extact"
-                                         CornerRadius="5" />
+                    <ribbon:RibbonButton x:Name="btnExtract" LargeImageSource="Images/7zip_32.png" Label="Extact" />
                     <ribbon:RibbonTextBox x:Name="textExtractFileName" Label="Input File: " />
                     <ribbon:RibbonTextBox x:Name="textExtractDir" Label="Extract Directory: " />
                     <ribbon:RibbonButton x:Name="btnSelectExtractFile" Label="Select Input File" />
@@ -80,10 +68,10 @@
                 </ribbon:RibbonGroup>
             </ribbon:RibbonTab>
         </ribbon:Ribbon>
-        
-        <TabControl Grid.Row="1" HorizontalAlignment="Stretch" Margin="12,12,12,12" Name="MainArea" VerticalAlignment="Stretch">
+        <TabControl Grid.Row="1" Margin="12" Name="MainArea">
             <TabItem Header="1.x Final" Name="v1Final">
                 <Grid>
+                    <Button Content="Prototype" Height="23" HorizontalAlignment="Left" Margin="103,6,0,0" Name="btn1a420" VerticalAlignment="Top" Width="859" />
                     <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,6,0,0" Name="lbl1a420" Text="1.0 (1A420)" VerticalAlignment="Top" />
                     <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,35,0,0" Name="lbl1a543a" Text="1.0.0 (1A543a)" VerticalAlignment="Top" />
                     <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,64,0,0" Name="lbl1c25" Text="1.0.1 (1C25)" VerticalAlignment="Top" />
@@ -96,7 +84,6 @@
                     <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,267,0,0" Name="lbl4a93" Text="1.1.3 (4A93)" VerticalAlignment="Top" />
                     <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,296,0,0" Name="lbl4a102" Text="1.1.4 (4A102)" VerticalAlignment="Top" />
                     <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,325,0,0" Name="lbl4b1" Text="1.1.5 (4B1)" VerticalAlignment="Top" />
-                    <Button Content="Prototype, click here to download" Height="23" HorizontalAlignment="Left" Margin="103,6,0,0" Name="btn1a420" VerticalAlignment="Top" Width="859" />
                     <TextBox Height="23" HorizontalAlignment="Left" Margin="103,35,0,0" Name="key1a543a" VerticalAlignment="Top" Width="859" />
                     <TextBox Height="23" HorizontalAlignment="Left" Margin="103,64,0,0" Name="key1c25" VerticalAlignment="Top" Width="859" />
                     <TextBox Height="23" HorizontalAlignment="Left" Margin="103,93,0,0" Name="key1c28" VerticalAlignment="Top" Width="859" />
@@ -294,6 +281,7 @@
                     <TextBox Height="23" HorizontalAlignment="Left" Margin="103,64,0,0" Name="key8f5153d" VerticalAlignment="Top" Width="859" />
                     <TextBox Height="23" HorizontalAlignment="Left" Margin="103,93,0,0" Name="key8f5166b" VerticalAlignment="Top" Width="859" />
                     <TextBox Height="23" HorizontalAlignment="Left" Margin="103,122,0,0" Name="key8f190beta" VerticalAlignment="Top" Width="859" />
+                    <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,151,0,0" Name="lblATVNOTE4xBETA43plus" Text="NOTE: The Apple TV will report these 4.3 betas as 4.2. For what the Apple TV reports the betas as 4.4 (5.0), please see the 5.x Beta tab." VerticalAlignment="Top" />
                 </Grid>
             </TabItem>
             <TabItem Header="4.x Final ATV" Name="v4FinalATV">
@@ -313,6 +301,13 @@
                     <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,180,0,0" Name="ATV4xFINAL_warning" Text="On this page, the version number on the left is what the Apple TV reports, while the one on the right is the Apple version" VerticalAlignment="Top" />
                 </Grid>
             </TabItem>
+            <TabItem Header="5.x Beta" Name="v5Beta">
+                <Grid>
+                    <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,6,0,0" Name="lbl9a5220p" Text="5.0b1 (9A5220p)" VerticalAlignment="Top" />
+                    <TextBox Height="23" HorizontalAlignment="Left" Margin="103,6,0,0" Name="key9a5220p" VerticalAlignment="Top" Width="859" />
+                    <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,35,0,0" Name="lblATVNOTE5xBETA" Text="NOTE: On the Apple TV, this beta will be reported as 4.4." VerticalAlignment="Top" />
+                </Grid>
+            </TabItem>
             <TabItem Header="Web" Name="WebMenu">
                 <Grid>
                     <WebBrowser Height="525" HorizontalAlignment="Left" Margin="6,6,0,0" Name="webBrowser" VerticalAlignment="Top" Width="956" />
@@ -320,4 +315,10 @@
             </TabItem>
         </TabControl>
     </Grid>
+    <ribbon:RibbonWindow.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FFEEF3F9" Offset="0.175" />
+            <GradientStop Color="White" Offset="1" />
+        </LinearGradientBrush>
+    </ribbon:RibbonWindow.Background>
 </ribbon:RibbonWindow>

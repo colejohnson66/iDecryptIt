@@ -6,7 +6,7 @@ Public Class Window1
     ' File paths
     Public rundir As String = Directory.GetCurrentDirectory()
     ' Update
-    Public build As String = "1C52"
+    Public build As String = "1D02"
     Public updatebuild As String = ""
     Public updatebuildurl As String = "http://theiphonewiki.com/wiki/index.php?title=User:Balloonhead66/Latest_stable_software_release/iDecryptIt/build&action=raw"
     Private Sub Window1_Loaded(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles Me.Loaded
@@ -20,6 +20,7 @@ Public Class Window1
             Call compare()
         Catch ex As Exception
             MsgBox("Unable to contact The iPhone Wiki to download version info!", MsgBoxStyle.OkOnly, "Error!")
+            Me.Close()
         End Try
     End Sub
     Public Sub compare()

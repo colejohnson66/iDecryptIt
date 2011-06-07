@@ -8,24 +8,51 @@
     ShowInTaskbar="False"
     ResizeMode="NoResize"
     Name="windowUpdatePane"
-    Height="239" Width="400">
+    Height="252" Width="400">
     <Grid>
-        <!-- Images -->
-        <Image Height="128" HorizontalAlignment="Left" Margin="12,60,0,0" Name="ImageCheck" Stretch="Fill" VerticalAlignment="Top" Width="128" Source="Images/System-software-update_128.png" />
-        <Image Height="128" HorizontalAlignment="Left" Margin="12,60,0,0" Name="ImageAvailable" Stretch="Fill" VerticalAlignment="Top" Width="128" Source="Images/Software-update-available_128.png" Visibility="Hidden" />
-        <Image Height="128" HorizontalAlignment="Left" Margin="12,60,0,0" Name="ImageNone" Stretch="Fill" VerticalAlignment="Top" Width="128" Source="Images/Package-x-generic_128.png" Visibility="Hidden" />
-        <!-- Text -->
-        <TextBlock Text="Software Update Available!" FontSize="30" Height="44" HorizontalAlignment="Left" Margin="10,10,0,0" Name="TitleAvailable" VerticalAlignment="Top" Width="358" Visibility="Hidden" />
-        <TextBlock Height="44" HorizontalAlignment="Left" Margin="24,10,0,0" FontSize="30" Name="TitleUrgent" Text="Software Update Urgent!" VerticalAlignment="Top" Width="330" Visibility="Hidden" />
-        <TextBlock Height="44" HorizontalAlignment="Left" Margin="52,12,0,0" Name="TitleNone" FontSize="30" Text="No Update Available" VerticalAlignment="Top" Width="274" Visibility="Hidden" />
-        <TextBlock Height="44" HorizontalAlignment="Left" Margin="36,10,0,0" Name="TitleChecking" FontSize="30" Text="Checking for Updates..." VerticalAlignment="Top" Width="306" />
-        <!-- Version (Hidden) -->
-        <TextBox Height="23" HorizontalAlignment="Left" Margin="246,60,0,0" Name="txtVersion" VerticalAlignment="Top" Width="120" Visibility="Hidden" />
-        <!-- Version -->
-        <TextBlock Height="23" HorizontalAlignment="Left" Margin="146,165,0,0" Name="txtInstalled" Text="" VerticalAlignment="Top" />
-        <TextBlock Height="23" HorizontalAlignment="Left" Margin="146,136,0,0" Name="txtAvailable" Text="" VerticalAlignment="Top" />
-        <!-- Buttons -->
-        <Button Content="OK" Height="23" HorizontalAlignment="Left" Margin="293,165,0,0" Name="btnBottom" VerticalAlignment="Top" Width="75" Visibility="Hidden" />
-        <Button Content="(Top)" Height="23" HorizontalAlignment="Left" Margin="293,136,0,0" Name="btnTop" VerticalAlignment="Top" Width="75" Visibility="Hidden" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="60" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="152" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="12" />
+                <RowDefinition Height="128" />
+                <RowDefinition Height="12" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="12" />
+                <ColumnDefinition Width="128" />
+                <ColumnDefinition Width="12" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Image Grid.Row="1" Grid.Column="1" Height="128" Name="ImageCheck" Width="128" Source="Images/System-software-update_128.png" />
+            <Image Grid.Row="1" Grid.Column="1" Height="128" Name="ImageAvailable" Width="128" Source="Images/Software-update-available_128.png" Visibility="Hidden" />
+            <Image Grid.Row="1" Grid.Column="1" Height="128" Name="ImageNone" Width="128" Source="Images/Package-x-generic_128.png" Visibility="Hidden" />
+            <Grid Grid.Row="1" Grid.Column="4">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="23" />
+                    <RowDefinition Height="6" />
+                    <RowDefinition Height="23" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="75" />
+                    <ColumnDefinition Width="12" />
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Row="0" Grid.Column="1" Name="txtVersion" Visibility="Hidden" />
+                <Button Grid.Row="1" Grid.Column="1" Content="(Top)" Margin="0" Name="btnTop" Visibility="Hidden" />
+                <Button Grid.Row="3" Grid.Column="1" Content="OK" Margin="0" Name="btnBottom" Visibility="Hidden" />
+                <TextBlock Grid.Row="1" Grid.Column="0" Name="txtAvailable" Text="" />
+                <TextBlock Grid.Row="3" Grid.Column="0" Name="txtInstalled" Text="" />
+            </Grid>
+        </Grid>
+        <TextBlock Grid.Row="1" Height="44" HorizontalAlignment="Center" FontSize="30" Name="TitleAvailable" Text="Software Update Available!" Visibility="Hidden" />
+        <TextBlock Grid.Row="1" Height="44" HorizontalAlignment="Center" FontSize="30" Name="TitleUrgent" Text="Software Update Urgent!" Visibility="Hidden" />
+        <TextBlock Grid.Row="1" Height="44" HorizontalAlignment="Center" FontSize="30" Name="TitleNone" Text="No Update Available" Visibility="Hidden" />
+        <TextBlock Grid.Row="1" Height="44" HorizontalAlignment="Center" FontSize="30" Name="TitleChecking" Text="Checking for Updates..." />
     </Grid>
 </Window>
