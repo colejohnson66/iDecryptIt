@@ -44,6 +44,9 @@
                 </ribbon:RibbonGroup>
             </ribbon:RibbonTab>
             <ribbon:RibbonTab x:Name="KeyListTab" Header="Keys">
+                <ribbon:RibbonGroup x:Name="AppleTV_group" Header="Apple TV" LargeImageSource="Images\AppleTV_32.png">
+                    <ribbon:RibbonButton x:Name="btnAppleTV21" SmallImageSource="Images\AppleTV2,1_16.png" Label="Apple TV 2G" />
+                </ribbon:RibbonGroup>
                 <ribbon:RibbonGroup x:Name="iPad_group" Header="iPad" LargeImageSource="Images\iPad_32.png">
                     <ribbon:RibbonButton x:Name="btniPad11" SmallImageSource="Images\iPad1,1_16.png" Label="iPad 1G" />
                     <ribbon:RibbonButton x:Name="btniPad21" SmallImageSource="Images\iPad2,1_16.png" Label="iPad 2 (Wi-Fi)" />
@@ -62,9 +65,6 @@
                     <ribbon:RibbonButton x:Name="btniPod21" SmallImageSource="Images\iPod2,1_16.png" Label="iPod touch 2G" />
                     <ribbon:RibbonButton x:Name="btniPod31" SmallImageSource="Images\iPod3,1_16.png" Label="iPod touch 3G" />
                     <ribbon:RibbonButton x:Name="btniPod41" SmallImageSource="Images\iPod4,1_16.png" Label="iPod touch 4" />
-                </ribbon:RibbonGroup>
-                <ribbon:RibbonGroup x:Name="AppleTV_group" Header="Apple TV" LargeImageSource="Images\AppleTV_32.png">
-                    <ribbon:RibbonButton x:Name="btnAppleTV21" SmallImageSource="Images\AppleTV2,1_16.png" Label="Apple TV 2G" />
                 </ribbon:RibbonGroup>
             </ribbon:RibbonTab>
         </ribbon:Ribbon>
