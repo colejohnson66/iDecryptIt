@@ -8,7 +8,7 @@
     ShowInTaskbar="False"
     ResizeMode="NoResize"
     Name="windowUpdatePane"
-    Height="252" Width="400">
+    Height="252" Width="450">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -40,12 +40,12 @@
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="12" />
                     <ColumnDefinition Width="75" />
                     <ColumnDefinition Width="12" />
                 </Grid.ColumnDefinitions>
-                <TextBox Grid.Row="0" Grid.Column="1" Name="txtVersion" Visibility="Hidden" />
-                <Button Grid.Row="1" Grid.Column="1" Content="(Top)" Margin="0" Name="btnTop" Visibility="Hidden" />
-                <Button Grid.Row="3" Grid.Column="1" Content="OK" Margin="0" Name="btnBottom" Visibility="Hidden" />
+                <Button Grid.Row="1" Grid.Column="2" Content="(Top)" Margin="0" Name="btnTop" Visibility="Hidden" />
+                <Button Grid.Row="3" Grid.Column="2" Content="OK" Margin="0" Name="btnBottom" Visibility="Hidden" />
                 <TextBlock Grid.Row="1" Grid.Column="0" Name="txtAvailable" Text="" />
                 <TextBlock Grid.Row="3" Grid.Column="0" Name="txtInstalled" Text="" />
             </Grid>

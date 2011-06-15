@@ -120,6 +120,9 @@ Public Class MainWindow
         key9a5220p.Text = "Unavailable"
     End Sub
     Public Sub cleanup()
+        File.Delete(rundir + "\major.txt")
+        File.Delete(rundir + "\minor.txt")
+        File.Delete(rundir + "\rev.txt")
         File.Delete(rundir + "\build.txt")
     End Sub
     Private Sub btnCheck4Updates_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnCheck4Updates.Click
@@ -127,6 +130,8 @@ Public Class MainWindow
             updatepaneopened = True
             Call cleanup()
             updatepane.Show()
+        Else
+            MsgBox("You can't check for updates a second time without closing iDecryptIt currently.  Sorry.", MsgBoxStyle.OkOnly, "ERROR!")
         End If
     End Sub
     Private Sub DoCMD(ByVal file As String, ByVal arg As String)
@@ -406,7 +411,7 @@ Public Class MainWindow
         key8e303.Text = "612f78042ddc5337ab1abecfb59a07e88ed3e80665a035ef02c3c48045057fc29ab0a4b5"
         key8e401.Text = "d8e162215f27c016ed8d1849c6059f99984c766c72cec4a1df63724491c8e5b19c0e6fb2"
         ' 5.x Beta
-        key9a5220p.Text = "Unavailable? (Yah, trying to get this sorted out...)"
+        key9a5220p.Text = "Unavailable"
     End Sub
     Private Sub btniPod11_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPod11.Click
         ' iPod touch 1G
