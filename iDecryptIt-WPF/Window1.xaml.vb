@@ -15,7 +15,7 @@ Public Class Window1
     Public rev As String = "0"
     Public updaterev As String = ""
     Public updaterevurl As String = "http://theiphonewiki.com/wiki/index.php?title=User:Balloonhead66/Latest_stable_software_release/iDecryptIt/revision&action=raw"
-    Public build As String = "1D83"
+    Public build As String = "1E00"
     Public updatebuild As String = ""
     Public updatebuildurl As String = "http://theiphonewiki.com/wiki/index.php?title=User:Balloonhead66/Latest_stable_software_release/iDecryptIt/build&action=raw"
     Private Sub Window1_Loaded(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles Me.Loaded
