@@ -303,22 +303,44 @@
             </TabItem>
             <TabItem Header="3.x Beta" Name="v3Beta">
                 <Grid>
-                    <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,6,0,0" Name="lbl7a238j" Text="3.0b1 (7A238j)" VerticalAlignment="Top" />
-                    <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,35,0,0" Name="lbl7a259g" Text="3.0b2 (7A259g)" VerticalAlignment="Top" />
-                    <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,64,0,0" Name="lbl7a280f" Text="3.0b3 (7A280f)" VerticalAlignment="Top" />
-                    <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,93,0,0" Name="lbl7a300g" Text="3.0b4 (7A300g)" VerticalAlignment="Top" />
-                    <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,122,0,0" Name="lbl7a312g" Text="3.0b5 (7A312g)" VerticalAlignment="Top" />
-                    <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,151,0,0" Name="lbl7c97d" Text="3.1b1 (7C97d)" VerticalAlignment="Top" />
-                    <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,180,0,0" Name="lbl7c106c" Text="3.1b2 (7C106c)" VerticalAlignment="Top" />
-                    <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,209,0,0" Name="lbl7c116a" Text="3.1b3 (7C116a)" VerticalAlignment="Top" />
-                    <TextBox Height="23" HorizontalAlignment="Left" Margin="103,6,0,0" Name="key7a238j" VerticalAlignment="Top" Width="859" />
-                    <TextBox Height="23" HorizontalAlignment="Left" Margin="103,35,0,0" Name="key7a259g" VerticalAlignment="Top" Width="859" />
-                    <TextBox Height="23" HorizontalAlignment="Left" Margin="103,64,0,0" Name="key7a280f" VerticalAlignment="Top" Width="859" />
-                    <TextBox Height="23" HorizontalAlignment="Left" Margin="103,93,0,0" Name="key7a300g" VerticalAlignment="Top" Width="859" />
-                    <TextBox Height="23" HorizontalAlignment="Left" Margin="103,122,0,0" Name="key7a312g" VerticalAlignment="Top" Width="859" />
-                    <TextBox Height="23" HorizontalAlignment="Left" Margin="103,151,0,0" Name="key7c97d" VerticalAlignment="Top" Width="859" />
-                    <TextBox Height="23" HorizontalAlignment="Left" Margin="103,180,0,0" Name="key7c106c" VerticalAlignment="Top" Width="859" />
-                    <TextBox Height="23" HorizontalAlignment="Left" Margin="103,209,0,0" Name="key7c116a" VerticalAlignment="Top" Width="859" />
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100" />
+                        <ColumnDefinition Width="6" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="23" />
+                        <RowDefinition Height="6" />
+                        <RowDefinition Height="23" />
+                        <RowDefinition Height="6" />
+                        <RowDefinition Height="23" />
+                        <RowDefinition Height="6" />
+                        <RowDefinition Height="23" />
+                        <RowDefinition Height="6" />
+                        <RowDefinition Height="23" />
+                        <RowDefinition Height="6" />
+                        <RowDefinition Height="23" />
+                        <RowDefinition Height="6" />
+                        <RowDefinition Height="23" />
+                        <RowDefinition Height="6" />
+                        <RowDefinition Height="23" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="3" Name="lbl7a238j" Text="3.0b1 (7A238j)" />
+                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="3" Name="lbl7a259g" Text="3.0b2 (7A259g)" />
+                    <TextBlock Grid.Row="4" Grid.Column="0" Margin="3" Name="lbl7a280f" Text="3.0b3 (7A280f)" />
+                    <TextBlock Grid.Row="6" Grid.Column="0" Margin="3" Name="lbl7a300g" Text="3.0b4 (7A300g)" />
+                    <TextBlock Grid.Row="8" Grid.Column="0" Margin="3" Name="lbl7a312g" Text="3.0b5 (7A312g)" />
+                    <TextBlock Grid.Row="10" Grid.Column="0" Margin="3" Name="lbl7c97d" Text="3.1b1 (7C97d)" />
+                    <TextBlock Grid.Row="12" Grid.Column="0" Margin="3" Name="lbl7c106c" Text="3.1b2 (7C106c)" />
+                    <TextBlock Grid.Row="14" Grid.Column="0" Margin="3" Name="lbl7c116a" Text="3.1b3 (7C116a)" />
+                    <TextBox Grid.Row="0" Grid.Column="2" Name="key7a238j" />
+                    <TextBox Grid.Row="2" Grid.Column="2" Name="key7a259g" />
+                    <TextBox Grid.Row="4" Grid.Column="2" Name="key7a280f" />
+                    <TextBox Grid.Row="6" Grid.Column="2" Name="key7a300g" />
+                    <TextBox Grid.Row="8" Grid.Column="2" Name="key7a312g" />
+                    <TextBox Grid.Row="10" Grid.Column="2" Name="key7c97d" />
+                    <TextBox Grid.Row="12" Grid.Column="2" Name="key7c106c" />
+                    <TextBox Grid.Row="14" Grid.Column="2" Name="key7c116a" />
                 </Grid>
             </TabItem>
             <TabItem Header="4.x Final" Name="v4Final">
