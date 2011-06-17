@@ -411,7 +411,7 @@ Public Class MainWindow
         key8e303.Text = "612f78042ddc5337ab1abecfb59a07e88ed3e80665a035ef02c3c48045057fc29ab0a4b5"
         key8e401.Text = "d8e162215f27c016ed8d1849c6059f99984c766c72cec4a1df63724491c8e5b19c0e6fb2"
         ' 5.x Beta
-        key9a5220p.Text = "Unavailable"
+        key9a5220p.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
     End Sub
     Private Sub btniPod11_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPod11.Click
         ' iPod touch 1G

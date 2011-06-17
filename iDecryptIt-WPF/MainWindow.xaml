@@ -7,8 +7,7 @@
         Icon="app.ico"
         WindowStyle="ThreeDBorderWindow"
         Height="768"
-        Width="1024"
-        ResizeMode="CanMinimize">
+        Width="1024">
     <Grid x:Name="LayoutRoot">
         <Grid.RowDefinitions>
             <RowDefinition Height="135"/>
@@ -70,13 +69,14 @@
         </ribbon:Ribbon>
         <TabControl Grid.Row="1" Margin="12" Name="MainArea">
             <TabItem Header="1.x Final" Name="v1Final">
-                <Grid Margin="6">
-                    <Grid.ColumnDefinitions>
+                <ScrollViewer>
+                    <Grid Margin="6">
+                        <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="105" />
                         <ColumnDefinition Width="6" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
+                        <Grid.RowDefinitions>
                         <RowDefinition Height="23" />
                         <RowDefinition Height="6" />
                         <RowDefinition Height="23" />
@@ -101,249 +101,261 @@
                         <RowDefinition Height="6" />
                         <RowDefinition Height="23" />
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="3" Name="lbl1a420" Text="1.0 (1A420)" />
-                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="3" Name="lbl1a543a" Text="1.0.0 (1A543a)" />
-                    <TextBlock Grid.Row="4" Grid.Column="0" Margin="3" Name="lbl1c25" Text="1.0.1 (1C25)" />
-                    <TextBlock Grid.Row="6" Grid.Column="0" Margin="3" Name="lbl1c28" Text="1.0.2 (1C28)" />
-                    <TextBlock Grid.Row="8" Grid.Column="0" Margin="3" Name="lbl3a100a" Text="1.1 (3A100a)" />
-                    <TextBlock Grid.Row="10" Grid.Column="0" Margin="3" Name="lbl3a101a" Text="1.1 (3A101a)" />
-                    <TextBlock Grid.Row="12" Grid.Column="0" Margin="3" Name="lbl3a109a" Text="1.1.1 (3A109a)" />
-                    <TextBlock Grid.Row="14" Grid.Column="0" Margin="3" Name="lbl3a110a" Text="1.1.1 (3A110a)" />
-                    <TextBlock Grid.Row="16" Grid.Column="0" Margin="3" Name="lbl3b48b" Text="1.1.2 (3B48b)" />
-                    <TextBlock Grid.Row="18" Grid.Column="0" Margin="3" Name="lbl4a93" Text="1.1.3 (4A93)" />
-                    <TextBlock Grid.Row="20" Grid.Column="0" Margin="3" Name="lbl4a102" Text="1.1.4 (4A102)" />
-                    <TextBlock Grid.Row="22" Grid.Column="0" Margin="3" Name="lbl4b1" Text="1.1.5 (4B1)" />
-                    <Button Grid.Row="0" Grid.Column="2" Name="btn1a420" Content="Prototype" />
-                    <TextBox Grid.Row="2" Grid.Column="2" Name="key1a543a" />
-                    <TextBox Grid.Row="4" Grid.Column="2" Name="key1c25" />
-                    <TextBox Grid.Row="6" Grid.Column="2" Name="key1c28" />
-                    <TextBox Grid.Row="8" Grid.Column="2" Name="key3a100a" />
-                    <TextBox Grid.Row="10" Grid.Column="2" Name="key3a101a" />
-                    <TextBox Grid.Row="12" Grid.Column="2" Name="key3a109a" />
-                    <TextBox Grid.Row="14" Grid.Column="2" Name="key3a110a" />
-                    <TextBox Grid.Row="16" Grid.Column="2" Name="key3b48b" />
-                    <TextBox Grid.Row="18" Grid.Column="2" Name="key4a93" />
-                    <TextBox Grid.Row="20" Grid.Column="2" Name="key4a102" />
-                    <TextBox Grid.Row="22" Grid.Column="2" Name="key4b1" />
-                </Grid>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Margin="3" Name="lbl1a420" Text="1.0 (1A420)" />
+                        <TextBlock Grid.Row="2" Grid.Column="0" Margin="3" Name="lbl1a543a" Text="1.0.0 (1A543a)" />
+                        <TextBlock Grid.Row="4" Grid.Column="0" Margin="3" Name="lbl1c25" Text="1.0.1 (1C25)" />
+                        <TextBlock Grid.Row="6" Grid.Column="0" Margin="3" Name="lbl1c28" Text="1.0.2 (1C28)" />
+                        <TextBlock Grid.Row="8" Grid.Column="0" Margin="3" Name="lbl3a100a" Text="1.1 (3A100a)" />
+                        <TextBlock Grid.Row="10" Grid.Column="0" Margin="3" Name="lbl3a101a" Text="1.1 (3A101a)" />
+                        <TextBlock Grid.Row="12" Grid.Column="0" Margin="3" Name="lbl3a109a" Text="1.1.1 (3A109a)" />
+                        <TextBlock Grid.Row="14" Grid.Column="0" Margin="3" Name="lbl3a110a" Text="1.1.1 (3A110a)" />
+                        <TextBlock Grid.Row="16" Grid.Column="0" Margin="3" Name="lbl3b48b" Text="1.1.2 (3B48b)" />
+                        <TextBlock Grid.Row="18" Grid.Column="0" Margin="3" Name="lbl4a93" Text="1.1.3 (4A93)" />
+                        <TextBlock Grid.Row="20" Grid.Column="0" Margin="3" Name="lbl4a102" Text="1.1.4 (4A102)" />
+                        <TextBlock Grid.Row="22" Grid.Column="0" Margin="3" Name="lbl4b1" Text="1.1.5 (4B1)" />
+                        <Button Grid.Row="0" Grid.Column="2" Name="btn1a420" Content="Prototype" />
+                        <TextBox Grid.Row="2" Grid.Column="2" Name="key1a543a" />
+                        <TextBox Grid.Row="4" Grid.Column="2" Name="key1c25" />
+                        <TextBox Grid.Row="6" Grid.Column="2" Name="key1c28" />
+                        <TextBox Grid.Row="8" Grid.Column="2" Name="key3a100a" />
+                        <TextBox Grid.Row="10" Grid.Column="2" Name="key3a101a" />
+                        <TextBox Grid.Row="12" Grid.Column="2" Name="key3a109a" />
+                        <TextBox Grid.Row="14" Grid.Column="2" Name="key3a110a" />
+                        <TextBox Grid.Row="16" Grid.Column="2" Name="key3b48b" />
+                        <TextBox Grid.Row="18" Grid.Column="2" Name="key4a93" />
+                        <TextBox Grid.Row="20" Grid.Column="2" Name="key4a102" />
+                        <TextBox Grid.Row="22" Grid.Column="2" Name="key4b1" />
+                    </Grid>
+                </ScrollViewer>
             </TabItem>
             <TabItem Header="1.x Beta" Name="v1Beta">
-                <Grid Margin="6">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="105" />
-                        <ColumnDefinition Width="6" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="23" />
-                        <RowDefinition Height="6" />
-                        <RowDefinition Height="23" />
-                    </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="3" Name="lbl5a147p" Text="1.2b1 (5A147p)" />
-                    <TextBox Grid.Row="0" Grid.Column="2" Name="key5a147p" />
-                    <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="3" Name="note1xbeta" Text="NOTE: 1.2 was never released. Instead, it was changed to 2.0." />
-                </Grid>
+                <ScrollViewer>
+                    <Grid Margin="6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="105" />
+                            <ColumnDefinition Width="6" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="23" />
+                            <RowDefinition Height="6" />
+                            <RowDefinition Height="23" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Margin="3" Name="lbl5a147p" Text="1.2b1 (5A147p)" />
+                        <TextBox Grid.Row="0" Grid.Column="2" Name="key5a147p" />
+                        <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="3" Name="note1xbeta" Text="NOTE: 1.2 was never released. Instead, it was changed to 2.0." />
+                        </Grid>
+                </ScrollViewer>
             </TabItem>
             <TabItem Header="2.x Final" Name="v2Final">
-                <Grid Margin="6">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="105" />
-                        <ColumnDefinition Width="6" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="23" />
-                        <RowDefinition Height="6" />
-                        <RowDefinition Height="23" />
-                        <RowDefinition Height="6" />
-                        <RowDefinition Height="23" />
-                        <RowDefinition Height="6" />
-                        <RowDefinition Height="23" />
-                        <RowDefinition Height="6" />
-                        <RowDefinition Height="23" />
-                        <RowDefinition Height="6" />
-                        <RowDefinition Height="23" />
-                        <RowDefinition Height="6" />
-                        <RowDefinition Height="23" />
-                        <RowDefinition Height="6" />
-                        <RowDefinition Height="23" />
-                        <RowDefinition Height="6" />
-                        <RowDefinition Height="23" />
-                        <RowDefinition Height="6" />
-                        <RowDefinition Height="23" />
-                        <RowDefinition Height="6" />
-                        <RowDefinition Height="23" />
-                    </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="3" Name="lbl5a345final" Text="2.0 (5A345)" />
-                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="3" Name="lbl5a347" Text="2.0 (5A347)" />
-                    <TextBlock Grid.Row="4" Grid.Column="0" Margin="3" Name="lbl5b108" Text="2.0.1 (5B108)" />
-                    <TextBlock Grid.Row="6" Grid.Column="0" Margin="3" Name="lbl5c1" Text="2.0.2 (5C1)" />
-                    <TextBlock Grid.Row="8" Grid.Column="0" Margin="3" Name="lbl5f136" Text="2.1 (5F126)" />
-                    <TextBlock Grid.Row="10" Grid.Column="0" Margin="3" Name="lbl5f137" Text="2.1 (5F137)" />
-                    <TextBlock Grid.Row="12" Grid.Column="0" Margin="3" Name="lbl5f138" Text="2.1.1 (5F138)" />
-                    <TextBlock Grid.Row="14" Grid.Column="0" Margin="3" Name="lbl5g77" Text="2.2 (5G77)" />
-                    <TextBlock Grid.Row="16" Grid.Column="0" Margin="3" Name="lbl5g77a" Text="2.2 (5G77a)" />
-                    <TextBlock Grid.Row="18" Grid.Column="0" Margin="3" Name="lbl5h11" Text="2.2.1 (5H11)" />
-                    <TextBlock Grid.Row="20" Grid.Column="0" Margin="3" Name="lbl5h11a" Text="2.2.1 (5H11a)" />
-                    <TextBox Grid.Row="0" Grid.Column="2" Name="key5a345final" />
-                    <TextBox Grid.Row="2" Grid.Column="2" Name="key5a347" />
-                    <TextBox Grid.Row="4" Grid.Column="2" Name="key5b108" />
-                    <TextBox Grid.Row="6" Grid.Column="2" Name="key5c1" />
-                    <TextBox Grid.Row="8" Grid.Column="2" Name="key5f136" />
-                    <TextBox Grid.Row="10" Grid.Column="2" Name="key5f137" />
-                    <TextBox Grid.Row="12" Grid.Column="2" Name="key5f138" />
-                    <TextBox Grid.Row="14" Grid.Column="2" Name="key5g77" />
-                    <TextBox Grid.Row="16" Grid.Column="2" Name="key5g77a" />
-                    <TextBox Grid.Row="18" Grid.Column="2" Name="key5h11" />
-                    <TextBox Grid.Row="20" Grid.Column="2" Name="key5h11a" />
-                </Grid>
+                <ScrollViewer>
+                    <Grid Margin="6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="105" />
+                            <ColumnDefinition Width="6" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="23" />
+                            <RowDefinition Height="6" />
+                            <RowDefinition Height="23" />
+                            <RowDefinition Height="6" />
+                            <RowDefinition Height="23" />
+                            <RowDefinition Height="6" />
+                            <RowDefinition Height="23" />
+                            <RowDefinition Height="6" />
+                            <RowDefinition Height="23" />
+                            <RowDefinition Height="6" />
+                            <RowDefinition Height="23" />
+                            <RowDefinition Height="6" />
+                            <RowDefinition Height="23" />
+                            <RowDefinition Height="6" />
+                            <RowDefinition Height="23" />
+                            <RowDefinition Height="6" />
+                            <RowDefinition Height="23" />
+                            <RowDefinition Height="6" />
+                            <RowDefinition Height="23" />
+                            <RowDefinition Height="6" />
+                            <RowDefinition Height="23" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Margin="3" Name="lbl5a345final" Text="2.0 (5A345)" />
+                        <TextBlock Grid.Row="2" Grid.Column="0" Margin="3" Name="lbl5a347" Text="2.0 (5A347)" />
+                        <TextBlock Grid.Row="4" Grid.Column="0" Margin="3" Name="lbl5b108" Text="2.0.1 (5B108)" />
+                        <TextBlock Grid.Row="6" Grid.Column="0" Margin="3" Name="lbl5c1" Text="2.0.2 (5C1)" />
+                        <TextBlock Grid.Row="8" Grid.Column="0" Margin="3" Name="lbl5f136" Text="2.1 (5F126)" />
+                        <TextBlock Grid.Row="10" Grid.Column="0" Margin="3" Name="lbl5f137" Text="2.1 (5F137)" />
+                        <TextBlock Grid.Row="12" Grid.Column="0" Margin="3" Name="lbl5f138" Text="2.1.1 (5F138)" />
+                        <TextBlock Grid.Row="14" Grid.Column="0" Margin="3" Name="lbl5g77" Text="2.2 (5G77)" />
+                        <TextBlock Grid.Row="16" Grid.Column="0" Margin="3" Name="lbl5g77a" Text="2.2 (5G77a)" />
+                        <TextBlock Grid.Row="18" Grid.Column="0" Margin="3" Name="lbl5h11" Text="2.2.1 (5H11)" />
+                        <TextBlock Grid.Row="20" Grid.Column="0" Margin="3" Name="lbl5h11a" Text="2.2.1 (5H11a)" />
+                        <TextBox Grid.Row="0" Grid.Column="2" Name="key5a345final" />
+                        <TextBox Grid.Row="2" Grid.Column="2" Name="key5a347" />
+                        <TextBox Grid.Row="4" Grid.Column="2" Name="key5b108" />
+                        <TextBox Grid.Row="6" Grid.Column="2" Name="key5c1" />
+                        <TextBox Grid.Row="8" Grid.Column="2" Name="key5f136" />
+                        <TextBox Grid.Row="10" Grid.Column="2" Name="key5f137" />
+                        <TextBox Grid.Row="12" Grid.Column="2" Name="key5f138" />
+                        <TextBox Grid.Row="14" Grid.Column="2" Name="key5g77" />
+                        <TextBox Grid.Row="16" Grid.Column="2" Name="key5g77a" />
+                        <TextBox Grid.Row="18" Grid.Column="2" Name="key5h11" />
+                        <TextBox Grid.Row="20" Grid.Column="2" Name="key5h11a" />
+                    </Grid>
+                </ScrollViewer>
             </TabItem>
             <TabItem Header="2.x Beta" Name="v2Beta">
-                <Grid Margin="6">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="105" />
-                        <ColumnDefinition Width="6" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="23" />
-                        <RowDefinition Height="6" />
-                        <RowDefinition Height="23" />
-                        <RowDefinition Height="6" />
-                        <RowDefinition Height="23" />
-                        <RowDefinition Height="6" />
-                        <RowDefinition Height="23" />
-                        <RowDefinition Height="6" />
-                        <RowDefinition Height="23" />
-                        <RowDefinition Height="6" />
-                        <RowDefinition Height="23" />
-                        <RowDefinition Height="6" />
-                        <RowDefinition Height="23" />
-                        <RowDefinition Height="6" />
-                        <RowDefinition Height="23" />
-                        <RowDefinition Height="6" />
-                        <RowDefinition Height="23" />
-                        <RowDefinition Height="6" />
-                        <RowDefinition Height="23" />
-                        <RowDefinition Height="6" />
-                        <RowDefinition Height="23" />
-                    </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="3" Name="lbl5a225c" Text="2.0b2 (5A225c)" />
-                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="3" Name="lbl5a240d" Text="2.0b3 (5A240d)" />
-                    <TextBlock Grid.Row="4" Grid.Column="0" Margin="3" Name="lbl5a258f" Text="2.0b4 (5A258f)" />
-                    <TextBlock Grid.Row="6" Grid.Column="0" Margin="3" Name="lbl5a274d" Text="2.0b5 (5A274d)" />
-                    <TextBlock Grid.Row="8" Grid.Column="0" Margin="3" Name="lbl5a292g" Text="2.0b6P (5A292g)" />
-                    <TextBlock Grid.Row="10" Grid.Column="0" Margin="3" Name="lbl5a308" Text="2.0b6F (5A308)" />
-                    <TextBlock Grid.Row="12" Grid.Column="0" Margin="3" Name="lbl5a331" Text="2.0b7 (5A331)" />
-                    <TextBlock Grid.Row="14" Grid.Column="0" Margin="3" Name="lbl5a345beta" Text="2.0b8GM (5A345)" />
-                    <TextBlock Grid.Row="16" Grid.Column="0" Margin="3" Name="lbl5f90" Text="2.1b1 (5F90)" />
-                    <TextBlock Grid.Row="18" Grid.Column="0" Margin="3" Name="lbl5g27" Text="2.2b1 (5G27)" />
-                    <TextBox Grid.Row="0" Grid.Column="2" Name="key5a225c" />
-                    <TextBox Grid.Row="2" Grid.Column="2" Name="key5a240d" />
-                    <TextBox Grid.Row="4" Grid.Column="2" Name="key5a258f" />
-                    <TextBox Grid.Row="6" Grid.Column="2" Name="key5a274d" />
-                    <TextBox Grid.Row="8" Grid.Column="2" Name="key5a292g" />
-                    <TextBox Grid.Row="10" Grid.Column="2" Name="key5a308" />
-                    <TextBox Grid.Row="12" Grid.Column="2" Name="key5a331" />
-                    <TextBox Grid.Row="14" Grid.Column="2" Name="key5a345beta" />
-                    <TextBox Grid.Row="16" Grid.Column="2" Name="key5f90" />
-                    <TextBox Grid.Row="18" Grid.Column="2" Name="key5g27" />
-                    <TextBlock Grid.Row="20" Grid.Column="0" Grid.ColumnSpan="3" Margin="3" Name="note2xbeta" Text="NOTE: 2.0b1 is actually 1.2b1." />
-                </Grid>
+                <ScrollViewer>
+                    <Grid Margin="6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="105" />
+                            <ColumnDefinition Width="6" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="23" />
+                            <RowDefinition Height="6" />
+                            <RowDefinition Height="23" />
+                            <RowDefinition Height="6" />
+                            <RowDefinition Height="23" />
+                            <RowDefinition Height="6" />
+                            <RowDefinition Height="23" />
+                            <RowDefinition Height="6" />
+                            <RowDefinition Height="23" />
+                            <RowDefinition Height="6" />
+                            <RowDefinition Height="23" />
+                            <RowDefinition Height="6" />
+                            <RowDefinition Height="23" />
+                            <RowDefinition Height="6" />
+                            <RowDefinition Height="23" />
+                            <RowDefinition Height="6" />
+                            <RowDefinition Height="23" />
+                            <RowDefinition Height="6" />
+                            <RowDefinition Height="23" />
+                            <RowDefinition Height="6" />
+                            <RowDefinition Height="23" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Margin="3" Name="lbl5a225c" Text="2.0b2 (5A225c)" />
+                        <TextBlock Grid.Row="2" Grid.Column="0" Margin="3" Name="lbl5a240d" Text="2.0b3 (5A240d)" />
+                        <TextBlock Grid.Row="4" Grid.Column="0" Margin="3" Name="lbl5a258f" Text="2.0b4 (5A258f)" />
+                        <TextBlock Grid.Row="6" Grid.Column="0" Margin="3" Name="lbl5a274d" Text="2.0b5 (5A274d)" />
+                        <TextBlock Grid.Row="8" Grid.Column="0" Margin="3" Name="lbl5a292g" Text="2.0b6P (5A292g)" />
+                        <TextBlock Grid.Row="10" Grid.Column="0" Margin="3" Name="lbl5a308" Text="2.0b6F (5A308)" />
+                        <TextBlock Grid.Row="12" Grid.Column="0" Margin="3" Name="lbl5a331" Text="2.0b7 (5A331)" />
+                        <TextBlock Grid.Row="14" Grid.Column="0" Margin="3" Name="lbl5a345beta" Text="2.0b8GM (5A345)" />
+                        <TextBlock Grid.Row="16" Grid.Column="0" Margin="3" Name="lbl5f90" Text="2.1b1 (5F90)" />
+                        <TextBlock Grid.Row="18" Grid.Column="0" Margin="3" Name="lbl5g27" Text="2.2b1 (5G27)" />
+                        <TextBox Grid.Row="0" Grid.Column="2" Name="key5a225c" />
+                        <TextBox Grid.Row="2" Grid.Column="2" Name="key5a240d" />
+                        <TextBox Grid.Row="4" Grid.Column="2" Name="key5a258f" />
+                        <TextBox Grid.Row="6" Grid.Column="2" Name="key5a274d" />
+                        <TextBox Grid.Row="8" Grid.Column="2" Name="key5a292g" />
+                        <TextBox Grid.Row="10" Grid.Column="2" Name="key5a308" />
+                        <TextBox Grid.Row="12" Grid.Column="2" Name="key5a331" />
+                        <TextBox Grid.Row="14" Grid.Column="2" Name="key5a345beta" />
+                        <TextBox Grid.Row="16" Grid.Column="2" Name="key5f90" />
+                        <TextBox Grid.Row="18" Grid.Column="2" Name="key5g27" />
+                        <TextBlock Grid.Row="20" Grid.Column="0" Grid.ColumnSpan="3" Margin="3" Name="note2xbeta" Text="NOTE: 2.0b1 is actually 1.2b1." />
+                    </Grid>
+                </ScrollViewer>
             </TabItem>
             <TabItem Header="3.x Final" Name="v3Final">
-                <Grid Margin="6">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="105" />
-                        <ColumnDefinition Width="6" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="23" />
-                        <RowDefinition Height="6" />
-                        <RowDefinition Height="23" />
-                        <RowDefinition Height="6" />
-                        <RowDefinition Height="23" />
-                        <RowDefinition Height="6" />
-                        <RowDefinition Height="23" />
-                        <RowDefinition Height="6" />
-                        <RowDefinition Height="23" />
-                        <RowDefinition Height="6" />
-                        <RowDefinition Height="23" />
-                        <RowDefinition Height="6" />
-                        <RowDefinition Height="23" />
-                        <RowDefinition Height="6" />
-                        <RowDefinition Height="23" />
-                        <RowDefinition Height="6" />
-                        <RowDefinition Height="23" />
-                        <RowDefinition Height="6" />
-                        <RowDefinition Height="23" />
-                    </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="3" Name="lbl7a341" Text="3.0 (7A341)" />
-                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="3" Name="lbl7a400" Text="3.0.1 (7A400)" />
-                    <TextBlock Grid.Row="4" Grid.Column="0" Margin="3" Name="lbl7c144" Text="3.1 (7C144)" />
-                    <TextBlock Grid.Row="6" Grid.Column="0" Margin="3" Name="lbl7c145" Text="3.1.1 (7C145)" />
-                    <TextBlock Grid.Row="8" Grid.Column="0" Margin="3" Name="lbl7c146" Text="3.1.1 (7C146)" />
-                    <TextBlock Grid.Row="10" Grid.Column="0" Margin="3" Name="lbl7d11" Text="3.1.2 (7D11)" />
-                    <TextBlock Grid.Row="12" Grid.Column="0" Margin="3" Name="lbl7e18" Text="3.1.3 (7E18)" />
-                    <TextBlock Grid.Row="14" Grid.Column="0" Margin="3" Name="lbl7b367" Text="3.2 (7B267)" />
-                    <TextBlock Grid.Row="16" Grid.Column="0" Margin="3" Name="lbl7b405" Text="3.2.1 (7B405)" />
-                    <TextBlock Grid.Row="18" Grid.Column="0" Margin="3" Name="lbl7b500" Text="3.2.2 (7B500)" />
-                    <TextBox Grid.Row="0" Grid.Column="2" Name="key7a341" />
-                    <TextBox Grid.Row="2" Grid.Column="2" Name="key7a400" />
-                    <TextBox Grid.Row="4" Grid.Column="2" Name="key7c144" />
-                    <TextBox Grid.Row="6" Grid.Column="2" Name="key7c145" />
-                    <TextBox Grid.Row="8" Grid.Column="2" Name="key7c146" />
-                    <TextBox Grid.Row="10" Grid.Column="2" Name="key7d11" />
-                    <TextBox Grid.Row="12" Grid.Column="2" Name="key7e18" />
-                    <TextBox Grid.Row="14" Grid.Column="2" Name="key7b367" />
-                    <TextBox Grid.Row="16" Grid.Column="2" Name="key7b405" />
-                    <TextBox Grid.Row="18" Grid.Column="2" Name="key7b500" />
-                </Grid>
+                <ScrollViewer>
+                    <Grid Margin="6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="105" />
+                            <ColumnDefinition Width="6" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="23" />
+                            <RowDefinition Height="6" />
+                            <RowDefinition Height="23" />
+                            <RowDefinition Height="6" />
+                            <RowDefinition Height="23" />
+                            <RowDefinition Height="6" />
+                            <RowDefinition Height="23" />
+                            <RowDefinition Height="6" />
+                            <RowDefinition Height="23" />
+                            <RowDefinition Height="6" />
+                            <RowDefinition Height="23" />
+                            <RowDefinition Height="6" />
+                            <RowDefinition Height="23" />
+                            <RowDefinition Height="6" />
+                            <RowDefinition Height="23" />
+                            <RowDefinition Height="6" />
+                            <RowDefinition Height="23" />
+                            <RowDefinition Height="6" />
+                            <RowDefinition Height="23" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Margin="3" Name="lbl7a341" Text="3.0 (7A341)" />
+                        <TextBlock Grid.Row="2" Grid.Column="0" Margin="3" Name="lbl7a400" Text="3.0.1 (7A400)" />
+                        <TextBlock Grid.Row="4" Grid.Column="0" Margin="3" Name="lbl7c144" Text="3.1 (7C144)" />
+                        <TextBlock Grid.Row="6" Grid.Column="0" Margin="3" Name="lbl7c145" Text="3.1.1 (7C145)" />
+                        <TextBlock Grid.Row="8" Grid.Column="0" Margin="3" Name="lbl7c146" Text="3.1.1 (7C146)" />
+                        <TextBlock Grid.Row="10" Grid.Column="0" Margin="3" Name="lbl7d11" Text="3.1.2 (7D11)" />
+                        <TextBlock Grid.Row="12" Grid.Column="0" Margin="3" Name="lbl7e18" Text="3.1.3 (7E18)" />
+                        <TextBlock Grid.Row="14" Grid.Column="0" Margin="3" Name="lbl7b367" Text="3.2 (7B267)" />
+                        <TextBlock Grid.Row="16" Grid.Column="0" Margin="3" Name="lbl7b405" Text="3.2.1 (7B405)" />
+                        <TextBlock Grid.Row="18" Grid.Column="0" Margin="3" Name="lbl7b500" Text="3.2.2 (7B500)" />
+                        <TextBox Grid.Row="0" Grid.Column="2" Name="key7a341" />
+                        <TextBox Grid.Row="2" Grid.Column="2" Name="key7a400" />
+                        <TextBox Grid.Row="4" Grid.Column="2" Name="key7c144" />
+                        <TextBox Grid.Row="6" Grid.Column="2" Name="key7c145" />
+                        <TextBox Grid.Row="8" Grid.Column="2" Name="key7c146" />
+                        <TextBox Grid.Row="10" Grid.Column="2" Name="key7d11" />
+                        <TextBox Grid.Row="12" Grid.Column="2" Name="key7e18" />
+                        <TextBox Grid.Row="14" Grid.Column="2" Name="key7b367" />
+                        <TextBox Grid.Row="16" Grid.Column="2" Name="key7b405" />
+                        <TextBox Grid.Row="18" Grid.Column="2" Name="key7b500" />
+                    </Grid>
+                </ScrollViewer>
             </TabItem>
             <TabItem Header="3.x Beta" Name="v3Beta">
-                <Grid Margin="6">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="105" />
-                        <ColumnDefinition Width="6" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="23" />
-                        <RowDefinition Height="6" />
-                        <RowDefinition Height="23" />
-                        <RowDefinition Height="6" />
-                        <RowDefinition Height="23" />
-                        <RowDefinition Height="6" />
-                        <RowDefinition Height="23" />
-                        <RowDefinition Height="6" />
-                        <RowDefinition Height="23" />
-                        <RowDefinition Height="6" />
-                        <RowDefinition Height="23" />
-                        <RowDefinition Height="6" />
-                        <RowDefinition Height="23" />
-                        <RowDefinition Height="6" />
-                        <RowDefinition Height="23" />
-                    </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="3" Name="lbl7a238j" Text="3.0b1 (7A238j)" />
-                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="3" Name="lbl7a259g" Text="3.0b2 (7A259g)" />
-                    <TextBlock Grid.Row="4" Grid.Column="0" Margin="3" Name="lbl7a280f" Text="3.0b3 (7A280f)" />
-                    <TextBlock Grid.Row="6" Grid.Column="0" Margin="3" Name="lbl7a300g" Text="3.0b4 (7A300g)" />
-                    <TextBlock Grid.Row="8" Grid.Column="0" Margin="3" Name="lbl7a312g" Text="3.0b5 (7A312g)" />
-                    <TextBlock Grid.Row="10" Grid.Column="0" Margin="3" Name="lbl7c97d" Text="3.1b1 (7C97d)" />
-                    <TextBlock Grid.Row="12" Grid.Column="0" Margin="3" Name="lbl7c106c" Text="3.1b2 (7C106c)" />
-                    <TextBlock Grid.Row="14" Grid.Column="0" Margin="3" Name="lbl7c116a" Text="3.1b3 (7C116a)" />
-                    <TextBox Grid.Row="0" Grid.Column="2" Name="key7a238j" />
-                    <TextBox Grid.Row="2" Grid.Column="2" Name="key7a259g" />
-                    <TextBox Grid.Row="4" Grid.Column="2" Name="key7a280f" />
-                    <TextBox Grid.Row="6" Grid.Column="2" Name="key7a300g" />
-                    <TextBox Grid.Row="8" Grid.Column="2" Name="key7a312g" />
-                    <TextBox Grid.Row="10" Grid.Column="2" Name="key7c97d" />
-                    <TextBox Grid.Row="12" Grid.Column="2" Name="key7c106c" />
-                    <TextBox Grid.Row="14" Grid.Column="2" Name="key7c116a" />
-                </Grid>
+                <ScrollViewer>
+                    <Grid Margin="6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="105" />
+                            <ColumnDefinition Width="6" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="23" />
+                            <RowDefinition Height="6" />
+                            <RowDefinition Height="23" />
+                            <RowDefinition Height="6" />
+                            <RowDefinition Height="23" />
+                            <RowDefinition Height="6" />
+                            <RowDefinition Height="23" />
+                            <RowDefinition Height="6" />
+                            <RowDefinition Height="23" />
+                            <RowDefinition Height="6" />
+                            <RowDefinition Height="23" />
+                            <RowDefinition Height="6" />
+                            <RowDefinition Height="23" />
+                            <RowDefinition Height="6" />
+                            <RowDefinition Height="23" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Margin="3" Name="lbl7a238j" Text="3.0b1 (7A238j)" />
+                        <TextBlock Grid.Row="2" Grid.Column="0" Margin="3" Name="lbl7a259g" Text="3.0b2 (7A259g)" />
+                        <TextBlock Grid.Row="4" Grid.Column="0" Margin="3" Name="lbl7a280f" Text="3.0b3 (7A280f)" />
+                        <TextBlock Grid.Row="6" Grid.Column="0" Margin="3" Name="lbl7a300g" Text="3.0b4 (7A300g)" />
+                        <TextBlock Grid.Row="8" Grid.Column="0" Margin="3" Name="lbl7a312g" Text="3.0b5 (7A312g)" />
+                        <TextBlock Grid.Row="10" Grid.Column="0" Margin="3" Name="lbl7c97d" Text="3.1b1 (7C97d)" />
+                        <TextBlock Grid.Row="12" Grid.Column="0" Margin="3" Name="lbl7c106c" Text="3.1b2 (7C106c)" />
+                        <TextBlock Grid.Row="14" Grid.Column="0" Margin="3" Name="lbl7c116a" Text="3.1b3 (7C116a)" />
+                        <TextBox Grid.Row="0" Grid.Column="2" Name="key7a238j" />
+                        <TextBox Grid.Row="2" Grid.Column="2" Name="key7a259g" />
+                        <TextBox Grid.Row="4" Grid.Column="2" Name="key7a280f" />
+                        <TextBox Grid.Row="6" Grid.Column="2" Name="key7a300g" />
+                        <TextBox Grid.Row="8" Grid.Column="2" Name="key7a312g" />
+                        <TextBox Grid.Row="10" Grid.Column="2" Name="key7c97d" />
+                        <TextBox Grid.Row="12" Grid.Column="2" Name="key7c106c" />
+                        <TextBox Grid.Row="14" Grid.Column="2" Name="key7c116a" />
+                    </Grid>
+                </ScrollViewer>
             </TabItem>
             <TabItem Header="4.x Final" Name="v4Final">
+                <ScrollViewer>
                 <Grid Margin="6">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="105" />
@@ -423,9 +435,11 @@
                     <TextBox Grid.Row="30" Grid.Column="2" Name="key8h8" />
                     <TextBox Grid.Row="32" Grid.Column="2" Name="key8j2" />
                     <TextBox Grid.Row="34" Grid.Column="2" Name="key8j3" />
-                </Grid>
+                    </Grid>
+                </ScrollViewer>
             </TabItem>
             <TabItem Header="4.x Beta (4.0-4.2.1)" Name="v4Beta1">
+                <ScrollViewer>
                 <Grid Margin="6">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="105" />
@@ -489,9 +503,11 @@
                     <TextBox Grid.Row="22" Grid.Column="2" Name="key8c134" />
                     <TextBox Grid.Row="24" Grid.Column="2" Name="key8c134b" />
                     <TextBox Grid.Row="26" Grid.Column="2" Name="key8c148beta" />
-                </Grid>
+                    </Grid>
+                </ScrollViewer>
             </TabItem>
             <TabItem Header="4.x Beta (4.3)" Name="v4Beta2">
+                <ScrollViewer>
                 <Grid Margin="6">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="105" />
@@ -522,9 +538,11 @@
                     <TextBox Grid.Row="6" Grid.Column="2" Name="key8f5166b" />
                     <TextBox Grid.Row="8" Grid.Column="2" Name="key8f190beta" />
                     <TextBlock Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="3" Margin="3" Name="note4xbeta2" Text="NOTE: The Apple TV will report these 4.3 betas as 4.2. For what the Apple TV reports the betas as 4.4 (5.0), please see the 5.x Beta tab." />
-                </Grid>
+                    </Grid>
+                </ScrollViewer>
             </TabItem>
             <TabItem Header="4.x Final ATV" Name="v4FinalATV">
+                <ScrollViewer>
                 <Grid Margin="6">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="105" />
@@ -559,36 +577,41 @@
                     <TextBox Grid.Row="8" Grid.Column="2" Name="key8f202" />
                     <TextBox Grid.Row="10" Grid.Column="2" Name="key8f305" />
                     <TextBlock Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="3" Name="note4xfinalatv" Text="On this page, the version number on the left is what the Apple TV reports, while the one on the right is the Apple version" />
-                </Grid>
+                    </Grid>
+                </ScrollViewer>
             </TabItem>
             <TabItem Header="5.x Beta" Name="v5Beta">
-                <Grid Margin="6">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="105" />
-                        <ColumnDefinition Width="6" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="23" />
-                        <RowDefinition Height="6" />
-                        <RowDefinition Height="23" />
-                    </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="3" Name="lbl9a5220p" Text="5.0b1 (9A5220p)" />
-                    <TextBox Grid.Row="0" Grid.Column="2" Name="key9a5220p"/>
-                    <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="3" Name="note5xbeta" Text="NOTE: On the Apple TV, this beta will be reported as 4.4." />
-                </Grid>
+                <ScrollViewer>
+                    <Grid Margin="6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="105" />
+                            <ColumnDefinition Width="6" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="23" />
+                            <RowDefinition Height="6" />
+                            <RowDefinition Height="23" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Margin="3" Name="lbl9a5220p" Text="5.0b1 (9A5220p)" />
+                        <TextBox Grid.Row="0" Grid.Column="2" Name="key9a5220p"/>
+                        <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="3" Name="note5xbeta" Text="NOTE: On the Apple TV, this beta will be reported as 4.4." />
+                    </Grid>
+                </ScrollViewer>
             </TabItem>
             <TabItem Header="5.x Final" Name="v5Final" IsEnabled="False">
-                <Grid Margin="6">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="105" />
-                        <ColumnDefinition Width="6" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="23" />
-                    </Grid.RowDefinitions>
-                </Grid>
+                <ScrollViewer>
+                    <Grid Margin="6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="105" />
+                            <ColumnDefinition Width="6" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="23" />
+                        </Grid.RowDefinitions>
+                    </Grid>
+                </ScrollViewer>
             </TabItem>
             <TabItem Header="Web" Name="WebMenu">
                 <Grid Margin="6">
