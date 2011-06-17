@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="iDecryptIt.exe" size="1093120">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="iDecryptIt.exe" size="1092608">
       <assemblyIdentity name="iDecryptIt" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>B1ks4GADS13qwEvF7nIl6DFEr70=</dsig:DigestValue>
+        <dsig:DigestValue>i4DIf1wcrDnq4Kjn1s4fqJZDdPI=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -132,13 +132,13 @@
       <dsig:DigestValue>6kthFHETYPhc28kF8OoIxVs1hcg=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="help\changelog.html" size="2942">
+  <file name="help\changelog.html" size="3074">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>bOdyjs66L7S32WVj7MV9TYRW+DE=</dsig:DigestValue>
+      <dsig:DigestValue>BoorRK6CRZ0vAbpHw7Eu1dQG2wU=</dsig:DigestValue>
     </hash>
   </file>
   <file name="help\images\author.jpg" size="405316">
@@ -195,13 +195,13 @@
       <dsig:DigestValue>5K4fDy/4NlGI1C1mkf9WhWpXjSM=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="help\README.html" size="41644">
+  <file name="help\README.html" size="41651">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>at+K4f4ThpUFcn/6U1BlbX+YCWY=</dsig:DigestValue>
+      <dsig:DigestValue>c3P0CmVWfoxdDLnk8EYYL1PqUjs=</dsig:DigestValue>
     </hash>
   </file>
   <file name="VFDecrypt\cygcrypto-0.9.8.dll" size="1089024">
