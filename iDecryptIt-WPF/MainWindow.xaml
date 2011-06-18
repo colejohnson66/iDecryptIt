@@ -6,8 +6,8 @@
         x:Name="RibbonWindow"
         Icon="app.ico"
         WindowStyle="ThreeDBorderWindow"
-        Height="768"
-        Width="1024">
+        Height="600" Width="800"
+        MinHeight="300" MinWidth="400">
     <Grid x:Name="LayoutRoot">
         <Grid.RowDefinitions>
             <RowDefinition Height="135"/>
@@ -23,7 +23,7 @@
                     <ribbon:RibbonTextBox x:Name="textDecryptKey" Label="Key: " />
                     <ribbon:RibbonButton x:Name="btnClearKey" Label="Clear Key" />
                 </ribbon:RibbonGroup>
-                <ribbon:RibbonGroup x:Name="Extract" Header="Extract" LargeImageSource="Images/e.png" IsEnabled="False">
+                <ribbon:RibbonGroup x:Name="Extract" Header="Extract" LargeImageSource="Images/7zip_32.png" IsEnabled="False">
                     <ribbon:RibbonButton x:Name="btnExtract" LargeImageSource="Images/7zip_32.png" Label="Extact" />
                     <ribbon:RibbonTextBox x:Name="textExtractFileName" Label="Input File: " />
                     <ribbon:RibbonTextBox x:Name="textExtractDir" Label="Extract Directory: " />
@@ -67,7 +67,7 @@
                 </ribbon:RibbonGroup>
             </ribbon:RibbonTab>
         </ribbon:Ribbon>
-        <TabControl Grid.Row="1" Margin="12" Name="MainArea">
+        <TabControl Grid.Row="1" Grid.RowSpan="1" Margin="12" Name="MainArea">
             <TabItem Header="1.x Final" Name="v1Final">
                 <ScrollViewer>
                     <Grid Margin="6">

@@ -30,8 +30,8 @@
     <SuiteName>Cole Stuff</SuiteName>
     <MinimumRequiredVersion>1.0.0.0</MinimumRequiredVersion>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>401</ApplicationRevision>
-    <ApplicationVersion>5.0.0.%2a</ApplicationVersion>
+    <ApplicationRevision>417</ApplicationRevision>
+    <ApplicationVersion>5.0.2.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -223,9 +223,6 @@
   </ItemGroup>
   <ItemGroup>
     <SplashScreen Include="SplashScreen1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\e.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\appicon.ico" />

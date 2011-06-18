@@ -54,8 +54,7 @@ Public Class Window1
         If build = updatebuild Then
             ' Titles
             Me.Title = "No Update Available"
-            Me.TitleChecking.Visibility = Windows.Visibility.Hidden
-            Me.TitleNone.Visibility = Windows.Visibility.Visible
+            Me.TitleHeader.Text = "No Update Available"
             ' Image
             Me.ImageCheck.Visibility = Windows.Visibility.Hidden
             Me.ImageNone.Visibility = Windows.Visibility.Visible
@@ -66,8 +65,7 @@ Public Class Window1
         Else
             ' Titles
             Me.Title = "Update Available"
-            Me.TitleChecking.Visibility = Windows.Visibility.Hidden
-            Me.TitleAvailable.Visibility = Windows.Visibility.Visible
+            Me.TitleHeader.Text = "Update Available"
             ' Image
             Me.ImageCheck.Visibility = Windows.Visibility.Hidden
             Me.ImageAvailable.Visibility = Windows.Visibility.Visible
