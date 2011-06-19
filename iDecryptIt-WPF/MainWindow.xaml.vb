@@ -11,8 +11,7 @@ Public Class MainWindow
     Public rundir As String = Directory.GetCurrentDirectory()
     Public vfdecryptdir As String = rundir + "\VFDecrypt\"
     Public helpdir As String = rundir + "\help\"
-    Public Sub clearkeys()
-        ' This will be implemented in the next release
+    Public Sub clear()
         ' 1.x Final
         key1a543a.Text = "Unavailable"
         key1c25.Text = "Unavailable"
@@ -184,7 +183,7 @@ Public Class MainWindow
     End Sub
     Private Sub btniPad11_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPad11.Click
         ' iPad 1G Wi-Fi/Wi-Fi+GSM
-        Call clearkeys()
+        Call clear()
         ' 3.x Final
         key7b367.Text = "2be8f3a0a02f2d259c9b297cb2d156a85adf79fed4ffe88c546a42c2a47aa55f70cadebd"
         key7b405.Text = "c3d15c6dc3b289db4d90b59199c485486043bb534c14d21993e35f68f2c6c1804a9125a8"
@@ -212,7 +211,7 @@ Public Class MainWindow
     End Sub
     Private Sub btniPad21_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPad21.Click
         ' iPad 2 Wi-Fi
-        Call clearkeys()
+        Call clear()
         ' 4.x Final
         key8f191.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
         key8g4.Text = "6f7502e91f3239f907b6bf8955f191b276ec57c392d2beffb3fbc5392da0bc86e65d684e"
@@ -223,7 +222,7 @@ Public Class MainWindow
     End Sub
     Private Sub btniPad22_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPad22.Click
         ' iPad 2 GSM
-        Call clearkeys()
+        Call clear()
         ' 4.x Final
         key8f191.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
         key8g4.Text = "9bf08c4054e08cff7ff96f3b0f0cb6e809aa8676653b16443445ac990906bb5439f9504d"
@@ -234,7 +233,7 @@ Public Class MainWindow
     End Sub
     Private Sub btniPad23_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPad23.Click
         ' iPad 2 CDMA
-        Call clearkeys()
+        Call clear()
         ' 4.x Final
         key8f191.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
         key8g4.Text = "1c7414fb1820c1c0a61058587661b1c5fbb68fbeafb77f86014671ee5ddac8360d8cc352 (This doesn't"
@@ -245,7 +244,7 @@ Public Class MainWindow
     End Sub
     Private Sub btniPhone11_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPhone11.Click
         ' iPhone 1G GSM
-        Call clearkeys()
+        Call clear()
         ' 1.x Final
         key1a543a.Text = "28c909fc6d322fa18940f03279d70880e59a4507998347c70d5b8ca7ef090ecccc15e82d"
         key1c25.Text = "7d5962d0b582ec2557c2cade50de90f4353a1c1de07b74212513fef9cc71fb890574bfe5"
@@ -286,7 +285,7 @@ Public Class MainWindow
     End Sub
     Private Sub btniPhone12_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPhone12.Click
         ' iPhone 3G GSM
-        Call clearkeys()
+        Call clear()
         ' 2.x Final
         key5a345final.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
         key5a347.Text = "2cfca55aabb22fde7746e6a034f738b7795458be9902726002a8341995558990f41e3755"
@@ -334,7 +333,7 @@ Public Class MainWindow
     End Sub
     Private Sub btniPhone21_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPhone21.Click
         ' iPhone 3GS GSM
-        Call clearkeys()
+        Call clear()
         ' 3.x Final
         key7a341.Text = "7d779fed28961506ca9443de210224f211790192b2a2308b8bc0e7d4a2ca61a68e26200e"
         key7a400.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
@@ -376,7 +375,7 @@ Public Class MainWindow
     End Sub
     Private Sub btniPhone31_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPhone31.Click
         ' iPhone 4 GSM
-        Call clearkeys()
+        Call clear()
         ' 4.x Final
         key8a293final.Text = "8b2915719d9f90ba5521faad1eadbb3d942991bd55e5a0709f26e9db3931517e054afa50"
         key8a306.Text = "ebd8aea30e78053112c4062690723fc5ee8e53865d4d6591b64a08216337c5a7aefbc806"
@@ -404,18 +403,18 @@ Public Class MainWindow
     End Sub
     Private Sub btniPhone33_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPhone33.Click
         ' iPhone 4 CDMA
-        Call clearkeys()
+        Call clear()
         ' 4.x Final
         key8e128.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
         key8e200.Text = "723ded674deb1cba56a142542a0b06d2a483297f8056c0cfa70346c0724e1b0e03feded6"
         key8e303.Text = "612f78042ddc5337ab1abecfb59a07e88ed3e80665a035ef02c3c48045057fc29ab0a4b5"
         key8e401.Text = "d8e162215f27c016ed8d1849c6059f99984c766c72cec4a1df63724491c8e5b19c0e6fb2"
         ' 5.x Beta
-        key9a5220p.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key9a5220p.Text = "ffb3bbda6fe1512131d167985e0515de169a7d215b271d518c15d4373bed3ae75af64e5a"
     End Sub
     Private Sub btniPod11_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPod11.Click
         ' iPod touch 1G
-        Call clearkeys()
+        Call clear()
         ' 1.x Final
         key3a100a.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
         key3a101a.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
@@ -461,7 +460,7 @@ Public Class MainWindow
     End Sub
     Private Sub btniPod21_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPod21.Click
         ' iPod touch 2G
-        Call clearkeys()
+        Call clear()
         ' 2.x Final
         key5f138.Text = "d1b957a0a5e56903adc523c5fa99f5d165c3963aea48274770b766b44ecdebab7b5a8f30"
         key5g77a.Text = "148025cde5c51d51d7733e74c6857dfca70d7240287d6eb039a1ed835413120b0af1e296"
@@ -501,7 +500,7 @@ Public Class MainWindow
     End Sub
     Private Sub btniPod31_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPod31.Click
         ' iPod touch 3G
-        Call clearkeys()
+        Call clear()
         ' 3.x Final
         key7c145.Text = "de14c16e21ad5bb12fe572ca9400d29a4443ff208ec49c120ad72d6c3269fd5553047cdd"
         key7c146.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
@@ -537,7 +536,7 @@ Public Class MainWindow
     End Sub
     Private Sub btniPod41_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPod41.Click
         ' iPod touch 4G
-        Call clearkeys()
+        Call clear()
         ' 4.x Final
         key8b117.Text = "e7de54b25167afc66e381ade1d5e25c6392757497cfd92826a3111772731ba0b70742b90"
         key8b118.Text = "770b58765a3345004528fd9a2cbb7c3105137d0bd3a134a24679e6e173f32636d0485d06"
@@ -561,7 +560,7 @@ Public Class MainWindow
     End Sub
     Private Sub btnAppleTV21_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnAppleTV21.Click
         ' Apple TV 2G
-        Call clearkeys()
+        Call clear()
         ' 4.x Final ATV
         key8m89.Text = "31c700a852f1877c88efc05bc5c63e8c7f081c4cb28d024ed7f9b0dbc98c7e1406e499c6"
         key8c150.Text = "fd73cd898b7e55f9dc24092a4c574f1f284087075520a7d30232b0b6af8871743a0f0b82"
