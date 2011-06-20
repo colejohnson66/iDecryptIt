@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="iDecryptIt.exe" size="1118720">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="iDecryptIt.exe" size="1042944">
       <assemblyIdentity name="iDecryptIt" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>o57YHfA+Gp6MveguYodK0gH8rBA=</dsig:DigestValue>
+        <dsig:DigestValue>i3p1b84kyYCDhoA6Y9ETP/Mqh+E=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -132,13 +132,13 @@
       <dsig:DigestValue>6kthFHETYPhc28kF8OoIxVs1hcg=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="help\changelog.html" size="3345">
+  <file name="help\changelog.html" size="3483">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>7vVerC+UKPC9dRcpWaaGBxTNDP8=</dsig:DigestValue>
+      <dsig:DigestValue>mZKmPH1M1bzc2A/ZcKl9HBNCXLA=</dsig:DigestValue>
     </hash>
   </file>
   <file name="help\images\author.jpg" size="405316">

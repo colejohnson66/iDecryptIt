@@ -39,8 +39,8 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+    <DebugType>None</DebugType>
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <IncrementalBuild>true</IncrementalBuild>
@@ -196,7 +196,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\d.png" />
-    <Resource Include="Images\f.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="app.ico" />
@@ -236,9 +235,6 @@
     <Resource Include="Images\AppleTV2,1_16.png" />
     <Resource Include="Images\colestuff_16.png" />
     <Resource Include="Images\colestuff_32.png" />
-    <Resource Include="Images\DMG_16.png" />
-    <Resource Include="Images\DMG_256.png" />
-    <Resource Include="Images\DMG_32.png" />
     <Resource Include="Images\idecryptit_16.png" />
     <Resource Include="Images\idecryptit_256.png" />
     <Resource Include="Images\idecryptit_32.png" />
@@ -252,10 +248,6 @@
     <Resource Include="Images\iPod2,1_32.png" />
     <Resource Include="Images\iPod3,1_32.png" />
     <Resource Include="Images\iPod4,1_32.png" />
-    <Resource Include="Images\theiphonewiki_16.png" />
-    <Resource Include="Images\theiphonewiki_32.png" />
-    <Resource Include="Images\wikipedia_16.png" />
-    <Resource Include="Images\wikipedia_32.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\iPad2,1_32.png" />
@@ -306,11 +298,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Resource Include="Images\System-software-update_128.png" />
-    <Resource Include="Images\Software-update-urgent_128.png" />
     <Resource Include="Images\Package-x-generic_128.png" />
     <Resource Include="Images\Software-update-available_128.png" />
     <Resource Include="Images\Gnome-logviewer_32.png" />
-    <Resource Include="Images\Gnome-logviewer_64.png" />
     <Resource Include="Images\idecryptit_48.png" />
     <Resource Include="Images\System-software-update.ico" />
     <Resource Include="Images\localize.ico" />
@@ -331,6 +321,7 @@
     <Resource Include="Images\iPad2,3_16.png" />
     <Resource Include="Images\System-software-update_16.png" />
     <Resource Include="Images\System-software-update_32.png" />
+    <Resource Include="Images\Gnome-logviewer_16.png" />
     <Content Include="VFDecrypt\cygcrypto-0.9.8.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

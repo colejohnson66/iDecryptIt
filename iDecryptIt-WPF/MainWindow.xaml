@@ -5,9 +5,9 @@
         Title="iDecryptIt" 
         x:Name="RibbonWindow"
         Icon="app.ico"
-        WindowStyle="ThreeDBorderWindow"
-        Height="600" Width="800"
-        MinHeight="300" MinWidth="400">
+        WindowStyle="SingleBorderWindow"
+        Height="620" Width="800"
+        MinHeight="320" MinWidth="400">
     <Grid x:Name="LayoutRoot">
         <Grid.RowDefinitions>
             <RowDefinition Height="135"/>
@@ -32,14 +32,14 @@
             </ribbon:RibbonTab>
             <ribbon:RibbonTab x:Name="HelpTab" Header="Help">
                 <ribbon:RibbonGroup x:Name="HelpGroup" Header="Help" LargeImageSource="Images/idecryptit_32.png">
-                    <ribbon:RibbonButton x:Name="btnAbout" LargeImageSource="Images/idecryptit_32.png" Label="About iDecryptIt" />
-                    <ribbon:RibbonButton x:Name="btnVFDecrypt" LargeImageSource="Images/theiphonewiki_32.png" Label="About VFDecrypt" IsEnabled="False" />
-                    <ribbon:RibbonButton x:Name="btnColeStuff" LargeImageSource="Images/colestuff_32.png" Label="About Cole Stuff" IsEnabled="False" />
+                    <ribbon:RibbonButton x:Name="btnAbout" LargeImageSource="Images/idecryptit_32.png" SmallImageSource="Images/idecryptit_16.png" Label="About iDecryptIt" />
+                    <ribbon:RibbonButton x:Name="btnVFDecrypt" LargeImageSource="Images/theiphonewiki_32.png" SmallImageSource="Images/theiphonewiki_16.png" Label="About VFDecrypt" IsEnabled="False" />
+                    <ribbon:RibbonButton x:Name="btnColeStuff" LargeImageSource="Images/colestuff_32.png" SmallImageSource="Images/colestuff_16.png" Label="About Cole Stuff" IsEnabled="False" />
                     <ribbon:RibbonButton x:Name="btnREADME" Label="Readme" />
                 </ribbon:RibbonGroup>
                 <ribbon:RibbonGroup x:Name="ExtrasGroup" Header="Extras">
-                    <ribbon:RibbonButton x:Name="btnCheck4Updates" LargeImageSource="Images/System-software-update_32.png" Label="Check for Updates" />
-                    <ribbon:RibbonButton x:Name="btnChangelog" LargeImageSource="Images/Gnome-logviewer_32.png" Label="Changelog" />
+                    <ribbon:RibbonButton x:Name="btnCheck4Updates" LargeImageSource="Images/System-software-update_32.png" SmallImageSource="Images/System-software-update_16.png" Label="Check for Updates" />
+                    <ribbon:RibbonButton x:Name="btnChangelog" LargeImageSource="Images/Gnome-logviewer_32.png" SmallImageSource="Images/Gnome-logviewer_16.png" Label="Changelog" />
                 </ribbon:RibbonGroup>
             </ribbon:RibbonTab>
             <ribbon:RibbonTab x:Name="KeyListTab" Header="Keys">
@@ -53,7 +53,7 @@
                     <ribbon:RibbonButton x:Name="btniPad23" SmallImageSource="Images\iPad2,3_16.png" Label="iPad 2 (CDMA)" />
                 </ribbon:RibbonGroup>
                 <ribbon:RibbonGroup x:Name="iPhone_group" Header="iPhone" LargeImageSource="Images\iPhone3,3_32.png">
-                    <ribbon:RibbonButton x:Name="btniPhone11" SmallImageSource="Images\iPhone1,1_16.png" Label="iPhone 1G" />
+                    <ribbon:RibbonButton x:Name="btniPhone11" SmallImageSource="Images\iPhone1,1_16.png" Label="iPhone 2G" />
                     <ribbon:RibbonButton x:Name="btniPhone12" SmallImageSource="Images\iPhone1,2_16.png" Label="iPhone 3G" />
                     <ribbon:RibbonButton x:Name="btniPhone21" SmallImageSource="Images\iPhone2,1_16.png" Label="iPhone 3GS" />
                     <ribbon:RibbonButton x:Name="btniPhone31" SmallImageSource="Images\iPhone3,1_16.png" Label="iPhone 4 GSM" />
@@ -76,7 +76,7 @@
                             <ColumnDefinition Width="6" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="6" />
-                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="120" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="23" />
@@ -151,7 +151,7 @@
                             <ColumnDefinition Width="6" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="6" />
-                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="120" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="23" />
@@ -175,7 +175,7 @@
                             <ColumnDefinition Width="6" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="6" />
-                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="120" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="23" />
@@ -246,7 +246,7 @@
                             <ColumnDefinition Width="6" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="6" />
-                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="120" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="23" />
@@ -315,7 +315,7 @@
                             <ColumnDefinition Width="6" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="6" />
-                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="120" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="23" />
@@ -381,7 +381,7 @@
                             <ColumnDefinition Width="6" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="6" />
-                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="120" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="23" />
@@ -437,7 +437,7 @@
                             <ColumnDefinition Width="6" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="6" />
-                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="120" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="23" />
@@ -543,7 +543,7 @@
                             <ColumnDefinition Width="6" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="6" />
-                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="120" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="23" />
@@ -592,7 +592,7 @@
                             <ColumnDefinition Width="6" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="6" />
-                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="120" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="23" />
@@ -707,7 +707,7 @@
                             <ColumnDefinition Width="6" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="6" />
-                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="120" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="23" />
