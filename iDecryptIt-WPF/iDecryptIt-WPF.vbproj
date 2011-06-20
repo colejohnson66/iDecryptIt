@@ -305,7 +305,6 @@
     <Resource Include="Images\System-software-update.ico" />
     <Resource Include="Images\localize.ico" />
     <Resource Include="Images\localize_64.png" />
-    <Resource Include="Images\Media-playback-start_64.png" />
     <Resource Include="Images\iPod1,1_16.png" />
     <Resource Include="Images\iPod2,1_16.png" />
     <Resource Include="Images\iPod3,1_16.png" />
@@ -322,6 +321,7 @@
     <Resource Include="Images\System-software-update_16.png" />
     <Resource Include="Images\System-software-update_32.png" />
     <Resource Include="Images\Gnome-logviewer_16.png" />
+    <Resource Include="Images\Media-playback-start_32.png" />
     <Content Include="VFDecrypt\cygcrypto-0.9.8.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

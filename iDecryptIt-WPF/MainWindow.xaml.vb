@@ -2,7 +2,7 @@
 Public Class MainWindow
     ' Localization
     Public localizelang As Microsoft.Win32.RegistryKey
-    Public selectedlang As String = "en-US"
+    Public selectedlang As String = "en"
     Public languageselected As String
     ' Windows
     Public updatepane As Window = New Window1
@@ -706,6 +706,6 @@ Public Class MainWindow
             localizelang.SetValue("language", selectedlang)
         End If
         ' Failsafe
-        languageselected = localizelang.GetValue("language", "en-US")
+        languageselected = localizelang.GetValue("language", "en")
     End Sub
 End Class
