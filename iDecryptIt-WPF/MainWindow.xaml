@@ -33,7 +33,7 @@
             <ribbon:RibbonTab x:Name="HelpTab" Header="Help">
                 <ribbon:RibbonGroup x:Name="HelpGroup" Header="Help" LargeImageSource="Images/idecryptit_32.png">
                     <ribbon:RibbonButton x:Name="btnAbout" LargeImageSource="Images/idecryptit_32.png" SmallImageSource="Images/idecryptit_16.png" Label="About iDecryptIt" />
-                    <ribbon:RibbonButton x:Name="btnVFDecrypt" LargeImageSource="Images/theiphonewiki_32.png" SmallImageSource="Images/theiphonewiki_16.png" Label="About VFDecrypt" IsEnabled="False" />
+                    <ribbon:RibbonButton x:Name="btnVFDecrypt" IsEnabled="False" />
                     <ribbon:RibbonButton x:Name="btnColeStuff" LargeImageSource="Images/colestuff_32.png" SmallImageSource="Images/colestuff_16.png" Label="About Cole Stuff" IsEnabled="False" />
                     <ribbon:RibbonButton x:Name="btnREADME" Label="Readme" />
                 </ribbon:RibbonGroup>
