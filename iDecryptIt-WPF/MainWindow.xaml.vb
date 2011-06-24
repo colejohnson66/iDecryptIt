@@ -121,6 +121,7 @@ Public Class MainWindow
         key8f190beta.Text = "Unavailable"
         ' 5.x Beta
         key9a5220p.Text = "Unavailable"
+        key9a5248d.Text = "Unavailable"
     End Sub
     Public Sub cleardmgs()
         ' 1.x Final
@@ -228,6 +229,7 @@ Public Class MainWindow
         dmg8f190beta.Text = "XXX-XXXX-XXX.dmg"
         ' 5.x Beta
         dmg9a5220p.Text = "XXX-XXXX-XXX.dmg"
+        dmg9a5248d.Text = "XXX-XXXX-XXX.dmg"
     End Sub
     Public Sub cleanup()
         File.Delete(rundir + "\major.txt")
@@ -319,6 +321,7 @@ Public Class MainWindow
         key8f190beta.Text = "890650c3aa3be7c4d6f3473776580acf6781688e6342ed15441a299142fe4c5e933fc89d"
         ' 5.x Beta
         key9a5220p.Text = "7fc183f7b7fe6f1d27783e2608b7f4df74acc9d9416382d419484c66ed16b18fe2d6a3b0"
+        key9a5248d.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
     End Sub
     Private Sub btniPad21_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPad21.Click
         ' iPad 2 Wi-Fi
@@ -330,6 +333,7 @@ Public Class MainWindow
         key8j2.Text = "7ac7018b57235d34fcbe0c84713ea7c6c482322559336845d299508f6a8643c2078de051"
         ' 5.x Beta
         key9a5220p.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key9a5248d.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
     End Sub
     Private Sub btniPad22_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPad22.Click
         ' iPad 2 GSM
@@ -341,6 +345,7 @@ Public Class MainWindow
         key8j2.Text = "990d84816fa06083f4fc778f3e4a03b2bc4e302d8b9998c2ac87d6c0e43cfabc1b0615d4"
         ' 5.x Beta
         key9a5220p.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key9a5248d.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
     End Sub
     Private Sub btniPad23_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPad23.Click
         ' iPad 2 CDMA
@@ -352,6 +357,7 @@ Public Class MainWindow
         key8j2.Text = "18516a9744529fcf5f01cc12b86fe5db614db6d688d826f20d501b343199f2de921a6310"
         ' 5.x Beta
         key9a5220p.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key9a5248d.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
     End Sub
     Private Sub btniPhone11_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPhone11.Click
         ' iPhone 1G GSM
@@ -483,6 +489,7 @@ Public Class MainWindow
         key8f190beta.Text = "95028f5804a6d675190adedc0aa91385e17589f720c517615367d69c63e0c969121aaec6"
         ' 5.x Beta
         key9a5220p.Text = "b0f31d60ec84f1e3430c7f7753055bdd70d394b4fe5bb378af23d5a833584570538bb33b"
+        key9a5248d.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
     End Sub
     Private Sub btniPhone31_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPhone31.Click
         ' iPhone 4 GSM
@@ -511,6 +518,7 @@ Public Class MainWindow
         key8f190beta.Text = "34904e749a8c5cfabecc6c3340816d85e7fc4de61c968ca93be621a9b9520d6466a1456a"
         ' 5.x Beta
         key9a5220p.Text = "ddd6f84e0450d2ea0cfb16d652a6dcc50d9a4e5be2225f9f4e1e22a7dd6cf686a34fb257"
+        key9a5248d.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
     End Sub
     Private Sub btniPhone33_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPhone33.Click
         ' iPhone 4 CDMA
@@ -522,6 +530,7 @@ Public Class MainWindow
         key8e401.Text = "d8e162215f27c016ed8d1849c6059f99984c766c72cec4a1df63724491c8e5b19c0e6fb2"
         ' 5.x Beta
         key9a5220p.Text = "ffb3bbda6fe1512131d167985e0515de169a7d215b271d518c15d4373bed3ae75af64e5a"
+        key9a5248d.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
     End Sub
     Private Sub btniPod11_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPod11.Click
         ' iPod touch 1G
@@ -644,6 +653,7 @@ Public Class MainWindow
         key8f190beta.Text = "cca43b420c4ffefb23a9b5e1605db40df1d89cb13d5951e22b7dda5a35a5cb2dcde85e4a"
         ' 5.x Beta
         key9a5220p.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key9a5248d.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
     End Sub
     Private Sub btniPod41_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPod41.Click
         ' iPod touch 4G
@@ -668,6 +678,7 @@ Public Class MainWindow
         key8f190beta.Text = "b5eefbaf0046a79c689ff07e66ee8045f859dab1ee16d44d15606c1918e5afd323f2db07"
         ' 5.x Beta
         key9a5220p.Text = "c35b6897e048e3e6ea454016089891db0c34a3b30b3777d5db9b8cfaa0ceed82e771b2ed"
+        key9a5248d.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
     End Sub
     Private Sub btnAppleTV21_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnAppleTV21.Click
         ' Apple TV 2G
@@ -685,6 +696,7 @@ Public Class MainWindow
         key8f5166b.Text = "b87f853c8f45aab846ebb507fbfca1039ab3dd7aed32076599d79070bc05240f59957064"
         ' 5.x Beta
         key9a5220p.Text = "91adee4d938e7f1ab7d9aa0863d9bb58b1056f410b7c1f28444ae1a293d3262cf1622402"
+        key9a5248d.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
     End Sub
     Private Sub btnClearKey_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnClearKey.Click
         Me.textDecryptKey.Text = ""
