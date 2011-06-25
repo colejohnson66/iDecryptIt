@@ -1,9 +1,6 @@
 ﻿Imports System.IO
 Public Class MainWindow
-    ' Localization
-    Public localizelang As Microsoft.Win32.RegistryKey
-    Public selectedlang As String = "en"
-    Public languageselected As String
+    Public nokey As String = "None Published"
     ' Windows
     Public updatepane As Window = New Window1
     Public updatepaneopened As Boolean = False
@@ -309,55 +306,54 @@ Public Class MainWindow
         key8j3.Text = "765d0fecc4f714ca20fa6eceeabb454b04cd2998cc3ab3bba290866788a8c6cf555945ac"
         ' 4.x Beta
         key8c5091e.Text = "c26445bf3f81c6a6d0e0eeed7acbf3c4d801c9e9116504076c8cf959902233a6bf674d46"
-        key8c5101c.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key8c5101c.Text = nokey
         key8c5115c.Text = "a764534161493bdcc4545ee0640d1525edc17f8cc03b4bb1dedb98b765865d8ec12908f2"
         key8c134.Text = "d70754df24b2be5231a7b98089ef30c8699e96445fdf2b23e9b1ace0b6e1e1ed2258e957"
         key8c134b.Text = "8df8ebc5a47e60baa66dc66f8b4cdbcbe2f8591c67a287c122a66d45f0152d49838b1392"
         key8c148beta.Text = "6380bc27ef713750c21759ce770cb6540a8e31fca4c78820fd7be3a02030365a59257582"
         key8f5148b.Text = "7620a160832d8ed43aee376179d28eccf51d50ac38caccd5990db6f10849aa39e3fdc942"
-        key8f5148c.Text = "Unavailable"
         key8f5153d.Text = "3c9787acfa79fea382ec4f4d00c0f8c59f241df42cf36ab647be085476173e5625cc687a"
         key8f5166b.Text = "55f5f54a3e2e1c84b3a90a50cc2c5e9c2754f2b8bfc8abcf3d3778f8fb2ba34cfca6ea96"
         key8f190beta.Text = "890650c3aa3be7c4d6f3473776580acf6781688e6342ed15441a299142fe4c5e933fc89d"
         ' 5.x Beta
         key9a5220p.Text = "7fc183f7b7fe6f1d27783e2608b7f4df74acc9d9416382d419484c66ed16b18fe2d6a3b0"
-        key9a5248d.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key9a5248d.Text = "e7da8e8f233a929736e1d68a6e738c27cb44a2188cc0f06e52dbcf875446e87bbdc332a3"
     End Sub
     Private Sub btniPad21_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPad21.Click
         ' iPad 2 Wi-Fi
         Call clear()
         ' 4.x Final
-        key8f191.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key8f191.Text = nokey
         key8g4.Text = "6f7502e91f3239f907b6bf8955f191b276ec57c392d2beffb3fbc5392da0bc86e65d684e"
         key8h7.Text = "51e154b3f8baadceb317ad6e815b7f75bc956c1fa1f213d7a344e5a6eda4a54b7e79bb50"
         key8j2.Text = "7ac7018b57235d34fcbe0c84713ea7c6c482322559336845d299508f6a8643c2078de051"
         ' 5.x Beta
-        key9a5220p.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
-        key9a5248d.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key9a5220p.Text = nokey
+        key9a5248d.Text = nokey
     End Sub
     Private Sub btniPad22_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPad22.Click
         ' iPad 2 GSM
         Call clear()
         ' 4.x Final
-        key8f191.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key8f191.Text = nokey
         key8g4.Text = "9bf08c4054e08cff7ff96f3b0f0cb6e809aa8676653b16443445ac990906bb5439f9504d"
         key8h7.Text = "30584c8087f5b7cbc64a9fd0533cc25c69e4844b0b465092b7e30f0074356ce889914481"
         key8j2.Text = "990d84816fa06083f4fc778f3e4a03b2bc4e302d8b9998c2ac87d6c0e43cfabc1b0615d4"
         ' 5.x Beta
-        key9a5220p.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
-        key9a5248d.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key9a5220p.Text = nokey
+        key9a5248d.Text = nokey
     End Sub
     Private Sub btniPad23_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPad23.Click
         ' iPad 2 CDMA
         Call clear()
         ' 4.x Final
-        key8f191.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
-        key8g4.Text = "1c7414fb1820c1c0a61058587661b1c5fbb68fbeafb77f86014671ee5ddac8360d8cc352 (This doesn't"
-        key8h8.Text = "1c7414fb1820c1c0a61058587661b1c5fbb68fbeafb77f86014671ee5ddac8360d8cc352 look right)"
+        key8f191.Text = nokey
+        key8g4.Text = "1c7414fb1820c1c0a61058587661b1c5fbb68fbeafb77f86014671ee5ddac8360d8cc352"
+        key8h8.Text = "1c7414fb1820c1c0a61058587661b1c5fbb68fbeafb77f86014671ee5ddac8360d8cc352"
         key8j2.Text = "18516a9744529fcf5f01cc12b86fe5db614db6d688d826f20d501b343199f2de921a6310"
         ' 5.x Beta
-        key9a5220p.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
-        key9a5248d.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key9a5220p.Text = nokey
+        key9a5248d.Text = nokey
     End Sub
     Private Sub btniPhone11_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPhone11.Click
         ' iPhone 1G GSM
@@ -387,9 +383,9 @@ Public Class MainWindow
         key5a292g.Text = "890b1fbf22975e0d4be2ea3f9bc5c87f38fd8158394fd31cf80a43ad25547573bbd0ec4e"
         key5a308.Text = "3964ca8d8bf5d3715cdc172986f2d9606672c54d5e0aa3f3a892166b4e54e4cefef21279"
         key5a331.Text = "33d9a9832a108fc5084fc9329d6e84e38edf06e380554c49376b70e951f8a8d1ed943f819"
-        key5a345beta.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key5a345beta.Text = nokey
         key5f90.Text = "f61c14aa0d53386dd42c49163686e8ccdeb86d14aafdecfe99c2e12c41a7f9f2811daa3d"
-        key5g27.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key5g27.Text = nokey
         ' 3.x Final
         key7a341.Text = "25cce378de209d8fb6ec45ecbe7525695272b81fe38bbad76e979ac3921c3614ed162c87"
         key7a400.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
@@ -397,22 +393,22 @@ Public Class MainWindow
         key7d11.Text = "fe431a1e436e5298d3c871359768aab43189fd5e7375a2ced3405dd8a223879a4d64a28e"
         key7e18.Text = "3c0f821663316c08a0a059c2979ecf47d13b363de3a44010d0de0b0a5cf878cfe39d00c3"
         ' 3.x Beta
-        key7a280f.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
-        key7a300g.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key7a280f.Text = nokey
+        key7a300g.Text = nokey
     End Sub
     Private Sub btniPhone12_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPhone12.Click
         ' iPhone 3G GSM
         Call clear()
         ' 2.x Final
-        key5a345final.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key5a345final.Text = nokey
         key5a347.Text = "2cfca55aabb22fde7746e6a034f738b7795458be9902726002a8341995558990f41e3755"
         key5b108.Text = "2cfca55aabb22fde7746e6a034f738b7795458be9902726002a8341995558990f41e3755"
         key5c1.Text = "31e3ff09ff046d5237187346ee893015354d2135e3f0f39480be63dd2a18444961c2da5d"
-        key5f136.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
-        key5g77.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
-        key5h11.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key5f136.Text = nokey
+        key5g77.Text = nokey
+        key5h11.Text = nokey
         ' 2.x Beta
-        key5g27.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key5g27.Text = nokey
         ' 3.x Final
         key7a341.Text = "8d5d1fea02d627c9e9b0d994c3cfdeaab9780c86ac908db15461efe44eddd19f8924b6b2"
         key7a400.Text = "62deb9e26f11ef6d0ce2afc85becdcf65b81486b3430a9930cccaccd6879c405e06d8ac3"
@@ -422,12 +418,12 @@ Public Class MainWindow
         ' 3.x Beta
         key7a238j.Text = "e14a53de98b86018e9054b567c491bea9f55235729b3728315ab0b1ed0c82e568a35c0ba"
         key7a259g.Text = "59a86b5a4fcc76fcade07fddf72c72d36a6e105bc0c727f508f2b1313eb1b74d97ca8a81"
-        key7a280f.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
-        key7a300g.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key7a280f.Text = nokey
+        key7a300g.Text = nokey
         key7a312g.Text = "f7b1edb0ee9196a1393dccdc8d090051308b84ab322bf860cb1d3ca566ef2e29752fa79a"
         key7c97d.Text = "f526d42d44dcf61dadf5a0b4be7eb18dafd66c88ec6d91e3ac2f08d3179b63ce64108530"
         key7c106c.Text = "53d70939701dc784e38ab2861d85548937a2a187ad05006556cbc4183962a4aceafcbead"
-        key7c116a.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key7c116a.Text = nokey
         ' 4.x Final
         key8a293final.Text = "09e054a8dd6c11c7f41ad9e614a8d564aa7d0c653585f29c0b07d1f0a1e1dc0040624a16"
         key8a306.Text = "38a4937108c1c271c82013dff870bab10793292ab594ae7878175cf2bfb6bb9633419ff9"
@@ -436,15 +432,15 @@ Public Class MainWindow
         key8c148final.Text = "82c9280927224637c77a96a26d22f42f2ca08fa9a798a8d06fbc8202fc83ec7f45dda79e"
         ' 4.x Beta
         key8a230m.Text = "0da2d3316d5ee7cd1858e4035e451387cd8156e97535fb09028859e68e5b7b39a6649552"
-        key8a248c.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key8a248c.Text = nokey
         key8a260b.Text = "fd5f13cf40acec55cf2c8f59b009c26cd5cc7676be5c305333650632a3898ebea060b259"
         key8a274b.Text = "21d0c050aa528124eb5e0a998fe4a7581e7325ce38c3b3ebaf36cc5b326d8c1859e49c2e"
-        key8a293beta.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key8a293beta.Text = nokey
         key8b5080c.Text = "980269f302a65bf50a9f800b46da74a2e83a498c69244a618827e1ebddbfc334c3da2ea3"
-        key8b5091b.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
-        key8c5091e.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
-        key8c5101c.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
-        key8c5115c.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key8b5091b.Text = nokey
+        key8c5091e.Text = nokey
+        key8c5101c.Text = nokey
+        key8c5115c.Text = nokey
         key8c134.Text = "f0db1eef22f887fd7c232812acc374d8e14cc382e4fea72766d08a96d4c175478bc6470a"
         key8c148beta.Text = "82c9280927224637c77a96a26d22f42f2ca08fa9a798a8d06fbc8202fc83ec7f45dda79e"
     End Sub
@@ -453,14 +449,14 @@ Public Class MainWindow
         Call clear()
         ' 3.x Final
         key7a341.Text = "7d779fed28961506ca9443de210224f211790192b2a2308b8bc0e7d4a2ca61a68e26200e"
-        key7a400.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key7a400.Text = nokey
         key7c144.Text = "b9cd10dd88ab615c1963e8aa04950b12dd64e0e5b11ea63c79a02af6db62334c710d21da"
         key7d11.Text = "47d76295817f74953f8e557b4917fe2201e9778a9900e43fbf311a83f176fe521b996a4b"
         key7e18.Text = "9b3fd35bad7d5307d85ce4b38b8e56bd680ef5a72a8f3b615f8d4f16c14bdcf3c3b24c6c"
         ' 3.x Beta
-        key7c97d.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
-        key7c106c.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
-        key7c116a.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key7c97d.Text = nokey
+        key7c106c.Text = nokey
+        key7c116a.Text = nokey
         ' 4.x Final
         key8a293final.Text = "5d79765bc3233cbee58727c17a9487e5dc1e38400c2a98c30997bb02d00e97ae3ce5fab8"
         key8a306.Text = "5d9385452d9ce0fe0185dfc59a7cbb1015d086ce53ff769e78dd45bc6e4eeb48c60e2952"
@@ -477,10 +473,10 @@ Public Class MainWindow
         key8a260b.Text = "9623f11023fb5260b68c5982caf15591b0432f69160065fac42dcda449a3f284fbddac2a"
         key8a274b.Text = "fb604c6359adc0a52c6fabc0b70a9b11eaee45d36c906e1510b2a6a42e25228283866a5e"
         key8a293beta.Text = "9f5df1142f09cf9cb38e08af4f7f56e3d9e748a86ab7e7e556d8f1ff029e5a9a83b35211"
-        key8b5080c.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
-        key8b5091b.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
-        key8c5091e.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
-        key8c5101c.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key8b5080c.Text = nokey
+        key8b5091b.Text = nokey
+        key8c5091e.Text = nokey
+        key8c5101c.Text = nokey
         key8c134.Text = "7920ced8bd8d1fb160536c7e853680fe7fa6827e8f5371a5af5cbc6d2b2d92b23dc2b41b"
         key8c148beta.Text = "97a8b688acf744c09ac4afe130d96b55b8a68c4ec007dfc6a6c8f810a09b91d4d80d8f29"
         key8f5148b.Text = "15130edaeb5897edf079f89e4224f435edf3986b9f72bd3079509ab623adcb0a600200ed"
@@ -489,7 +485,7 @@ Public Class MainWindow
         key8f190beta.Text = "95028f5804a6d675190adedc0aa91385e17589f720c517615367d69c63e0c969121aaec6"
         ' 5.x Beta
         key9a5220p.Text = "b0f31d60ec84f1e3430c7f7753055bdd70d394b4fe5bb378af23d5a833584570538bb33b"
-        key9a5248d.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key9a5248d.Text = "11e80b9d23f6d1ba1eea0adf759f6bfec40399edddfe37a94152e357b0c9064b09b95515"
     End Sub
     Private Sub btniPhone31_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPhone31.Click
         ' iPhone 4 GSM
@@ -505,8 +501,8 @@ Public Class MainWindow
         key8h7.Text = "30804cac61ba4df96999aa4e1ea3a2a18bfbe875534a66a0bb1add095e307a19a7176c82"
         key8j2.Text = "246f17ec6660672b3207ece257938704944a83601205736409b61fc3565512559abd0f82"
         ' 4.x Beta
-        key8b5080c.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
-        key8b5091b.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key8b5080c.Text = nokey
+        key8b5091b.Text = nokey
         key8c5091e.Text = "1fb04279ce6d3de5b01d48de766e3bd41db7006437cf9775d4e8685ac560d719e8864f8b"
         key8c5101c.Text = "fcf31267972d0db5e58181d547022c4832be70b309438364358ba78ad3b8764daa8270c4"
         key8c5115c.Text = "ee8c534a2cb539385c787092bd2e43dcb4040392b223d9d01d840b32348144a39f9898ef"
@@ -518,26 +514,26 @@ Public Class MainWindow
         key8f190beta.Text = "34904e749a8c5cfabecc6c3340816d85e7fc4de61c968ca93be621a9b9520d6466a1456a"
         ' 5.x Beta
         key9a5220p.Text = "ddd6f84e0450d2ea0cfb16d652a6dcc50d9a4e5be2225f9f4e1e22a7dd6cf686a34fb257"
-        key9a5248d.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key9a5248d.Text = "0c5387489bd9a4380691047e1880737df22ae2c7dd689f31669d00481b11249d868d591b"
     End Sub
     Private Sub btniPhone33_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPhone33.Click
         ' iPhone 4 CDMA
         Call clear()
         ' 4.x Final
-        key8e128.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key8e128.Text = nokey
         key8e200.Text = "723ded674deb1cba56a142542a0b06d2a483297f8056c0cfa70346c0724e1b0e03feded6"
         key8e303.Text = "612f78042ddc5337ab1abecfb59a07e88ed3e80665a035ef02c3c48045057fc29ab0a4b5"
         key8e401.Text = "d8e162215f27c016ed8d1849c6059f99984c766c72cec4a1df63724491c8e5b19c0e6fb2"
         ' 5.x Beta
         key9a5220p.Text = "ffb3bbda6fe1512131d167985e0515de169a7d215b271d518c15d4373bed3ae75af64e5a"
-        key9a5248d.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key9a5248d.Text = "4a63f44750adb005b4252f39afd3299e68be3336f33540d15a43aebc4625f20d33f3afdf"
     End Sub
     Private Sub btniPod11_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPod11.Click
         ' iPod touch 1G
         Call clear()
         ' 1.x Final
-        key3a100a.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
-        key3a101a.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key3a100a.Text = nokey
+        key3a101a.Text = nokey
         key3a110a.Text = "d45b837ddd85bdae0ec82a033ba00ea03ceb8c827040034f7554c65d6376472844b8dc6a"
         key3b48b.Text = "70e11d7209602ada5b15fbecc1709ad4910d0ad010bb9a9125b78f9f50e25f3e05c595e2"
         key4a93.Text = "11070c11d93b9be5069b643204451ed95aad37df7b332d10e48fd3d23c62fca517055816"
@@ -546,12 +542,12 @@ Public Class MainWindow
         ' 1.x Beta
         key5a147p.Text = "86bec353ddfbe3fb750e9d7905801f79791e69acf65d16930d288e697644c76f16c4f16d"
         ' 2.x Final
-        key5a347.Text = "2cfca55aabb22fde7746e6a034f738b7795458be9902726002a8341995558990f41e3755 (This doesn't"
-        key5b108.Text = "2cfca55aabb22fde7746e6a034f738b7795458be9902726002a8341995558990f41e3755 look right)"
+        key5a347.Text = "2cfca55aabb22fde7746e6a034f738b7795458be9902726002a8341995558990f41e3755"
+        key5b108.Text = "2cfca55aabb22fde7746e6a034f738b7795458be9902726002a8341995558990f41e3755"
         key5c1.Text = "31e3ff09ff046d5237187346ee893015354d2135e3f0f39480be63dd2a18444961c2da5d"
         key5f137.Text = "9714f2cb955afa550d6287a1c7dd7bd0efb3c26cf74b948de7c43cf934913df69fc5a05f"
-        key5g77.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
-        key5h11.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key5g77.Text = nokey
+        key5h11.Text = nokey
         ' 2.x Beta
         key5a225c.Text = "ea14f3ec624c7fdbd52e108aa92d13b16f6b0b940c841f7bbc7792099dae45da928d13e7"
         key5a240d.Text = "e24bfab40a2e5d3dc25e089291846e5615b640897ae8b424946c587bcf53b201a1041d36"
@@ -560,23 +556,23 @@ Public Class MainWindow
         key5a292g.Text = "890b1fbf22975e0d4be2ea3f9bc5c87f38fd8158394fd31cf80a43ad25547573bbd0ec4e"
         key5a308.Text = "3964ca8d8bf5d3715cdc172986f2d9606672c54d5e0aa3f3a892166b4e54e4cefef21279"
         key5a331.Text = "3d9a9832a108fc5084fc9329d6e84e38edf06e380554c49376b70e951f8a8d1ed943f819"
-        key5a345beta.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key5a345beta.Text = nokey
         key5f90.Text = "f61c14aa0d53386dd42c49163686e8ccdeb86d14aafdecfe99c2e12c41a7f9f2811daa3d"
-        key5g27.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key5g27.Text = nokey
         ' 3.x Final
         key7a341.Text = "16fdad25424dc17008728e89f4900b887732dcc5fb48eedc9f1c9433af558db705eb0577"
         key7c145.Text = "b609c19727813cd4e544919fb1732acb0aebeed814dce672bafe03056a1e8e1b7d4f8f71"
-        key7d11.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key7d11.Text = nokey
         key7e18.Text = "467e695041d01e3f58886314bfe70c9b89a7f0c09d6622931f57d1cfa1f7abd9c307563a"
         ' 3.x Beta
         key7a238j.Text = "23f22d7ad042ed8afd3e712987022dc4d34921f69db9050e81148616b99319dc7faafa24"
         key7a259g.Text = "8391ccb34883271fd18c1deed24fd67cab0b3dc56e167c1852c19f49d91aa7ddac1fbc7f"
-        key7a280f.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
-        key7a300g.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key7a280f.Text = nokey
+        key7a300g.Text = nokey
         key7a312g.Text = "52830814758d6d3b91e5fb40356c98919091C2a272ec66d9d4fd331eb33d4f60c91c15fc"
-        key7c97d.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
-        key7c106c.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
-        key7c116a.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key7c97d.Text = nokey
+        key7c106c.Text = nokey
+        key7c116a.Text = nokey
     End Sub
     Private Sub btniPod21_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPod21.Click
         ' iPod touch 2G
@@ -592,13 +588,13 @@ Public Class MainWindow
         key7e18.Text = "2360d83b606481a5ca080fe7a6fc64f8d5a5556413dfcf3e1277fe564734ee0b188798b8"
         ' 3.x Beta
         key7a238j.Text = "f25c95fc2db995275ebc0f7786f0c5358c109db8a2af1ff3ed93d2ef3e026123f131ff0b"
-        key7a259g.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
-        key7a280f.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
-        key7a300g.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
-        key7a312g.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key7a259g.Text = nokey
+        key7a280f.Text = nokey
+        key7a300g.Text = nokey
+        key7a312g.Text = nokey
         key7c97d.Text = "2e6803af2724480b1252c3420ec51da1dc8729b8f8082a72fd2fc8d4963e18fa2fd825dd"
-        key7c106c.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
-        key7c116a.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key7c106c.Text = nokey
+        key7c116a.Text = nokey
         ' 4.x Final
         key8a293final.Text = "fcada08311f553b2d7194c97922e01c821b632bf62e64500056ea37e56343e6131a9839b"
         key8a400.Text = "5d1655d3cd7c6ffb4a5e48a52ea8a265579c655aa39ed8613239e57f20f132e4e3b5ffa1"
@@ -611,8 +607,8 @@ Public Class MainWindow
         key8a274b.Text = "a11b9a603bd1bfe5f4aa2a6a708c0038b94c51b91b04ece49b842266f4afada60ff2c995"
         key8a293beta.Text = "8811ded8264fff60660128f0c29f3d7e25f1293bc6290f62c2ce28480df778b2ff1426e9"
         key8b5080.Text = "5aa1334dd6c2315554711585210a0afeb3acfab36185a13e58046e529b9aea2b75a42cec"
-        key8b5091b.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
-        key8c5091e.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key8b5091b.Text = nokey
+        key8c5091e.Text = nokey
         key8c5101c.Text = "88c28b50065c1131f8898c97643b885e05c1c5cad83fbf6efc1c44baca5fbf44ea3ec155"
         key8c5115c.Text = "da0243fa2e3e42356c2453b300c4579d500023a9b939d4f19e336228663628cfa9c2e8b3"
         key8c134.Text = "6099be47ee6b867eb85aca33eab34d0713cdc7a6a017c91b537f3dfd8c8370e03b7e7a1c"
@@ -623,7 +619,7 @@ Public Class MainWindow
         Call clear()
         ' 3.x Final
         key7c145.Text = "de14c16e21ad5bb12fe572ca9400d29a4443ff208ec49c120ad72d6c3269fd5553047cdd"
-        key7c146.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key7c146.Text = nokey
         key7d11.Text = "1e05ef21821280869d4029a2328836b9f60bc63907c6e951c0f1c80c2d8c66aef5c39a44"
         key7e18.Text = "1402974cba4702e831fb821ef9090229f7bad6fd3084fa99bfc8a76de4d839f9bf4533eb"
         ' 4.x Final
@@ -631,29 +627,29 @@ Public Class MainWindow
         key8a400.Text = "4e164b7c39c8e0234787f7b9ae204adf1e3a66d472f1dce1db41e42ba87d1ff5722a7689"
         key8b117.Text = "69e2ca7a250765c95a703081d1195e681fbe82f31162b79fd2b70754629b0352694b9eda"
         key8c148final.Text = "abd68f16920490865a09e559123db1f471ff19743ad15ea8b970a73e28f5efc6c6e76925"
-        key8g4.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key8g4.Text = nokey
         key8h7.Text = "7085a2976bd57eceedcbbe88a270e1a5028133c288b8afb122c2f886830a9a641daf8bd4"
         key8j2.Text = "affbe8f884694f4a3848097fa22a71bc1de24b070aa7e79f58a0880602dd21444cd559f2"
         ' 4.x Beta
         key8a230m.Text = "382dee11b9d80387b16ac2030ee1e903b78d9743a31a18bcafc922b7921eca85ab0aebf7"
-        key8a248c.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
-        key8a260b.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key8a248c.Text = nokey
+        key8a260b.Text = nokey
         key8a274b.Text = "e37aebb23cef6c2d4b43924722a03a44f8680591a1d29112fddf16da36a275996cdf8782"
         key8a293beta.Text = "ddd5c2872ca8e460acf1159940f198df43089176cd8d10adbef8fe4b79f4f4a030fe3e86"
-        key8b5080.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
-        key8b5091b.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
-        key8c5091e.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
-        key8c5101c.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key8b5080.Text = nokey
+        key8b5091b.Text = nokey
+        key8c5091e.Text = nokey
+        key8c5101c.Text = nokey
         key8c5115c.Text = "c21dd42a12cad2f5430c1ece6f7548e8b77ce1eca344b2bb24392ac45c303f42cd76d5de"
         key8c134.Text = "a9751de0d5c47c7c67244966714e9432cc08e3d81c3a1d94483d1df5d0712ce3e7562069"
         key8c148beta.Text = "abd68f16920490865a09e559123db1f471ff19743ad15ea8b970a73e28f5efc6c6e76925"
-        key8f5148b.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
-        key8f5153d.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
-        key8f5166b.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key8f5148b.Text = nokey
+        key8f5153d.Text = nokey
+        key8f5166b.Text = nokey
         key8f190beta.Text = "cca43b420c4ffefb23a9b5e1605db40df1d89cb13d5951e22b7dda5a35a5cb2dcde85e4a"
         ' 5.x Beta
-        key9a5220p.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
-        key9a5248d.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key9a5220p.Text = nokey
+        key9a5248d.Text = nokey
     End Sub
     Private Sub btniPod41_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPod41.Click
         ' iPod touch 4G
@@ -667,7 +663,7 @@ Public Class MainWindow
         key8h7.Text = "401b22ae26cca1aa2e119c17a6c389a1ba6aea0fbff4912000a77df953f010637b35d0ee"
         key8j2.Text = "d2877c05eb72e55d52d4e5e71c523a503c5bb8c85f6c7077d821140beea967782d30858d"
         ' 4.x Beta
-        key8c5091e.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key8c5091e.Text = nokey
         key8c5101c.Text = "146f6663f4073f2963af8abcbbe863598fe17ade32b852224eafb6897d1f6a51b407b514"
         key8c5115c.Text = "b72646053d205ffe249694de3fc8a62e6041d19f7f5be36537e891bdc954672cb7078a1b"
         key8c134.Text = "9e724a5712486a6609c9a1fe3e4addd8abe41957428532a6d0733cff92de877c1efcef1b"
@@ -678,7 +674,7 @@ Public Class MainWindow
         key8f190beta.Text = "b5eefbaf0046a79c689ff07e66ee8045f859dab1ee16d44d15606c1918e5afd323f2db07"
         ' 5.x Beta
         key9a5220p.Text = "c35b6897e048e3e6ea454016089891db0c34a3b30b3777d5db9b8cfaa0ceed82e771b2ed"
-        key9a5248d.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key9a5248d.Text = "81aa75d2c9b0f2c777ac0879e1326c98d5fed533dac4d5cea3e9eabec96b8161b947aa6e"
     End Sub
     Private Sub btnAppleTV21_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnAppleTV21.Click
         ' Apple TV 2G
@@ -696,7 +692,7 @@ Public Class MainWindow
         key8f5166b.Text = "b87f853c8f45aab846ebb507fbfca1039ab3dd7aed32076599d79070bc05240f59957064"
         ' 5.x Beta
         key9a5220p.Text = "91adee4d938e7f1ab7d9aa0863d9bb58b1056f410b7c1f28444ae1a293d3262cf1622402"
-        key9a5248d.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key9a5248d.Text = "7bf1338a764b9e566982f86a95e597aae247cff3b55f30aeb7f61ec35a1f5b43e6d78773"
     End Sub
     Private Sub btnClearKey_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnClearKey.Click
         Me.textDecryptKey.Text = ""
@@ -706,18 +702,5 @@ Public Class MainWindow
     End Sub
     Private Sub MainWindow_Loaded(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles Me.Loaded
         Call cleanup()
-        Call localize()
-    End Sub
-    Public Sub localize()
-        localizelang = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\\Cole Stuff\\iDecryptIt", True)
-        If localizelang Is Nothing Then
-            localizelang = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("SOFTWARE\\Cole Stuff\\iDecryptIt")
-            localizelang = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\\Cole Stuff\\iDecryptIt", True)
-            ' Open window to select language and then set language to registry
-
-            localizelang.SetValue("language", selectedlang)
-        End If
-        ' Failsafe
-        languageselected = localizelang.GetValue("language", "en")
     End Sub
 End Class

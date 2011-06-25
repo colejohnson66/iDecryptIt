@@ -30,7 +30,7 @@
     <SuiteName>Cole Stuff</SuiteName>
     <MinimumRequiredVersion>1.0.0.0</MinimumRequiredVersion>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>423</ApplicationRevision>
+    <ApplicationRevision>442</ApplicationRevision>
     <ApplicationVersion>5.0.2.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -115,9 +115,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="SelectLang.xaml.vb">
-      <DependentUpon>SelectLang.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Window1.xaml.vb">
       <DependentUpon>Window1.xaml</DependentUpon>
     </Compile>
@@ -133,10 +130,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="SelectLang.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Window1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -193,9 +186,6 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <AppDesigner Include="My Project\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\d.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="app.ico" />
@@ -303,8 +293,6 @@
     <Resource Include="Images\Gnome-logviewer_32.png" />
     <Resource Include="Images\idecryptit_48.png" />
     <Resource Include="Images\System-software-update.ico" />
-    <Resource Include="Images\localize.ico" />
-    <Resource Include="Images\localize_64.png" />
     <Resource Include="Images\iPod1,1_16.png" />
     <Resource Include="Images\iPod2,1_16.png" />
     <Resource Include="Images\iPod3,1_16.png" />
@@ -321,7 +309,14 @@
     <Resource Include="Images\System-software-update_16.png" />
     <Resource Include="Images\System-software-update_32.png" />
     <Resource Include="Images\Gnome-logviewer_16.png" />
-    <Resource Include="Images\Media-playback-start_32.png" />
+    <Resource Include="Images\theiphonewiki_16.png" />
+    <Resource Include="Images\theiphonewiki_32.png" />
+    <Resource Include="Images\Help-browser_16.png" />
+    <Resource Include="Images\Help-browser_32.png" />
+    <Resource Include="Images\System-users_16.png" />
+    <Resource Include="Images\System-users_32.png" />
+    <Resource Include="Images\Unlocked_16.png" />
+    <Resource Include="Images\Unlocked_32.png" />
     <Content Include="VFDecrypt\cygcrypto-0.9.8.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

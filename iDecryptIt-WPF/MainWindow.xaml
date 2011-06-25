@@ -15,8 +15,8 @@
         </Grid.RowDefinitions>
         <ribbon:Ribbon x:Name="Ribbon" Grid.Row="0" Height="135">
             <ribbon:RibbonTab x:Name="HomeTab" Header="Home">
-                <ribbon:RibbonGroup x:Name="VFDecrypt" Header="VFDecrypt" LargeImageSource="Images/d.png">
-                    <ribbon:RibbonButton x:Name="btnDecrypt" LargeImageSource="Images/d.png" Label="Decrypt" />
+                <ribbon:RibbonGroup x:Name="VFDecrypt" Header="VFDecrypt" LargeImageSource="/iDecryptIt;component/Images/Unlocked_32.png" SmallImageSource="Images/Unlocked_16.png">
+                    <ribbon:RibbonButton x:Name="btnDecrypt" LargeImageSource="/iDecryptIt;component/Images/Unlocked_32.png" Label="Decrypt" />
                     <ribbon:RibbonTextBox x:Name="textInputFileName" Label="Input File: " TextBoxWidth="250" />
                     <ribbon:RibbonTextBox x:Name="textOuputFileName" Label="Output File: " TextBoxWidth="250" />
                     <ribbon:RibbonButton x:Name="btnSelectVFDecryptInutFile" Label="Select Input File" />
@@ -33,13 +33,14 @@
             <ribbon:RibbonTab x:Name="HelpTab" Header="Help">
                 <ribbon:RibbonGroup x:Name="HelpGroup" Header="Help" LargeImageSource="Images/idecryptit_32.png">
                     <ribbon:RibbonButton x:Name="btnAbout" LargeImageSource="Images/idecryptit_32.png" SmallImageSource="Images/idecryptit_16.png" Label="About iDecryptIt" />
-                    <ribbon:RibbonButton x:Name="btnVFDecrypt" IsEnabled="False" />
+                    <ribbon:RibbonButton x:Name="btnVFDecrypt" LargeImageSource="Images/theiphonewiki_32.png" SmallImageSource="Images/theiphonewiki_16.png" Label="About VFDecrypt" IsEnabled="False" />
                     <ribbon:RibbonButton x:Name="btnColeStuff" LargeImageSource="Images/colestuff_32.png" SmallImageSource="Images/colestuff_16.png" Label="About Cole Stuff" IsEnabled="False" />
-                    <ribbon:RibbonButton x:Name="btnREADME" Label="Readme" />
+                    <ribbon:RibbonButton x:Name="btnREADME" LargeImageSource="Images/Help-browser_32.png" SmallImageSource="Images/Help-browser_16.png" Label="Readme" />
                 </ribbon:RibbonGroup>
                 <ribbon:RibbonGroup x:Name="ExtrasGroup" Header="Extras">
                     <ribbon:RibbonButton x:Name="btnCheck4Updates" LargeImageSource="Images/System-software-update_32.png" SmallImageSource="Images/System-software-update_16.png" Label="Check for Updates" />
                     <ribbon:RibbonButton x:Name="btnChangelog" LargeImageSource="Images/Gnome-logviewer_32.png" SmallImageSource="Images/Gnome-logviewer_16.png" Label="Changelog" />
+                    <ribbon:RibbonButton x:Name="btnHelpOut" LargeImageSource="Images/System-users_32.png" SmallImageSource="Images/System-users_16.png" Label="Publish Key" IsEnabled="False" />
                 </ribbon:RibbonGroup>
             </ribbon:RibbonTab>
             <ribbon:RibbonTab x:Name="KeyListTab" Header="Keys">
