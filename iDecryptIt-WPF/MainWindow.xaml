@@ -15,8 +15,8 @@
         </Grid.RowDefinitions>
         <ribbon:Ribbon x:Name="Ribbon" Grid.Row="0" Height="135">
             <ribbon:RibbonTab x:Name="HomeTab" Header="Home">
-                <ribbon:RibbonGroup x:Name="VFDecrypt" Header="VFDecrypt" LargeImageSource="/iDecryptIt;component/Images/Unlocked_32.png" SmallImageSource="Images/Unlocked_16.png">
-                    <ribbon:RibbonButton x:Name="btnDecrypt" LargeImageSource="/iDecryptIt;component/Images/Unlocked_32.png" Label="Decrypt" />
+                <ribbon:RibbonGroup x:Name="VFDecrypt" Header="VFDecrypt" LargeImageSource="Images/Unlocked_32.png" SmallImageSource="Images/Unlocked_16.png">
+                    <ribbon:RibbonButton x:Name="btnDecrypt" LargeImageSource="Images/Unlocked_32.png" Label="Decrypt" />
                     <ribbon:RibbonTextBox x:Name="textInputFileName" Label="Input File: " TextBoxWidth="250" />
                     <ribbon:RibbonTextBox x:Name="textOuputFileName" Label="Output File: " TextBoxWidth="250" />
                     <ribbon:RibbonButton x:Name="btnSelectVFDecryptInutFile" Label="Select Input File" />

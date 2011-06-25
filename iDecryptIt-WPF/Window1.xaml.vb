@@ -12,7 +12,7 @@ Public Class Window1
     Public minor As String = "00"
     Public updateminor As String = ""
     Public updateminorurl As String = "http://theiphonewiki.com/wiki/index.php?title=User:Balloonhead66/Latest_stable_software_release/iDecryptIt/minor&action=raw"
-    Public rev As String = "1"
+    Public rev As String = "2"
     Public updaterev As String = ""
     Public updaterevurl As String = "http://theiphonewiki.com/wiki/index.php?title=User:Balloonhead66/Latest_stable_software_release/iDecryptIt/revision&action=raw"
     Public build As String = "1E06"
