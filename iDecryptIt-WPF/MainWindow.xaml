@@ -17,16 +17,15 @@
             <ribbon:RibbonTab x:Name="HomeTab" Header="Home">
                 <ribbon:RibbonGroup x:Name="VFDecrypt" Header="VFDecrypt" LargeImageSource="Images/Unlocked_32.png" SmallImageSource="Images/Unlocked_16.png">
                     <ribbon:RibbonButton x:Name="btnDecrypt" LargeImageSource="Images/Unlocked_32.png" Label="Decrypt" />
-                    <ribbon:RibbonTextBox x:Name="textInputFileName" Label="Input File: " TextBoxWidth="250" />
-                    <ribbon:RibbonTextBox x:Name="textOuputFileName" Label="Output File: " TextBoxWidth="250" />
+                    <ribbon:RibbonTextBox x:Name="textInputFileName" Label="Input File: " TextBoxWidth="150" />
+                    <ribbon:RibbonTextBox x:Name="textOuputFileName" Label="Output File: " TextBoxWidth="150" />
                     <ribbon:RibbonButton x:Name="btnSelectVFDecryptInutFile" Label="Select Input File" />
                     <ribbon:RibbonTextBox x:Name="textDecryptKey" Label="Key: " />
                     <ribbon:RibbonButton x:Name="btnClearKey" Label="Clear Key" />
                 </ribbon:RibbonGroup>
                 <ribbon:RibbonGroup x:Name="Extract" Header="Extract" LargeImageSource="Images/7zip_32.png" IsEnabled="False">
                     <ribbon:RibbonButton x:Name="btnExtract" LargeImageSource="Images/7zip_32.png" Label="Extact" />
-                    <ribbon:RibbonTextBox x:Name="textExtractFileName" Label="Input File: " />
-                    <ribbon:RibbonTextBox x:Name="textExtractDir" Label="Extract Directory: " />
+                    <ribbon:RibbonTextBox x:Name="textExtractFileName" Label="Input File: " TextBoxWidth="150" />
                     <ribbon:RibbonButton x:Name="btnSelectExtractFile" Label="Select Input File" />
                 </ribbon:RibbonGroup>
             </ribbon:RibbonTab>

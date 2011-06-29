@@ -8,6 +8,7 @@ Public Class MainWindow
     Public rundir As String = Directory.GetCurrentDirectory()
     Public vfdecryptdir As String = rundir + "\VFDecrypt\"
     Public helpdir As String = rundir + "\help\"
+    Public sevenzipdir As String = rundir + "\7z\"
     Public Sub clear()
         Call clearkeys()
         Call cleardmgs()
