@@ -120,6 +120,7 @@ Public Class MainWindow
         ' 5.x Beta
         key9a5220p.Text = "Unavailable"
         key9a5248d.Text = "Unavailable"
+        key9a5259f.Text = "Unavailable"
     End Sub
     Public Sub cleardmgs()
         ' 1.x Final
@@ -228,6 +229,7 @@ Public Class MainWindow
         ' 5.x Beta
         dmg9a5220p.Text = "XXX-XXXX-XXX.dmg"
         dmg9a5248d.Text = "XXX-XXXX-XXX.dmg"
+        dmg9a5259f.Text = "XXX-XXXX-XXX.dmg"
     End Sub
     Public Sub cleanup()
         File.Delete(rundir + "\major.txt")
@@ -319,6 +321,7 @@ Public Class MainWindow
         ' 5.x Beta
         key9a5220p.Text = "7fc183f7b7fe6f1d27783e2608b7f4df74acc9d9416382d419484c66ed16b18fe2d6a3b0"
         key9a5248d.Text = "e7da8e8f233a929736e1d68a6e738c27cb44a2188cc0f06e52dbcf875446e87bbdc332a3"
+        key9a5259f.Text = nokey
     End Sub
     Private Sub btniPad21_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPad21.Click
         ' iPad 2 Wi-Fi
@@ -331,6 +334,7 @@ Public Class MainWindow
         ' 5.x Beta
         key9a5220p.Text = nokey
         key9a5248d.Text = nokey
+        key9a5259f.Text = nokey
     End Sub
     Private Sub btniPad22_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPad22.Click
         ' iPad 2 GSM
@@ -343,6 +347,7 @@ Public Class MainWindow
         ' 5.x Beta
         key9a5220p.Text = nokey
         key9a5248d.Text = nokey
+        key9a5259f.Text = nokey
     End Sub
     Private Sub btniPad23_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPad23.Click
         ' iPad 2 CDMA
@@ -355,6 +360,7 @@ Public Class MainWindow
         ' 5.x Beta
         key9a5220p.Text = nokey
         key9a5248d.Text = nokey
+        key9a5259f.Text = nokey
     End Sub
     Private Sub btniPhone11_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPhone11.Click
         ' iPhone 1G GSM
@@ -487,6 +493,7 @@ Public Class MainWindow
         ' 5.x Beta
         key9a5220p.Text = "b0f31d60ec84f1e3430c7f7753055bdd70d394b4fe5bb378af23d5a833584570538bb33b"
         key9a5248d.Text = "11e80b9d23f6d1ba1eea0adf759f6bfec40399edddfe37a94152e357b0c9064b09b95515"
+        key9a5259f.Text = nokey
     End Sub
     Private Sub btniPhone31_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPhone31.Click
         ' iPhone 4 GSM
@@ -516,6 +523,7 @@ Public Class MainWindow
         ' 5.x Beta
         key9a5220p.Text = "ddd6f84e0450d2ea0cfb16d652a6dcc50d9a4e5be2225f9f4e1e22a7dd6cf686a34fb257"
         key9a5248d.Text = "0c5387489bd9a4380691047e1880737df22ae2c7dd689f31669d00481b11249d868d591b"
+        key9a5259f.Text = nokey
     End Sub
     Private Sub btniPhone33_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPhone33.Click
         ' iPhone 4 CDMA
@@ -528,6 +536,7 @@ Public Class MainWindow
         ' 5.x Beta
         key9a5220p.Text = "ffb3bbda6fe1512131d167985e0515de169a7d215b271d518c15d4373bed3ae75af64e5a"
         key9a5248d.Text = "4a63f44750adb005b4252f39afd3299e68be3336f33540d15a43aebc4625f20d33f3afdf"
+        key9a5259f.Text = nokey
     End Sub
     Private Sub btniPod11_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPod11.Click
         ' iPod touch 1G
@@ -651,6 +660,7 @@ Public Class MainWindow
         ' 5.x Beta
         key9a5220p.Text = nokey
         key9a5248d.Text = nokey
+        key9a5259f.Text = nokey
     End Sub
     Private Sub btniPod41_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPod41.Click
         ' iPod touch 4G
@@ -676,6 +686,7 @@ Public Class MainWindow
         ' 5.x Beta
         key9a5220p.Text = "c35b6897e048e3e6ea454016089891db0c34a3b30b3777d5db9b8cfaa0ceed82e771b2ed"
         key9a5248d.Text = "81aa75d2c9b0f2c777ac0879e1326c98d5fed533dac4d5cea3e9eabec96b8161b947aa6e"
+        key9a5259f.Text = "93095c15c02d45aa28679ac18a31d01ec14834f19ccea33c159a9a78010963bb86babe92"
     End Sub
     Private Sub btnAppleTV21_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnAppleTV21.Click
         ' Apple TV 2G
