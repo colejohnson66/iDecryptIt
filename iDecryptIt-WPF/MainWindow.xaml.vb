@@ -1,9 +1,37 @@
 ﻿Imports System.IO
 Public Class MainWindow
+    ' Localization and Strings
+    ' NOTE: Apple TV, iPad, iPhone, and iPod touch do not translate to anything w/o ruining the word
+    ' NOTE: Little notes on the tabs are not translated
+    ' NOTE: Check for Updates is not translated
+    ' NOTE: This may contain errors as this is Google Translate
     Public nokey As String = "None Published"
+    Public esnokey As String = "Ninguno de publicación"
+    Public eshome As String = "casa"
+    Public esvfdecrypt As String = "VFDescifrar"
+    Public esdecrypt As String = "Descifrar"
+    Public esinputfile As String = "Archivo de entrada:"
+    Public esoutputfile As String = "De salida del archivo:"
+    Public esselectinputfile As String = "Seleccione Archivo de entrada"
+    Public eskey As String = "Clave"
+    Public esclearkey As String = "tecla de borrado"
+    Public esextract As String = "Extraer"
+    Public eshelp As String = "Ayuda"
+    Public esabout As String = "Acerca de" 'This can be added to the beginning of anything in the help tab
+    Public escolestuff As String = "Cole Cosas"
+    Public esreadme As String = "Léame"
+    Public esextas As String = "Más" ' More
+    Public escheckforupdates As String = "Buscar actualizaciones"
+    Public eschangelog As String = "Cambios"
+    Public espublishkey As String = "Publicar Clave"
+    Public eschangelanguage As String = "Cambio de idioma"
+    Public esfinal As String = "Pasado" ' Last
+    Public esbeta As String = "Prueba" ' Test
+    Public esprototype As String = esbeta ' For 1A420 (1.0)
     ' Windows
     Public updatepane As Window = New Window1
     Public updatepaneopened As Boolean = False
+    Public selectlang As Window = New SelectLangControl
     ' File paths
     Public rundir As String = Directory.GetCurrentDirectory()
     Public vfdecryptdir As String = rundir + "\VFDecrypt\"
@@ -321,7 +349,7 @@ Public Class MainWindow
         ' 5.x Beta
         key9a5220p.Text = "7fc183f7b7fe6f1d27783e2608b7f4df74acc9d9416382d419484c66ed16b18fe2d6a3b0"
         key9a5248d.Text = "e7da8e8f233a929736e1d68a6e738c27cb44a2188cc0f06e52dbcf875446e87bbdc332a3"
-        key9a5259f.Text = nokey
+        key9a5259f.Text = "7c160fc06ccd135f426e5787232cdbb77eaa73ad06939c21d67d0c16d3b0db75fedc0f49"
     End Sub
     Private Sub btniPad21_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPad21.Click
         ' iPad 2 Wi-Fi
@@ -715,5 +743,16 @@ Public Class MainWindow
     End Sub
     Private Sub MainWindow_Loaded(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles Me.Loaded
         Call cleanup()
+        Dim langcode As Microsoft.Win32.RegistryKey
+        langcode = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\\Cole Stuff\\iDecryptIt", True)
+        If langcode Is Nothing Then
+            ' langcode = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("SOFTWARE\\Cole Stuff\\iDecryptIt")
+            ' langcode = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\\Cole Stuff\\iDecryptIt", True)
+            ' Open window to select language and then set language to registry
+            selectlang.Show()
+        End If
+    End Sub
+    Private Sub btnChangeLanguage_Click(sender As Object, e As System.Windows.RoutedEventArgs) Handles btnChangeLanguage.Click
+        selectlang.Show()
     End Sub
 End Class

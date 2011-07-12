@@ -64,3 +64,5 @@ C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\bin\Debug\help\changelog.h
 C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\obj\x86\Debug\Window1.baml
 C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\obj\x86\Debug\Window1.g.vb
 C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\obj\x86\Debug\Application.baml
+C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\obj\x86\Debug\SelectLangControl.baml
+C:\Users\Cole\Documents\SVN\iDecryptIt\iDecryptIt-WPF\obj\x86\Debug\SelectLangControl.g.vb
