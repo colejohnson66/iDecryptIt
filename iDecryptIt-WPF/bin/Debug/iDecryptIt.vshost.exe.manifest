@@ -50,7 +50,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>xK1pqazGG2qUhM/+6HEWbFjDf7g=</dsig:DigestValue>
+        <dsig:DigestValue>lLDZDBk12C7TjPAX8lfgEY8Egcc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -132,13 +132,13 @@
       <dsig:DigestValue>6kthFHETYPhc28kF8OoIxVs1hcg=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="help\changelog.html" size="3883">
+  <file name="help\changelog.html" size="3915">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>3fDB3NUkp67W1nivFTrp1Cey76Q=</dsig:DigestValue>
+      <dsig:DigestValue>ZXsu8Qx074fsLhx5BlaFLOvBK7c=</dsig:DigestValue>
     </hash>
   </file>
   <file name="help\images\author.jpg" size="405316">

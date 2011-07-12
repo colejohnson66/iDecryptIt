@@ -536,7 +536,7 @@ Public Class MainWindow
         ' 5.x Beta
         key9a5220p.Text = "ffb3bbda6fe1512131d167985e0515de169a7d215b271d518c15d4373bed3ae75af64e5a"
         key9a5248d.Text = "4a63f44750adb005b4252f39afd3299e68be3336f33540d15a43aebc4625f20d33f3afdf"
-        key9a5259f.Text = nokey
+        key9a5259f.Text = "92d11a5be2dc74af784c8a3d34a79bf3d5e6bffac6f21e4dbd6208e8d8cccd7003f43126"
     End Sub
     Private Sub btniPod11_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPod11.Click
         ' iPod touch 1G
@@ -705,6 +705,7 @@ Public Class MainWindow
         ' 5.x Beta
         key9a5220p.Text = "91adee4d938e7f1ab7d9aa0863d9bb58b1056f410b7c1f28444ae1a293d3262cf1622402"
         key9a5248d.Text = "7bf1338a764b9e566982f86a95e597aae247cff3b55f30aeb7f61ec35a1f5b43e6d78773"
+        key9a5259f.Text = "37c0ea663c670500c99424031e54a9d4d55e1156914a95ba54a62335c9e5f13d5c2cfe14"
     End Sub
     Private Sub btnClearKey_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnClearKey.Click
         Me.textDecryptKey.Text = ""
