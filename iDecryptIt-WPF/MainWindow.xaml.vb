@@ -5,6 +5,7 @@ Public Class MainWindow
     ' NOTE: Little notes on the tabs are not translated
     ' NOTE: Check for Updates is not translated
     ' NOTE: This may contain errors as this is Google Translate
+    ' NOTE: Web does not need to be translated
     Public wantedlang As String
     Public nokey As String = "None Published"
     Public esnokey As String = "Ninguno de publicación"
