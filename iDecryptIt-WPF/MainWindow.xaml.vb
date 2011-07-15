@@ -5,6 +5,7 @@ Public Class MainWindow
     ' NOTE: Little notes on the tabs are not translated
     ' NOTE: Check for Updates is not translated
     ' NOTE: This may contain errors as this is Google Translate
+    Public wantedlang As String
     Public nokey As String = "None Published"
     Public esnokey As String = "Ninguno de publicación"
     Public eshome As String = "casa"
@@ -25,6 +26,7 @@ Public Class MainWindow
     Public eschangelog As String = "Cambios"
     Public espublishkey As String = "Publicar Clave"
     Public eschangelanguage As String = "Cambio de idioma"
+    Public eskeys As String = "las claves"
     Public esfinal As String = "Pasado" ' Last
     Public esbeta As String = "Prueba" ' Test
     Public esprototype As String = esbeta ' For 1A420 (1.0)
@@ -111,6 +113,7 @@ Public Class MainWindow
         key8e200.Text = "Unavailable"
         key8e303.Text = "Unavailable"
         key8e401.Text = "Unavailable"
+        key8e501.Text = "Unavailable"
         key8f190final.Text = "Unavailable"
         key8f191.Text = "Unavailable"
         key8g4.Text = "Unavailable"
@@ -118,6 +121,7 @@ Public Class MainWindow
         key8h8.Text = "Unavailable"
         key8j2.Text = "Unavailable"
         key8j3.Text = "Unavailable"
+        key8k2.Text = "Unavailable"
         ' 4.x Final ATV
         key8m89.Text = "Unavailable"
         key8c150.Text = "Unavailable"
@@ -220,6 +224,7 @@ Public Class MainWindow
         dmg8e200.Text = "XXX-XXXX-XXX.dmg"
         dmg8e303.Text = "XXX-XXXX-XXX.dmg"
         dmg8e401.Text = "XXX-XXXX-XXX.dmg"
+        dmg8e501.Text = "XXX-XXXX-XXX.dmg"
         dmg8f190final.Text = "XXX-XXXX-XXX.dmg"
         dmg8f191.Text = "XXX-XXXX-XXX.dmg"
         dmg8g4.Text = "XXX-XXXX-XXX.dmg"
@@ -227,6 +232,7 @@ Public Class MainWindow
         dmg8h8.Text = "XXX-XXXX-XXX.dmg"
         dmg8j2.Text = "XXX-XXXX-XXX.dmg"
         dmg8j3.Text = "XXX-XXXX-XXX.dmg"
+        dmg8k2.Text = "XXX-XXXX-XXX.dmg"
         ' 4.x Final ATV
         dmg8m89.Text = "XXX-XXXX-XXX.dmg"
         dmg8c150.Text = "XXX-XXXX-XXX.dmg"
@@ -283,6 +289,9 @@ Public Class MainWindow
         procNlite.Start()
         procNlite.WaitForExit()
     End Sub
+    Private Sub btnChangeLanguage_Click(sender As Object, e As System.Windows.RoutedEventArgs) Handles btnChangeLanguage.Click
+        selectlang.Show()
+    End Sub
     Private Sub btnDecrypt_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnDecrypt.Click
         DoCMD(vfdecryptdir + "vfdecrypt.exe", _
             " -i " & Chr(34) & Me.textInputFileName.Text & Chr(34) & _
@@ -335,6 +344,7 @@ Public Class MainWindow
         key8g4.Text = "c309657d0abe1b66b4be046bb4b03fb540741f9cbc1e49951cf21e11332d9b0b66afd31e"
         key8h7.Text = "25c0b2a27afd23b9ddc9555a28ba8e77548e62d9e2ef56700bc40d22b2c50416aee9313c"
         key8j3.Text = "765d0fecc4f714ca20fa6eceeabb454b04cd2998cc3ab3bba290866788a8c6cf555945ac"
+        key8k2.Text = "aa3f737295c1d7a1e0539b8b1a02310b9ec7503be6ed05b88520e50a1a006f4b270b3e9f"
         ' 4.x Beta
         key8c5091e.Text = "c26445bf3f81c6a6d0e0eeed7acbf3c4d801c9e9116504076c8cf959902233a6bf674d46"
         key8c5101c.Text = nokey
@@ -359,6 +369,7 @@ Public Class MainWindow
         key8g4.Text = "6f7502e91f3239f907b6bf8955f191b276ec57c392d2beffb3fbc5392da0bc86e65d684e"
         key8h7.Text = "51e154b3f8baadceb317ad6e815b7f75bc956c1fa1f213d7a344e5a6eda4a54b7e79bb50"
         key8j2.Text = "7ac7018b57235d34fcbe0c84713ea7c6c482322559336845d299508f6a8643c2078de051"
+        key8k2.Text = nokey
         ' 5.x Beta
         key9a5220p.Text = nokey
         key9a5248d.Text = nokey
@@ -372,6 +383,7 @@ Public Class MainWindow
         key8g4.Text = "9bf08c4054e08cff7ff96f3b0f0cb6e809aa8676653b16443445ac990906bb5439f9504d"
         key8h7.Text = "30584c8087f5b7cbc64a9fd0533cc25c69e4844b0b465092b7e30f0074356ce889914481"
         key8j2.Text = "990d84816fa06083f4fc778f3e4a03b2bc4e302d8b9998c2ac87d6c0e43cfabc1b0615d4"
+        key8k2.Text = nokey
         ' 5.x Beta
         key9a5220p.Text = nokey
         key9a5248d.Text = nokey
@@ -385,6 +397,7 @@ Public Class MainWindow
         key8g4.Text = "1c7414fb1820c1c0a61058587661b1c5fbb68fbeafb77f86014671ee5ddac8360d8cc352"
         key8h8.Text = "1c7414fb1820c1c0a61058587661b1c5fbb68fbeafb77f86014671ee5ddac8360d8cc352"
         key8j2.Text = "18516a9744529fcf5f01cc12b86fe5db614db6d688d826f20d501b343199f2de921a6310"
+        key8k2.Text = nokey
         ' 5.x Beta
         key9a5220p.Text = nokey
         key9a5248d.Text = nokey
@@ -518,6 +531,7 @@ Public Class MainWindow
         key8f5153d.Text = "ac704d0287cb4dc835252e84a9f244bc7da16c0227776271940ae097ae52ca94bd7c6e68"
         key8f5166b.Text = "35180cdade1149fcbc061d6cafea436155b5d75540960d68ebbed56e8d0da862b8a2707d"
         key8f190beta.Text = "95028f5804a6d675190adedc0aa91385e17589f720c517615367d69c63e0c969121aaec6"
+        key8k2.Text = nokey
         ' 5.x Beta
         key9a5220p.Text = "b0f31d60ec84f1e3430c7f7753055bdd70d394b4fe5bb378af23d5a833584570538bb33b"
         key9a5248d.Text = "11e80b9d23f6d1ba1eea0adf759f6bfec40399edddfe37a94152e357b0c9064b09b95515"
@@ -548,6 +562,7 @@ Public Class MainWindow
         key8f5153d.Text = "da556a06a2695098f7222557ffb0ecab976995b6ca9032996eed0311fb2841c1fc59f7da"
         key8f5166b.Text = "80c9b3147d4928be874a2f920fb78595403c7ca6f9de6c877ccc07dcdfe9279c44d08e83"
         key8f190beta.Text = "34904e749a8c5cfabecc6c3340816d85e7fc4de61c968ca93be621a9b9520d6466a1456a"
+        key8k2.Text = nokey
         ' 5.x Beta
         key9a5220p.Text = "ddd6f84e0450d2ea0cfb16d652a6dcc50d9a4e5be2225f9f4e1e22a7dd6cf686a34fb257"
         key9a5248d.Text = "0c5387489bd9a4380691047e1880737df22ae2c7dd689f31669d00481b11249d868d591b"
@@ -561,6 +576,7 @@ Public Class MainWindow
         key8e200.Text = "723ded674deb1cba56a142542a0b06d2a483297f8056c0cfa70346c0724e1b0e03feded6"
         key8e303.Text = "612f78042ddc5337ab1abecfb59a07e88ed3e80665a035ef02c3c48045057fc29ab0a4b5"
         key8e401.Text = "d8e162215f27c016ed8d1849c6059f99984c766c72cec4a1df63724491c8e5b19c0e6fb2"
+        key8e501.Text = "e5eed79ba8d2341dfaddeebfa38a86d8b95af4a711054a0ab2e058694c13c814fa39a4ba"
         ' 5.x Beta
         key9a5220p.Text = "ffb3bbda6fe1512131d167985e0515de169a7d215b271d518c15d4373bed3ae75af64e5a"
         key9a5248d.Text = "4a63f44750adb005b4252f39afd3299e68be3336f33540d15a43aebc4625f20d33f3afdf"
@@ -668,6 +684,7 @@ Public Class MainWindow
         key8g4.Text = nokey
         key8h7.Text = "7085a2976bd57eceedcbbe88a270e1a5028133c288b8afb122c2f886830a9a641daf8bd4"
         key8j2.Text = "affbe8f884694f4a3848097fa22a71bc1de24b070aa7e79f58a0880602dd21444cd559f2"
+        key8k2.Text = nokey
         ' 4.x Beta
         key8a230m.Text = "382dee11b9d80387b16ac2030ee1e903b78d9743a31a18bcafc922b7921eca85ab0aebf7"
         key8a248c.Text = nokey
@@ -701,6 +718,7 @@ Public Class MainWindow
         key8g4.Text = "2cce34479eeb3701b3888f81c0465d2d98133af3a2761d0a82ad5074ca8efc1c5593eccb"
         key8h7.Text = "401b22ae26cca1aa2e119c17a6c389a1ba6aea0fbff4912000a77df953f010637b35d0ee"
         key8j2.Text = "d2877c05eb72e55d52d4e5e71c523a503c5bb8c85f6c7077d821140beea967782d30858d"
+        key8k2.Text = "c71cb13f356620fdf7b1ab93470e3cff4d7f0f005d36bff5a6c3f8e60ab48e5b9d93841c"
         ' 4.x Beta
         key8c5091e.Text = nokey
         key8c5101c.Text = "146f6663f4073f2963af8abcbbe863598fe17ade32b852224eafb6897d1f6a51b407b514"
@@ -746,13 +764,51 @@ Public Class MainWindow
         Dim langcode As Microsoft.Win32.RegistryKey
         langcode = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\\Cole Stuff\\iDecryptIt", True)
         If langcode Is Nothing Then
-            ' langcode = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("SOFTWARE\\Cole Stuff\\iDecryptIt")
-            ' langcode = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\\Cole Stuff\\iDecryptIt", True)
-            ' Open window to select language and then set language to registry
             selectlang.Show()
+        Else
+            wantedlang = Microsoft.Win32.Registry.GetValue("HKEY_CURRENT_USER\SOFTWARE\\Cole Stuff\\iDecryptIt", "language", "en")
+            If wantedlang = "en" Then
+            ElseIf wantedlang = "es" Then
+                Call setlanges()
+            End If
         End If
     End Sub
-    Private Sub btnChangeLanguage_Click(sender As Object, e As System.Windows.RoutedEventArgs) Handles btnChangeLanguage.Click
-        selectlang.Show()
+    Private Sub setlanges()
+        ' Ribbon
+        HomeTab.Header = eshome
+        VFDecrypt.Header = esvfdecrypt
+        textInputFileName.Label = esinputfile
+        textOuputFileName.Label = esoutputfile
+        btnSelectVFDecryptInutFile.Label = esselectinputfile
+        textDecryptKey.Label = eskey + ":"
+        btnClearKey.Label = esclearkey
+        Extract.Header = esextract
+        btnExtract.Label = esextract
+        textExtractFileName.Label = esinputfile
+        btnSelectExtractFile.Label = esselectinputfile
+        HelpTab.Header = eshelp
+        HelpGroup.Header = eshelp
+        btnAbout.Label = esabout + " iDecryptIt"
+        btnVFDecrypt.Label = esabout + " " + esvfdecrypt
+        btnColeStuff.Label = esabout + " " + escolestuff
+        btnREADME.Label = esreadme
+        ExtrasGroup.Header = esextas
+        btnCheck4Updates.Label = escheckforupdates
+        btnChangelog.Label = eschangelog
+        btnHelpOut.Label = espublishkey
+        btnChangeLanguage.Label = eschangelanguage
+        KeyListTab.Header = eskeys
+        ' Main Area
+        v1Final.Header = "1.x " + esfinal
+        btn1a420.Content = esprototype
+        v1Beta.Header = "1.x " + esbeta
+        v2Final.Header = "2.x " + esfinal
+        v2Beta.Header = "2.x " + esbeta
+        v3Final.Header = "3.x " + esfinal
+        v3Beta.Header = "3.x " + esbeta
+        v4Final.Header = "4.x " + esfinal
+        v4Beta.Header = "4.x " + esbeta
+        v5Final.Header = "5.x " + esfinal
+        v5Beta.Header = "5.x " + esbeta
     End Sub
 End Class
