@@ -370,7 +370,7 @@ Public Class MainWindow
         key8g4.Text = "6f7502e91f3239f907b6bf8955f191b276ec57c392d2beffb3fbc5392da0bc86e65d684e"
         key8h7.Text = "51e154b3f8baadceb317ad6e815b7f75bc956c1fa1f213d7a344e5a6eda4a54b7e79bb50"
         key8j2.Text = "7ac7018b57235d34fcbe0c84713ea7c6c482322559336845d299508f6a8643c2078de051"
-        key8k2.Text = nokey
+        key8k2.Text = "dd467a5139d280e60b4ec9bfa534eae9e1d782ee74fcecd86f409e9fe799fb945ee76158"
         ' 5.x Beta
         key9a5220p.Text = nokey
         key9a5248d.Text = nokey
@@ -384,7 +384,7 @@ Public Class MainWindow
         key8g4.Text = "9bf08c4054e08cff7ff96f3b0f0cb6e809aa8676653b16443445ac990906bb5439f9504d"
         key8h7.Text = "30584c8087f5b7cbc64a9fd0533cc25c69e4844b0b465092b7e30f0074356ce889914481"
         key8j2.Text = "990d84816fa06083f4fc778f3e4a03b2bc4e302d8b9998c2ac87d6c0e43cfabc1b0615d4"
-        key8k2.Text = nokey
+        key8k2.Text = "3907dd20133e8a0bde930d9f3307d3bdf950762c25f8ae7b4f6c8f106949272ccfbf13b0"
         ' 5.x Beta
         key9a5220p.Text = nokey
         key9a5248d.Text = nokey
@@ -398,7 +398,7 @@ Public Class MainWindow
         key8g4.Text = "1c7414fb1820c1c0a61058587661b1c5fbb68fbeafb77f86014671ee5ddac8360d8cc352"
         key8h8.Text = "1c7414fb1820c1c0a61058587661b1c5fbb68fbeafb77f86014671ee5ddac8360d8cc352"
         key8j2.Text = "18516a9744529fcf5f01cc12b86fe5db614db6d688d826f20d501b343199f2de921a6310"
-        key8k2.Text = nokey
+        key8k2.Text = "b314630e05038f97f2d5325b11989634049c5d5d290cc87b9ea7cfd02936b92e76e8f65f"
         ' 5.x Beta
         key9a5220p.Text = nokey
         key9a5248d.Text = nokey
@@ -563,7 +563,7 @@ Public Class MainWindow
         key8f5153d.Text = "da556a06a2695098f7222557ffb0ecab976995b6ca9032996eed0311fb2841c1fc59f7da"
         key8f5166b.Text = "80c9b3147d4928be874a2f920fb78595403c7ca6f9de6c877ccc07dcdfe9279c44d08e83"
         key8f190beta.Text = "34904e749a8c5cfabecc6c3340816d85e7fc4de61c968ca93be621a9b9520d6466a1456a"
-        key8k2.Text = nokey
+        key8k2.Text = "f3b2e5122cfd8b8215ed8271d83af0183f6d6634afd63444dfd7787e274b7520fc9d5c40"
         ' 5.x Beta
         key9a5220p.Text = "ddd6f84e0450d2ea0cfb16d652a6dcc50d9a4e5be2225f9f4e1e22a7dd6cf686a34fb257"
         key9a5248d.Text = "0c5387489bd9a4380691047e1880737df22ae2c7dd689f31669d00481b11249d868d591b"
