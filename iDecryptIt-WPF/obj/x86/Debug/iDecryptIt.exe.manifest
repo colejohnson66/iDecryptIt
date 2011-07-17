@@ -50,7 +50,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>x4tOeWxbwitgiskHXgJmDuyt8oQ=</dsig:DigestValue>
+        <dsig:DigestValue>rQtlBywsACmILRE2fRjyp1DCbP4=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -132,13 +132,13 @@
       <dsig:DigestValue>6kthFHETYPhc28kF8OoIxVs1hcg=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="help\changelog.html" size="4578">
+  <file name="help\changelog.html" size="4593">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>wu6F5+Ko8xqeg77IC8ERxQnanqo=</dsig:DigestValue>
+      <dsig:DigestValue>k+VpC6x9AySv9Vo/d+lwg2yuKfo=</dsig:DigestValue>
     </hash>
   </file>
   <file name="help\images\author.jpg" size="405316">
@@ -195,13 +195,13 @@
       <dsig:DigestValue>5K4fDy/4NlGI1C1mkf9WhWpXjSM=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="help\README.html" size="41851">
+  <file name="help\README.html" size="41926">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>nWU76jgt3+rt0hnEfH4KoMQdb/k=</dsig:DigestValue>
+      <dsig:DigestValue>3yUFzO/Ugbbks5p1XBrU3Yym4jc=</dsig:DigestValue>
     </hash>
   </file>
   <file name="VFDecrypt\cygcrypto-0.9.8.dll" size="1089024">

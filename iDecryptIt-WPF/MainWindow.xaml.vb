@@ -532,7 +532,7 @@ Public Class MainWindow
         key8f5153d.Text = "ac704d0287cb4dc835252e84a9f244bc7da16c0227776271940ae097ae52ca94bd7c6e68"
         key8f5166b.Text = "35180cdade1149fcbc061d6cafea436155b5d75540960d68ebbed56e8d0da862b8a2707d"
         key8f190beta.Text = "95028f5804a6d675190adedc0aa91385e17589f720c517615367d69c63e0c969121aaec6"
-        key8k2.Text = nokey
+        key8k2.Text = "fb9480e2b80a26cd75d923d7918539edb19caed5a72dfe7a78734cd2a82597869b9ceaf5"
         ' 5.x Beta
         key9a5220p.Text = "b0f31d60ec84f1e3430c7f7753055bdd70d394b4fe5bb378af23d5a833584570538bb33b"
         key9a5248d.Text = "11e80b9d23f6d1ba1eea0adf759f6bfec40399edddfe37a94152e357b0c9064b09b95515"
