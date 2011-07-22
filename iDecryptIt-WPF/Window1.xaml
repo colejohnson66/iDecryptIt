@@ -1,0 +1,55 @@
+﻿<Window x:Class="Window1"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Checking for Updates..."
+    Icon="Images/System-software-update.ico"
+    WindowStyle="ThreeDBorderWindow"
+    WindowStartupLocation="CenterOwner"
+    ShowInTaskbar="False"
+    ResizeMode="NoResize"
+    Name="windowUpdatePane"
+    Height="252" Width="450">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="60" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="152" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="12" />
+                <RowDefinition Height="128" />
+                <RowDefinition Height="12" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="12" />
+                <ColumnDefinition Width="128" />
+                <ColumnDefinition Width="12" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Image Grid.Row="1" Grid.Column="1" Height="128" Name="ImageCheck" Width="128" Source="Images/System-software-update_128.png" />
+            <Image Grid.Row="1" Grid.Column="1" Height="128" Name="ImageAvailable" Width="128" Source="Images/Software-update-available_128.png" Visibility="Hidden" />
+            <Image Grid.Row="1" Grid.Column="1" Height="128" Name="ImageNone" Width="128" Source="Images/Package-x-generic_128.png" Visibility="Hidden" />
+            <Grid Grid.Row="1" Grid.Column="4">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="23" />
+                    <RowDefinition Height="6" />
+                    <RowDefinition Height="23" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="12" />
+                    <ColumnDefinition Width="75" />
+                    <ColumnDefinition Width="12" />
+                </Grid.ColumnDefinitions>
+                <Button Grid.Row="1" Grid.Column="2" Content="(Top)" Margin="0" Name="btnTop" Visibility="Hidden" />
+                <Button Grid.Row="3" Grid.Column="2" Content="OK" Margin="0" Name="btnBottom" Visibility="Hidden" />
+                <TextBlock Grid.Row="1" Grid.Column="0" Name="txtAvailable" Text="" />
+                <TextBlock Grid.Row="3" Grid.Column="0" Name="txtInstalled" Text="" />
+            </Grid>
+        </Grid>
+        <TextBlock Grid.Row="1" Height="44" HorizontalAlignment="Center" FontSize="30" Name="TitleHeader" Text="Checking for Updates..." />
+    </Grid>
+</Window>
