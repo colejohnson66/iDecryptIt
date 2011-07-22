@@ -35,6 +35,9 @@ Public Class MainWindow
     Public updatepane As Window = New Window1
     Public updatepaneopened As Boolean = False
     Public selectlang As Window = New SelectLangControl
+    Public selectlangopened As Boolean = False
+    Public submitkey As Window = New SubmitKey
+    Public submitkeyopened As Boolean = False
     ' File paths
     Public rundir As String = Directory.GetCurrentDirectory()
     Public vfdecryptdir As String = rundir + "\VFDecrypt\"
@@ -278,7 +281,11 @@ Public Class MainWindow
             Call cleanup()
             updatepane.Show()
         Else
-            MsgBox("You can't check for updates a second time without closing iDecryptIt currently.  Sorry.", MsgBoxStyle.OkOnly, "ERROR!")
+            If (wantedlang = "en") Then
+                MsgBox("You can't check for updates a second time without closing iDecryptIt currently.  Sorry.", MsgBoxStyle.OkOnly)
+            ElseIf (wantedlang = "es") Then
+                MsgBox("No se puede comprobar si hay actualizaciones por segunda vez sin cerrar iDecryptIt actualmente. Lo siento.", MsgBoxStyle.OkOnly)
+            End If
         End If
     End Sub
     Private Sub DoCMD(ByVal file As String, ByVal arg As String)
@@ -291,7 +298,16 @@ Public Class MainWindow
         procNlite.WaitForExit()
     End Sub
     Private Sub btnChangeLanguage_Click(sender As Object, e As System.Windows.RoutedEventArgs) Handles btnChangeLanguage.Click
-        selectlang.Show()
+        If (selectlangopened = False) Then
+            selectlangopened = True
+            selectlang.Show()
+        Else
+            If (wantedlang = "en") Then
+                MsgBox("You can't change the language twice in one iDecryptIt session.  Sorry.", MsgBoxStyle.OkOnly)
+            ElseIf (wantedlang = "es") Then
+                MsgBox("No se puede cambiar el idioma en dos ocasiones en un período de iDecryptIt. Lo siento.", MsgBoxStyle.OkOnly)
+            End If
+        End If
     End Sub
     Private Sub btnDecrypt_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnDecrypt.Click
         DoCMD(vfdecryptdir + "vfdecrypt.exe", _
@@ -307,6 +323,18 @@ Public Class MainWindow
     End Sub
     Private Sub btnREADME_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnREADME.Click
         Me.webBrowser.Navigate(New Uri(helpdir + "README.html"))
+    End Sub
+    Private Sub btnHelpOut_Click(sender As Object, e As System.Windows.RoutedEventArgs) Handles btnHelpOut.Click
+        If (submitkeyopened = False) Then
+            submitkeyopened = True
+            submitkey.Show()
+        Else
+            If (wantedlang = "en") Then
+                MsgBox("You can't submit two key sets in one session without closing iDecryptIt currently.  Sorry.", MsgBoxStyle.OkOnly)
+            ElseIf (wantedlang = "es") Then
+                MsgBox("No se puede presentar dos juegos de claves en una sesión sin cerrar iDecryptIt actualmente. Lo siento.", MsgBoxStyle.OkOnly)
+            End If
+        End If
     End Sub
     Private Sub btnSelectVFDecryptInutFile_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnSelectVFDecryptInutFile.Click
         Dim decrypt As New Microsoft.Win32.OpenFileDialog()

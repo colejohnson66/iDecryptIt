@@ -30,7 +30,7 @@
     <SuiteName>Cole Stuff</SuiteName>
     <MinimumRequiredVersion>1.0.0.0</MinimumRequiredVersion>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>541</ApplicationRevision>
+    <ApplicationRevision>550</ApplicationRevision>
     <ApplicationVersion>5.0.3.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -115,12 +115,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="SubmitKey.xaml.vb">
+      <DependentUpon>SubmitKey.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SelectLangControl.xaml.vb">
       <DependentUpon>SelectLangControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Window1.xaml.vb">
       <DependentUpon>Window1.xaml</DependentUpon>
     </Compile>
+    <Page Include="SubmitKey.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -220,7 +227,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <SplashScreen Include="SplashScreen1.png" />
+    <SplashScreen Include="SplashScreen.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\appicon.ico" />
@@ -329,6 +336,10 @@
     <Resource Include="Images\Preferences-desktop-locale_es_us_128.png" />
     <Resource Include="Images\Preferences-desktop-locale_es_us_16.png" />
     <Resource Include="Images\Preferences-desktop-locale_es_us_32.png" />
+    <Content Include="help\submitkey.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Images\System-users.ico" />
     <Content Include="VFDecrypt\cygcrypto-0.9.8.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
