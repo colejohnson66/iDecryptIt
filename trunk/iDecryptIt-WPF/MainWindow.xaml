@@ -39,7 +39,7 @@
                 <ribbon:RibbonGroup x:Name="ExtrasGroup" Header="Extras">
                     <ribbon:RibbonButton x:Name="btnCheck4Updates" LargeImageSource="Images/System-software-update_32.png" SmallImageSource="Images/System-software-update_16.png" Label="Check for Updates" />
                     <ribbon:RibbonButton x:Name="btnChangelog" LargeImageSource="Images/Gnome-logviewer_32.png" SmallImageSource="Images/Gnome-logviewer_16.png" Label="Changelog" />
-                    <ribbon:RibbonButton x:Name="btnHelpOut" LargeImageSource="Images/System-users_32.png" SmallImageSource="Images/System-users_16.png" Label="Publish Key" IsEnabled="False" />
+                    <ribbon:RibbonButton x:Name="btnHelpOut" LargeImageSource="Images/System-users_32.png" SmallImageSource="Images/System-users_16.png" Label="Publish Key" />
                     <ribbon:RibbonButton x:Name="btnChangeLanguage" LargeImageSource="Images/Preferences-desktop-locale_es_us_32.png" SmallImageSource="Images/Preferences-desktop-locale_es_us_16.png" Label="Change Language" />
                 </ribbon:RibbonGroup>
             </ribbon:RibbonTab>
