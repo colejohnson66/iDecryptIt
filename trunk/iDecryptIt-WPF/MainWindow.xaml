@@ -8,6 +8,7 @@
         WindowStyle="SingleBorderWindow"
         Height="620" Width="800"
         MinHeight="320" MinWidth="400">
+    <!-- The "plus 20" is for the Quick Access -->
     <Grid x:Name="LayoutRoot">
         <Grid.RowDefinitions>
             <RowDefinition Height="135"/>
@@ -731,19 +732,24 @@
                             <RowDefinition Height="23" />
                             <RowDefinition Height="6" />
                             <RowDefinition Height="23" />
+                            <RowDefinition Height="6" />
+                            <RowDefinition Height="23" />
                         </Grid.RowDefinitions>
                         <TextBlock Grid.Row="0" Grid.Column="0" Margin="3" Name="lbl9a5220p" Text="5.0b1 (9A5220p)" />
                         <TextBlock Grid.Row="2" Grid.Column="0" Margin="3" Name="lbl9a5248d" Text="5.0b2 (9A5248d)" />
                         <TextBlock Grid.Row="4" Grid.Column="0" Margin="3" Name="lbl9a5259f" Text="5.0b3 (9A5259f)" />
+                        <TextBlock Grid.Row="6" Grid.Column="0" Margin="3" Name="lbl9a5274d" Text="5.0b4 (9A5274d)" />
                         <!-- Key -->
                         <TextBox Grid.Row="0" Grid.Column="2" Name="key9a5220p"/>
                         <TextBox Grid.Row="2" Grid.Column="2" Name="key9a5248d"/>
                         <TextBox Grid.Row="4" Grid.Column="2" Name="key9a5259f"/>
+                        <TextBox Grid.Row="6" Grid.Column="2" Name="key9a5274d"/>
                         <!-- DMG -->
                         <TextBox Grid.Row="0" Grid.Column="4" Name="dmg9a5220p"/>
                         <TextBox Grid.Row="2" Grid.Column="4" Name="dmg9a5248d"/>
                         <TextBox Grid.Row="4" Grid.Column="4" Name="dmg9a5259f"/>
-                        <TextBlock Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="5" Margin="3" Name="note5xbeta" Text="NOTE: On the Apple TV, this beta will be reported as 4.4." />
+                        <TextBox Grid.Row="6" Grid.Column="4" Name="dmg9a5274d"/>
+                        <TextBlock Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="5" Margin="3" Name="note5xbeta" Text="NOTE: On the Apple TV, this beta will be reported as 4.4." />
                     </Grid>
                 </ScrollViewer>
             </TabItem>
