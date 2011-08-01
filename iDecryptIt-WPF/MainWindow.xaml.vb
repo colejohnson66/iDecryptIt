@@ -139,6 +139,7 @@ Public Class MainWindow
         key8f191m.Text = "Unavailable"
         key8f202.Text = "Unavailable"
         key8f305.Text = "Unavailable"
+        key8f455.Text = "Unavailable"
         ' 4.x Beta
         key8a230m.Text = "Unavailable"
         key8a248c.Text = "Unavailable"
@@ -253,6 +254,7 @@ Public Class MainWindow
         dmg8f191m.Text = "XXX-XXXX-XXX.dmg"
         dmg8f202.Text = "XXX-XXXX-XXX.dmg"
         dmg8f305.Text = "XXX-XXXX-XXX.dmg"
+        dmg8f455.Text = "XXX-XXXX-XXX.dmg"
         ' 4.x Beta
         dmg8a230m.Text = "XXX-XXXX-XXX.dmg"
         dmg8a248c.Text = "XXX-XXXX-XXX.dmg"
@@ -427,7 +429,7 @@ Public Class MainWindow
         key8h7.Text = "30584c8087f5b7cbc64a9fd0533cc25c69e4844b0b465092b7e30f0074356ce889914481"
         key8j2.Text = "990d84816fa06083f4fc778f3e4a03b2bc4e302d8b9998c2ac87d6c0e43cfabc1b0615d4"
         key8k2.Text = "3907dd20133e8a0bde930d9f3307d3bdf950762c25f8ae7b4f6c8f106949272ccfbf13b0"
-        key8l1.Text = nokey
+        key8l1.Text = "33774947a7d630a80045e6f3f68005646d84efeedbca70d619a429e10e34696d254812ce"
         ' 5.x Beta
         key9a5220p.Text = nokey
         key9a5248d.Text = nokey
@@ -443,7 +445,7 @@ Public Class MainWindow
         key8h8.Text = "1c7414fb1820c1c0a61058587661b1c5fbb68fbeafb77f86014671ee5ddac8360d8cc352"
         key8j2.Text = "18516a9744529fcf5f01cc12b86fe5db614db6d688d826f20d501b343199f2de921a6310"
         key8k2.Text = "b314630e05038f97f2d5325b11989634049c5d5d290cc87b9ea7cfd02936b92e76e8f65f"
-        key8l1.Text = nokey
+        key8l1.Text = "369474d8df6b2c874a3fb5aa63cf23f7a891363863cf829f7e85ee631318f2674fed6733"
         ' 5.x Beta
         key9a5220p.Text = nokey
         key9a5248d.Text = nokey
@@ -738,7 +740,7 @@ Public Class MainWindow
         key8h7.Text = "7085a2976bd57eceedcbbe88a270e1a5028133c288b8afb122c2f886830a9a641daf8bd4"
         key8j2.Text = "affbe8f884694f4a3848097fa22a71bc1de24b070aa7e79f58a0880602dd21444cd559f2"
         key8k2.Text = nokey
-        key8l1.Text = nokey
+        key8l1.Text = "527d77b552fa1fa3708f5c3c2feff8641c7716a24df4dbb49613d0776a7afa3ab9cf95dd"
         ' 4.x Beta
         key8a230m.Text = "382dee11b9d80387b16ac2030ee1e903b78d9743a31a18bcafc922b7921eca85ab0aebf7"
         key8a248c.Text = nokey
@@ -801,6 +803,7 @@ Public Class MainWindow
         key8f191m.Text = "a30f67f64a546a28bfd5c6e2e43d14fd8111c55641fc6dc392891e2b14e7e8138db9344c"
         key8f202.Text = "7fb6a5a1a5d74ceb61180c8740065b79ac87a5c15e554ad4b147ae9e1446254acc9d5e4a"
         key8f305.Text = "f607711d4db94bba7a4866f095aed082c8485bfbcd0f411f1e65158f585915edd5cfeec1"
+        key8f455.Text = nokey
         ' 4.x Beta
         key8f5148c.Text = "74e3afbad43debe898a556fa1446740598a556fa1446740598a556fa1446740598a556fa"
         key8f5153d.Text = "85ba2b2d95c89df504f54869b98d0eb26a63f269570e8882cb323b1b753f4f41446a1f0a"

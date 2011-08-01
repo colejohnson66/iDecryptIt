@@ -584,6 +584,8 @@
                             <RowDefinition Height="23" />
                             <RowDefinition Height="6" />
                             <RowDefinition Height="23" />
+                            <RowDefinition Height="6" />
+                            <RowDefinition Height="23" />
                         </Grid.RowDefinitions>
                         <TextBlock Grid.Row="0" Grid.Column="0" Margin="3" Name="lbl8m89" Text="4.0/4.1 (8M89)" />
                         <TextBlock Grid.Row="2" Grid.Column="0" Margin="3" Name="lbl8c150" Text="4.1/4.2 (8C150)" />
@@ -591,6 +593,7 @@
                         <TextBlock Grid.Row="6" Grid.Column="0" Margin="3" Name="lbl8f191m" Text="4.2/4.3 (8F191m)" />
                         <TextBlock Grid.Row="8" Grid.Column="0" Margin="3" Name="lbl8f202" Text="4.2.1/4.3 (8F202)" />
                         <TextBlock Grid.Row="10" Grid.Column="0" Margin="3" Name="lbl8f305" Text="4.2.2/4.3 (8F305)" />
+                        <TextBlock Grid.Row="12" Grid.Column="0" Margin="3" Name="lbl8f455" Text="4.3/4.3 (8F455)" />
                         <!-- Key -->
                         <TextBox Grid.Row="0" Grid.Column="2" Name="key8m89" />
                         <TextBox Grid.Row="2" Grid.Column="2" Name="key8c150" />
@@ -598,6 +601,7 @@
                         <TextBox Grid.Row="6" Grid.Column="2" Name="key8f191m" />
                         <TextBox Grid.Row="8" Grid.Column="2" Name="key8f202" />
                         <TextBox Grid.Row="10" Grid.Column="2" Name="key8f305" />
+                        <TextBox Grid.Row="12" Grid.Column="2" Name="key8f455" />
                         <!-- DMG -->
                         <TextBox Grid.Row="0" Grid.Column="4" Name="dmg8m89" />
                         <TextBox Grid.Row="2" Grid.Column="4" Name="dmg8c150" />
@@ -605,7 +609,8 @@
                         <TextBox Grid.Row="6" Grid.Column="4" Name="dmg8f191m" />
                         <TextBox Grid.Row="8" Grid.Column="4" Name="dmg8f202" />
                         <TextBox Grid.Row="10" Grid.Column="4" Name="dmg8f305" />
-                        <TextBlock Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="5" Name="note4xfinalatv" Text="On this page, the version number on the left is what the Apple TV reports, while the one on the right is the Apple version" />
+                        <TextBox Grid.Row="12" Grid.Column="4" Name="dmg8f455" />
+                        <TextBlock Grid.Row="14" Grid.Column="0" Grid.ColumnSpan="5" Name="note4xfinalatv" Text="On this page, the version number on the left is what the Apple TV reports, while the one on the right is the Apple version" />
                     </Grid>
                 </ScrollViewer>
             </TabItem>
