@@ -4,7 +4,7 @@ Public Class MainWindow
     ' NOTE: Apple TV, iPad, iPhone, and iPod touch do not translate to anything
     ' NOTE: Check for Updates is not translated
     ' NOTE: This may contain errors as this is Google Translate
-    ' NOTE: Web does not need to be translated
+    ' NOTE: "Web" does not need to be translated
     Public wantedlang As String
     Public nokey As String = "None Published"
     Public esnokey As String = "Ninguno de publicación"
@@ -122,6 +122,7 @@ Public Class MainWindow
         key8e303.Text = "Unavailable"
         key8e401.Text = "Unavailable"
         key8e501.Text = "Unavailable"
+        key8e600.Text = "Unavailable"
         key8f190final.Text = "Unavailable"
         key8f191.Text = "Unavailable"
         key8g4.Text = "Unavailable"
@@ -130,6 +131,7 @@ Public Class MainWindow
         key8j2.Text = "Unavailable"
         key8j3.Text = "Unavailable"
         key8k2.Text = "Unavailable"
+        key8l1.Text = "Unavailable"
         ' 4.x Final ATV
         key8m89.Text = "Unavailable"
         key8c150.Text = "Unavailable"
@@ -234,6 +236,7 @@ Public Class MainWindow
         dmg8e303.Text = "XXX-XXXX-XXX.dmg"
         dmg8e401.Text = "XXX-XXXX-XXX.dmg"
         dmg8e501.Text = "XXX-XXXX-XXX.dmg"
+        dmg8e600.Text = "XXX-XXXX-XXX.dmg"
         dmg8f190final.Text = "XXX-XXXX-XXX.dmg"
         dmg8f191.Text = "XXX-XXXX-XXX.dmg"
         dmg8g4.Text = "XXX-XXXX-XXX.dmg"
@@ -242,6 +245,7 @@ Public Class MainWindow
         dmg8j2.Text = "XXX-XXXX-XXX.dmg"
         dmg8j3.Text = "XXX-XXXX-XXX.dmg"
         dmg8k2.Text = "XXX-XXXX-XXX.dmg"
+        dmg8l1.Text = "XXX-XXXX-XXX.dmg"
         ' 4.x Final ATV
         dmg8m89.Text = "XXX-XXXX-XXX.dmg"
         dmg8c150.Text = "XXX-XXXX-XXX.dmg"
@@ -380,6 +384,7 @@ Public Class MainWindow
         key8h7.Text = "25c0b2a27afd23b9ddc9555a28ba8e77548e62d9e2ef56700bc40d22b2c50416aee9313c"
         key8j3.Text = "765d0fecc4f714ca20fa6eceeabb454b04cd2998cc3ab3bba290866788a8c6cf555945ac"
         key8k2.Text = "aa3f737295c1d7a1e0539b8b1a02310b9ec7503be6ed05b88520e50a1a006f4b270b3e9f"
+        key8l1.Text = "e002a32650a28f4ecd0793d2e36d8bc93bf4a60bb010dbe9ef2ed41821fc5463b24c791b"
         ' 4.x Beta
         key8c5091e.Text = "c26445bf3f81c6a6d0e0eeed7acbf3c4d801c9e9116504076c8cf959902233a6bf674d46"
         key8c5101c.Text = nokey
@@ -406,6 +411,7 @@ Public Class MainWindow
         key8h7.Text = "51e154b3f8baadceb317ad6e815b7f75bc956c1fa1f213d7a344e5a6eda4a54b7e79bb50"
         key8j2.Text = "7ac7018b57235d34fcbe0c84713ea7c6c482322559336845d299508f6a8643c2078de051"
         key8k2.Text = "dd467a5139d280e60b4ec9bfa534eae9e1d782ee74fcecd86f409e9fe799fb945ee76158"
+        key8l1.Text = "07a0b5ab0e40ba4f38960274dd8c1db20854159d58761ce98dfa4c50a38b9e786b263607"
         ' 5.x Beta
         key9a5220p.Text = nokey
         key9a5248d.Text = nokey
@@ -421,6 +427,7 @@ Public Class MainWindow
         key8h7.Text = "30584c8087f5b7cbc64a9fd0533cc25c69e4844b0b465092b7e30f0074356ce889914481"
         key8j2.Text = "990d84816fa06083f4fc778f3e4a03b2bc4e302d8b9998c2ac87d6c0e43cfabc1b0615d4"
         key8k2.Text = "3907dd20133e8a0bde930d9f3307d3bdf950762c25f8ae7b4f6c8f106949272ccfbf13b0"
+        key8l1.Text = nokey
         ' 5.x Beta
         key9a5220p.Text = nokey
         key9a5248d.Text = nokey
@@ -436,6 +443,7 @@ Public Class MainWindow
         key8h8.Text = "1c7414fb1820c1c0a61058587661b1c5fbb68fbeafb77f86014671ee5ddac8360d8cc352"
         key8j2.Text = "18516a9744529fcf5f01cc12b86fe5db614db6d688d826f20d501b343199f2de921a6310"
         key8k2.Text = "b314630e05038f97f2d5325b11989634049c5d5d290cc87b9ea7cfd02936b92e76e8f65f"
+        key8l1.Text = nokey
         ' 5.x Beta
         key9a5220p.Text = nokey
         key9a5248d.Text = nokey
@@ -554,6 +562,8 @@ Public Class MainWindow
         key8g4.Text = "c338fb2858bd5dad4cfb073d4fab2fbed4a3f2d1541bc50d8443f3b18475cd1b62c25983"
         key8h7.Text = "69a370c1b64b35f692e87e866bcd460a98a10c56ed05055eb7c675f101894ea504f7bc46"
         key8j2.Text = "148f4fca734e973551fc8fa65a04883041854b060e3fe1e6c3ca4499a3204d1d97594a47"
+        key8k2.Text = "fb9480e2b80a26cd75d923d7918539edb19caed5a72dfe7a78734cd2a82597869b9ceaf5"
+        key8l1.Text = "8b04eb7e4c4c3bea36693fee2369d48c667083ae79ddea8c02f5ce9da30a74cb20707328"
         ' 4.x Beta
         key8a230m.Text = "62ea9bf9971e6c410231646f916f80330f9cbc1d1c585f0c03dab6b6f7158dc0a9c5efaf"
         key8a248c.Text = "4fea9105d8445961cbeef29f06d93685af4b7f45a02eaf7f7cdc8f78784762df3f1072c7"
@@ -570,7 +580,6 @@ Public Class MainWindow
         key8f5153d.Text = "ac704d0287cb4dc835252e84a9f244bc7da16c0227776271940ae097ae52ca94bd7c6e68"
         key8f5166b.Text = "35180cdade1149fcbc061d6cafea436155b5d75540960d68ebbed56e8d0da862b8a2707d"
         key8f190beta.Text = "95028f5804a6d675190adedc0aa91385e17589f720c517615367d69c63e0c969121aaec6"
-        key8k2.Text = "fb9480e2b80a26cd75d923d7918539edb19caed5a72dfe7a78734cd2a82597869b9ceaf5"
         ' 5.x Beta
         key9a5220p.Text = "b0f31d60ec84f1e3430c7f7753055bdd70d394b4fe5bb378af23d5a833584570538bb33b"
         key9a5248d.Text = "11e80b9d23f6d1ba1eea0adf759f6bfec40399edddfe37a94152e357b0c9064b09b95515"
@@ -590,6 +599,7 @@ Public Class MainWindow
         key8g4.Text = "f6331068497fa4741e135329c399f69b3c109854835789cc6f23f759f333f5e7bbfcdde7"
         key8h7.Text = "30804cac61ba4df96999aa4e1ea3a2a18bfbe875534a66a0bb1add095e307a19a7176c82"
         key8j2.Text = "246f17ec6660672b3207ece257938704944a83601205736409b61fc3565512559abd0f82"
+        key8l1.Text = "e5e061077217c4937e14d9c4ae1eeb8d69827aa4838168033dd5f1806ab485306a8aa3cf"
         ' 4.x Beta
         key8b5080c.Text = nokey
         key8b5091b.Text = nokey
@@ -618,6 +628,7 @@ Public Class MainWindow
         key8e303.Text = "612f78042ddc5337ab1abecfb59a07e88ed3e80665a035ef02c3c48045057fc29ab0a4b5"
         key8e401.Text = "d8e162215f27c016ed8d1849c6059f99984c766c72cec4a1df63724491c8e5b19c0e6fb2"
         key8e501.Text = "e5eed79ba8d2341dfaddeebfa38a86d8b95af4a711054a0ab2e058694c13c814fa39a4ba"
+        key8e600.Text = "d36aa0ce62b84a9a31a9c33a551809213dcf5f764850c28b3885f00bc1f5664224c13a3b"
         ' 5.x Beta
         key9a5220p.Text = "ffb3bbda6fe1512131d167985e0515de169a7d215b271d518c15d4373bed3ae75af64e5a"
         key9a5248d.Text = "4a63f44750adb005b4252f39afd3299e68be3336f33540d15a43aebc4625f20d33f3afdf"
@@ -727,6 +738,7 @@ Public Class MainWindow
         key8h7.Text = "7085a2976bd57eceedcbbe88a270e1a5028133c288b8afb122c2f886830a9a641daf8bd4"
         key8j2.Text = "affbe8f884694f4a3848097fa22a71bc1de24b070aa7e79f58a0880602dd21444cd559f2"
         key8k2.Text = nokey
+        key8l1.Text = nokey
         ' 4.x Beta
         key8a230m.Text = "382dee11b9d80387b16ac2030ee1e903b78d9743a31a18bcafc922b7921eca85ab0aebf7"
         key8a248c.Text = nokey
@@ -762,6 +774,7 @@ Public Class MainWindow
         key8h7.Text = "401b22ae26cca1aa2e119c17a6c389a1ba6aea0fbff4912000a77df953f010637b35d0ee"
         key8j2.Text = "d2877c05eb72e55d52d4e5e71c523a503c5bb8c85f6c7077d821140beea967782d30858d"
         key8k2.Text = "c71cb13f356620fdf7b1ab93470e3cff4d7f0f005d36bff5a6c3f8e60ab48e5b9d93841c"
+        key8l1.Text = "bb8cc0947739d77f7c800fea823f37f34ebf1dfd77fefadaef163d3556a73b20ce411ed7"
         ' 4.x Beta
         key8c5091e.Text = nokey
         key8c5101c.Text = "146f6663f4073f2963af8abcbbe863598fe17ade32b852224eafb6897d1f6a51b407b514"
@@ -776,7 +789,7 @@ Public Class MainWindow
         key9a5220p.Text = "c35b6897e048e3e6ea454016089891db0c34a3b30b3777d5db9b8cfaa0ceed82e771b2ed"
         key9a5248d.Text = "81aa75d2c9b0f2c777ac0879e1326c98d5fed533dac4d5cea3e9eabec96b8161b947aa6e"
         key9a5259f.Text = "93095c15c02d45aa28679ac18a31d01ec14834f19ccea33c159a9a78010963bb86babe92"
-        key9a5274d.Text = nokey
+        key9a5274d.Text = "3217c37f8505a3a78e70174e686c13cc8e70174e686c13cc8e70174e686c13cc8e70174e"
     End Sub
     Private Sub btnAppleTV21_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnAppleTV21.Click
         ' Apple TV 2G
