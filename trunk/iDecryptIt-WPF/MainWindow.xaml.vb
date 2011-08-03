@@ -326,6 +326,7 @@ Public Class MainWindow
             " -i " & Chr(34) & Me.textInputFileName.Text & Chr(34) & _
             " -k " & Me.textDecryptKey.Text & " " & _
             " -o " & Chr(34) & Me.textOuputFileName.Text & Chr(34))
+        MsgBox("Done!", "Done Decrypting", MsgBoxStyle.OkOnly)
     End Sub
     Private Sub btnAbout_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnAbout.Click
         Me.webBrowser.Navigate(New Uri(helpdir + "about_iDecryptIt.html"))
