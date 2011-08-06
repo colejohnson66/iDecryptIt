@@ -35,6 +35,7 @@ Public Class MainWindow
     Public esnote4xbeta As String = "AVISO: Por lo que el Apple TV informes de las pruebas de 4,4 (5,0), por favor consulte la ficha de prueba 5.x."
     Public esnote4xfinalatv As String = "AVISO: En esta página, el número de versión de la izquierda es lo que los informes de Apple TV, mientras que el de la derecha es la versión de Apple"
     Public esnote5xbeta As String = "AVISO: en el Apple TV, esta prueba será reportado como 4,4."
+    Public esunavailabe As String = "Construir, no disponibles para este dispositivo"
     ' Windows
     Public updatepane As Window = New Window1
     Public updatepaneopened As Boolean = False
@@ -47,124 +48,127 @@ Public Class MainWindow
     Public vfdecryptdir As String = rundir + "\VFDecrypt\"
     Public helpdir As String = rundir + "\help\"
     Public sevenzipdir As String = rundir + "\7z\"
+    ' Unavailable note
+    Public unavailable As String = "Build not available for this device"
     Public Sub clear()
         Call clearkeys()
         Call cleardmgs()
     End Sub
     Public Sub clearkeys()
         ' 1.x Final
-        key1a543a.Text = "Unavailable"
-        key1c25.Text = "Unavailable"
-        key1c28.Text = "Unavailable"
-        key3a100a.Text = "Unavailable"
-        key3a101a.Text = "Unavailable"
-        key3a109a.Text = "Unavailable"
-        key3a110a.Text = "Unavailable"
-        key3b48b.Text = "Unavailable"
-        key4a93.Text = "Unavailable"
-        key4a102.Text = "Unavailable"
-        key4b1.Text = "Unavailable"
+        key1a543a.Text = unavailable
+        key1c25.Text = unavailable
+        key1c28.Text = unavailable
+        key3a100a.Text = unavailable
+        key3a101a.Text = unavailable
+        key3a109a.Text = unavailable
+        key3a110a.Text = unavailable
+        key3b48b.Text = unavailable
+        key4a93.Text = unavailable
+        key4a102.Text = unavailable
+        key4b1.Text = unavailable
         ' 1.x Beta
-        key5a147p.Text = "Unavailable"
+        key5a147p.Text = unavailable
         ' 2.x Final
-        key5a345final.Text = "Unavailable"
-        key5a347.Text = "Unavailable"
-        key5b108.Text = "Unavailable"
-        key5c1.Text = "Unavailable"
-        key5f136.Text = "Unavailable"
-        key5f137.Text = "Unavailable"
-        key5f138.Text = "Unavailable"
-        key5g77.Text = "Unavailable"
-        key5g77a.Text = "Unavailable"
-        key5h11.Text = "Unavailable"
-        key5h11a.Text = "Unavailable"
+        key5a345final.Text = unavailable
+        key5a347.Text = unavailable
+        key5b108.Text = unavailable
+        key5c1.Text = unavailable
+        key5f136.Text = unavailable
+        key5f137.Text = unavailable
+        key5f138.Text = unavailable
+        key5g77.Text = unavailable
+        key5g77a.Text = unavailable
+        key5h11.Text = unavailable
+        key5h11a.Text = unavailable
         ' 2.x Beta
-        key5a225c.Text = "Unavailable"
-        key5a240d.Text = "Unavailable"
-        key5a258f.Text = "Unavailable"
-        key5a274d.Text = "Unavailable"
-        key5a292g.Text = "Unavailable"
-        key5a308.Text = "Unavailable"
-        key5a331.Text = "Unavailable"
-        key5a345beta.Text = "Unavailable"
-        key5f90.Text = "Unavailable"
-        key5g27.Text = "Unavailable"
+        key5a225c.Text = unavailable
+        key5a240d.Text = unavailable
+        key5a258f.Text = unavailable
+        key5a274d.Text = unavailable
+        key5a292g.Text = unavailable
+        key5a308.Text = unavailable
+        key5a331.Text = unavailable
+        key5a345beta.Text = unavailable
+        key5f90.Text = unavailable
+        key5g27.Text = unavailable
         ' 3.x Final
-        key7a341.Text = "Unavailable"
-        key7a400.Text = "Unavailable"
-        key7c144.Text = "Unavailable"
-        key7c145.Text = "Unavailable"
-        key7c146.Text = "Unavailable"
-        key7d11.Text = "Unavailable"
-        key7e18.Text = "Unavailable"
-        key7b367.Text = "Unavailable"
-        key7b405.Text = "Unavailable"
-        key7b500.Text = "Unavailable"
+        key7a341.Text = unavailable
+        key7a400.Text = unavailable
+        key7c144.Text = unavailable
+        key7c145.Text = unavailable
+        key7c146.Text = unavailable
+        key7d11.Text = unavailable
+        key7e18.Text = unavailable
+        key7b367.Text = unavailable
+        key7b405.Text = unavailable
+        key7b500.Text = unavailable
         ' 3.x Beta
-        key7a238j.Text = "Unavailable"
-        key7a259g.Text = "Unavailable"
-        key7a280f.Text = "Unavailable"
-        key7a300g.Text = "Unavailable"
-        key7a312g.Text = "Unavailable"
-        key7c97d.Text = "Unavailable"
-        key7c106c.Text = "Unavailable"
-        key7c116a.Text = "Unavailable"
+        key7a238j.Text = unavailable
+        key7a259g.Text = unavailable
+        key7a280f.Text = unavailable
+        key7a300g.Text = unavailable
+        key7a312g.Text = unavailable
+        key7c97d.Text = unavailable
+        key7c106c.Text = unavailable
+        key7c116a.Text = unavailable
         ' 4.x Final
-        key8a293final.Text = "Unavailable"
-        key8a306.Text = "Unavailable"
-        key8a400.Text = "Unavailable"
-        key8b117.Text = "Unavailable"
-        key8b118.Text = "Unavailable"
-        key8c148final.Text = "Unavailable"
-        key8c148a.Text = "Unavailable"
-        key8e128.Text = "Unavailable"
-        key8e200.Text = "Unavailable"
-        key8e303.Text = "Unavailable"
-        key8e401.Text = "Unavailable"
-        key8e501.Text = "Unavailable"
-        key8e600.Text = "Unavailable"
-        key8f190final.Text = "Unavailable"
-        key8f191.Text = "Unavailable"
-        key8g4.Text = "Unavailable"
-        key8h7.Text = "Unavailable"
-        key8h8.Text = "Unavailable"
-        key8j2.Text = "Unavailable"
-        key8j3.Text = "Unavailable"
-        key8k2.Text = "Unavailable"
-        key8l1.Text = "Unavailable"
+        key8a293final.Text = unavailable
+        key8a306.Text = unavailable
+        key8a400.Text = unavailable
+        key8b117.Text = unavailable
+        key8b118.Text = unavailable
+        key8c148final.Text = unavailable
+        key8c148a.Text = unavailable
+        key8e128.Text = unavailable
+        key8e200.Text = unavailable
+        key8e303.Text = unavailable
+        key8e401.Text = unavailable
+        key8e501.Text = unavailable
+        key8e600.Text = unavailable
+        key8f190final.Text = unavailable
+        key8f191.Text = unavailable
+        key8g4.Text = unavailable
+        key8h7.Text = unavailable
+        key8h8.Text = unavailable
+        key8j2.Text = unavailable
+        key8j3.Text = unavailable
+        key8k2.Text = unavailable
+        key8l1.Text = unavailable
         ' 4.x Final ATV
-        key8m89.Text = "Unavailable"
-        key8c150.Text = "Unavailable"
-        key8c154.Text = "Unavailable"
-        key8f191m.Text = "Unavailable"
-        key8f202.Text = "Unavailable"
-        key8f305.Text = "Unavailable"
-        key8f455.Text = "Unavailable"
+        key8m89.Text = unavailable
+        key8c150.Text = unavailable
+        key8c154.Text = unavailable
+        key8f191m.Text = unavailable
+        key8f202.Text = unavailable
+        key8f305.Text = unavailable
+        key8f455.Text = unavailable
         ' 4.x Beta
-        key8a230m.Text = "Unavailable"
-        key8a248c.Text = "Unavailable"
-        key8a260b.Text = "Unavailable"
-        key8a274b.Text = "Unavailable"
-        key8a293beta.Text = "Unavailable"
-        key8b5080.Text = "Unavailable"
-        key8b5080c.Text = "Unavailable"
-        key8b5091b.Text = "Unavailable"
-        key8c5091e.Text = "Unavailable"
-        key8c5101c.Text = "Unavailable"
-        key8c5115c.Text = "Unavailable"
-        key8c134.Text = "Unavailable"
-        key8c134b.Text = "Unavailable"
-        key8c148beta.Text = "Unavailable"
-        key8f5148b.Text = "Unavailable"
-        key8f5148c.Text = "Unavailable"
-        key8f5153d.Text = "Unavailable"
-        key8f5166b.Text = "Unavailable"
-        key8f190beta.Text = "Unavailable"
+        key8a230m.Text = unavailable
+        key8a248c.Text = unavailable
+        key8a260b.Text = unavailable
+        key8a274b.Text = unavailable
+        key8a293beta.Text = unavailable
+        key8b5080.Text = unavailable
+        key8b5080c.Text = unavailable
+        key8b5091b.Text = unavailable
+        key8c5091e.Text = unavailable
+        key8c5101c.Text = unavailable
+        key8c5115c.Text = unavailable
+        key8c134.Text = unavailable
+        key8c134b.Text = unavailable
+        key8c148beta.Text = unavailable
+        key8f5148b.Text = unavailable
+        key8f5148c.Text = unavailable
+        key8f5153d.Text = unavailable
+        key8f5166b.Text = unavailable
+        key8f190beta.Text = unavailable
         ' 5.x Beta
-        key9a5220p.Text = "Unavailable"
-        key9a5248d.Text = "Unavailable"
-        key9a5259f.Text = "Unavailable"
-        key9a5274d.Text = "Unavailable"
+        key9a5220p.Text = unavailable
+        key9a5248d.Text = unavailable
+        key9a5259f.Text = unavailable
+        key9a5274d.Text = unavailable
+        key9a5288d.Text = unavailable
     End Sub
     Public Sub cleardmgs()
         ' 1.x Final
@@ -280,6 +284,7 @@ Public Class MainWindow
         dmg9a5248d.Text = "XXX-XXXX-XXX.dmg"
         dmg9a5259f.Text = "XXX-XXXX-XXX.dmg"
         dmg9a5274d.Text = "XXX-XXXX-XXX.dmg"
+        dmg9a5288d.Text = "XXX-XXXX-XXX.dmg"
     End Sub
     Public Sub cleanup()
         File.Delete(rundir + "\major.txt")
@@ -390,7 +395,7 @@ Public Class MainWindow
         key8l1.Text = "e002a32650a28f4ecd0793d2e36d8bc93bf4a60bb010dbe9ef2ed41821fc5463b24c791b"
         ' 4.x Beta
         key8c5091e.Text = "c26445bf3f81c6a6d0e0eeed7acbf3c4d801c9e9116504076c8cf959902233a6bf674d46"
-        key8c5101c.Text = nokey
+        key8c5101c.Text = "d9874f9b69377d81523366d33aaf7cc4880bd928ba9ed536ee8a299847a8081169f37fb3"
         key8c5115c.Text = "a764534161493bdcc4545ee0640d1525edc17f8cc03b4bb1dedb98b765865d8ec12908f2"
         key8c134.Text = "d70754df24b2be5231a7b98089ef30c8699e96445fdf2b23e9b1ace0b6e1e1ed2258e957"
         key8c134b.Text = "8df8ebc5a47e60baa66dc66f8b4cdbcbe2f8591c67a287c122a66d45f0152d49838b1392"
@@ -403,7 +408,8 @@ Public Class MainWindow
         key9a5220p.Text = "7fc183f7b7fe6f1d27783e2608b7f4df74acc9d9416382d419484c66ed16b18fe2d6a3b0"
         key9a5248d.Text = "e7da8e8f233a929736e1d68a6e738c27cb44a2188cc0f06e52dbcf875446e87bbdc332a3"
         key9a5259f.Text = "7c160fc06ccd135f426e5787232cdbb77eaa73ad06939c21d67d0c16d3b0db75fedc0f49"
-        key9a5274d.Text = nokey
+        key9a5274d.Text = "f2ad291291658b540675c6010fd8efd85777812414364e7fc2a91280f461ef6e10ee1ae4"
+        key9a5288d.Text = "ce04ccd3ef4d97d44c3356bb23f95b49f2240ffd0d939b38e93ad63bad4e5e4a4fe484a2"
     End Sub
     Private Sub btniPad21_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPad21.Click
         ' iPad 2 Wi-Fi
@@ -420,6 +426,7 @@ Public Class MainWindow
         key9a5248d.Text = nokey
         key9a5259f.Text = nokey
         key9a5274d.Text = nokey
+        key9a5288d.Text = nokey
     End Sub
     Private Sub btniPad22_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPad22.Click
         ' iPad 2 GSM
@@ -436,6 +443,7 @@ Public Class MainWindow
         key9a5248d.Text = nokey
         key9a5259f.Text = nokey
         key9a5274d.Text = nokey
+        key9a5288d.Text = nokey
     End Sub
     Private Sub btniPad23_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPad23.Click
         ' iPad 2 CDMA
@@ -452,6 +460,7 @@ Public Class MainWindow
         key9a5248d.Text = nokey
         key9a5259f.Text = nokey
         key9a5274d.Text = nokey
+        key9a5288d.Text = nokey
     End Sub
     Private Sub btniPhone11_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPhone11.Click
         ' iPhone 1G GSM
@@ -588,6 +597,7 @@ Public Class MainWindow
         key9a5248d.Text = "11e80b9d23f6d1ba1eea0adf759f6bfec40399edddfe37a94152e357b0c9064b09b95515"
         key9a5259f.Text = "53a43ad56f58bb6f9f226909b6663c0922b266b33e29de8cdb7af3fa5c8e93c70fa2fd4a"
         key9a5274d.Text = "f48c8fa1862b636fcc45aa25b6f2aa755656a02f475d9bd76921395f57406aa87a04dd54"
+        key9a5288d.Text = nokey
     End Sub
     Private Sub btniPhone31_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPhone31.Click
         ' iPhone 4 GSM
@@ -619,8 +629,9 @@ Public Class MainWindow
         ' 5.x Beta
         key9a5220p.Text = "ddd6f84e0450d2ea0cfb16d652a6dcc50d9a4e5be2225f9f4e1e22a7dd6cf686a34fb257"
         key9a5248d.Text = "0c5387489bd9a4380691047e1880737df22ae2c7dd689f31669d00481b11249d868d591b"
-        key9a5259f.Text = nokey
-        key9a5274d.Text = nokey
+        key9a5259f.Text = "894575ea5975c4ea50083f1cb2bc3b76b89cc53851452196309368a09e90d51d3f4aa57d"
+        key9a5274d.Text = "b2e3d1f334b39e92201d6a6834b3ae624f52f35b3c41c73950b770cb0ac2294673525236"
+        key9a5288d.Text = "bbbef345aaa6830c7c2045146357300c6b80f07fd676efc17076025fe0278b7b9a27978b"
     End Sub
     Private Sub btniPhone33_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPhone33.Click
         ' iPhone 4 CDMA
@@ -636,7 +647,8 @@ Public Class MainWindow
         key9a5220p.Text = "ffb3bbda6fe1512131d167985e0515de169a7d215b271d518c15d4373bed3ae75af64e5a"
         key9a5248d.Text = "4a63f44750adb005b4252f39afd3299e68be3336f33540d15a43aebc4625f20d33f3afdf"
         key9a5259f.Text = "92d11a5be2dc74af784c8a3d34a79bf3d5e6bffac6f21e4dbd6208e8d8cccd7003f43126"
-        key9a5274d.Text = nokey
+        key9a5274d.Text = "09ea260fddb12f00402a0e33b8063791a0d4728a188301933052b6285427aca18f8dcfa2"
+        key9a5288d.Text = nokey
     End Sub
     Private Sub btniPod11_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPod11.Click
         ' iPod touch 1G
@@ -764,6 +776,7 @@ Public Class MainWindow
         key9a5248d.Text = nokey
         key9a5259f.Text = nokey
         key9a5274d.Text = nokey
+        key9a5288d.Text = nokey
     End Sub
     Private Sub btniPod41_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPod41.Click
         ' iPod touch 4G
@@ -793,6 +806,7 @@ Public Class MainWindow
         key9a5248d.Text = "81aa75d2c9b0f2c777ac0879e1326c98d5fed533dac4d5cea3e9eabec96b8161b947aa6e"
         key9a5259f.Text = "93095c15c02d45aa28679ac18a31d01ec14834f19ccea33c159a9a78010963bb86babe92"
         key9a5274d.Text = "3217c37f8505a3a78e70174e686c13cc8e70174e686c13cc8e70174e686c13cc8e70174e"
+        key9a5288d.Text = "31a02bd24385485793e575dc755f4f29064a8550d9e095ce5c230c5557aab8f2e08bfdef"
     End Sub
     Private Sub btnAppleTV21_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnAppleTV21.Click
         ' Apple TV 2G
@@ -877,5 +891,7 @@ Public Class MainWindow
         note4xbeta.Text = esnote4xbeta
         note4xfinalatv.Text = esnote4xfinalatv
         note5xbeta.Text = esnote5xbeta
+        ' Unavailable Note
+        unavailable = esunavailabe
     End Sub
 End Class
