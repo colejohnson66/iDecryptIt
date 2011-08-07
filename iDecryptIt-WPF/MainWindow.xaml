@@ -209,7 +209,7 @@
                         <TextBlock Grid.Row="2" Grid.Column="0" Margin="3" Name="lbl5a347" Text="2.0 (5A347)" />
                         <TextBlock Grid.Row="4" Grid.Column="0" Margin="3" Name="lbl5b108" Text="2.0.1 (5B108)" />
                         <TextBlock Grid.Row="6" Grid.Column="0" Margin="3" Name="lbl5c1" Text="2.0.2 (5C1)" />
-                        <TextBlock Grid.Row="8" Grid.Column="0" Margin="3" Name="lbl5f136" Text="2.1 (5F126)" />
+                        <TextBlock Grid.Row="8" Grid.Column="0" Margin="3" Name="lbl5f136" Text="2.1 (5F136)" />
                         <TextBlock Grid.Row="10" Grid.Column="0" Margin="3" Name="lbl5f137" Text="2.1 (5F137)" />
                         <TextBlock Grid.Row="12" Grid.Column="0" Margin="3" Name="lbl5f138" Text="2.1.1 (5F138)" />
                         <TextBlock Grid.Row="14" Grid.Column="0" Margin="3" Name="lbl5g77" Text="2.2 (5G77)" />

@@ -495,13 +495,19 @@ Public Class MainWindow
         key5g27.Text = nokey
         ' 3.x Final
         key7a341.Text = "25cce378de209d8fb6ec45ecbe7525695272b81fe38bbad76e979ac3921c3614ed162c87"
-        key7a400.Text = "None Published (Found it? Contact coleharrisjohnson@gmail.com)"
+        key7a400.Text = nokey
         key7c144.Text = "dbe476ed0d8c1ecf7cd514463f2ca5a6f71b6f244d98ebaa9203fd527c1ecbf2bb5f143f"
         key7d11.Text = "fe431a1e436e5298d3c871359768aab43189fd5e7375a2ced3405dd8a223879a4d64a28e"
         key7e18.Text = "3c0f821663316c08a0a059c2979ecf47d13b363de3a44010d0de0b0a5cf878cfe39d00c3"
         ' 3.x Beta
+        key7a238j.Text = "56753a471abc4e859f6d0f0157d2fea4dfb5a536154cd26b0e3a35b732bf5fce2eae96f1"
+        key7a259g.Text = "a555264d0765ca442d5e8f9b2dec1c67dca018ce87d035ac82357b60a970171de04b4f87"
         key7a280f.Text = nokey
         key7a300g.Text = nokey
+        key7a312g.Text = "a33171ef12e7245f5508fb6fc245ff4c8f5483af6ca73f77e68122fd6ea3ad37907c969d"
+        key7c97d.Text = "dd832e7ce186077bf0b4c5934c1b38b6d55c01c1f04e1ffde721792b1fe06e68e1125f29"
+        key7c106c.Text = "c02953ea2d1c99de2d59da6dddb37f6396ade34fa7ad8e1eb629fce68d51352fd1b42563"
+        key7c116a.Text = nokey
     End Sub
     Private Sub btniPhone12_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPhone12.Click
         ' iPhone 3G GSM
@@ -586,6 +592,7 @@ Public Class MainWindow
         key8b5091b.Text = nokey
         key8c5091e.Text = nokey
         key8c5101c.Text = nokey
+        key8c5115c.Text = "35ccd2de84a68950ebc166e57807a010e9985fec751869c21516011fe53d4f56fe5f7a5a"
         key8c134.Text = "7920ced8bd8d1fb160536c7e853680fe7fa6827e8f5371a5af5cbc6d2b2d92b23dc2b41b"
         key8c148beta.Text = "97a8b688acf744c09ac4afe130d96b55b8a68c4ec007dfc6a6c8f810a09b91d4d80d8f29"
         key8f5148b.Text = "15130edaeb5897edf079f89e4224f435edf3986b9f72bd3079509ab623adcb0a600200ed"
@@ -597,7 +604,7 @@ Public Class MainWindow
         key9a5248d.Text = "11e80b9d23f6d1ba1eea0adf759f6bfec40399edddfe37a94152e357b0c9064b09b95515"
         key9a5259f.Text = "53a43ad56f58bb6f9f226909b6663c0922b266b33e29de8cdb7af3fa5c8e93c70fa2fd4a"
         key9a5274d.Text = "f48c8fa1862b636fcc45aa25b6f2aa755656a02f475d9bd76921395f57406aa87a04dd54"
-        key9a5288d.Text = nokey
+        key9a5288d.Text = "3a61db2078a658c69f7e2cf8c764bb9de3eb104ffd18905b69ebbfbdb9e0c5826ba57363"
     End Sub
     Private Sub btniPhone31_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPhone31.Click
         ' iPhone 4 GSM
@@ -648,7 +655,7 @@ Public Class MainWindow
         key9a5248d.Text = "4a63f44750adb005b4252f39afd3299e68be3336f33540d15a43aebc4625f20d33f3afdf"
         key9a5259f.Text = "92d11a5be2dc74af784c8a3d34a79bf3d5e6bffac6f21e4dbd6208e8d8cccd7003f43126"
         key9a5274d.Text = "09ea260fddb12f00402a0e33b8063791a0d4728a188301933052b6285427aca18f8dcfa2"
-        key9a5288d.Text = nokey
+        key9a5288d.Text = "6ef36fd78dc2e2db2e47062b6291ce9a434f3b1a8a03ba3e9fd74d8e9b674eecced2cb31"
     End Sub
     Private Sub btniPod11_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPod11.Click
         ' iPod touch 1G
