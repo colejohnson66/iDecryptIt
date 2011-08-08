@@ -50,6 +50,9 @@
                 <TextBlock Grid.Row="3" Grid.Column="0" Name="txtInstalled" Text="" />
             </Grid>
         </Grid>
-        <TextBlock Grid.Row="1" Height="44" HorizontalAlignment="Center" FontSize="30" Name="TitleHeader" Text="Checking for Updates..." />
+        <TextBlock Grid.Row="1" Height="44" HorizontalAlignment="Center" FontSize="30" Name="TitleAvailable" Text="Software Update Available!" Visibility="Hidden" />
+        <TextBlock Grid.Row="1" Height="44" HorizontalAlignment="Center" FontSize="30" Name="TitleUrgent" Text="Software Update Urgent!" Visibility="Hidden" />
+        <TextBlock Grid.Row="1" Height="44" HorizontalAlignment="Center" FontSize="30" Name="TitleNone" Text="No Update Available" Visibility="Hidden" />
+        <TextBlock Grid.Row="1" Height="44" HorizontalAlignment="Center" FontSize="30" Name="TitleChecking" Text="Checking for Updates..." />
     </Grid>
 </Window>
