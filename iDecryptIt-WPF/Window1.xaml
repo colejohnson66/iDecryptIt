@@ -8,7 +8,7 @@
     ShowInTaskbar="False"
     ResizeMode="NoResize"
     Name="windowUpdatePane"
-    Height="252" Width="450">
+    Height="252" Width="400">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -40,16 +40,19 @@
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="12" />
                     <ColumnDefinition Width="75" />
                     <ColumnDefinition Width="12" />
                 </Grid.ColumnDefinitions>
-                <Button Grid.Row="1" Grid.Column="2" Content="(Top)" Margin="0" Name="btnTop" Visibility="Hidden" />
-                <Button Grid.Row="3" Grid.Column="2" Content="OK" Margin="0" Name="btnBottom" Visibility="Hidden" />
+                <TextBox Grid.Row="0" Grid.Column="1" Name="txtVersion" Visibility="Hidden" />
+                <Button Grid.Row="1" Grid.Column="1" Content="(Top)" Margin="0" Name="btnTop" Visibility="Hidden" />
+                <Button Grid.Row="3" Grid.Column="1" Content="OK" Margin="0" Name="btnBottom" Visibility="Hidden" />
                 <TextBlock Grid.Row="1" Grid.Column="0" Name="txtAvailable" Text="" />
                 <TextBlock Grid.Row="3" Grid.Column="0" Name="txtInstalled" Text="" />
             </Grid>
         </Grid>
-        <TextBlock Grid.Row="1" Height="44" HorizontalAlignment="Center" FontSize="30" Name="TitleHeader" Text="Checking for Updates..." />
+        <TextBlock Grid.Row="1" Height="44" HorizontalAlignment="Center" FontSize="30" Name="TitleAvailable" Text="Software Update Available!" Visibility="Hidden" />
+        <TextBlock Grid.Row="1" Height="44" HorizontalAlignment="Center" FontSize="30" Name="TitleUrgent" Text="Software Update Urgent!" Visibility="Hidden" />
+        <TextBlock Grid.Row="1" Height="44" HorizontalAlignment="Center" FontSize="30" Name="TitleNone" Text="No Update Available" Visibility="Hidden" />
+        <TextBlock Grid.Row="1" Height="44" HorizontalAlignment="Center" FontSize="30" Name="TitleChecking" Text="Checking for Updates..." />
     </Grid>
 </Window>
