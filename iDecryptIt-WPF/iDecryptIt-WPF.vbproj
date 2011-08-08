@@ -30,8 +30,8 @@
     <SuiteName>Cole Stuff</SuiteName>
     <MinimumRequiredVersion>1.0.0.0</MinimumRequiredVersion>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>602</ApplicationRevision>
-    <ApplicationVersion>5.0.4.%2a</ApplicationVersion>
+    <ApplicationRevision>251</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -39,16 +39,14 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
-    <DebugSymbols>false</DebugSymbols>
-    <DebugType>None</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <IncrementalBuild>true</IncrementalBuild>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>
-    </DocumentationFile>
+    <DocumentationFile>iDecryptIt.xml</DocumentationFile>
     <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036,42314</NoWarn>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -59,10 +57,8 @@
     <IncrementalBuild>false</IncrementalBuild>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>
-    </DocumentationFile>
+    <DocumentationFile>iDecryptIt.xml</DocumentationFile>
     <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036,42314</NoWarn>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup>
     <OptionExplicit>On</OptionExplicit>
@@ -115,19 +111,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="SubmitKey.xaml.vb">
-      <DependentUpon>SubmitKey.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="SelectLangControl.xaml.vb">
-      <DependentUpon>SelectLangControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Window1.xaml.vb">
-      <DependentUpon>Window1.xaml</DependentUpon>
-    </Compile>
-    <Page Include="SubmitKey.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -140,14 +123,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="SelectLangControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Window1.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Import Include="System.Linq" />
@@ -194,12 +169,17 @@
     <Content Include="7z\7-zip.chm">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="iDecryptIt-WPF_TemporaryKey.pfx" />
     <None Include="My Project\app.manifest" />
     <None Include="My Project\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <AppDesigner Include="My Project\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\d.png" />
+    <Resource Include="Images\f.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="app.ico" />
@@ -227,42 +207,108 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <SplashScreen Include="SplashScreen.png" />
+    <SplashScreen Include="SplashScreen1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\e.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\appicon.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\7zip_16.png" />
+    <Resource Include="Images\7zip_256.png" />
     <Resource Include="Images\7zip_32.png" />
+    <Resource Include="Images\AppleTV2,1_256.png" />
     <Resource Include="Images\AppleTV2,1_32.png" />
     <Resource Include="Images\AppleTV2,1_16.png" />
     <Resource Include="Images\colestuff_16.png" />
+    <Resource Include="Images\colestuff_256.png" />
     <Resource Include="Images\colestuff_32.png" />
+    <Resource Include="Images\DMG_16.png" />
+    <Resource Include="Images\DMG_256.png" />
+    <Resource Include="Images\DMG_32.png" />
     <Resource Include="Images\idecryptit_16.png" />
     <Resource Include="Images\idecryptit_256.png" />
     <Resource Include="Images\idecryptit_32.png" />
+    <Resource Include="Images\iPad1,1_16.png" />
+    <Resource Include="Images\iPad1,1_256.png" />
     <Resource Include="Images\iPad1,1_32.png" />
+    <Resource Include="Images\iPhone1,1_16.png" />
+    <Resource Include="Images\iPhone1,1_256.png" />
     <Resource Include="Images\iPhone1,1_32.png" />
+    <Resource Include="Images\iPhone1,2_16.png" />
+    <Resource Include="Images\iPhone1,2_256.png" />
     <Resource Include="Images\iPhone1,2_32.png" />
+    <Resource Include="Images\iPhone2,1_16.png" />
+    <Resource Include="Images\iPhone2,1_256.png" />
     <Resource Include="Images\iPhone2,1_32.png" />
+    <Resource Include="Images\iPhone3,1_16.png" />
+    <Resource Include="Images\iPhone3,1_256.png" />
     <Resource Include="Images\iPhone3,1_32.png" />
+    <Resource Include="Images\iPhone3,3_16.png" />
+    <Resource Include="Images\iPhone3,3_256.png" />
     <Resource Include="Images\iPhone3,3_32.png" />
+    <Resource Include="Images\iPod1,1_16.png" />
+    <Resource Include="Images\iPod1,1_256.png" />
     <Resource Include="Images\iPod1,1_32.png" />
+    <Resource Include="Images\iPod2,1_16.png" />
+    <Resource Include="Images\iPod2,1_256.png" />
     <Resource Include="Images\iPod2,1_32.png" />
+    <Resource Include="Images\iPod3,1_16.png" />
+    <Resource Include="Images\iPod3,1_256.png" />
     <Resource Include="Images\iPod3,1_32.png" />
+    <Resource Include="Images\iPod4,1_16.png" />
+    <Resource Include="Images\iPod4,1_256.png" />
     <Resource Include="Images\iPod4,1_32.png" />
+    <Resource Include="Images\theiphonewiki_128.png" />
+    <Resource Include="Images\theiphonewiki_16.png" />
+    <Resource Include="Images\theiphonewiki_32.png" />
+    <Resource Include="Images\wikipedia_16.png" />
+    <Resource Include="Images\wikipedia_256.png" />
+    <Resource Include="Images\wikipedia_32.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\iPad2,1_16.png" />
+    <Resource Include="Images\iPad2,1_256.png" />
     <Resource Include="Images\iPad2,1_32.png" />
+    <Resource Include="Images\iPad2,2_16.png" />
+    <Resource Include="Images\iPad2,2_256.png" />
     <Resource Include="Images\iPad2,2_32.png" />
+    <Resource Include="Images\iPad2,3_16.png" />
+    <Resource Include="Images\iPad2,3_256.png" />
     <Resource Include="Images\iPad2,3_32.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\iPod_128.png" />
+    <Resource Include="Images\iPod_16.png" />
+    <Resource Include="Images\iPod_256.png" />
+    <Resource Include="Images\iPod_32.png" />
+    <Resource Include="Images\iPod_512.png" />
+    <Resource Include="Images\iPod_64.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="Images\idecryptit_64.png" />
+    <Resource Include="Images\iPad_128.png" />
+    <Resource Include="Images\iPad_16.png" />
+    <Resource Include="Images\iPad_256.png" />
+    <Resource Include="Images\iPad_32.png" />
+    <Resource Include="Images\iPad_64.png" />
+    <Resource Include="Images\iPhone_128.png" />
+    <Resource Include="Images\iPhone_16.png" />
+    <Resource Include="Images\iPhone_256.png" />
+    <Resource Include="Images\iPhone_32.png" />
+    <Resource Include="Images\iPhone_64.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\idecryptit_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\AppleTV_128.png" />
+    <Resource Include="Images\AppleTV_16.png" />
+    <Resource Include="Images\AppleTV_256.png" />
+    <Resource Include="Images\AppleTV_32.png" />
+    <Resource Include="Images\AppleTV_64.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="7z\7za.exe">
@@ -302,45 +348,37 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Resource Include="Images\System-software-update_128.png" />
-    <Resource Include="Images\Package-x-generic_128.png" />
-    <Resource Include="Images\Software-update-available_128.png" />
-    <Resource Include="Images\Gnome-logviewer_32.png" />
-    <Resource Include="Images\idecryptit_48.png" />
-    <Resource Include="Images\System-software-update.ico" />
-    <Resource Include="Images\iPod1,1_16.png" />
-    <Resource Include="Images\iPod2,1_16.png" />
-    <Resource Include="Images\iPod3,1_16.png" />
-    <Resource Include="Images\iPod4,1_16.png" />
-    <Resource Include="Images\iPhone1,1_16.png" />
-    <Resource Include="Images\iPhone1,2_16.png" />
-    <Resource Include="Images\iPhone2,1_16.png" />
-    <Resource Include="Images\iPhone3,1_16.png" />
-    <Resource Include="Images\iPhone3,3_16.png" />
-    <Resource Include="Images\iPad1,1_16.png" />
-    <Resource Include="Images\iPad2,1_16.png" />
-    <Resource Include="Images\iPad2,2_16.png" />
-    <Resource Include="Images\iPad2,3_16.png" />
     <Resource Include="Images\System-software-update_16.png" />
+    <Resource Include="Images\System-software-update_256.png" />
     <Resource Include="Images\System-software-update_32.png" />
+    <Resource Include="Images\System-software-update_48.png" />
+    <Resource Include="Images\System-software-update_64.png" />
+    <Resource Include="Images\Software-update-available_48.png" />
+    <Resource Include="Images\Software-update-available_64.png" />
+    <Resource Include="Images\Software-update-urgent_128.png" />
+    <Resource Include="Images\Software-update-urgent_16.png" />
+    <Resource Include="Images\Software-update-urgent_256.png" />
+    <Resource Include="Images\Software-update-urgent_32.png" />
+    <Resource Include="Images\Software-update-urgent_48.png" />
+    <Resource Include="Images\Software-update-urgent_64.png" />
+    <Resource Include="Images\Package-x-generic_128.png" />
+    <Resource Include="Images\Package-x-generic_16.png" />
+    <Resource Include="Images\Package-x-generic_256.png" />
+    <Resource Include="Images\Package-x-generic_32.png" />
+    <Resource Include="Images\Package-x-generic_48.png" />
+    <Resource Include="Images\Package-x-generic_64.png" />
+    <Resource Include="Images\Software-update-available_128.png" />
+    <Resource Include="Images\Software-update-available_16.png" />
+    <Resource Include="Images\Software-update-available_256.png" />
+    <Resource Include="Images\Software-update-available_32.png" />
+    <Resource Include="Images\Gnome-logviewer_128.png" />
     <Resource Include="Images\Gnome-logviewer_16.png" />
-    <Resource Include="Images\theiphonewiki_16.png" />
-    <Resource Include="Images\theiphonewiki_32.png" />
-    <Resource Include="Images\Help-browser_16.png" />
-    <Resource Include="Images\Help-browser_32.png" />
-    <Resource Include="Images\System-users_16.png" />
-    <Resource Include="Images\System-users_32.png" />
-    <Resource Include="Images\Unlocked_16.png" />
-    <Resource Include="Images\Unlocked_32.png" />
-    <Resource Include="Images\Media-playback-start_32.png" />
-    <Resource Include="Images\Preferences-desktop-locale_es_us.ico" />
-    <Resource Include="Images\Preferences-desktop-locale_es_us_128.png" />
-    <Resource Include="Images\Preferences-desktop-locale_es_us_16.png" />
-    <Resource Include="Images\Preferences-desktop-locale_es_us_32.png" />
-    <Content Include="help\submitkey.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Resource Include="Images\System-users.ico" />
-    <Resource Include="Images\colestuff_128.png" />
+    <Resource Include="Images\Gnome-logviewer_256.png" />
+    <Resource Include="Images\Gnome-logviewer_32.png" />
+    <Resource Include="Images\Gnome-logviewer_48.png" />
+    <Resource Include="Images\Gnome-logviewer_64.png" />
+    <Resource Include="Images\idecryptit_48.png" />
+    <Resource Include="Images\a.png" />
     <Content Include="VFDecrypt\cygcrypto-0.9.8.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
