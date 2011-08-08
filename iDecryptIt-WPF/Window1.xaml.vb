@@ -6,19 +6,18 @@ Public Class Window1
     ' File paths
     Public rundir As String = Directory.GetCurrentDirectory()
     ' Update
-    Public contacturl As String = "http://theiphonewiki.com/wiki/index.php?title=User:Balloonhead66/Latest_stable_software_release/iDecryptIt/"
     Public major As String = "5"
     Public updatemajor As String = ""
-    Public updatemajorurl As String = contacturl + "major&action=raw"
-    Public minor As String = "00"
+    Public updatemajorurl As String = "http://theiphonewiki.com/wiki/index.php?title=User:Balloonhead66/Latest_stable_software_release/iDecryptIt/major&action=raw"
+    Public minor As String = "0"
     Public updateminor As String = ""
-    Public updateminorurl As String = contacturl + "minor&action=raw"
-    Public rev As String = "4"
+    Public updateminorurl As String = "http://theiphonewiki.com/wiki/index.php?title=User:Balloonhead66/Latest_stable_software_release/iDecryptIt/minor&action=raw"
+    Public rev As String = "0"
     Public updaterev As String = ""
-    Public updaterevurl As String = contacturl + "revision&action=raw"
-    Public build As String = "1F75"
+    Public updaterevurl As String = "http://theiphonewiki.com/wiki/index.php?title=User:Balloonhead66/Latest_stable_software_release/iDecryptIt/revision&action=raw"
+    Public build As String = "1E00"
     Public updatebuild As String = ""
-    Public updatebuildurl As String = contacturl + "build&action=raw"
+    Public updatebuildurl As String = "http://theiphonewiki.com/wiki/index.php?title=User:Balloonhead66/Latest_stable_software_release/iDecryptIt/build&action=raw"
     Private Sub Window1_Loaded(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles Me.Loaded
         Try
             Dim clientCheck = New System.Net.WebClient()
@@ -55,7 +54,8 @@ Public Class Window1
         If build = updatebuild Then
             ' Titles
             Me.Title = "No Update Available"
-            Me.TitleHeader.Text = "No Update Available"
+            Me.TitleChecking.Visibility = Windows.Visibility.Hidden
+            Me.TitleNone.Visibility = Windows.Visibility.Visible
             ' Image
             Me.ImageCheck.Visibility = Windows.Visibility.Hidden
             Me.ImageNone.Visibility = Windows.Visibility.Visible
@@ -66,7 +66,8 @@ Public Class Window1
         Else
             ' Titles
             Me.Title = "Update Available"
-            Me.TitleHeader.Text = "Update Available"
+            Me.TitleChecking.Visibility = Windows.Visibility.Hidden
+            Me.TitleAvailable.Visibility = Windows.Visibility.Visible
             ' Image
             Me.ImageCheck.Visibility = Windows.Visibility.Hidden
             Me.ImageAvailable.Visibility = Windows.Visibility.Visible
