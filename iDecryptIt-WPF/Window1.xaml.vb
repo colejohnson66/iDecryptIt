@@ -13,7 +13,7 @@ Public Class Window1
     Public minor As String = "00"
     Public updateminor As String = ""
     Public updateminorurl As String = contacturl + "minor&action=raw"
-    Public rev As String = "4"
+    Public rev As String = "5"
     Public updaterev As String = ""
     Public updaterevurl As String = contacturl + "revision&action=raw"
     Public build As String = "1F75"
