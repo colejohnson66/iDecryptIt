@@ -782,7 +782,7 @@ Public Class MainWindow
         ' 5.x Beta
         key9a5220p.Text = nokey
         key9a5248d.Text = nokey
-        key9a5259f.Text = nokey
+        key9a5259f.Text = "7e428a3eb0539eb0b24c0f9dc52b0ff1ca2381f5bc7a4981377541b8a92c4b6581303cd2"
         key9a5274d.Text = nokey
         key9a5288d.Text = nokey
     End Sub

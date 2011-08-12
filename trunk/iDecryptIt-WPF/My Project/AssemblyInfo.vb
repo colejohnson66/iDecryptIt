@@ -12,7 +12,7 @@ Imports System.Windows
 ' Review the values of the assembly attributes
 
 <Assembly: AssemblyTitle("iDecryptIt-WPF")> 
-<Assembly: AssemblyDescription("Decrypt the Root FS on the iPhone")> 
+<Assembly: AssemblyDescription("Decrypt the Root FS of the iOS IPSW")> 
 <Assembly: AssemblyCompany("Cole Stuff")> 
 <Assembly: AssemblyProduct("iDecryptIt")> 
 <Assembly: AssemblyCopyright("(C) Cole Stuff 2010-2011")> 
@@ -55,7 +55,7 @@ Imports System.Windows
 ' by using the '*' as shown below:
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
-<Assembly: AssemblyVersion("1.0.0.0")> 
-<Assembly: AssemblyFileVersion("1.0.0.0")> 
+<Assembly: AssemblyVersion("5.00.5.0")> 
+<Assembly: AssemblyFileVersion("5.00.5.0")> 
 
 <Assembly: NeutralResourcesLanguageAttribute("en-US")> 

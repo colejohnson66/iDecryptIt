@@ -46,29 +46,26 @@
             </ribbon:RibbonTab>
             <ribbon:RibbonTab x:Name="KeyListTab" Header="Keys">
                 <ribbon:RibbonGroup x:Name="AppleTV_group" Header="Apple TV" LargeImageSource="Images\AppleTV2,1_32.png">
-                    <ribbon:RibbonButton x:Name="btnAppleTV21" SmallImageSource="Images\AppleTV2,1_16.png" Label="Apple TV 2G" />
-                    <ribbon:RibbonButton x:Name="btnAppleTV31" Label="Apple TV 3G" IsEnabled="False" />
+                    <ribbon:RibbonButton x:Name="btnAppleTV21" LargeImageSource="Images\AppleTV2,1_32.png" SmallImageSource="Images\AppleTV2,1_16.png" Label="Apple TV 2G" />
                 </ribbon:RibbonGroup>
                 <ribbon:RibbonGroup x:Name="iPad_group" Header="iPad" LargeImageSource="Images\iPad2,3_32.png">
-                    <ribbon:RibbonButton x:Name="btniPad11" SmallImageSource="Images\iPad1,1_16.png" Label="iPad 1G" />
-                    <ribbon:RibbonButton x:Name="btniPad21" SmallImageSource="Images\iPad2,1_16.png" Label="iPad 2 (Wi-Fi)" />
-                    <ribbon:RibbonButton x:Name="btniPad22" SmallImageSource="Images\iPad2,2_16.png" Label="iPad 2 (GSM)" />
-                    <ribbon:RibbonButton x:Name="btniPad23" SmallImageSource="Images\iPad2,3_16.png" Label="iPad 2 (CDMA)" />
+                    <ribbon:RibbonButton x:Name="btniPad11" LargeImageSource="Images\iPad1,1_32.png" SmallImageSource="Images\iPad1,1_16.png" Label="iPad 1G" />
+                    <ribbon:RibbonButton x:Name="btniPad21" LargeImageSource="Images\iPad2,1_32.png" SmallImageSource="Images\iPad2,1_16.png" Label="iPad 2 (Wi-Fi)" />
+                    <ribbon:RibbonButton x:Name="btniPad22" LargeImageSource="Images\iPad2,2_32.png" SmallImageSource="Images\iPad2,2_16.png" Label="iPad 2 (GSM)" />
+                    <ribbon:RibbonButton x:Name="btniPad23" LargeImageSource="Images\iPad2,3_32.png" SmallImageSource="Images\iPad2,3_16.png" Label="iPad 2 (CDMA)" />
                 </ribbon:RibbonGroup>
                 <ribbon:RibbonGroup x:Name="iPhone_group" Header="iPhone" LargeImageSource="Images\iPhone3,3_32.png">
-                    <ribbon:RibbonButton x:Name="btniPhone11" SmallImageSource="Images\iPhone1,1_16.png" Label="iPhone 2G" />
-                    <ribbon:RibbonButton x:Name="btniPhone12" SmallImageSource="Images\iPhone1,2_16.png" Label="iPhone 3G" />
-                    <ribbon:RibbonButton x:Name="btniPhone21" SmallImageSource="Images\iPhone2,1_16.png" Label="iPhone 3GS" />
-                    <ribbon:RibbonButton x:Name="btniPhone31" SmallImageSource="Images\iPhone3,1_16.png" Label="iPhone 4 GSM" />
-                    <ribbon:RibbonButton x:Name="btniPhone33" SmallImageSource="Images\iPhone3,3_16.png" Label="iPhone 4 CDMA" />
-                    <ribbon:RibbonButton x:Name="btniPhone41" Label="iPhone 5" IsEnabled="False" />
+                    <ribbon:RibbonButton x:Name="btniPhone11" LargeImageSource="Images\iPhone1,1_32.png" SmallImageSource="Images\iPhone1,1_16.png" Label="iPhone 2G" />
+                    <ribbon:RibbonButton x:Name="btniPhone12" LargeImageSource="Images\iPhone1,2_32.png" SmallImageSource="Images\iPhone1,2_16.png" Label="iPhone 3G" />
+                    <ribbon:RibbonButton x:Name="btniPhone21" LargeImageSource="Images\iPhone2,1_32.png" SmallImageSource="Images\iPhone2,1_16.png" Label="iPhone 3GS" />
+                    <ribbon:RibbonButton x:Name="btniPhone31" LargeImageSource="Images\iPhone3,1_32.png" SmallImageSource="Images\iPhone3,1_16.png" Label="iPhone 4 GSM" />
+                    <ribbon:RibbonButton x:Name="btniPhone33" LargeImageSource="Images\iPhone3,3_32.png" SmallImageSource="Images\iPhone3,3_16.png" Label="iPhone 4 CDMA" />
                 </ribbon:RibbonGroup>
                 <ribbon:RibbonGroup x:Name="iPod_group" Header="iPod touch" LargeImageSource="Images\iPod4,1_32.png">
-                    <ribbon:RibbonButton x:Name="btniPod11" SmallImageSource="Images\iPod1,1_16.png" Label="iPod touch 1G" />
-                    <ribbon:RibbonButton x:Name="btniPod21" SmallImageSource="Images\iPod2,1_16.png" Label="iPod touch 2G" />
-                    <ribbon:RibbonButton x:Name="btniPod31" SmallImageSource="Images\iPod3,1_16.png" Label="iPod touch 3G" />
-                    <ribbon:RibbonButton x:Name="btniPod41" SmallImageSource="Images\iPod4,1_16.png" Label="iPod touch 4G" />
-                    <ribbon:RibbonButton x:Name="btniPod51" Label="iPod touch 5G" IsEnabled="False" />
+                    <ribbon:RibbonButton x:Name="btniPod11" LargeImageSource="Images\iPod1,1_32.png" SmallImageSource="Images\iPod1,1_16.png" Label="iPod touch 1G" />
+                    <ribbon:RibbonButton x:Name="btniPod21" LargeImageSource="Images\iPod2,1_32.png" SmallImageSource="Images\iPod2,1_16.png" Label="iPod touch 2G" />
+                    <ribbon:RibbonButton x:Name="btniPod31" LargeImageSource="Images\iPod3,1_32.png" SmallImageSource="Images\iPod3,1_16.png" Label="iPod touch 3G" />
+                    <ribbon:RibbonButton x:Name="btniPod41" LargeImageSource="Images\iPod4,1_32.png" SmallImageSource="Images\iPod4,1_16.png" Label="iPod touch 4G" />
                 </ribbon:RibbonGroup>
             </ribbon:RibbonTab>
         </ribbon:Ribbon>
