@@ -1,41 +1,8 @@
 ﻿Imports System.IO
 Public Class MainWindow
-    ' Localization and Strings
-    ' NOTE: Apple TV, iPad, iPhone, and iPod touch do not translate to anything
-    ' NOTE: Check for Updates is not translated
-    ' NOTE: This may contain errors as this is Google Translate
-    ' NOTE: "Web" does not need to be translated
+    ' Strings
     Public wantedlang As String
     Public nokey As String = "None Published"
-    Public esnokey As String = "Ninguno de publicación"
-    Public eshome As String = "casa"
-    Public esvfdecrypt As String = "VFDescifrar"
-    Public esdecrypt As String = "Descifrar"
-    Public esinputfile As String = "Archivo de entrada:"
-    Public esoutputfile As String = "De salida del archivo:"
-    Public esselectinputfile As String = "Seleccione Archivo de entrada"
-    Public eskey As String = "Clave"
-    Public esclearkey As String = "tecla de borrado"
-    Public esextract As String = "Extraer"
-    Public eshelp As String = "Ayuda"
-    Public esabout As String = "Acerca de" 'This can be added to the beginning of anything in the help tab
-    Public escolestuff As String = "Cole Cosas"
-    Public esreadme As String = "Léame"
-    Public esextas As String = "Más" ' More
-    Public escheckforupdates As String = "Buscar actualizaciones"
-    Public eschangelog As String = "Cambios"
-    Public espublishkey As String = "Publicar Clave"
-    Public eschangelanguage As String = "Cambio de idioma"
-    Public eskeys As String = "las claves"
-    Public esfinal As String = "Pasado" ' Last
-    Public esbeta As String = "Prueba" ' Test
-    Public esprototype As String = esbeta ' For 1A420 (1.0)
-    Public esnote1xbeta As String = "AVISO: 1.2 nunca fue publicada. En su lugar, se cambió a 2,0."
-    Public esnote2xbeta As String = "AVISO: 2,0 prueba es en realidad un 1,2 de prueba 1."
-    Public esnote4xbeta As String = "AVISO: Por lo que el Apple TV informes de las pruebas de 4,4 (5,0), por favor consulte la ficha de prueba 5.x."
-    Public esnote4xfinalatv As String = "AVISO: En esta página, el número de versión de la izquierda es lo que los informes de Apple TV, mientras que el de la derecha es la versión de Apple"
-    Public esnote5xbeta As String = "AVISO: en el Apple TV, esta prueba será reportado como 4,4."
-    Public esunavailabe As String = "Construir, no disponibles para este dispositivo"
     ' Windows
     Public updatepane As Window = New Window1
     Public updatepaneopened As Boolean = False
@@ -327,11 +294,23 @@ Public Class MainWindow
         End If
     End Sub
     Private Sub btnDecrypt_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnDecrypt.Click
-        DoCMD(vfdecryptdir + "vfdecrypt.exe", _
-            " -i " & Chr(34) & Me.textInputFileName.Text & Chr(34) & _
-            " -k " & Me.textDecryptKey.Text & " " & _
-            " -o " & Chr(34) & Me.textOuputFileName.Text & Chr(34))
-        MsgBox("Done!", "Done Decrypting", MsgBoxStyle.OkOnly)
+        If (Me.textInputFileName.Text = "") Then
+            MsgBox("Make sure there is an input file!", MsgBoxStyle.OkOnly, "Something went wrong!")
+        Else
+            If (Me.textDecryptKey.Text = "") Then
+                MsgBox("Make sure these is a key inputed!", MsgBoxStyle.OkOnly, "Something went wrong!")
+            Else
+                If (Me.textOuputFileName.Text = "") Then
+                    MsgBox("Make sure these is an output file!", MsgBoxStyle.OkOnly, "Something went wrong!")
+                Else
+                    DoCMD(vfdecryptdir + "vfdecrypt.exe", _
+                        " -i " & Chr(34) & Me.textInputFileName.Text & Chr(34) & _
+                        " -k " & Me.textDecryptKey.Text & " " & _
+                        " -o " & Chr(34) & Me.textOuputFileName.Text & Chr(34))
+                    MsgBox("Done!", MsgBoxStyle.OkOnly, "Done Decrypting")
+                End If
+            End If
+        End If
     End Sub
     Private Sub btnAbout_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnAbout.Click
         Me.webBrowser.Navigate(New Uri(helpdir + "about_iDecryptIt.html"))
@@ -780,11 +759,11 @@ Public Class MainWindow
         key8f5166b.Text = nokey
         key8f190beta.Text = "cca43b420c4ffefb23a9b5e1605db40df1d89cb13d5951e22b7dda5a35a5cb2dcde85e4a"
         ' 5.x Beta
-        key9a5220p.Text = nokey
-        key9a5248d.Text = nokey
+        key9a5220p.Text = "a450072c20f4a07afec9d4c938a3dc08141aa86aa9073db5882313b09fd3098a90e0480e"
+        key9a5248d.Text = "5cc718f5615d8a0caaef430d8589d3542b6b19aef95cc33de39e8c74b869f27781d492c7"
         key9a5259f.Text = "7e428a3eb0539eb0b24c0f9dc52b0ff1ca2381f5bc7a4981377541b8a92c4b6581303cd2"
         key9a5274d.Text = nokey
-        key9a5288d.Text = nokey
+        key9a5288d.Text = "7e0fd860c3fd6daec23d840cbb0463d1027f5b356e55bea7bf7b3bc0e7f53271b1a4a5ad"
     End Sub
     Private Sub btniPod41_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPod41.Click
         ' iPod touch 4G
@@ -858,49 +837,56 @@ Public Class MainWindow
         End If
     End Sub
     Private Sub setlanges()
+        ' NOTE: Apple TV, iPad, iPhone, and iPod touch do not translate to anything
+        ' NOTE: Check for Updates is not translated
+        ' NOTE: This may contain errors as this is Google Translate
+        ' NOTE: "Web" does not need to be translated
+        '-----------------------------------------------------------------------------------
         ' Ribbon
-        HomeTab.Header = eshome
-        VFDecrypt.Header = esvfdecrypt
-        textInputFileName.Label = esinputfile
-        textOuputFileName.Label = esoutputfile
-        btnSelectVFDecryptInutFile.Label = esselectinputfile
-        textDecryptKey.Label = eskey + ":"
-        btnClearKey.Label = esclearkey
-        Extract.Header = esextract
-        btnExtract.Label = esextract
-        textExtractFileName.Label = esinputfile
-        btnSelectExtractFile.Label = esselectinputfile
-        HelpTab.Header = eshelp
-        HelpGroup.Header = eshelp
-        btnAbout.Label = esabout + " iDecryptIt"
-        btnVFDecrypt.Label = esabout + " " + esvfdecrypt
-        btnColeStuff.Label = esabout + " " + escolestuff
-        btnREADME.Label = esreadme
-        ExtrasGroup.Header = esextas
-        btnCheck4Updates.Label = escheckforupdates
-        btnChangelog.Label = eschangelog
-        btnHelpOut.Label = espublishkey
-        btnChangeLanguage.Label = eschangelanguage
-        KeyListTab.Header = eskeys
+        HomeTab.Header = "casa"
+        VFDecrypt.Header = "VFDescifrar"
+        btnDecrypt.Label = "Descifrar"
+        textInputFileName.Label = "Archivo de entrada:"
+        textOuputFileName.Label = "De salida del archivo:"
+        btnSelectVFDecryptInutFile.Label = "Seleccione Archivo de entrada"
+        textDecryptKey.Label = "Clave:"
+        btnClearKey.Label = "tecla de borrado"
+        Extract.Header = "Extraer"
+        btnExtract.Label = "Extraer"
+        textExtractFileName.Label = "Archivo de entrada:"
+        btnSelectExtractFile.Label = "Seleccione Archivo de entrada"
+        HelpTab.Header = "Ayuda"
+        HelpGroup.Header = "Ayuda"
+        btnAbout.Label = "Acerca de iDecryptIt"
+        btnVFDecrypt.Label = "Acerca de VFDescifrar"
+        btnColeStuff.Label = "Acerca de Cole Cosas"
+        btnREADME.Label = "Léame"
+        ExtrasGroup.Header = "Más"
+        btnCheck4Updates.Label = "Buscar actualizaciones"
+        btnChangelog.Label = "Cambios"
+        btnHelpOut.Label = "Publicar Clave"
+        btnChangeLanguage.Label = "Cambio de idioma"
+        KeyListTab.Header = "las claves"
         ' Main Area
-        v1Final.Header = "1.x " + esfinal
-        btn1a420.Content = esprototype
-        v1Beta.Header = "1.x " + esbeta
-        v2Final.Header = "2.x " + esfinal
-        v2Beta.Header = "2.x " + esbeta
-        v3Final.Header = "3.x " + esfinal
-        v3Beta.Header = "3.x " + esbeta
-        v4Final.Header = "4.x " + esfinal
-        v4Beta.Header = "4.x " + esbeta
-        v5Final.Header = "5.x " + esfinal
-        v5Beta.Header = "5.x " + esbeta
+        v1Final.Header = "1.x Pasado"
+        btn1a420.Content = "Prueba"
+        v1Beta.Header = "1.x Prueba"
+        v2Final.Header = "2.x Pasado"
+        v2Beta.Header = "2.x Prueba"
+        v3Final.Header = "3.x Pasado"
+        v3Beta.Header = "3.x Prueba"
+        v4Final.Header = "4.x Pasado"
+        v4Beta.Header = "4.x Prueba"
+        v5Final.Header = "5.x Pasado"
+        v5Beta.Header = "5.x Prueba"
         ' Little Tab Notes
-        note1xbeta.Text = esnote1xbeta
-        note2xbeta.Text = esnote2xbeta
-        note4xbeta.Text = esnote4xbeta
-        note4xfinalatv.Text = esnote4xfinalatv
-        note5xbeta.Text = esnote5xbeta
-        ' Unavailable Note
-        unavailable = esunavailabe
+        note1xbeta.Text = "AVISO: 1.2 nunca fue publicada. En su lugar, se cambió a 2,0."
+        note2xbeta.Text = "AVISO: 2,0 prueba es en realidad un 1,2 de prueba 1."
+        note4xbeta.Text = "AVISO: Por lo que el Apple TV informes de las pruebas de 4,4 (5,0), por favor consulte la ficha de prueba 5.x."
+        note4xfinalatv.Text = "AVISO: En esta página, el número de versión de la izquierda es lo que los informes de Apple TV, mientras que el de la derecha es la versión de Apple"
+        note5xbeta.Text = "AVISO: en el Apple TV, esta prueba será reportado como 4,4."
+        ' Notes
+        nokey = "Ninguno de publicación"
+        unavailable = "Construir, no disponibles para este dispositivo"
     End Sub
 End Class

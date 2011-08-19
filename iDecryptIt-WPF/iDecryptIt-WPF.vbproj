@@ -30,8 +30,8 @@
     <SuiteName>Cole Stuff</SuiteName>
     <MinimumRequiredVersion>1.0.0.0</MinimumRequiredVersion>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>606</ApplicationRevision>
-    <ApplicationVersion>5.0.5.%2a</ApplicationVersion>
+    <ApplicationRevision>620</ApplicationRevision>
+    <ApplicationVersion>5.00.5.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -191,9 +191,6 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
     </EmbeddedResource>
-    <Content Include="7z\7-zip.chm">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <None Include="My Project\app.manifest" />
     <None Include="My Project\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -265,15 +262,6 @@
     <Resource Include="Images\idecryptit_128.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="7z\7za.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="7z\license.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="7z\readme.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="help\about_iDecryptIt.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -301,6 +289,8 @@
     <Content Include="help\README.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="xpwntool\hfsplus.exe" />
+    <Content Include="xpwntool\zlib1.dll" />
     <Resource Include="Images\System-software-update_128.png" />
     <Resource Include="Images\Package-x-generic_128.png" />
     <Resource Include="Images\Software-update-available_128.png" />
