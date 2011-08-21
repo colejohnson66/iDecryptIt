@@ -30,8 +30,8 @@
     <SuiteName>Cole Stuff</SuiteName>
     <MinimumRequiredVersion>1.0.0.0</MinimumRequiredVersion>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>621</ApplicationRevision>
-    <ApplicationVersion>5.00.5.%2a</ApplicationVersion>
+    <ApplicationRevision>626</ApplicationRevision>
+    <ApplicationVersion>5.0.5.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -289,8 +289,12 @@
     <Content Include="help\README.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="xpwntool\hfsplus.exe" />
-    <Content Include="xpwntool\zlib1.dll" />
+    <Content Include="XPwn\hfsplus.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="XPwn\zlib1.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Resource Include="Images\System-software-update_128.png" />
     <Resource Include="Images\Package-x-generic_128.png" />
     <Resource Include="Images\Software-update-available_128.png" />
