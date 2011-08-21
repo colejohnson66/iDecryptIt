@@ -770,7 +770,7 @@
                         <TextBox Grid.Row="4" Grid.Column="4" Name="dmg9a5259f"/>
                         <TextBox Grid.Row="6" Grid.Column="4" Name="dmg9a5274d"/>
                         <TextBox Grid.Row="8" Grid.Column="4" Name="dmg9a5288d"/>
-                        <TextBox Grid.Row="8" Grid.Column="4" Name="dmg9a5302b"/>
+                        <TextBox Grid.Row="10" Grid.Column="4" Name="dmg9a5302b"/>
                         <TextBlock Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="5" Margin="3" Name="note5xbeta" Text="NOTE: On the Apple TV, this beta will be reported as 4.4." />
                     </Grid>
                 </ScrollViewer>
