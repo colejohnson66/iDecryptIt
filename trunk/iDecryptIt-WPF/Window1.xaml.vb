@@ -16,7 +16,7 @@ Public Class Window1
     Public rev As String = "5"
     Public updaterev As String = ""
     Public updaterevurl As String = contacturl + "revision&action=raw"
-    Public build As String = "1F75"
+    Public build As String = "1G28"
     Public updatebuild As String = ""
     Public updatebuildurl As String = contacturl + "build&action=raw"
     Private Sub Window1_Loaded(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles Me.Loaded
