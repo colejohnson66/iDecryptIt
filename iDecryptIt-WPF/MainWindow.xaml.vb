@@ -3,6 +3,7 @@ Public Class MainWindow
     ' Strings
     Public wantedlang As String
     Public nokey As String = "None Published"
+    Public unavailable As String = "Build not available for this device"
     ' Windows
     Public updatepane As Window = New Window1
     Public updatepaneopened As Boolean = False
@@ -15,8 +16,6 @@ Public Class MainWindow
     Public vfdecryptdir As String = rundir + "\VFDecrypt\"
     Public helpdir As String = rundir + "\help\"
     Public sevenzipdir As String = rundir + "\7z\"
-    ' Unavailable note
-    Public unavailable As String = "Build not available for this device"
     Public Sub clear()
         Call clearkeys()
         Call cleardmgs()
