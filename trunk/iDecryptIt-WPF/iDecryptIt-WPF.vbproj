@@ -30,8 +30,8 @@
     <SuiteName>Cole Stuff</SuiteName>
     <MinimumRequiredVersion>1.0.0.0</MinimumRequiredVersion>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>628</ApplicationRevision>
-    <ApplicationVersion>5.00.5.%2a</ApplicationVersion>
+    <ApplicationRevision>630</ApplicationRevision>
+    <ApplicationVersion>5.00.6.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>

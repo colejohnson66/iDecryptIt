@@ -136,6 +136,7 @@ Public Class MainWindow
         key9a5274d.Text = unavailable
         key9a5288d.Text = unavailable
         key9a5302b.Text = unavailable
+        key9a5313e.Text = unavailable
     End Sub
     Public Sub cleardmgs()
         ' 1.x Final
@@ -253,6 +254,7 @@ Public Class MainWindow
         dmg9a5274d.Text = "XXX-XXXX-XXX.dmg"
         dmg9a5288d.Text = "XXX-XXXX-XXX.dmg"
         dmg9a5302b.Text = "XXX-XXXX-XXX.dmg"
+        dmg9a5313e.Text = "XXX-XXXX-XXX.dmg"
     End Sub
     Public Sub cleanup()
         File.Delete(rundir + "\major.txt")
@@ -391,6 +393,7 @@ Public Class MainWindow
         key9a5274d.Text = "f2ad291291658b540675c6010fd8efd85777812414364e7fc2a91280f461ef6e10ee1ae4"
         key9a5288d.Text = "ce04ccd3ef4d97d44c3356bb23f95b49f2240ffd0d939b38e93ad63bad4e5e4a4fe484a2"
         key9a5302b.Text = "c96b7e16e1a403a7b88664fbdf46761b9a0610c1f4bfc08fe8fd6a2c6dea9b5c682fb8fd"
+        key9a5313e.Text = nokey
     End Sub
     Private Sub btniPad21_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPad21.Click
         ' iPad 2 Wi-Fi
@@ -409,6 +412,7 @@ Public Class MainWindow
         key9a5274d.Text = nokey
         key9a5288d.Text = nokey
         key9a5302b.Text = nokey
+        key9a5313e.Text = nokey
     End Sub
     Private Sub btniPad22_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPad22.Click
         ' iPad 2 GSM
@@ -427,6 +431,7 @@ Public Class MainWindow
         key9a5274d.Text = nokey
         key9a5288d.Text = nokey
         key9a5302b.Text = nokey
+        key9a5313e.Text = nokey
     End Sub
     Private Sub btniPad23_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPad23.Click
         ' iPad 2 CDMA
@@ -445,6 +450,7 @@ Public Class MainWindow
         key9a5274d.Text = nokey
         key9a5288d.Text = nokey
         key9a5302b.Text = nokey
+        key9a5313e.Text = nokey
     End Sub
     Private Sub btniPhone11_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPhone11.Click
         ' iPhone 1G GSM
@@ -590,6 +596,7 @@ Public Class MainWindow
         key9a5274d.Text = "f48c8fa1862b636fcc45aa25b6f2aa755656a02f475d9bd76921395f57406aa87a04dd54"
         key9a5288d.Text = "3a61db2078a658c69f7e2cf8c764bb9de3eb104ffd18905b69ebbfbdb9e0c5826ba57363"
         key9a5302b.Text = "bafe6937aa9a24a108af1fec0e24c76ad28ef4c57be971bd05a8ecd6abc2f31b8e90619f"
+        key9a5313e.Text = "72bf0eca5776925b62006f3f83ef02a1d536572fc95b54f426ef0132ef65d97cd13c880e"
     End Sub
     Private Sub btniPhone31_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPhone31.Click
         ' iPhone 4 GSM
@@ -625,6 +632,7 @@ Public Class MainWindow
         key9a5274d.Text = "b2e3d1f334b39e92201d6a6834b3ae624f52f35b3c41c73950b770cb0ac2294673525236"
         key9a5288d.Text = "bbbef345aaa6830c7c2045146357300c6b80f07fd676efc17076025fe0278b7b9a27978b"
         key9a5302b.Text = "1da9aca5ceac97e583df8dd9e84346ac03434bc6bf9557e8a5024193cbcf9b593d33cd4d"
+        key9a5313e.Text = nokey
     End Sub
     Private Sub btniPhone33_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPhone33.Click
         ' iPhone 4 CDMA
@@ -643,6 +651,7 @@ Public Class MainWindow
         key9a5274d.Text = "09ea260fddb12f00402a0e33b8063791a0d4728a188301933052b6285427aca18f8dcfa2"
         key9a5288d.Text = "6ef36fd78dc2e2db2e47062b6291ce9a434f3b1a8a03ba3e9fd74d8e9b674eecced2cb31"
         key9a5302b.Text = "6149a5138478d8eaaff89934260039ce02e21ef0769664ad0cd3861248108b599abc59cc"
+        key9a5313e.Text = nokey
     End Sub
     Private Sub btniPod11_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPod11.Click
         ' iPod touch 1G
@@ -773,6 +782,7 @@ Public Class MainWindow
         key9a5274d.Text = nokey
         key9a5288d.Text = "7e0fd860c3fd6daec23d840cbb0463d1027f5b356e55bea7bf7b3bc0e7f53271b1a4a5ad"
         key9a5302b.Text = "d00f6ad8af035d5331c83d60409168b9dab471ea0c2bb73f4e3ec23c194467e54e644100"
+        key9a5313e.Text = nokey
     End Sub
     Private Sub btniPod41_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPod41.Click
         ' iPod touch 4G
@@ -804,6 +814,7 @@ Public Class MainWindow
         key9a5274d.Text = "3217c37f8505a3a78e70174e686c13cc8e70174e686c13cc8e70174e686c13cc8e70174e"
         key9a5288d.Text = "31a02bd24385485793e575dc755f4f29064a8550d9e095ce5c230c5557aab8f2e08bfdef"
         key9a5302b.Text = "765bbbf5669c8cc3b7d68447c64c628e04f38ea65a61f98549bf97d52468e2c4e6153395"
+        key9a5313e.Text = nokey
     End Sub
     Private Sub btnAppleTV21_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnAppleTV21.Click
         ' Apple TV 2G
@@ -826,6 +837,7 @@ Public Class MainWindow
         key9a5259f.Text = "37c0ea663c670500c99424031e54a9d4d55e1156914a95ba54a62335c9e5f13d5c2cfe14"
         key9a5288d.Text = "40f3d0718052dda2f2c6637be99dc5717938149ac1b30a979fdd31109dc8fb0e83b4373c"
         key9a5302b.Text = "5134c59a148b2151a001cc5d984bb28339a379a47f2b0a40d9f7e16db0e1c44f7e2da028"
+        key9a5313e.Text = "cd5cbb28e733d7a538ad949f3ad295b8780185ff5103feb3e87eedf25ce0aff598e2ba1f"
     End Sub
     Private Sub btnClearKey_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnClearKey.Click
         Me.textDecryptKey.Text = ""
