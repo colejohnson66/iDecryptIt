@@ -4,6 +4,13 @@ Public Class MainWindow
     Public wantedlang As String
     Public nokey As String = "None Published"
     Public unavailable As String = "Build not available for this device"
+    Public result As Integer
+    ' What is This?
+    Public strArr() As String
+    Public count As Integer
+    Public device As String
+    Public version As String
+    Public build As String
     ' Windows
     Public updatepane As Window = New Window1
     Public updatepaneopened As Boolean = False
@@ -340,12 +347,9 @@ Public Class MainWindow
         Dim decrypt As New Microsoft.Win32.OpenFileDialog()
         decrypt.FileName = ""
         decrypt.DefaultExt = ".dmg"
-        decrypt.Filter = "Apple Disk Images (.dmg)|*.dmg"
+        decrypt.Filter = "Apple Disk Images|*.dmg"
         Dim result? As Boolean = decrypt.ShowDialog()
-
         If result = True Then
-            ' Fill in text boxes on ribbon
-            Me.textInputFileName.Text = decrypt.FileName
             Me.textOuputFileName.Text = Replace(decrypt.FileName, ".dmg", "_decrypted.dmg")
         End If
     End Sub
@@ -353,11 +357,20 @@ Public Class MainWindow
         Dim extractofd As New Microsoft.Win32.OpenFileDialog()
         extractofd.FileName = ""
         extractofd.DefaultExt = ".dmg"
-        extractofd.Filter = "DMG Files (DMG)|*.dmg"
+        extractofd.Filter = "Apple Disk Images|*.dmg"
         Dim result? As Boolean = extractofd.ShowDialog()
-
         If result = True Then
             Me.textExtractFileName.Text = extractofd.FileName
+        End If
+    End Sub
+    Private Sub btnSelectWhatAmIFile_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnSelectWhatAmIFile.Click
+        Dim whatisthis As New Microsoft.Win32.OpenFileDialog()
+        whatisthis.FileName = ""
+        whatisthis.DefaultExt = ".dmg"
+        whatisthis.Filter = "iDevice Restore Images|*.ipsw"
+        Dim result? As Boolean = whatisthis.ShowDialog()
+        If result = True Then
+            textWhatAmIFileName.Text = whatisthis.SafeFileName
         End If
     End Sub
     Private Sub btniPad11_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPad11.Click
@@ -856,6 +869,8 @@ Public Class MainWindow
             If wantedlang = "en" Then
             ElseIf wantedlang = "es" Then
                 Call setlanges()
+            Else
+                MsgBox("ERROR! The setting for the language is not English or Spanish! Shall I delete it?", MsgBoxStyle.YesNo, "ERROR!")
             End If
         End If
     End Sub
@@ -911,5 +926,24 @@ Public Class MainWindow
         ' Notes
         nokey = "Ninguno de publicación"
         unavailable = "Construir, no disponibles para este dispositivo"
+    End Sub
+    Private Sub btnWhatAmI_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnWhatAmI.Click
+        If (Me.textWhatAmIFileName.Text = "") Then
+            MsgBox("ERROR! Make sure you select a file!", MsgBoxStyle.OkOnly, "ERROR!")
+        Else
+            strArr = textWhatAmIFileName.Text.Split("_")
+            If (strArr.Length = 4) Then
+                If (strArr(3) = "Restore.ipsw") Then
+                    device = strArr(0)
+                    version = strArr(1)
+                    build = strArr(2)
+                    MsgBox("Device: " + device + Chr(13) + Chr(10) + "Version: " + version + Chr(13) + Chr(10) + "Build: " + build, MsgBoxStyle.OkOnly, "Info")
+                Else
+                    MsgBox("ERROR! The IPSW File that was given is not following the format:" + Chr(13) + Chr(10) + "{DEVICE}_{VERSION}_{BUILD}_Restore.ipsw", MsgBoxStyle.OkOnly, "ERROR!")
+                End If
+            Else
+                MsgBox("ERROR! The IPSW File that was given is not following the format:" + Chr(13) + Chr(10) + "{DEVICE}_{VERSION}_{BUILD}_Restore.ipsw", MsgBoxStyle.OkOnly, "ERROR!")
+            End If
+        End If
     End Sub
 End Class
