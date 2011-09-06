@@ -1,5 +1,7 @@
 ﻿Imports System.IO
 Public Class MainWindow
+    ' Sleep
+    Private Declare Sub Sleep Lib "kernel32" (ByVal dwMilliseconds As Long)
     ' Strings
     Public wantedlang As String
     Public nokey As String = "None Published"
@@ -9,11 +11,10 @@ Public Class MainWindow
     Public strArr() As String
     Public count As Integer
     Public device As String
+    Public device2 As String
     Public version As String
     Public build As String
     ' Windows
-    Public updatepane As Window = New Window1
-    Public updatepaneopened As Boolean = False
     Public selectlang As Window = New SelectLangControl
     Public selectlangopened As Boolean = False
     Public submitkey As Window = New SubmitKey
@@ -269,24 +270,20 @@ Public Class MainWindow
         File.Delete(rundir + "\rev.txt")
         File.Delete(rundir + "\build.txt")
     End Sub
-    Private Sub btnCheck4Updates_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnCheck4Updates.Click
-        If updatepaneopened = False Then
-            updatepaneopened = True
-            Call cleanup()
-            updatepane.Show()
-        Else
-            If (wantedlang = "en") Then
-                MsgBox("You can't check for updates a second time without closing iDecryptIt currently.  Sorry.", MsgBoxStyle.OkOnly)
-            ElseIf (wantedlang = "es") Then
-                MsgBox("No se puede comprobar si hay actualizaciones por segunda vez sin cerrar iDecryptIt actualmente. Lo siento.", MsgBoxStyle.OkOnly)
-            End If
-        End If
-    End Sub
     Private Sub DoCMD(ByVal file As String, ByVal arg As String)
-        ' Taken from iH8snow's iDecrypter (hope you don't mind) :)
+        ' Taken from fallensn0w's iDecrypter and converted to WPF (hope you don't mind) :)
         Dim procNlite As New Process
         procNlite.StartInfo.FileName = file
         procNlite.StartInfo.Arguments = " " & arg
+        procNlite.StartInfo.WindowStyle = 1
+        procNlite.Start()
+        procNlite.WaitForExit()
+    End Sub
+    Private Sub DoCMDNoArg(ByVal file As String)
+        ' Same as DoCMD() but without arguments (needed for Update Checker)
+        Dim procNlite As New Process
+        procNlite.StartInfo.FileName = file
+        procNlite.StartInfo.Arguments = ""
         procNlite.StartInfo.WindowStyle = 1
         procNlite.Start()
         procNlite.WaitForExit()
@@ -406,7 +403,7 @@ Public Class MainWindow
         key9a5274d.Text = "f2ad291291658b540675c6010fd8efd85777812414364e7fc2a91280f461ef6e10ee1ae4"
         key9a5288d.Text = "ce04ccd3ef4d97d44c3356bb23f95b49f2240ffd0d939b38e93ad63bad4e5e4a4fe484a2"
         key9a5302b.Text = "c96b7e16e1a403a7b88664fbdf46761b9a0610c1f4bfc08fe8fd6a2c6dea9b5c682fb8fd"
-        key9a5313e.Text = nokey
+        key9a5313e.Text = "5cc99c325299804bd947950ba37322987ef0b769c338956815e45caed9be7e8b193da645"
     End Sub
     Private Sub btniPad21_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPad21.Click
         ' iPad 2 Wi-Fi
@@ -428,7 +425,7 @@ Public Class MainWindow
         key9a5313e.Text = nokey
     End Sub
     Private Sub btniPad22_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPad22.Click
-        ' iPad 2 GSM
+        ' iPad 2 Wi-Fi+GSM
         Call clear()
         ' 4.x Final
         key8f191.Text = nokey
@@ -447,7 +444,7 @@ Public Class MainWindow
         key9a5313e.Text = nokey
     End Sub
     Private Sub btniPad23_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPad23.Click
-        ' iPad 2 CDMA
+        ' iPad 2 Wi-Fi+CDMA
         Call clear()
         ' 4.x Final
         key8f191.Text = nokey
@@ -645,7 +642,7 @@ Public Class MainWindow
         key9a5274d.Text = "b2e3d1f334b39e92201d6a6834b3ae624f52f35b3c41c73950b770cb0ac2294673525236"
         key9a5288d.Text = "bbbef345aaa6830c7c2045146357300c6b80f07fd676efc17076025fe0278b7b9a27978b"
         key9a5302b.Text = "1da9aca5ceac97e583df8dd9e84346ac03434bc6bf9557e8a5024193cbcf9b593d33cd4d"
-        key9a5313e.Text = nokey
+        key9a5313e.Text = "984ce29b96abdc525711b39bd4263c17ae327d77a79564889efcaf50d5201c361cfe30a7"
     End Sub
     Private Sub btniPhone33_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPhone33.Click
         ' iPhone 4 CDMA
@@ -855,10 +852,24 @@ Public Class MainWindow
     Private Sub btnClearKey_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnClearKey.Click
         Me.textDecryptKey.Text = ""
     End Sub
+    Private Sub MainWindow_Activated(sender As Object, e As System.EventArgs) Handles Me.Activated
+        If wantedlang = "en" Then
+        ElseIf wantedlang = "es" Then
+            Call setlanges()
+        Else
+            ' Iron out this bug
+            ' Call deletelanguage()
+        End If
+    End Sub
     Private Sub MainWindow_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles Me.Closing
         Call cleanup()
     End Sub
     Private Sub MainWindow_Loaded(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles Me.Loaded
+        ' cleanup() is called before to clear any leftover crap from a crash while checking
+        ' cleanup() is called a second time because cleanup() is not implemented in the update checker
+        ' it takes a couple miliseconds to do cleanup(), so they won't notice a differance
+        Call cleanup()
+        DoCMDNoArg("iDecryptIt-Updater.exe")
         Call cleanup()
         Dim langcode As Microsoft.Win32.RegistryKey
         langcode = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\\Cole Stuff\\iDecryptIt", True)
@@ -866,12 +877,6 @@ Public Class MainWindow
             selectlang.Show()
         Else
             wantedlang = Microsoft.Win32.Registry.GetValue("HKEY_CURRENT_USER\SOFTWARE\\Cole Stuff\\iDecryptIt", "language", "en")
-            If wantedlang = "en" Then
-            ElseIf wantedlang = "es" Then
-                Call setlanges()
-            Else
-                MsgBox("ERROR! The setting for the language is not English or Spanish! Shall I delete it?", MsgBoxStyle.YesNo, "ERROR!")
-            End If
         End If
     End Sub
     Private Sub setlanges()
@@ -900,7 +905,6 @@ Public Class MainWindow
         btnColeStuff.Label = "Acerca de Cole Cosas"
         btnREADME.Label = "Léame"
         ExtrasGroup.Header = "Más"
-        btnCheck4Updates.Label = "Buscar actualizaciones"
         btnChangelog.Label = "Cambios"
         btnHelpOut.Label = "Publicar Clave"
         btnChangeLanguage.Label = "Cambio de idioma"
@@ -928,6 +932,11 @@ Public Class MainWindow
         unavailable = "Construir, no disponibles para este dispositivo"
     End Sub
     Private Sub btnWhatAmI_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnWhatAmI.Click
+        ' This is a complex tree of if() statements
+        ' (with what should be a switch(), but that doesn't exit)
+        ' and therefore to make sure that one and only one MsgBox() is displayed
+        ' (error occurs when "MainWindow.device" is "{DEVICE}{#}," and nothing else)
+        ' (no bug number, found through debugging)
         If (Me.textWhatAmIFileName.Text = "") Then
             MsgBox("ERROR! Make sure you select a file!", MsgBoxStyle.OkOnly, "ERROR!")
         Else
@@ -937,13 +946,62 @@ Public Class MainWindow
                     device = strArr(0)
                     version = strArr(1)
                     build = strArr(2)
-                    MsgBox("Device: " + device + Chr(13) + Chr(10) + "Version: " + version + Chr(13) + Chr(10) + "Build: " + build, MsgBoxStyle.OkOnly, "Info")
+                    strArr = device.Split(",")
+                    If (strArr.Length = 2) Then
+                        ' Too bad VB.NET (and possibly other .NET languages) doesn't have a switch function
+                        If (device = "iPad1,1") Then
+                            device = "iPad 1G Wi-Fi/Wi-Fi+3G"
+                        ElseIf (device = "iPad2,1") Then
+                            device = "iPad 2 Wi-Fi"
+                        ElseIf (device = "iPad2,2") Then
+                            device = "iPad 2 Wi-Fi+3G GSM"
+                        ElseIf (device = "iPad2,3") Then
+                            device = "iPad 2 Wi-Fi+3G CDMA"
+                        ElseIf (device = "iPhone1,1") Then
+                            device = "iPhone 2G"
+                        ElseIf (device = "iPhone1,2") Then
+                            device = "iPhone 3G"
+                        ElseIf (device = "iPhone2,1") Then
+                            device = "iPhone 3GS"
+                        ElseIf (device = "iPhone3,1") Then
+                            device = "iPhone 4 GSM"
+                        ElseIf (device = "iPhone3,3") Then
+                            device = "iPhone 4 CDMA"
+                        ElseIf (device = "iPod1,1") Then
+                            device = "iPod touch 1G"
+                        ElseIf (device = "iPod2,1") Then
+                            device = "iPod touch 2G"
+                        ElseIf (device = "iPod3,1") Then
+                            device = "iPod touch 3G"
+                        ElseIf (device = "iPod4,1") Then
+                            device = "iPod touch 4G"
+                        ElseIf (device = "AppleTV2,1") Then
+                            device = "Apple TV 2G"
+                        Else
+                            MsgBox("ERROR! The supplied device: '" + device + "' does not follow the format: {iPad/iPhone/iPod/AppleTV}{#},{#}", MsgBoxStyle.OkOnly, "ERROR!")
+                            Exit Sub
+                        End If
+                        MsgBox("Device: " + device + Chr(13) + Chr(10) + "Version: " + version + Chr(13) + Chr(10) + "Build: " + build, MsgBoxStyle.OkOnly, "Info")
+                        Exit Sub
+                    Else
+                        MsgBox("ERROR! The supplied device: '" + device + "' does not follow the format: {iPad/iPhone/iPod/AppleTV}{#},{#}", MsgBoxStyle.OkOnly, "ERROR!")
+                        Exit Sub
+                    End If
                 Else
                     MsgBox("ERROR! The IPSW File that was given is not following the format:" + Chr(13) + Chr(10) + "{DEVICE}_{VERSION}_{BUILD}_Restore.ipsw", MsgBoxStyle.OkOnly, "ERROR!")
+                    Exit Sub
                 End If
             Else
                 MsgBox("ERROR! The IPSW File that was given is not following the format:" + Chr(13) + Chr(10) + "{DEVICE}_{VERSION}_{BUILD}_Restore.ipsw", MsgBoxStyle.OkOnly, "ERROR!")
+                Exit Sub
             End If
+        End If
+    End Sub
+    Private Sub deletelanguage()
+        result = MsgBox("ERROR! The setting for the language is not English or Spanish! Shall I delete it?", MsgBoxStyle.YesNo, "ERROR!")
+        If (result = 7) Then
+            ' They said yes
+            Microsoft.Win32.Registry.CurrentUser.DeleteSubKey("SOFTWARE\\Cole Stuff\\iDecryptIt")
         End If
     End Sub
 End Class
