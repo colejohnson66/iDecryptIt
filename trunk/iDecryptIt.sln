@@ -2,6 +2,11 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "iDecryptIt-WPF", "iDecryptIt-WPF\iDecryptIt-WPF.vbproj", "{0CA89F89-7FC6-4255-84B4-C197F73D0B54}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BE7DAAC5-846D-4ED7-A348-DE3ACED58D81} = {BE7DAAC5-846D-4ED7-A348-DE3ACED58D81}
+	EndProjectSection
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "iDecryptIt-Updater", "iDecryptIt-Updater\iDecryptIt-Updater.vbproj", "{BE7DAAC5-846D-4ED7-A348-DE3ACED58D81}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,6 +18,9 @@ Global
 		{0CA89F89-7FC6-4255-84B4-C197F73D0B54}.Debug|x86.Build.0 = Debug|x86
 		{0CA89F89-7FC6-4255-84B4-C197F73D0B54}.Release|x86.ActiveCfg = Release|x86
 		{0CA89F89-7FC6-4255-84B4-C197F73D0B54}.Release|x86.Build.0 = Release|x86
+		{BE7DAAC5-846D-4ED7-A348-DE3ACED58D81}.Debug|x86.ActiveCfg = Debug|x86
+		{BE7DAAC5-846D-4ED7-A348-DE3ACED58D81}.Debug|x86.Build.0 = Debug|x86
+		{BE7DAAC5-846D-4ED7-A348-DE3ACED58D81}.Release|x86.ActiveCfg = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

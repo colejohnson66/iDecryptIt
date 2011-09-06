@@ -30,7 +30,7 @@
     <SuiteName>Cole Stuff</SuiteName>
     <MinimumRequiredVersion>1.0.0.0</MinimumRequiredVersion>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>670</ApplicationRevision>
+    <ApplicationRevision>692</ApplicationRevision>
     <ApplicationVersion>5.00.6.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -127,9 +127,6 @@
     <Compile Include="SelectLangControl.xaml.vb">
       <DependentUpon>SelectLangControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Window1.xaml.vb">
-      <DependentUpon>Window1.xaml</DependentUpon>
-    </Compile>
     <Page Include="SubmitKey.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -147,10 +144,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="SelectLangControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Window1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -295,19 +288,15 @@
     <Content Include="help\README.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Images\splash.png" />
     <Content Include="XPwn\hfsplus.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="XPwn\zlib1.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Images\System-software-update_128.png" />
     <Resource Include="Images\Package-x-generic_128.png" />
-    <Resource Include="Images\Software-update-available_128.png" />
     <Resource Include="Images\Gnome-logviewer_32.png" />
     <Resource Include="Images\idecryptit_48.png" />
-    <Resource Include="Images\System-software-update.ico" />
     <Resource Include="Images\iPod1,1_16.png" />
     <Resource Include="Images\iPod2,1_16.png" />
     <Resource Include="Images\iPod3,1_16.png" />
@@ -321,8 +310,6 @@
     <Resource Include="Images\iPad2,1_16.png" />
     <Resource Include="Images\iPad2,2_16.png" />
     <Resource Include="Images\iPad2,3_16.png" />
-    <Resource Include="Images\System-software-update_16.png" />
-    <Resource Include="Images\System-software-update_32.png" />
     <Resource Include="Images\Gnome-logviewer_16.png" />
     <Resource Include="Images\theiphonewiki_16.png" />
     <Resource Include="Images\theiphonewiki_32.png" />
