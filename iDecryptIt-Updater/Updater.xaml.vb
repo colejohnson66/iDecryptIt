@@ -4,7 +4,7 @@ Public Class Updater
     Public topbutton As String = ""
     Public bottombutton As String = ""
     ' File paths
-    Public rundir As String = Directory.GetCurrentDirectory()
+    Public tempdir As String = Path.GetTempPath + "iDecryptIt\"
     ' Update
     Public contacturl As String = "http://theiphonewiki.com/wiki/index.php?title=User:Balloonhead66/Latest_stable_software_release/iDecryptIt/"
     Public major As String = "5"
@@ -22,27 +22,30 @@ Public Class Updater
     Private Sub Updater_Loaded(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles Me.Loaded
         Me.Visibility = Windows.Visibility.Hidden
         Try
+            ' In order to save time, this version will no longer make 4 checks, just 1.'
+            ' Something like #.##.#.#### (@@@ ##, 201#)
+            ' We will use the split() function to turn it into ...(0) = #.##.#.####
+            ' Then split that by the period and parse ...(0), ...(1), ...(2), and ...(3)
             Dim clientCheck = New System.Net.WebClient()
             ' Major
-            clientCheck.DownloadFile(updatemajorurl, rundir + "\major.txt")
-            Dim majorchecker As New System.IO.StreamReader(rundir + "\major.txt")
+            clientCheck.DownloadFile(updatemajorurl, tempdir + "major.txt")
+            Dim majorchecker As New StreamReader(tempdir + "major.txt")
             updatemajor = majorchecker.ReadToEnd
-            ' Minor
-            clientCheck.DownloadFile(updateminorurl, rundir + "\minor.txt")
-            Dim minorchecker As New System.IO.StreamReader(rundir + "\minor.txt")
-            updateminor = minorchecker.ReadToEnd
-            ' Revision
-            clientCheck.DownloadFile(updaterevurl, rundir + "\rev.txt")
-            Dim revchecker As New System.IO.StreamReader(rundir + "\rev.txt")
-            updaterev = revchecker.ReadToEnd
-            ' Build
-            clientCheck.DownloadFile(updatebuildurl, rundir + "\build.txt")
-            Dim buildchecker As New System.IO.StreamReader(rundir + "\build.txt")
-            updatebuild = buildchecker.ReadToEnd
-            ' Close lock handle on file
             majorchecker.Close()
+            ' Minor
+            clientCheck.DownloadFile(updateminorurl, tempdir + "minor.txt")
+            Dim minorchecker As New StreamReader(tempdir + "minor.txt")
+            updateminor = minorchecker.ReadToEnd
             minorchecker.Close()
+            ' Revision
+            clientCheck.DownloadFile(updaterevurl, tempdir + "rev.txt")
+            Dim revchecker As New StreamReader(tempdir + "rev.txt")
+            updaterev = revchecker.ReadToEnd
             revchecker.Close()
+            ' Build
+            clientCheck.DownloadFile(updatebuildurl, tempdir + "build.txt")
+            Dim buildchecker As New StreamReader(tempdir + "build.txt")
+            updatebuild = buildchecker.ReadToEnd
             buildchecker.Close()
             Call compare()
         Catch ex As Exception
