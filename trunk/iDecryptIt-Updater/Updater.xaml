@@ -27,9 +27,7 @@
                 <ColumnDefinition Width="12" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Image Grid.Row="1" Grid.Column="1" Height="128" Name="ImageCheck" Width="128" Source="/iDecryptIt-Updater;component/System-software-update_128.png" />
-            <Image Grid.Row="1" Grid.Column="1" Height="128" Name="ImageAvailable" Width="128" Source="/iDecryptIt-Updater;component/Software-update-available_128.png" Visibility="Hidden" />
-            <Image Grid.Row="1" Grid.Column="1" Height="128" Name="ImageNone" Width="128" Source="/iDecryptIt-Updater;component/Package-x-generic_128.png" Visibility="Hidden" />
+            <Image Grid.Row="1" Grid.Column="1" Height="128" Name="ImageAvailable" Width="128" Source="/iDecryptIt-Updater;component/Software-update-available_128.png" />
             <Grid Grid.Row="1" Grid.Column="4">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
@@ -43,8 +41,8 @@
                     <ColumnDefinition Width="75" />
                     <ColumnDefinition Width="12" />
                 </Grid.ColumnDefinitions>
-                <Button Grid.Row="1" Grid.Column="2" Content="(Top)" Margin="0" Name="btnTop" Visibility="Hidden" />
-                <Button Grid.Row="3" Grid.Column="2" Content="OK" Margin="0" Name="btnBottom" Visibility="Hidden" />
+                <Button Grid.Row="1" Grid.Column="2" Content="Download" Margin="0" Name="btnTop" />
+                <Button Grid.Row="3" Grid.Column="2" Content="OK" Margin="0" Name="btnBottom" />
                 <TextBlock Grid.Row="1" Grid.Column="0" Name="txtAvailable" Text="" />
                 <TextBlock Grid.Row="3" Grid.Column="0" Name="txtInstalled" Text="" />
             </Grid>
