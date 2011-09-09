@@ -1,4 +1,5 @@
 ﻿Imports System.IO
+Imports Microsoft.Win32
 Public Class MainWindow
     ' Sleep
     Private Declare Sub Sleep Lib "kernel32" (ByVal dwMilliseconds As Long)
@@ -20,13 +21,9 @@ Public Class MainWindow
     Public submitkey As Window = New SubmitKey
     Public submitkeyopened As Boolean = False
     ' File paths
-    Public rundir As String = Directory.GetCurrentDirectory()
-    Public vfdecryptdir As String = rundir + "\extras\vfdecrypt\"
-    Public sevenzipdir As String = rundir + "\extras\sevenzip\"
-    Public xpwndir As String = rundir + "\extras\xpwn\"
-    Public helpdir As String = rundir + "\help\"
-    Public tempdir As String = Path.GetTempPath() + "iDecryptIt\"
-
+    Public rundir As String = Directory.GetCurrentDirectory
+    Public tempdir As String = Path.GetTempPath + "idecryptit\"
+    Public helpdir As String = tempdir + "help\"
     Public Sub clear()
         Call clearkeys()
         Call cleardmgs()
@@ -268,25 +265,15 @@ Public Class MainWindow
         dmg9a5313e.Text = "XXX-XXXX-XXX.dmg"
     End Sub
     Public Sub cleanup()
-        File.Delete(rundir + "\major.txt")
-        File.Delete(rundir + "\minor.txt")
-        File.Delete(rundir + "\rev.txt")
-        File.Delete(rundir + "\build.txt")
+        If (Directory.Exists(tempdir + "idecryptit")) Then
+            Directory.Delete(tempdir, True)
+        End If
     End Sub
-    Private Sub DoCMD(ByVal file As String, ByVal arg As String)
+    Private Sub DoCMD(ByVal file As String, Optional ByVal arg As String = "")
         ' Taken from fallensn0w's iDecrypter and converted to WPF (hope you don't mind) :)
         Dim procNlite As New Process
         procNlite.StartInfo.FileName = file
-        procNlite.StartInfo.Arguments = " " & arg
-        procNlite.StartInfo.WindowStyle = 1
-        procNlite.Start()
-        procNlite.WaitForExit()
-    End Sub
-    Private Sub DoCMDNoArg(ByVal file As String)
-        ' Same as DoCMD() but without arguments (needed for Update Checker)
-        Dim procNlite As New Process
-        procNlite.StartInfo.FileName = file
-        procNlite.StartInfo.Arguments = ""
+        procNlite.StartInfo.Arguments = arg
         procNlite.StartInfo.WindowStyle = 1
         procNlite.Start()
         procNlite.WaitForExit()
@@ -313,7 +300,7 @@ Public Class MainWindow
                 If (Me.textOuputFileName.Text = "") Then
                     MsgBox("Make sure these is an output file!", MsgBoxStyle.OkOnly, "Something went wrong!")
                 Else
-                    DoCMD(vfdecryptdir + "vfdecrypt.exe", _
+                    DoCMD(rundir + "\vfdecrypt.exe", _
                         " -i " & Chr(34) & Me.textInputFileName.Text & Chr(34) & _
                         " -k " & Me.textDecryptKey.Text & " " & _
                         " -o " & Chr(34) & Me.textOuputFileName.Text & Chr(34))
@@ -934,24 +921,24 @@ Public Class MainWindow
     End Sub
     Private Sub MainWindow_Loaded(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles Me.Loaded
         ' cleanup() is called before to clear any leftover crap from a crash while checking
-        ' cleanup() is called a second time because cleanup() is not implemented in the update checker
-        ' it takes a couple miliseconds to do cleanup(), so they won't notice a differance
+        ' then create the directory so we can extract resources.zip
         Call cleanup()
-        DoCMDNoArg("iDecryptIt-Updater.exe")
-        Call cleanup()
+        Directory.CreateDirectory(tempdir)
+        DoCMD(rundir + "\iDecryptIt-Updater.exe")
+        ' Language checker
         Dim langcode As Microsoft.Win32.RegistryKey
-        langcode = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\\Cole Stuff\\iDecryptIt", True)
+        langcode = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Cole Stuff\\iDecryptIt", True)
         If langcode Is Nothing Then
             selectlang.Show()
         Else
-            wantedlang = Microsoft.Win32.Registry.GetValue("HKEY_CURRENT_USER\SOFTWARE\\Cole Stuff\\iDecryptIt", "language", "en")
+            wantedlang = Registry.GetValue("HKEY_CURRENT_USER\SOFTWARE\\Cole Stuff\\iDecryptIt", "language", "en")
         End If
     End Sub
     Private Sub setlanges()
         ' NOTE: Apple TV, iPad, iPhone, and iPod touch do not translate to anything
-        ' NOTE: Check for Updates is not translated
         ' NOTE: This may contain errors as this is Google Translate
         ' NOTE: "Web" does not need to be translated
+        ' NOTE: Web pages need to be translated
         '-----------------------------------------------------------------------------------
         ' Ribbon
         HomeTab.Header = "casa"
