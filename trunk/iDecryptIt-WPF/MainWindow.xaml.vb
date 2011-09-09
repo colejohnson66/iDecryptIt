@@ -21,9 +21,10 @@ Public Class MainWindow
     Public submitkeyopened As Boolean = False
     ' File paths
     Public rundir As String = Directory.GetCurrentDirectory()
-    Public vfdecryptdir As String = rundir + "\VFDecrypt\"
+    Public vfdecryptdir As String = rundir + "\extras\vfdecrypt\"
     Public helpdir As String = rundir + "\help\"
-    Public sevenzipdir As String = rundir + "\7z\"
+    Public sevenzipdir As String = rundir + "\extras\sevenzip\"
+    Public xpwndir As String = rundir + "\extras\xpwn\"
     Public Sub clear()
         Call clearkeys()
         Call cleardmgs()
