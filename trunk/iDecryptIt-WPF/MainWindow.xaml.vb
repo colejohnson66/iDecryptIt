@@ -22,9 +22,11 @@ Public Class MainWindow
     ' File paths
     Public rundir As String = Directory.GetCurrentDirectory()
     Public vfdecryptdir As String = rundir + "\extras\vfdecrypt\"
-    Public helpdir As String = rundir + "\help\"
     Public sevenzipdir As String = rundir + "\extras\sevenzip\"
     Public xpwndir As String = rundir + "\extras\xpwn\"
+    Public helpdir As String = rundir + "\help\"
+    Public tempdir As String = Path.GetTempPath() + "iDecryptIt\"
+
     Public Sub clear()
         Call clearkeys()
         Call cleardmgs()
@@ -369,6 +371,71 @@ Public Class MainWindow
         Dim result? As Boolean = whatisthis.ShowDialog()
         If result = True Then
             textWhatAmIFileName.Text = whatisthis.SafeFileName
+        End If
+    End Sub
+    Private Sub btnWhatAmI_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnWhatAmI.Click
+        ' This is a complex tree of if() statements and one switch() (select case...end select)
+        ' and therefore to make sure that one and only one MsgBox() is displayed
+        ' (error occurs when "MainWindow.device" is "{DEVICE}{#}," and nothing else)
+        ' (no bug number, found through debugging)
+        If (Me.textWhatAmIFileName.Text = "") Then
+            MsgBox("ERROR! Make sure you select a file!", MsgBoxStyle.OkOnly, "ERROR!")
+        Else
+            strArr = textWhatAmIFileName.Text.Split("_")
+            If (strArr.Length = 4) Then
+                If (strArr(3) = "Restore.ipsw") Then
+                    device = strArr(0)
+                    version = strArr(1)
+                    build = strArr(2)
+                    strArr = device.Split(",")
+                    If (strArr.Length = 2) Then
+                        Select Case device
+                            Case "iPad1,1"
+                                device = "iPad 1G Wi-Fi/Wi-Fi+3G"
+                            Case "iPad2,1"
+                                device = "iPad 2 Wi-Fi"
+                            Case "iPad2,2"
+                                device = "iPad 2 Wi-Fi+3G GSM"
+                            Case "iPad2,3"
+                                device = "iPad 2 Wi-Fi+3G CDMA"
+                            Case "iPhone1,1"
+                                device = "iPhone 2G"
+                            Case "iPhone1,2"
+                                device = "iPhone 3G"
+                            Case "iPhone2,1"
+                                device = "iPhone 3GS"
+                            Case "iPhone3,1"
+                                device = "iPhone 4 GSM"
+                            Case "iPhone3,3"
+                                device = "iPhone 4 CDMA"
+                            Case "iPod1,1"
+                                device = "iPod touch 1G"
+                            Case "iPod2,1"
+                                device = "iPod touch 2G"
+                            Case "iPod3,1"
+                                device = "iPod touch 3G"
+                            Case "iPod4,1"
+                                device = "iPod touch 4G"
+                            Case "AppleTV2,1"
+                                device = "Apple TV 2G"
+                            Case Else
+                                MsgBox("ERROR! The supplied device: '" + device + "' does not follow the format: {iPad/iPhone/iPod/AppleTV}{#},{#}", MsgBoxStyle.OkOnly, "ERROR!")
+                                Exit Sub
+                        End Select
+                        MsgBox("Device: " + device + Chr(13) + Chr(10) + "Version: " + version + Chr(13) + Chr(10) + "Build: " + build, MsgBoxStyle.OkOnly, "Info")
+                        Exit Sub
+                    Else
+                        MsgBox("ERROR! The supplied device: '" + device + "' does not follow the format: {iPad/iPhone/iPod/AppleTV}{#},{#}", MsgBoxStyle.OkOnly, "ERROR!")
+                        Exit Sub
+                    End If
+                Else
+                    MsgBox("ERROR! The IPSW File that was given is not following the format:" + Chr(13) + Chr(10) + "{DEVICE}_{VERSION}_{BUILD}_Restore.ipsw", MsgBoxStyle.OkOnly, "ERROR!")
+                    Exit Sub
+                End If
+            Else
+                MsgBox("ERROR! The IPSW File that was given is not following the format:" + Chr(13) + Chr(10) + "{DEVICE}_{VERSION}_{BUILD}_Restore.ipsw", MsgBoxStyle.OkOnly, "ERROR!")
+                Exit Sub
+            End If
         End If
     End Sub
     Private Sub btniPad11_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPad11.Click
@@ -931,72 +998,6 @@ Public Class MainWindow
         ' Notes
         nokey = "Ninguno de publicación"
         unavailable = "Construir, no disponibles para este dispositivo"
-    End Sub
-    Private Sub btnWhatAmI_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnWhatAmI.Click
-        ' This is a complex tree of if() statements
-        ' (with what should be a switch(), but that doesn't exit)
-        ' and therefore to make sure that one and only one MsgBox() is displayed
-        ' (error occurs when "MainWindow.device" is "{DEVICE}{#}," and nothing else)
-        ' (no bug number, found through debugging)
-        If (Me.textWhatAmIFileName.Text = "") Then
-            MsgBox("ERROR! Make sure you select a file!", MsgBoxStyle.OkOnly, "ERROR!")
-        Else
-            strArr = textWhatAmIFileName.Text.Split("_")
-            If (strArr.Length = 4) Then
-                If (strArr(3) = "Restore.ipsw") Then
-                    device = strArr(0)
-                    version = strArr(1)
-                    build = strArr(2)
-                    strArr = device.Split(",")
-                    If (strArr.Length = 2) Then
-                        ' Too bad VB.NET (and possibly other .NET languages) doesn't have a switch function
-                        If (device = "iPad1,1") Then
-                            device = "iPad 1G Wi-Fi/Wi-Fi+3G"
-                        ElseIf (device = "iPad2,1") Then
-                            device = "iPad 2 Wi-Fi"
-                        ElseIf (device = "iPad2,2") Then
-                            device = "iPad 2 Wi-Fi+3G GSM"
-                        ElseIf (device = "iPad2,3") Then
-                            device = "iPad 2 Wi-Fi+3G CDMA"
-                        ElseIf (device = "iPhone1,1") Then
-                            device = "iPhone 2G"
-                        ElseIf (device = "iPhone1,2") Then
-                            device = "iPhone 3G"
-                        ElseIf (device = "iPhone2,1") Then
-                            device = "iPhone 3GS"
-                        ElseIf (device = "iPhone3,1") Then
-                            device = "iPhone 4 GSM"
-                        ElseIf (device = "iPhone3,3") Then
-                            device = "iPhone 4 CDMA"
-                        ElseIf (device = "iPod1,1") Then
-                            device = "iPod touch 1G"
-                        ElseIf (device = "iPod2,1") Then
-                            device = "iPod touch 2G"
-                        ElseIf (device = "iPod3,1") Then
-                            device = "iPod touch 3G"
-                        ElseIf (device = "iPod4,1") Then
-                            device = "iPod touch 4G"
-                        ElseIf (device = "AppleTV2,1") Then
-                            device = "Apple TV 2G"
-                        Else
-                            MsgBox("ERROR! The supplied device: '" + device + "' does not follow the format: {iPad/iPhone/iPod/AppleTV}{#},{#}", MsgBoxStyle.OkOnly, "ERROR!")
-                            Exit Sub
-                        End If
-                        MsgBox("Device: " + device + Chr(13) + Chr(10) + "Version: " + version + Chr(13) + Chr(10) + "Build: " + build, MsgBoxStyle.OkOnly, "Info")
-                        Exit Sub
-                    Else
-                        MsgBox("ERROR! The supplied device: '" + device + "' does not follow the format: {iPad/iPhone/iPod/AppleTV}{#},{#}", MsgBoxStyle.OkOnly, "ERROR!")
-                        Exit Sub
-                    End If
-                Else
-                    MsgBox("ERROR! The IPSW File that was given is not following the format:" + Chr(13) + Chr(10) + "{DEVICE}_{VERSION}_{BUILD}_Restore.ipsw", MsgBoxStyle.OkOnly, "ERROR!")
-                    Exit Sub
-                End If
-            Else
-                MsgBox("ERROR! The IPSW File that was given is not following the format:" + Chr(13) + Chr(10) + "{DEVICE}_{VERSION}_{BUILD}_Restore.ipsw", MsgBoxStyle.OkOnly, "ERROR!")
-                Exit Sub
-            End If
-        End If
     End Sub
     Private Sub deletelanguage()
         result = MsgBox("ERROR! The setting for the language is not English or Spanish! Shall I delete it?", MsgBoxStyle.YesNo, "ERROR!")
