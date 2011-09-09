@@ -154,9 +154,6 @@
     <AppDesigner Include="My Project\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="System-software-update.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 and x64%29</ProductName>
@@ -181,9 +178,6 @@
   <ItemGroup>
     <Resource Include="Software-update-available_128.png" />
     <Resource Include="System-software-update_128.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Package-x-generic_128.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
