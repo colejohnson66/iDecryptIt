@@ -15,15 +15,10 @@ Public Class MainWindow
     Public device2 As String
     Public version As String
     Public build As String
-    ' Windows
-    Public selectlang As Window = New SelectLangControl
-    Public selectlangopened As Boolean = False
-    Public submitkey As Window = New SubmitKey
-    Public submitkeyopened As Boolean = False
     ' File paths
     Public rundir As String = Directory.GetCurrentDirectory
     Public tempdir As String = Path.GetTempPath + "idecryptit\"
-    Public helpdir As String = tempdir + "help\"
+    Public helpdir As String = rundir + "help\"
     Public Sub clear()
         Call clearkeys()
         Call cleardmgs()
@@ -279,16 +274,8 @@ Public Class MainWindow
         procNlite.WaitForExit()
     End Sub
     Private Sub btnChangeLanguage_Click(sender As Object, e As System.Windows.RoutedEventArgs) Handles btnChangeLanguage.Click
-        If (selectlangopened = False) Then
-            selectlangopened = True
-            selectlang.Show()
-        Else
-            If (wantedlang = "en") Then
-                MsgBox("You can't change the language twice in one iDecryptIt session.  Sorry.", MsgBoxStyle.OkOnly)
-            ElseIf (wantedlang = "es") Then
-                MsgBox("No se puede cambiar el idioma en dos ocasiones en un período de iDecryptIt. Lo siento.", MsgBoxStyle.OkOnly)
-            End If
-        End If
+        Dim selectlang As Window = New SelectLangControl
+        selectlang.Show()
     End Sub
     Private Sub btnDecrypt_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnDecrypt.Click
         If (Me.textInputFileName.Text = "") Then
@@ -319,16 +306,8 @@ Public Class MainWindow
         Me.webBrowser.Navigate(New Uri(helpdir + "README.html"))
     End Sub
     Private Sub btnHelpOut_Click(sender As Object, e As System.Windows.RoutedEventArgs) Handles btnHelpOut.Click
-        If (submitkeyopened = False) Then
-            submitkeyopened = True
-            submitkey.Show()
-        Else
-            If (wantedlang = "en") Then
-                MsgBox("You can't submit two key sets in one session without closing iDecryptIt currently.  Sorry.", MsgBoxStyle.OkOnly)
-            ElseIf (wantedlang = "es") Then
-                MsgBox("No se puede presentar dos juegos de claves en una sesión sin cerrar iDecryptIt actualmente. Lo siento.", MsgBoxStyle.OkOnly)
-            End If
-        End If
+        Dim submitkey As Window = New SubmitKey
+        submitkey.Show()
     End Sub
     Private Sub btnSelectVFDecryptInutFile_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnSelectVFDecryptInutFile.Click
         Dim decrypt As New Microsoft.Win32.OpenFileDialog()
@@ -716,7 +695,7 @@ Public Class MainWindow
         key9a5274d.Text = "09ea260fddb12f00402a0e33b8063791a0d4728a188301933052b6285427aca18f8dcfa2"
         key9a5288d.Text = "6ef36fd78dc2e2db2e47062b6291ce9a434f3b1a8a03ba3e9fd74d8e9b674eecced2cb31"
         key9a5302b.Text = "6149a5138478d8eaaff89934260039ce02e21ef0769664ad0cd3861248108b599abc59cc"
-        key9a5313e.Text = nokey
+        key9a5313e.Text = "0d236147d313acd49c584ea36818aa207ca5461855a21d1c0f8421ec314cb8e45b7b2b2a"
     End Sub
     Private Sub btniPod11_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPod11.Click
         ' iPod touch 1G
@@ -847,7 +826,7 @@ Public Class MainWindow
         key9a5274d.Text = nokey
         key9a5288d.Text = "7e0fd860c3fd6daec23d840cbb0463d1027f5b356e55bea7bf7b3bc0e7f53271b1a4a5ad"
         key9a5302b.Text = "d00f6ad8af035d5331c83d60409168b9dab471ea0c2bb73f4e3ec23c194467e54e644100"
-        key9a5313e.Text = nokey
+        key9a5313e.Text = "a1fab44f59d9b22e59ad7deaed305e0b14a55058f070c139087c19aff2b61420371edcb6"
     End Sub
     Private Sub btniPod41_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPod41.Click
         ' iPod touch 4G
@@ -879,7 +858,7 @@ Public Class MainWindow
         key9a5274d.Text = "3217c37f8505a3a78e70174e686c13cc8e70174e686c13cc8e70174e686c13cc8e70174e"
         key9a5288d.Text = "31a02bd24385485793e575dc755f4f29064a8550d9e095ce5c230c5557aab8f2e08bfdef"
         key9a5302b.Text = "765bbbf5669c8cc3b7d68447c64c628e04f38ea65a61f98549bf97d52468e2c4e6153395"
-        key9a5313e.Text = nokey
+        key9a5313e.Text = "938188db58e8f5e057d42036e23bd40e451ed58df600f65718b9f335e140e3f6400873e7"
     End Sub
     Private Sub btnAppleTV21_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnAppleTV21.Click
         ' Apple TV 2G
@@ -920,10 +899,17 @@ Public Class MainWindow
         Call cleanup()
     End Sub
     Private Sub MainWindow_Loaded(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles Me.Loaded
+        Dim selectlang As Window = New SelectLangControl
         ' cleanup() is called before to clear any leftover crap from a crash while checking
-        ' then create the directory so we can extract resources.zip
         Call cleanup()
         Directory.CreateDirectory(tempdir)
+        ' Because the updater downloads to .exe.new after extraction,
+        ' if that file exists, delete the .exe and rename the .exe.new to .exe
+        If (File.Exists(rundir + "\iDecryptIt-Updater.exe.new")) Then
+            File.Delete(rundir + "\iDecryptIt-Updater.exe")
+            File.Copy(rundir + "\iDecryptIt-Updater.exe.new", rundir + "\iDecryptIt-Updater.exe")
+            File.Delete(rundir + "\iDecryptIt-Updater.exe.new")
+        End If
         DoCMD(rundir + "\iDecryptIt-Updater.exe")
         ' Language checker
         Dim langcode As Microsoft.Win32.RegistryKey
