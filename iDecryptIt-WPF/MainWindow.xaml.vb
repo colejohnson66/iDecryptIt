@@ -976,7 +976,7 @@ Public Class MainWindow
         result = MsgBox("ERROR! The setting for the language is not English or Spanish! Shall I delete it?", MsgBoxStyle.YesNo, "ERROR!")
         If (result = 7) Then
             ' They said yes
-            Microsoft.Win32.Registry.CurrentUser.DeleteSubKey("SOFTWARE\\Cole Stuff\\iDecryptIt")
+            Registry.CurrentUser.DeleteSubKey("SOFTWARE\\Cole Stuff\\iDecryptIt")
         End If
     End Sub
 End Class
