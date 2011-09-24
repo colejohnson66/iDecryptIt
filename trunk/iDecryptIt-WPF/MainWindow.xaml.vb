@@ -19,6 +19,8 @@ Public Class MainWindow
     Public rundir As String = Directory.GetCurrentDirectory
     Public tempdir As String = Path.GetTempPath + "idecryptit\"
     Public helpdir As String = rundir + "help\"
+
+    ' My Stuff
     Public Sub clear()
         Call clearkeys()
         Call cleardmgs()
@@ -273,6 +275,11 @@ Public Class MainWindow
         procNlite.Start()
         procNlite.WaitForExit()
     End Sub
+    Private Function replacedmg(ByVal filename As String) As String
+        Return Replace(filename, ".dmg", "_decrypted.dmg")
+    End Function
+
+    ' Click and Stuff
     Private Sub btnChangeLanguage_Click(sender As Object, e As System.Windows.RoutedEventArgs) Handles btnChangeLanguage.Click
         Dim selectlang As Window = New SelectLangControl
         selectlang.Show()
@@ -310,17 +317,17 @@ Public Class MainWindow
         submitkey.Show()
     End Sub
     Private Sub btnSelectVFDecryptInutFile_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnSelectVFDecryptInutFile.Click
-        Dim decrypt As New Microsoft.Win32.OpenFileDialog()
+        Dim decrypt As New OpenFileDialog()
         decrypt.FileName = ""
         decrypt.DefaultExt = ".dmg"
         decrypt.Filter = "Apple Disk Images|*.dmg"
         Dim result? As Boolean = decrypt.ShowDialog()
         If result = True Then
-            Me.textOuputFileName.Text = Replace(decrypt.FileName, ".dmg", "_decrypted.dmg")
+            Me.textOuputFileName.Text = replacedmg(decrypt.FileName)
         End If
     End Sub
     Private Sub btnSelectExtractFile_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnSelectExtractFile.Click
-        Dim extractofd As New Microsoft.Win32.OpenFileDialog()
+        Dim extractofd As New OpenFileDialog()
         extractofd.FileName = ""
         extractofd.DefaultExt = ".dmg"
         extractofd.Filter = "Apple Disk Images|*.dmg"
@@ -330,7 +337,7 @@ Public Class MainWindow
         End If
     End Sub
     Private Sub btnSelectWhatAmIFile_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnSelectWhatAmIFile.Click
-        Dim whatisthis As New Microsoft.Win32.OpenFileDialog()
+        Dim whatisthis As New OpenFileDialog()
         whatisthis.FileName = ""
         whatisthis.DefaultExt = ".dmg"
         whatisthis.Filter = "iDevice Restore Images|*.ipsw"
@@ -342,10 +349,9 @@ Public Class MainWindow
     Private Sub btnWhatAmI_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnWhatAmI.Click
         ' This is a complex tree of if() statements and one switch() (select case...end select)
         ' and therefore to make sure that one and only one MsgBox() is displayed
-        ' (error occurs when "MainWindow.device" is "{DEVICE}{#}," and nothing else)
-        ' (no bug number, found through debugging)
         If (Me.textWhatAmIFileName.Text = "") Then
             MsgBox("ERROR! Make sure you select a file!", MsgBoxStyle.OkOnly, "ERROR!")
+            Exit Sub
         Else
             strArr = textWhatAmIFileName.Text.Split("_")
             If (strArr.Length = 4) Then
@@ -886,6 +892,8 @@ Public Class MainWindow
     Private Sub btnClearKey_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnClearKey.Click
         Me.textDecryptKey.Text = ""
     End Sub
+
+    ' Load and close
     Private Sub MainWindow_Activated(sender As Object, e As System.EventArgs) Handles Me.Activated
         If wantedlang = "en" Then
         ElseIf wantedlang = "es" Then
@@ -900,17 +908,21 @@ Public Class MainWindow
     End Sub
     Private Sub MainWindow_Loaded(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles Me.Loaded
         Dim selectlang As Window = New SelectLangControl
+        Dim i As Integer
+        Dim startargs() As String = Environment.GetCommandLineArgs
+
         ' cleanup() is called before to clear any leftover crap from a crash while checking
         Call cleanup()
         Directory.CreateDirectory(tempdir)
+
         ' Because the updater downloads to .exe.new after extraction,
         ' if that file exists, delete the .exe and rename the .exe.new to .exe
         If (File.Exists(rundir + "\iDecryptIt-Updater.exe.new")) Then
             File.Delete(rundir + "\iDecryptIt-Updater.exe")
-            File.Copy(rundir + "\iDecryptIt-Updater.exe.new", rundir + "\iDecryptIt-Updater.exe")
-            File.Delete(rundir + "\iDecryptIt-Updater.exe.new")
+            File.Move(rundir + "\iDecryptIt-Updater.exe.new", rundir + "\iDecryptIt-Updater.exe")
         End If
         DoCMD(rundir + "\iDecryptIt-Updater.exe")
+
         ' Language checker
         Dim langcode As Microsoft.Win32.RegistryKey
         langcode = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Cole Stuff\\iDecryptIt", True)
@@ -919,7 +931,18 @@ Public Class MainWindow
         Else
             wantedlang = Registry.GetValue("HKEY_CURRENT_USER\SOFTWARE\\Cole Stuff\\iDecryptIt", "language", "en")
         End If
+
+        ' Is there a specified DMG?
+        ' TODO: Make sure the last 4 characters are .dmg (case-insensitive)
+        For i = 0 To UBound(startargs)
+            If i = 1 Then
+                Me.textInputFileName.Text = startargs(1)
+                Me.textOuputFileName.Text = replacedmg(startargs(1))
+            End If
+        Next i
     End Sub
+
+    ' Language stuff
     Private Sub setlanges()
         ' NOTE: Apple TV, iPad, iPhone, and iPod touch do not translate to anything
         ' NOTE: This may contain errors as this is Google Translate

@@ -12,7 +12,7 @@ Public Class Updater
     Public updateminor As String = ""
     Public rev As String = "6"
     Public updaterev As String = ""
-    Public build As String = "1H31"
+    Public build As String = "1H35"
     Public updatebuild As String = ""
     Private Sub Updater_Loaded(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles Me.Loaded
         ' Me.Loaded is not called unless the window is shown for some reason

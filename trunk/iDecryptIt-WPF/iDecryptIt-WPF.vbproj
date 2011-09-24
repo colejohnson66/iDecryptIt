@@ -30,7 +30,7 @@
     <SuiteName>Cole Stuff</SuiteName>
     <MinimumRequiredVersion>1.0.0.0</MinimumRequiredVersion>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>730</ApplicationRevision>
+    <ApplicationRevision>735</ApplicationRevision>
     <ApplicationVersion>5.00.6.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -297,6 +297,7 @@
     <Content Include="help\README.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Images\dmg.ico" />
     <Content Include="vfdecrypt.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
