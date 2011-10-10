@@ -142,6 +142,7 @@ Public Class MainWindow
         key9a5288d.Text = unavailable
         key9a5302b.Text = unavailable
         key9a5313e.Text = unavailable
+        key9a334.Text = unavailable
     End Sub
     Public Sub cleardmgs()
         ' 1.x Final
@@ -260,6 +261,7 @@ Public Class MainWindow
         dmg9a5288d.Text = "XXX-XXXX-XXX.dmg"
         dmg9a5302b.Text = "XXX-XXXX-XXX.dmg"
         dmg9a5313e.Text = "XXX-XXXX-XXX.dmg"
+        dmg9a334.Text = "XXX-XXXX-XXX.dmg"
     End Sub
     Public Sub cleanup()
         If (Directory.Exists(tempdir + "idecryptit")) Then
@@ -280,11 +282,11 @@ Public Class MainWindow
     End Function
 
     ' Click and Stuff
-    Private Sub btnChangeLanguage_Click(sender As Object, e As System.Windows.RoutedEventArgs) Handles btnChangeLanguage.Click
+    Private Sub btnChangeLanguage_Click() Handles btnChangeLanguage.Click
         Dim selectlang As Window = New SelectLangControl
         selectlang.Show()
     End Sub
-    Private Sub btnDecrypt_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnDecrypt.Click
+    Private Sub btnDecrypt_Click() Handles btnDecrypt.Click
         If (Me.textInputFileName.Text = "") Then
             MsgBox("Make sure there is an input file!", MsgBoxStyle.OkOnly, "Something went wrong!")
         Else
@@ -303,20 +305,20 @@ Public Class MainWindow
             End If
         End If
     End Sub
-    Private Sub btnAbout_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnAbout.Click
+    Private Sub btnAbout_Click() Handles btnAbout.Click
         Me.webBrowser.Navigate(New Uri(helpdir + "about_iDecryptIt.html"))
     End Sub
-    Private Sub btnChangelog_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnChangelog.Click
+    Private Sub btnChangelog_Click() Handles btnChangelog.Click
         Me.webBrowser.Navigate(New Uri(helpdir + "changelog.html"))
     End Sub
-    Private Sub btnREADME_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnREADME.Click
+    Private Sub btnREADME_Click() Handles btnREADME.Click
         Me.webBrowser.Navigate(New Uri(helpdir + "README.html"))
     End Sub
-    Private Sub btnHelpOut_Click(sender As Object, e As System.Windows.RoutedEventArgs) Handles btnHelpOut.Click
+    Private Sub btnHelpOut_Click() Handles btnHelpOut.Click
         Dim submitkey As Window = New SubmitKey
         submitkey.Show()
     End Sub
-    Private Sub btnSelectVFDecryptInutFile_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnSelectVFDecryptInutFile.Click
+    Private Sub btnSelectVFDecryptInutFile_Click() Handles btnSelectVFDecryptInutFile.Click
         Dim decrypt As New OpenFileDialog()
         decrypt.FileName = ""
         decrypt.DefaultExt = ".dmg"
@@ -326,7 +328,7 @@ Public Class MainWindow
             Me.textOuputFileName.Text = replacedmg(decrypt.FileName)
         End If
     End Sub
-    Private Sub btnSelectExtractFile_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnSelectExtractFile.Click
+    Private Sub btnSelectExtractFile_Click() Handles btnSelectExtractFile.Click
         Dim extractofd As New OpenFileDialog()
         extractofd.FileName = ""
         extractofd.DefaultExt = ".dmg"
@@ -336,7 +338,7 @@ Public Class MainWindow
             Me.textExtractFileName.Text = extractofd.FileName
         End If
     End Sub
-    Private Sub btnSelectWhatAmIFile_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnSelectWhatAmIFile.Click
+    Private Sub btnSelectWhatAmIFile_Click() Handles btnSelectWhatAmIFile.Click
         Dim whatisthis As New OpenFileDialog()
         whatisthis.FileName = ""
         whatisthis.DefaultExt = ".dmg"
@@ -346,7 +348,7 @@ Public Class MainWindow
             textWhatAmIFileName.Text = whatisthis.SafeFileName
         End If
     End Sub
-    Private Sub btnWhatAmI_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnWhatAmI.Click
+    Private Sub btnWhatAmI_Click() Handles btnWhatAmI.Click
         ' This is a complex tree of if() statements and one switch() (select case...end select)
         ' and therefore to make sure that one and only one MsgBox() is displayed
         If (Me.textWhatAmIFileName.Text = "") Then
@@ -410,7 +412,7 @@ Public Class MainWindow
             End If
         End If
     End Sub
-    Private Sub btniPad11_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPad11.Click
+    Private Sub btniPad11_Click() Handles btniPad11.Click
         ' iPad 1G Wi-Fi/Wi-Fi+GSM
         Call clear()
         ' 3.x Final
@@ -444,8 +446,9 @@ Public Class MainWindow
         key9a5288d.Text = "ce04ccd3ef4d97d44c3356bb23f95b49f2240ffd0d939b38e93ad63bad4e5e4a4fe484a2"
         key9a5302b.Text = "c96b7e16e1a403a7b88664fbdf46761b9a0610c1f4bfc08fe8fd6a2c6dea9b5c682fb8fd"
         key9a5313e.Text = "5cc99c325299804bd947950ba37322987ef0b769c338956815e45caed9be7e8b193da645"
+        key9a334.Text = nokey
     End Sub
-    Private Sub btniPad21_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPad21.Click
+    Private Sub btniPad21_Click() Handles btniPad21.Click
         ' iPad 2 Wi-Fi
         Call clear()
         ' 4.x Final
@@ -463,8 +466,9 @@ Public Class MainWindow
         key9a5288d.Text = nokey
         key9a5302b.Text = nokey
         key9a5313e.Text = nokey
+        key9a334.Text = nokey
     End Sub
-    Private Sub btniPad22_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPad22.Click
+    Private Sub btniPad22_Click() Handles btniPad22.Click
         ' iPad 2 Wi-Fi+GSM
         Call clear()
         ' 4.x Final
@@ -482,8 +486,9 @@ Public Class MainWindow
         key9a5288d.Text = nokey
         key9a5302b.Text = nokey
         key9a5313e.Text = nokey
+        key9a334.Text = nokey
     End Sub
-    Private Sub btniPad23_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPad23.Click
+    Private Sub btniPad23_Click() Handles btniPad23.Click
         ' iPad 2 Wi-Fi+CDMA
         Call clear()
         ' 4.x Final
@@ -501,8 +506,9 @@ Public Class MainWindow
         key9a5288d.Text = nokey
         key9a5302b.Text = nokey
         key9a5313e.Text = nokey
+        key9a334.Text = nokey
     End Sub
-    Private Sub btniPhone11_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPhone11.Click
+    Private Sub btniPhone11_Click() Handles btniPhone11.Click
         ' iPhone 1G GSM
         Call clear()
         ' 1.x Final
@@ -549,7 +555,7 @@ Public Class MainWindow
         key7c106c.Text = "c02953ea2d1c99de2d59da6dddb37f6396ade34fa7ad8e1eb629fce68d51352fd1b42563"
         key7c116a.Text = nokey
     End Sub
-    Private Sub btniPhone12_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPhone12.Click
+    Private Sub btniPhone12_Click() Handles btniPhone12.Click
         ' iPhone 3G GSM
         Call clear()
         ' 2.x Final
@@ -597,7 +603,7 @@ Public Class MainWindow
         key8c134.Text = "f0db1eef22f887fd7c232812acc374d8e14cc382e4fea72766d08a96d4c175478bc6470a"
         key8c148beta.Text = "82c9280927224637c77a96a26d22f42f2ca08fa9a798a8d06fbc8202fc83ec7f45dda79e"
     End Sub
-    Private Sub btniPhone21_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPhone21.Click
+    Private Sub btniPhone21_Click() Handles btniPhone21.Click
         ' iPhone 3GS GSM
         Call clear()
         ' 3.x Final
@@ -647,8 +653,9 @@ Public Class MainWindow
         key9a5288d.Text = "3a61db2078a658c69f7e2cf8c764bb9de3eb104ffd18905b69ebbfbdb9e0c5826ba57363"
         key9a5302b.Text = "bafe6937aa9a24a108af1fec0e24c76ad28ef4c57be971bd05a8ecd6abc2f31b8e90619f"
         key9a5313e.Text = "72bf0eca5776925b62006f3f83ef02a1d536572fc95b54f426ef0132ef65d97cd13c880e"
+        key9a334.Text = nokey
     End Sub
-    Private Sub btniPhone31_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPhone31.Click
+    Private Sub btniPhone31_Click() Handles btniPhone31.Click
         ' iPhone 4 GSM
         Call clear()
         ' 4.x Final
@@ -683,8 +690,9 @@ Public Class MainWindow
         key9a5288d.Text = "bbbef345aaa6830c7c2045146357300c6b80f07fd676efc17076025fe0278b7b9a27978b"
         key9a5302b.Text = "1da9aca5ceac97e583df8dd9e84346ac03434bc6bf9557e8a5024193cbcf9b593d33cd4d"
         key9a5313e.Text = "984ce29b96abdc525711b39bd4263c17ae327d77a79564889efcaf50d5201c361cfe30a7"
+        key9a334.Text = nokey
     End Sub
-    Private Sub btniPhone33_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPhone33.Click
+    Private Sub btniPhone33_Click() Handles btniPhone33.Click
         ' iPhone 4 CDMA
         Call clear()
         ' 4.x Final
@@ -702,8 +710,9 @@ Public Class MainWindow
         key9a5288d.Text = "6ef36fd78dc2e2db2e47062b6291ce9a434f3b1a8a03ba3e9fd74d8e9b674eecced2cb31"
         key9a5302b.Text = "6149a5138478d8eaaff89934260039ce02e21ef0769664ad0cd3861248108b599abc59cc"
         key9a5313e.Text = "0d236147d313acd49c584ea36818aa207ca5461855a21d1c0f8421ec314cb8e45b7b2b2a"
+        key9a334.Text = "cbb21346634c5754f3e956f09ca7c93542b87286d7b11de71f18c5d72da529746ab27094"
     End Sub
-    Private Sub btniPod11_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPod11.Click
+    Private Sub btniPod11_Click() Handles btniPod11.Click
         ' iPod touch 1G
         Call clear()
         ' 1.x Final
@@ -749,7 +758,7 @@ Public Class MainWindow
         key7c106c.Text = nokey
         key7c116a.Text = nokey
     End Sub
-    Private Sub btniPod21_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPod21.Click
+    Private Sub btniPod21_Click() Handles btniPod21.Click
         ' iPod touch 2G
         Call clear()
         ' 2.x Final
@@ -789,7 +798,7 @@ Public Class MainWindow
         key8c134.Text = "6099be47ee6b867eb85aca33eab34d0713cdc7a6a017c91b537f3dfd8c8370e03b7e7a1c"
         key8c148beta.Text = "519ec112b4af0a65eab6ea65b222c5b7f605ce52ad9195640e3309de58dd54ab0a0c9607"
     End Sub
-    Private Sub btniPod31_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPod31.Click
+    Private Sub btniPod31_Click() Handles btniPod31.Click
         ' iPod touch 3G
         Call clear()
         ' 3.x Final
@@ -833,8 +842,9 @@ Public Class MainWindow
         key9a5288d.Text = "7e0fd860c3fd6daec23d840cbb0463d1027f5b356e55bea7bf7b3bc0e7f53271b1a4a5ad"
         key9a5302b.Text = "d00f6ad8af035d5331c83d60409168b9dab471ea0c2bb73f4e3ec23c194467e54e644100"
         key9a5313e.Text = "a1fab44f59d9b22e59ad7deaed305e0b14a55058f070c139087c19aff2b61420371edcb6"
+        key9a334.Text = nokey
     End Sub
-    Private Sub btniPod41_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btniPod41.Click
+    Private Sub btniPod41_Click() Handles btniPod41.Click
         ' iPod touch 4G
         Call clear()
         ' 4.x Final
@@ -865,8 +875,9 @@ Public Class MainWindow
         key9a5288d.Text = "31a02bd24385485793e575dc755f4f29064a8550d9e095ce5c230c5557aab8f2e08bfdef"
         key9a5302b.Text = "765bbbf5669c8cc3b7d68447c64c628e04f38ea65a61f98549bf97d52468e2c4e6153395"
         key9a5313e.Text = "938188db58e8f5e057d42036e23bd40e451ed58df600f65718b9f335e140e3f6400873e7"
+        key9a334.Text = "575bcb4f9290a28bc00451f7e444973fd8b0afc529d2d84db4ae227bdd779563f070eaea"
     End Sub
-    Private Sub btnAppleTV21_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnAppleTV21.Click
+    Private Sub btnAppleTV21_Click() Handles btnAppleTV21.Click
         ' Apple TV 2G
         Call clear()
         ' 4.x Final ATV
@@ -889,12 +900,12 @@ Public Class MainWindow
         key9a5302b.Text = "5134c59a148b2151a001cc5d984bb28339a379a47f2b0a40d9f7e16db0e1c44f7e2da028"
         key9a5313e.Text = "cd5cbb28e733d7a538ad949f3ad295b8780185ff5103feb3e87eedf25ce0aff598e2ba1f"
     End Sub
-    Private Sub btnClearKey_Click(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnClearKey.Click
+    Private Sub btnClearKey_Click() Handles btnClearKey.Click
         Me.textDecryptKey.Text = ""
     End Sub
 
     ' Load and close
-    Private Sub MainWindow_Activated(sender As Object, e As System.EventArgs) Handles Me.Activated
+    Private Sub MainWindow_Activated() Handles Me.Activated
         If wantedlang = "en" Then
         ElseIf wantedlang = "es" Then
             Call setlanges()
@@ -903,10 +914,10 @@ Public Class MainWindow
             ' Call deletelanguage()
         End If
     End Sub
-    Private Sub MainWindow_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles Me.Closing
+    Private Sub MainWindow_Closing() Handles Me.Closing
         Call cleanup()
     End Sub
-    Private Sub MainWindow_Loaded(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles Me.Loaded
+    Private Sub MainWindow_Loaded() Handles Me.Loaded
         Dim selectlang As Window = New SelectLangControl
         Dim i As Integer
         Dim startargs() As String = Environment.GetCommandLineArgs

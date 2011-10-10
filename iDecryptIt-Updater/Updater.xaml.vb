@@ -10,7 +10,7 @@ Public Class Updater
     Public updatemajor As String = ""
     Public minor As String = "00"
     Public updateminor As String = ""
-    Public rev As String = "6"
+    Public rev As String = "7"
     Public updaterev As String = ""
     Public build As String = "1H35"
     Public updatebuild As String = ""
