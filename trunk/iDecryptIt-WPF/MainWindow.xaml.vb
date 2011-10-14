@@ -114,6 +114,7 @@ Public Class MainWindow
         key8f202.Text = unavailable
         key8f305.Text = unavailable
         key8f455.Text = unavailable
+        key9a334v.Text = unavailable
         ' 4.x Beta
         key8a230m.Text = unavailable
         key8a248c.Text = unavailable
@@ -134,6 +135,8 @@ Public Class MainWindow
         key8f5153d.Text = unavailable
         key8f5166b.Text = unavailable
         key8f190beta.Text = unavailable
+        ' 5.x Final
+        key9a334final.Text = unavailable
         ' 5.x Beta
         key9a5220p.Text = unavailable
         key9a5248d.Text = unavailable
@@ -142,7 +145,7 @@ Public Class MainWindow
         key9a5288d.Text = unavailable
         key9a5302b.Text = unavailable
         key9a5313e.Text = unavailable
-        key9a334.Text = unavailable
+        key9a334beta.Text = unavailable
     End Sub
     Public Sub cleardmgs()
         ' 1.x Final
@@ -233,6 +236,7 @@ Public Class MainWindow
         dmg8f202.Text = "XXX-XXXX-XXX.dmg"
         dmg8f305.Text = "XXX-XXXX-XXX.dmg"
         dmg8f455.Text = "XXX-XXXX-XXX.dmg"
+        dmg9a334v.Text = "XXX-XXXX-XXX.dmg"
         ' 4.x Beta
         dmg8a230m.Text = "XXX-XXXX-XXX.dmg"
         dmg8a248c.Text = "XXX-XXXX-XXX.dmg"
@@ -253,6 +257,8 @@ Public Class MainWindow
         dmg8f5153d.Text = "XXX-XXXX-XXX.dmg"
         dmg8f5166b.Text = "XXX-XXXX-XXX.dmg"
         dmg8f190beta.Text = "XXX-XXXX-XXX.dmg"
+        ' 5.x Final
+        dmg9a334final.Text = "XXX-XXXX-XXX.dmg"
         ' 5.x Beta
         dmg9a5220p.Text = "XXX-XXXX-XXX.dmg"
         dmg9a5248d.Text = "XXX-XXXX-XXX.dmg"
@@ -261,7 +267,7 @@ Public Class MainWindow
         dmg9a5288d.Text = "XXX-XXXX-XXX.dmg"
         dmg9a5302b.Text = "XXX-XXXX-XXX.dmg"
         dmg9a5313e.Text = "XXX-XXXX-XXX.dmg"
-        dmg9a334.Text = "XXX-XXXX-XXX.dmg"
+        dmg9a334beta.Text = "XXX-XXXX-XXX.dmg"
     End Sub
     Public Sub cleanup()
         If (Directory.Exists(tempdir + "idecryptit")) Then
@@ -438,6 +444,8 @@ Public Class MainWindow
         key8f5153d.Text = "3c9787acfa79fea382ec4f4d00c0f8c59f241df42cf36ab647be085476173e5625cc687a"
         key8f5166b.Text = "55f5f54a3e2e1c84b3a90a50cc2c5e9c2754f2b8bfc8abcf3d3778f8fb2ba34cfca6ea96"
         key8f190beta.Text = "890650c3aa3be7c4d6f3473776580acf6781688e6342ed15441a299142fe4c5e933fc89d"
+        ' 5.x Final
+        key9a334final.Text = "c7e01f3db404f325eee5062368fc6a795487d859518ee498b4d7f4950a281c5421ffbebf"
         ' 5.x Beta
         key9a5220p.Text = "7fc183f7b7fe6f1d27783e2608b7f4df74acc9d9416382d419484c66ed16b18fe2d6a3b0"
         key9a5248d.Text = "e7da8e8f233a929736e1d68a6e738c27cb44a2188cc0f06e52dbcf875446e87bbdc332a3"
@@ -446,7 +454,7 @@ Public Class MainWindow
         key9a5288d.Text = "ce04ccd3ef4d97d44c3356bb23f95b49f2240ffd0d939b38e93ad63bad4e5e4a4fe484a2"
         key9a5302b.Text = "c96b7e16e1a403a7b88664fbdf46761b9a0610c1f4bfc08fe8fd6a2c6dea9b5c682fb8fd"
         key9a5313e.Text = "5cc99c325299804bd947950ba37322987ef0b769c338956815e45caed9be7e8b193da645"
-        key9a334.Text = nokey
+        key9a334beta.Text = "c7e01f3db404f325eee5062368fc6a795487d859518ee498b4d7f4950a281c5421ffbebf"
     End Sub
     Private Sub btniPad21_Click() Handles btniPad21.Click
         ' iPad 2 Wi-Fi
@@ -458,6 +466,8 @@ Public Class MainWindow
         key8j2.Text = "7ac7018b57235d34fcbe0c84713ea7c6c482322559336845d299508f6a8643c2078de051"
         key8k2.Text = "dd467a5139d280e60b4ec9bfa534eae9e1d782ee74fcecd86f409e9fe799fb945ee76158"
         key8l1.Text = "07a0b5ab0e40ba4f38960274dd8c1db20854159d58761ce98dfa4c50a38b9e786b263607"
+        ' 5.x Final
+        key9a334final.Text = nokey
         ' 5.x Beta
         key9a5220p.Text = nokey
         key9a5248d.Text = nokey
@@ -466,7 +476,7 @@ Public Class MainWindow
         key9a5288d.Text = nokey
         key9a5302b.Text = nokey
         key9a5313e.Text = nokey
-        key9a334.Text = nokey
+        key9a334beta.Text = nokey
     End Sub
     Private Sub btniPad22_Click() Handles btniPad22.Click
         ' iPad 2 Wi-Fi+GSM
@@ -478,6 +488,8 @@ Public Class MainWindow
         key8j2.Text = "990d84816fa06083f4fc778f3e4a03b2bc4e302d8b9998c2ac87d6c0e43cfabc1b0615d4"
         key8k2.Text = "3907dd20133e8a0bde930d9f3307d3bdf950762c25f8ae7b4f6c8f106949272ccfbf13b0"
         key8l1.Text = "33774947a7d630a80045e6f3f68005646d84efeedbca70d619a429e10e34696d254812ce"
+        ' 5.x Final
+        key9a334final.Text = nokey
         ' 5.x Beta
         key9a5220p.Text = nokey
         key9a5248d.Text = nokey
@@ -486,7 +498,7 @@ Public Class MainWindow
         key9a5288d.Text = nokey
         key9a5302b.Text = nokey
         key9a5313e.Text = nokey
-        key9a334.Text = nokey
+        key9a334beta.Text = nokey
     End Sub
     Private Sub btniPad23_Click() Handles btniPad23.Click
         ' iPad 2 Wi-Fi+CDMA
@@ -498,6 +510,8 @@ Public Class MainWindow
         key8j2.Text = "18516a9744529fcf5f01cc12b86fe5db614db6d688d826f20d501b343199f2de921a6310"
         key8k2.Text = "b314630e05038f97f2d5325b11989634049c5d5d290cc87b9ea7cfd02936b92e76e8f65f"
         key8l1.Text = "369474d8df6b2c874a3fb5aa63cf23f7a891363863cf829f7e85ee631318f2674fed6733"
+        ' 5.x Final
+        key9a334final.Text = nokey
         ' 5.x Beta
         key9a5220p.Text = nokey
         key9a5248d.Text = nokey
@@ -506,7 +520,7 @@ Public Class MainWindow
         key9a5288d.Text = nokey
         key9a5302b.Text = nokey
         key9a5313e.Text = nokey
-        key9a334.Text = nokey
+        key9a334beta.Text = nokey
     End Sub
     Private Sub btniPhone11_Click() Handles btniPhone11.Click
         ' iPhone 1G GSM
@@ -645,6 +659,8 @@ Public Class MainWindow
         key8f5153d.Text = "ac704d0287cb4dc835252e84a9f244bc7da16c0227776271940ae097ae52ca94bd7c6e68"
         key8f5166b.Text = "35180cdade1149fcbc061d6cafea436155b5d75540960d68ebbed56e8d0da862b8a2707d"
         key8f190beta.Text = "95028f5804a6d675190adedc0aa91385e17589f720c517615367d69c63e0c969121aaec6"
+        ' 5.x Final
+        key9a334final.Text = nokey
         ' 5.x Beta
         key9a5220p.Text = "b0f31d60ec84f1e3430c7f7753055bdd70d394b4fe5bb378af23d5a833584570538bb33b"
         key9a5248d.Text = "11e80b9d23f6d1ba1eea0adf759f6bfec40399edddfe37a94152e357b0c9064b09b95515"
@@ -653,7 +669,7 @@ Public Class MainWindow
         key9a5288d.Text = "3a61db2078a658c69f7e2cf8c764bb9de3eb104ffd18905b69ebbfbdb9e0c5826ba57363"
         key9a5302b.Text = "bafe6937aa9a24a108af1fec0e24c76ad28ef4c57be971bd05a8ecd6abc2f31b8e90619f"
         key9a5313e.Text = "72bf0eca5776925b62006f3f83ef02a1d536572fc95b54f426ef0132ef65d97cd13c880e"
-        key9a334.Text = nokey
+        key9a334beta.Text = nokey
     End Sub
     Private Sub btniPhone31_Click() Handles btniPhone31.Click
         ' iPhone 4 GSM
@@ -682,6 +698,8 @@ Public Class MainWindow
         key8f5166b.Text = "80c9b3147d4928be874a2f920fb78595403c7ca6f9de6c877ccc07dcdfe9279c44d08e83"
         key8f190beta.Text = "34904e749a8c5cfabecc6c3340816d85e7fc4de61c968ca93be621a9b9520d6466a1456a"
         key8k2.Text = "f3b2e5122cfd8b8215ed8271d83af0183f6d6634afd63444dfd7787e274b7520fc9d5c40"
+        ' 5.x Final
+        key9a334final.Text = "5e5c52fd7e439936d89659b5aa4f79206cd64f09c9961e9d4712a0131075966e2271b354"
         ' 5.x Beta
         key9a5220p.Text = "ddd6f84e0450d2ea0cfb16d652a6dcc50d9a4e5be2225f9f4e1e22a7dd6cf686a34fb257"
         key9a5248d.Text = "0c5387489bd9a4380691047e1880737df22ae2c7dd689f31669d00481b11249d868d591b"
@@ -690,7 +708,7 @@ Public Class MainWindow
         key9a5288d.Text = "bbbef345aaa6830c7c2045146357300c6b80f07fd676efc17076025fe0278b7b9a27978b"
         key9a5302b.Text = "1da9aca5ceac97e583df8dd9e84346ac03434bc6bf9557e8a5024193cbcf9b593d33cd4d"
         key9a5313e.Text = "984ce29b96abdc525711b39bd4263c17ae327d77a79564889efcaf50d5201c361cfe30a7"
-        key9a334.Text = nokey
+        key9a334beta.Text = "5e5c52fd7e439936d89659b5aa4f79206cd64f09c9961e9d4712a0131075966e2271b354"
     End Sub
     Private Sub btniPhone33_Click() Handles btniPhone33.Click
         ' iPhone 4 CDMA
@@ -702,6 +720,8 @@ Public Class MainWindow
         key8e401.Text = "d8e162215f27c016ed8d1849c6059f99984c766c72cec4a1df63724491c8e5b19c0e6fb2"
         key8e501.Text = "e5eed79ba8d2341dfaddeebfa38a86d8b95af4a711054a0ab2e058694c13c814fa39a4ba"
         key8e600.Text = "d36aa0ce62b84a9a31a9c33a551809213dcf5f764850c28b3885f00bc1f5664224c13a3b"
+        ' 5.x Final
+        key9a334final.Text = "cbb21346634c5754f3e956f09ca7c93542b87286d7b11de71f18c5d72da529746ab27094"
         ' 5.x Beta
         key9a5220p.Text = "ffb3bbda6fe1512131d167985e0515de169a7d215b271d518c15d4373bed3ae75af64e5a"
         key9a5248d.Text = "4a63f44750adb005b4252f39afd3299e68be3336f33540d15a43aebc4625f20d33f3afdf"
@@ -710,7 +730,11 @@ Public Class MainWindow
         key9a5288d.Text = "6ef36fd78dc2e2db2e47062b6291ce9a434f3b1a8a03ba3e9fd74d8e9b674eecced2cb31"
         key9a5302b.Text = "6149a5138478d8eaaff89934260039ce02e21ef0769664ad0cd3861248108b599abc59cc"
         key9a5313e.Text = "0d236147d313acd49c584ea36818aa207ca5461855a21d1c0f8421ec314cb8e45b7b2b2a"
-        key9a334.Text = "cbb21346634c5754f3e956f09ca7c93542b87286d7b11de71f18c5d72da529746ab27094"
+        key9a334beta.Text = "cbb21346634c5754f3e956f09ca7c93542b87286d7b11de71f18c5d72da529746ab27094"
+    End Sub
+    Private Sub btniPhone41_Click()
+        ' iPhone 4S GSM/CDMA
+        Call clear()
     End Sub
     Private Sub btniPod11_Click() Handles btniPod11.Click
         ' iPod touch 1G
@@ -834,6 +858,8 @@ Public Class MainWindow
         key8f5153d.Text = nokey
         key8f5166b.Text = nokey
         key8f190beta.Text = "cca43b420c4ffefb23a9b5e1605db40df1d89cb13d5951e22b7dda5a35a5cb2dcde85e4a"
+        ' 5.x Final
+        key9a334final.Text = nokey
         ' 5.x Beta
         key9a5220p.Text = "a450072c20f4a07afec9d4c938a3dc08141aa86aa9073db5882313b09fd3098a90e0480e"
         key9a5248d.Text = "5cc718f5615d8a0caaef430d8589d3542b6b19aef95cc33de39e8c74b869f27781d492c7"
@@ -842,7 +868,7 @@ Public Class MainWindow
         key9a5288d.Text = "7e0fd860c3fd6daec23d840cbb0463d1027f5b356e55bea7bf7b3bc0e7f53271b1a4a5ad"
         key9a5302b.Text = "d00f6ad8af035d5331c83d60409168b9dab471ea0c2bb73f4e3ec23c194467e54e644100"
         key9a5313e.Text = "a1fab44f59d9b22e59ad7deaed305e0b14a55058f070c139087c19aff2b61420371edcb6"
-        key9a334.Text = nokey
+        key9a334beta.Text = nokey
     End Sub
     Private Sub btniPod41_Click() Handles btniPod41.Click
         ' iPod touch 4G
@@ -867,6 +893,8 @@ Public Class MainWindow
         key8f5153d.Text = "258342d3c55579a8228442da4724ed3090a1a202454ccbda832649ec4a3baf3754a2ffcb"
         key8f5166b.Text = "6c3d8e506b4a4bfa525afffecbe01fdd6f50a3764ad9d9d31d566a6408a586c726700680"
         key8f190beta.Text = "b5eefbaf0046a79c689ff07e66ee8045f859dab1ee16d44d15606c1918e5afd323f2db07"
+        ' 5.x Final
+        key9a334final.Text = "575bcb4f9290a28bc00451f7e444973fd8b0afc529d2d84db4ae227bdd779563f070eaea"
         ' 5.x Beta
         key9a5220p.Text = "c35b6897e048e3e6ea454016089891db0c34a3b30b3777d5db9b8cfaa0ceed82e771b2ed"
         key9a5248d.Text = "81aa75d2c9b0f2c777ac0879e1326c98d5fed533dac4d5cea3e9eabec96b8161b947aa6e"
@@ -875,7 +903,7 @@ Public Class MainWindow
         key9a5288d.Text = "31a02bd24385485793e575dc755f4f29064a8550d9e095ce5c230c5557aab8f2e08bfdef"
         key9a5302b.Text = "765bbbf5669c8cc3b7d68447c64c628e04f38ea65a61f98549bf97d52468e2c4e6153395"
         key9a5313e.Text = "938188db58e8f5e057d42036e23bd40e451ed58df600f65718b9f335e140e3f6400873e7"
-        key9a334.Text = "575bcb4f9290a28bc00451f7e444973fd8b0afc529d2d84db4ae227bdd779563f070eaea"
+        key9a334beta.Text = "575bcb4f9290a28bc00451f7e444973fd8b0afc529d2d84db4ae227bdd779563f070eaea"
     End Sub
     Private Sub btnAppleTV21_Click() Handles btnAppleTV21.Click
         ' Apple TV 2G
@@ -888,6 +916,7 @@ Public Class MainWindow
         key8f202.Text = "7fb6a5a1a5d74ceb61180c8740065b79ac87a5c15e554ad4b147ae9e1446254acc9d5e4a"
         key8f305.Text = "f607711d4db94bba7a4866f095aed082c8485bfbcd0f411f1e65158f585915edd5cfeec1"
         key8f455.Text = "32c6a922fdc1a474371fcfcbf8b5bf4a87ce01b6e672c360405a0dd238ad693769f0ce77"
+        key9a334v.Text = nokey
         ' 4.x Beta
         key8f5148c.Text = "74e3afbad43debe898a556fa1446740598a556fa1446740598a556fa1446740598a556fa"
         key8f5153d.Text = "85ba2b2d95c89df504f54869b98d0eb26a63f269570e8882cb323b1b753f4f41446a1f0a"
