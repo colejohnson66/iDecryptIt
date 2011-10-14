@@ -738,6 +738,29 @@
                     </Grid>
                 </ScrollViewer>
             </TabItem>
+            <TabItem Header="5.x Final" Name="v5Final">
+                <ScrollViewer>
+                    <Grid Margin="6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="105" />
+                            <ColumnDefinition Width="6" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="6" />
+                            <ColumnDefinition Width="120" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="23" />
+                            <RowDefinition Height="6" />
+                            <RowDefinition Height="23" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Margin="3" Name="lbl9a334final" Text="5.0 (9A334)" />
+                        <!-- Key -->
+                        <TextBox Grid.Row="0" Grid.Column="2" Name="key9a334final"/>
+                        <!-- DMG -->
+                        <TextBox Grid.Row="0" Grid.Column="4" Name="dmg9a334final"/>
+                    </Grid>
+                </ScrollViewer>
+            </TabItem>
             <TabItem Header="5.x Beta" Name="v5Beta">
                 <ScrollViewer>
                     <Grid Margin="6">
@@ -796,32 +819,6 @@
                         <TextBlock Grid.Row="16" Grid.Column="0" Grid.ColumnSpan="5" Margin="3" Name="note5xbeta" Text="NOTE: On the Apple TV, this beta will be reported as 4.4." />
                     </Grid>
                 </ScrollViewer>
-            </TabItem>
-            <TabItem Header="5.x Final" Name="v5Final">
-                <ScrollViewer>
-                    <Grid Margin="6">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="105" />
-                            <ColumnDefinition Width="6" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="6" />
-                            <ColumnDefinition Width="120" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="23" />
-                            <RowDefinition Height="6" />
-                            <RowDefinition Height="23" />
-                        </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0" Grid.Column="0" Margin="3" Name="lbl9a334final" Text="5.0 (9A334)" />
-                        <!-- Key -->
-                        <TextBox Grid.Row="0" Grid.Column="2" Name="key9a334final"/>
-                        <!-- DMG -->
-                        <TextBox Grid.Row="0" Grid.Column="4" Name="dmg9a334final"/>
-                    </Grid>
-                </ScrollViewer>
-            </TabItem>
-            <TabItem Header="Web" Name="WebMenu">
-                <WebBrowser Name="webBrowser"  Margin="6" />
             </TabItem>
         </TabControl>
         <Grid.Background>

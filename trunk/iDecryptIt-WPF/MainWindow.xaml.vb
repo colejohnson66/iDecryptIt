@@ -16,7 +16,7 @@ Public Class MainWindow
     Public version As String
     Public build As String
     ' File paths
-    Public rundir As String = Directory.GetCurrentDirectory
+    Public rundir As String = Directory.GetCurrentDirectory + "\"
     Public tempdir As String = Path.GetTempPath + "idecryptit\"
     Public helpdir As String = rundir + "help\"
 
@@ -312,17 +312,16 @@ Public Class MainWindow
         End If
     End Sub
     Private Sub btnAbout_Click() Handles btnAbout.Click
-        Me.webBrowser.Navigate(New Uri(helpdir + "about_iDecryptIt.html"))
+        Process.Start("file://" + helpdir + "about_iDecryptIt.html")
     End Sub
     Private Sub btnChangelog_Click() Handles btnChangelog.Click
-        Me.webBrowser.Navigate(New Uri(helpdir + "changelog.html"))
+        Process.Start("file://" + helpdir + "changelog.html")
     End Sub
     Private Sub btnREADME_Click() Handles btnREADME.Click
-        Me.webBrowser.Navigate(New Uri(helpdir + "README.html"))
+        Process.Start("file://" + helpdir + "README.html")
     End Sub
     Private Sub btnHelpOut_Click() Handles btnHelpOut.Click
-        Dim submitkey As Window = New SubmitKey
-        submitkey.Show()
+        Process.Start("file://" + helpdir + "submitkey.html")
     End Sub
     Private Sub btnSelectVFDecryptInutFile_Click() Handles btnSelectVFDecryptInutFile.Click
         Dim decrypt As New OpenFileDialog()
