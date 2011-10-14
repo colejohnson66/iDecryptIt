@@ -60,7 +60,7 @@
                     <ribbon:RibbonButton x:Name="btniPad22" LargeImageSource="Images\iPad2,2_32.png" SmallImageSource="Images\iPad2,2_16.png" Label="2 (GSM)" />
                     <ribbon:RibbonButton x:Name="btniPad23" LargeImageSource="Images\iPad2,3_32.png" SmallImageSource="Images\iPad2,3_16.png" Label="2 (CDMA)" />
                 </ribbon:RibbonGroup>
-                <ribbon:RibbonGroup x:Name="iPhone_group" Header="iPhone" LargeImageSource="Images\iPhone3,3_32.png">
+                <ribbon:RibbonGroup x:Name="iPhone_group" Header="iPhone" LargeImageSource="Images\iPhone4,1_32.png">
                     <ribbon:RibbonButton x:Name="btniPhone11" LargeImageSource="Images\iPhone1,1_32.png" SmallImageSource="Images\iPhone1,1_16.png" Label="2G" />
                     <ribbon:RibbonButton x:Name="btniPhone12" LargeImageSource="Images\iPhone1,2_32.png" SmallImageSource="Images\iPhone1,2_16.png" Label="3G" />
                     <ribbon:RibbonButton x:Name="btniPhone21" LargeImageSource="Images\iPhone2,1_32.png" SmallImageSource="Images\iPhone2,1_16.png" Label="3GS" />
