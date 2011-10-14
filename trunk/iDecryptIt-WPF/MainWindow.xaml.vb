@@ -732,9 +732,11 @@ Public Class MainWindow
         key9a5313e.Text = "0d236147d313acd49c584ea36818aa207ca5461855a21d1c0f8421ec314cb8e45b7b2b2a"
         key9a334beta.Text = "cbb21346634c5754f3e956f09ca7c93542b87286d7b11de71f18c5d72da529746ab27094"
     End Sub
-    Private Sub btniPhone41_Click()
+    Private Sub btniPhone41_Click() Handles btniPhone41.Click
         ' iPhone 4S GSM/CDMA
         Call clear()
+        ' 5.x Final
+        key9a334final.Text = nokey
     End Sub
     Private Sub btniPod11_Click() Handles btniPod11.Click
         ' iPod touch 1G

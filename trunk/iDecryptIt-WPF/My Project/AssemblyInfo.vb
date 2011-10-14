@@ -17,7 +17,7 @@ Imports System.Windows
 <Assembly: AssemblyProduct("iDecryptIt")> 
 <Assembly: AssemblyCopyright("(C) Cole Stuff 2010-2011")> 
 <Assembly: AssemblyTrademark("")> 
-<Assembly: ComVisible(false)>
+<Assembly: ComVisible(True)> 
 
 'In order to begin building localizable applications, set 
 '<UICulture>CultureYouAreCodingWith</UICulture> in your .vbproj file
@@ -55,7 +55,7 @@ Imports System.Windows
 ' by using the '*' as shown below:
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
-<Assembly: AssemblyVersion("5.00.7.735")> 
-<Assembly: AssemblyFileVersion("5.00.7.735")> 
+<Assembly: AssemblyVersion("5.00.7.785")> 
+<Assembly: AssemblyFileVersion("5.00.7.785")> 
 
 <Assembly: NeutralResourcesLanguageAttribute("en-US")> 
