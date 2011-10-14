@@ -11,7 +11,7 @@
     <!-- The "plus 20" is for the Quick Access toolbar that this doesn't have -->
     <Grid x:Name="LayoutRoot">
         <Grid.RowDefinitions>
-            <RowDefinition Height="135"/>
+            <RowDefinition Height="132"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <ribbon:Ribbon x:Name="Ribbon" Grid.Row="0" Height="135">
@@ -52,26 +52,27 @@
             </ribbon:RibbonTab>
             <ribbon:RibbonTab x:Name="KeyListTab" Header="Keys">
                 <ribbon:RibbonGroup x:Name="AppleTV_group" Header="Apple TV" LargeImageSource="Images\AppleTV2,1_32.png">
-                    <ribbon:RibbonButton x:Name="btnAppleTV21" LargeImageSource="Images\AppleTV2,1_32.png" SmallImageSource="Images\AppleTV2,1_16.png" Label="Apple TV 2G" />
+                    <ribbon:RibbonButton x:Name="btnAppleTV21" LargeImageSource="Images\AppleTV2,1_32.png" SmallImageSource="Images\AppleTV2,1_16.png" Label="2G" />
                 </ribbon:RibbonGroup>
                 <ribbon:RibbonGroup x:Name="iPad_group" Header="iPad" LargeImageSource="Images\iPad2,3_32.png">
-                    <ribbon:RibbonButton x:Name="btniPad11" LargeImageSource="Images\iPad1,1_32.png" SmallImageSource="Images\iPad1,1_16.png" Label="iPad 1G" />
-                    <ribbon:RibbonButton x:Name="btniPad21" LargeImageSource="Images\iPad2,1_32.png" SmallImageSource="Images\iPad2,1_16.png" Label="iPad 2 (Wi-Fi)" />
-                    <ribbon:RibbonButton x:Name="btniPad22" LargeImageSource="Images\iPad2,2_32.png" SmallImageSource="Images\iPad2,2_16.png" Label="iPad 2 (GSM)" />
-                    <ribbon:RibbonButton x:Name="btniPad23" LargeImageSource="Images\iPad2,3_32.png" SmallImageSource="Images\iPad2,3_16.png" Label="iPad 2 (CDMA)" />
+                    <ribbon:RibbonButton x:Name="btniPad11" LargeImageSource="Images\iPad1,1_32.png" SmallImageSource="Images\iPad1,1_16.png" Label="1G" />
+                    <ribbon:RibbonButton x:Name="btniPad21" LargeImageSource="Images\iPad2,1_32.png" SmallImageSource="Images\iPad2,1_16.png" Label="2 (Wi-Fi)" />
+                    <ribbon:RibbonButton x:Name="btniPad22" LargeImageSource="Images\iPad2,2_32.png" SmallImageSource="Images\iPad2,2_16.png" Label="2 (GSM)" />
+                    <ribbon:RibbonButton x:Name="btniPad23" LargeImageSource="Images\iPad2,3_32.png" SmallImageSource="Images\iPad2,3_16.png" Label="2 (CDMA)" />
                 </ribbon:RibbonGroup>
                 <ribbon:RibbonGroup x:Name="iPhone_group" Header="iPhone" LargeImageSource="Images\iPhone3,3_32.png">
-                    <ribbon:RibbonButton x:Name="btniPhone11" LargeImageSource="Images\iPhone1,1_32.png" SmallImageSource="Images\iPhone1,1_16.png" Label="iPhone 2G" />
-                    <ribbon:RibbonButton x:Name="btniPhone12" LargeImageSource="Images\iPhone1,2_32.png" SmallImageSource="Images\iPhone1,2_16.png" Label="iPhone 3G" />
-                    <ribbon:RibbonButton x:Name="btniPhone21" LargeImageSource="Images\iPhone2,1_32.png" SmallImageSource="Images\iPhone2,1_16.png" Label="iPhone 3GS" />
-                    <ribbon:RibbonButton x:Name="btniPhone31" LargeImageSource="Images\iPhone3,1_32.png" SmallImageSource="Images\iPhone3,1_16.png" Label="iPhone 4 GSM" />
-                    <ribbon:RibbonButton x:Name="btniPhone33" LargeImageSource="Images\iPhone3,3_32.png" SmallImageSource="Images\iPhone3,3_16.png" Label="iPhone 4 CDMA" />
+                    <ribbon:RibbonButton x:Name="btniPhone11" LargeImageSource="Images\iPhone1,1_32.png" SmallImageSource="Images\iPhone1,1_16.png" Label="2G" />
+                    <ribbon:RibbonButton x:Name="btniPhone12" LargeImageSource="Images\iPhone1,2_32.png" SmallImageSource="Images\iPhone1,2_16.png" Label="3G" />
+                    <ribbon:RibbonButton x:Name="btniPhone21" LargeImageSource="Images\iPhone2,1_32.png" SmallImageSource="Images\iPhone2,1_16.png" Label="3GS" />
+                    <ribbon:RibbonButton x:Name="btniPhone31" LargeImageSource="Images\iPhone3,1_32.png" SmallImageSource="Images\iPhone3,1_16.png" Label="4 GSM" />
+                    <ribbon:RibbonButton x:Name="btniPhone33" LargeImageSource="Images\iPhone3,3_32.png" SmallImageSource="Images\iPhone3,3_16.png" Label="4 CDMA" />
+                    <ribbon:RibbonButton x:Name="btniPhone41" LargeImageSource="Images\iPhone4,1_32.png" SmallImageSource="Images\iPhone4,1_16.png" Label="4S" />
                 </ribbon:RibbonGroup>
                 <ribbon:RibbonGroup x:Name="iPod_group" Header="iPod touch" LargeImageSource="Images\iPod4,1_32.png">
-                    <ribbon:RibbonButton x:Name="btniPod11" LargeImageSource="Images\iPod1,1_32.png" SmallImageSource="Images\iPod1,1_16.png" Label="iPod touch 1G" />
-                    <ribbon:RibbonButton x:Name="btniPod21" LargeImageSource="Images\iPod2,1_32.png" SmallImageSource="Images\iPod2,1_16.png" Label="iPod touch 2G" />
-                    <ribbon:RibbonButton x:Name="btniPod31" LargeImageSource="Images\iPod3,1_32.png" SmallImageSource="Images\iPod3,1_16.png" Label="iPod touch 3G" />
-                    <ribbon:RibbonButton x:Name="btniPod41" LargeImageSource="Images\iPod4,1_32.png" SmallImageSource="Images\iPod4,1_16.png" Label="iPod touch 4G" />
+                    <ribbon:RibbonButton x:Name="btniPod11" LargeImageSource="Images\iPod1,1_32.png" SmallImageSource="Images\iPod1,1_16.png" Label="1G" />
+                    <ribbon:RibbonButton x:Name="btniPod21" LargeImageSource="Images\iPod2,1_32.png" SmallImageSource="Images\iPod2,1_16.png" Label="2G" />
+                    <ribbon:RibbonButton x:Name="btniPod31" LargeImageSource="Images\iPod3,1_32.png" SmallImageSource="Images\iPod3,1_16.png" Label="3G" />
+                    <ribbon:RibbonButton x:Name="btniPod41" LargeImageSource="Images\iPod4,1_32.png" SmallImageSource="Images\iPod4,1_16.png" Label="4G" />
                 </ribbon:RibbonGroup>
             </ribbon:RibbonTab>
         </ribbon:Ribbon>
@@ -589,6 +590,8 @@
                             <RowDefinition Height="23" />
                             <RowDefinition Height="6" />
                             <RowDefinition Height="23" />
+                            <RowDefinition Height="6" />
+                            <RowDefinition Height="23" />
                         </Grid.RowDefinitions>
                         <TextBlock Grid.Row="0" Grid.Column="0" Margin="3" Name="lbl8m89" Text="4.0/4.1 (8M89)" />
                         <TextBlock Grid.Row="2" Grid.Column="0" Margin="3" Name="lbl8c150" Text="4.1/4.2 (8C150)" />
@@ -597,6 +600,7 @@
                         <TextBlock Grid.Row="8" Grid.Column="0" Margin="3" Name="lbl8f202" Text="4.2.1/4.3 (8F202)" />
                         <TextBlock Grid.Row="10" Grid.Column="0" Margin="3" Name="lbl8f305" Text="4.2.2/4.3 (8F305)" />
                         <TextBlock Grid.Row="12" Grid.Column="0" Margin="3" Name="lbl8f455" Text="4.3/4.3 (8F455)" />
+                        <TextBlock Grid.Row="14" Grid.Column="0" Margin="3" Name="lbl9a334v" Text="4.4/5.0 (9A334v)" />
                         <!-- Key -->
                         <TextBox Grid.Row="0" Grid.Column="2" Name="key8m89" />
                         <TextBox Grid.Row="2" Grid.Column="2" Name="key8c150" />
@@ -605,6 +609,7 @@
                         <TextBox Grid.Row="8" Grid.Column="2" Name="key8f202" />
                         <TextBox Grid.Row="10" Grid.Column="2" Name="key8f305" />
                         <TextBox Grid.Row="12" Grid.Column="2" Name="key8f455" />
+                        <TextBox Grid.Row="14" Grid.Column="2" Name="key9a334v" />
                         <!-- DMG -->
                         <TextBox Grid.Row="0" Grid.Column="4" Name="dmg8m89" />
                         <TextBox Grid.Row="2" Grid.Column="4" Name="dmg8c150" />
@@ -613,7 +618,8 @@
                         <TextBox Grid.Row="8" Grid.Column="4" Name="dmg8f202" />
                         <TextBox Grid.Row="10" Grid.Column="4" Name="dmg8f305" />
                         <TextBox Grid.Row="12" Grid.Column="4" Name="dmg8f455" />
-                        <TextBlock Grid.Row="14" Grid.Column="0" Grid.ColumnSpan="5" Name="note4xfinalatv" Text="On this page, the version number on the left is what the Apple TV reports, while the one on the right is the Apple version" />
+                        <TextBox Grid.Row="14" Grid.Column="4" Name="dmg9a334v" />
+                        <TextBlock Grid.Row="16" Grid.Column="0" Grid.ColumnSpan="5" Name="note4xfinalatv" Text="On this page, the version number on the left is what the Apple TV reports, while the one on the right is the Apple version" />
                     </Grid>
                 </ScrollViewer>
             </TabItem>
@@ -768,7 +774,7 @@
                         <TextBlock Grid.Row="8" Grid.Column="0" Margin="3" Name="lbl9a5288d" Text="5.0b5 (9A5288d)" />
                         <TextBlock Grid.Row="10" Grid.Column="0" Margin="3" Name="lbl9a5302b" Text="5.0b6 (9A5302b)" />
                         <TextBlock Grid.Row="12" Grid.Column="0" Margin="3" Name="lbl9a5313e" Text="5.0b7 (9A5313e)" />
-                        <TextBlock Grid.Row="14" Grid.Column="0" Margin="3" Name="lbl9a334" Text="5.0GM (9A334)" />
+                        <TextBlock Grid.Row="14" Grid.Column="0" Margin="3" Name="lbl9a334beta" Text="5.0GM (9A334)" />
                         <!-- Key -->
                         <TextBox Grid.Row="0" Grid.Column="2" Name="key9a5220p"/>
                         <TextBox Grid.Row="2" Grid.Column="2" Name="key9a5248d"/>
@@ -777,7 +783,7 @@
                         <TextBox Grid.Row="8" Grid.Column="2" Name="key9a5288d"/>
                         <TextBox Grid.Row="10" Grid.Column="2" Name="key9a5302b"/>
                         <TextBox Grid.Row="12" Grid.Column="2" Name="key9a5313e"/>
-                        <TextBox Grid.Row="14" Grid.Column="2" Name="key9a334"/>
+                        <TextBox Grid.Row="14" Grid.Column="2" Name="key9a334beta"/>
                         <!-- DMG -->
                         <TextBox Grid.Row="0" Grid.Column="4" Name="dmg9a5220p"/>
                         <TextBox Grid.Row="2" Grid.Column="4" Name="dmg9a5248d"/>
@@ -786,21 +792,43 @@
                         <TextBox Grid.Row="8" Grid.Column="4" Name="dmg9a5288d"/>
                         <TextBox Grid.Row="10" Grid.Column="4" Name="dmg9a5302b"/>
                         <TextBox Grid.Row="12" Grid.Column="4" Name="dmg9a5313e"/>
-                        <TextBox Grid.Row="14" Grid.Column="4" Name="dmg9a334"/>
+                        <TextBox Grid.Row="14" Grid.Column="4" Name="dmg9a334beta"/>
                         <TextBlock Grid.Row="16" Grid.Column="0" Grid.ColumnSpan="5" Margin="3" Name="note5xbeta" Text="NOTE: On the Apple TV, this beta will be reported as 4.4." />
                     </Grid>
                 </ScrollViewer>
             </TabItem>
-            <TabItem Header="5.x Final" Name="v5Final" IsEnabled="False" />
+            <TabItem Header="5.x Final" Name="v5Final">
+                <ScrollViewer>
+                    <Grid Margin="6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="105" />
+                            <ColumnDefinition Width="6" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="6" />
+                            <ColumnDefinition Width="120" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="23" />
+                            <RowDefinition Height="6" />
+                            <RowDefinition Height="23" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Margin="3" Name="lbl9a334final" Text="5.0 (9A334)" />
+                        <!-- Key -->
+                        <TextBox Grid.Row="0" Grid.Column="2" Name="key9a334final"/>
+                        <!-- DMG -->
+                        <TextBox Grid.Row="0" Grid.Column="4" Name="dmg9a334final"/>
+                    </Grid>
+                </ScrollViewer>
+            </TabItem>
             <TabItem Header="Web" Name="WebMenu">
                 <WebBrowser Name="webBrowser"  Margin="6" />
             </TabItem>
         </TabControl>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FFEEF3F9" Offset="0" />
+                <GradientStop Color="White" Offset="1" />
+            </LinearGradientBrush>
+        </Grid.Background>
     </Grid>
-    <ribbon:RibbonWindow.Background>
-        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-            <GradientStop Color="#FFEEF3F9" Offset="0" />
-            <GradientStop Color="White" Offset="1" />
-        </LinearGradientBrush>
-    </ribbon:RibbonWindow.Background>
 </ribbon:RibbonWindow>
