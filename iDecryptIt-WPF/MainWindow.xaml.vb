@@ -274,7 +274,16 @@ Public Class MainWindow
             Directory.Delete(tempdir, True)
         End If
     End Sub
-    Private Sub DoCMD(ByVal file As String, Optional ByVal arg As String = "")
+    Private Sub DoCMD(ByVal file As String)
+        ' Taken from fallensn0w's iDecrypter and converted to WPF (hope you don't mind) :)
+        Dim procNlite As New Process
+        procNlite.StartInfo.FileName = file
+        procNlite.StartInfo.Arguments = ""
+        procNlite.StartInfo.WindowStyle = 1
+        procNlite.Start()
+        procNlite.WaitForExit()
+    End Sub
+    Private Sub DoCMD(ByVal file As String, ByVal arg As String)
         ' Taken from fallensn0w's iDecrypter and converted to WPF (hope you don't mind) :)
         Dim procNlite As New Process
         procNlite.StartInfo.FileName = file
@@ -286,6 +295,9 @@ Public Class MainWindow
     Private Function replacedmg(ByVal filename As String) As String
         Return Replace(filename, ".dmg", "_decrypted.dmg")
     End Function
+    Private Function returnkey() As String
+        Return Chr(13) + Chr(10)
+    End Function
 
     ' Click and Stuff
     Private Sub btnChangeLanguage_Click() Handles btnChangeLanguage.Click
@@ -293,19 +305,19 @@ Public Class MainWindow
         selectlang.Show()
     End Sub
     Private Sub btnDecrypt_Click() Handles btnDecrypt.Click
-        If (Me.textInputFileName.Text = "") Then
+        If (textInputFileName.Text = "") Then
             MsgBox("Make sure there is an input file!", MsgBoxStyle.OkOnly, "Something went wrong!")
         Else
-            If (Me.textDecryptKey.Text = "") Then
+            If (textDecryptKey.Text = "") Then
                 MsgBox("Make sure these is a key inputed!", MsgBoxStyle.OkOnly, "Something went wrong!")
             Else
-                If (Me.textOuputFileName.Text = "") Then
+                If (textOuputFileName.Text = "") Then
                     MsgBox("Make sure these is an output file!", MsgBoxStyle.OkOnly, "Something went wrong!")
                 Else
                     DoCMD(rundir + "\vfdecrypt.exe", _
-                        " -i " & Chr(34) & Me.textInputFileName.Text & Chr(34) & _
-                        " -k " & Me.textDecryptKey.Text & " " & _
-                        " -o " & Chr(34) & Me.textOuputFileName.Text & Chr(34))
+                        " -i " & Chr(34) & textInputFileName.Text & Chr(34) & _
+                        " -k " & textDecryptKey.Text & " " & _
+                        " -o " & Chr(34) & textOuputFileName.Text & Chr(34))
                     MsgBox("Done!", MsgBoxStyle.OkOnly, "Done Decrypting")
                 End If
             End If
@@ -323,24 +335,15 @@ Public Class MainWindow
     Private Sub btnHelpOut_Click() Handles btnHelpOut.Click
         Process.Start("file://" + helpdir + "submitkey.html")
     End Sub
-    Private Sub btnSelectVFDecryptInutFile_Click() Handles btnSelectVFDecryptInutFile.Click
+    Private Sub btnSelectVFDecryptInputFile_Click() Handles btnSelectVFDecryptInputFile.Click
         Dim decrypt As New OpenFileDialog()
         decrypt.FileName = ""
         decrypt.DefaultExt = ".dmg"
         decrypt.Filter = "Apple Disk Images|*.dmg"
         Dim result? As Boolean = decrypt.ShowDialog()
         If result = True Then
-            Me.textOuputFileName.Text = replacedmg(decrypt.FileName)
-        End If
-    End Sub
-    Private Sub btnSelectExtractFile_Click() Handles btnSelectExtractFile.Click
-        Dim extractofd As New OpenFileDialog()
-        extractofd.FileName = ""
-        extractofd.DefaultExt = ".dmg"
-        extractofd.Filter = "Apple Disk Images|*.dmg"
-        Dim result? As Boolean = extractofd.ShowDialog()
-        If result = True Then
-            Me.textExtractFileName.Text = extractofd.FileName
+            textInputFileName.Text = decrypt.FileName
+            textOuputFileName.Text = replacedmg(decrypt.FileName)
         End If
     End Sub
     Private Sub btnSelectWhatAmIFile_Click() Handles btnSelectWhatAmIFile.Click
@@ -355,17 +358,19 @@ Public Class MainWindow
     End Sub
     Private Sub btnWhatAmI_Click() Handles btnWhatAmI.Click
         ' This is a complex tree of if() statements and one switch() (select case...end select)
-        ' and therefore to make sure that one and only one MsgBox() is displayed
-        If (Me.textWhatAmIFileName.Text = "") Then
-            MsgBox("ERROR! Make sure you select a file!", MsgBoxStyle.OkOnly, "ERROR!")
+        ' and therefore to make sure that one and only one MsgBox() is displayed, we use Exit Sub
+        If (textWhatAmIFileName.Text = "") Then
+            ' Do nothing if it is empty
             Exit Sub
         Else
             strArr = textWhatAmIFileName.Text.Split("_")
             If (strArr.Length = 4) Then
+                ' If the last index is "Restore.ipsw", proceed
                 If (strArr(3) = "Restore.ipsw") Then
                     device = strArr(0)
                     version = strArr(1)
                     build = strArr(2)
+                    ' Split 'device' by the comma and make sure it is 2 indexes wide
                     strArr = device.Split(",")
                     If (strArr.Length = 2) Then
                         Select Case device
@@ -387,6 +392,8 @@ Public Class MainWindow
                                 device = "iPhone 4 GSM"
                             Case "iPhone3,3"
                                 device = "iPhone 4 CDMA"
+                            Case "iPhone4,1"
+                                device = "iPhone 4S"
                             Case "iPod1,1"
                                 device = "iPod touch 1G"
                             Case "iPod2,1"
@@ -398,21 +405,23 @@ Public Class MainWindow
                             Case "AppleTV2,1"
                                 device = "Apple TV 2G"
                             Case Else
-                                MsgBox("ERROR! The supplied device: '" + device + "' does not follow the format: {iPad/iPhone/iPod/AppleTV}{#},{#}", MsgBoxStyle.OkOnly, "ERROR!")
+                                MsgBox("ERROR! The supplied device: '" + device + "' does not follow the format:" + returnkey() + "{iPad/iPhone/iPod/AppleTV}{#},{#}", MsgBoxStyle.OkOnly, "ERROR!")
                                 Exit Sub
                         End Select
-                        MsgBox("Device: " + device + Chr(13) + Chr(10) + "Version: " + version + Chr(13) + Chr(10) + "Build: " + build, MsgBoxStyle.OkOnly, "Info")
+                        MsgBox("Device: " + device + returnkey() + _
+                               "Version: " + version + returnkey() + _
+                               "Build: " + build, MsgBoxStyle.OkOnly, "Info")
                         Exit Sub
                     Else
-                        MsgBox("ERROR! The supplied device: '" + device + "' does not follow the format: {iPad/iPhone/iPod/AppleTV}{#},{#}", MsgBoxStyle.OkOnly, "ERROR!")
+                        MsgBox("ERROR! The supplied device: '" + device + "' does not follow the format:" + returnkey() + "{iPad/iPhone/iPod/AppleTV}{#},{#}", MsgBoxStyle.OkOnly, "ERROR!")
                         Exit Sub
                     End If
                 Else
-                    MsgBox("ERROR! The IPSW File that was given is not following the format:" + Chr(13) + Chr(10) + "{DEVICE}_{VERSION}_{BUILD}_Restore.ipsw", MsgBoxStyle.OkOnly, "ERROR!")
+                    MsgBox("ERROR! The IPSW File that was given is not following the format:" + returnkey() + "{DEVICE}_{VERSION}_{BUILD}_Restore.ipsw", MsgBoxStyle.OkOnly, "ERROR!")
                     Exit Sub
                 End If
             Else
-                MsgBox("ERROR! The IPSW File that was given is not following the format:" + Chr(13) + Chr(10) + "{DEVICE}_{VERSION}_{BUILD}_Restore.ipsw", MsgBoxStyle.OkOnly, "ERROR!")
+                MsgBox("ERROR! The IPSW File that was given is not following the format:" + returnkey() + "{DEVICE}_{VERSION}_{BUILD}_Restore.ipsw", MsgBoxStyle.OkOnly, "ERROR!")
                 Exit Sub
             End If
         End If
@@ -931,7 +940,7 @@ Public Class MainWindow
         key9a5313e.Text = "cd5cbb28e733d7a538ad949f3ad295b8780185ff5103feb3e87eedf25ce0aff598e2ba1f"
     End Sub
     Private Sub btnClearKey_Click() Handles btnClearKey.Click
-        Me.textDecryptKey.Text = ""
+        textDecryptKey.Text = ""
     End Sub
 
     ' Load and close
@@ -977,8 +986,8 @@ Public Class MainWindow
         ' TODO: Make sure the last 4 characters are .dmg (case-insensitive)
         For i = 0 To UBound(startargs)
             If i = 1 Then
-                Me.textInputFileName.Text = startargs(1)
-                Me.textOuputFileName.Text = replacedmg(startargs(1))
+                textInputFileName.Text = startargs(1)
+                textOuputFileName.Text = replacedmg(startargs(1))
             End If
         Next i
     End Sub
@@ -991,29 +1000,21 @@ Public Class MainWindow
         ' NOTE: Web pages need to be translated
         '-----------------------------------------------------------------------------------
         ' Ribbon
-        HomeTab.Header = "casa"
-        VFDecrypt.Header = "VFDescifrar"
-        btnDecrypt.Label = "Descifrar"
-        textInputFileName.Label = "Archivo de entrada:"
-        textOuputFileName.Label = "De salida del archivo:"
-        btnSelectVFDecryptInutFile.Label = "Seleccione Archivo de entrada"
-        textDecryptKey.Label = "Clave:"
-        btnClearKey.Label = "tecla de borrado"
-        Extract.Header = "Extraer"
-        btnExtract.Label = "Extraer"
-        textExtractFileName.Label = "Archivo de entrada:"
-        btnSelectExtractFile.Label = "Seleccione Archivo de entrada"
         HelpTab.Header = "Ayuda"
         HelpGroup.Header = "Ayuda"
         btnAbout.Label = "Acerca de iDecryptIt"
-        btnVFDecrypt.Label = "Acerca de VFDescifrar"
-        btnColeStuff.Label = "Acerca de Cole Cosas"
         btnREADME.Label = "Léame"
         ExtrasGroup.Header = "Más"
         btnChangelog.Label = "Cambios"
         btnHelpOut.Label = "Publicar Clave"
         btnChangeLanguage.Label = "Cambio de idioma"
-        KeyListTab.Header = "las claves"
+        ' Decrypt Area
+        btnDecryptText.Text = "Descifrar"
+        txtInputLabel.Text = "Archivo de entrada:  "
+        txtOutputLabel.Text = "De salida del archivo:  "
+        btnSelectVFDecryptInputFile.Content = "Seleccione Archivo de entrada"
+        textDecryptLabel.Text = "Clave:"
+        btnClearKey.Content = "tecla de borrado"
         ' Main Area
         v1Final.Header = "1.x Pasado"
         btn1a420.Content = "Prueba"
