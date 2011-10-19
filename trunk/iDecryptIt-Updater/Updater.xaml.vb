@@ -1,7 +1,7 @@
 ﻿Imports System.IO
 Public Class Updater
     ' File paths
-    Public tempdir As String = Path.GetTempPath + "iDecryptIt\"
+    Public tempdir As String = Path.GetTempPath + "idecryptit\"
     ' Update
     Public contacturl As String = "http://theiphonewiki.com/wiki/index.php?title=User:Balloonhead66/Latest_stable_software_release/iDecryptIt&action=raw"
     Public checkerversion As String = ""
@@ -57,7 +57,7 @@ Public Class Updater
         ' Implement some download code using handles like above and use 7zip to extract it
         ' First need to get 7-zip working on the main EXE
         ' Download URL: "http://" + server + ".dl.sourceforge.net/project/idecryptit/" + _
-        ' updatemajor + ".x/iDecryptIt_" + updatemajor + "." + updateminor + "." + updaterev + "." + updatebuild + "patch.zip"
+        ' updatemajor + ".x/iDecryptIt_" + updatemajor + "." + updateminor + "." + updaterev + "." + updatebuild + ".patch.zip"
         ' Then we need to update the installed version key in the registry
     End Sub
 End Class

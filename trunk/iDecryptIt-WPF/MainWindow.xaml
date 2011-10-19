@@ -7,76 +7,243 @@
         Icon="app.ico"
         WindowStyle="SingleBorderWindow"
         Height="620" Width="800"
-        MinHeight="320" MinWidth="400">
+        MinHeight="620" MinWidth="800">
     <!-- The "plus 20" is for the Quick Access toolbar that this doesn't have -->
     <Grid x:Name="LayoutRoot">
         <Grid.RowDefinitions>
-            <RowDefinition Height="132"/>
+            <RowDefinition Height="135"/>
+            <RowDefinition Height="12" />
+            <RowDefinition Height="38" />
+            <RowDefinition Height="12" />
+            <RowDefinition Height="95"/>
+            <RowDefinition Height="12" />
+            <RowDefinition Height="38" />
+            <RowDefinition Height="12" />
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <ribbon:Ribbon x:Name="Ribbon" Grid.Row="0" Height="135">
-            <ribbon:RibbonTab x:Name="HomeTab" Header="Home">
-                <ribbon:RibbonGroup x:Name="VFDecrypt" Header="VFDecrypt" LargeImageSource="Images/Unlocked_32.png" SmallImageSource="Images/Unlocked_16.png">
-                    <ribbon:RibbonButton x:Name="btnDecrypt" LargeImageSource="Images/Unlocked_32.png" Label="Decrypt" />
-                    <ribbon:RibbonTextBox x:Name="textInputFileName" Label="Input File: " TextBoxWidth="150" />
-                    <ribbon:RibbonTextBox x:Name="textOuputFileName" Label="Output File: " TextBoxWidth="150" />
-                    <ribbon:RibbonButton x:Name="btnSelectVFDecryptInutFile" Label="Select Input File" />
-                    <ribbon:RibbonTextBox x:Name="textDecryptKey" Label="Key: " />
-                    <ribbon:RibbonButton x:Name="btnClearKey" Label="Clear Key" />
-                </ribbon:RibbonGroup>
-            </ribbon:RibbonTab>
+        <ribbon:Ribbon>
             <ribbon:RibbonTab x:Name="HelpTab" Header="Help">
                 <ribbon:RibbonGroup x:Name="HelpGroup" Header="Help" LargeImageSource="Images/idecryptit_32.png">
-                    <ribbon:RibbonButton x:Name="btnAbout" LargeImageSource="Images/idecryptit_32.png" SmallImageSource="Images/idecryptit_16.png" Label="About iDecryptIt" />
-                    <ribbon:RibbonButton x:Name="btnVFDecrypt" LargeImageSource="Images/theiphonewiki_32.png" SmallImageSource="Images/theiphonewiki_16.png" Label="About VFDecrypt" IsEnabled="False" />
-                    <ribbon:RibbonButton x:Name="btnColeStuff" LargeImageSource="Images/colestuff_32.png" SmallImageSource="Images/colestuff_16.png" Label="About Cole Stuff" IsEnabled="False" />
-                    <ribbon:RibbonButton x:Name="btnREADME" LargeImageSource="Images/Help-browser_32.png" SmallImageSource="Images/Help-browser_16.png" Label="Readme" />
+                    <ribbon:RibbonButton x:Name="btnAbout" LargeImageSource="Images/idecryptit_32.png" Label="About iDecryptIt" />
+                    <ribbon:RibbonButton x:Name="btnREADME" LargeImageSource="Images/Help-browser_32.png" Label="Readme" />
                 </ribbon:RibbonGroup>
                 <ribbon:RibbonGroup x:Name="ExtrasGroup" Header="Extras">
-                    <ribbon:RibbonButton x:Name="btnChangelog" LargeImageSource="Images/Gnome-logviewer_32.png" SmallImageSource="Images/Gnome-logviewer_16.png" Label="Changelog" />
-                    <ribbon:RibbonButton x:Name="btnHelpOut" LargeImageSource="Images/System-users_32.png" SmallImageSource="Images/System-users_16.png" Label="Publish Key" />
-                    <ribbon:RibbonButton x:Name="btnChangeLanguage" LargeImageSource="Images/Preferences-desktop-locale_es_us_32.png" SmallImageSource="Images/Preferences-desktop-locale_es_us_16.png" Label="Change Language" />
-                </ribbon:RibbonGroup>
-            </ribbon:RibbonTab>
-            <ribbon:RibbonTab x:Name="ToolsTab" Header="Tools">
-                <ribbon:RibbonGroup x:Name="WhatAmI" Header="What Is This?" LargeImageSource="Images/Help-browser_32.png">
-                    <ribbon:RibbonButton x:Name="btnWhatAmI" LargeImageSource="Images/Help-browser_32.png" Label="What Is This?" />
-                    <ribbon:RibbonTextBox x:Name="textWhatAmIFileName" Label="Input File: " TextBoxWidth="175" />
-                    <ribbon:RibbonButton x:Name="btnSelectWhatAmIFile" Label="Select Input File" />
-                </ribbon:RibbonGroup>
-                <ribbon:RibbonGroup x:Name="Extract" Header="Extract" LargeImageSource="Images/7zip_32.png" IsEnabled="False">
-                    <ribbon:RibbonButton x:Name="btnExtract" LargeImageSource="Images/7zip_32.png" Label="Extact" />
-                    <ribbon:RibbonTextBox x:Name="textExtractFileName" Label="Input File: " TextBoxWidth="150" />
-                    <ribbon:RibbonButton x:Name="btnSelectExtractFile" Label="Select Input File" />
-                </ribbon:RibbonGroup>
-            </ribbon:RibbonTab>
-            <ribbon:RibbonTab x:Name="KeyListTab" Header="Keys">
-                <ribbon:RibbonGroup x:Name="AppleTV_group" Header="Apple TV" LargeImageSource="Images\AppleTV2,1_32.png">
-                    <ribbon:RibbonButton x:Name="btnAppleTV21" LargeImageSource="Images\AppleTV2,1_32.png" SmallImageSource="Images\AppleTV2,1_16.png" Label="2G" />
-                </ribbon:RibbonGroup>
-                <ribbon:RibbonGroup x:Name="iPad_group" Header="iPad" LargeImageSource="Images\iPad2,3_32.png">
-                    <ribbon:RibbonButton x:Name="btniPad11" LargeImageSource="Images\iPad1,1_32.png" SmallImageSource="Images\iPad1,1_16.png" Label="1G" />
-                    <ribbon:RibbonButton x:Name="btniPad21" LargeImageSource="Images\iPad2,1_32.png" SmallImageSource="Images\iPad2,1_16.png" Label="2 (Wi-Fi)" />
-                    <ribbon:RibbonButton x:Name="btniPad22" LargeImageSource="Images\iPad2,2_32.png" SmallImageSource="Images\iPad2,2_16.png" Label="2 (GSM)" />
-                    <ribbon:RibbonButton x:Name="btniPad23" LargeImageSource="Images\iPad2,3_32.png" SmallImageSource="Images\iPad2,3_16.png" Label="2 (CDMA)" />
-                </ribbon:RibbonGroup>
-                <ribbon:RibbonGroup x:Name="iPhone_group" Header="iPhone" LargeImageSource="Images\iPhone4,1_32.png">
-                    <ribbon:RibbonButton x:Name="btniPhone11" LargeImageSource="Images\iPhone1,1_32.png" SmallImageSource="Images\iPhone1,1_16.png" Label="2G" />
-                    <ribbon:RibbonButton x:Name="btniPhone12" LargeImageSource="Images\iPhone1,2_32.png" SmallImageSource="Images\iPhone1,2_16.png" Label="3G" />
-                    <ribbon:RibbonButton x:Name="btniPhone21" LargeImageSource="Images\iPhone2,1_32.png" SmallImageSource="Images\iPhone2,1_16.png" Label="3GS" />
-                    <ribbon:RibbonButton x:Name="btniPhone31" LargeImageSource="Images\iPhone3,1_32.png" SmallImageSource="Images\iPhone3,1_16.png" Label="4 GSM" />
-                    <ribbon:RibbonButton x:Name="btniPhone33" LargeImageSource="Images\iPhone3,3_32.png" SmallImageSource="Images\iPhone3,3_16.png" Label="4 CDMA" />
-                    <ribbon:RibbonButton x:Name="btniPhone41" LargeImageSource="Images\iPhone4,1_32.png" SmallImageSource="Images\iPhone4,1_16.png" Label="4S" />
-                </ribbon:RibbonGroup>
-                <ribbon:RibbonGroup x:Name="iPod_group" Header="iPod touch" LargeImageSource="Images\iPod4,1_32.png">
-                    <ribbon:RibbonButton x:Name="btniPod11" LargeImageSource="Images\iPod1,1_32.png" SmallImageSource="Images\iPod1,1_16.png" Label="1G" />
-                    <ribbon:RibbonButton x:Name="btniPod21" LargeImageSource="Images\iPod2,1_32.png" SmallImageSource="Images\iPod2,1_16.png" Label="2G" />
-                    <ribbon:RibbonButton x:Name="btniPod31" LargeImageSource="Images\iPod3,1_32.png" SmallImageSource="Images\iPod3,1_16.png" Label="3G" />
-                    <ribbon:RibbonButton x:Name="btniPod41" LargeImageSource="Images\iPod4,1_32.png" SmallImageSource="Images\iPod4,1_16.png" Label="4G" />
+                    <ribbon:RibbonButton x:Name="btnChangelog" LargeImageSource="Images/Gnome-logviewer_32.png" Label="Changelog" />
+                    <ribbon:RibbonButton x:Name="btnHelpOut" LargeImageSource="Images/System-users_32.png" Label="Publish Key" />
+                    <ribbon:RibbonButton x:Name="btnChangeLanguage" LargeImageSource="Images/Preferences-desktop-locale_es_us_32.png" Label="Change Language" />
                 </ribbon:RibbonGroup>
             </ribbon:RibbonTab>
         </ribbon:Ribbon>
-        <TabControl Grid.Row="1" Margin="12" Name="MainArea">
+        <Grid Grid.Row="2" Name="DecryptArea">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="12" />
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="6" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="6" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="6" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="6" />
+                <ColumnDefinition Width="Auto" MinWidth="75" />
+                <ColumnDefinition Width="6" />
+                <ColumnDefinition Width="Auto" MinWidth="75" />
+                <ColumnDefinition Width="12" />
+            </Grid.ColumnDefinitions>
+            <Button x:Name="btnDecrypt" Grid.Column="1">
+                <Grid Height="32">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="32" />
+                        <ColumnDefinition Width="6" />
+                        <ColumnDefinition Width="54" />
+                    </Grid.ColumnDefinitions>
+                    <Image Source="Images/Unlocked_32.png" />
+                    <TextBlock Grid.Column="2" Text="Decrypt" VerticalAlignment="Center" x:Name="btnDecryptText" />
+                </Grid>
+            </Button>
+            <Grid Grid.Column="3" Height="24">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="txtInputLabel" Text="Input File:  " HorizontalAlignment="Right" VerticalAlignment="Center" />
+                <TextBox x:Name="textInputFileName" Grid.Column="1" />
+            </Grid>
+            <Grid Grid.Column="5" Height="24">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="txtOutputLabel" Text="Output File:  " HorizontalAlignment="Right" VerticalAlignment="Center" />
+                <TextBox x:Name="textOuputFileName" Grid.Column="1" />
+            </Grid>
+            <Grid Grid.Column="7" Height="24">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="textDecryptLabel" Text="Key:  " HorizontalAlignment="Right" VerticalAlignment="Center" />
+                <TextBox x:Name="textDecryptKey" Grid.Column="1" />
+            </Grid>
+            <Button x:Name="btnSelectVFDecryptInputFile" Content="Select Input File" Grid.Column="9" Height="23" />
+            <Button x:Name="btnClearKey" Content="Clear Key" Grid.Column="11" Height="23" />
+        </Grid>
+        <Grid Grid.Row="4" Name="KeyArea">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="12" />
+                <!-- Apple TV -->
+                <ColumnDefinition Width="46" />
+                <ColumnDefinition Width="*" />
+                <!-- iPad -->
+                <ColumnDefinition Width="42" />
+                <ColumnDefinition Width="6" />
+                <ColumnDefinition Width="42" />
+                <ColumnDefinition Width="6" />
+                <ColumnDefinition Width="42" />
+                <ColumnDefinition Width="6" />
+                <ColumnDefinition Width="42" />
+                <ColumnDefinition Width="*" />
+                <!-- iPhone -->
+                <ColumnDefinition Width="42" />
+                <ColumnDefinition Width="6" />
+                <ColumnDefinition Width="42" />
+                <ColumnDefinition Width="6" />
+                <ColumnDefinition Width="42" />
+                <ColumnDefinition Width="6" />
+                <ColumnDefinition Width="42" />
+                <ColumnDefinition Width="6" />
+                <ColumnDefinition Width="42" />
+                <ColumnDefinition Width="6" />
+                <ColumnDefinition Width="42" />
+                <ColumnDefinition Width="*" />
+                <!-- iPod touch -->
+                <ColumnDefinition Width="42" />
+                <ColumnDefinition Width="6" />
+                <ColumnDefinition Width="42" />
+                <ColumnDefinition Width="6" />
+                <ColumnDefinition Width="42" />
+                <ColumnDefinition Width="6" />
+                <ColumnDefinition Width="42" />
+                <ColumnDefinition Width="12" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="9" />
+                <RowDefinition Height="38" />
+                <RowDefinition Height="6" />
+                <RowDefinition Height="15" />
+                <RowDefinition Height="6" />
+                <RowDefinition Height="15" />
+                <RowDefinition Height="6" />
+            </Grid.RowDefinitions>
+            <!-- Icon Buttons -->
+            <Button x:Name="btnAppleTV21" Grid.Column="1" Grid.Row="1">
+                <Image Source="Images/AppleTV2,1_32.png" />
+            </Button>
+            <Button x:Name="btniPad11" Grid.Column="3" Grid.Row="1">
+                <Image Source="Images/iPad1,1_32.png" />
+            </Button>
+            <Button x:Name="btniPad21" Grid.Column="5" Grid.Row="1">
+                <Image Source="Images/iPad2,1_32.png" />
+            </Button>
+            <Button x:Name="btniPad22" Grid.Column="7" Grid.Row="1">
+                <Image Source="Images/iPad2,2_32.png" />
+            </Button>
+            <Button x:Name="btniPad23" Grid.Column="9" Grid.Row="1">
+                <Image Source="Images/iPad2,3_32.png" />
+            </Button>
+            <Button x:Name="btniPhone11" Grid.Column="11" Grid.Row="1">
+                <Image Source="Images/iPhone1,1_32.png" />
+            </Button>
+            <Button x:Name="btniPhone12" Grid.Column="13" Grid.Row="1">
+                <Image Source="Images/iPhone1,2_32.png" />
+            </Button>
+            <Button x:Name="btniPhone21" Grid.Column="15" Grid.Row="1">
+                <Image Source="Images/iPhone2,1_32.png" />
+            </Button>
+            <Button x:Name="btniPhone31" Grid.Column="17" Grid.Row="1">
+                <Image Source="Images/iPhone3,1_32.png" />
+            </Button>
+            <Button x:Name="btniPhone33" Grid.Column="19" Grid.Row="1">
+                <Image Source="Images/iPhone3,3_32.png" />
+            </Button>
+            <Button x:Name="btniPhone41" Grid.Column="21" Grid.Row="1">
+                <Image Source="Images/iPhone4,1_32.png" />
+            </Button>
+            <Button x:Name="btniPod11" Grid.Column="23" Grid.Row="1">
+                <Image Source="Images/iPod1,1_32.png" />
+            </Button>
+            <Button x:Name="btniPod21" Grid.Column="25" Grid.Row="1">
+                <Image Source="Images/iPod2,1_32.png" />
+            </Button>
+            <Button x:Name="btniPod31" Grid.Column="27" Grid.Row="1">
+                <Image Source="Images/iPod3,1_32.png" />
+            </Button>
+            <Button x:Name="btniPod41" Grid.Column="29" Grid.Row="1">
+                <Image Source="Images/iPod4,1_32.png" />
+            </Button>
+            <!-- Labels -->
+            <TextBlock Grid.Row="3" Grid.Column="1" Text="2G" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <TextBlock Grid.Row="3" Grid.Column="3" Text="1G" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <TextBlock Grid.Row="3" Grid.Column="5" Text="2 WiFi" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <TextBlock Grid.Row="3" Grid.Column="7" Text="2 GSM" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <TextBlock Grid.Row="3" Grid.Column="9" Text="2 CDMA" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <TextBlock Grid.Row="3" Grid.Column="11" Text="2G" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <TextBlock Grid.Row="3" Grid.Column="13" Text="3G" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <TextBlock Grid.Row="3" Grid.Column="15" Text="3GS" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <TextBlock Grid.Row="3" Grid.Column="17" Text="4 GSM" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <TextBlock Grid.Row="3" Grid.Column="19" Text="4 CDMA" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <TextBlock Grid.Row="3" Grid.Column="21" Text="4S" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <TextBlock Grid.Row="3" Grid.Column="23" Text="1G" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <TextBlock Grid.Row="3" Grid.Column="25" Text="2G" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <TextBlock Grid.Row="3" Grid.Column="27" Text="3G" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <TextBlock Grid.Row="3" Grid.Column="29" Text="4G" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <!-- Device Labels -->
+            <TextBlock Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="1" Text="Apple TV" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <TextBlock Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="7" Text="iPad" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <TextBlock Grid.Row="5" Grid.Column="11" Grid.ColumnSpan="11" Text="iPhone" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <TextBlock Grid.Row="5" Grid.Column="23" Grid.ColumnSpan="7" Text="iPod touch" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <!-- Vertical Seperators -->
+            <Canvas Grid.Column="0" Grid.RowSpan="6" Background="#20000000" Margin="3,6,3,0" />
+            <Canvas Grid.Column="2" Grid.RowSpan="6" Background="#20000000" Margin="3,6,3,0" Width="6" HorizontalAlignment="Center" />
+            <Canvas Grid.Column="10" Grid.RowSpan="6" Background="#20000000" Margin="3,6,3,0" Width="6" HorizontalAlignment="Center" />
+            <Canvas Grid.Column="22" Grid.RowSpan="6" Background="#20000000" Margin="3,6,3,0" Width="6" HorizontalAlignment="Center" />
+            <Canvas Grid.Column="30" Grid.RowSpan="6" Background="#20000000" Margin="3,6,3,0" />
+            <!-- Horizontal Seperators -->
+            <Canvas Grid.ColumnSpan="31" Grid.Row="6" Background="#20000000" Margin="3,0" />
+            <Canvas Grid.ColumnSpan="31" Grid.Row="0" Background="#20000000" Margin="3,0,3,3" />
+        </Grid>
+        <Grid Grid.Row="6" Name="WhatAmIArea">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="12" />
+                <ColumnDefinition Width="125" />
+                <ColumnDefinition Width="6" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="6" />
+                <ColumnDefinition Width="Auto" MinWidth="75" />
+                <ColumnDefinition Width="12" />
+            </Grid.ColumnDefinitions>
+            <Button x:Name="btnWhatAmI" Grid.Column="1">
+                <Grid Height="32">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="32" />
+                        <ColumnDefinition Width="6" />
+                        <ColumnDefinition Width="79" />
+                    </Grid.ColumnDefinitions>
+                    <Image Source="Images/Help-browser_32.png" />
+                    <TextBlock Grid.Column="2" Text="What Am I?" VerticalAlignment="Center" />
+                </Grid>
+            </Button>
+            <Grid Grid.Column="3" Height="24">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="textWhatAmIFileLabel" Text="Input File:  " HorizontalAlignment="Right" VerticalAlignment="Center" />
+                <TextBox x:Name="textWhatAmIFileName" Grid.Column="1" />
+            </Grid>
+            <Button x:Name="btnSelectWhatAmIFile" Content="Select Input File" Grid.Column="5" Height="23" />
+        </Grid>
+        <TabControl Grid.Row="8" Margin="12" Name="MainArea">
             <TabItem Header="1.x Final" Name="v1Final">
                 <ScrollViewer>
                     <Grid Margin="6">
@@ -821,11 +988,11 @@
                 </ScrollViewer>
             </TabItem>
         </TabControl>
-        <Grid.Background>
-            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="#FFEEF3F9" Offset="0" />
-                <GradientStop Color="White" Offset="1" />
-            </LinearGradientBrush>
-        </Grid.Background>
     </Grid>
+    <ribbon:RibbonWindow.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FFEEF3F9" Offset="0" />
+            <GradientStop Color="White" Offset="1" />
+        </LinearGradientBrush>
+    </ribbon:RibbonWindow.Background>
 </ribbon:RibbonWindow>
