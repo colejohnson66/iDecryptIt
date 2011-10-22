@@ -12,7 +12,7 @@ Public Class Updater
     Public updateminor As String = ""
     Public rev As String = "7"
     Public updaterev As String = ""
-    Public build As String = "1I75"
+    Public build As String = "1I76"
     Public updatebuild As String = ""
     Private Sub Updater_Loaded() Handles Me.Loaded
         ' Me.Loaded is not called unless the window is shown for some reason

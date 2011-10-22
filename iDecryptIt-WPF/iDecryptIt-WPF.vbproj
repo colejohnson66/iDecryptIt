@@ -30,7 +30,7 @@
     <SuiteName>Cole Stuff</SuiteName>
     <MinimumRequiredVersion>1.0.0.0</MinimumRequiredVersion>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>875</ApplicationRevision>
+    <ApplicationRevision>876</ApplicationRevision>
     <ApplicationVersion>5.00.7.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -277,6 +277,7 @@
     </Content>
     <Resource Include="Images\dmg.ico" />
     <Resource Include="Images\iPhone4,1_32.png" />
+    <Resource Include="Images\Preferences-desktop-locale_es_us_64.png" />
     <Content Include="vfdecrypt.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -289,7 +290,6 @@
     <Resource Include="Images\Unlocked_32.png" />
     <Resource Include="Images\Media-playback-start_32.png" />
     <Resource Include="Images\Preferences-desktop-locale_es_us.ico" />
-    <Resource Include="Images\Preferences-desktop-locale_es_us_128.png" />
     <Resource Include="Images\Preferences-desktop-locale_es_us_32.png" />
     <Content Include="help\submitkey.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

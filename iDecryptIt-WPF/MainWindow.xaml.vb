@@ -115,6 +115,7 @@ Public Class MainWindow
         key8f305.Text = unavailable
         key8f455.Text = unavailable
         key9a334v.Text = unavailable
+        key9a335a.Text = unavailable
         ' 4.x Beta
         key8a230m.Text = unavailable
         key8a248c.Text = unavailable
@@ -246,6 +247,7 @@ Public Class MainWindow
         dmg8f305.Text = "XXX-XXXX-XXX.dmg"
         dmg8f455.Text = "XXX-XXXX-XXX.dmg"
         dmg9a334v.Text = "XXX-XXXX-XXX.dmg"
+        dmg9a335a.Text = "XXX-XXXX-XXX.dmg"
         ' 4.x Beta
         dmg8a230m.Text = "XXX-XXXX-XXX.dmg"
         dmg8a248c.Text = "XXX-XXXX-XXX.dmg"
@@ -288,8 +290,11 @@ Public Class MainWindow
         dmg9a334beta.Text = "XXX-XXXX-XXX.dmg"
     End Sub
     Public Sub cleanup()
-        If (Directory.Exists(tempdir + "idecryptit")) Then
+        If (Directory.Exists(tempdir)) Then
             Directory.Delete(tempdir, True)
+        End If
+        If (Directory.Exists(Path.GetTempPath + "idecryptit-setup\")) Then
+            Directory.Delete(Path.GetTempPath + "idecryptit-setup\", True)
         End If
     End Sub
     Private Sub DoCMD(ByVal file As String)
@@ -321,7 +326,7 @@ Public Class MainWindow
         returntext = split(0)
         For i As Integer = 1 To split.Length
             If (i = lastindexnum) Then
-                returntext = returntext + "\" + Replace(lastindex, ".ipsw", "_decrypted.dmg")
+                returntext = returntext + "\" + Replace(lastindex, ".dmg", "_decrypted.dmg")
             ElseIf (i = split.Length) Then
             Else
                 returntext = returntext + "\" + split(i)
@@ -963,7 +968,8 @@ Public Class MainWindow
         key8f202.Text = "7fb6a5a1a5d74ceb61180c8740065b79ac87a5c15e554ad4b147ae9e1446254acc9d5e4a"
         key8f305.Text = "f607711d4db94bba7a4866f095aed082c8485bfbcd0f411f1e65158f585915edd5cfeec1"
         key8f455.Text = "32c6a922fdc1a474371fcfcbf8b5bf4a87ce01b6e672c360405a0dd238ad693769f0ce77"
-        key9a334v.Text = nokey
+        key9a334v.Text = "e04125691fea59da7bedc605667f459c78d243d1b4df4c6127d154dc84b3657902538aee"
+        key9a335a.Text = "490e91667d6aa9cccc08b6d8e2aa0b354205426d9d00fd9e1b17bcfa3b8b34e5c2aa195a"
         ' 4.x Beta
         key8f5148cATV.Text = "74e3afbad43debe898a556fa1446740598a556fa1446740598a556fa1446740598a556fa"
         key8f5153dATV.Text = "85ba2b2d95c89df504f54869b98d0eb26a63f269570e8882cb323b1b753f4f41446a1f0a"
@@ -1075,7 +1081,7 @@ Public Class MainWindow
     End Sub
     Private Sub deletelanguage()
         result = MsgBox("ERROR! The setting for the language is not English or Spanish! Shall I delete it?", MsgBoxStyle.YesNo, "ERROR!")
-        If (result = 7) Then
+        If (result = MsgBoxResult.Ok) Then
             ' They said yes
             Registry.CurrentUser.DeleteSubKey("SOFTWARE\\Cole Stuff\\iDecryptIt")
         End If

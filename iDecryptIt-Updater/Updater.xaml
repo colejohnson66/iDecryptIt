@@ -1,13 +1,14 @@
 ﻿<Window x:Class="Updater"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title="Checking for Updates..."
-    WindowStyle="ThreeDBorderWindow"
-    WindowStartupLocation="CenterOwner"
-    ShowInTaskbar="False"
-    ResizeMode="NoResize"
-    Name="windowUpdatePane"
-    Height="252" Width="450">
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Checking for Updates..."
+        WindowStyle="ThreeDBorderWindow"
+        WindowStartupLocation="CenterOwner"
+        ShowInTaskbar="False"
+        ResizeMode="NoResize"
+        Name="windowUpdatePane"
+        Height="252" Width="450"
+        Background="{StaticResource Background}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
