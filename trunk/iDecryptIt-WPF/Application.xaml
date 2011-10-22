@@ -4,5 +4,9 @@
     StartupUri="MainWindow.xaml"
     ShutdownMode="OnMainWindowClose">
     <Application.Resources>
-  </Application.Resources>
+        <LinearGradientBrush x:Key="Background" EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FFEEF3F9" Offset="0" />
+            <GradientStop Color="White" Offset="1" />
+        </LinearGradientBrush>
+    </Application.Resources>
 </Application>
