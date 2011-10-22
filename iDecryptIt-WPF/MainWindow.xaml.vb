@@ -131,10 +131,19 @@ Public Class MainWindow
         key8c134b.Text = unavailable
         key8c148beta.Text = unavailable
         key8f5148b.Text = unavailable
-        key8f5148c.Text = unavailable
         key8f5153d.Text = unavailable
         key8f5166b.Text = unavailable
         key8f190beta.Text = unavailable
+        ' 4.x Beta ATV
+        key8f5148cATV.Text = unavailable
+        key8f5153dATV.Text = unavailable
+        key8f5166bATV.Text = unavailable
+        key9a5220pATV.Text = unavailable
+        key9a5248dATV.Text = unavailable
+        key9a5259fATV.Text = unavailable
+        key9a5288dATV.Text = unavailable
+        key9a5302bATV.Text = unavailable
+        key9a5313eATV.Text = unavailable
         ' 5.x Final
         key9a334final.Text = unavailable
         ' 5.x Beta
@@ -253,10 +262,19 @@ Public Class MainWindow
         dmg8c134b.Text = "XXX-XXXX-XXX.dmg"
         dmg8c148beta.Text = "XXX-XXXX-XXX.dmg"
         dmg8f5148b.Text = "XXX-XXXX-XXX.dmg"
-        dmg8f5148c.Text = "XXX-XXXX-XXX.dmg"
         dmg8f5153d.Text = "XXX-XXXX-XXX.dmg"
         dmg8f5166b.Text = "XXX-XXXX-XXX.dmg"
         dmg8f190beta.Text = "XXX-XXXX-XXX.dmg"
+        ' 4.x Beta ATV
+        dmg8f5148cATV.Text = "XXX-XXXX-XXX.dmg"
+        dmg8f5153dATV.Text = "XXX-XXXX-XXX.dmg"
+        dmg8f5166bATV.Text = "XXX-XXXX-XXX.dmg"
+        dmg9a5220pATV.Text = "XXX-XXXX-XXX.dmg"
+        dmg9a5248dATV.Text = "XXX-XXXX-XXX.dmg"
+        dmg9a5259fATV.Text = "XXX-XXXX-XXX.dmg"
+        dmg9a5288dATV.Text = "XXX-XXXX-XXX.dmg"
+        dmg9a5302bATV.Text = "XXX-XXXX-XXX.dmg"
+        dmg9a5313eATV.Text = "XXX-XXXX-XXX.dmg"
         ' 5.x Final
         dmg9a334final.Text = "XXX-XXXX-XXX.dmg"
         ' 5.x Beta
@@ -293,7 +311,23 @@ Public Class MainWindow
         procNlite.WaitForExit()
     End Sub
     Private Function replacedmg(ByVal filename As String) As String
-        Return Replace(filename, ".dmg", "_decrypted.dmg")
+        Dim split() As String
+        Dim lastindex As String
+        Dim returntext As String
+        Dim lastindexnum As Integer
+        split = filename.Split("\")
+        lastindexnum = split.Length - 1
+        lastindex = split(lastindexnum)
+        returntext = split(0)
+        For i As Integer = 1 To split.Length
+            If (i = lastindexnum) Then
+                returntext = returntext + "\" + Replace(lastindex, ".ipsw", "_decrypted.dmg")
+            ElseIf (i = split.Length) Then
+            Else
+                returntext = returntext + "\" + split(i)
+            End If
+        Next
+        Return returntext
     End Function
     Private Function returnkey() As String
         Return Chr(13) + Chr(10)
@@ -339,7 +373,7 @@ Public Class MainWindow
         Dim decrypt As New OpenFileDialog()
         decrypt.FileName = ""
         decrypt.DefaultExt = ".dmg"
-        decrypt.Filter = "Apple Disk Images|*.dmg"
+        'decrypt.Filter = "Apple Disk Images|*.dmg"
         Dim result? As Boolean = decrypt.ShowDialog()
         If result = True Then
             textInputFileName.Text = decrypt.FileName
@@ -425,6 +459,9 @@ Public Class MainWindow
                 Exit Sub
             End If
         End If
+    End Sub
+    Private Sub btn1a420_Click() Handles btn1a420.Click
+        Process.Start("http://rapidshare.com/files/207764160/iphoneproto.zip")
     End Sub
     Private Sub btniPad11_Click() Handles btniPad11.Click
         ' iPad 1G Wi-Fi/Wi-Fi+GSM
@@ -869,7 +906,7 @@ Public Class MainWindow
         key8f5166b.Text = nokey
         key8f190beta.Text = "cca43b420c4ffefb23a9b5e1605db40df1d89cb13d5951e22b7dda5a35a5cb2dcde85e4a"
         ' 5.x Final
-        key9a334final.Text = nokey
+        key9a334final.Text = "e77431d46dedd65cf73df82a823e32e131a76a7caa6d95112bcaede156eb566ce0e8a57d"
         ' 5.x Beta
         key9a5220p.Text = "a450072c20f4a07afec9d4c938a3dc08141aa86aa9073db5882313b09fd3098a90e0480e"
         key9a5248d.Text = "5cc718f5615d8a0caaef430d8589d3542b6b19aef95cc33de39e8c74b869f27781d492c7"
@@ -878,7 +915,7 @@ Public Class MainWindow
         key9a5288d.Text = "7e0fd860c3fd6daec23d840cbb0463d1027f5b356e55bea7bf7b3bc0e7f53271b1a4a5ad"
         key9a5302b.Text = "d00f6ad8af035d5331c83d60409168b9dab471ea0c2bb73f4e3ec23c194467e54e644100"
         key9a5313e.Text = "a1fab44f59d9b22e59ad7deaed305e0b14a55058f070c139087c19aff2b61420371edcb6"
-        key9a334beta.Text = nokey
+        key9a334beta.Text = "e77431d46dedd65cf73df82a823e32e131a76a7caa6d95112bcaede156eb566ce0e8a57d"
     End Sub
     Private Sub btniPod41_Click() Handles btniPod41.Click
         ' iPod touch 4G
@@ -928,16 +965,16 @@ Public Class MainWindow
         key8f455.Text = "32c6a922fdc1a474371fcfcbf8b5bf4a87ce01b6e672c360405a0dd238ad693769f0ce77"
         key9a334v.Text = nokey
         ' 4.x Beta
-        key8f5148c.Text = "74e3afbad43debe898a556fa1446740598a556fa1446740598a556fa1446740598a556fa"
-        key8f5153d.Text = "85ba2b2d95c89df504f54869b98d0eb26a63f269570e8882cb323b1b753f4f41446a1f0a"
-        key8f5166b.Text = "b87f853c8f45aab846ebb507fbfca1039ab3dd7aed32076599d79070bc05240f59957064"
-        ' 5.x Beta
-        key9a5220p.Text = "91adee4d938e7f1ab7d9aa0863d9bb58b1056f410b7c1f28444ae1a293d3262cf1622402"
-        key9a5248d.Text = "7bf1338a764b9e566982f86a95e597aae247cff3b55f30aeb7f61ec35a1f5b43e6d78773"
-        key9a5259f.Text = "37c0ea663c670500c99424031e54a9d4d55e1156914a95ba54a62335c9e5f13d5c2cfe14"
-        key9a5288d.Text = "40f3d0718052dda2f2c6637be99dc5717938149ac1b30a979fdd31109dc8fb0e83b4373c"
-        key9a5302b.Text = "5134c59a148b2151a001cc5d984bb28339a379a47f2b0a40d9f7e16db0e1c44f7e2da028"
-        key9a5313e.Text = "cd5cbb28e733d7a538ad949f3ad295b8780185ff5103feb3e87eedf25ce0aff598e2ba1f"
+        key8f5148cATV.Text = "74e3afbad43debe898a556fa1446740598a556fa1446740598a556fa1446740598a556fa"
+        key8f5153dATV.Text = "85ba2b2d95c89df504f54869b98d0eb26a63f269570e8882cb323b1b753f4f41446a1f0a"
+        key8f5166bATV.Text = "b87f853c8f45aab846ebb507fbfca1039ab3dd7aed32076599d79070bc05240f59957064"
+        ' 4.x Beta ATV
+        key9a5220pATV.Text = "91adee4d938e7f1ab7d9aa0863d9bb58b1056f410b7c1f28444ae1a293d3262cf1622402"
+        key9a5248dATV.Text = "7bf1338a764b9e566982f86a95e597aae247cff3b55f30aeb7f61ec35a1f5b43e6d78773"
+        key9a5259fATV.Text = "37c0ea663c670500c99424031e54a9d4d55e1156914a95ba54a62335c9e5f13d5c2cfe14"
+        key9a5288dATV.Text = "40f3d0718052dda2f2c6637be99dc5717938149ac1b30a979fdd31109dc8fb0e83b4373c"
+        key9a5302bATV.Text = "5134c59a148b2151a001cc5d984bb28339a379a47f2b0a40d9f7e16db0e1c44f7e2da028"
+        key9a5313eATV.Text = "cd5cbb28e733d7a538ad949f3ad295b8780185ff5103feb3e87eedf25ce0aff598e2ba1f"
     End Sub
     Private Sub btnClearKey_Click() Handles btnClearKey.Click
         textDecryptKey.Text = ""
@@ -994,20 +1031,9 @@ Public Class MainWindow
 
     ' Language stuff
     Private Sub setlanges()
-        ' NOTE: Apple TV, iPad, iPhone, and iPod touch do not translate to anything
         ' NOTE: This may contain errors as this is Google Translate
-        ' NOTE: "Web" does not need to be translated
         ' NOTE: Web pages need to be translated
         '-----------------------------------------------------------------------------------
-        ' Ribbon
-        HelpTab.Header = "Ayuda"
-        HelpGroup.Header = "Ayuda"
-        btnAbout.Label = "Acerca de iDecryptIt"
-        btnREADME.Label = "Léame"
-        ExtrasGroup.Header = "Más"
-        btnChangelog.Label = "Cambios"
-        btnHelpOut.Label = "Publicar Clave"
-        btnChangeLanguage.Label = "Cambio de idioma"
         ' Decrypt Area
         btnDecryptText.Text = "Descifrar"
         txtInputLabel.Text = "Archivo de entrada:  "
@@ -1015,6 +1041,12 @@ Public Class MainWindow
         btnSelectVFDecryptInputFile.Content = "Seleccione Archivo de entrada"
         textDecryptLabel.Text = "Clave:"
         btnClearKey.Content = "tecla de borrado"
+        ' Extras Area
+        btnAbout.ToolTip = "Acerca de iDecryptIt"
+        btnREADME.ToolTip = "Léame"
+        btnChangelog.ToolTip = "Cambios"
+        btnHelpOut.ToolTip = "Publicar Clave"
+        btnChangeLanguage.ToolTip = "Cambio de idioma"
         ' Main Area
         v1Final.Header = "1.x Pasado"
         btn1a420.Content = "Prueba"
@@ -1024,15 +1056,19 @@ Public Class MainWindow
         v3Final.Header = "3.x Pasado"
         v3Beta.Header = "3.x Prueba"
         v4Final.Header = "4.x Pasado"
+        v4FinalATV.Header = "4.x Pasado ATV"
         v4Beta.Header = "4.x Prueba"
+        v4BetaATV.Header = "4.x Prueba ATV"
         v5Final.Header = "5.x Pasado"
         v5Beta.Header = "5.x Prueba"
         ' Little Tab Notes
-        note1xbeta.Text = "AVISO: 1.2 nunca fue publicada. En su lugar, se cambió a 2,0."
-        note2xbeta.Text = "AVISO: 2,0 prueba es en realidad un 1,2 de prueba 1."
-        note4xbeta.Text = "AVISO: Por lo que el Apple TV informes de las pruebas de 4,4 (5,0), por favor consulte la ficha de prueba 5.x."
+        note1xbeta.Text = "AVISO: 1.2 nunca fue publicada. En su lugar, se cambió a 2.0."
+        note2xbeta.Text = "AVISO: 2.0 prueba es en realidad un 1,2 de prueba 1."
+        note4xbeta.Text = "AVISO: Para las versiones pruebas de Apple TV, por favor consulte la ficha designado"
+        note4xbetaATV.Text = "AVISO: 4.2 pruebas se basan en 4.3, se basa en 4.4b4 5.0b5, 4.4b5 sobre la base de 5.0b6, 4.4b6 y sobre la base de 5.0b7"
         note4xfinalatv.Text = "AVISO: En esta página, el número de versión de la izquierda es lo que los informes de Apple TV, mientras que el de la derecha es la versión de Apple"
-        note5xbeta.Text = "AVISO: en el Apple TV, esta prueba será reportado como 4,4."
+        note5xfinal.Text = "AVISO: En el Apple TV, este serán reportados como 4.4 y por lo tanto figurará en 4.x pasado ATV'"
+        note5xbeta.Text = "AVISO: En el Apple TV, ya que estas betas serán reportados como 4.4, como tal, se enumeran en '4.x Prueba ATV'"
         ' Notes
         nokey = "Ninguno de publicación"
         unavailable = "Construir, no disponibles para este dispositivo"

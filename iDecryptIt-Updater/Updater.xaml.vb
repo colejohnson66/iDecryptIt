@@ -12,9 +12,9 @@ Public Class Updater
     Public updateminor As String = ""
     Public rev As String = "7"
     Public updaterev As String = ""
-    Public build As String = "1H35"
+    Public build As String = "1I75"
     Public updatebuild As String = ""
-    Private Sub Updater_Loaded(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs) Handles Me.Loaded
+    Private Sub Updater_Loaded() Handles Me.Loaded
         ' Me.Loaded is not called unless the window is shown for some reason
         Me.Visibility = Windows.Visibility.Hidden
         Me.btnTop.Visibility = Windows.Visibility.Hidden
@@ -50,10 +50,10 @@ Public Class Updater
         End If
 
     End Sub
-    Private Sub btnBottom_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnBottom.Click
+    Private Sub btnBottom_Click() Handles btnBottom.Click
         Me.Close()
     End Sub
-    Private Sub btnTop_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles btnTop.Click
+    Private Sub btnTop_Click() Handles btnTop.Click
         ' Implement some download code using handles like above and use 7zip to extract it
         ' First need to get 7-zip working on the main EXE
         ' Download URL: "http://" + server + ".dl.sourceforge.net/project/idecryptit/" + _
