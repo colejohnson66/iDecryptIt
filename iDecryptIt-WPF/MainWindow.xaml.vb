@@ -116,6 +116,7 @@ Public Class MainWindow
         key8f455.Text = unavailable
         key9a334v.Text = unavailable
         key9a335a.Text = unavailable
+        key9a336a.Text = unavailable
         ' 4.x Beta
         key8a230m.Text = unavailable
         key8a248c.Text = unavailable
@@ -248,6 +249,7 @@ Public Class MainWindow
         dmg8f455.Text = "XXX-XXXX-XXX.dmg"
         dmg9a334v.Text = "XXX-XXXX-XXX.dmg"
         dmg9a335a.Text = "XXX-XXXX-XXX.dmg"
+        dmg9a336a.Text = "XXX-XXXX-XXX.dmg"
         ' 4.x Beta
         dmg8a230m.Text = "XXX-XXXX-XXX.dmg"
         dmg8a248c.Text = "XXX-XXXX-XXX.dmg"
@@ -577,12 +579,19 @@ Public Class MainWindow
         Call clear()
         ' 1.x Final
         key1a543a.Text = "28c909fc6d322fa18940f03279d70880e59a4507998347c70d5b8ca7ef090ecccc15e82d"
+        dmg1a543a.Text = "694-5262-39.dmg"
         key1c25.Text = "7d5962d0b582ec2557c2cade50de90f4353a1c1de07b74212513fef9cc71fb890574bfe5"
+        dmg1c25.Text = "694-5281-6.dmg"
         key1c28.Text = "7d5962d0b582ec2557c2cade50de90f4353a1c1de07b74212513fef9cc71fb890574bfe5"
+        dmg1c28.Text = "694-5298-5.dmg"
         key3a109a.Text = "f45de7637a62b200950e550f4144696d7ff3dc5f0b19c8efdf194c88f3bc2fa808fea3b3"
+        dmg3a109a.Text = "022-3602-17.dmg"
         key3b48b.Text = "70e11d7209602ada5b15fbecc1709ad4910d0ad010bb9a9125b78f9f50e25f3e05c595e2"
+        dmg3b48b.Text = "022-3725-1.dmg"
         key4a93.Text = "11070c11d93b9be5069b643204451ed95aad37df7b332d10e48fd3d23c62fca517055816"
+        dmg4a93.Text = "022-3743-100.dmg"
         key4a102.Text = "d0a0c0977bd4b6350b256d6650ec9eca419b6f961f593e74b7e5b93e010b698ca6cca1fe"
+        dmg4a102.Text = "022-3894-4.dmg"
         ' 1.x Beta
         key5a147p.Text = "86bec353ddfbe3fb750e9d7905801f79791e69acf65d16930d288e697644c76f16c4f16d"
         ' 2.x Final
@@ -970,6 +979,7 @@ Public Class MainWindow
         key8f455.Text = "32c6a922fdc1a474371fcfcbf8b5bf4a87ce01b6e672c360405a0dd238ad693769f0ce77"
         key9a334v.Text = "e04125691fea59da7bedc605667f459c78d243d1b4df4c6127d154dc84b3657902538aee"
         key9a335a.Text = "490e91667d6aa9cccc08b6d8e2aa0b354205426d9d00fd9e1b17bcfa3b8b34e5c2aa195a"
+        key9a336a.Text = "2aca488e83805a9e8190a8960a4c694d7b4967cf97ab133b48ab6f688726c37af5e28f3f"
         ' 4.x Beta
         key8f5148cATV.Text = "74e3afbad43debe898a556fa1446740598a556fa1446740598a556fa1446740598a556fa"
         key8f5153dATV.Text = "85ba2b2d95c89df504f54869b98d0eb26a63f269570e8882cb323b1b753f4f41446a1f0a"
@@ -987,15 +997,6 @@ Public Class MainWindow
     End Sub
 
     ' Load and close
-    Private Sub MainWindow_Activated() Handles Me.Activated
-        If wantedlang = "en" Then
-        ElseIf wantedlang = "es" Then
-            Call setlanges()
-        Else
-            ' Iron out this bug
-            ' Call deletelanguage()
-        End If
-    End Sub
     Private Sub MainWindow_Closing() Handles Me.Closing
         Call cleanup()
     End Sub
@@ -1017,12 +1018,12 @@ Public Class MainWindow
         DoCMD(rundir + "\iDecryptIt-Updater.exe")
 
         ' Language checker
-        Dim langcode As Microsoft.Win32.RegistryKey
+        Dim langcode As RegistryKey
         langcode = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Cole Stuff\\iDecryptIt", True)
         If langcode Is Nothing Then
             selectlang.Show()
         Else
-            wantedlang = Registry.GetValue("HKEY_CURRENT_USER\SOFTWARE\\Cole Stuff\\iDecryptIt", "language", "en")
+            wantedlang = Registry.GetValue("HKEY_CURRENT_USER\SOFTWARE\\Cole Stuff\\iDecryptIt", "language", "eng")
         End If
 
         ' Is there a specified DMG?
@@ -1033,12 +1034,35 @@ Public Class MainWindow
                 textOuputFileName.Text = replacedmg(startargs(1))
             End If
         Next i
+        Call select_lang()
     End Sub
 
     ' Language stuff
-    Private Sub setlanges()
+    Private Sub select_lang()
+        If wantedlang = "en" Then
+            ' English
+            Registry.SetValue("HKEY_CURRENT_USER\SOFTWARE\\Cole Stuff\\iDecryptIt", "language", "eng", RegistryValueKind.String)
+            wantedlang = "eng"
+        ElseIf wantedlang = "eng" Then
+            ' English
+        ElseIf wantedlang = "es" Then
+            ' Spanish
+            Registry.SetValue("HKEY_CURRENT_USER\SOFTWARE\\Cole Stuff\\iDecryptIt", "language", "spa", RegistryValueKind.String)
+            Call setlang_spa()
+            wantedlang = "spa"
+        ElseIf wantedlang = "spa" Then
+            ' Spanish
+            Call setlang_spa()
+        ElseIf wantedlang = "hin" Then
+            ' Hindi
+            Call setlang_hin()
+        Else
+            Dim selectlang As Window = New SelectLangControl
+            selectlang.Show()
+        End If
+    End Sub
+    Public Sub setlang_spa()
         ' NOTE: This may contain errors as this is Google Translate
-        ' NOTE: Web pages need to be translated
         '-----------------------------------------------------------------------------------
         ' Decrypt Area
         btnDecryptText.Text = "Descifrar"
@@ -1079,11 +1103,17 @@ Public Class MainWindow
         nokey = "Ninguno de publicación"
         unavailable = "Construir, no disponibles para este dispositivo"
     End Sub
-    Private Sub deletelanguage()
-        result = MsgBox("ERROR! The setting for the language is not English or Spanish! Shall I delete it?", MsgBoxStyle.YesNo, "ERROR!")
-        If (result = MsgBoxResult.Ok) Then
-            ' They said yes
-            Registry.CurrentUser.DeleteSubKey("SOFTWARE\\Cole Stuff\\iDecryptIt")
-        End If
+    Public Sub setlang_hin()
+        ' NOTE: This may contain errors as this is Google Translate
+        '-----------------------------------------------------------------------------------
+        ' Decrypt Area
+
+        ' Extras Area
+
+        ' Main Area
+
+        ' Little Tab Notes
+
+        ' Notes
     End Sub
 End Class
