@@ -30,7 +30,7 @@
     <SuiteName>Cole Stuff</SuiteName>
     <MinimumRequiredVersion>1.0.0.0</MinimumRequiredVersion>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>876</ApplicationRevision>
+    <ApplicationRevision>894</ApplicationRevision>
     <ApplicationVersion>5.00.7.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -278,10 +278,10 @@
     <Resource Include="Images\dmg.ico" />
     <Resource Include="Images\iPhone4,1_32.png" />
     <Resource Include="Images\Preferences-desktop-locale_es_us_64.png" />
+    <Resource Include="Images\Select_Lang_Marquee_Gradient.png" />
     <Content Include="vfdecrypt.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Images\Package-x-generic_128.png" />
     <Resource Include="Images\Gnome-logviewer_32.png" />
     <Resource Include="Images\idecryptit_48.png" />
     <Resource Include="Images\Gnome-logviewer_16.png" />
@@ -294,7 +294,6 @@
     <Content Include="help\submitkey.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Images\System-users.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
