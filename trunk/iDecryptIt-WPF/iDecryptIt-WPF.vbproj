@@ -30,7 +30,7 @@
     <SuiteName>Cole Stuff</SuiteName>
     <MinimumRequiredVersion>1.0.0.0</MinimumRequiredVersion>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>894</ApplicationRevision>
+    <ApplicationRevision>912</ApplicationRevision>
     <ApplicationVersion>5.00.7.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -245,6 +245,9 @@
     <Resource Include="Images\idecryptit_128.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="7za.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="cygcrypto-0.9.8.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -279,6 +282,7 @@
     <Resource Include="Images\iPhone4,1_32.png" />
     <Resource Include="Images\Preferences-desktop-locale_es_us_64.png" />
     <Resource Include="Images\Select_Lang_Marquee_Gradient.png" />
+    <Resource Include="Images\7zip_32.png" />
     <Content Include="vfdecrypt.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
