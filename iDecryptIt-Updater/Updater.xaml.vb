@@ -1,4 +1,5 @@
 ﻿Imports System.IO
+Imports System.Net
 Public Class Updater
     ' File paths
     Public tempdir As String = Path.GetTempPath + "idecryptit\"
@@ -10,18 +11,18 @@ Public Class Updater
     Public updatemajor As String = ""
     Public minor As String = "00"
     Public updateminor As String = ""
-    Public rev As String = "7"
+    Public rev As String = "8"
     Public updaterev As String = ""
     Public build As String = "1I76"
     Public updatebuild As String = ""
     Private Sub Updater_Loaded() Handles Me.Loaded
         ' Me.Loaded is not called unless the window is shown for some reason
         Me.Visibility = Windows.Visibility.Hidden
-        Me.btnTop.Visibility = Windows.Visibility.Hidden
+        Me.btnTop.IsEnabled = False
         Try
             ' Download the raw code
-            Dim clientCheck = New System.Net.WebClient()
-            clientCheck.DownloadFile(contacturl, tempdir + "update.txt")
+            Dim clientCheck = New WebClient()
+            clientCheck.DownloadFile(New Uri(contacturl), tempdir + "update.txt")
             Dim checker As New StreamReader(tempdir + "update.txt")
             checkerversion = checker.ReadToEnd
             checker.Close()
@@ -29,10 +30,8 @@ Public Class Updater
             MsgBox("Unable to contact The iPhone Wiki to download version info!", MsgBoxStyle.OkOnly, "Error!")
             Me.Close()
         End Try
-        ' Split the "#.##.#.#### <small>({@} ##, 201#)</small>" by the space
-        checkerarr = checkerversion.Split(" ")
         ' Split the "#.##.#.####" by the period
-        checkerarr = checkerarr(0).Split(".")
+        checkerarr = checkerversion.Split(".")
         updatemajor = checkerarr(0)
         updateminor = checkerarr(1)
         updaterev = checkerarr(2)
@@ -43,21 +42,15 @@ Public Class Updater
             Me.Close()
         Else
             Me.Title = "Update Available"
-            Me.TitleHeader.Text = "Update Available"
+            Me.txtHeader.Text = "Update Available"
             Me.Visibility = Windows.Visibility.Visible
             Me.txtInstalled.Text = "Installed version: " + major + "." + minor + "." + rev + " (Build " + build + ")"
             Me.txtAvailable.Text = "Latest version: " + updatemajor + "." + updateminor + "." + updaterev + " (Build " + updatebuild + ")"
         End If
-
     End Sub
     Private Sub btnBottom_Click() Handles btnBottom.Click
         Me.Close()
     End Sub
     Private Sub btnTop_Click() Handles btnTop.Click
-        ' Implement some download code using handles like above and use 7zip to extract it
-        ' First need to get 7-zip working on the main EXE
-        ' Download URL: "http://" + server + ".dl.sourceforge.net/project/idecryptit/" + _
-        ' updatemajor + ".x/iDecryptIt_" + updatemajor + "." + updateminor + "." + updaterev + "." + updatebuild + ".patch.zip"
-        ' Then we need to update the installed version key in the registry
     End Sub
 End Class

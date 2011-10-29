@@ -19,12 +19,13 @@
     </Window.Resources>
     <Grid x:Name="LayoutRoot">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Margin="3">
+        <Grid Grid.Row="0" Margin="3,3,3,0">
             <Grid Margin="6" Background="{StaticResource GreyBorder}">
                 <Grid Margin="3" Background="{StaticResource WhiteBG}">
                     <Grid Margin="6">
@@ -83,7 +84,53 @@
                 </Grid>
             </Grid>
         </Grid>
-        <Grid Grid.Row="1" Name="KeyArea" Margin="3">
+        <Grid Grid.Row="1" Name="SevenZipArea" Margin="3,0">
+            <Grid Margin="6" Background="{StaticResource GreyBorder}">
+                <Grid Margin="3" Background="{StaticResource WhiteBG}">
+                    <Grid Margin="6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="6" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="6" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="6" />
+                            <ColumnDefinition Width="Auto" MinWidth="75" />
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="btnExtract">
+                            <Grid Height="32">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="32" />
+                                    <ColumnDefinition Width="6" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="6" />
+                                </Grid.ColumnDefinitions>
+                                <Image Source="Images/7zip_32.png" />
+                                <TextBlock Grid.Column="2" Text="Extract" VerticalAlignment="Center" x:Name="btnExtractText" />
+                            </Grid>
+                        </Button>
+                        <Grid Grid.Column="2" Height="24">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock x:Name="txt7ZInputLabel" Text="Input File:  " HorizontalAlignment="Right" VerticalAlignment="Center" />
+                            <TextBox x:Name="text7ZInputFileName" Grid.Column="1" />
+                        </Grid>
+                        <Grid Grid.Column="4" Height="24">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock x:Name="txt7ZOutputLabel" Text="Output File:  " HorizontalAlignment="Right" VerticalAlignment="Center" />
+                            <TextBox x:Name="text7ZOuputFolder" Grid.Column="1" />
+                        </Grid>
+                        <Button x:Name="btnSelect7ZInputFile" Content="Select Input File" Grid.Column="6" Height="23" />
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="2" Name="KeyArea" Margin="3,0">
             <Grid Margin="6" Background="{StaticResource GreyBorder}">
                 <Grid Margin="3" Background="{StaticResource WhiteBG}">
                     <Grid Margin="6">
@@ -176,7 +223,7 @@
                 </Grid>
             </Grid>
         </Grid>
-        <Grid Grid.Row="2" Name="ExtrasArea" Margin="3">
+        <Grid Grid.Row="3" Name="ExtrasArea" Margin="3,0">
             <Grid Margin="6" Background="{StaticResource GreyBorder}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -251,7 +298,7 @@
                 </Grid>
             </Grid>
         </Grid>
-        <Grid Grid.Row="3" Name="TabArea" Margin="3">
+        <Grid Grid.Row="4" Name="TabArea" Margin="3,0,3,3">
             <Grid Margin="6" Background="{StaticResource GreyBorder}">
                 <Grid Margin="3" Background="{StaticResource WhiteBG}">
                     <TabControl Margin="6">

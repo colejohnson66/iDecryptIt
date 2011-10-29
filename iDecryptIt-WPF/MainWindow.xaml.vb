@@ -348,21 +348,35 @@ Public Class MainWindow
     Private Sub btnDecrypt_Click() Handles btnDecrypt.Click
         If (textInputFileName.Text = "") Then
             MsgBox("Make sure there is an input file!", MsgBoxStyle.OkOnly, "Something went wrong!")
-        Else
-            If (textDecryptKey.Text = "") Then
-                MsgBox("Make sure these is a key inputed!", MsgBoxStyle.OkOnly, "Something went wrong!")
-            Else
-                If (textOuputFileName.Text = "") Then
-                    MsgBox("Make sure these is an output file!", MsgBoxStyle.OkOnly, "Something went wrong!")
-                Else
-                    DoCMD(rundir + "\vfdecrypt.exe", _
-                        " -i " & Chr(34) & textInputFileName.Text & Chr(34) & _
-                        " -k " & textDecryptKey.Text & " " & _
-                        " -o " & Chr(34) & textOuputFileName.Text & Chr(34))
-                    MsgBox("Done!", MsgBoxStyle.OkOnly, "Done Decrypting")
-                End If
-            End If
+            Exit Sub
         End If
+        If (textDecryptKey.Text = "") Then
+            MsgBox("Make sure these is a key inputed!", MsgBoxStyle.OkOnly, "Something went wrong!")
+            Exit Sub
+        End If
+        If (textOuputFileName.Text = "") Then
+            MsgBox("Make sure these is an output file!", MsgBoxStyle.OkOnly, "Something went wrong!")
+            Exit Sub
+        End If
+        DoCMD(rundir + "\vfdecrypt.exe", _
+              " -i " & Chr(34) & textInputFileName.Text & Chr(34) & _
+              " -k " & textDecryptKey.Text & " " & _
+              " -o " & Chr(34) & textOuputFileName.Text & Chr(34))
+        MsgBox("Done!", MsgBoxStyle.OkOnly, "Done Decrypting")
+    End Sub
+    Private Sub btnExtract_Click() Handles btnExtract.Click
+        If (text7ZInputFileName.Text = "") Then
+            MsgBox("Make sure there is an input file!", MsgBoxStyle.OkOnly, "Something went wrong!")
+            Exit Sub
+        End If
+        If (text7ZOuputFolder.Text = "") Then
+            MsgBox("Make sure there is an output directory!", MsgBoxStyle.OkOnly, "Something went wrong!")
+            Exit Sub
+        End If
+        DoCMD(rundir + "\7za.exe", _
+              " e " & Chr(34) & text7ZInputFileName.Text & Chr(34) & _
+              "-o" & Chr(34) & tempdir & Chr(34))
+        MsgBox("Please select the file." + Chr(13) + Chr(10) + "This will be fixed soon", MsgBoxStyle.OkOnly, "Help needed!")
     End Sub
     Private Sub btnAbout_Click() Handles btnAbout.Click
         Process.Start("file://" + helpdir + "about_iDecryptIt.html")
@@ -380,11 +394,22 @@ Public Class MainWindow
         Dim decrypt As New OpenFileDialog()
         decrypt.FileName = ""
         decrypt.DefaultExt = ".dmg"
-        'decrypt.Filter = "Apple Disk Images|*.dmg"
+        decrypt.Filter = "Apple Disk Images|*.dmg"
         Dim result? As Boolean = decrypt.ShowDialog()
         If result = True Then
             textInputFileName.Text = decrypt.FileName
             textOuputFileName.Text = replacedmg(decrypt.FileName)
+        End If
+    End Sub
+    Private Sub btnSelect7ZInputFile_Click() Handles btnSelect7ZInputFile.Click
+        Dim extract As New OpenFileDialog()
+        extract.FileName = ""
+        extract.DefaultExt = ".dmg"
+        extract.Filter = "Apple Disk Images|*.dmg"
+        Dim result? As Boolean = extract.ShowDialog()
+        If result = True Then
+            text7ZInputFileName.Text = extract.FileName
+            text7ZOuputFolder.Text = replacedmg(extract.FileName)
         End If
     End Sub
     Private Sub btnSelectWhatAmIFile_Click() Handles btnSelectWhatAmIFile.Click
