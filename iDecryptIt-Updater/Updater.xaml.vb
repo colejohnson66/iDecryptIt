@@ -9,9 +9,9 @@ Public Class Updater
     Public checkerarr() As String
     Public major As String = "5"
     Public updatemajor As String = ""
-    Public minor As String = "00"
+    Public minor As String = "01"
     Public updateminor As String = ""
-    Public rev As String = "8"
+    Public rev As String = "0"
     Public updaterev As String = ""
     Public build As String = "1I76"
     Public updatebuild As String = ""

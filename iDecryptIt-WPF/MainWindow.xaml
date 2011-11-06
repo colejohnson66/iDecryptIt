@@ -1083,6 +1083,10 @@
                                         <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
                                         <RowDefinition Height="6" />
                                         <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
+                                        <RowDefinition Height="6" />
+                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
+                                        <RowDefinition Height="6" />
+                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
                                     </Grid.RowDefinitions>
                                     <TextBlock Grid.Row="0" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a5220p" Text="5.0b1 (9A5220p)" />
                                     <TextBlock Grid.Row="2" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a5248d" Text="5.0b2 (9A5248d)" />
@@ -1092,6 +1096,8 @@
                                     <TextBlock Grid.Row="10" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a5302b" Text="5.0b6 (9A5302b)" />
                                     <TextBlock Grid.Row="12" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a5313e" Text="5.0b7 (9A5313e)" />
                                     <TextBlock Grid.Row="14" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a334beta" Text="5.0GM (9A334)" />
+                                    <TextBlock Grid.Row="16" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a402" Text="5.0.1b1 (9A402)" />
+                                    <TextBlock Grid.Row="18" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a404" Text="5.0.1b2 (9A404)" />
                                     <!-- Key -->
                                     <TextBox Grid.Row="0" Grid.Column="2" Name="key9a5220p"/>
                                     <TextBox Grid.Row="2" Grid.Column="2" Name="key9a5248d"/>
@@ -1101,6 +1107,8 @@
                                     <TextBox Grid.Row="10" Grid.Column="2" Name="key9a5302b"/>
                                     <TextBox Grid.Row="12" Grid.Column="2" Name="key9a5313e"/>
                                     <TextBox Grid.Row="14" Grid.Column="2" Name="key9a334beta"/>
+                                    <TextBox Grid.Row="16" Grid.Column="2" Name="key9a402"/>
+                                    <TextBox Grid.Row="18" Grid.Column="2" Name="key9a404"/>
                                     <!-- DMG -->
                                     <TextBox Grid.Row="0" Grid.Column="4" Name="dmg9a5220p"/>
                                     <TextBox Grid.Row="2" Grid.Column="4" Name="dmg9a5248d"/>
@@ -1110,7 +1118,9 @@
                                     <TextBox Grid.Row="10" Grid.Column="4" Name="dmg9a5302b"/>
                                     <TextBox Grid.Row="12" Grid.Column="4" Name="dmg9a5313e"/>
                                     <TextBox Grid.Row="14" Grid.Column="4" Name="dmg9a334beta"/>
-                                    <TextBlock Grid.Row="16" Grid.Column="0" Grid.ColumnSpan="5" Margin="3" Name="note5xbeta" Text="NOTE: On the Apple TV, as these betas will be reported back as 4.4 as as such, are listed under '4.x Beta ATV'" />
+                                    <TextBox Grid.Row="16" Grid.Column="4" Name="dmg9a402"/>
+                                    <TextBox Grid.Row="18" Grid.Column="4" Name="dmg9a404"/>
+                                    <TextBlock Grid.Row="20" Grid.Column="0" Grid.ColumnSpan="5" Margin="3" Name="note5xbeta" Text="NOTE: On the Apple TV, as these betas will be reported back as 4.4 as as such, are listed under '4.x Beta ATV'" />
                                 </Grid>
                             </ScrollViewer>
                         </TabItem>

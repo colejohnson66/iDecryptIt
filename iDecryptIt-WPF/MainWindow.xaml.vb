@@ -1,8 +1,6 @@
 ﻿Imports System.IO
 Imports Microsoft.Win32
 Public Class MainWindow
-    ' Sleep
-    Private Declare Sub Sleep Lib "kernel32" (ByVal dwMilliseconds As Long)
     ' Strings
     Public wantedlang As String
     Public nokey As String = "None Published"
@@ -157,6 +155,8 @@ Public Class MainWindow
         key9a5302b.Text = unavailable
         key9a5313e.Text = unavailable
         key9a334beta.Text = unavailable
+        key9a402.Text = unavailable
+        key9a404.Text = unavailable
     End Sub
     Public Sub cleardmgs()
         ' 1.x Final
@@ -290,6 +290,8 @@ Public Class MainWindow
         dmg9a5302b.Text = "XXX-XXXX-XXX.dmg"
         dmg9a5313e.Text = "XXX-XXXX-XXX.dmg"
         dmg9a334beta.Text = "XXX-XXXX-XXX.dmg"
+        dmg9a402.Text = "XXX-XXXX-XXX.dmg"
+        dmg9a404.Text = "XXX-XXXX-XXX.dmg"
     End Sub
     Public Sub cleanup()
         If (Directory.Exists(tempdir)) Then
@@ -532,6 +534,8 @@ Public Class MainWindow
         key9a5302b.Text = "c96b7e16e1a403a7b88664fbdf46761b9a0610c1f4bfc08fe8fd6a2c6dea9b5c682fb8fd"
         key9a5313e.Text = "5cc99c325299804bd947950ba37322987ef0b769c338956815e45caed9be7e8b193da645"
         key9a334beta.Text = "c7e01f3db404f325eee5062368fc6a795487d859518ee498b4d7f4950a281c5421ffbebf"
+        key9a402.Text = "f6b52151627b37c0678e85471b4ac07921f95e71855be247acacdcf5261e52f9b4c742e7"
+        key9a404.Text = "08af03d9eb0a29208601d3f940a50480bbbf4ff701b1249774f3197fc00bd59653c43261"
     End Sub
     Private Sub btniPad21_Click() Handles btniPad21.Click
         ' iPad 2 Wi-Fi
@@ -554,6 +558,8 @@ Public Class MainWindow
         key9a5302b.Text = nokey
         key9a5313e.Text = nokey
         key9a334beta.Text = nokey
+        key9a402.Text = nokey
+        key9a404.Text = nokey
     End Sub
     Private Sub btniPad22_Click() Handles btniPad22.Click
         ' iPad 2 Wi-Fi+GSM
@@ -576,6 +582,8 @@ Public Class MainWindow
         key9a5302b.Text = nokey
         key9a5313e.Text = nokey
         key9a334beta.Text = nokey
+        key9a402.Text = nokey
+        key9a404.Text = nokey
     End Sub
     Private Sub btniPad23_Click() Handles btniPad23.Click
         ' iPad 2 Wi-Fi+CDMA
@@ -598,6 +606,8 @@ Public Class MainWindow
         key9a5302b.Text = nokey
         key9a5313e.Text = nokey
         key9a334beta.Text = nokey
+        key9a402.Text = nokey
+        key9a404.Text = nokey
     End Sub
     Private Sub btniPhone11_Click() Handles btniPhone11.Click
         ' iPhone 1G GSM
@@ -744,7 +754,7 @@ Public Class MainWindow
         key8f5166b.Text = "35180cdade1149fcbc061d6cafea436155b5d75540960d68ebbed56e8d0da862b8a2707d"
         key8f190beta.Text = "95028f5804a6d675190adedc0aa91385e17589f720c517615367d69c63e0c969121aaec6"
         ' 5.x Final
-        key9a334final.Text = nokey
+        key9a334final.Text = "0827b7d632abf92f397471cd7f77c037817e56d0ab1bade692b29f311f0fbcdfd6fc3bef"
         ' 5.x Beta
         key9a5220p.Text = "b0f31d60ec84f1e3430c7f7753055bdd70d394b4fe5bb378af23d5a833584570538bb33b"
         key9a5248d.Text = "11e80b9d23f6d1ba1eea0adf759f6bfec40399edddfe37a94152e357b0c9064b09b95515"
@@ -753,7 +763,9 @@ Public Class MainWindow
         key9a5288d.Text = "3a61db2078a658c69f7e2cf8c764bb9de3eb104ffd18905b69ebbfbdb9e0c5826ba57363"
         key9a5302b.Text = "bafe6937aa9a24a108af1fec0e24c76ad28ef4c57be971bd05a8ecd6abc2f31b8e90619f"
         key9a5313e.Text = "72bf0eca5776925b62006f3f83ef02a1d536572fc95b54f426ef0132ef65d97cd13c880e"
-        key9a334beta.Text = nokey
+        key9a334beta.Text = "0827b7d632abf92f397471cd7f77c037817e56d0ab1bade692b29f311f0fbcdfd6fc3bef"
+        key9a402.Text = nokey
+        key9a404.Text = nokey
     End Sub
     Private Sub btniPhone31_Click() Handles btniPhone31.Click
         ' iPhone 4 GSM
@@ -793,6 +805,8 @@ Public Class MainWindow
         key9a5302b.Text = "1da9aca5ceac97e583df8dd9e84346ac03434bc6bf9557e8a5024193cbcf9b593d33cd4d"
         key9a5313e.Text = "984ce29b96abdc525711b39bd4263c17ae327d77a79564889efcaf50d5201c361cfe30a7"
         key9a334beta.Text = "5e5c52fd7e439936d89659b5aa4f79206cd64f09c9961e9d4712a0131075966e2271b354"
+        key9a402.Text = "549abc1b1e967e3c16621829f016172074cd4c56899b8db1c5e5c0024736d1d887f2038a"
+        key9a404.Text = "15f6052fc1c9c078c07c13e4ba44e4161952584132314a47bb7590437f71260f31c7ac7f"
     End Sub
     Private Sub btniPhone33_Click() Handles btniPhone33.Click
         ' iPhone 4 CDMA
@@ -815,12 +829,17 @@ Public Class MainWindow
         key9a5302b.Text = "6149a5138478d8eaaff89934260039ce02e21ef0769664ad0cd3861248108b599abc59cc"
         key9a5313e.Text = "0d236147d313acd49c584ea36818aa207ca5461855a21d1c0f8421ec314cb8e45b7b2b2a"
         key9a334beta.Text = "cbb21346634c5754f3e956f09ca7c93542b87286d7b11de71f18c5d72da529746ab27094"
+        key9a402.Text = "2ae6e1331f45869f8a9d40bfc0d5a059de9a68c05823dcddccc59c12429174df15522759"
+        key9a404.Text = "e1515e2c43bb8b71dbde6b9d47e962359de85e455b2b4a0345e71ed1fd936aff19d2dc38"
     End Sub
     Private Sub btniPhone41_Click() Handles btniPhone41.Click
         ' iPhone 4S GSM/CDMA
         Call clear()
         ' 5.x Final
         key9a334final.Text = nokey
+        ' 5.x Beta
+        key9a402.Text = nokey
+        key9a404.Text = nokey
     End Sub
     Private Sub btniPod11_Click() Handles btniPod11.Click
         ' iPod touch 1G
@@ -955,6 +974,8 @@ Public Class MainWindow
         key9a5302b.Text = "d00f6ad8af035d5331c83d60409168b9dab471ea0c2bb73f4e3ec23c194467e54e644100"
         key9a5313e.Text = "a1fab44f59d9b22e59ad7deaed305e0b14a55058f070c139087c19aff2b61420371edcb6"
         key9a334beta.Text = "e77431d46dedd65cf73df82a823e32e131a76a7caa6d95112bcaede156eb566ce0e8a57d"
+        key9a402.Text = nokey
+        key9a404.Text = nokey
     End Sub
     Private Sub btniPod41_Click() Handles btniPod41.Click
         ' iPod touch 4G
@@ -990,6 +1011,8 @@ Public Class MainWindow
         key9a5302b.Text = "765bbbf5669c8cc3b7d68447c64c628e04f38ea65a61f98549bf97d52468e2c4e6153395"
         key9a5313e.Text = "938188db58e8f5e057d42036e23bd40e451ed58df600f65718b9f335e140e3f6400873e7"
         key9a334beta.Text = "575bcb4f9290a28bc00451f7e444973fd8b0afc529d2d84db4ae227bdd779563f070eaea"
+        key9a402.Text = "467e24772796428862e1fff7f5365a57fe20fe2ae510e25550ba3d6b577a9dc442995ec8"
+        key9a404.Text = "138221c8e44e4170463a3600105ef39b13f7ebec3c7e72b0506f918bc0ea78ae819c3d85"
     End Sub
     Private Sub btnAppleTV21_Click() Handles btnAppleTV21.Click
         ' Apple TV 2G
