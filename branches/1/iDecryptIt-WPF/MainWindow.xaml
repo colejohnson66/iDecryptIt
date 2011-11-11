@@ -7,7 +7,9 @@
         WindowStyle="SingleBorderWindow"
         Height="600" Width="800"
         MinHeight="600" MinWidth="800"
-        Background="{StaticResource Background}">
+        Background="{StaticResource Background}"
+        Loaded="Window_Loaded"
+        Closing="Window_Closing">
     <Window.Resources>
         <SolidColorBrush x:Key="GreyBorder">#20000000</SolidColorBrush>
         <SolidColorBrush x:Key="WhiteBG">White</SolidColorBrush>
