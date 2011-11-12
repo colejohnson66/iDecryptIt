@@ -1,1 +1,0 @@
-7za.exe x {-o{DIR}} {FILENAME}
