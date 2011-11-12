@@ -1,11 +1,12 @@
-﻿<Window x:Class="SelectLangControl"
+﻿<Window x:Class="iDecryptIt_WPF.SelectLangControl"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Width="260" Height="109"
         Icon="Images/Preferences-desktop-locale_es_us.ico"
         ResizeMode="NoResize"
         Topmost="True"
-        Background="{StaticResource Background}">
+        Background="{StaticResource Background}"
+        Loaded="Window_Loaded">
     <Grid Margin="6,6,0,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="64" />
@@ -29,9 +30,9 @@
             <ComboBox Grid.Row="0" Grid.ColumnSpan="2" Name="cmbSelect">
                 <ComboBoxItem Content="English" Name="eng" />
                 <ComboBoxItem Content="Español" Name="spa" />
-                <ComboBoxItem Content="हिंदी - उर्दू" Name="hin" />
+                <!--<ComboBoxItem Content="हिंदी - उर्दू" Name="hin" />-->
             </ComboBox>
-            <Button Name="btnOK" Grid.Column="1" Grid.Row="2">
+            <Button Name="btnOK" Grid.Column="1" Grid.Row="2" Click="btnOK_Click">
                 <Image Name="imgOK" Source="Images/Media-playback-start_32.png" Stretch="None" />
             </Button>
             <Grid Width="300" Grid.Row="2" ClipToBounds="True" VerticalAlignment="Center" Height="16">
@@ -56,9 +57,9 @@
                             </BeginStoryboard>
                         </EventTrigger>
                     </TextBlock.Triggers>
-                    Select Language / Selecciona Idioma de la / भाषा चुनें
+                    Select Language / Selecciona Idioma de la<!-- / भाषा चुनें-->
                 </TextBlock>
-                <Image Source="Images/Select_Lang_Marquee_Gradient.png" Stretch="Fill"  />
+                <!--Image Source="Images/Select_Lang_Marquee_Gradient.png" Stretch="Fill"  /-->
             </Grid>
         </Grid>
     </Grid>

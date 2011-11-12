@@ -1,12 +1,12 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "iDecryptIt-WPF", "iDecryptIt-WPF\iDecryptIt-WPF.vbproj", "{0CA89F89-7FC6-4255-84B4-C197F73D0B54}"
-	ProjectSection(ProjectDependencies) = postProject
-		{BE7DAAC5-846D-4ED7-A348-DE3ACED58D81} = {BE7DAAC5-846D-4ED7-A348-DE3ACED58D81}
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iDecryptIt-WPF", "iDecryptIt-WPF\iDecryptIt-WPF.csproj", "{A627FA1E-BE08-4003-B14B-51DC5C05FE6A}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "iDecryptIt-Updater", "iDecryptIt-Updater\iDecryptIt-Updater.vbproj", "{BE7DAAC5-846D-4ED7-A348-DE3ACED58D81}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iDecryptIt-Updater", "iDecryptIt-Updater\iDecryptIt-Updater.csproj", "{F386704B-93DB-4D88-88A5-91C5D1573A63}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A627FA1E-BE08-4003-B14B-51DC5C05FE6A} = {A627FA1E-BE08-4003-B14B-51DC5C05FE6A}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -14,13 +14,12 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0CA89F89-7FC6-4255-84B4-C197F73D0B54}.Debug|x86.ActiveCfg = Debug|x86
-		{0CA89F89-7FC6-4255-84B4-C197F73D0B54}.Debug|x86.Build.0 = Debug|x86
-		{0CA89F89-7FC6-4255-84B4-C197F73D0B54}.Release|x86.ActiveCfg = Release|x86
-		{0CA89F89-7FC6-4255-84B4-C197F73D0B54}.Release|x86.Build.0 = Release|x86
-		{BE7DAAC5-846D-4ED7-A348-DE3ACED58D81}.Debug|x86.ActiveCfg = Debug|x86
-		{BE7DAAC5-846D-4ED7-A348-DE3ACED58D81}.Debug|x86.Build.0 = Debug|x86
-		{BE7DAAC5-846D-4ED7-A348-DE3ACED58D81}.Release|x86.ActiveCfg = Release|x86
+		{A627FA1E-BE08-4003-B14B-51DC5C05FE6A}.Debug|x86.ActiveCfg = Debug|x86
+		{A627FA1E-BE08-4003-B14B-51DC5C05FE6A}.Debug|x86.Build.0 = Debug|x86
+		{A627FA1E-BE08-4003-B14B-51DC5C05FE6A}.Release|x86.ActiveCfg = Release|x86
+		{A627FA1E-BE08-4003-B14B-51DC5C05FE6A}.Release|x86.Build.0 = Release|x86
+		{F386704B-93DB-4D88-88A5-91C5D1573A63}.Debug|x86.ActiveCfg = Debug|x86
+		{F386704B-93DB-4D88-88A5-91C5D1573A63}.Release|x86.ActiveCfg = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
