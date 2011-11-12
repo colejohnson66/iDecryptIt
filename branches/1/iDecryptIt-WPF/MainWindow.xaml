@@ -1047,13 +1047,18 @@
                                         <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
                                         <RowDefinition Height="6" />
                                         <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
+                                        <RowDefinition Height="6" />
+                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
                                     </Grid.RowDefinitions>
                                     <TextBlock Grid.Row="0" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a334final" Text="5.0 (9A334)" />
+                                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a405" Text="5.0.1 (9A405)" />
                                     <!-- Key -->
                                     <TextBox Grid.Row="0" Grid.Column="2" Name="key9a334final"/>
+                                    <TextBox Grid.Row="2" Grid.Column="2" Name="key9a405"/>
                                     <!-- DMG -->
                                     <TextBox Grid.Row="0" Grid.Column="4" Name="dmg9a334final"/>
-                                    <TextBlock Grid.Row="16" Grid.Column="0" Grid.ColumnSpan="5" Margin="3" Name="note5xfinal" Text="NOTE: On the Apple TV, this will be reported back as 4.4 and is therefore listed under '4.x Final ATV'" />
+                                    <TextBox Grid.Row="2" Grid.Column="4" Name="dmg9a405"/>
+                                    <TextBlock Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="5" Margin="3" Name="note5xfinal" Text="NOTE: On the Apple TV, this will be reported back as 4.4 and is therefore listed under '4.x Final ATV'" />
                                 </Grid>
                             </ScrollViewer>
                         </TabItem>

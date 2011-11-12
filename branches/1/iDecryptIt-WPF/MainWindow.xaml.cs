@@ -165,6 +165,7 @@ namespace iDecryptIt_WPF
             key9a5313eATV.Text = unavailable;
             // 5.x Final
             key9a334final.Text = unavailable;
+            key9a405.Text = unavailable;
             // 5.x Beta
             key9a5220p.Text = unavailable;
             key9a5248d.Text = unavailable;
@@ -301,6 +302,7 @@ namespace iDecryptIt_WPF
             dmg9a5313eATV.Text = "XXX-XXXX-XXX.dmg";
             // 5.x Final
             dmg9a334final.Text = "XXX-XXXX-XXX.dmg";
+            dmg9a405.Text = "XXX-XXXX-XXX.dmg";
             // 5.x Beta
             dmg9a5220p.Text = "XXX-XXXX-XXX.dmg";
             dmg9a5248d.Text = "XXX-XXXX-XXX.dmg";
@@ -317,11 +319,11 @@ namespace iDecryptIt_WPF
         {
             if (Directory.Exists(tempdir))
             {
-                Directory.Delete(tempdir);
+                Directory.Delete(tempdir, true);
             }
             if (Directory.Exists(System.IO.Path.GetTempPath() + "Cole Stuff\\iDecryptIt-Setup\\"))
             {
-                Directory.Delete(System.IO.Path.GetTempPath() + "Cole Stuff\\iDecryptIt-Setup\\");
+                Directory.Delete(System.IO.Path.GetTempPath() + "Cole Stuff\\iDecryptIt-Setup\\", true);
             }
         }
         private void DoCMD(string prog)
@@ -372,7 +374,8 @@ namespace iDecryptIt_WPF
         // Clicks and Stuff
         private void btnChangeLanguage_Click(object sender, RoutedEventArgs e)
         {
-
+            Window selectlangcontrol = new SelectLangControl();
+            selectlangcontrol.Show();
         }
         private void btnDecrypt_Click(object sender, RoutedEventArgs e)
         {
@@ -626,6 +629,7 @@ namespace iDecryptIt_WPF
             key8f190beta.Text = "890650c3aa3be7c4d6f3473776580acf6781688e6342ed15441a299142fe4c5e933fc89d";
             // 5.x Final
             key9a334final.Text = "c7e01f3db404f325eee5062368fc6a795487d859518ee498b4d7f4950a281c5421ffbebf";
+            key9a405.Text = "e4b60a747ab372bc047b8a7ca08b62f7524fa5888c76f0db709fd1aa9bcea79076952639";
             // 5.x Beta
             key9a5220p.Text = "7fc183f7b7fe6f1d27783e2608b7f4df74acc9d9416382d419484c66ed16b18fe2d6a3b0";
             key9a5248d.Text = "e7da8e8f233a929736e1d68a6e738c27cb44a2188cc0f06e52dbcf875446e87bbdc332a3";
@@ -640,44 +644,29 @@ namespace iDecryptIt_WPF
         }
         private void btniPad21_Click(object sender, RoutedEventArgs e)
         {
-            // iPad 1G Wi-Fi/Wi-Fi+GSM
+            // iPad 2 Wi-Fi
             clear();
-            // 3.x Final
-            key7b367.Text = "2be8f3a0a02f2d259c9b297cb2d156a85adf79fed4ffe88c546a42c2a47aa55f70cadebd";
-            key7b405.Text = "c3d15c6dc3b289db4d90b59199c485486043bb534c14d21993e35f68f2c6c1804a9125a8";
-            key7b500.Text = "18ae1e76e7bcf6478321f42888606ca2d998cffab1ee8c7ca6b15d57b1a7254f8a608823";
             // 4.x Final
-            key8c148final.Text = "6380bc27ef713750c21759ce770cb6540a8e31fca4c78820fd7be3a02030365a59257582";
-            key8f190final.Text = "890650c3aa3be7c4d6f3473776580acf6781688e6342ed15441a299142fe4c5e933fc89d";
-            key8g4.Text = "c309657d0abe1b66b4be046bb4b03fb540741f9cbc1e49951cf21e11332d9b0b66afd31e";
-            key8h7.Text = "25c0b2a27afd23b9ddc9555a28ba8e77548e62d9e2ef56700bc40d22b2c50416aee9313c";
-            key8j3.Text = "765d0fecc4f714ca20fa6eceeabb454b04cd2998cc3ab3bba290866788a8c6cf555945ac";
-            key8k2.Text = "aa3f737295c1d7a1e0539b8b1a02310b9ec7503be6ed05b88520e50a1a006f4b270b3e9f";
-            key8l1.Text = "e002a32650a28f4ecd0793d2e36d8bc93bf4a60bb010dbe9ef2ed41821fc5463b24c791b";
-            // 4.x Beta
-            key8c5091e.Text = "c26445bf3f81c6a6d0e0eeed7acbf3c4d801c9e9116504076c8cf959902233a6bf674d46";
-            key8c5101c.Text = "d9874f9b69377d81523366d33aaf7cc4880bd928ba9ed536ee8a299847a8081169f37fb3";
-            key8c5115c.Text = "a764534161493bdcc4545ee0640d1525edc17f8cc03b4bb1dedb98b765865d8ec12908f2";
-            key8c134.Text = "d70754df24b2be5231a7b98089ef30c8699e96445fdf2b23e9b1ace0b6e1e1ed2258e957";
-            key8c134b.Text = "8df8ebc5a47e60baa66dc66f8b4cdbcbe2f8591c67a287c122a66d45f0152d49838b1392";
-            key8c148beta.Text = "6380bc27ef713750c21759ce770cb6540a8e31fca4c78820fd7be3a02030365a59257582";
-            key8f5148b.Text = "7620a160832d8ed43aee376179d28eccf51d50ac38caccd5990db6f10849aa39e3fdc942";
-            key8f5153d.Text = "3c9787acfa79fea382ec4f4d00c0f8c59f241df42cf36ab647be085476173e5625cc687a";
-            key8f5166b.Text = "55f5f54a3e2e1c84b3a90a50cc2c5e9c2754f2b8bfc8abcf3d3778f8fb2ba34cfca6ea96";
-            key8f190beta.Text = "890650c3aa3be7c4d6f3473776580acf6781688e6342ed15441a299142fe4c5e933fc89d";
+            key8f191.Text = nokey;
+            key8g4.Text = "6f7502e91f3239f907b6bf8955f191b276ec57c392d2beffb3fbc5392da0bc86e65d684e";
+            key8h7.Text = "51e154b3f8baadceb317ad6e815b7f75bc956c1fa1f213d7a344e5a6eda4a54b7e79bb50";
+            key8j2.Text = "7ac7018b57235d34fcbe0c84713ea7c6c482322559336845d299508f6a8643c2078de051";
+            key8k2.Text = "dd467a5139d280e60b4ec9bfa534eae9e1d782ee74fcecd86f409e9fe799fb945ee76158";
+            key8l1.Text = "07a0b5ab0e40ba4f38960274dd8c1db20854159d58761ce98dfa4c50a38b9e786b263607";
             // 5.x Final
-            key9a334final.Text = "c7e01f3db404f325eee5062368fc6a795487d859518ee498b4d7f4950a281c5421ffbebf";
+            key9a334final.Text = nokey;
+            key9a405.Text = nokey;
             // 5.x Beta
-            key9a5220p.Text = "7fc183f7b7fe6f1d27783e2608b7f4df74acc9d9416382d419484c66ed16b18fe2d6a3b0";
-            key9a5248d.Text = "e7da8e8f233a929736e1d68a6e738c27cb44a2188cc0f06e52dbcf875446e87bbdc332a3";
-            key9a5259f.Text = "7c160fc06ccd135f426e5787232cdbb77eaa73ad06939c21d67d0c16d3b0db75fedc0f49";
-            key9a5274d.Text = "f2ad291291658b540675c6010fd8efd85777812414364e7fc2a91280f461ef6e10ee1ae4";
-            key9a5288d.Text = "ce04ccd3ef4d97d44c3356bb23f95b49f2240ffd0d939b38e93ad63bad4e5e4a4fe484a2";
-            key9a5302b.Text = "c96b7e16e1a403a7b88664fbdf46761b9a0610c1f4bfc08fe8fd6a2c6dea9b5c682fb8fd";
-            key9a5313e.Text = "5cc99c325299804bd947950ba37322987ef0b769c338956815e45caed9be7e8b193da645";
-            key9a334beta.Text = "c7e01f3db404f325eee5062368fc6a795487d859518ee498b4d7f4950a281c5421ffbebf";
-            key9a402.Text = "f6b52151627b37c0678e85471b4ac07921f95e71855be247acacdcf5261e52f9b4c742e7";
-            key9a404.Text = "08af03d9eb0a29208601d3f940a50480bbbf4ff701b1249774f3197fc00bd59653c43261";
+            key9a5220p.Text = nokey;
+            key9a5248d.Text = nokey;
+            key9a5259f.Text = nokey;
+            key9a5274d.Text = nokey;
+            key9a5288d.Text = nokey;
+            key9a5302b.Text = nokey;
+            key9a5313e.Text = nokey;
+            key9a334beta.Text = nokey;
+            key9a402.Text = nokey;
+            key9a404.Text = nokey;
         }
         private void btniPad22_Click(object sender, RoutedEventArgs e)
         {
@@ -692,6 +681,7 @@ namespace iDecryptIt_WPF
             key8l1.Text = "33774947a7d630a80045e6f3f68005646d84efeedbca70d619a429e10e34696d254812ce";
             // 5.x Final
             key9a334final.Text = nokey;
+            key9a405.Text = nokey;
             // 5.x Beta
             key9a5220p.Text = nokey;
             key9a5248d.Text = nokey;
@@ -717,6 +707,7 @@ namespace iDecryptIt_WPF
             key8l1.Text = "369474d8df6b2c874a3fb5aa63cf23f7a891363863cf829f7e85ee631318f2674fed6733";
             // 5.x Final
             key9a334final.Text = nokey;
+            key9a405.Text = nokey;
             // 5.x Beta
             key9a5220p.Text = nokey;
             key9a5248d.Text = nokey;
@@ -878,6 +869,7 @@ namespace iDecryptIt_WPF
             key8f190beta.Text = "95028f5804a6d675190adedc0aa91385e17589f720c517615367d69c63e0c969121aaec6";
             // 5.x Final
             key9a334final.Text = "0827b7d632abf92f397471cd7f77c037817e56d0ab1bade692b29f311f0fbcdfd6fc3bef";
+            key9a405.Text = "afde073c5b7a637f0a40b37c7b59f22836074d1f1ec8e85f05573da87da77629624179b4";
             // 5.x Beta
             key9a5220p.Text = "b0f31d60ec84f1e3430c7f7753055bdd70d394b4fe5bb378af23d5a833584570538bb33b";
             key9a5248d.Text = "11e80b9d23f6d1ba1eea0adf759f6bfec40399edddfe37a94152e357b0c9064b09b95515";
@@ -887,8 +879,8 @@ namespace iDecryptIt_WPF
             key9a5302b.Text = "bafe6937aa9a24a108af1fec0e24c76ad28ef4c57be971bd05a8ecd6abc2f31b8e90619f";
             key9a5313e.Text = "72bf0eca5776925b62006f3f83ef02a1d536572fc95b54f426ef0132ef65d97cd13c880e";
             key9a334beta.Text = "0827b7d632abf92f397471cd7f77c037817e56d0ab1bade692b29f311f0fbcdfd6fc3bef";
-            key9a402.Text = nokey;
-            key9a404.Text = nokey;
+            key9a402.Text = "4295bfd354a735d996bdfb018f1b212da0381c321694dffa88e275c88f7d3032c5a9b49e";
+            key9a404.Text = "7182d1dccc98a1261abdcdfe36e0e674c761683768ccc5b69847f02772a87d6fc65da6e7";
         }
         private void btniPhone31_Click(object sender, RoutedEventArgs e)
         {
@@ -920,6 +912,7 @@ namespace iDecryptIt_WPF
             key8k2.Text = "f3b2e5122cfd8b8215ed8271d83af0183f6d6634afd63444dfd7787e274b7520fc9d5c40";
             // 5.x Final
             key9a334final.Text = "5e5c52fd7e439936d89659b5aa4f79206cd64f09c9961e9d4712a0131075966e2271b354";
+            key9a405.Text = "a8c7fe8c4698684db2b315cdf9b0c569e6769ed721b83799bad4dadfaf6186c6fd6e0fb1";
             // 5.x Beta
             key9a5220p.Text = "ddd6f84e0450d2ea0cfb16d652a6dcc50d9a4e5be2225f9f4e1e22a7dd6cf686a34fb257";
             key9a5248d.Text = "0c5387489bd9a4380691047e1880737df22ae2c7dd689f31669d00481b11249d868d591b";
@@ -945,6 +938,7 @@ namespace iDecryptIt_WPF
             key8e600.Text = "d36aa0ce62b84a9a31a9c33a551809213dcf5f764850c28b3885f00bc1f5664224c13a3b";
             // 5.x Final
             key9a334final.Text = "cbb21346634c5754f3e956f09ca7c93542b87286d7b11de71f18c5d72da529746ab27094";
+            key9a405.Text = "36895be7d36aa1415695ec3cd7d33ccf9b088bfc179d48f4d8fc5fd220a2c6f07c9b76d2";
             // 5.x Beta
             key9a5220p.Text = "ffb3bbda6fe1512131d167985e0515de169a7d215b271d518c15d4373bed3ae75af64e5a";
             key9a5248d.Text = "4a63f44750adb005b4252f39afd3299e68be3336f33540d15a43aebc4625f20d33f3afdf";
@@ -963,6 +957,7 @@ namespace iDecryptIt_WPF
             clear();
             // 5.x Final
             key9a334final.Text = nokey;
+            key9a405.Text = nokey;
             // 5.x Beta
             key9a402.Text = nokey;
             key9a404.Text = nokey;
@@ -1094,6 +1089,7 @@ namespace iDecryptIt_WPF
             key8f190beta.Text = "cca43b420c4ffefb23a9b5e1605db40df1d89cb13d5951e22b7dda5a35a5cb2dcde85e4a";
             // 5.x Final
             key9a334final.Text = "e77431d46dedd65cf73df82a823e32e131a76a7caa6d95112bcaede156eb566ce0e8a57d";
+            key9a405.Text = "9890bc603e37b7ef74bc211cc9bfa09362c251c10c5abe9dcac43716e104cb717419e271";
             // 5.x Beta
             key9a5220p.Text = "a450072c20f4a07afec9d4c938a3dc08141aa86aa9073db5882313b09fd3098a90e0480e";
             key9a5248d.Text = "5cc718f5615d8a0caaef430d8589d3542b6b19aef95cc33de39e8c74b869f27781d492c7";
@@ -1103,8 +1099,8 @@ namespace iDecryptIt_WPF
             key9a5302b.Text = "d00f6ad8af035d5331c83d60409168b9dab471ea0c2bb73f4e3ec23c194467e54e644100";
             key9a5313e.Text = "a1fab44f59d9b22e59ad7deaed305e0b14a55058f070c139087c19aff2b61420371edcb6";
             key9a334beta.Text = "e77431d46dedd65cf73df82a823e32e131a76a7caa6d95112bcaede156eb566ce0e8a57d";
-            key9a402.Text = nokey;
-            key9a404.Text = nokey;
+            key9a402.Text = "cab30867e4dcab9acdafb5965b29617ba366cb6850b0c81b4ae6bc699c641de8ae40bc9a";
+            key9a404.Text = "a83afeba7e2e51f4ebb40876a829bcc9fbcca86f38a07ab8cc8d767bfdcf1170913e270e";
         }
         private void btniPod41_Click(object sender, RoutedEventArgs e)
         {
@@ -1132,6 +1128,7 @@ namespace iDecryptIt_WPF
             key8f190beta.Text = "b5eefbaf0046a79c689ff07e66ee8045f859dab1ee16d44d15606c1918e5afd323f2db07";
             // 5.x Final
             key9a334final.Text = "575bcb4f9290a28bc00451f7e444973fd8b0afc529d2d84db4ae227bdd779563f070eaea";
+            key9a405.Text = "7ed37d8c051da8f8d31b0ccf0980fa5ffa54770c7e68ecb5ebf28abe683cadf21a4a99ed";
             // 5.x Beta
             key9a5220p.Text = "c35b6897e048e3e6ea454016089891db0c34a3b30b3777d5db9b8cfaa0ceed82e771b2ed";
             key9a5248d.Text = "81aa75d2c9b0f2c777ac0879e1326c98d5fed533dac4d5cea3e9eabec96b8161b947aa6e";
@@ -1202,8 +1199,7 @@ namespace iDecryptIt_WPF
             }
             else
             {
-                object want;
-                want = Registry.GetValue("HKEY_CURRENT_USER\\SOFTWARE\\Cole Stuff\\iDecryptIt", "language", "eng");
+                wantedlang = (string)langcode.GetValue("language");
             }
 
             // TODO: Make sure the last 4 characters are .dmg (case-insensitve)
@@ -1215,20 +1211,89 @@ namespace iDecryptIt_WPF
                     textInputFileName.Text = startargs[1];
                     textOuputFileName.Text = replace_dmg(startargs[1]);
                 }
-            }
-            select_lang();*/
+            }*/
+            setlang();
         }
-
-
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-
+            cleanup();
         }
 
         // Language Stuff
-        /*private void select_lang()
+        private void setlang()
         {
- 	        
-        }*/
+            switch (wantedlang)
+            {
+                // English
+                case "en":
+                    Registry.SetValue("HKEY_CURRENT_USER\\SOFTWARE\\Cole Stuff\\iDecryptIt", "language", "eng", RegistryValueKind.String);
+                    break;
+                case "eng":
+                    break;
+
+                // Spanish
+                case "es":
+                case "spa":
+                    setlang_spa();
+                    Registry.SetValue("HKEY_CURRENT_USER\\SOFTWARE\\Cole Stuff\\iDecryptIt", "language", "spa", RegistryValueKind.String);
+                    break;
+                
+                // Hindi
+                case "hin":
+                    setlang_hin();
+                    break;
+
+                default:
+                    Window selectlang = new SelectLangControl();
+                    selectlang.Show();
+                    break;
+            }
+        }
+        public void setlang_spa()
+        {
+            // NOTE: This may contain errors as this is Google Translate
+            //-----------------------------------------------------------------------------------
+            // Decrypt Area
+            btnDecryptText.Text = "Descifrar";
+            txtInputLabel.Text = "Archivo de entrada:  ";
+            txtOutputLabel.Text = "De salida del archivo:  ";
+            btnSelectVFDecryptInputFile.Content = "Seleccione Archivo de entrada";
+            textDecryptLabel.Text = "Clave:";
+            btnClearKey.Content = "tecla de borrado";
+            // Extras Area
+            btnAbout.ToolTip = "Acerca de iDecryptIt";
+            btnREADME.ToolTip = "Léame";
+            btnChangelog.ToolTip = "Cambios";
+            btnHelpOut.ToolTip = "Publicar Clave";
+            btnChangeLanguage.ToolTip = "Cambio de idioma";
+            // Main Area
+            v1Final.Header = "1.x Pasado";
+            btn1a420.Content = "Prueba";
+            v1Beta.Header = "1.x Prueba";
+            v2Final.Header = "2.x Pasado";
+            v2Beta.Header = "2.x Prueba";
+            v3Final.Header = "3.x Pasado";
+            v3Beta.Header = "3.x Prueba";
+            v4Final.Header = "4.x Pasado";
+            v4FinalATV.Header = "4.x Pasado ATV";
+            v4Beta.Header = "4.x Prueba";
+            v4BetaATV.Header = "4.x Prueba ATV";
+            v5Final.Header = "5.x Pasado";
+            v5Beta.Header = "5.x Prueba";
+            // Little Tab Notes
+            note1xbeta.Text = "AVISO: 1.2 nunca fue publicada. En su lugar, se cambió a 2.0.";
+            note2xbeta.Text = "AVISO: 2.0 prueba es en realidad un 1,2 de prueba 1.";
+            note4xbeta.Text = "AVISO: Para las versiones pruebas de Apple TV, por favor consulte la ficha designado";
+            note4xbetaATV.Text = "AVISO: 4.2 pruebas se basan en 4.3, se basa en 4.4b4 5.0b5, 4.4b5 sobre la base de 5.0b6, 4.4b6 y sobre la base de 5.0b7";
+            note4xfinalatv.Text = "AVISO: En esta página, el número de versión de la izquierda es lo que los informes de Apple TV, mientras que el de la derecha es la versión de Apple";
+            note5xfinal.Text = "AVISO: En el Apple TV, este serán reportados como 4.4 y por lo tanto figurará en 4.x pasado ATV'";
+            note5xbeta.Text = "AVISO: En el Apple TV, ya que estas betas serán reportados como 4.4, como tal, se enumeran en '4.x Prueba ATV'";
+            // Notes
+            nokey = "Ninguno de publicación";
+            unavailable = "Construir, no disponibles para este dispositivo";
+        }
+        public void setlang_hin()
+        {
+        }
     }
 }
