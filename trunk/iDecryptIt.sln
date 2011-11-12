@@ -1,12 +1,11 @@
-
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iDecryptIt-WPF", "iDecryptIt-WPF\iDecryptIt-WPF.csproj", "{A627FA1E-BE08-4003-B14B-51DC5C05FE6A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F386704B-93DB-4D88-88A5-91C5D1573A63} = {F386704B-93DB-4D88-88A5-91C5D1573A63}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iDecryptIt-Updater", "iDecryptIt-Updater\iDecryptIt-Updater.csproj", "{F386704B-93DB-4D88-88A5-91C5D1573A63}"
-	ProjectSection(ProjectDependencies) = postProject
-		{A627FA1E-BE08-4003-B14B-51DC5C05FE6A} = {A627FA1E-BE08-4003-B14B-51DC5C05FE6A}
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

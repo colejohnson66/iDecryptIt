@@ -5,14 +5,13 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{A627FA1E-BE08-4003-B14B-51DC5C05FE6A}</ProjectGuid>
+    <ProjectGuid>{F386704B-93DB-4D88-88A5-91C5D1573A63}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>iDecryptIt_WPF</RootNamespace>
-    <AssemblyName>iDecryptIt-WPF</AssemblyName>
+    <RootNamespace>iDecryptIt_Updater</RootNamespace>
+    <AssemblyName>iDecryptIt-Updater</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -37,7 +36,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\iDecryptIt-WPF\bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -50,13 +49,6 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationIcon>app.ico</ApplicationIcon>
-  </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject>
-    </StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -78,6 +70,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Updater.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -89,111 +89,16 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="SelectLangControl.xaml.cs">
-      <DependentUpon>SelectLangControl.xaml</DependentUpon>
-    </Compile>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
+    <Compile Include="Updater.xaml.cs">
+      <DependentUpon>Updater.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Page Include="SelectLangControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <AppDesigner Include="Properties\" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="7za.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Resource Include="Images\7zip_32.png" />
-    <Resource Include="Images\appicon.ico" />
-    <Resource Include="Images\AppleTV2,1_32.png" />
-    <Resource Include="Images\dmg.ico" />
-    <Resource Include="Images\dmg.png" />
-    <Resource Include="Images\Gnome-logviewer_16.png" />
-    <Resource Include="Images\Gnome-logviewer_32.png" />
-    <Resource Include="Images\Help-browser_32.png" />
-    <Resource Include="Images\idecryptit_128.png" />
-    <Resource Include="Images\idecryptit_16.png" />
-    <Resource Include="Images\idecryptit_256.png" />
-    <Resource Include="Images\idecryptit_32.png" />
-    <Resource Include="Images\idecryptit_48.png" />
-    <Resource Include="Images\idecryptit_64.png" />
-    <Resource Include="Images\iPad1,1_32.png" />
-    <Resource Include="Images\iPad2,1_32.png" />
-    <Resource Include="Images\iPad2,2_32.png" />
-    <Resource Include="Images\iPad2,3_32.png" />
-    <Resource Include="Images\iPhone1,1_32.png" />
-    <Resource Include="Images\iPhone1,2_32.png" />
-    <Resource Include="Images\iPhone2,1_32.png" />
-    <Resource Include="Images\iPhone3,1_32.png" />
-    <Resource Include="Images\iPhone3,3_32.png" />
-    <Resource Include="Images\iPhone4,1_32.png" />
-    <Resource Include="Images\iPod1,1_32.png" />
-    <Resource Include="Images\iPod2,1_32.png" />
-    <Resource Include="Images\iPod3,1_32.png" />
-    <Resource Include="Images\iPod4,1_32.png" />
-    <Resource Include="Images\Media-playback-start_32.png" />
-    <Resource Include="Images\Preferences-desktop-locale_es_us.ico" />
-    <Resource Include="Images\Preferences-desktop-locale_es_us_32.png" />
-    <Resource Include="Images\Preferences-desktop-locale_es_us_64.png" />
-    <Resource Include="Images\Select_Lang_Marquee_Gradient.png" />
-    <Resource Include="Images\System-users_32.png" />
-    <Resource Include="Images\Unlocked_32.png" />
-    <Resource Include="app.ico" />
-    <Content Include="cygcrypto-0.9.8.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="cygwin1.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <SplashScreen Include="SplashScreen.png" />
-    <Content Include="help\about_iDecryptIt.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="help\changelog.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="help\images\author.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="help\images\GNU GPL 3 Logo.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="help\images\icon.ico">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="help\images\icon.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="help\images\theiphonewiki_logo.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="help\README.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="help\submitkey.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="vfdecrypt.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Resource Include="Software-update-available_128.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
@@ -222,6 +127,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
