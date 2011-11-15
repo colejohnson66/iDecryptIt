@@ -18,7 +18,7 @@ using System.Resources;
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
 // COM, set the ComVisible attribute to true on that type.
-[assembly: ComVisible(false)]
+[assembly: ComVisible(true)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("c600b549-cc85-48dd-a5cc-0f09ef97a994")]
@@ -30,6 +30,6 @@ using System.Resources;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("5.01.0.957")]
-[assembly: AssemblyFileVersion("5.01.0.957")]
+[assembly: AssemblyVersion("5.01.0.959")]
+[assembly: AssemblyFileVersion("5.01.0.959")]
 [assembly: NeutralResourcesLanguageAttribute("en-US")]

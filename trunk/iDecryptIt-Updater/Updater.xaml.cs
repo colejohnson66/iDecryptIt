@@ -32,7 +32,7 @@ namespace iDecryptIt_Updater
         string updateminor;
         string rev = "0";
         string updaterev;
-        string build = "1J57";
+        string build = "1J59";
         string updatebuild;
         public MainWindow()
         {

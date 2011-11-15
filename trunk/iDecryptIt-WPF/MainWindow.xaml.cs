@@ -360,9 +360,6 @@ namespace iDecryptIt_WPF
                 {
                     returntext = returntext + '\\' + lastindex.Replace(".dmg", "_decrypted.dmg");
                 }
-                else if (i == split.Length)
-                {
-                }
                 else
                 {
                     returntext = returntext + '\\' + split[i];
@@ -394,6 +391,20 @@ namespace iDecryptIt_WPF
                 MessageBox.Show("Make sure there is a key inputed!", "Something went wrong!", MessageBoxButton.OK);
                 return;
             }
+            if (!File.Exists(textInputFileName.Text))
+            {
+                MessageBox.Show("The input file does not exist!", "Something went wrong!", MessageBoxButton.OK);
+                return;
+            }
+            if (File.Exists(textOuputFileName.Text = ""))
+            {
+                if (MessageBox.Show("The output file already exists! Shall I delete it?", "Something went wrong!", MessageBoxButton.YesNo) == MessageBoxResult.No)
+                {
+                    MessageBox.Show("Canceling decryption!", "Failed", MessageBoxButton.OK);
+                    return;
+                }
+                File.Delete(textOuputFileName.Text);
+            }
             DoCMD(rundir + "\\vfdecrypt.exe",
                   " -i \"" + textInputFileName.Text + "\"" +
                   " -k " + textDecryptKey.Text + 
@@ -401,7 +412,7 @@ namespace iDecryptIt_WPF
                   );
             MessageBox.Show("Decrypting Done!", "Done!", MessageBoxButton.OK);
         }
-        private void btnExtract_Click(object sender, RoutedEventArgs e)
+        /*private void btnExtract_Click(object sender, RoutedEventArgs e)
         {
             if (text7ZInputFileName.Text == "")
             {
@@ -417,7 +428,7 @@ namespace iDecryptIt_WPF
                   " e \"" + text7ZInputFileName.Text + "\"" +
                   " -o\"" + tempdir + "\"");
             MessageBox.Show("Please select the biggest file\r\nThis will be fixed soon", "Help needed!", MessageBoxButton.OK);
-        }
+        }*/
         private void btnAbout_Click(object sender, RoutedEventArgs e)
         {
             Process.Start("file://" + helpdir + "about_iDecryptIt.html");
@@ -440,32 +451,45 @@ namespace iDecryptIt_WPF
         }
         private void btnSelectVFDecryptInputFile_Click(object sender, RoutedEventArgs e)
         {
-            /*OpenFileDialog decrypt = new OpenFileDialog();
+            OpenFileDialog decrypt = new OpenFileDialog();
             decrypt.FileName = "";
             decrypt.RestoreDirectory = true;
             decrypt.DefaultExt = ".dmg";
             decrypt.Filter = "Apple Disk Images|*.dmg";
-            if (decrypt.ShowDialog() == true)
+            decrypt.ShowDialog();
+            if (decrypt.SafeFileName != "")
             {
                 textInputFileName.Text = decrypt.FileName;
                 textOuputFileName.Text = replace_dmg(decrypt.FileName);
-            }*/
+            }
         }
-        private void btnSelect7ZInputFile_Click(object sender, RoutedEventArgs e)
+        /*private void btnSelect7ZInputFile_Click(object sender, RoutedEventArgs e)
         {
-            /*OpenFileDialog decrypt = new OpenFileDialog();
-            decrypt.FileName = "";
-            decrypt.RestoreDirectory = true;
-            decrypt.DefaultExt = ".dmg";
-            decrypt.Filter = "Apple Disk Images|*.dmg";
-            if (decrypt.ShowDialog() == DialogResult.OK)
+            OpenFileDialog extract = new OpenFileDialog();
+            extract.FileName = "";
+            extract.RestoreDirectory = true;
+            extract.Multiselect = false;
+            extract.DefaultExt = ".dmg";
+            extract.Filter = "Apple Disk Images|*.dmg";
+            extract.ShowDialog();
+            if (extract.SafeFileName != "")
             {
-                text7ZInputFileName.Text = decrypt.FileName;
-            }*/
-        }
+                text7ZInputFileName.Text = extract.FileName;
+            }
+        }*/
         private void btnSelectWhatAmIFile_Click(object sender, RoutedEventArgs e)
         {
-
+            OpenFileDialog what = new OpenFileDialog();
+            what.FileName = "";
+            what.RestoreDirectory = true;
+            what.Multiselect = false;
+            what.DefaultExt = ".ipsw";
+            what.Filter = "Apple Firmware Files|*.ipsw";
+            what.ShowDialog();
+            if (what.SafeFileName != "")
+            {
+                textWhatAmIFileName.Text = what.SafeFileName;
+            }
         }
         private void btnWhatAmI_Click(object sender, RoutedEventArgs e)
         {
@@ -723,6 +747,7 @@ namespace iDecryptIt_WPF
         private void btniPhone11_Click(object sender, RoutedEventArgs e)
         {
             // iPhone 1G GSM
+            // DMG file names needed on betas
             clear();
             // 1.x Final
             key1a543a.Text = "28c909fc6d322fa18940f03279d70880e59a4507998347c70d5b8ca7ef090ecccc15e82d";
@@ -743,11 +768,17 @@ namespace iDecryptIt_WPF
             key5a147p.Text = "86bec353ddfbe3fb750e9d7905801f79791e69acf65d16930d288e697644c76f16c4f16d";
             // 2.x Final
             key5a347.Text = "2cfca55aabb22fde7746e6a034f738b7795458be9902726002a8341995558990f41e3755";
+            dmg5a347.Text = "018-3785-2.dmg";
             key5b108.Text = "2cfca55aabb22fde7746e6a034f738b7795458be9902726002a8341995558990f41e3755";
+            dmg5b108.Text = "018-3884-4.dmg";
             key5c1.Text = "31e3ff09ff046d5237187346ee893015354d2135e3f0f39480be63dd2a18444961c2da5d";
+            dmg5c1.Text = "018-3998-1.dmg";
             key5f136.Text = "562ca0f7963eafb462da74a9c1f01a45c30a7eb5f1f493feceecae03ee6521a334f4ff68";
+            dmg5f136.Text = "018-3946-43.dmg";
             key5g77.Text = "dc39d88afe4cbd8a3f36824b8fd68acf04ac72718c09100816c5cb89889b8079e96802f0";
+            key5g77.Text = "018-4380-1.dmg";
             key5h11.Text = "ee4eeeb62240c1378c739696dff9fef2c88834e98877f55a29c147e7d5b137967197392a";
+            dmg5h11.Text = "018-4451-16.dmg";
             // 2.x Beta
             key5a225c.Text = "ea14f3ec624c7fdbd52e108aa92d13b16f6b0b940c841f7bbc7792099dae45da928d13e7";
             key5a240d.Text = "e24bfab40a2e5d3dc25e089291846e5615b640897ae8b424946c587bcf53b201a1041d36";
@@ -761,10 +792,15 @@ namespace iDecryptIt_WPF
             key5g27.Text = nokey;
             // 3.x Final
             key7a341.Text = "25cce378de209d8fb6ec45ecbe7525695272b81fe38bbad76e979ac3921c3614ed162c87";
+            dmg7a341.Text = "018-5301-002.dmg";
             key7a400.Text = nokey;
+            dmg7a400.Text = "018-5798-001.dmg";
             key7c144.Text = "dbe476ed0d8c1ecf7cd514463f2ca5a6f71b6f244d98ebaa9203fd527c1ecbf2bb5f143f";
+            dmg7c144.Text = "018-5343-086.dmg";
             key7d11.Text = "fe431a1e436e5298d3c871359768aab43189fd5e7375a2ced3405dd8a223879a4d64a28e";
+            dmg7d11.Text = "018-6028-014.dmg";
             key7e18.Text = "3c0f821663316c08a0a059c2979ecf47d13b363de3a44010d0de0b0a5cf878cfe39d00c3";
+            dmg7e18.Text = "018-6482-014.dmg";
             // 3.x Beta
             key7a238j.Text = "56753a471abc4e859f6d0f0157d2fea4dfb5a536154cd26b0e3a35b732bf5fce2eae96f1";
             key7a259g.Text = "a555264d0765ca442d5e8f9b2dec1c67dca018ce87d035ac82357b60a970171de04b4f87";
@@ -1248,6 +1284,9 @@ namespace iDecryptIt_WPF
                     selectlang.Show();
                     break;
             }
+        }
+        public void setlang_eng()
+        {
         }
         public void setlang_spa()
         {
