@@ -62,7 +62,7 @@ namespace iDecryptIt_WPF
         }
         private void btnOK_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow myObject = new MainWindow();
+            MainWindow mw = new MainWindow();
             int selected = cmbSelect.SelectedIndex;
             if (selected == 0)
             {
@@ -72,12 +72,12 @@ namespace iDecryptIt_WPF
             if (selected == 1)
             {
                 enter("spa");
-                myObject.setlang_spa();
+                mw.setlang_spa();
             }
             if (selected == 2)
             {
                 enter("hin");
-                myObject.setlang_hin();
+                mw.setlang_hin();
             }
         }
         private void enter(string lang)

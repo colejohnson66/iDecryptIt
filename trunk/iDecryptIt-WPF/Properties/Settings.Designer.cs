@@ -22,17 +22,5 @@ namespace iDecryptIt_WPF.Properties {
                 return defaultInstance;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string lang {
-            get {
-                return ((string)(this["lang"]));
-            }
-            set {
-                this["lang"] = value;
-            }
-        }
     }
 }

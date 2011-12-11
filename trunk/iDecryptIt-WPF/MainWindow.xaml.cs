@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -14,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Threading;
 
 namespace iDecryptIt_WPF
 {
@@ -30,12 +32,60 @@ namespace iDecryptIt_WPF
         string rundir = Directory.GetCurrentDirectory() + "\\";
         string tempdir = System.IO.Path.GetTempPath() + "Cole Stuff\\iDecryptIt\\"; // System.IO Required as Path can mean directory or drawing
         string helpdir = Directory.GetCurrentDirectory() + "\\help\\";
+        // VFDecrypt
+        BackgroundWorker decryptworker = new BackgroundWorker();
+        Process decryptproc = new Process();
+        FileInfo decryptfromfile;
+        FileInfo decrypttofile;
+        string decryptfrom;
+        string decryptto;
+        double temp;
 
-        // Functions
+        // Initializer
         public MainWindow()
         {
+            decryptworker.WorkerSupportsCancellation = true;
+            decryptworker.WorkerReportsProgress = true;
+            decryptworker.DoWork += decryptworker_DoWork;
+            decryptworker.ProgressChanged += decryptworker_ProgressReported;
+
+            decryptproc.StartInfo.UseShellExecute = false;
+            decryptproc.StartInfo.FileName = rundir + "vfdecrypt.exe";
+
             InitializeComponent();
         }
+
+        // Background workers
+        private void decryptworker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            while (!decryptworker.CancellationPending)
+            {
+                if (decryptproc.HasExited)
+                {
+                    decryptworker.ReportProgress(100);
+                }
+                else
+                {
+                    decrypttofile = new FileInfo(decryptto);
+                    temp = decrypttofile.Length * 100.0;
+                    temp = temp / decryptfromfile.Length;
+                    decryptworker.ReportProgress((int)temp);
+                }
+            }
+        }
+        private void decryptworker_ProgressReported(object sender, ProgressChangedEventArgs e)
+        {
+            if (e.ProgressPercentage == 100)
+            {
+                decryptworker.CancelAsync();
+                progDecrypt.Value = 100;
+                gridDecrypt.IsEnabled = true;
+                progDecrypt.Visibility = Visibility.Hidden;
+            }
+            progDecrypt.Value = e.ProgressPercentage;
+        }
+
+        // My Functions
         private void clear()
         {
             clear_keys();
@@ -134,6 +184,7 @@ namespace iDecryptIt_WPF
             key9a334v.Text = unavailable;
             key9a335a.Text = unavailable;
             key9a336a.Text = unavailable;
+            key9a405l.Text = unavailable;
             // 4.x Beta
             key8a230m.Text = unavailable;
             key8a248c.Text = unavailable;
@@ -177,6 +228,7 @@ namespace iDecryptIt_WPF
             key9a334beta.Text = unavailable;
             key9a402.Text = unavailable;
             key9a404.Text = unavailable;
+            key9b5117b.Text = unavailable;
         }
         private void clear_dmgs()
         {
@@ -271,6 +323,7 @@ namespace iDecryptIt_WPF
             dmg9a334v.Text = "XXX-XXXX-XXX.dmg";
             dmg9a335a.Text = "XXX-XXXX-XXX.dmg";
             dmg9a336a.Text = "XXX-XXXX-XXX.dmg";
+            dmg9a405l.Text = "XXX-XXXX-XXX.dmg";
             // 4.x Beta
             dmg8a230m.Text = "XXX-XXXX-XXX.dmg";
             dmg8a248c.Text = "XXX-XXXX-XXX.dmg";
@@ -314,23 +367,24 @@ namespace iDecryptIt_WPF
             dmg9a334beta.Text = "XXX-XXXX-XXX.dmg";
             dmg9a402.Text = "XXX-XXXX-XXX.dmg";
             dmg9a404.Text = "XXX-XXXX-XXX.dmg";
+            dmg9b5117b.Text = "XXX-XXXX-XXX.dmg";
         }
         private void cleanup()
         {
-            if (Directory.Exists(tempdir))
+            try
             {
                 Directory.Delete(tempdir, true);
-            }
-            if (Directory.Exists(System.IO.Path.GetTempPath() + "Cole Stuff\\iDecryptIt-Setup\\"))
-            {
                 Directory.Delete(System.IO.Path.GetTempPath() + "Cole Stuff\\iDecryptIt-Setup\\", true);
+                Directory.Delete(System.IO.Path.GetTempPath());
+            }
+            catch
+            {
             }
         }
         private void DoCMD(string prog)
         {
             Process p = new Process();
             p.StartInfo.UseShellExecute = false;
-            p.StartInfo.RedirectStandardOutput = true;
             p.StartInfo.FileName = prog;
             p.StartInfo.Arguments = "";
             p.Start();
@@ -340,32 +394,30 @@ namespace iDecryptIt_WPF
         {
             Process p = new Process();
             p.StartInfo.UseShellExecute = false;
-            p.StartInfo.RedirectStandardOutput = true;
             p.StartInfo.FileName = prog;
             p.StartInfo.Arguments = args;
             p.Start();
             p.WaitForExit();
         }
-        private string replace_dmg(string text)
+        private void DoCMDNoWait(string prog)
         {
-            string[] split = text.Split('\\');
-            string lastindex;
-            string returntext;
-            int lastindexnum = split.Length - 1;
-            lastindex = split[lastindexnum];
-            returntext = split[0];
-            for (int i = 1; i < split.Length; i++)
-            {
-                if (i == lastindexnum)
-                {
-                    returntext = returntext + '\\' + lastindex.Replace(".dmg", "_decrypted.dmg");
-                }
-                else
-                {
-                    returntext = returntext + '\\' + split[i];
-                }
-            }
-            return returntext;
+            Process p = new Process();
+            p.StartInfo.UseShellExecute = false;
+            p.StartInfo.FileName = prog;
+            p.StartInfo.Arguments = "";
+            p.Start();
+        }
+        private void DoCMDNoWait(string prog, string args)
+        {
+            Process p = new Process();
+            p.StartInfo.UseShellExecute = false;
+            p.StartInfo.FileName = prog;
+            p.StartInfo.Arguments = args;
+            p.Start();
+        }
+        private char Char(int charnum)
+        {
+            return (char)charnum;
         }
 
         // Clicks and Stuff
@@ -376,6 +428,7 @@ namespace iDecryptIt_WPF
         }
         private void btnDecrypt_Click(object sender, RoutedEventArgs e)
         {
+            #region Is data filled?
             if (textInputFileName.Text == "")
             {
                 MessageBox.Show("Make sure there is an input file!", "Something went wrong!", MessageBoxButton.OK);
@@ -396,42 +449,157 @@ namespace iDecryptIt_WPF
                 MessageBox.Show("The input file does not exist!", "Something went wrong!", MessageBoxButton.OK);
                 return;
             }
-            if (File.Exists(textOuputFileName.Text = ""))
+            if (File.Exists(textOuputFileName.Text))
             {
                 if (MessageBox.Show("The output file already exists! Shall I delete it?", "Something went wrong!", MessageBoxButton.YesNo) == MessageBoxResult.No)
                 {
-                    MessageBox.Show("Canceling decryption!", "Failed", MessageBoxButton.OK);
+                    MessageBox.Show("Canceling decryption!", "Failed", MessageBoxButton.OK, MessageBoxImage.Question,
+                    MessageBoxResult.No);
                     return;
                 }
                 File.Delete(textOuputFileName.Text);
+                while (File.Exists(textOuputFileName.Text))
+                {
+                }
             }
-            DoCMD(rundir + "\\vfdecrypt.exe",
-                  " -i \"" + textInputFileName.Text + "\"" +
-                  " -k " + textDecryptKey.Text + 
-                  " -o \"" + textOuputFileName.Text + "\""
-                  );
-            MessageBox.Show("Decrypting Done!", "Done!", MessageBoxButton.OK);
+            #endregion
+
+            // Variables
+            decryptfrom = textInputFileName.Text;
+            decryptto = textOuputFileName.Text;
+
+            // File length
+            decryptfromfile = new FileInfo(decryptfrom);
+
+            // Process
+            decryptproc.StartInfo.Arguments =
+                " -i " + Char(34) + textInputFileName.Text + Char(34) +
+                " -o " + Char(34) + textOuputFileName.Text + Char(34) +
+                " -k " + textDecryptKey.Text;
+            decryptproc.Start();
+
+            // Screen mods
+            gridDecrypt.IsEnabled = false;
+            progDecrypt.Visibility = Visibility.Visible;
+
+            // Wait for file to exist before starting worker
+            while (!File.Exists(decryptto))
+            {
+            }
+            decryptworker.RunWorkerAsync();
         }
-        /*private void btnExtract_Click(object sender, RoutedEventArgs e)
+        private void btnExtract_Click(object sender, RoutedEventArgs e)
         {
+            #region Is data filled?
             if (text7ZInputFileName.Text == "")
             {
-                MessageBox.Show("Make sure there is an input file!", "Something went wrong!", MessageBoxButton.OK);
+                MessageBox.Show(
+                    "Make sure there is an input file!",
+                    "Something went wrong!",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+                return;
+            }
+            if (!File.Exists(text7ZInputFileName.Text))
+            {
+                MessageBox.Show(
+                    "The input file does not exist!",
+                    "Something went wrong!",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+                return;
+            }
+            if (Directory.Exists(text7ZInputFileName.Text))
+            {
+                MessageBox.Show(
+                    "The input file is actually a directory!",
+                    "Something went wrong!",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
                 return;
             }
             if (text7ZOuputFolder.Text == "")
             {
-                MessageBox.Show("Make sure there is an output directory selected!", "Something went wrong!", MessageBoxButton.OK);
+                MessageBox.Show(
+                    "Make sure there is an output directory selected!",
+                    "Something went wrong!",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
                 return;
             }
-            DoCMD(rundir + "\\7za.exe",
-                  " e \"" + text7ZInputFileName.Text + "\"" +
-                  " -o\"" + tempdir + "\"");
-            MessageBox.Show("Please select the biggest file\r\nThis will be fixed soon", "Help needed!", MessageBoxButton.OK);
-        }*/
+            if (File.Exists(text7ZOuputFolder.Text))
+            {
+                MessageBox.Show(
+                    "The output folder is actually a directory!",
+                    "Something went wrong!",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+                return;
+            }
+            /*if (Directory.Exists(text7ZOuputFolder.Text))
+            {
+                if (MessageBox.Show(
+                    "The output directory already exists! Shall I delete it?",
+                    "Something went wrong!",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question,
+                    MessageBoxResult.No) == MessageBoxResult.No)
+                {
+                    MessageBox.Show("Canceling decryption!", "Failed", MessageBoxButton.OK);
+                    return;
+                }
+                Directory.Delete(text7ZOuputFolder.Text, true);
+                Thread.Sleep(2000); // Give it time to delete
+            }*/
+            #endregion
+
+            DoCMD(
+                rundir + "7z.exe",
+                " e " + Char(34) + text7ZInputFileName.Text + Char(34) + " " + Char(34) + "-o" + tempdir + Char(34));
+
+            #region Extract HFS
+            string[] files = Directory.GetFiles(tempdir, "*.hfs*", SearchOption.AllDirectories);
+            string file;
+            if (files.Length == 1)
+            {
+                file = files[0];
+            }
+            else
+            {
+                MessageBox.Show(
+                    "Please select the biggest file.",
+                    "User input needed",
+                    MessageBoxButton.OK);
+
+                OpenFileDialog extract = new OpenFileDialog();
+                extract.FileName = "";
+                extract.Multiselect = false;
+                extract.Filter = "Apple Disk Images|*.dmg";
+                extract.InitialDirectory = tempdir;
+                extract.ShowDialog();
+                if (extract.SafeFileName != "")
+                {
+                    if (!File.Exists(extract.FileName))
+                    {
+                        return;
+                    }
+                    file = extract.FileName;
+                }
+                else
+                {
+                    return;
+                }
+            }
+            #endregion
+
+            DoCMD(
+                rundir + "7z.exe",
+                " x " + Char(34) + file + Char(34) + " " + Char(34) + "-o" + text7ZOuputFolder.Text + Char(34));
+        }
         private void btnAbout_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start("file://" + helpdir + "about_iDecryptIt.html");
+            About about = new About();
+            about.Show();
         }
         private void btnChangelog_Click(object sender, RoutedEventArgs e)
         {
@@ -460,10 +628,9 @@ namespace iDecryptIt_WPF
             if (decrypt.SafeFileName != "")
             {
                 textInputFileName.Text = decrypt.FileName;
-                textOuputFileName.Text = replace_dmg(decrypt.FileName);
             }
         }
-        /*private void btnSelect7ZInputFile_Click(object sender, RoutedEventArgs e)
+        private void btnSelect7ZInputFile_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog extract = new OpenFileDialog();
             extract.FileName = "";
@@ -474,9 +641,23 @@ namespace iDecryptIt_WPF
             extract.ShowDialog();
             if (extract.SafeFileName != "")
             {
+                // Input
                 text7ZInputFileName.Text = extract.FileName;
+                // Output
+                string[] split = extract.FileName.Split('\\');
+                string returntext;
+                int lastindexnum = split.Length - 1;
+                returntext = split[0];
+                for (int i = 1; i < split.Length; i++)
+                {
+                    if (i != lastindexnum)
+                    {
+                        returntext = returntext + '\\' + split[i];
+                    }
+                }
+                text7ZOuputFolder.Text = returntext + '\\';
             }
-        }*/
+        }
         private void btnSelectWhatAmIFile_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog what = new OpenFileDialog();
@@ -665,6 +846,7 @@ namespace iDecryptIt_WPF
             key9a334beta.Text = "c7e01f3db404f325eee5062368fc6a795487d859518ee498b4d7f4950a281c5421ffbebf";
             key9a402.Text = "f6b52151627b37c0678e85471b4ac07921f95e71855be247acacdcf5261e52f9b4c742e7";
             key9a404.Text = "08af03d9eb0a29208601d3f940a50480bbbf4ff701b1249774f3197fc00bd59653c43261";
+            key9b5117b.Text = "77b3725a33fa564b62c1b2e79ab224706802cbe148eb953fe915dafdb4f9ace5db588f48";
         }
         private void btniPad21_Click(object sender, RoutedEventArgs e)
         {
@@ -691,6 +873,7 @@ namespace iDecryptIt_WPF
             key9a334beta.Text = nokey;
             key9a402.Text = nokey;
             key9a404.Text = nokey;
+            key9b5117b.Text = nokey;
         }
         private void btniPad22_Click(object sender, RoutedEventArgs e)
         {
@@ -717,6 +900,7 @@ namespace iDecryptIt_WPF
             key9a334beta.Text = nokey;
             key9a402.Text = nokey;
             key9a404.Text = nokey;
+            key9b5117b.Text = nokey;
         }
         private void btniPad23_Click(object sender, RoutedEventArgs e)
         {
@@ -743,6 +927,7 @@ namespace iDecryptIt_WPF
             key9a334beta.Text = nokey;
             key9a402.Text = nokey;
             key9a404.Text = nokey;
+            key9b5117b.Text = nokey;
         }
         private void btniPhone11_Click(object sender, RoutedEventArgs e)
         {
@@ -917,6 +1102,7 @@ namespace iDecryptIt_WPF
             key9a334beta.Text = "0827b7d632abf92f397471cd7f77c037817e56d0ab1bade692b29f311f0fbcdfd6fc3bef";
             key9a402.Text = "4295bfd354a735d996bdfb018f1b212da0381c321694dffa88e275c88f7d3032c5a9b49e";
             key9a404.Text = "7182d1dccc98a1261abdcdfe36e0e674c761683768ccc5b69847f02772a87d6fc65da6e7";
+            key9b5117b.Text = "b0d3007c909dbfe0c6f4533a45f830bbefacebbbaa7e5395b4a5bd2eba2ee12dbfb5d8db";
         }
         private void btniPhone31_Click(object sender, RoutedEventArgs e)
         {
@@ -960,6 +1146,7 @@ namespace iDecryptIt_WPF
             key9a334beta.Text = "5e5c52fd7e439936d89659b5aa4f79206cd64f09c9961e9d4712a0131075966e2271b354";
             key9a402.Text = "549abc1b1e967e3c16621829f016172074cd4c56899b8db1c5e5c0024736d1d887f2038a";
             key9a404.Text = "15f6052fc1c9c078c07c13e4ba44e4161952584132314a47bb7590437f71260f31c7ac7f";
+            key9b5117b.Text = "8a28a59e9598380d0e210f5790ec3a8ea09079176250eb82dcf11fef292e841a1fe91c45";
         }
         private void btniPhone33_Click(object sender, RoutedEventArgs e)
         {
@@ -986,6 +1173,7 @@ namespace iDecryptIt_WPF
             key9a334beta.Text = "cbb21346634c5754f3e956f09ca7c93542b87286d7b11de71f18c5d72da529746ab27094";
             key9a402.Text = "2ae6e1331f45869f8a9d40bfc0d5a059de9a68c05823dcddccc59c12429174df15522759";
             key9a404.Text = "e1515e2c43bb8b71dbde6b9d47e962359de85e455b2b4a0345e71ed1fd936aff19d2dc38";
+            key9b5117b.Text = "a1d8df0aa9fa73ee27b0e17f3b86d8b30498fd3499c26ac2b20a207a9af95bd0d6cb7458";
         }
         private void btniPhone41_Click(object sender, RoutedEventArgs e)
         {
@@ -997,6 +1185,7 @@ namespace iDecryptIt_WPF
             // 5.x Beta
             key9a402.Text = nokey;
             key9a404.Text = nokey;
+            key9b5117b.Text = "879132da717bbfec47df50307d759952e81947edb4faa6469a52f219853884f68eb8c7ce";
         }
         private void btniPod11_Click(object sender, RoutedEventArgs e)
         {
@@ -1137,6 +1326,7 @@ namespace iDecryptIt_WPF
             key9a334beta.Text = "e77431d46dedd65cf73df82a823e32e131a76a7caa6d95112bcaede156eb566ce0e8a57d";
             key9a402.Text = "cab30867e4dcab9acdafb5965b29617ba366cb6850b0c81b4ae6bc699c641de8ae40bc9a";
             key9a404.Text = "a83afeba7e2e51f4ebb40876a829bcc9fbcca86f38a07ab8cc8d767bfdcf1170913e270e";
+            key9b5117b.Text = "db47d825e5f4107b2612eb43befc106e9112c0ffdba8564e7e6bd847cb8d9b9fbbae6820";
         }
         private void btniPod41_Click(object sender, RoutedEventArgs e)
         {
@@ -1176,6 +1366,7 @@ namespace iDecryptIt_WPF
             key9a334beta.Text = "575bcb4f9290a28bc00451f7e444973fd8b0afc529d2d84db4ae227bdd779563f070eaea";
             key9a402.Text = "467e24772796428862e1fff7f5365a57fe20fe2ae510e25550ba3d6b577a9dc442995ec8";
             key9a404.Text = "138221c8e44e4170463a3600105ef39b13f7ebec3c7e72b0506f918bc0ea78ae819c3d85";
+            key9b5117b.Text = "24d6e0918608376d5f3521cd64a6b5e85edef48a3a59cccebdbeee40ff81ab1927daa2ea";
         }
         private void btnAppleTV21_Click(object sender, RoutedEventArgs e)
         {
@@ -1192,11 +1383,11 @@ namespace iDecryptIt_WPF
             key9a334v.Text = "e04125691fea59da7bedc605667f459c78d243d1b4df4c6127d154dc84b3657902538aee";
             key9a335a.Text = "490e91667d6aa9cccc08b6d8e2aa0b354205426d9d00fd9e1b17bcfa3b8b34e5c2aa195a";
             key9a336a.Text = "2aca488e83805a9e8190a8960a4c694d7b4967cf97ab133b48ab6f688726c37af5e28f3f";
-            // 4.x Beta
+            key9a405l.Text = "6a0dce2b25b42f7de328b6121a16fd282b8bc16a1718f14cc2dbee0f1a4f0e81d0e1eb03";
+            // 4.x Beta ATV
             key8f5148cATV.Text = "74e3afbad43debe898a556fa1446740598a556fa1446740598a556fa1446740598a556fa";
             key8f5153dATV.Text = "85ba2b2d95c89df504f54869b98d0eb26a63f269570e8882cb323b1b753f4f41446a1f0a";
             key8f5166bATV.Text = "b87f853c8f45aab846ebb507fbfca1039ab3dd7aed32076599d79070bc05240f59957064";
-            // 4.x Beta ATV
             key9a5220pATV.Text = "91adee4d938e7f1ab7d9aa0863d9bb58b1056f410b7c1f28444ae1a293d3262cf1622402";
             key9a5248dATV.Text = "7bf1338a764b9e566982f86a95e597aae247cff3b55f30aeb7f61ec35a1f5b43e6d78773";
             key9a5259fATV.Text = "37c0ea663c670500c99424031e54a9d4d55e1156914a95ba54a62335c9e5f13d5c2cfe14";
@@ -1204,9 +1395,26 @@ namespace iDecryptIt_WPF
             key9a5302bATV.Text = "5134c59a148b2151a001cc5d984bb28339a379a47f2b0a40d9f7e16db0e1c44f7e2da028";
             key9a5313eATV.Text = "cd5cbb28e733d7a538ad949f3ad295b8780185ff5103feb3e87eedf25ce0aff598e2ba1f";
         }
-        private void btnClearKey_Click(object sender, RoutedEventArgs e)
+        private void textInputFileName_TextChanged(object sender, TextChangedEventArgs e)
         {
-            textInputFileName.Text = "";
+            string[] split = textInputFileName.Text.Split('\\');
+            string lastindex;
+            string returntext;
+            int lastindexnum = split.Length - 1;
+            lastindex = split[lastindexnum];
+            returntext = split[0];
+            for (int i = 1; i < split.Length; i++)
+            {
+                if (i == lastindexnum)
+                {
+                    returntext = returntext + '\\' + lastindex.Replace(".dmg", "_decrypted.dmg");
+                }
+                else
+                {
+                    returntext = returntext + '\\' + split[i];
+                }
+            }
+            textOuputFileName.Text = returntext;
         }
 
         // Load and Close
@@ -1224,7 +1432,7 @@ namespace iDecryptIt_WPF
                 File.Delete(rundir + "iDecryptIt-Updater.exe.new");
                 File.Move(rundir + "iDecryptIt-Updater.exe.new", rundir + "iDecryptIt-Updater.exe");
             }
-            DoCMD(rundir + "iDecryptIt-Updater.exe");
+            DoCMDNoWait(rundir + "iDecryptIt-Updater.exe"); // Run ASync
 
             RegistryKey langcode;
             langcode = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Cole Stuff\\iDecryptIt", true);
@@ -1250,7 +1458,7 @@ namespace iDecryptIt_WPF
             }*/
             setlang();
         }
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void Window_Closing(object sender, CancelEventArgs e)
         {
             cleanup();
         }
@@ -1297,8 +1505,7 @@ namespace iDecryptIt_WPF
             txtInputLabel.Text = "Archivo de entrada:  ";
             txtOutputLabel.Text = "De salida del archivo:  ";
             btnSelectVFDecryptInputFile.Content = "Seleccione Archivo de entrada";
-            textDecryptLabel.Text = "Clave:";
-            btnClearKey.Content = "tecla de borrado";
+            textDecryptLabel.Text = "Clave";
             // Extras Area
             btnAbout.ToolTip = "Acerca de iDecryptIt";
             btnREADME.ToolTip = "Léame";
@@ -1320,13 +1527,13 @@ namespace iDecryptIt_WPF
             v5Final.Header = "5.x Pasado";
             v5Beta.Header = "5.x Prueba";
             // Little Tab Notes
-            note1xbeta.Text = "AVISO: 1.2 nunca fue publicada. En su lugar, se cambió a 2.0.";
-            note2xbeta.Text = "AVISO: 2.0 prueba es en realidad un 1,2 de prueba 1.";
+            note1xbeta.Text = "AVISO: 1,2 nunca fue publicada. En su lugar, se cambió a 2,0.";
+            note2xbeta.Text = "AVISO: 2,0 prueba es en realidad un 1,2b1.";
             note4xbeta.Text = "AVISO: Para las versiones pruebas de Apple TV, por favor consulte la ficha designado";
-            note4xbetaATV.Text = "AVISO: 4.2 pruebas se basan en 4.3, se basa en 4.4b4 5.0b5, 4.4b5 sobre la base de 5.0b6, 4.4b6 y sobre la base de 5.0b7";
+            note4xbetaATV.Text = "AVISO: 4,2 pruebas se basan en 4,3, se basa en 4.4b4 5,0b5, 4,4b5 sobre la base de 5,0b6, 4,4b6 y sobre la base de 5,0b7";
             note4xfinalatv.Text = "AVISO: En esta página, el número de versión de la izquierda es lo que los informes de Apple TV, mientras que el de la derecha es la versión de Apple";
-            note5xfinal.Text = "AVISO: En el Apple TV, este serán reportados como 4.4 y por lo tanto figurará en 4.x pasado ATV'";
-            note5xbeta.Text = "AVISO: En el Apple TV, ya que estas betas serán reportados como 4.4, como tal, se enumeran en '4.x Prueba ATV'";
+            note5xfinal.Text = "AVISO: En el Apple TV, este serán reportados como 4,4 y por lo tanto figurará en 4,x pasado ATV'";
+            note5xbeta.Text = "AVISO: En el Apple TV, ya que estas betas serán reportados como 4,4, como tal, se enumeran en '4,x Prueba ATV'";
             // Notes
             nokey = "Ninguno de publicación";
             unavailable = "Construir, no disponibles para este dispositivo";
