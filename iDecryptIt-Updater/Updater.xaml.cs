@@ -24,11 +24,12 @@ namespace iDecryptIt_Updater
     {
         string[] doc;
         string tempdir = System.IO.Path.GetTempPath() + "\\Cole Stuff\\iDecryptIt\\";
+        string rundir = Directory.GetCurrentDirectory() + "\\";
         string contacturl = "http://theiphonewiki.com/wiki/index.php?title=User:Balloonhead66/Latest_stable_software_release/iDecryptIt&action=raw";
         string checker;
         string major = "5";
         string updatemajor;
-        string minor = "01";
+        string minor = "10";
         string updateminor;
         string rev = "0";
         string updaterev;
@@ -40,6 +41,13 @@ namespace iDecryptIt_Updater
         }
         private void Window_Loaded(object sender, EventArgs e)
         {
+            // Because the updater downloads to .exe.new after extraction,
+            // if that file exists, delete the .exe and rename the .exe.new to .exe
+            if (File.Exists(rundir + "iDecryptIt.exe.new"))
+            {
+                File.Delete(rundir + "iDecryptIt.exe.new");
+                File.Move(rundir + "iDecryptIt.exe.new", rundir + "iDecryptIt.exe");
+            }
             // Download the raw code
             try
             {
@@ -74,7 +82,7 @@ namespace iDecryptIt_Updater
         }
         private void btnTop_Click(object sender, RoutedEventArgs e)
         {
-        
+            
         }
     }
 }

@@ -15,14 +15,14 @@
         <SolidColorBrush x:Key="WhiteBG">White</SolidColorBrush>
         <GridLength x:Key="KeepItSquare">37</GridLength>
         <GridLength x:Key="TabAreaItemHeight">23</GridLength>
-        <GridLength x:Key="VersionWidth">105</GridLength>
+        <GridLength x:Key="VersionWidth">110</GridLength>
         <GridLength x:Key="DMGWidth">120</GridLength>
         <Thickness x:Key="VersionMargin">3</Thickness>
     </Window.Resources>
     <Grid x:Name="LayoutRoot">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <!--<RowDefinition Height="Auto" />-->
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*"/>
@@ -30,7 +30,8 @@
         <Grid Grid.Row="0" Margin="3,3,3,0">
             <Grid Margin="6" Background="{StaticResource GreyBorder}">
                 <Grid Margin="3" Background="{StaticResource WhiteBG}">
-                    <Grid Margin="6">
+                    <ProgressBar Visibility="Hidden" x:Name="progDecrypt" />
+                    <Grid Margin="6" x:Name="gridDecrypt">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="6" />
@@ -39,8 +40,6 @@
                             <ColumnDefinition Width="2*" />
                             <ColumnDefinition Width="6" />
                             <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="6" />
-                            <ColumnDefinition Width="Auto" MinWidth="75" />
                             <ColumnDefinition Width="6" />
                             <ColumnDefinition Width="Auto" MinWidth="75" />
                         </Grid.ColumnDefinitions>
@@ -62,7 +61,7 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <TextBlock x:Name="txtInputLabel" Text="Input File:  " HorizontalAlignment="Right" VerticalAlignment="Center" />
-                            <TextBox x:Name="textInputFileName" Grid.Column="1" />
+                            <TextBox x:Name="textInputFileName" Grid.Column="1" TextChanged="textInputFileName_TextChanged" />
                         </Grid>
                         <Grid Grid.Column="4" Height="24">
                             <Grid.ColumnDefinitions>
@@ -81,12 +80,11 @@
                             <TextBox x:Name="textDecryptKey" Grid.Column="1" />
                         </Grid>
                         <Button x:Name="btnSelectVFDecryptInputFile" Content="Select Input File" Grid.Column="8" Height="23" Click="btnSelectVFDecryptInputFile_Click" />
-                        <Button x:Name="btnClearKey" Content="Clear Key" Grid.Column="10" Height="23" Click="btnClearKey_Click" />
                     </Grid>
                 </Grid>
             </Grid>
         </Grid>
-        <!--<Grid Grid.Row="1" Name="SevenZipArea" Margin="3,0">
+        <Grid Grid.Row="1" Name="SevenZipArea" Margin="3,0">
             <Grid Margin="6" Background="{StaticResource GreyBorder}">
                 <Grid Margin="3" Background="{StaticResource WhiteBG}">
                     <Grid Margin="6">
@@ -131,8 +129,8 @@
                     </Grid>
                 </Grid>
             </Grid>
-        </Grid>-->
-        <Grid Grid.Row="1" Name="KeyArea" Margin="3,0">
+        </Grid>
+        <Grid Grid.Row="2" Name="KeyArea" Margin="3,0">
             <Grid Margin="6" Background="{StaticResource GreyBorder}">
                 <Grid Margin="3" Background="{StaticResource WhiteBG}">
                     <Grid Margin="6">
@@ -225,7 +223,7 @@
                 </Grid>
             </Grid>
         </Grid>
-        <Grid Grid.Row="2" Name="ExtrasArea" Margin="3,0">
+        <Grid Grid.Row="3" Name="ExtrasArea" Margin="3,0">
             <Grid Margin="6" Background="{StaticResource GreyBorder}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -823,6 +821,8 @@
                                         <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
                                         <RowDefinition Height="6" />
                                         <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
+                                        <RowDefinition Height="6" />
+                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
                                     </Grid.RowDefinitions>
                                     <TextBlock Grid.Row="0" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8m89" Text="4.0/4.1 (8M89)" />
                                     <TextBlock Grid.Row="2" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8c150" Text="4.1/4.2 (8C150)" />
@@ -834,6 +834,7 @@
                                     <TextBlock Grid.Row="14" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a334v" Text="4.4/5.0 (9A334v)" />
                                     <TextBlock Grid.Row="16" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a335a" Text="4.4.1/5.0 (9A335a)" />
                                     <TextBlock Grid.Row="18" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a336a" Text="4.4.2/5.0 (9A336a)" />
+                                    <TextBlock Grid.Row="20" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a405l" Text="4.4.3/5.0.1 (9A405l)" />
                                     <!-- Key -->
                                     <TextBox Grid.Row="0" Grid.Column="2" Name="key8m89" />
                                     <TextBox Grid.Row="2" Grid.Column="2" Name="key8c150" />
@@ -845,6 +846,7 @@
                                     <TextBox Grid.Row="14" Grid.Column="2" Name="key9a334v" />
                                     <TextBox Grid.Row="16" Grid.Column="2" Name="key9a335a" />
                                     <TextBox Grid.Row="18" Grid.Column="2" Name="key9a336a" />
+                                    <TextBox Grid.Row="20" Grid.Column="2" Name="key9a405l" />
                                     <!-- DMG -->
                                     <TextBox Grid.Row="0" Grid.Column="4" Name="dmg8m89" />
                                     <TextBox Grid.Row="2" Grid.Column="4" Name="dmg8c150" />
@@ -856,7 +858,8 @@
                                     <TextBox Grid.Row="14" Grid.Column="4" Name="dmg9a334v" />
                                     <TextBox Grid.Row="16" Grid.Column="4" Name="dmg9a335a" />
                                     <TextBox Grid.Row="18" Grid.Column="4" Name="dmg9a336a" />
-                                    <TextBlock Grid.Row="20" Grid.Column="0" Grid.ColumnSpan="5" Name="note4xfinalatv" Text="On this page, the version number on the left is what the Apple TV reports, while the one on the right is the Apple version" />
+                                    <TextBox Grid.Row="20" Grid.Column="4" Name="dmg9a405l" />
+                                    <TextBlock Grid.Row="22" Grid.Column="0" Grid.ColumnSpan="5" Name="note4xfinalatv" Text="On this page, the version number on the left is what the Apple TV reports, while the one on the right is the Apple version" />
                                 </Grid>
                             </ScrollViewer>
                         </TabItem>
@@ -1051,7 +1054,7 @@
                                         <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
                                     </Grid.RowDefinitions>
                                     <TextBlock Grid.Row="0" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a334final" Text="5.0 (9A334)" />
-                                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a405" Text="5.0.1 (9A405)" />
+                                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a405" Text="5.0.1 (9A405)" />
                                     <!-- Key -->
                                     <TextBox Grid.Row="0" Grid.Column="2" Name="key9a334final"/>
                                     <TextBox Grid.Row="2" Grid.Column="2" Name="key9a405"/>
@@ -1094,6 +1097,8 @@
                                         <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
                                         <RowDefinition Height="6" />
                                         <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
+                                        <RowDefinition Height="6" />
+                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
                                     </Grid.RowDefinitions>
                                     <TextBlock Grid.Row="0" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a5220p" Text="5.0b1 (9A5220p)" />
                                     <TextBlock Grid.Row="2" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a5248d" Text="5.0b2 (9A5248d)" />
@@ -1105,6 +1110,7 @@
                                     <TextBlock Grid.Row="14" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a334beta" Text="5.0GM (9A334)" />
                                     <TextBlock Grid.Row="16" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a402" Text="5.0.1b1 (9A402)" />
                                     <TextBlock Grid.Row="18" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a404" Text="5.0.1b2 (9A404)" />
+                                    <TextBlock Grid.Row="20" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9b5117b" Text="5.1b1 (9B5117b)" />
                                     <!-- Key -->
                                     <TextBox Grid.Row="0" Grid.Column="2" Name="key9a5220p"/>
                                     <TextBox Grid.Row="2" Grid.Column="2" Name="key9a5248d"/>
@@ -1116,6 +1122,7 @@
                                     <TextBox Grid.Row="14" Grid.Column="2" Name="key9a334beta"/>
                                     <TextBox Grid.Row="16" Grid.Column="2" Name="key9a402"/>
                                     <TextBox Grid.Row="18" Grid.Column="2" Name="key9a404"/>
+                                    <TextBox Grid.Row="20" Grid.Column="2" Name="key9b5117b"/>
                                     <!-- DMG -->
                                     <TextBox Grid.Row="0" Grid.Column="4" Name="dmg9a5220p"/>
                                     <TextBox Grid.Row="2" Grid.Column="4" Name="dmg9a5248d"/>
@@ -1127,7 +1134,8 @@
                                     <TextBox Grid.Row="14" Grid.Column="4" Name="dmg9a334beta"/>
                                     <TextBox Grid.Row="16" Grid.Column="4" Name="dmg9a402"/>
                                     <TextBox Grid.Row="18" Grid.Column="4" Name="dmg9a404"/>
-                                    <TextBlock Grid.Row="20" Grid.Column="0" Grid.ColumnSpan="5" Margin="3" Name="note5xbeta" Text="NOTE: On the Apple TV, as these betas will be reported back as 4.4 as as such, are listed under '4.x Beta ATV'" />
+                                    <TextBox Grid.Row="20" Grid.Column="4" Name="dmg9b5117b"/>
+                                    <TextBlock Grid.Row="22" Grid.Column="0" Grid.ColumnSpan="5" Margin="3" Name="note5xbeta" Text="NOTE: On the Apple TV, as these betas will be reported back as 4.4 as as such, are listed under '4.x Beta ATV'" />
                                 </Grid>
                             </ScrollViewer>
                         </TabItem>
