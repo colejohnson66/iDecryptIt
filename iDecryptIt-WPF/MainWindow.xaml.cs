@@ -40,6 +40,8 @@ namespace iDecryptIt_WPF
         string decryptfrom;
         string decryptto;
         double temp;
+        // Misc.
+        Run run = new Run();
 
         // Initializer
         public MainWindow()
@@ -86,8 +88,129 @@ namespace iDecryptIt_WPF
         }
 
         // My Functions
-        private void clear()
+        private void clear(string device)
         {
+            #region Tabs
+            hidetabs();
+            tabMain.Visibility = Visibility.Visible;
+            switch (device)
+            {
+                /* Tabs
+                 *  0 = 1.x Final
+                 *  1 = 1.x Beta
+                 *  2 = 2.x Final
+                 *  3 = 2.x Beta
+                 *  4 = 3.x Final
+                 *  5 = 3.x Beta
+                 *  6 = 4.x Final
+                 *  7 = 4.x Final ATV
+                 *  8 = 4.x Beta
+                 *  9 = 4.x Beta ATV
+                 * 10 = 5.x Final
+                 * 11 = 5.x Beta
+                 * 12 = 5.x Beta ATV
+                 */
+                case "ipad11":
+                    tabMain.SelectedIndex = 4;
+                    v3Final.Visibility = Visibility.Visible;
+                    v4Final.Visibility = Visibility.Visible;
+                    v4Beta.Visibility = Visibility.Visible;
+                    v5Final.Visibility = Visibility.Visible;
+                    v5Beta.Visibility = Visibility.Visible;
+                    break;
+                case "ipad21":
+                case "ipad22":
+                case "ipad23":
+                    tabMain.SelectedIndex = 6;
+                    v4Final.Visibility = Visibility.Visible;
+                    v5Final.Visibility = Visibility.Visible;
+                    v5Beta.Visibility = Visibility.Visible;
+                    break;
+                case "iphone11":
+                    tabMain.SelectedIndex = 0;
+                    v1Final.Visibility = Visibility.Visible;
+                    v1Beta.Visibility = Visibility.Visible;
+                    v2Final.Visibility = Visibility.Visible;
+                    v2Beta.Visibility = Visibility.Visible;
+                    v3Final.Visibility = Visibility.Visible;
+                    v3Beta.Visibility = Visibility.Visible;
+                    break;
+                case "iphone12":
+                    tabMain.SelectedIndex = 2;
+                    v2Final.Visibility = Visibility.Visible;
+                    v2Beta.Visibility = Visibility.Visible;
+                    v3Final.Visibility = Visibility.Visible;
+                    v3Beta.Visibility = Visibility.Visible;
+                    v4Final.Visibility = Visibility.Visible;
+                    v4Beta.Visibility = Visibility.Visible;
+                    break;
+                case "iphone21":
+                    tabMain.SelectedIndex = 4;
+                    v3Final.Visibility = Visibility.Visible;
+                    v3Beta.Visibility = Visibility.Visible;
+                    v4Final.Visibility = Visibility.Visible;
+                    v4Beta.Visibility = Visibility.Visible;
+                    v5Final.Visibility = Visibility.Visible;
+                    v5Beta.Visibility = Visibility.Visible;
+                    break;
+                case "iphone31":
+                    tabMain.SelectedIndex = 6;
+                    v4Final.Visibility = Visibility.Visible;
+                    v4Beta.Visibility = Visibility.Visible;
+                    v5Final.Visibility = Visibility.Visible;
+                    v5Beta.Visibility = Visibility.Visible;
+                    break;
+                case "iphone33":
+                    tabMain.SelectedIndex = 6;
+                    v4Final.Visibility = Visibility.Visible;
+                    v5Final.Visibility = Visibility.Visible;
+                    v5Beta.Visibility = Visibility.Visible;
+                    break;
+                case "iphone41":
+                    tabMain.SelectedIndex = 10;
+                    v5Final.Visibility = Visibility.Visible;
+                    v5Beta.Visibility = Visibility.Visible;
+                    break;
+                case "ipod11":
+                    tabMain.SelectedIndex = 0;
+                    v1Final.Visibility = Visibility.Visible;
+                    v1Beta.Visibility = Visibility.Visible;
+                    v2Final.Visibility = Visibility.Visible;
+                    v2Beta.Visibility = Visibility.Visible;
+                    v3Final.Visibility = Visibility.Visible;
+                    v3Beta.Visibility = Visibility.Visible;
+                    break;
+                case "ipod21":
+                    tabMain.SelectedIndex = 2;
+                    v2Final.Visibility = Visibility.Visible;
+                    v3Final.Visibility = Visibility.Visible;
+                    v3Beta.Visibility = Visibility.Visible;
+                    v4Final.Visibility = Visibility.Visible;
+                    v4Beta.Visibility = Visibility.Visible;
+                    break;
+                case "ipod31":
+                    tabMain.SelectedIndex = 4;
+                    v3Final.Visibility = Visibility.Visible;
+                    v4Final.Visibility = Visibility.Visible;
+                    v4Beta.Visibility = Visibility.Visible;
+                    v5Final.Visibility = Visibility.Visible;
+                    v5Beta.Visibility = Visibility.Visible;
+                    break;
+                case "ipod41":
+                    tabMain.SelectedIndex = 6;
+                    v4Final.Visibility = Visibility.Visible;
+                    v4Beta.Visibility = Visibility.Visible;
+                    v5Final.Visibility = Visibility.Visible;
+                    v5Beta.Visibility = Visibility.Visible;
+                    break;
+                case "appletv21":
+                    v4FinalATV.Visibility = Visibility.Visible;
+                    v4BetaATV.Visibility = Visibility.Visible;
+                    break;
+                default:
+                    break;
+            }
+            #endregion
             clear_keys();
             clear_dmgs();
         }
@@ -217,6 +340,7 @@ namespace iDecryptIt_WPF
             // 5.x Final
             key9a334final.Text = unavailable;
             key9a405.Text = unavailable;
+            key9a406.Text = unavailable;
             // 5.x Beta
             key9a5220p.Text = unavailable;
             key9a5248d.Text = unavailable;
@@ -229,6 +353,9 @@ namespace iDecryptIt_WPF
             key9a402.Text = unavailable;
             key9a404.Text = unavailable;
             key9b5117b.Text = unavailable;
+            key9b5127c.Text = unavailable;
+            // 5.x Beta ATV
+            key9b5127cATV.Text = unavailable;
         }
         private void clear_dmgs()
         {
@@ -356,6 +483,7 @@ namespace iDecryptIt_WPF
             // 5.x Final
             dmg9a334final.Text = "XXX-XXXX-XXX.dmg";
             dmg9a405.Text = "XXX-XXXX-XXX.dmg";
+            dmg9a406.Text = "XXX-XXXX-XXX.dmg";
             // 5.x Beta
             dmg9a5220p.Text = "XXX-XXXX-XXX.dmg";
             dmg9a5248d.Text = "XXX-XXXX-XXX.dmg";
@@ -368,6 +496,25 @@ namespace iDecryptIt_WPF
             dmg9a402.Text = "XXX-XXXX-XXX.dmg";
             dmg9a404.Text = "XXX-XXXX-XXX.dmg";
             dmg9b5117b.Text = "XXX-XXXX-XXX.dmg";
+            dmg9b5127c.Text = "XXX-XXXX-XXX.dmg";
+            // 5.x Beta ATV
+            dmg9b5127cATV.Text = "XXX-XXXX-XXX.dmg";
+        }
+        private void hidetabs()
+        {
+            v1Final.Visibility = Visibility.Collapsed;
+            v1Beta.Visibility = Visibility.Collapsed;
+            v2Final.Visibility = Visibility.Collapsed;
+            v2Beta.Visibility = Visibility.Collapsed;
+            v3Final.Visibility = Visibility.Collapsed;
+            v3Beta.Visibility = Visibility.Collapsed;
+            v4Final.Visibility = Visibility.Collapsed;
+            v4FinalATV.Visibility = Visibility.Collapsed;
+            v4Beta.Visibility = Visibility.Collapsed;
+            v4BetaATV.Visibility = Visibility.Collapsed;
+            v5Final.Visibility = Visibility.Collapsed;
+            v5Beta.Visibility = Visibility.Collapsed;
+            v5BetaATV.Visibility = Visibility.Collapsed;
         }
         private void cleanup()
         {
@@ -380,40 +527,6 @@ namespace iDecryptIt_WPF
             catch
             {
             }
-        }
-        private void DoCMD(string prog)
-        {
-            Process p = new Process();
-            p.StartInfo.UseShellExecute = false;
-            p.StartInfo.FileName = prog;
-            p.StartInfo.Arguments = "";
-            p.Start();
-            p.WaitForExit();
-        }
-        private void DoCMD(string prog, string args)
-        {
-            Process p = new Process();
-            p.StartInfo.UseShellExecute = false;
-            p.StartInfo.FileName = prog;
-            p.StartInfo.Arguments = args;
-            p.Start();
-            p.WaitForExit();
-        }
-        private void DoCMDNoWait(string prog)
-        {
-            Process p = new Process();
-            p.StartInfo.UseShellExecute = false;
-            p.StartInfo.FileName = prog;
-            p.StartInfo.Arguments = "";
-            p.Start();
-        }
-        private void DoCMDNoWait(string prog, string args)
-        {
-            Process p = new Process();
-            p.StartInfo.UseShellExecute = false;
-            p.StartInfo.FileName = prog;
-            p.StartInfo.Arguments = args;
-            p.Start();
         }
         private char Char(int charnum)
         {
@@ -431,30 +544,53 @@ namespace iDecryptIt_WPF
             #region Is data filled?
             if (textInputFileName.Text == "")
             {
-                MessageBox.Show("Make sure there is an input file!", "Something went wrong!", MessageBoxButton.OK);
+                MessageBox.Show(
+                    "Make sure there is an input file!",
+                    "iDecryptIt",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
                 return;
             }
             if (textOuputFileName.Text == "")
             {
-                MessageBox.Show("Make sure there is an output file!", "Something went wrong!", MessageBoxButton.OK);
+                MessageBox.Show(
+                    "Make sure there is an output file!",
+                    "iDecryptIt",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
                 return;
             }
             if (textDecryptKey.Text == "")
             {
-                MessageBox.Show("Make sure there is a key inputed!", "Something went wrong!", MessageBoxButton.OK);
+                MessageBox.Show(
+                    "Make sure there is a key inputed!",
+                    "iDecryptIt",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
                 return;
             }
             if (!File.Exists(textInputFileName.Text))
             {
-                MessageBox.Show("The input file does not exist!", "Something went wrong!", MessageBoxButton.OK);
+                MessageBox.Show(
+                    "The input file does not exist!",
+                    "iDecryptIt",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
                 return;
             }
             if (File.Exists(textOuputFileName.Text))
             {
-                if (MessageBox.Show("The output file already exists! Shall I delete it?", "Something went wrong!", MessageBoxButton.YesNo) == MessageBoxResult.No)
+                if (MessageBox.Show(
+                    "The output file already exists! Shall I delete it?",
+                    "iDecryptIt",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question) == MessageBoxResult.No)
                 {
-                    MessageBox.Show("Canceling decryption!", "Failed", MessageBoxButton.OK, MessageBoxImage.Question,
-                    MessageBoxResult.No);
+                    MessageBox.Show(
+                        "Canceling decryption!",
+                        "iDecryptIt",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Stop);
                     return;
                 }
                 File.Delete(textOuputFileName.Text);
@@ -495,7 +631,7 @@ namespace iDecryptIt_WPF
             {
                 MessageBox.Show(
                     "Make sure there is an input file!",
-                    "Something went wrong!",
+                    "iDecryptIt",
                     MessageBoxButton.OK,
                     MessageBoxImage.Error);
                 return;
@@ -504,7 +640,7 @@ namespace iDecryptIt_WPF
             {
                 MessageBox.Show(
                     "The input file does not exist!",
-                    "Something went wrong!",
+                    "iDecryptIt",
                     MessageBoxButton.OK,
                     MessageBoxImage.Error);
                 return;
@@ -513,7 +649,7 @@ namespace iDecryptIt_WPF
             {
                 MessageBox.Show(
                     "The input file is actually a directory!",
-                    "Something went wrong!",
+                    "iDecryptIt",
                     MessageBoxButton.OK,
                     MessageBoxImage.Error);
                 return;
@@ -522,7 +658,7 @@ namespace iDecryptIt_WPF
             {
                 MessageBox.Show(
                     "Make sure there is an output directory selected!",
-                    "Something went wrong!",
+                    "iDecryptIt",
                     MessageBoxButton.OK,
                     MessageBoxImage.Error);
                 return;
@@ -531,33 +667,18 @@ namespace iDecryptIt_WPF
             {
                 MessageBox.Show(
                     "The output folder is actually a directory!",
-                    "Something went wrong!",
+                    "iDecryptIt",
                     MessageBoxButton.OK,
                     MessageBoxImage.Error);
                 return;
             }
-            /*if (Directory.Exists(text7ZOuputFolder.Text))
-            {
-                if (MessageBox.Show(
-                    "The output directory already exists! Shall I delete it?",
-                    "Something went wrong!",
-                    MessageBoxButton.YesNo,
-                    MessageBoxImage.Question,
-                    MessageBoxResult.No) == MessageBoxResult.No)
-                {
-                    MessageBox.Show("Canceling decryption!", "Failed", MessageBoxButton.OK);
-                    return;
-                }
-                Directory.Delete(text7ZOuputFolder.Text, true);
-                Thread.Sleep(2000); // Give it time to delete
-            }*/
             #endregion
 
-            DoCMD(
+            run.DoCMD(
                 rundir + "7z.exe",
                 " e " + Char(34) + text7ZInputFileName.Text + Char(34) + " " + Char(34) + "-o" + tempdir + Char(34));
 
-            #region Extract HFS
+            #region Prepare to extract HFS
             string[] files = Directory.GetFiles(tempdir, "*.hfs*", SearchOption.AllDirectories);
             string file;
             if (files.Length == 1)
@@ -568,8 +689,9 @@ namespace iDecryptIt_WPF
             {
                 MessageBox.Show(
                     "Please select the biggest file.",
-                    "User input needed",
-                    MessageBoxButton.OK);
+                    "iDecryptIt",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
 
                 OpenFileDialog extract = new OpenFileDialog();
                 extract.FileName = "";
@@ -592,7 +714,7 @@ namespace iDecryptIt_WPF
             }
             #endregion
 
-            DoCMD(
+            run.DoCMD(
                 rundir + "7z.exe",
                 " x " + Char(34) + file + Char(34) + " " + Char(34) + "-o" + text7ZOuputFolder.Text + Char(34));
         }
@@ -637,25 +759,60 @@ namespace iDecryptIt_WPF
             extract.RestoreDirectory = true;
             extract.Multiselect = false;
             extract.DefaultExt = ".dmg";
-            extract.Filter = "Apple Disk Images|*.dmg";
+            extract.Filter = "Apple Disk Images|*.dmg|Apple Firmware Files|*.ipsw";
             extract.ShowDialog();
             if (extract.SafeFileName != "")
             {
-                // Input
-                text7ZInputFileName.Text = extract.FileName;
-                // Output
-                string[] split = extract.FileName.Split('\\');
-                string returntext;
-                int lastindexnum = split.Length - 1;
-                returntext = split[0];
-                for (int i = 1; i < split.Length; i++)
-                {
-                    if (i != lastindexnum)
+                /*
+                int length = extract.SafeFileName.Length - 1;
+                if (extract.SafeFileName[length - 3] == '.' &&
+                    extract.SafeFileName[length - 2] == 'd' &&
+                    extract.SafeFileName[length - 1] == 'm' &&
+                    extract.SafeFileName[length] == 'g')
+                {*/
+                    string[] split = extract.FileName.Split('\\');
+                    string returntext;
+                    int lastindexnum = split.Length - 1;
+                    returntext = split[0];
+                    for (int i = 1; i < split.Length; i++)
                     {
-                        returntext = returntext + '\\' + split[i];
+                        if (i != lastindexnum)
+                        {
+                            returntext = returntext + '\\' + split[i];
+                        }
                     }
+                    text7ZOuputFolder.Text = returntext + '\\';
+                /*}
+                else if (extract.SafeFileName[length - 4] == '.' &&
+                         extract.SafeFileName[length - 3] == 'i' &&
+                         extract.SafeFileName[length - 2] == 'p' &&
+                         extract.SafeFileName[length - 1] == 's' &&
+                         extract.SafeFileName[length] == 'w')
+                {
+                    string[] split = extract.FileName.Split('\\');
+                    string returntext;
+                    int lastindexnum = split.Length - 1;
+                    returntext = split[0];
+                    for (int i = 1; i < split.Length; i++)
+                    {
+                        if (i != lastindexnum)
+                        {
+                            returntext = returntext + '\\' + split[i];
+                        }
+                        else
+                        {
+                            // Put file name minus ".ipsw" in output
+                        }
+                    }
+                    text7ZOuputFolder.Text = returntext + '\\';
                 }
-                text7ZOuputFolder.Text = returntext + '\\';
+                else
+                {
+                    // Dunno how, but it happened
+                    return;
+                }*/
+
+                text7ZInputFileName.Text = extract.FileName;
             }
         }
         private void btnSelectWhatAmIFile_Click(object sender, RoutedEventArgs e)
@@ -738,7 +895,6 @@ namespace iDecryptIt_WPF
                             break;
                         case "AppleTV2,1":
                             device = "Apple TV 2G";
-                            // Switch for the version
                             switch (build)
                             {
                                 case "8M89":
@@ -780,35 +936,54 @@ namespace iDecryptIt_WPF
                                 case "9A336a":
                                     version = "4.4.2/5.0";
                                     break;
+                                case "9A405l":
+                                    version = "4.4.3/5.0.1";
+                                    break;
+                                case "9B5127c":
+                                    version = "5.0/5.1";
+                                    break;
                             }
                             break;
                         default:
-                            MessageBox.Show("ERROR! The supplied device: '" + device + "' does not follow the format:\r\n{iPad/iPhone/iPad/AppleTV}{#},{#}", "ERROR!", MessageBoxButton.OK);
+                            MessageBox.Show(
+                                "The supplied device: '" + device + "' does not follow the format:\r\n" +
+                                    "{iPad/iPhone/iPad/AppleTV}{#},{#}",
+                                "iDecryptIt",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Error);
                             return;
                     }
                     MessageBox.Show("Device: " + device + "\r\n" +
-                                    "Version: " + version + "\r\n" +
-                                    "Build: " + build,
-                                    "Info", MessageBoxButton.OK);
+                                        "Version: " + version + "\r\n" +
+                                        "Build: " + build,
+                                    "iDecryptIt",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Information);
                 }
                 else
                 {
-                    MessageBox.Show("ERROR! The supplied IPSW File that was given is not in the following format:\r\n" +
-                                    "{DEVICE}_{VERSION}_{BUILD}_Restore.ipsw", "ERROR!", MessageBoxButton.OK);
+                    MessageBox.Show("The supplied IPSW File that was given is not in the following format:\r\n" +
+                                        "{DEVICE}_{VERSION}_{BUILD}_Restore.ipsw",
+                                    "iDecryptIt",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Error);
                     return;
                 }
             }
             else
             {
-                MessageBox.Show("ERROR! The supplied IPSW File that was given is not in the following format:\r\n" +
-                                "{DEVICE}_{VERSION}_{BUILD}_Restore.ipsw", "ERROR!", MessageBoxButton.OK);
+                MessageBox.Show("The supplied IPSW File that was given is not in the following format:\r\n" +
+                                    "{DEVICE}_{VERSION}_{BUILD}_Restore.ipsw",
+                                "iDecryptIt",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Error);
                 return;
             }
         }
         private void btniPad11_Click(object sender, RoutedEventArgs e)
         {
             // iPad 1G Wi-Fi/Wi-Fi+GSM
-            clear();
+            clear("ipad11");
             // 3.x Final
             key7b367.Text = "2be8f3a0a02f2d259c9b297cb2d156a85adf79fed4ffe88c546a42c2a47aa55f70cadebd";
             key7b405.Text = "c3d15c6dc3b289db4d90b59199c485486043bb534c14d21993e35f68f2c6c1804a9125a8";
@@ -847,11 +1022,12 @@ namespace iDecryptIt_WPF
             key9a402.Text = "f6b52151627b37c0678e85471b4ac07921f95e71855be247acacdcf5261e52f9b4c742e7";
             key9a404.Text = "08af03d9eb0a29208601d3f940a50480bbbf4ff701b1249774f3197fc00bd59653c43261";
             key9b5117b.Text = "77b3725a33fa564b62c1b2e79ab224706802cbe148eb953fe915dafdb4f9ace5db588f48";
+            key9b5127c.Text = "365ac018549add4c5f5f00ab73037deb10b1f63d72db582918a1f6f87ec74a3fb5a9641e";
         }
         private void btniPad21_Click(object sender, RoutedEventArgs e)
         {
             // iPad 2 Wi-Fi
-            clear();
+            clear("ipad21");
             // 4.x Final
             key8f191.Text = nokey;
             key8g4.Text = "6f7502e91f3239f907b6bf8955f191b276ec57c392d2beffb3fbc5392da0bc86e65d684e";
@@ -874,11 +1050,12 @@ namespace iDecryptIt_WPF
             key9a402.Text = nokey;
             key9a404.Text = nokey;
             key9b5117b.Text = nokey;
+            key9b5127c.Text = nokey;
         }
         private void btniPad22_Click(object sender, RoutedEventArgs e)
         {
             // iPad 2 Wi-Fi+GSM
-            clear();
+            clear("ipad22");
             // 4.x Final
             key8f191.Text = nokey;
             key8g4.Text = "9bf08c4054e08cff7ff96f3b0f0cb6e809aa8676653b16443445ac990906bb5439f9504d";
@@ -901,11 +1078,12 @@ namespace iDecryptIt_WPF
             key9a402.Text = nokey;
             key9a404.Text = nokey;
             key9b5117b.Text = nokey;
+            key9b5127c.Text = nokey;
         }
         private void btniPad23_Click(object sender, RoutedEventArgs e)
         {
             // iPad 2 Wi-Fi+CDMA
-            clear();
+            clear("ipad23");
             // 4.x Final
             key8f191.Text = nokey;
             key8g4.Text = "1c7414fb1820c1c0a61058587661b1c5fbb68fbeafb77f86014671ee5ddac8360d8cc352";
@@ -928,12 +1106,13 @@ namespace iDecryptIt_WPF
             key9a402.Text = nokey;
             key9a404.Text = nokey;
             key9b5117b.Text = nokey;
+            key9b5127c.Text = nokey;
         }
         private void btniPhone11_Click(object sender, RoutedEventArgs e)
         {
             // iPhone 1G GSM
             // DMG file names needed on betas
-            clear();
+            clear("iphone11");
             // 1.x Final
             key1a543a.Text = "28c909fc6d322fa18940f03279d70880e59a4507998347c70d5b8ca7ef090ecccc15e82d";
             dmg1a543a.Text = "694-5262-39.dmg";
@@ -978,7 +1157,7 @@ namespace iDecryptIt_WPF
             // 3.x Final
             key7a341.Text = "25cce378de209d8fb6ec45ecbe7525695272b81fe38bbad76e979ac3921c3614ed162c87";
             dmg7a341.Text = "018-5301-002.dmg";
-            key7a400.Text = nokey;
+            key7a400.Text = "b40c24a019b995593b89594fa0866e5e2a5ff2e052bb98c134025f9ab01c554056fb16a6";
             dmg7a400.Text = "018-5798-001.dmg";
             key7c144.Text = "dbe476ed0d8c1ecf7cd514463f2ca5a6f71b6f244d98ebaa9203fd527c1ecbf2bb5f143f";
             dmg7c144.Text = "018-5343-086.dmg";
@@ -999,7 +1178,7 @@ namespace iDecryptIt_WPF
         private void btniPhone12_Click(object sender, RoutedEventArgs e)
         {
             // iPhone 3G GSM
-            clear();
+            clear("iphone12");
             // 2.x Final
             key5a345final.Text = nokey;
             key5a347.Text = "2cfca55aabb22fde7746e6a034f738b7795458be9902726002a8341995558990f41e3755";
@@ -1048,7 +1227,7 @@ namespace iDecryptIt_WPF
         private void btniPhone21_Click(object sender, RoutedEventArgs e)
         {
             // iPhone 3GS GSM
-            clear();
+            clear("iphone21");
             // 3.x Final
             key7a341.Text = "7d779fed28961506ca9443de210224f211790192b2a2308b8bc0e7d4a2ca61a68e26200e";
             key7a400.Text = nokey;
@@ -1103,11 +1282,12 @@ namespace iDecryptIt_WPF
             key9a402.Text = "4295bfd354a735d996bdfb018f1b212da0381c321694dffa88e275c88f7d3032c5a9b49e";
             key9a404.Text = "7182d1dccc98a1261abdcdfe36e0e674c761683768ccc5b69847f02772a87d6fc65da6e7";
             key9b5117b.Text = "b0d3007c909dbfe0c6f4533a45f830bbefacebbbaa7e5395b4a5bd2eba2ee12dbfb5d8db";
+            key9b5127c.Text = nokey;
         }
         private void btniPhone31_Click(object sender, RoutedEventArgs e)
         {
             // iPhone 4 GSM
-            clear();
+            clear("iphone31");
             // 4.x Final
             key8a293final.Text = "8b2915719d9f90ba5521faad1eadbb3d942991bd55e5a0709f26e9db3931517e054afa50";
             key8a306.Text = "ebd8aea30e78053112c4062690723fc5ee8e53865d4d6591b64a08216337c5a7aefbc806";
@@ -1147,11 +1327,12 @@ namespace iDecryptIt_WPF
             key9a402.Text = "549abc1b1e967e3c16621829f016172074cd4c56899b8db1c5e5c0024736d1d887f2038a";
             key9a404.Text = "15f6052fc1c9c078c07c13e4ba44e4161952584132314a47bb7590437f71260f31c7ac7f";
             key9b5117b.Text = "8a28a59e9598380d0e210f5790ec3a8ea09079176250eb82dcf11fef292e841a1fe91c45";
+            key9b5127c.Text = "544dfa16ef877204d6529b53048c540131e46ad248436097b6947af95117ab2b0dce3356";
         }
         private void btniPhone33_Click(object sender, RoutedEventArgs e)
         {
             // iPhone 4 CDMA
-            clear();
+            clear("iphone33");
             // 4.x Final
             key8e128.Text = nokey;
             key8e200.Text = "723ded674deb1cba56a142542a0b06d2a483297f8056c0cfa70346c0724e1b0e03feded6";
@@ -1174,23 +1355,26 @@ namespace iDecryptIt_WPF
             key9a402.Text = "2ae6e1331f45869f8a9d40bfc0d5a059de9a68c05823dcddccc59c12429174df15522759";
             key9a404.Text = "e1515e2c43bb8b71dbde6b9d47e962359de85e455b2b4a0345e71ed1fd936aff19d2dc38";
             key9b5117b.Text = "a1d8df0aa9fa73ee27b0e17f3b86d8b30498fd3499c26ac2b20a207a9af95bd0d6cb7458";
+            key9b5127c.Text = "e2063e7e1e0c7df33dfb4f197643ddf391b60b72ae3497da9b9488ee9bc74a72035dcb73";
         }
         private void btniPhone41_Click(object sender, RoutedEventArgs e)
         {
             // iPhone 4S GSM/CDMA
-            clear();
+            clear("iphone41");
             // 5.x Final
             key9a334final.Text = nokey;
             key9a405.Text = nokey;
+            key9a406.Text = "a31ffd506c6711c5a0c52c9f0a2f7208a2f63ad9dd40506e70d80ea20a981eb1312bc774";
             // 5.x Beta
             key9a402.Text = nokey;
             key9a404.Text = nokey;
             key9b5117b.Text = "879132da717bbfec47df50307d759952e81947edb4faa6469a52f219853884f68eb8c7ce";
+            key9b5127c.Text = "4a1063d06193e045db31dffaee81a7cd3559441a091c1a54182a964a48f32362a58e83c3";
         }
         private void btniPod11_Click(object sender, RoutedEventArgs e)
         {
         // iPod touch 1G
-        clear();
+        clear("ipod11");
         // 1.x Final
         key3a100a.Text = nokey;
         key3a101a.Text = nokey;
@@ -1237,7 +1421,7 @@ namespace iDecryptIt_WPF
         private void btniPod21_Click(object sender, RoutedEventArgs e)
         {
             // iPod touch 2G
-            clear();
+            clear("ipod21");
             // 2.x Final
             key5f138.Text = "d1b957a0a5e56903adc523c5fa99f5d165c3963aea48274770b766b44ecdebab7b5a8f30";
             key5g77a.Text = "148025cde5c51d51d7733e74c6857dfca70d7240287d6eb039a1ed835413120b0af1e296";
@@ -1278,7 +1462,7 @@ namespace iDecryptIt_WPF
         private void btniPod31_Click(object sender, RoutedEventArgs e)
         {
             // iPod touch 3G
-            clear();
+            clear("ipod31");
             // 3.x Final
             key7c145.Text = "de14c16e21ad5bb12fe572ca9400d29a4443ff208ec49c120ad72d6c3269fd5553047cdd";
             key7c146.Text = nokey;
@@ -1327,11 +1511,12 @@ namespace iDecryptIt_WPF
             key9a402.Text = "cab30867e4dcab9acdafb5965b29617ba366cb6850b0c81b4ae6bc699c641de8ae40bc9a";
             key9a404.Text = "a83afeba7e2e51f4ebb40876a829bcc9fbcca86f38a07ab8cc8d767bfdcf1170913e270e";
             key9b5117b.Text = "db47d825e5f4107b2612eb43befc106e9112c0ffdba8564e7e6bd847cb8d9b9fbbae6820";
+            key9b5127c.Text = nokey;
         }
         private void btniPod41_Click(object sender, RoutedEventArgs e)
         {
             // iPod touch 4G
-            clear();
+            clear("ipod41");
             // 4.x Final
             key8b117.Text = "e7de54b25167afc66e381ade1d5e25c6392757497cfd92826a3111772731ba0b70742b90";
             key8b118.Text = "770b58765a3345004528fd9a2cbb7c3105137d0bd3a134a24679e6e173f32636d0485d06";
@@ -1367,11 +1552,12 @@ namespace iDecryptIt_WPF
             key9a402.Text = "467e24772796428862e1fff7f5365a57fe20fe2ae510e25550ba3d6b577a9dc442995ec8";
             key9a404.Text = "138221c8e44e4170463a3600105ef39b13f7ebec3c7e72b0506f918bc0ea78ae819c3d85";
             key9b5117b.Text = "24d6e0918608376d5f3521cd64a6b5e85edef48a3a59cccebdbeee40ff81ab1927daa2ea";
+            key9b5127c.Text = "998f85f93c88e4dbcd2995e69c40b46c33f6ae4beb5fc0e0719ad2b2a12165e9ba3a71b6";
         }
         private void btnAppleTV21_Click(object sender, RoutedEventArgs e)
         {
             // Apple TV 2G
-            clear();
+            clear("appletv21");
             // 4.x Final ATV
             key8m89.Text = "31c700a852f1877c88efc05bc5c63e8c7f081c4cb28d024ed7f9b0dbc98c7e1406e499c6";
             key8c150.Text = "fd73cd898b7e55f9dc24092a4c574f1f284087075520a7d30232b0b6af8871743a0f0b82";
@@ -1394,6 +1580,8 @@ namespace iDecryptIt_WPF
             key9a5288dATV.Text = "40f3d0718052dda2f2c6637be99dc5717938149ac1b30a979fdd31109dc8fb0e83b4373c";
             key9a5302bATV.Text = "5134c59a148b2151a001cc5d984bb28339a379a47f2b0a40d9f7e16db0e1c44f7e2da028";
             key9a5313eATV.Text = "cd5cbb28e733d7a538ad949f3ad295b8780185ff5103feb3e87eedf25ce0aff598e2ba1f";
+            // 5.x Beta ATV
+            key9b5127cATV.Text = "365ac018549add4c5f5f00ab73037deb10b1f63d72db582918a1f6f87ec74a3fb5a9641e";
         }
         private void textInputFileName_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -1432,7 +1620,7 @@ namespace iDecryptIt_WPF
                 File.Delete(rundir + "iDecryptIt-Updater.exe.new");
                 File.Move(rundir + "iDecryptIt-Updater.exe.new", rundir + "iDecryptIt-Updater.exe");
             }
-            DoCMDNoWait(rundir + "iDecryptIt-Updater.exe"); // Run ASync
+            run.DoCMD(rundir + "iDecryptIt-Updater.exe", false); // Run ASync
 
             RegistryKey langcode;
             langcode = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Cole Stuff\\iDecryptIt", true);
@@ -1445,22 +1633,24 @@ namespace iDecryptIt_WPF
             {
                 wantedlang = (string)langcode.GetValue("language");
             }
+            setlang();
 
-            // TODO: Make sure the last 4 characters are .dmg (case-insensitve)
-            /*string startargs[] = Environment.GetCommandLineArgs;
+            /*string[] startargs = Environment.GetCommandLineArgs();
             for (int i = 0; i < startargs.Length; i++)
             {
                 if (i == 1)
                 {
                     textInputFileName.Text = startargs[1];
-                    textOuputFileName.Text = replace_dmg(startargs[1]);
                 }
             }*/
-            setlang();
+
+            hidetabs();
+            tabMain.Visibility = Visibility.Hidden;
         }
         private void Window_Closing(object sender, CancelEventArgs e)
         {
             cleanup();
+            Environment.Exit(0); // Just in case
         }
 
         // Language Stuff
@@ -1506,6 +1696,11 @@ namespace iDecryptIt_WPF
             txtOutputLabel.Text = "De salida del archivo:  ";
             btnSelectVFDecryptInputFile.Content = "Seleccione Archivo de entrada";
             textDecryptLabel.Text = "Clave";
+            // 7-Zip Area
+            btnExtractText.Text = "Extraer";
+            txt7ZInputLabel.Text = "Archivo de entrada:  ";
+            txt7ZOutputLabel.Text = "De salido del archivo:  ";
+            btnSelect7ZInputFile.Content = "Seleccione Archivo de entrada";
             // Extras Area
             btnAbout.ToolTip = "Acerca de iDecryptIt";
             btnREADME.ToolTip = "Léame";
@@ -1513,27 +1708,28 @@ namespace iDecryptIt_WPF
             btnHelpOut.ToolTip = "Publicar Clave";
             btnChangeLanguage.ToolTip = "Cambio de idioma";
             // Main Area
-            v1Final.Header = "1.x Pasado";
+            v1Final.Header = "1,x Pasado";
             btn1a420.Content = "Prueba";
-            v1Beta.Header = "1.x Prueba";
-            v2Final.Header = "2.x Pasado";
-            v2Beta.Header = "2.x Prueba";
-            v3Final.Header = "3.x Pasado";
-            v3Beta.Header = "3.x Prueba";
-            v4Final.Header = "4.x Pasado";
-            v4FinalATV.Header = "4.x Pasado ATV";
-            v4Beta.Header = "4.x Prueba";
-            v4BetaATV.Header = "4.x Prueba ATV";
-            v5Final.Header = "5.x Pasado";
-            v5Beta.Header = "5.x Prueba";
+            v1Beta.Header = "1,x Prueba";
+            v2Final.Header = "2,x Pasado";
+            v2Beta.Header = "2,x Prueba";
+            v3Final.Header = "3,x Pasado";
+            v3Beta.Header = "3,x Prueba";
+            v4Final.Header = "4,x Pasado";
+            v4FinalATV.Header = "4,x Pasado ATV";
+            v4Beta.Header = "4,x Prueba";
+            v4BetaATV.Header = "4,x Prueba ATV";
+            v5Final.Header = "5,x Pasado";
+            v5Beta.Header = "5,x Prueba";
             // Little Tab Notes
-            note1xbeta.Text = "AVISO: 1,2 nunca fue publicada. En su lugar, se cambió a 2,0.";
-            note2xbeta.Text = "AVISO: 2,0 prueba es en realidad un 1,2b1.";
+            note1xbeta.Text = "AVISO: 1,2 nunca fue publicada, y en su lugar, dado a conocer como 2,0";
+            note2xbeta.Text = "AVISO: 2,0 prueba es en realidad un 1,2b1";
             note4xbeta.Text = "AVISO: Para las versiones pruebas de Apple TV, por favor consulte la ficha designado";
-            note4xbetaATV.Text = "AVISO: 4,2 pruebas se basan en 4,3, se basa en 4.4b4 5,0b5, 4,4b5 sobre la base de 5,0b6, 4,4b6 y sobre la base de 5,0b7";
+            note4xbetaATV.Text = "AVISO: 4,2 pruebas se basan en 4,3 y 4,4, las pruebas se basan en 5,0";
             note4xfinalatv.Text = "AVISO: En esta página, el número de versión de la izquierda es lo que los informes de Apple TV, mientras que el de la derecha es la versión de Apple";
-            note5xfinal.Text = "AVISO: En el Apple TV, este serán reportados como 4,4 y por lo tanto figurará en 4,x pasado ATV'";
-            note5xbeta.Text = "AVISO: En el Apple TV, ya que estas betas serán reportados como 4,4, como tal, se enumeran en '4,x Prueba ATV'";
+            note5xfinal.Text = "AVISO: En el Apple TV, este serán reportados como 4,4 y por lo tanto figurará en '4,x Pasado ATV'";
+            note5xbeta.Text = "AVISO: En el Apple TV, el 5,0 se presentan como pruebas de 4,4 y se enumeran en '4,x Prueba ATV' y la prueba de 5,1 se registra como 5,0 y aparece en '5,x Prueba ATV'";
+            // NEED 5xbetaatv.Text TRANSLATED
             // Notes
             nokey = "Ninguno de publicación";
             unavailable = "Construir, no disponibles para este dispositivo";

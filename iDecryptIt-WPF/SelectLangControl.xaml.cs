@@ -79,6 +79,7 @@ namespace iDecryptIt_WPF
                 enter("hin");
                 mw.setlang_hin();
             }
+            Close();
         }
         private void enter(string lang)
         {
@@ -86,7 +87,6 @@ namespace iDecryptIt_WPF
             langcode = Registry.CurrentUser.CreateSubKey("SOFTWARE\\Cole Stuff\\iDecryptIt");
             langcode = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Cole Stuff\\iDecryptIt", true);
             Registry.SetValue("HKEY_CURRENT_USER\\SOFTWARE\\Cole Stuff\\iDecryptIt", "language", lang, RegistryValueKind.String);
-            Close();
         }
     }
 }
