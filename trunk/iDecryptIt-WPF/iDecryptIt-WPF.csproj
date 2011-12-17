@@ -27,7 +27,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>1110</ApplicationRevision>
+    <ApplicationRevision>1139</ApplicationRevision>
     <ApplicationVersion>5.10.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -83,6 +83,7 @@
     <Compile Include="About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DoCMD.cs" />
     <Compile Include="SplashScreen.xaml.cs">
       <DependentUpon>SplashScreen.xaml</DependentUpon>
     </Compile>
@@ -99,6 +100,9 @@
     </Compile>
     <Compile Include="SelectLangControl.xaml.cs">
       <DependentUpon>SelectLangControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SubmitKey.xaml.cs">
+      <DependentUpon>SubmitKey.xaml</DependentUpon>
     </Compile>
     <Page Include="About.xaml">
       <SubType>Designer</SubType>
@@ -121,6 +125,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="SelectLangControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubmitKey.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

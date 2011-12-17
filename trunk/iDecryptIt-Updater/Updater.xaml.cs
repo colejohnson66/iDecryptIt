@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.ComponentModel;
+using System.Diagnostics;
 
 namespace iDecryptIt_Updater
 {
@@ -22,19 +23,21 @@ namespace iDecryptIt_Updater
     /// </summary>
     public partial class MainWindow : Window
     {
-        string[] doc;
         string tempdir = System.IO.Path.GetTempPath() + "\\Cole Stuff\\iDecryptIt\\";
         string rundir = Directory.GetCurrentDirectory() + "\\";
         string contacturl = "http://theiphonewiki.com/wiki/index.php?title=User:Balloonhead66/Latest_stable_software_release/iDecryptIt&action=raw";
         string checker;
         string major = "5";
-        string updatemajor;
         string minor = "10";
-        string updateminor;
         string rev = "0";
+        string build = "2B39";
+        string updatemajor;
+        string updateminor;
         string updaterev;
-        string build = "1J59";
         string updatebuild;
+
+        Run run = new Run();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -45,9 +48,45 @@ namespace iDecryptIt_Updater
             // if that file exists, delete the .exe and rename the .exe.new to .exe
             if (File.Exists(rundir + "iDecryptIt.exe.new"))
             {
-                File.Delete(rundir + "iDecryptIt.exe.new");
-                File.Move(rundir + "iDecryptIt.exe.new", rundir + "iDecryptIt.exe");
+                // Kill iDecryptIt
+                /*Process[] runningapps = Process.GetProcesses();
+                foreach (Process p in runningapps)
+                {
+                    if (p.ProcessName == "iDecryptIt" || p.ProcessName == "iDecryptIt.vshost")
+                    {
+                        p.Kill();
+                        while (!p.HasExited)
+                        {
+                        }
+                    }
+                }
+                try
+                {
+                    File.Delete(rundir + "iDecryptIt.exe");
+                    while (File.Exists(rundir + "iDecryptIt.exe"))
+                    {
+                    }
+                    File.Move(rundir + "iDecryptIt.exe.new", rundir + "iDecryptIt.exe");
+
+                    // Relaunch iDecryptIt
+                    run.DoCMD("iDecryptIt.exe", false);
+                    Close();
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                    MessageBox.Show(
+                        "Unable to delete iDecryptIt!\n\n" +
+                        "Delete \"iDecryptIt.exe\" and move\n\"iDecryptIt.exe.new\" to \"iDecryptIt.exe\"\n\n" +
+                        "Exception: " + ex.Message,
+                        "iDecryptIt Updater",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error);
+                    Close();
+                }*/
             }
+
+            btnTop.Visibility = Visibility.Hidden;
+
             // Download the raw code
             try
             {

@@ -11,4 +11,7 @@
     <FallbackCulture>en-US</FallbackCulture>
     <VerifyUploadedFiles>false</VerifyUploadedFiles>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <StartArguments>"C:\xampp\htdocs\firmware\iPhone4,1\iPhone4,1_5.1_9B5117b_Restore\038-3074-006.dmg"</StartArguments>
+  </PropertyGroup>
 </Project>
