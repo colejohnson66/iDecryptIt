@@ -19,39 +19,30 @@ namespace iDecryptIt_WPF
     /// </summary>
     public partial class SelectLangControl : Window
     {
-        public SelectLangControl()
+        private MainWindow mainwindow;
+
+        public SelectLangControl(MainWindow mw)
         {
             InitializeComponent();
+            mainwindow = mw;
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            string lang;
-            RegistryKey langcode;
-            langcode = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Cole Stuff\\iDecryptIt", true);
-            lang = (string)langcode.GetValue("language");
-            
-            // Failsafe for transition
-            if (lang == "en")
-            {
-                lang = "eng";
-            }
-            if (lang == "es")
-            {
-                lang = "spa";
-            }
+            string lang = Registry.CurrentUser
+                .OpenSubKey("SOFTWARE\\Cole Stuff\\iDecryptIt", true)
+                .GetValue("language")
+                .ToString();
 
             // Change language
             if (lang == "eng")
             {
+                // English
                 cmbSelect.SelectedIndex = 0;
             }
             else if (lang == "spa")
             {
+                // Spanish
                 cmbSelect.SelectedIndex = 1;
-            }
-            else if (lang == "hin")
-            {
-                cmbSelect.SelectedIndex = 2;
             }
             else
             {
@@ -62,30 +53,26 @@ namespace iDecryptIt_WPF
         }
         private void btnOK_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow mw = new MainWindow();
             int selected = cmbSelect.SelectedIndex;
+
+            // Use else if to save execution time on the lower indexes
             if (selected == 0)
             {
                 enter("eng");
-                MessageBox.Show("You must restart iDecryptIt for changes to take effect", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                mainwindow.setlang("eng");
             }
-            if (selected == 1)
+            else if (selected == 1)
             {
+                mainwindow.setlang("spa");
                 enter("spa");
-                mw.setlang_spa();
-            }
-            if (selected == 2)
-            {
-                enter("hin");
-                mw.setlang_hin();
             }
             Close();
         }
         private void enter(string lang)
         {
-            RegistryKey langcode;
-            langcode = Registry.CurrentUser.CreateSubKey("SOFTWARE\\Cole Stuff\\iDecryptIt");
-            langcode = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Cole Stuff\\iDecryptIt", true);
+            Registry.CurrentUser
+                .CreateSubKey("SOFTWARE\\Cole Stuff\\iDecryptIt")
+                .OpenSubKey("SOFTWARE\\Cole Stuff\\iDecryptIt", true);
             Registry.SetValue("HKEY_CURRENT_USER\\SOFTWARE\\Cole Stuff\\iDecryptIt", "language", lang, RegistryValueKind.String);
         }
     }

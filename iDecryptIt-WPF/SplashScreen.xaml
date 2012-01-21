@@ -31,7 +31,7 @@
                 <RowDefinition Height="26" />
                 <RowDefinition Height="6" /><!-- Nothing -->
             </Grid.RowDefinitions>
-            <Label Grid.Row="1" Content="Welcome to iDecryptIt" HorizontalAlignment="Center" Name="lblProg" />
+            <Label Grid.Row="1" HorizontalAlignment="Center" Name="lblProg" />
             <Grid>
                 <Image Grid.Column="1" Source="Images/idecryptit_128.png" HorizontalAlignment="Right" VerticalAlignment="Top"  Width="128" Height="128" />
                 <Grid>

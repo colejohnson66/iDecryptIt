@@ -1,4 +1,6 @@
-﻿using Microsoft.Win32;
+﻿using ColeStuff;
+using ColeStuff.DataManipulation;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -36,12 +38,11 @@ namespace iDecryptIt_WPF
         BackgroundWorker decryptworker = new BackgroundWorker();
         Process decryptproc = new Process();
         FileInfo decryptfromfile;
-        FileInfo decrypttofile;
         string decryptfrom;
         string decryptto;
         double temp;
-        // Misc.
-        Run run = new Run();
+        // INI files
+        INI l18n;
 
         // Initializer
         public MainWindow()
@@ -53,6 +54,9 @@ namespace iDecryptIt_WPF
 
             decryptproc.StartInfo.UseShellExecute = false;
             decryptproc.StartInfo.FileName = rundir + "vfdecrypt.exe";
+            decryptproc.StartInfo.RedirectStandardError = true;
+            decryptproc.StartInfo.RedirectStandardInput = true;
+            decryptproc.StartInfo.RedirectStandardOutput = true;
 
             InitializeComponent();
         }
@@ -68,8 +72,7 @@ namespace iDecryptIt_WPF
                 }
                 else
                 {
-                    decrypttofile = new FileInfo(decryptto);
-                    temp = decrypttofile.Length * 100.0;
+                    temp = (new FileInfo(decryptto).Length) * 100.0;
                     temp = temp / decryptfromfile.Length;
                     decryptworker.ReportProgress((int)temp);
                 }
@@ -84,133 +87,38 @@ namespace iDecryptIt_WPF
                 gridDecrypt.IsEnabled = true;
                 progDecrypt.Visibility = Visibility.Hidden;
             }
-            progDecrypt.Value = e.ProgressPercentage;
+            progDecrypt.Value = temp;
         }
 
         // My Functions
         private void clear(string device)
         {
-            #region Tabs
-            hidetabs();
-            tabMain.Visibility = Visibility.Visible;
-            switch (device)
+            /**
+             * Tabs
+             * 0 = Final
+             * 1 = Beta
+             * 2 = Final ATV
+             * 3 = Beta ATV
+             */
+            if (device[0] == 'i')
             {
-                /* Tabs
-                 *  0 = 1.x Final
-                 *  1 = 1.x Beta
-                 *  2 = 2.x Final
-                 *  3 = 2.x Beta
-                 *  4 = 3.x Final
-                 *  5 = 3.x Beta
-                 *  6 = 4.x Final
-                 *  7 = 4.x Final ATV
-                 *  8 = 4.x Beta
-                 *  9 = 4.x Beta ATV
-                 * 10 = 5.x Final
-                 * 11 = 5.x Beta
-                 * 12 = 5.x Beta ATV
-                 */
-                case "ipad11":
-                    tabMain.SelectedIndex = 4;
-                    v3Final.Visibility = Visibility.Visible;
-                    v4Final.Visibility = Visibility.Visible;
-                    v4Beta.Visibility = Visibility.Visible;
-                    v5Final.Visibility = Visibility.Visible;
-                    v5Beta.Visibility = Visibility.Visible;
-                    break;
-                case "ipad21":
-                case "ipad22":
-                case "ipad23":
-                    tabMain.SelectedIndex = 6;
-                    v4Final.Visibility = Visibility.Visible;
-                    v5Final.Visibility = Visibility.Visible;
-                    v5Beta.Visibility = Visibility.Visible;
-                    break;
-                case "iphone11":
-                    tabMain.SelectedIndex = 0;
-                    v1Final.Visibility = Visibility.Visible;
-                    v1Beta.Visibility = Visibility.Visible;
-                    v2Final.Visibility = Visibility.Visible;
-                    v2Beta.Visibility = Visibility.Visible;
-                    v3Final.Visibility = Visibility.Visible;
-                    v3Beta.Visibility = Visibility.Visible;
-                    break;
-                case "iphone12":
-                    tabMain.SelectedIndex = 2;
-                    v2Final.Visibility = Visibility.Visible;
-                    v2Beta.Visibility = Visibility.Visible;
-                    v3Final.Visibility = Visibility.Visible;
-                    v3Beta.Visibility = Visibility.Visible;
-                    v4Final.Visibility = Visibility.Visible;
-                    v4Beta.Visibility = Visibility.Visible;
-                    break;
-                case "iphone21":
-                    tabMain.SelectedIndex = 4;
-                    v3Final.Visibility = Visibility.Visible;
-                    v3Beta.Visibility = Visibility.Visible;
-                    v4Final.Visibility = Visibility.Visible;
-                    v4Beta.Visibility = Visibility.Visible;
-                    v5Final.Visibility = Visibility.Visible;
-                    v5Beta.Visibility = Visibility.Visible;
-                    break;
-                case "iphone31":
-                    tabMain.SelectedIndex = 6;
-                    v4Final.Visibility = Visibility.Visible;
-                    v4Beta.Visibility = Visibility.Visible;
-                    v5Final.Visibility = Visibility.Visible;
-                    v5Beta.Visibility = Visibility.Visible;
-                    break;
-                case "iphone33":
-                    tabMain.SelectedIndex = 6;
-                    v4Final.Visibility = Visibility.Visible;
-                    v5Final.Visibility = Visibility.Visible;
-                    v5Beta.Visibility = Visibility.Visible;
-                    break;
-                case "iphone41":
-                    tabMain.SelectedIndex = 10;
-                    v5Final.Visibility = Visibility.Visible;
-                    v5Beta.Visibility = Visibility.Visible;
-                    break;
-                case "ipod11":
-                    tabMain.SelectedIndex = 0;
-                    v1Final.Visibility = Visibility.Visible;
-                    v1Beta.Visibility = Visibility.Visible;
-                    v2Final.Visibility = Visibility.Visible;
-                    v2Beta.Visibility = Visibility.Visible;
-                    v3Final.Visibility = Visibility.Visible;
-                    v3Beta.Visibility = Visibility.Visible;
-                    break;
-                case "ipod21":
-                    tabMain.SelectedIndex = 2;
-                    v2Final.Visibility = Visibility.Visible;
-                    v3Final.Visibility = Visibility.Visible;
-                    v3Beta.Visibility = Visibility.Visible;
-                    v4Final.Visibility = Visibility.Visible;
-                    v4Beta.Visibility = Visibility.Visible;
-                    break;
-                case "ipod31":
-                    tabMain.SelectedIndex = 4;
-                    v3Final.Visibility = Visibility.Visible;
-                    v4Final.Visibility = Visibility.Visible;
-                    v4Beta.Visibility = Visibility.Visible;
-                    v5Final.Visibility = Visibility.Visible;
-                    v5Beta.Visibility = Visibility.Visible;
-                    break;
-                case "ipod41":
-                    tabMain.SelectedIndex = 6;
-                    v4Final.Visibility = Visibility.Visible;
-                    v4Beta.Visibility = Visibility.Visible;
-                    v5Final.Visibility = Visibility.Visible;
-                    v5Beta.Visibility = Visibility.Visible;
-                    break;
-                case "appletv21":
-                    v4FinalATV.Visibility = Visibility.Visible;
-                    v4BetaATV.Visibility = Visibility.Visible;
-                    break;
-                default:
-                    break;
+                // iPad/iPhone/iPod touch
+                tabMain.SelectedIndex = 0;
+                tabFinal.Visibility = Visibility.Visible;
+                tabBeta.Visibility = Visibility.Visible;
+                tabFinalATV.Visibility = Visibility.Collapsed;
+                tabBetaATV.Visibility = Visibility.Collapsed;
             }
-            #endregion
+            else
+            {
+                // Apple TV
+                tabMain.SelectedIndex = 2;
+                tabFinal.Visibility = Visibility.Collapsed;
+                tabBeta.Visibility = Visibility.Collapsed;
+                tabFinalATV.Visibility = Visibility.Visible;
+                tabBetaATV.Visibility = Visibility.Visible;
+            }
+
             clear_keys();
             clear_dmgs();
         }
@@ -500,32 +408,26 @@ namespace iDecryptIt_WPF
             // 5.x Beta ATV
             dmg9b5127cATV.Text = "XXX-XXXX-XXX.dmg";
         }
-        private void hidetabs()
-        {
-            v1Final.Visibility = Visibility.Collapsed;
-            v1Beta.Visibility = Visibility.Collapsed;
-            v2Final.Visibility = Visibility.Collapsed;
-            v2Beta.Visibility = Visibility.Collapsed;
-            v3Final.Visibility = Visibility.Collapsed;
-            v3Beta.Visibility = Visibility.Collapsed;
-            v4Final.Visibility = Visibility.Collapsed;
-            v4FinalATV.Visibility = Visibility.Collapsed;
-            v4Beta.Visibility = Visibility.Collapsed;
-            v4BetaATV.Visibility = Visibility.Collapsed;
-            v5Final.Visibility = Visibility.Collapsed;
-            v5Beta.Visibility = Visibility.Collapsed;
-            v5BetaATV.Visibility = Visibility.Collapsed;
-        }
         private void cleanup()
         {
             try
             {
-                Directory.Delete(tempdir, true);
-                Directory.Delete(System.IO.Path.GetTempPath() + "Cole Stuff\\iDecryptIt-Setup\\", true);
-                Directory.Delete(System.IO.Path.GetTempPath());
+                if (Directory.Exists(tempdir))
+                {
+                    Directory.Delete(tempdir, true);
+                }
+                if (Directory.Exists(System.IO.Path.GetTempPath() + "Cole Stuff\\iDecryptIt-Setup\\"))
+                {
+                    Directory.Delete(System.IO.Path.GetTempPath() + "Cole Stuff\\iDecryptIt-Setup\\", true);
+                }
             }
-            catch
+            catch (Exception e)
             {
+                MessageBox.Show(
+                    "Error clearing temp directory!\r\n\r\nPlease file a bug report at:\r\nhttp://cole.freehostingcloud.com/cms/Bugs:iDecryptIt\r\nwith the following data:\r\n" + e.Message,
+                    "iDecryptIt",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
             }
         }
         private char Char(int charnum)
@@ -536,8 +438,7 @@ namespace iDecryptIt_WPF
         // Clicks and Stuff
         private void btnChangeLanguage_Click(object sender, RoutedEventArgs e)
         {
-            Window selectlangcontrol = new SelectLangControl();
-            selectlangcontrol.Show();
+            new SelectLangControl(this).Show();
         }
         private void btnDecrypt_Click(object sender, RoutedEventArgs e)
         {
@@ -674,7 +575,7 @@ namespace iDecryptIt_WPF
             }
             #endregion
 
-            run.DoCMD(
+            Execution.DoCMD(
                 rundir + "7z.exe",
                 " e " + Char(34) + text7ZInputFileName.Text + Char(34) + " " + Char(34) + "-o" + tempdir + Char(34));
 
@@ -714,14 +615,13 @@ namespace iDecryptIt_WPF
             }
             #endregion
 
-            run.DoCMD(
+            Execution.DoCMD(
                 rundir + "7z.exe",
                 " x " + Char(34) + file + Char(34) + " " + Char(34) + "-o" + text7ZOuputFolder.Text + Char(34));
         }
         private void btnAbout_Click(object sender, RoutedEventArgs e)
         {
-            About about = new About();
-            about.Show();
+            new About().Show();
         }
         private void btnChangelog_Click(object sender, RoutedEventArgs e)
         {
@@ -831,7 +731,6 @@ namespace iDecryptIt_WPF
         }
         private void btnWhatAmI_Click(object sender, RoutedEventArgs e)
         {
-            // TODO switch in AppleTV for version
             string[] strArr;
             string device;
             string version;
@@ -940,6 +839,7 @@ namespace iDecryptIt_WPF
                                     version = "4.4.3/5.0.1";
                                     break;
                                 case "9B5127c":
+                                case "9B5141a":
                                     version = "5.0/5.1";
                                     break;
                             }
@@ -953,30 +853,33 @@ namespace iDecryptIt_WPF
                                 MessageBoxImage.Error);
                             return;
                     }
-                    MessageBox.Show("Device: " + device + "\r\n" +
-                                        "Version: " + version + "\r\n" +
-                                        "Build: " + build,
-                                    "iDecryptIt",
-                                    MessageBoxButton.OK,
-                                    MessageBoxImage.Information);
+                    MessageBox.Show(
+                        "Device: " + device + "\r\n" +
+                            "Version: " + version + "\r\n" +
+                            "Build: " + build,
+                        "iDecryptIt",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information);
                 }
                 else
                 {
-                    MessageBox.Show("The supplied IPSW File that was given is not in the following format:\r\n" +
-                                        "{DEVICE}_{VERSION}_{BUILD}_Restore.ipsw",
-                                    "iDecryptIt",
-                                    MessageBoxButton.OK,
-                                    MessageBoxImage.Error);
+                    MessageBox.Show(
+                        "The supplied IPSW File that was given is not in the following format:\r\n" +
+                            "{DEVICE}_{VERSION}_{BUILD}_Restore.ipsw",
+                        "iDecryptIt",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error);
                     return;
                 }
             }
             else
             {
-                MessageBox.Show("The supplied IPSW File that was given is not in the following format:\r\n" +
-                                    "{DEVICE}_{VERSION}_{BUILD}_Restore.ipsw",
-                                "iDecryptIt",
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Error);
+                MessageBox.Show(
+                    "The supplied IPSW File that was given is not in the following format:\r\n" +
+                        "{DEVICE}_{VERSION}_{BUILD}_Restore.ipsw",
+                    "iDecryptIt",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
                 return;
             }
         }
@@ -1373,50 +1276,50 @@ namespace iDecryptIt_WPF
         }
         private void btniPod11_Click(object sender, RoutedEventArgs e)
         {
-        // iPod touch 1G
-        clear("ipod11");
-        // 1.x Final
-        key3a100a.Text = nokey;
-        key3a101a.Text = nokey;
-        key3a110a.Text = "d45b837ddd85bdae0ec82a033ba00ea03ceb8c827040034f7554c65d6376472844b8dc6a";
-        key3b48b.Text = "70e11d7209602ada5b15fbecc1709ad4910d0ad010bb9a9125b78f9f50e25f3e05c595e2";
-        key4a93.Text = "11070c11d93b9be5069b643204451ed95aad37df7b332d10e48fd3d23c62fca517055816";
-        key4a102.Text = "d0a0c0977bd4b6350b256d6650ec9eca419b6f961f593e74b7e5b93e010b698ca6cca1fe";
-        key4b1.Text = "c7973558e8f6af22e38d4573737d1533f1d5eec202bf86a32d941975d76f8906c7f0afe4";
-        // 1.x Beta
-        key5a147p.Text = "86bec353ddfbe3fb750e9d7905801f79791e69acf65d16930d288e697644c76f16c4f16d";
-        // 2.x Final
-        key5a347.Text = "2cfca55aabb22fde7746e6a034f738b7795458be9902726002a8341995558990f41e3755";
-        key5b108.Text = "2cfca55aabb22fde7746e6a034f738b7795458be9902726002a8341995558990f41e3755";
-        key5c1.Text = "31e3ff09ff046d5237187346ee893015354d2135e3f0f39480be63dd2a18444961c2da5d";
-        key5f137.Text = "9714f2cb955afa550d6287a1c7dd7bd0efb3c26cf74b948de7c43cf934913df69fc5a05f";
-        key5g77.Text = nokey;
-        key5h11.Text = nokey;
-        // 2.x Beta
-        key5a225c.Text = "ea14f3ec624c7fdbd52e108aa92d13b16f6b0b940c841f7bbc7792099dae45da928d13e7";
-        key5a240d.Text = "e24bfab40a2e5d3dc25e089291846e5615b640897ae8b424946c587bcf53b201a1041d36";
-        key5a258f.Text = "198d6602ba2ad2d427adf7058045fff5f20d05846622c186cca3d423ad03b5bc3f43c61c";
-        key5a274d.Text = "589df25eaa4ff0a5e29e1425fb99bf50957888ff098ba2fcb72cf130f40e15e00bcf2fc7";
-        key5a292g.Text = "890b1fbf22975e0d4be2ea3f9bc5c87f38fd8158394fd31cf80a43ad25547573bbd0ec4e";
-        key5a308.Text = "3964ca8d8bf5d3715cdc172986f2d9606672c54d5e0aa3f3a892166b4e54e4cefef21279";
-        key5a331.Text = "3d9a9832a108fc5084fc9329d6e84e38edf06e380554c49376b70e951f8a8d1ed943f819";
-        key5a345beta.Text = nokey;
-        key5f90.Text = "f61c14aa0d53386dd42c49163686e8ccdeb86d14aafdecfe99c2e12c41a7f9f2811daa3d";
-        key5g27.Text = nokey;
-        // 3.x Final
-        key7a341.Text = "16fdad25424dc17008728e89f4900b887732dcc5fb48eedc9f1c9433af558db705eb0577";
-        key7c145.Text = "b609c19727813cd4e544919fb1732acb0aebeed814dce672bafe03056a1e8e1b7d4f8f71";
-        key7d11.Text = nokey;
-        key7e18.Text = "467e695041d01e3f58886314bfe70c9b89a7f0c09d6622931f57d1cfa1f7abd9c307563a";
-        // 3.x Beta
-        key7a238j.Text = "23f22d7ad042ed8afd3e712987022dc4d34921f69db9050e81148616b99319dc7faafa24";
-        key7a259g.Text = "8391ccb34883271fd18c1deed24fd67cab0b3dc56e167c1852c19f49d91aa7ddac1fbc7f";
-        key7a280f.Text = nokey;
-        key7a300g.Text = nokey;
-        key7a312g.Text = "52830814758d6d3b91e5fb40356c98919091C2a272ec66d9d4fd331eb33d4f60c91c15fc";
-        key7c97d.Text = nokey;
-        key7c106c.Text = nokey;
-        key7c116a.Text = nokey;
+            // iPod touch 1G
+            clear("ipod11");
+            // 1.x Final
+            key3a100a.Text = nokey;
+            key3a101a.Text = nokey;
+            key3a110a.Text = "d45b837ddd85bdae0ec82a033ba00ea03ceb8c827040034f7554c65d6376472844b8dc6a";
+            key3b48b.Text = "70e11d7209602ada5b15fbecc1709ad4910d0ad010bb9a9125b78f9f50e25f3e05c595e2";
+            key4a93.Text = "11070c11d93b9be5069b643204451ed95aad37df7b332d10e48fd3d23c62fca517055816";
+            key4a102.Text = "d0a0c0977bd4b6350b256d6650ec9eca419b6f961f593e74b7e5b93e010b698ca6cca1fe";
+            key4b1.Text = "c7973558e8f6af22e38d4573737d1533f1d5eec202bf86a32d941975d76f8906c7f0afe4";
+            // 1.x Beta
+            key5a147p.Text = "86bec353ddfbe3fb750e9d7905801f79791e69acf65d16930d288e697644c76f16c4f16d";
+            // 2.x Final
+            key5a347.Text = "2cfca55aabb22fde7746e6a034f738b7795458be9902726002a8341995558990f41e3755";
+            key5b108.Text = "2cfca55aabb22fde7746e6a034f738b7795458be9902726002a8341995558990f41e3755";
+            key5c1.Text = "31e3ff09ff046d5237187346ee893015354d2135e3f0f39480be63dd2a18444961c2da5d";
+            key5f137.Text = "9714f2cb955afa550d6287a1c7dd7bd0efb3c26cf74b948de7c43cf934913df69fc5a05f";
+            key5g77.Text = nokey;
+            key5h11.Text = nokey;
+            // 2.x Beta
+            key5a225c.Text = "ea14f3ec624c7fdbd52e108aa92d13b16f6b0b940c841f7bbc7792099dae45da928d13e7";
+            key5a240d.Text = "e24bfab40a2e5d3dc25e089291846e5615b640897ae8b424946c587bcf53b201a1041d36";
+            key5a258f.Text = "198d6602ba2ad2d427adf7058045fff5f20d05846622c186cca3d423ad03b5bc3f43c61c";
+            key5a274d.Text = "589df25eaa4ff0a5e29e1425fb99bf50957888ff098ba2fcb72cf130f40e15e00bcf2fc7";
+            key5a292g.Text = "890b1fbf22975e0d4be2ea3f9bc5c87f38fd8158394fd31cf80a43ad25547573bbd0ec4e";
+            key5a308.Text = "3964ca8d8bf5d3715cdc172986f2d9606672c54d5e0aa3f3a892166b4e54e4cefef21279";
+            key5a331.Text = "3d9a9832a108fc5084fc9329d6e84e38edf06e380554c49376b70e951f8a8d1ed943f819";
+            key5a345beta.Text = nokey;
+            key5f90.Text = "f61c14aa0d53386dd42c49163686e8ccdeb86d14aafdecfe99c2e12c41a7f9f2811daa3d";
+            key5g27.Text = nokey;
+            // 3.x Final
+            key7a341.Text = "16fdad25424dc17008728e89f4900b887732dcc5fb48eedc9f1c9433af558db705eb0577";
+            key7c145.Text = "b609c19727813cd4e544919fb1732acb0aebeed814dce672bafe03056a1e8e1b7d4f8f71";
+            key7d11.Text = "c382a5cefa91b7163ad6f80bf82f9894bc3c185bcb9138ad53c1d7414fc7c20fd95d444b";
+            key7e18.Text = "467e695041d01e3f58886314bfe70c9b89a7f0c09d6622931f57d1cfa1f7abd9c307563a";
+            // 3.x Beta
+            key7a238j.Text = "23f22d7ad042ed8afd3e712987022dc4d34921f69db9050e81148616b99319dc7faafa24";
+            key7a259g.Text = "8391ccb34883271fd18c1deed24fd67cab0b3dc56e167c1852c19f49d91aa7ddac1fbc7f";
+            key7a280f.Text = nokey;
+            key7a300g.Text = nokey;
+            key7a312g.Text = "52830814758d6d3b91e5fb40356c98919091C2a272ec66d9d4fd331eb33d4f60c91c15fc";
+            key7c97d.Text = nokey;
+            key7c106c.Text = nokey;
+            key7c116a.Text = nokey;
         }
         private void btniPod21_Click(object sender, RoutedEventArgs e)
         {
@@ -1465,7 +1368,7 @@ namespace iDecryptIt_WPF
             clear("ipod31");
             // 3.x Final
             key7c145.Text = "de14c16e21ad5bb12fe572ca9400d29a4443ff208ec49c120ad72d6c3269fd5553047cdd";
-            key7c146.Text = nokey;
+            key7c146.Text = "42a0805efff7352066541a54aaa6b0f525bf104386e8d5c14cde397453a8981f631261c0";
             key7d11.Text = "1e05ef21821280869d4029a2328836b9f60bc63907c6e951c0f1c80c2d8c66aef5c39a44";
             key7e18.Text = "1402974cba4702e831fb821ef9090229f7bad6fd3084fa99bfc8a76de4d839f9bf4533eb";
             // 4.x Final
@@ -1620,32 +1523,24 @@ namespace iDecryptIt_WPF
                 File.Delete(rundir + "iDecryptIt-Updater.exe.new");
                 File.Move(rundir + "iDecryptIt-Updater.exe.new", rundir + "iDecryptIt-Updater.exe");
             }
-            run.DoCMD(rundir + "iDecryptIt-Updater.exe", false); // Run ASync
+            Execution.DoCMD(rundir + "iDecryptIt-Updater.exe", false);
 
             RegistryKey langcode;
             langcode = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Cole Stuff\\iDecryptIt", true);
             if (langcode == null)
             {
-                Window selectlang = new SelectLangControl();
-                selectlang.Show();
+                new SelectLangControl(this).Show();
             }
             else
             {
-                wantedlang = (string)langcode.GetValue("language");
+                wantedlang = langcode.GetValue("language").ToString();
             }
-            setlang();
+            SetLangAtStartup();
 
-            /*string[] startargs = Environment.GetCommandLineArgs();
-            for (int i = 0; i < startargs.Length; i++)
+            if (GlobalClass.GlobalVar != null)
             {
-                if (i == 1)
-                {
-                    textInputFileName.Text = startargs[1];
-                }
-            }*/
-
-            hidetabs();
-            tabMain.Visibility = Visibility.Hidden;
+                textInputFileName.Text = GlobalClass.GlobalVar;
+            }
         }
         private void Window_Closing(object sender, CancelEventArgs e)
         {
@@ -1654,88 +1549,61 @@ namespace iDecryptIt_WPF
         }
 
         // Language Stuff
-        private void setlang()
+        private void SetLangAtStartup()
         {
             switch (wantedlang)
             {
                 // English
-                case "en":
-                    Registry.SetValue("HKEY_CURRENT_USER\\SOFTWARE\\Cole Stuff\\iDecryptIt", "language", "eng", RegistryValueKind.String);
-                    break;
                 case "eng":
                     break;
 
                 // Spanish
-                case "es":
                 case "spa":
-                    setlang_spa();
-                    Registry.SetValue("HKEY_CURRENT_USER\\SOFTWARE\\Cole Stuff\\iDecryptIt", "language", "spa", RegistryValueKind.String);
-                    break;
-                
-                // Hindi
-                case "hin":
-                    setlang_hin();
+                    setlang("spa");
                     break;
 
                 default:
-                    Window selectlang = new SelectLangControl();
-                    selectlang.Show();
+                    new SelectLangControl(this).Show();
                     break;
             }
         }
-        public void setlang_eng()
+        public void setlang(string lang)
         {
-        }
-        public void setlang_spa()
-        {
-            // NOTE: This may contain errors as this is Google Translate
-            //-----------------------------------------------------------------------------------
+            if (!File.Exists(rundir + "l18n\\" + lang + ".ini"))
+            {
+                throw new FileNotFoundException(
+                    "The supplied l18n code \"" + lang + "\" was not found",
+                    rundir + "l18n\\" + lang + ".ini");
+            }
+
+            l18n = new INI(rundir + "l18n\\" + lang + ".ini");
+
             // Decrypt Area
-            btnDecryptText.Text = "Descifrar";
-            txtInputLabel.Text = "Archivo de entrada:  ";
-            txtOutputLabel.Text = "De salida del archivo:  ";
-            btnSelectVFDecryptInputFile.Content = "Seleccione Archivo de entrada";
-            textDecryptLabel.Text = "Clave";
+            btnDecryptText.Text = l18n.IniReadValue("MainWindow", "btnDecryptText");
+            txtInputLabel.Text = l18n.IniReadValue("MainWindow", "txtInputLabel");
+            txtOutputLabel.Text = l18n.IniReadValue("MainWindow", "txtOutputLabel");
+            btnSelectVFDecryptInputFile.Content = l18n.IniReadValue("MainWindow", "btnSelectVFDecryptInputFile");
+            textDecryptLabel.Text = l18n.IniReadValue("MainWindow", "textDecryptLabel");
             // 7-Zip Area
-            btnExtractText.Text = "Extraer";
-            txt7ZInputLabel.Text = "Archivo de entrada:  ";
-            txt7ZOutputLabel.Text = "De salido del archivo:  ";
-            btnSelect7ZInputFile.Content = "Seleccione Archivo de entrada";
+            btnExtractText.Text = l18n.IniReadValue("MainWindow", "btnExtractText");
+            txt7ZInputLabel.Text = l18n.IniReadValue("MainWindow", "txt7ZInputLabel");
+            txt7ZOutputLabel.Text = l18n.IniReadValue("MainWindow", "txt7ZOutputLabel");
+            btnSelect7ZInputFile.Content = l18n.IniReadValue("MainWindow", "btnSelect7ZInputFile");
             // Extras Area
-            btnAbout.ToolTip = "Acerca de iDecryptIt";
-            btnREADME.ToolTip = "Léame";
-            btnChangelog.ToolTip = "Cambios";
-            btnHelpOut.ToolTip = "Publicar Clave";
-            btnChangeLanguage.ToolTip = "Cambio de idioma";
+            btnAbout.ToolTip = l18n.IniReadValue("MainWindow", "btnAbout_ToolTip");
+            btnREADME.ToolTip = l18n.IniReadValue("MainWindow", "btnREADME_ToolTip");
+            btnChangelog.ToolTip = l18n.IniReadValue("MainWindow", "btnChangelog_ToolTip");
+            btnHelpOut.ToolTip = l18n.IniReadValue("MainWindow", "btnHelpOut_ToolTip");
+            btnChangeLanguage.ToolTip = l18n.IniReadValue("MainWindow", "btnChangeLanguage_ToolTip");
             // Main Area
-            v1Final.Header = "1,x Pasado";
-            btn1a420.Content = "Prueba";
-            v1Beta.Header = "1,x Prueba";
-            v2Final.Header = "2,x Pasado";
-            v2Beta.Header = "2,x Prueba";
-            v3Final.Header = "3,x Pasado";
-            v3Beta.Header = "3,x Prueba";
-            v4Final.Header = "4,x Pasado";
-            v4FinalATV.Header = "4,x Pasado ATV";
-            v4Beta.Header = "4,x Prueba";
-            v4BetaATV.Header = "4,x Prueba ATV";
-            v5Final.Header = "5,x Pasado";
-            v5Beta.Header = "5,x Prueba";
-            // Little Tab Notes
-            note1xbeta.Text = "AVISO: 1,2 nunca fue publicada, y en su lugar, dado a conocer como 2,0";
-            note2xbeta.Text = "AVISO: 2,0 prueba es en realidad un 1,2b1";
-            note4xbeta.Text = "AVISO: Para las versiones pruebas de Apple TV, por favor consulte la ficha designado";
-            note4xbetaATV.Text = "AVISO: 4,2 pruebas se basan en 4,3 y 4,4, las pruebas se basan en 5,0";
-            note4xfinalatv.Text = "AVISO: En esta página, el número de versión de la izquierda es lo que los informes de Apple TV, mientras que el de la derecha es la versión de Apple";
-            note5xfinal.Text = "AVISO: En el Apple TV, este serán reportados como 4,4 y por lo tanto figurará en '4,x Pasado ATV'";
-            note5xbeta.Text = "AVISO: En el Apple TV, el 5,0 se presentan como pruebas de 4,4 y se enumeran en '4,x Prueba ATV' y la prueba de 5,1 se registra como 5,0 y aparece en '5,x Prueba ATV'";
-            // NEED 5xbetaatv.Text TRANSLATED
+            btn1a420.Content = l18n.IniReadValue("MainWindow", "btn1a420");
+            tabFinal.Header = l18n.IniReadValue("MainWindow", "tabFinal");
+            tabFinalATV.Header = l18n.IniReadValue("MainWindow", "tabFinal");
+            tabBeta.Header = l18n.IniReadValue("MainWindow", "tabBeta");
+            tabBetaATV.Header = l18n.IniReadValue("MainWindow", "tabBeta");
             // Notes
-            nokey = "Ninguno de publicación";
-            unavailable = "Construir, no disponibles para este dispositivo";
-        }
-        public void setlang_hin()
-        {
+            nokey = l18n.IniReadValue("MainWindow", "nokey");
+            unavailable = l18n.IniReadValue("MainWindow", "unavailable");
         }
     }
 }
