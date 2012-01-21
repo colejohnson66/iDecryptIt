@@ -25,16 +25,9 @@ namespace iDecryptIt_Updater
     {
         string tempdir = System.IO.Path.GetTempPath() + "\\Cole Stuff\\iDecryptIt\\";
         string rundir = Directory.GetCurrentDirectory() + "\\";
-        string contacturl = "http://theiphonewiki.com/wiki/index.php?title=User:Balloonhead66/Latest_stable_software_release/iDecryptIt&action=raw";
+        string contacturl = "http://theiphonewiki.com/wiki/index.php?title=User:5urd/Latest_stable_software_release/iDecryptIt&action=raw";
         string checker;
-        string major = "5";
-        string minor = "10";
-        string rev = "0";
-        string build = "2B39";
-        string updatemajor;
-        string updateminor;
-        string updaterev;
-        string updatebuild;
+        string[] installArr = "5.10.0.2B39".Split('.');
 
         Run run = new Run();
 
@@ -100,20 +93,16 @@ namespace iDecryptIt_Updater
                 Close();
             }
             string[] checkerArr = checker.Split('.');
-            updatemajor = checkerArr[0];
-            updateminor = checkerArr[1];
-            updaterev = checkerArr[2];
-            updatebuild = checkerArr[3];
             
             // Compare
-            if (build == updatebuild)
+            if (installArr[3] == checkerArr[3])
             {
                 Close();
             }
             this.Title = "Update Available";
             this.txtHeader.Text = "Update Available";
-            this.txtInstalled.Text = "Installed version: " + major + "." + minor + "." + rev + " (Build " + build + ")";
-            this.txtAvailable.Text = "Latest version: " + updatemajor + "." + updateminor + "." + updaterev + " (Build " + updatebuild + ")";
+            this.txtInstalled.Text = "Installed version: " + installArr[0] + "." + installArr[1] + "." + installArr[2] + " (Build " + installArr[3] + ")";
+            this.txtAvailable.Text = "Latest version: " + checkerArr[0] + "." + checkerArr[1] + "." + checkerArr[2] + " (Build " + checkerArr[3] + ")";
         }
         private void btnBottom_Click(object sender, RoutedEventArgs e)
         {

@@ -27,7 +27,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>1139</ApplicationRevision>
+    <ApplicationRevision>1165</ApplicationRevision>
     <ApplicationVersion>5.10.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -83,7 +83,12 @@
     <Compile Include="About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DoCMD.cs" />
+    <Compile Include="ColeStuff.DataManipulation.AssocArray.cs" />
+    <Compile Include="ColeStuff.Execution.cs" />
+    <Compile Include="FileName.cs" />
+    <Compile Include="KeysControl.xaml.cs">
+      <DependentUpon>KeysControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SplashScreen.xaml.cs">
       <DependentUpon>SplashScreen.xaml</DependentUpon>
     </Compile>
@@ -105,6 +110,10 @@
       <DependentUpon>SubmitKey.xaml</DependentUpon>
     </Compile>
     <Page Include="About.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="KeysControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -136,6 +145,15 @@
   <ItemGroup>
     <None Include="app.config" />
     <AppDesigner Include="Properties\" />
+    <Compile Include="ColeStuff.DataManipulation.INI.cs">
+      <Generator>SettingsSingleFileGenerator</Generator>
+    </Compile>
+    <None Include="l18n\eng.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="l18n\spa.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -243,6 +261,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="keys\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

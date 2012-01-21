@@ -2,19 +2,19 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="iDecryptIt"
-        Icon="app.ico" Height="600" Width="800"
+        Icon="app.ico"
+        Height="600" Width="800"
         MinHeight="600" MinWidth="800"
         Background="{StaticResource Background}"
         Loaded="Window_Loaded"
         Closing="Window_Closing">
     <Window.Resources>
         <SolidColorBrush x:Key="GreyBorder">#20000000</SolidColorBrush>
-        <SolidColorBrush x:Key="WhiteBG">White</SolidColorBrush>
         <GridLength x:Key="KeepItSquare">37</GridLength>
-        <GridLength x:Key="TabAreaItemHeight">23</GridLength>
         <GridLength x:Key="VersionWidth">110</GridLength>
+        <GridLength x:Key="VersionWidthATVBeta">135</GridLength>
         <GridLength x:Key="DMGWidth">120</GridLength>
-        <Thickness x:Key="VersionMargin">3</Thickness>
+        <Thickness x:Key="VersionMargin">3,6,0,6</Thickness>
     </Window.Resources>
     <Grid x:Name="LayoutRoot">
         <Grid.RowDefinitions>
@@ -26,7 +26,7 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Margin="3,3,3,0">
             <Grid Margin="6" Background="{StaticResource GreyBorder}">
-                <Grid Margin="3" Background="{StaticResource WhiteBG}">
+                <Grid Margin="3" Background="White">
                     <ProgressBar Visibility="Hidden" x:Name="progDecrypt" />
                     <Grid Margin="6" x:Name="gridDecrypt">
                         <Grid.ColumnDefinitions>
@@ -83,7 +83,7 @@
         </Grid>
         <Grid Grid.Row="1" Name="SevenZipArea" Margin="3,0">
             <Grid Margin="6" Background="{StaticResource GreyBorder}">
-                <Grid Margin="3" Background="{StaticResource WhiteBG}">
+                <Grid Margin="3" Background="White">
                     <Grid Margin="6">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -129,7 +129,7 @@
         </Grid>
         <Grid Grid.Row="2" Name="KeyArea" Margin="3,0">
             <Grid Margin="6" Background="{StaticResource GreyBorder}">
-                <Grid Margin="3" Background="{StaticResource WhiteBG}">
+                <Grid Margin="3" Background="White">
                     <Grid Margin="6">
                         <Grid.ColumnDefinitions>
                             <!-- Apple TV -->
@@ -226,7 +226,7 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="250" />
                 </Grid.ColumnDefinitions>
-                <Grid Margin="3,3,1,3" Background="{StaticResource WhiteBG}">
+                <Grid Margin="3,3,1,3" Background="White">
                     <Grid Margin="6">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -258,7 +258,7 @@
                         <Button x:Name="btnSelectWhatAmIFile" Content="Select File" Grid.Column="4" Height="23" Click="btnSelectWhatAmIFile_Click" />
                     </Grid>
                 </Grid>
-                <Grid Margin="2,3,3,3" Background="{StaticResource WhiteBG}" Grid.Column="1">
+                <Grid Margin="2,3,3,3" Background="White" Grid.Column="1">
                     <Grid Margin="6">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="{StaticResource KeepItSquare}" />
@@ -297,9 +297,9 @@
         </Grid>
         <Grid Grid.Row="4" Name="TabArea" Margin="3,0,3,3">
             <Grid Margin="6" Background="{StaticResource GreyBorder}">
-                <Grid Margin="3" Background="{StaticResource WhiteBG}">
+                <Grid Margin="3" Background="White">
                     <TabControl Margin="6" x:Name="tabMain">
-                        <TabItem Header="1.x Final" Name="v1Final">
+                        <TabItem Header="Final" Name="tabFinal">
                             <ScrollViewer>
                                 <Grid Margin="6">
                                     <Grid.ColumnDefinitions>
@@ -310,71 +310,244 @@
                                         <ColumnDefinition Width="{StaticResource DMGWidth}" />
                                     </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
                                     <TextBlock Grid.Row="0" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl1a420" Text="1.0 (1A420)" />
-                                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl1a543a" Text="1.0.0 (1A543a)" />
-                                    <TextBlock Grid.Row="4" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl1c25" Text="1.0.1 (1C25)" />
-                                    <TextBlock Grid.Row="6" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl1c28" Text="1.0.2 (1C28)" />
-                                    <TextBlock Grid.Row="8" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl3a100a" Text="1.1 (3A100a)" />
-                                    <TextBlock Grid.Row="10" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl3a101a" Text="1.1 (3A101a)" />
-                                    <TextBlock Grid.Row="12" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl3a109a" Text="1.1.1 (3A109a)" />
-                                    <TextBlock Grid.Row="14" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl3a110a" Text="1.1.1 (3A110a)" />
-                                    <TextBlock Grid.Row="16" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl3b48b" Text="1.1.2 (3B48b)" />
-                                    <TextBlock Grid.Row="18" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl4a93" Text="1.1.3 (4A93)" />
-                                    <TextBlock Grid.Row="20" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl4a102" Text="1.1.4 (4A102)" />
-                                    <TextBlock Grid.Row="22" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl4b1" Text="1.1.5 (4B1)" />
+                                    <TextBlock Grid.Row="1" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl1a543a" Text="1.0 (1A543a)" />
+                                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl1c25" Text="1.0.1 (1C25)" />
+                                    <TextBlock Grid.Row="3" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl1c28" Text="1.0.2 (1C28)" />
+                                    <TextBlock Grid.Row="4" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl3a100a" Text="1.1 (3A100a)" />
+                                    <TextBlock Grid.Row="5" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl3a101a" Text="1.1 (3A101a)" />
+                                    <TextBlock Grid.Row="6" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl3a109a" Text="1.1.1 (3A109a)" />
+                                    <TextBlock Grid.Row="7" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl3a110a" Text="1.1.1 (3A110a)" />
+                                    <TextBlock Grid.Row="8" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl3b48b" Text="1.1.2 (3B48b)" />
+                                    <TextBlock Grid.Row="9" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl4a93" Text="1.1.3 (4A93)" />
+                                    <TextBlock Grid.Row="10" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl4a102" Text="1.1.4 (4A102)" />
+                                    <TextBlock Grid.Row="11" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl4b1" Text="1.1.5 (4B1)" />
+                                    <TextBlock Grid.Row="12" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl5a345final" Text="2.0 (5A345)" />
+                                    <TextBlock Grid.Row="13" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl5a347" Text="2.0 (5A347)" />
+                                    <TextBlock Grid.Row="14" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl5b108" Text="2.0.1 (5B108)" />
+                                    <TextBlock Grid.Row="15" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl5c1" Text="2.0.2 (5C1)" />
+                                    <TextBlock Grid.Row="16" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl5f136" Text="2.1 (5F136)" />
+                                    <TextBlock Grid.Row="17" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl5f137" Text="2.1 (5F137)" />
+                                    <TextBlock Grid.Row="18" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl5f138" Text="2.1.1 (5F138)" />
+                                    <TextBlock Grid.Row="19" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl5g77" Text="2.2 (5G77)" />
+                                    <TextBlock Grid.Row="20" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl5g77a" Text="2.2 (5G77a)" />
+                                    <TextBlock Grid.Row="21" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl5h11" Text="2.2.1 (5H11)" />
+                                    <TextBlock Grid.Row="22" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl5h11a" Text="2.2.1 (5H11a)" />
+                                    <TextBlock Grid.Row="23" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl7a341" Text="3.0 (7A341)" />
+                                    <TextBlock Grid.Row="24" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl7a400" Text="3.0.1 (7A400)" />
+                                    <TextBlock Grid.Row="25" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl7c144" Text="3.1 (7C144)" />
+                                    <TextBlock Grid.Row="26" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl7c145" Text="3.1.1 (7C145)" />
+                                    <TextBlock Grid.Row="27" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl7c146" Text="3.1.1 (7C146)" />
+                                    <TextBlock Grid.Row="28" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl7d11" Text="3.1.2 (7D11)" />
+                                    <TextBlock Grid.Row="29" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl7e18" Text="3.1.3 (7E18)" />
+                                    <TextBlock Grid.Row="30" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl7b367" Text="3.2 (7B267)" />
+                                    <TextBlock Grid.Row="31" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl7b405" Text="3.2.1 (7B405)" />
+                                    <TextBlock Grid.Row="32" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl7b500" Text="3.2.2 (7B500)" />
+                                    <TextBlock Grid.Row="33" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8a293final" Text="4.0 (8A293)" />
+                                    <TextBlock Grid.Row="34" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8a306" Text="4.0.1 (8A306)" />
+                                    <TextBlock Grid.Row="35" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8a400" Text="4.0.2 (8A400)" />
+                                    <TextBlock Grid.Row="36" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8b117" Text="4.1 (8B117)" />
+                                    <TextBlock Grid.Row="37" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8b118" Text="4.1 (8B118)" />
+                                    <TextBlock Grid.Row="38" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8c148final" Text="4.2.1 (8C148)" />
+                                    <TextBlock Grid.Row="39" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8c148a" Text="4.2.1 (8C148a)" />
+                                    <TextBlock Grid.Row="40" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8e128" Text="4.2.5 (8E128)" />
+                                    <TextBlock Grid.Row="41" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8e200" Text="4.2.6 (8E200)" />
+                                    <TextBlock Grid.Row="42" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8e303" Text="4.2.7 (8E303)" />
+                                    <TextBlock Grid.Row="43" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8e401" Text="4.2.8 (8E401)" />
+                                    <TextBlock Grid.Row="44" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8e501" Text="4.2.9 (8E501)" />
+                                    <TextBlock Grid.Row="45" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8e600" Text="4.2.10 (8E600)" />
+                                    <TextBlock Grid.Row="46" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8f190final" Text="4.3 (8F190)" />
+                                    <TextBlock Grid.Row="47" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8f191" Text="4.3 (8F191)" />
+                                    <TextBlock Grid.Row="48" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8g4" Text="4.3.1 (8G4)" />
+                                    <TextBlock Grid.Row="49" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8h7" Text="4.3.2 (8H7)"/>
+                                    <TextBlock Grid.Row="50" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8h8" Text="4.3.2 (8H8)" />
+                                    <TextBlock Grid.Row="51" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8j2" Text="4.3.3 (8J2)" />
+                                    <TextBlock Grid.Row="52" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8j3" Text="4.3.3 (8J3)" />
+                                    <TextBlock Grid.Row="53" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8k2" Text="4.3.4 (8K2)" />
+                                    <TextBlock Grid.Row="54" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8l1" Text="4.3.5 (8L1)" />
+                                    <TextBlock Grid.Row="55" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a334final" Text="5.0 (9A334)" />
+                                    <TextBlock Grid.Row="56" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a405" Text="5.0.1 (9A405)" />
+                                    <TextBlock Grid.Row="57" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a406" Text="5.0.1 (9A406)" />
                                     <!-- Key -->
-                                    <Button Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="3" Name="btn1a420" Content="Prototype" Click="btn1a420_Click" />
-                                    <TextBox Grid.Row="2" Grid.Column="2" Name="key1a543a" />
-                                    <TextBox Grid.Row="4" Grid.Column="2" Name="key1c25" />
-                                    <TextBox Grid.Row="6" Grid.Column="2" Name="key1c28" />
-                                    <TextBox Grid.Row="8" Grid.Column="2" Name="key3a100a" />
-                                    <TextBox Grid.Row="10" Grid.Column="2" Name="key3a101a" />
-                                    <TextBox Grid.Row="12" Grid.Column="2" Name="key3a109a" />
-                                    <TextBox Grid.Row="14" Grid.Column="2" Name="key3a110a" />
-                                    <TextBox Grid.Row="16" Grid.Column="2" Name="key3b48b" />
-                                    <TextBox Grid.Row="18" Grid.Column="2" Name="key4a93" />
-                                    <TextBox Grid.Row="20" Grid.Column="2" Name="key4a102" />
-                                    <TextBox Grid.Row="22" Grid.Column="2" Name="key4b1" />
+                                    <Button Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="3" Name="btn1a420" Content="Prototype" Click="btn1a420_Click" Height="25" />
+                                    <TextBox Grid.Row="1" Grid.Column="2" Margin="0,3" Name="key1a543a" /><!-- Begin 1.x (1A543a) -->
+                                    <TextBox Grid.Row="2" Grid.Column="2" Margin="0,3" Name="key1c25" />
+                                    <TextBox Grid.Row="3" Grid.Column="2" Margin="0,3" Name="key1c28" />
+                                    <TextBox Grid.Row="4" Grid.Column="2" Margin="0,3" Name="key3a100a" />
+                                    <TextBox Grid.Row="5" Grid.Column="2" Margin="0,3" Name="key3a101a" />
+                                    <TextBox Grid.Row="6" Grid.Column="2" Margin="0,3" Name="key3a109a" />
+                                    <TextBox Grid.Row="7" Grid.Column="2" Margin="0,3" Name="key3a110a" />
+                                    <TextBox Grid.Row="8" Grid.Column="2" Margin="0,3" Name="key3b48b" />
+                                    <TextBox Grid.Row="9" Grid.Column="2" Margin="0,3" Name="key4a93" />
+                                    <TextBox Grid.Row="10" Grid.Column="2" Margin="0,3" Name="key4a102" />
+                                    <TextBox Grid.Row="11" Grid.Column="2" Margin="0,3" Name="key4b1" />
+                                    <TextBox Grid.Row="12" Grid.Column="2" Margin="0,3" Name="key5a345final" /><!-- Begin 2.x (5A345) -->
+                                    <TextBox Grid.Row="13" Grid.Column="2" Margin="0,3" Name="key5a347" />
+                                    <TextBox Grid.Row="14" Grid.Column="2" Margin="0,3" Name="key5b108" />
+                                    <TextBox Grid.Row="15" Grid.Column="2" Margin="0,3" Name="key5c1" />
+                                    <TextBox Grid.Row="16" Grid.Column="2" Margin="0,3" Name="key5f136" />
+                                    <TextBox Grid.Row="17" Grid.Column="2" Margin="0,3" Name="key5f137" />
+                                    <TextBox Grid.Row="18" Grid.Column="2" Margin="0,3" Name="key5f138" />
+                                    <TextBox Grid.Row="19" Grid.Column="2" Margin="0,3" Name="key5g77" />
+                                    <TextBox Grid.Row="20" Grid.Column="2" Margin="0,3" Name="key5g77a" />
+                                    <TextBox Grid.Row="21" Grid.Column="2" Margin="0,3" Name="key5h11" />
+                                    <TextBox Grid.Row="22" Grid.Column="2" Margin="0,3" Name="key5h11a" />
+                                    <TextBox Grid.Row="23" Grid.Column="2" Margin="0,3" Name="key7a341" /><!-- Begin 3.x (7A341) -->
+                                    <TextBox Grid.Row="24" Grid.Column="2" Margin="0,3" Name="key7a400" />
+                                    <TextBox Grid.Row="25" Grid.Column="2" Margin="0,3" Name="key7c144" />
+                                    <TextBox Grid.Row="26" Grid.Column="2" Margin="0,3" Name="key7c145" />
+                                    <TextBox Grid.Row="27" Grid.Column="2" Margin="0,3" Name="key7c146" />
+                                    <TextBox Grid.Row="28" Grid.Column="2" Margin="0,3" Name="key7d11" />
+                                    <TextBox Grid.Row="29" Grid.Column="2" Margin="0,3" Name="key7e18" />
+                                    <TextBox Grid.Row="30" Grid.Column="2" Margin="0,3" Name="key7b367" />
+                                    <TextBox Grid.Row="31" Grid.Column="2" Margin="0,3" Name="key7b405" />
+                                    <TextBox Grid.Row="32" Grid.Column="2" Margin="0,3" Name="key7b500" />
+                                    <TextBox Grid.Row="33" Grid.Column="2" Margin="0,3" Name="key8a293final" /><!-- Begin 4.x (8A293) -->
+                                    <TextBox Grid.Row="34" Grid.Column="2" Margin="0,3" Name="key8a306" />
+                                    <TextBox Grid.Row="35" Grid.Column="2" Margin="0,3" Name="key8a400" />
+                                    <TextBox Grid.Row="36" Grid.Column="2" Margin="0,3" Name="key8b117" />
+                                    <TextBox Grid.Row="37" Grid.Column="2" Margin="0,3" Name="key8b118" />
+                                    <TextBox Grid.Row="38" Grid.Column="2" Margin="0,3" Name="key8c148final" />
+                                    <TextBox Grid.Row="39" Grid.Column="2" Margin="0,3" Name="key8c148a" />
+                                    <TextBox Grid.Row="40" Grid.Column="2" Margin="0,3" Name="key8e128" />
+                                    <TextBox Grid.Row="41" Grid.Column="2" Margin="0,3" Name="key8e200" />
+                                    <TextBox Grid.Row="42" Grid.Column="2" Margin="0,3" Name="key8e303" />
+                                    <TextBox Grid.Row="43" Grid.Column="2" Margin="0,3" Name="key8e401" />
+                                    <TextBox Grid.Row="44" Grid.Column="2" Margin="0,3" Name="key8e501" />
+                                    <TextBox Grid.Row="45" Grid.Column="2" Margin="0,3" Name="key8e600" />
+                                    <TextBox Grid.Row="46" Grid.Column="2" Margin="0,3" Name="key8f190final" />
+                                    <TextBox Grid.Row="47" Grid.Column="2" Margin="0,3" Name="key8f191" />
+                                    <TextBox Grid.Row="48" Grid.Column="2" Margin="0,3" Name="key8g4" />
+                                    <TextBox Grid.Row="49" Grid.Column="2" Margin="0,3" Name="key8h7" />
+                                    <TextBox Grid.Row="50" Grid.Column="2" Margin="0,3" Name="key8h8" />
+                                    <TextBox Grid.Row="51" Grid.Column="2" Margin="0,3" Name="key8j2" />
+                                    <TextBox Grid.Row="52" Grid.Column="2" Margin="0,3" Name="key8j3" />
+                                    <TextBox Grid.Row="53" Grid.Column="2" Margin="0,3" Name="key8k2" />
+                                    <TextBox Grid.Row="54" Grid.Column="2" Margin="0,3" Name="key8l1" />
+                                    <TextBox Grid.Row="55" Grid.Column="2" Margin="0,3" Name="key9a334final"/><!-- Begin 5.x (9A334) -->
+                                    <TextBox Grid.Row="56" Grid.Column="2" Margin="0,3" Name="key9a405"/>
+                                    <TextBox Grid.Row="57" Grid.Column="2" Margin="0,3" Name="key9a406"/>
                                     <!-- DMG -->
-                                    <TextBox Grid.Row="2" Grid.Column="4" Name="dmg1a543a" />
-                                    <TextBox Grid.Row="4" Grid.Column="4" Name="dmg1c25" />
-                                    <TextBox Grid.Row="6" Grid.Column="4" Name="dmg1c28" />
-                                    <TextBox Grid.Row="8" Grid.Column="4" Name="dmg3a100a" />
-                                    <TextBox Grid.Row="10" Grid.Column="4" Name="dmg3a101a" />
-                                    <TextBox Grid.Row="12" Grid.Column="4" Name="dmg3a109a" />
-                                    <TextBox Grid.Row="14" Grid.Column="4" Name="dmg3a110a" />
-                                    <TextBox Grid.Row="16" Grid.Column="4" Name="dmg3b48b" />
-                                    <TextBox Grid.Row="18" Grid.Column="4" Name="dmg4a93" />
-                                    <TextBox Grid.Row="20" Grid.Column="4" Name="dmg4a102" />
-                                    <TextBox Grid.Row="22" Grid.Column="4" Name="dmg4b1" />
+                                    <TextBox Grid.Row="1" Grid.Column="4" Margin="0,3" Name="dmg1a543a" /><!-- Begin 1.x (1A543a) -->
+                                    <TextBox Grid.Row="2" Grid.Column="4" Margin="0,3" Name="dmg1c25" />
+                                    <TextBox Grid.Row="3" Grid.Column="4" Margin="0,3" Name="dmg1c28" />
+                                    <TextBox Grid.Row="4" Grid.Column="4" Margin="0,3" Name="dmg3a100a" />
+                                    <TextBox Grid.Row="5" Grid.Column="4" Margin="0,3" Name="dmg3a101a" />
+                                    <TextBox Grid.Row="6" Grid.Column="4" Margin="0,3" Name="dmg3a109a" />
+                                    <TextBox Grid.Row="7" Grid.Column="4" Margin="0,3" Name="dmg3a110a" />
+                                    <TextBox Grid.Row="8" Grid.Column="4" Margin="0,3" Name="dmg3b48b" />
+                                    <TextBox Grid.Row="9" Grid.Column="4" Margin="0,3" Name="dmg4a93" />
+                                    <TextBox Grid.Row="10" Grid.Column="4" Margin="0,3" Name="dmg4a102" />
+                                    <TextBox Grid.Row="11" Grid.Column="4" Margin="0,3" Name="dmg4b1" />
+                                    <TextBox Grid.Row="12" Grid.Column="4" Margin="0,3" Name="dmg5a345final" /><!-- Begin 2.x (5A345) -->
+                                    <TextBox Grid.Row="13" Grid.Column="4" Margin="0,3" Name="dmg5a347" />
+                                    <TextBox Grid.Row="14" Grid.Column="4" Margin="0,3" Name="dmg5b108" />
+                                    <TextBox Grid.Row="15" Grid.Column="4" Margin="0,3" Name="dmg5c1" />
+                                    <TextBox Grid.Row="16" Grid.Column="4" Margin="0,3" Name="dmg5f136" />
+                                    <TextBox Grid.Row="17" Grid.Column="4" Margin="0,3" Name="dmg5f137" />
+                                    <TextBox Grid.Row="18" Grid.Column="4" Margin="0,3" Name="dmg5f138" />
+                                    <TextBox Grid.Row="19" Grid.Column="4" Margin="0,3" Name="dmg5g77" />
+                                    <TextBox Grid.Row="20" Grid.Column="4" Margin="0,3" Name="dmg5g77a" />
+                                    <TextBox Grid.Row="21" Grid.Column="4" Margin="0,3" Name="dmg5h11" />
+                                    <TextBox Grid.Row="22" Grid.Column="4" Margin="0,3" Name="dmg5h11a" />
+                                    <TextBox Grid.Row="23" Grid.Column="4" Margin="0,3" Name="dmg7a341" /><!-- Begin 3.x (7A341) -->
+                                    <TextBox Grid.Row="24" Grid.Column="4" Margin="0,3" Name="dmg7a400" />
+                                    <TextBox Grid.Row="25" Grid.Column="4" Margin="0,3" Name="dmg7c144" />
+                                    <TextBox Grid.Row="26" Grid.Column="4" Margin="0,3" Name="dmg7c145" />
+                                    <TextBox Grid.Row="27" Grid.Column="4" Margin="0,3" Name="dmg7c146" />
+                                    <TextBox Grid.Row="28" Grid.Column="4" Margin="0,3" Name="dmg7d11" />
+                                    <TextBox Grid.Row="29" Grid.Column="4" Margin="0,3" Name="dmg7e18" />
+                                    <TextBox Grid.Row="30" Grid.Column="4" Margin="0,3" Name="dmg7b367" />
+                                    <TextBox Grid.Row="31" Grid.Column="4" Margin="0,3" Name="dmg7b405" />
+                                    <TextBox Grid.Row="32" Grid.Column="4" Margin="0,3" Name="dmg7b500" />
+                                    <TextBox Grid.Row="33" Grid.Column="4" Margin="0,3" Name="dmg8a293final" /><!-- Begin 4.x (8A293) -->
+                                    <TextBox Grid.Row="34" Grid.Column="4" Margin="0,3" Name="dmg8a306" />
+                                    <TextBox Grid.Row="35" Grid.Column="4" Margin="0,3" Name="dmg8a400" />
+                                    <TextBox Grid.Row="36" Grid.Column="4" Margin="0,3" Name="dmg8b117" />
+                                    <TextBox Grid.Row="37" Grid.Column="4" Margin="0,3" Name="dmg8b118" />
+                                    <TextBox Grid.Row="38" Grid.Column="4" Margin="0,3" Name="dmg8c148final" />
+                                    <TextBox Grid.Row="39" Grid.Column="4" Margin="0,3" Name="dmg8c148a" />
+                                    <TextBox Grid.Row="40" Grid.Column="4" Margin="0,3" Name="dmg8e128" />
+                                    <TextBox Grid.Row="41" Grid.Column="4" Margin="0,3" Name="dmg8e200" />
+                                    <TextBox Grid.Row="42" Grid.Column="4" Margin="0,3" Name="dmg8e303" />
+                                    <TextBox Grid.Row="43" Grid.Column="4" Margin="0,3" Name="dmg8e401" />
+                                    <TextBox Grid.Row="44" Grid.Column="4" Margin="0,3" Name="dmg8e501" />
+                                    <TextBox Grid.Row="45" Grid.Column="4" Margin="0,3" Name="dmg8e600" />
+                                    <TextBox Grid.Row="46" Grid.Column="4" Margin="0,3" Name="dmg8f190final" />
+                                    <TextBox Grid.Row="47" Grid.Column="4" Margin="0,3" Name="dmg8f191" />
+                                    <TextBox Grid.Row="48" Grid.Column="4" Margin="0,3" Name="dmg8g4" />
+                                    <TextBox Grid.Row="49" Grid.Column="4" Margin="0,3" Name="dmg8h7" />
+                                    <TextBox Grid.Row="50" Grid.Column="4" Margin="0,3" Name="dmg8h8" />
+                                    <TextBox Grid.Row="51" Grid.Column="4" Margin="0,3" Name="dmg8j2" />
+                                    <TextBox Grid.Row="52" Grid.Column="4" Margin="0,3" Name="dmg8j3" />
+                                    <TextBox Grid.Row="53" Grid.Column="4" Margin="0,3" Name="dmg8k2" />
+                                    <TextBox Grid.Row="54" Grid.Column="4" Margin="0,3" Name="dmg8l1" />
+                                    <TextBox Grid.Row="55" Grid.Column="4" Margin="0,3" Name="dmg9a334final"/><!-- Begin 5.x (9A334) -->
+                                    <TextBox Grid.Row="56" Grid.Column="4" Margin="0,3" Name="dmg9a405"/>
+                                    <TextBox Grid.Row="57" Grid.Column="4" Margin="0,3" Name="dmg9a406"/>
                                 </Grid>
                             </ScrollViewer>
                         </TabItem>
-                        <TabItem Header="1.x Beta" Name="v1Beta">
+                        <TabItem Header="Beta" Name="tabBeta">
                             <ScrollViewer>
                                 <Grid Margin="6">
                                     <Grid.ColumnDefinitions>
@@ -385,160 +558,209 @@
                                         <ColumnDefinition Width="{StaticResource DMGWidth}" />
                                     </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
                                     <TextBlock Grid.Row="0" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl5a147p" Text="1.2b1 (5A147p)" />
-                                    <!-- Key -->
-                                    <TextBox Grid.Row="0" Grid.Column="2" Name="key5a147p" />
-                                    <!-- DMG -->
-                                    <TextBox Grid.Row="0" Grid.Column="4" Name="dmg5a147p" />
-                                    <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="5" Margin="3" Name="note1xbeta" Text="NOTE: 1.2 was never released, and instead, released as 2.0" />
-                                </Grid>
-                            </ScrollViewer>
-                        </TabItem>
-                        <TabItem Header="2.x Final" Name="v2Final">
-                            <ScrollViewer>
-                                <Grid Margin="6">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="{StaticResource VersionWidth}" />
-                                        <ColumnDefinition Width="6" />
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="6" />
-                                        <ColumnDefinition Width="{StaticResource DMGWidth}" />
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                    </Grid.RowDefinitions>
-                                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl5a345final" Text="2.0 (5A345)" />
-                                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl5a347" Text="2.0 (5A347)" />
-                                    <TextBlock Grid.Row="4" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl5b108" Text="2.0.1 (5B108)" />
-                                    <TextBlock Grid.Row="6" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl5c1" Text="2.0.2 (5C1)" />
-                                    <TextBlock Grid.Row="8" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl5f136" Text="2.1 (5F136)" />
-                                    <TextBlock Grid.Row="10" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl5f137" Text="2.1 (5F137)" />
-                                    <TextBlock Grid.Row="12" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl5f138" Text="2.1.1 (5F138)" />
-                                    <TextBlock Grid.Row="14" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl5g77" Text="2.2 (5G77)" />
-                                    <TextBlock Grid.Row="16" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl5g77a" Text="2.2 (5G77a)" />
-                                    <TextBlock Grid.Row="18" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl5h11" Text="2.2.1 (5H11)" />
-                                    <TextBlock Grid.Row="20" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl5h11a" Text="2.2.1 (5H11a)" />
-                                    <!-- Key -->
-                                    <TextBox Grid.Row="0" Grid.Column="2" Name="key5a345final" />
-                                    <TextBox Grid.Row="2" Grid.Column="2" Name="key5a347" />
-                                    <TextBox Grid.Row="4" Grid.Column="2" Name="key5b108" />
-                                    <TextBox Grid.Row="6" Grid.Column="2" Name="key5c1" />
-                                    <TextBox Grid.Row="8" Grid.Column="2" Name="key5f136" />
-                                    <TextBox Grid.Row="10" Grid.Column="2" Name="key5f137" />
-                                    <TextBox Grid.Row="12" Grid.Column="2" Name="key5f138" />
-                                    <TextBox Grid.Row="14" Grid.Column="2" Name="key5g77" />
-                                    <TextBox Grid.Row="16" Grid.Column="2" Name="key5g77a" />
-                                    <TextBox Grid.Row="18" Grid.Column="2" Name="key5h11" />
-                                    <TextBox Grid.Row="20" Grid.Column="2" Name="key5h11a" />
-                                    <!-- DMG -->
-                                    <TextBox Grid.Row="0" Grid.Column="4" Name="dmg5a345final" />
-                                    <TextBox Grid.Row="2" Grid.Column="4" Name="dmg5a347" />
-                                    <TextBox Grid.Row="4" Grid.Column="4" Name="dmg5b108" />
-                                    <TextBox Grid.Row="6" Grid.Column="4" Name="dmg5c1" />
-                                    <TextBox Grid.Row="8" Grid.Column="4" Name="dmg5f136" />
-                                    <TextBox Grid.Row="10" Grid.Column="4" Name="dmg5f137" />
-                                    <TextBox Grid.Row="12" Grid.Column="4" Name="dmg5f138" />
-                                    <TextBox Grid.Row="14" Grid.Column="4" Name="dmg5g77" />
-                                    <TextBox Grid.Row="16" Grid.Column="4" Name="dmg5g77a" />
-                                    <TextBox Grid.Row="18" Grid.Column="4" Name="dmg5h11" />
-                                    <TextBox Grid.Row="20" Grid.Column="4" Name="dmg5h11a" />
-                                </Grid>
-                            </ScrollViewer>
-                        </TabItem>
-                        <TabItem Header="2.x Beta" Name="v2Beta">
-                            <ScrollViewer>
-                                <Grid Margin="6">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="{StaticResource VersionWidth}" />
-                                        <ColumnDefinition Width="6" />
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="6" />
-                                        <ColumnDefinition Width="{StaticResource DMGWidth}" />
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                    </Grid.RowDefinitions>
-                                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl5a225c" Text="2.0b2 (5A225c)" />
+                                    <TextBlock Grid.Row="1" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl5a225c" Text="2.0b2 (5A225c)" />
                                     <TextBlock Grid.Row="2" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl5a240d" Text="2.0b3 (5A240d)" />
-                                    <TextBlock Grid.Row="4" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl5a258f" Text="2.0b4 (5A258f)" />
-                                    <TextBlock Grid.Row="6" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl5a274d" Text="2.0b5 (5A274d)" />
-                                    <TextBlock Grid.Row="8" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl5a292g" Text="2.0b6P (5A292g)" />
-                                    <TextBlock Grid.Row="10" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl5a308" Text="2.0b6F (5A308)" />
-                                    <TextBlock Grid.Row="12" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl5a331" Text="2.0b7 (5A331)" />
-                                    <TextBlock Grid.Row="14" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl5a345beta" Text="2.0b8GM (5A345)" />
-                                    <TextBlock Grid.Row="16" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl5f90" Text="2.1b1 (5F90)" />
-                                    <TextBlock Grid.Row="18" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl5g27" Text="2.2b1 (5G27)" />
+                                    <TextBlock Grid.Row="3" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl5a258f" Text="2.0b4 (5A258f)" />
+                                    <TextBlock Grid.Row="4" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl5a274d" Text="2.0b5 (5A274d)" />
+                                    <TextBlock Grid.Row="5" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl5a292g" Text="2.0b6P (5A292g)" />
+                                    <TextBlock Grid.Row="6" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl5a308" Text="2.0b6F (5A308)" />
+                                    <TextBlock Grid.Row="7" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl5a331" Text="2.0b7 (5A331)" />
+                                    <TextBlock Grid.Row="8" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl5a345beta" Text="2.0b8GM (5A345)" />
+                                    <TextBlock Grid.Row="9" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl5f90" Text="2.1b1 (5F90)" />
+                                    <TextBlock Grid.Row="10" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl5g27" Text="2.2b1 (5G27)" />
+                                    <TextBlock Grid.Row="11" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl7a238j" Text="3.0b1 (7A238j)" />
+                                    <TextBlock Grid.Row="12" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl7a259g" Text="3.0b2 (7A259g)" />
+                                    <TextBlock Grid.Row="13" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl7a280f" Text="3.0b3 (7A280f)" />
+                                    <TextBlock Grid.Row="14" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl7a300g" Text="3.0b4 (7A300g)" />
+                                    <TextBlock Grid.Row="15" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl7a312g" Text="3.0b5 (7A312g)" />
+                                    <TextBlock Grid.Row="16" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl7c97d" Text="3.1b1 (7C97d)" />
+                                    <TextBlock Grid.Row="17" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl7c106c" Text="3.1b2 (7C106c)" />
+                                    <TextBlock Grid.Row="18" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl7c116a" Text="3.1b3 (7C116a)" />
+                                    <TextBlock Grid.Row="19" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8a230m" Text="4.0b1 (8A230m)" />
+                                    <TextBlock Grid.Row="20" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8a248c" Text="4.0b2 (8A248c)" />
+                                    <TextBlock Grid.Row="21" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8a260b" Text="4.0b3 (8A260b)" />
+                                    <TextBlock Grid.Row="22" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8a274b" Text="4.0b4 (8A274b)" />
+                                    <TextBlock Grid.Row="23" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8a293beta" Text="4.0GM (8A293)" />
+                                    <TextBlock Grid.Row="24" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8b5080" Text="4.1b1 (8B5080)" />
+                                    <TextBlock Grid.Row="25" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8b5080c" Text="4.1b1 (8B5080c)" />
+                                    <TextBlock Grid.Row="26" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8b5091b" Text="4.1b2 (8B5091b)" />
+                                    <TextBlock Grid.Row="27" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8c5091e" Text="4.2b1 (8C5091e)" />
+                                    <TextBlock Grid.Row="28" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8c5101c" Text="4.2b2 (8C5101c)" />
+                                    <TextBlock Grid.Row="29" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8c5115c" Text="4.2b3 (8C5115c)" />
+                                    <TextBlock Grid.Row="30" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8c134" Text="4.2GM (8C134)" />
+                                    <TextBlock Grid.Row="31" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8c134b" Text="4.2GM (8C134b)" />
+                                    <TextBlock Grid.Row="32" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8c148beta" Text="4.2.1GM (8C148)" />
+                                    <TextBlock Grid.Row="33" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8f5148b" Text="4.3b1 (8F5148b)" />
+                                    <TextBlock Grid.Row="34" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8f5153d" Text="4.3b2 (8F5153d)" />
+                                    <TextBlock Grid.Row="35" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8f5166b" Text="4.3b3 (8F5166b)" />
+                                    <TextBlock Grid.Row="36" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8f190beta" Text="4.3GM (8F190)" />
+                                    <TextBlock Grid.Row="37" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a5220p" Text="5.0b1 (9A5220p)" />
+                                    <TextBlock Grid.Row="38" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a5248d" Text="5.0b2 (9A5248d)" />
+                                    <TextBlock Grid.Row="39" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a5259f" Text="5.0b3 (9A5259f)" />
+                                    <TextBlock Grid.Row="40" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a5274d" Text="5.0b4 (9A5274d)" />
+                                    <TextBlock Grid.Row="41" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a5288d" Text="5.0b5 (9A5288d)" />
+                                    <TextBlock Grid.Row="42" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a5302b" Text="5.0b6 (9A5302b)" />
+                                    <TextBlock Grid.Row="43" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a5313e" Text="5.0b7 (9A5313e)" />
+                                    <TextBlock Grid.Row="44" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a334beta" Text="5.0GM (9A334)" />
+                                    <TextBlock Grid.Row="45" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a402" Text="5.0.1b1 (9A402)" />
+                                    <TextBlock Grid.Row="46" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a404" Text="5.0.1b2 (9A404)" />
+                                    <TextBlock Grid.Row="47" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9b5117b" Text="5.1b1 (9B5117b)" />
+                                    <TextBlock Grid.Row="48" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9b5127c" Text="5.1b2 (9B5127c)" />
                                     <!-- Key -->
-                                    <TextBox Grid.Row="0" Grid.Column="2" Name="key5a225c" />
-                                    <TextBox Grid.Row="2" Grid.Column="2" Name="key5a240d" />
-                                    <TextBox Grid.Row="4" Grid.Column="2" Name="key5a258f" />
-                                    <TextBox Grid.Row="6" Grid.Column="2" Name="key5a274d" />
-                                    <TextBox Grid.Row="8" Grid.Column="2" Name="key5a292g" />
-                                    <TextBox Grid.Row="10" Grid.Column="2" Name="key5a308" />
-                                    <TextBox Grid.Row="12" Grid.Column="2" Name="key5a331" />
-                                    <TextBox Grid.Row="14" Grid.Column="2" Name="key5a345beta" />
-                                    <TextBox Grid.Row="16" Grid.Column="2" Name="key5f90" />
-                                    <TextBox Grid.Row="18" Grid.Column="2" Name="key5g27" />
+                                    <TextBox Grid.Row="0" Grid.Column="2" Margin="0,3" Name="key5a147p" /><!-- Begin 1.x (5A147p) -->
+                                    <TextBox Grid.Row="1" Grid.Column="2" Margin="0,3" Name="key5a225c" /><!-- Begin 2.x (5A225c) -->
+                                    <TextBox Grid.Row="2" Grid.Column="2" Margin="0,3" Name="key5a240d" />
+                                    <TextBox Grid.Row="3" Grid.Column="2" Margin="0,3" Name="key5a258f" />
+                                    <TextBox Grid.Row="4" Grid.Column="2" Margin="0,3" Name="key5a274d" />
+                                    <TextBox Grid.Row="5" Grid.Column="2" Margin="0,3" Name="key5a292g" />
+                                    <TextBox Grid.Row="6" Grid.Column="2" Margin="0,3" Name="key5a308" />
+                                    <TextBox Grid.Row="7" Grid.Column="2" Margin="0,3" Name="key5a331" />
+                                    <TextBox Grid.Row="8" Grid.Column="2" Margin="0,3" Name="key5a345beta" />
+                                    <TextBox Grid.Row="9" Grid.Column="2" Margin="0,3" Name="key5f90" />
+                                    <TextBox Grid.Row="10" Grid.Column="2" Margin="0,3" Name="key5g27" />
+                                    <TextBox Grid.Row="11" Grid.Column="2" Margin="0,3" Name="key7a238j" /><!-- Begin 3.x (7A238j) -->
+                                    <TextBox Grid.Row="12" Grid.Column="2" Margin="0,3" Name="key7a259g" />
+                                    <TextBox Grid.Row="13" Grid.Column="2" Margin="0,3" Name="key7a280f" />
+                                    <TextBox Grid.Row="14" Grid.Column="2" Margin="0,3" Name="key7a300g" />
+                                    <TextBox Grid.Row="15" Grid.Column="2" Margin="0,3" Name="key7a312g" />
+                                    <TextBox Grid.Row="16" Grid.Column="2" Margin="0,3" Name="key7c97d" />
+                                    <TextBox Grid.Row="17" Grid.Column="2" Margin="0,3" Name="key7c106c" />
+                                    <TextBox Grid.Row="18" Grid.Column="2" Margin="0,3" Name="key7c116a" />
+                                    <TextBox Grid.Row="19" Grid.Column="2" Margin="0,3" Name="key8a230m" /><!-- Begin 4.x (8A230m) -->
+                                    <TextBox Grid.Row="20" Grid.Column="2" Margin="0,3" Name="key8a248c" />
+                                    <TextBox Grid.Row="21" Grid.Column="2" Margin="0,3" Name="key8a260b" />
+                                    <TextBox Grid.Row="22" Grid.Column="2" Margin="0,3" Name="key8a274b" />
+                                    <TextBox Grid.Row="23" Grid.Column="2" Margin="0,3" Name="key8a293beta" />
+                                    <TextBox Grid.Row="24" Grid.Column="2" Margin="0,3" Name="key8b5080" />
+                                    <TextBox Grid.Row="25" Grid.Column="2" Margin="0,3" Name="key8b5080c" />
+                                    <TextBox Grid.Row="26" Grid.Column="2" Margin="0,3" Name="key8b5091b" />
+                                    <TextBox Grid.Row="27" Grid.Column="2" Margin="0,3" Name="key8c5091e" />
+                                    <TextBox Grid.Row="28" Grid.Column="2" Margin="0,3" Name="key8c5101c" />
+                                    <TextBox Grid.Row="29" Grid.Column="2" Margin="0,3" Name="key8c5115c" />
+                                    <TextBox Grid.Row="30" Grid.Column="2" Margin="0,3" Name="key8c134" />
+                                    <TextBox Grid.Row="31" Grid.Column="2" Margin="0,3" Name="key8c134b" />
+                                    <TextBox Grid.Row="32" Grid.Column="2" Margin="0,3" Name="key8c148beta" />
+                                    <TextBox Grid.Row="33" Grid.Column="2" Margin="0,3" Name="key8f5148b" />
+                                    <TextBox Grid.Row="34" Grid.Column="2" Margin="0,3" Name="key8f5153d" />
+                                    <TextBox Grid.Row="35" Grid.Column="2" Margin="0,3" Name="key8f5166b" />
+                                    <TextBox Grid.Row="36" Grid.Column="2" Margin="0,3" Name="key8f190beta" />
+                                    <TextBox Grid.Row="37" Grid.Column="2" Margin="0,3" Name="key9a5220p"/><!-- Begin 5.x (9A5220p) -->
+                                    <TextBox Grid.Row="38" Grid.Column="2" Margin="0,3" Name="key9a5248d"/>
+                                    <TextBox Grid.Row="39" Grid.Column="2" Margin="0,3" Name="key9a5259f"/>
+                                    <TextBox Grid.Row="40" Grid.Column="2" Margin="0,3" Name="key9a5274d"/>
+                                    <TextBox Grid.Row="41" Grid.Column="2" Margin="0,3" Name="key9a5288d"/>
+                                    <TextBox Grid.Row="42" Grid.Column="2" Margin="0,3" Name="key9a5302b"/>
+                                    <TextBox Grid.Row="43" Grid.Column="2" Margin="0,3" Name="key9a5313e"/>
+                                    <TextBox Grid.Row="44" Grid.Column="2" Margin="0,3" Name="key9a334beta"/>
+                                    <TextBox Grid.Row="45" Grid.Column="2" Margin="0,3" Name="key9a402"/>
+                                    <TextBox Grid.Row="46" Grid.Column="2" Margin="0,3" Name="key9a404"/>
+                                    <TextBox Grid.Row="47" Grid.Column="2" Margin="0,3" Name="key9b5117b"/>
+                                    <TextBox Grid.Row="48" Grid.Column="2" Margin="0,3" Name="key9b5127c"/>
                                     <!-- DMG -->
-                                    <TextBox Grid.Row="0" Grid.Column="4" Name="dmg5a225c" />
-                                    <TextBox Grid.Row="2" Grid.Column="4" Name="dmg5a240d" />
-                                    <TextBox Grid.Row="4" Grid.Column="4" Name="dmg5a258f" />
-                                    <TextBox Grid.Row="6" Grid.Column="4" Name="dmg5a274d" />
-                                    <TextBox Grid.Row="8" Grid.Column="4" Name="dmg5a292g" />
-                                    <TextBox Grid.Row="10" Grid.Column="4" Name="dmg5a308" />
-                                    <TextBox Grid.Row="12" Grid.Column="4" Name="dmg5a331" />
-                                    <TextBox Grid.Row="14" Grid.Column="4" Name="dmg5a345beta" />
-                                    <TextBox Grid.Row="16" Grid.Column="4" Name="dmg5f90" />
-                                    <TextBox Grid.Row="18" Grid.Column="4" Name="dmg5g27" />
-                                    <TextBlock Grid.Row="20" Grid.Column="0" Grid.ColumnSpan="5" Margin="3" Name="note2xbeta" Text="NOTE: 2.0b1 is actually 1.2b1" />
+                                    <TextBox Grid.Row="0" Grid.Column="4" Margin="0,3" Name="dmg5a147p" /><!-- Begin 1.x (5A147p) -->
+                                    <TextBox Grid.Row="1" Grid.Column="4" Margin="0,3" Name="dmg5a225c" /><!-- Begin 2.x (5A225c) -->
+                                    <TextBox Grid.Row="2" Grid.Column="4" Margin="0,3" Name="dmg5a240d" />
+                                    <TextBox Grid.Row="3" Grid.Column="4" Margin="0,3" Name="dmg5a258f" />
+                                    <TextBox Grid.Row="4" Grid.Column="4" Margin="0,3" Name="dmg5a274d" />
+                                    <TextBox Grid.Row="5" Grid.Column="4" Margin="0,3" Name="dmg5a292g" />
+                                    <TextBox Grid.Row="6" Grid.Column="4" Margin="0,3" Name="dmg5a308" />
+                                    <TextBox Grid.Row="7" Grid.Column="4" Margin="0,3" Name="dmg5a331" />
+                                    <TextBox Grid.Row="8" Grid.Column="4" Margin="0,3" Name="dmg5a345beta" />
+                                    <TextBox Grid.Row="9" Grid.Column="4" Margin="0,3" Name="dmg5f90" />
+                                    <TextBox Grid.Row="10" Grid.Column="4" Margin="0,3" Name="dmg5g27" />
+                                    <TextBox Grid.Row="11" Grid.Column="4" Margin="0,3" Name="dmg7a238j" /><!-- Being 3.x (7A348j) -->
+                                    <TextBox Grid.Row="12" Grid.Column="4" Margin="0,3" Name="dmg7a259g" />
+                                    <TextBox Grid.Row="13" Grid.Column="4" Margin="0,3" Name="dmg7a280f" />
+                                    <TextBox Grid.Row="14" Grid.Column="4" Margin="0,3" Name="dmg7a300g" />
+                                    <TextBox Grid.Row="15" Grid.Column="4" Margin="0,3" Name="dmg7a312g" />
+                                    <TextBox Grid.Row="16" Grid.Column="4" Margin="0,3" Name="dmg7c97d" />
+                                    <TextBox Grid.Row="17" Grid.Column="4" Margin="0,3" Name="dmg7c106c" />
+                                    <TextBox Grid.Row="18" Grid.Column="4" Margin="0,3" Name="dmg7c116a" />
+                                    <TextBox Grid.Row="19" Grid.Column="4" Margin="0,3" Name="dmg8a230m" />
+                                    <TextBox Grid.Row="20" Grid.Column="4" Margin="0,3" Name="dmg8a248c" />
+                                    <TextBox Grid.Row="21" Grid.Column="4" Margin="0,3" Name="dmg8a260b" />
+                                    <TextBox Grid.Row="22" Grid.Column="4" Margin="0,3" Name="dmg8a274b" />
+                                    <TextBox Grid.Row="23" Grid.Column="4" Margin="0,3" Name="dmg8a293beta" /><!-- Begin 4.x (8A230m) -->
+                                    <TextBox Grid.Row="24" Grid.Column="4" Margin="0,3" Name="dmg8b5080" />
+                                    <TextBox Grid.Row="25" Grid.Column="4" Margin="0,3" Name="dmg8b5080c" />
+                                    <TextBox Grid.Row="26" Grid.Column="4" Margin="0,3" Name="dmg8b5091b" />
+                                    <TextBox Grid.Row="27" Grid.Column="4" Margin="0,3" Name="dmg8c5091e" />
+                                    <TextBox Grid.Row="28" Grid.Column="4" Margin="0,3" Name="dmg8c5101c" />
+                                    <TextBox Grid.Row="29" Grid.Column="4" Margin="0,3" Name="dmg8c5115c" />
+                                    <TextBox Grid.Row="30" Grid.Column="4" Margin="0,3" Name="dmg8c134" />
+                                    <TextBox Grid.Row="31" Grid.Column="4" Margin="0,3" Name="dmg8c134b" />
+                                    <TextBox Grid.Row="32" Grid.Column="4" Margin="0,3" Name="dmg8c148beta" />
+                                    <TextBox Grid.Row="33" Grid.Column="4" Margin="0,3" Name="dmg8f5148b" />
+                                    <TextBox Grid.Row="34" Grid.Column="4" Margin="0,3" Name="dmg8f5153d" />
+                                    <TextBox Grid.Row="35" Grid.Column="4" Margin="0,3" Name="dmg8f5166b" />
+                                    <TextBox Grid.Row="36" Grid.Column="4" Margin="0,3" Name="dmg8f190beta" />
+                                    <TextBox Grid.Row="37" Grid.Column="4" Margin="0,3" Name="dmg9a5220p"/><!-- Begin 5.x (9A5220p) -->
+                                    <TextBox Grid.Row="38" Grid.Column="4" Margin="0,3" Name="dmg9a5248d"/>
+                                    <TextBox Grid.Row="39" Grid.Column="4" Margin="0,3" Name="dmg9a5259f"/>
+                                    <TextBox Grid.Row="40" Grid.Column="4" Margin="0,3" Name="dmg9a5274d"/>
+                                    <TextBox Grid.Row="41" Grid.Column="4" Margin="0,3" Name="dmg9a5288d"/>
+                                    <TextBox Grid.Row="42" Grid.Column="4" Margin="0,3" Name="dmg9a5302b"/>
+                                    <TextBox Grid.Row="43" Grid.Column="4" Margin="0,3" Name="dmg9a5313e"/>
+                                    <TextBox Grid.Row="44" Grid.Column="4" Margin="0,3" Name="dmg9a334beta"/>
+                                    <TextBox Grid.Row="45" Grid.Column="4" Margin="0,3" Name="dmg9a402"/>
+                                    <TextBox Grid.Row="46" Grid.Column="4" Margin="0,3" Name="dmg9a404"/>
+                                    <TextBox Grid.Row="47" Grid.Column="4" Margin="0,3" Name="dmg9b5117b"/>
+                                    <TextBox Grid.Row="48" Grid.Column="4" Margin="0,3" Name="dmg9b5127c"/>
                                 </Grid>
                             </ScrollViewer>
                         </TabItem>
-                        <TabItem Header="3.x Final" Name="v3Final">
+                        <TabItem Header="Final" Name="tabFinalATV">
                             <ScrollViewer>
                                 <Grid Margin="6">
                                     <Grid.ColumnDefinitions>
@@ -549,624 +771,110 @@
                                         <ColumnDefinition Width="{StaticResource DMGWidth}" />
                                     </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                    </Grid.RowDefinitions>
-                                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl7a341" Text="3.0 (7A341)" />
-                                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl7a400" Text="3.0.1 (7A400)" />
-                                    <TextBlock Grid.Row="4" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl7c144" Text="3.1 (7C144)" />
-                                    <TextBlock Grid.Row="6" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl7c145" Text="3.1.1 (7C145)" />
-                                    <TextBlock Grid.Row="8" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl7c146" Text="3.1.1 (7C146)" />
-                                    <TextBlock Grid.Row="10" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl7d11" Text="3.1.2 (7D11)" />
-                                    <TextBlock Grid.Row="12" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl7e18" Text="3.1.3 (7E18)" />
-                                    <TextBlock Grid.Row="14" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl7b367" Text="3.2 (7B267)" />
-                                    <TextBlock Grid.Row="16" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl7b405" Text="3.2.1 (7B405)" />
-                                    <TextBlock Grid.Row="18" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl7b500" Text="3.2.2 (7B500)" />
-                                    <!-- Key -->
-                                    <TextBox Grid.Row="0" Grid.Column="2" Name="key7a341" />
-                                    <TextBox Grid.Row="2" Grid.Column="2" Name="key7a400" />
-                                    <TextBox Grid.Row="4" Grid.Column="2" Name="key7c144" />
-                                    <TextBox Grid.Row="6" Grid.Column="2" Name="key7c145" />
-                                    <TextBox Grid.Row="8" Grid.Column="2" Name="key7c146" />
-                                    <TextBox Grid.Row="10" Grid.Column="2" Name="key7d11" />
-                                    <TextBox Grid.Row="12" Grid.Column="2" Name="key7e18" />
-                                    <TextBox Grid.Row="14" Grid.Column="2" Name="key7b367" />
-                                    <TextBox Grid.Row="16" Grid.Column="2" Name="key7b405" />
-                                    <TextBox Grid.Row="18" Grid.Column="2" Name="key7b500" />
-                                    <!-- DMG -->
-                                    <TextBox Grid.Row="0" Grid.Column="4" Name="dmg7a341" />
-                                    <TextBox Grid.Row="2" Grid.Column="4" Name="dmg7a400" />
-                                    <TextBox Grid.Row="4" Grid.Column="4" Name="dmg7c144" />
-                                    <TextBox Grid.Row="6" Grid.Column="4" Name="dmg7c145" />
-                                    <TextBox Grid.Row="8" Grid.Column="4" Name="dmg7c146" />
-                                    <TextBox Grid.Row="10" Grid.Column="4" Name="dmg7d11" />
-                                    <TextBox Grid.Row="12" Grid.Column="4" Name="dmg7e18" />
-                                    <TextBox Grid.Row="14" Grid.Column="4" Name="dmg7b367" />
-                                    <TextBox Grid.Row="16" Grid.Column="4" Name="dmg7b405" />
-                                    <TextBox Grid.Row="18" Grid.Column="4" Name="dmg7b500" />
-                                </Grid>
-                            </ScrollViewer>
-                        </TabItem>
-                        <TabItem Header="3.x Beta" Name="v3Beta">
-                            <ScrollViewer>
-                                <Grid Margin="6">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="{StaticResource VersionWidth}" />
-                                        <ColumnDefinition Width="6" />
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="6" />
-                                        <ColumnDefinition Width="{StaticResource DMGWidth}" />
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                    </Grid.RowDefinitions>
-                                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl7a238j" Text="3.0b1 (7A238j)" />
-                                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl7a259g" Text="3.0b2 (7A259g)" />
-                                    <TextBlock Grid.Row="4" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl7a280f" Text="3.0b3 (7A280f)" />
-                                    <TextBlock Grid.Row="6" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl7a300g" Text="3.0b4 (7A300g)" />
-                                    <TextBlock Grid.Row="8" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl7a312g" Text="3.0b5 (7A312g)" />
-                                    <TextBlock Grid.Row="10" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl7c97d" Text="3.1b1 (7C97d)" />
-                                    <TextBlock Grid.Row="12" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl7c106c" Text="3.1b2 (7C106c)" />
-                                    <TextBlock Grid.Row="14" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl7c116a" Text="3.1b3 (7C116a)" />
-                                    <!-- Key -->
-                                    <TextBox Grid.Row="0" Grid.Column="2" Name="key7a238j" />
-                                    <TextBox Grid.Row="2" Grid.Column="2" Name="key7a259g" />
-                                    <TextBox Grid.Row="4" Grid.Column="2" Name="key7a280f" />
-                                    <TextBox Grid.Row="6" Grid.Column="2" Name="key7a300g" />
-                                    <TextBox Grid.Row="8" Grid.Column="2" Name="key7a312g" />
-                                    <TextBox Grid.Row="10" Grid.Column="2" Name="key7c97d" />
-                                    <TextBox Grid.Row="12" Grid.Column="2" Name="key7c106c" />
-                                    <TextBox Grid.Row="14" Grid.Column="2" Name="key7c116a" />
-                                    <!-- DMG -->
-                                    <TextBox Grid.Row="0" Grid.Column="4" Name="dmg7a238j" />
-                                    <TextBox Grid.Row="2" Grid.Column="4" Name="dmg7a259g" />
-                                    <TextBox Grid.Row="4" Grid.Column="4" Name="dmg7a280f" />
-                                    <TextBox Grid.Row="6" Grid.Column="4" Name="dmg7a300g" />
-                                    <TextBox Grid.Row="8" Grid.Column="4" Name="dmg7a312g" />
-                                    <TextBox Grid.Row="10" Grid.Column="4" Name="dmg7c97d" />
-                                    <TextBox Grid.Row="12" Grid.Column="4" Name="dmg7c106c" />
-                                    <TextBox Grid.Row="14" Grid.Column="4" Name="dmg7c116a" />
-                                </Grid>
-                            </ScrollViewer>
-                        </TabItem>
-                        <TabItem Header="4.x Final" Name="v4Final">
-                            <ScrollViewer>
-                                <Grid Margin="6">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="{StaticResource VersionWidth}" />
-                                        <ColumnDefinition Width="6" />
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="6" />
-                                        <ColumnDefinition Width="{StaticResource DMGWidth}" />
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                    </Grid.RowDefinitions>
-                                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8a293final" Text="4.0 (8A293)" />
-                                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8a306" Text="4.0.1 (8A306)" />
-                                    <TextBlock Grid.Row="4" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8a400" Text="4.0.2 (8A400)" />
-                                    <TextBlock Grid.Row="6" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8b117" Text="4.1 (8B117)" />
-                                    <TextBlock Grid.Row="8" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8b118" Text="4.1 (8B118)" />
-                                    <TextBlock Grid.Row="10" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8c148final" Text="4.2.1 (8C148)" />
-                                    <TextBlock Grid.Row="12" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8c148a" Text="4.2.1 (8C148a)" />
-                                    <TextBlock Grid.Row="14" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8e128" Text="4.2.5 (8E128)" />
-                                    <TextBlock Grid.Row="16" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8e200" Text="4.2.6 (8E200)" />
-                                    <TextBlock Grid.Row="18" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8e303" Text="4.2.7 (8E303)" />
-                                    <TextBlock Grid.Row="20" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8e401" Text="4.2.8 (8E401)" />
-                                    <TextBlock Grid.Row="22" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8e501" Text="4.2.9 (8E501)" />
-                                    <TextBlock Grid.Row="24" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8e600" Text="4.2.10 (8E600)" />
-                                    <TextBlock Grid.Row="26" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8f190final" Text="4.3 (8F190)" />
-                                    <TextBlock Grid.Row="28" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8f191" Text="4.3 (8F191)" />
-                                    <TextBlock Grid.Row="30" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8g4" Text="4.3.1 (8G4)" />
-                                    <TextBlock Grid.Row="32" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8h7" Text="4.3.2 (8H7)"/>
-                                    <TextBlock Grid.Row="34" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8h8" Text="4.3.2 (8H8)" />
-                                    <TextBlock Grid.Row="36" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8j2" Text="4.3.3 (8J2)" />
-                                    <TextBlock Grid.Row="38" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8j3" Text="4.3.3 (8J3)" />
-                                    <TextBlock Grid.Row="40" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8k2" Text="4.3.4 (8K2)" />
-                                    <TextBlock Grid.Row="42" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8l1" Text="4.3.5 (8L1)" />
-                                    <!-- Key -->
-                                    <TextBox Grid.Row="0" Grid.Column="2" Name="key8a293final" />
-                                    <TextBox Grid.Row="2" Grid.Column="2" Name="key8a306" />
-                                    <TextBox Grid.Row="4" Grid.Column="2" Name="key8a400" />
-                                    <TextBox Grid.Row="6" Grid.Column="2" Name="key8b117" />
-                                    <TextBox Grid.Row="8" Grid.Column="2" Name="key8b118" />
-                                    <TextBox Grid.Row="10" Grid.Column="2" Name="key8c148final" />
-                                    <TextBox Grid.Row="12" Grid.Column="2" Name="key8c148a" />
-                                    <TextBox Grid.Row="14" Grid.Column="2" Name="key8e128" />
-                                    <TextBox Grid.Row="16" Grid.Column="2" Name="key8e200" />
-                                    <TextBox Grid.Row="18" Grid.Column="2" Name="key8e303" />
-                                    <TextBox Grid.Row="20" Grid.Column="2" Name="key8e401" />
-                                    <TextBox Grid.Row="22" Grid.Column="2" Name="key8e501" />
-                                    <TextBox Grid.Row="24" Grid.Column="2" Name="key8e600" />
-                                    <TextBox Grid.Row="26" Grid.Column="2" Name="key8f190final" />
-                                    <TextBox Grid.Row="28" Grid.Column="2" Name="key8f191" />
-                                    <TextBox Grid.Row="30" Grid.Column="2" Name="key8g4" />
-                                    <TextBox Grid.Row="32" Grid.Column="2" Name="key8h7" />
-                                    <TextBox Grid.Row="34" Grid.Column="2" Name="key8h8" />
-                                    <TextBox Grid.Row="36" Grid.Column="2" Name="key8j2" />
-                                    <TextBox Grid.Row="38" Grid.Column="2" Name="key8j3" />
-                                    <TextBox Grid.Row="40" Grid.Column="2" Name="key8k2" />
-                                    <TextBox Grid.Row="42" Grid.Column="2" Name="key8l1" />
-                                    <!-- DMG -->
-                                    <TextBox Grid.Row="0" Grid.Column="4" Name="dmg8a293final" />
-                                    <TextBox Grid.Row="2" Grid.Column="4" Name="dmg8a306" />
-                                    <TextBox Grid.Row="4" Grid.Column="4" Name="dmg8a400" />
-                                    <TextBox Grid.Row="6" Grid.Column="4" Name="dmg8b117" />
-                                    <TextBox Grid.Row="8" Grid.Column="4" Name="dmg8b118" />
-                                    <TextBox Grid.Row="10" Grid.Column="4" Name="dmg8c148final" />
-                                    <TextBox Grid.Row="12" Grid.Column="4" Name="dmg8c148a" />
-                                    <TextBox Grid.Row="14" Grid.Column="4" Name="dmg8e128" />
-                                    <TextBox Grid.Row="16" Grid.Column="4" Name="dmg8e200" />
-                                    <TextBox Grid.Row="18" Grid.Column="4" Name="dmg8e303" />
-                                    <TextBox Grid.Row="20" Grid.Column="4" Name="dmg8e401" />
-                                    <TextBox Grid.Row="22" Grid.Column="4" Name="dmg8e501" />
-                                    <TextBox Grid.Row="24" Grid.Column="4" Name="dmg8e600" />
-                                    <TextBox Grid.Row="26" Grid.Column="4" Name="dmg8f190final" />
-                                    <TextBox Grid.Row="28" Grid.Column="4" Name="dmg8f191" />
-                                    <TextBox Grid.Row="30" Grid.Column="4" Name="dmg8g4" />
-                                    <TextBox Grid.Row="32" Grid.Column="4" Name="dmg8h7" />
-                                    <TextBox Grid.Row="34" Grid.Column="4" Name="dmg8h8" />
-                                    <TextBox Grid.Row="36" Grid.Column="4" Name="dmg8j2" />
-                                    <TextBox Grid.Row="38" Grid.Column="4" Name="dmg8j3" />
-                                    <TextBox Grid.Row="40" Grid.Column="4" Name="dmg8k2" />
-                                    <TextBox Grid.Row="42" Grid.Column="4" Name="dmg8l1" />
-                                </Grid>
-                            </ScrollViewer>
-                        </TabItem>
-                        <TabItem Header="4.x Final ATV" Name="v4FinalATV">
-                            <ScrollViewer>
-                                <Grid Margin="6">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="{StaticResource VersionWidth}" />
-                                        <ColumnDefinition Width="6" />
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="6" />
-                                        <ColumnDefinition Width="{StaticResource DMGWidth}" />
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
                                     <TextBlock Grid.Row="0" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8m89" Text="4.0/4.1 (8M89)" />
-                                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8c150" Text="4.1/4.2 (8C150)" />
-                                    <TextBlock Grid.Row="4" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8c154" Text="4.1.1/4.2.1 (8C154)" />
-                                    <TextBlock Grid.Row="6" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8f191m" Text="4.2/4.3 (8F191m)" />
-                                    <TextBlock Grid.Row="8" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8f202" Text="4.2.1/4.3 (8F202)" />
-                                    <TextBlock Grid.Row="10" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8f305" Text="4.2.2/4.3 (8F305)" />
-                                    <TextBlock Grid.Row="12" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8f455" Text="4.3/4.3 (8F455)" />
-                                    <TextBlock Grid.Row="14" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a334v" Text="4.4/5.0 (9A334v)" />
-                                    <TextBlock Grid.Row="16" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a335a" Text="4.4.1/5.0 (9A335a)" />
-                                    <TextBlock Grid.Row="18" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a336a" Text="4.4.2/5.0 (9A336a)" />
-                                    <TextBlock Grid.Row="20" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a405l" Text="4.4.3/5.0.1 (9A405l)" />
+                                    <TextBlock Grid.Row="1" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8c150" Text="4.1/4.2 (8C150)" />
+                                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8c154" Text="4.1.1/4.2.1 (8C154)" />
+                                    <TextBlock Grid.Row="3" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8f191m" Text="4.2/4.3 (8F191m)" />
+                                    <TextBlock Grid.Row="4" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8f202" Text="4.2.1/4.3 (8F202)" />
+                                    <TextBlock Grid.Row="5" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8f305" Text="4.2.2/4.3 (8F305)" />
+                                    <TextBlock Grid.Row="6" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8f455" Text="4.3/4.3 (8F455)" />
+                                    <TextBlock Grid.Row="7" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a334v" Text="4.4/5.0 (9A334v)" />
+                                    <TextBlock Grid.Row="8" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a335a" Text="4.4.1/5.0 (9A335a)" />
+                                    <TextBlock Grid.Row="9" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a336a" Text="4.4.2/5.0 (9A336a)" />
+                                    <TextBlock Grid.Row="10" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a405l" Text="4.4.3/5.0.1 (9A405l)" />
                                     <!-- Key -->
-                                    <TextBox Grid.Row="0" Grid.Column="2" Name="key8m89" />
-                                    <TextBox Grid.Row="2" Grid.Column="2" Name="key8c150" />
-                                    <TextBox Grid.Row="4" Grid.Column="2" Name="key8c154" />
-                                    <TextBox Grid.Row="6" Grid.Column="2" Name="key8f191m" />
-                                    <TextBox Grid.Row="8" Grid.Column="2" Name="key8f202" />
-                                    <TextBox Grid.Row="10" Grid.Column="2" Name="key8f305" />
-                                    <TextBox Grid.Row="12" Grid.Column="2" Name="key8f455" />
-                                    <TextBox Grid.Row="14" Grid.Column="2" Name="key9a334v" />
-                                    <TextBox Grid.Row="16" Grid.Column="2" Name="key9a335a" />
-                                    <TextBox Grid.Row="18" Grid.Column="2" Name="key9a336a" />
-                                    <TextBox Grid.Row="20" Grid.Column="2" Name="key9a405l" />
+                                    <TextBox Grid.Row="0" Grid.Column="2" Margin="0,3" Name="key8m89" /><!-- Begin 4.x (8M89) -->
+                                    <TextBox Grid.Row="1" Grid.Column="2" Margin="0,3" Name="key8c150" />
+                                    <TextBox Grid.Row="2" Grid.Column="2" Margin="0,3" Name="key8c154" />
+                                    <TextBox Grid.Row="3" Grid.Column="2" Margin="0,3" Name="key8f191m" />
+                                    <TextBox Grid.Row="4" Grid.Column="2" Margin="0,3" Name="key8f202" />
+                                    <TextBox Grid.Row="5" Grid.Column="2" Margin="0,3" Name="key8f305" />
+                                    <TextBox Grid.Row="6" Grid.Column="2" Margin="0,3" Name="key8f455" />
+                                    <TextBox Grid.Row="7" Grid.Column="2" Margin="0,3" Name="key9a334v" />
+                                    <TextBox Grid.Row="8" Grid.Column="2" Margin="0,3" Name="key9a335a" />
+                                    <TextBox Grid.Row="9" Grid.Column="2" Margin="0,3" Name="key9a336a" />
+                                    <TextBox Grid.Row="10" Grid.Column="2" Margin="0,3" Name="key9a405l" />
                                     <!-- DMG -->
-                                    <TextBox Grid.Row="0" Grid.Column="4" Name="dmg8m89" />
-                                    <TextBox Grid.Row="2" Grid.Column="4" Name="dmg8c150" />
-                                    <TextBox Grid.Row="4" Grid.Column="4" Name="dmg8c154" />
-                                    <TextBox Grid.Row="6" Grid.Column="4" Name="dmg8f191m" />
-                                    <TextBox Grid.Row="8" Grid.Column="4" Name="dmg8f202" />
-                                    <TextBox Grid.Row="10" Grid.Column="4" Name="dmg8f305" />
-                                    <TextBox Grid.Row="12" Grid.Column="4" Name="dmg8f455" />
-                                    <TextBox Grid.Row="14" Grid.Column="4" Name="dmg9a334v" />
-                                    <TextBox Grid.Row="16" Grid.Column="4" Name="dmg9a335a" />
-                                    <TextBox Grid.Row="18" Grid.Column="4" Name="dmg9a336a" />
-                                    <TextBox Grid.Row="20" Grid.Column="4" Name="dmg9a405l" />
-                                    <TextBlock Grid.Row="22" Grid.Column="0" Grid.ColumnSpan="5" Name="note4xfinalatv" Text="On this page, the version number on the left is what the Apple TV reports, while the one on the right is the Apple version" />
+                                    <TextBox Grid.Row="0" Grid.Column="4" Margin="0,3" Name="dmg8m89" /><!-- Begin 4.x (8M89) -->
+                                    <TextBox Grid.Row="1" Grid.Column="4" Margin="0,3" Name="dmg8c150" />
+                                    <TextBox Grid.Row="2" Grid.Column="4" Margin="0,3" Name="dmg8c154" />
+                                    <TextBox Grid.Row="3" Grid.Column="4" Margin="0,3" Name="dmg8f191m" />
+                                    <TextBox Grid.Row="4" Grid.Column="4" Margin="0,3" Name="dmg8f202" />
+                                    <TextBox Grid.Row="5" Grid.Column="4" Margin="0,3" Name="dmg8f305" />
+                                    <TextBox Grid.Row="6" Grid.Column="4" Margin="0,3" Name="dmg8f455" />
+                                    <TextBox Grid.Row="7" Grid.Column="4" Margin="0,3" Name="dmg9a334v" />
+                                    <TextBox Grid.Row="8" Grid.Column="4" Margin="0,3" Name="dmg9a335a" />
+                                    <TextBox Grid.Row="9" Grid.Column="4" Margin="0,3" Name="dmg9a336a" />
+                                    <TextBox Grid.Row="10" Grid.Column="4" Margin="0,3" Name="dmg9a405l" />
                                 </Grid>
                             </ScrollViewer>
                         </TabItem>
-                        <TabItem Header="4.x Beta" Name="v4Beta">
+                        <TabItem Header="Beta" Name="tabBetaATV">
                             <ScrollViewer>
                                 <Grid Margin="6">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="{StaticResource VersionWidth}" />
+                                        <ColumnDefinition Width="{StaticResource VersionWidthATVBeta}" />
                                         <ColumnDefinition Width="6" />
                                         <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="6" />
                                         <ColumnDefinition Width="{StaticResource DMGWidth}" />
                                     </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8a230m" Text="4.0b1 (8A230m)" />
-                                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8a248c" Text="4.0b2 (8A248c)" />
-                                    <TextBlock Grid.Row="4" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8a260b" Text="4.0b3 (8A260b)" />
-                                    <TextBlock Grid.Row="6" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8a274b" Text="4.0b4 (8A274b)" />
-                                    <TextBlock Grid.Row="8" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8a293beta" Text="4.0GM (8A293)" />
-                                    <TextBlock Grid.Row="10" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8b5080" Text="4.1b1 (8B5080)" />
-                                    <TextBlock Grid.Row="12" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8b5080c" Text="4.1b1 (8B5080c)" />
-                                    <TextBlock Grid.Row="14" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8b5091b" Text="4.1b2 (8B5091b)" />
-                                    <TextBlock Grid.Row="16" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8c5091e" Text="4.2b1 (8C5091e)" />
-                                    <TextBlock Grid.Row="18" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8c5101c" Text="4.2b2 (8C5101c)" />
-                                    <TextBlock Grid.Row="20" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8c5115c" Text="4.2b3 (8C5115c)" />
-                                    <TextBlock Grid.Row="22" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8c134" Text="4.2GM (8C134)" />
-                                    <TextBlock Grid.Row="24" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8c134b" Text="4.2GM (8C134b)" />
-                                    <TextBlock Grid.Row="26" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8c148beta" Text="4.2.1GM (8C148)" />
-                                    <TextBlock Grid.Row="28" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8f5148b" Text="4.3b1 (8F5148b)" />
-                                    <TextBlock Grid.Row="30" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8f5153d" Text="4.3b2 (8F5153d)" />
-                                    <TextBlock Grid.Row="32" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8f5166b" Text="4.3b3 (8F5166b)" />
-                                    <TextBlock Grid.Row="34" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8f190beta" Text="4.3GM (8F190)" />
+                                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8f5148cATV" Text="4.2b1/4.3b1 (8F5148c)" />
+                                    <TextBlock Grid.Row="1" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8f5153dATV" Text="4.2b2/4.3b2 (8F5153d)" />
+                                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8f5166bATV" Text="4.2b3/4.3b3 (8F5166b)" />
+                                    <TextBlock Grid.Row="3" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a5220pATV" Text="4.4b1/5.0b1 (9A5220p)" />
+                                    <TextBlock Grid.Row="4" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a5248dATV" Text="4.4b2/5b.0b2 (9A5248d)" />
+                                    <TextBlock Grid.Row="5" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a5259fATV" Text="4.4b3/5.0b3 (9A5259f)" />
+                                    <TextBlock Grid.Row="6" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a5288dATV" Text="4.4b4/5.0b5 (9A5288d)" />
+                                    <TextBlock Grid.Row="7" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a5302bATV" Text="4.4b5/5.0b6 (9A5302b)" />
+                                    <TextBlock Grid.Row="8" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a5313eATV" Text="4.4b6/5.b7 (9A5313e)" />
+                                    <TextBlock Grid.Row="9" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9b5127cATV" Text="5.0b1/5.1b2 (9B5127c)" />
                                     <!-- Key -->
-                                    <TextBox Grid.Row="0" Grid.Column="2" Name="key8a230m" />
-                                    <TextBox Grid.Row="2" Grid.Column="2" Name="key8a248c" />
-                                    <TextBox Grid.Row="4" Grid.Column="2" Name="key8a260b" />
-                                    <TextBox Grid.Row="6" Grid.Column="2" Name="key8a274b" />
-                                    <TextBox Grid.Row="8" Grid.Column="2" Name="key8a293beta" />
-                                    <TextBox Grid.Row="10" Grid.Column="2" Name="key8b5080" />
-                                    <TextBox Grid.Row="12" Grid.Column="2" Name="key8b5080c" />
-                                    <TextBox Grid.Row="14" Grid.Column="2" Name="key8b5091b" />
-                                    <TextBox Grid.Row="16" Grid.Column="2" Name="key8c5091e" />
-                                    <TextBox Grid.Row="18" Grid.Column="2" Name="key8c5101c" />
-                                    <TextBox Grid.Row="20" Grid.Column="2" Name="key8c5115c" />
-                                    <TextBox Grid.Row="22" Grid.Column="2" Name="key8c134" />
-                                    <TextBox Grid.Row="24" Grid.Column="2" Name="key8c134b" />
-                                    <TextBox Grid.Row="26" Grid.Column="2" Name="key8c148beta" />
-                                    <TextBox Grid.Row="28" Grid.Column="2" Name="key8f5148b" />
-                                    <TextBox Grid.Row="30" Grid.Column="2" Name="key8f5153d" />
-                                    <TextBox Grid.Row="32" Grid.Column="2" Name="key8f5166b" />
-                                    <TextBox Grid.Row="34" Grid.Column="2" Name="key8f190beta" />
+                                    <TextBox Grid.Row="0" Grid.Column="2" Margin="0,3" Name="key8f5148cATV" /><!-- Begin 4.x (8F5148c) -->
+                                    <TextBox Grid.Row="1" Grid.Column="2" Margin="0,3" Name="key8f5153dATV" />
+                                    <TextBox Grid.Row="2" Grid.Column="2" Margin="0,3" Name="key8f5166bATV" />
+                                    <TextBox Grid.Row="3" Grid.Column="2" Margin="0,3" Name="key9a5220pATV" />
+                                    <TextBox Grid.Row="4" Grid.Column="2" Margin="0,3" Name="key9a5248dATV" />
+                                    <TextBox Grid.Row="5" Grid.Column="2" Margin="0,3" Name="key9a5259fATV" />
+                                    <TextBox Grid.Row="6" Grid.Column="2" Margin="0,3" Name="key9a5288dATV" />
+                                    <TextBox Grid.Row="7" Grid.Column="2" Margin="0,3" Name="key9a5302bATV" />
+                                    <TextBox Grid.Row="8" Grid.Column="2" Margin="0,3" Name="key9a5313eATV" />
+                                    <TextBox Grid.Row="9" Grid.Column="2" Margin="0,3" Name="key9b5127cATV" /><!-- Begin 5.x (9B5127c) -->
                                     <!-- DMG -->
-                                    <TextBox Grid.Row="0" Grid.Column="4" Name="dmg8a230m" />
-                                    <TextBox Grid.Row="2" Grid.Column="4" Name="dmg8a248c" />
-                                    <TextBox Grid.Row="4" Grid.Column="4" Name="dmg8a260b" />
-                                    <TextBox Grid.Row="6" Grid.Column="4" Name="dmg8a274b" />
-                                    <TextBox Grid.Row="8" Grid.Column="4" Name="dmg8a293beta" />
-                                    <TextBox Grid.Row="10" Grid.Column="4" Name="dmg8b5080" />
-                                    <TextBox Grid.Row="12" Grid.Column="4" Name="dmg8b5080c" />
-                                    <TextBox Grid.Row="14" Grid.Column="4" Name="dmg8b5091b" />
-                                    <TextBox Grid.Row="16" Grid.Column="4" Name="dmg8c5091e" />
-                                    <TextBox Grid.Row="18" Grid.Column="4" Name="dmg8c5101c" />
-                                    <TextBox Grid.Row="20" Grid.Column="4" Name="dmg8c5115c" />
-                                    <TextBox Grid.Row="22" Grid.Column="4" Name="dmg8c134" />
-                                    <TextBox Grid.Row="24" Grid.Column="4" Name="dmg8c134b" />
-                                    <TextBox Grid.Row="26" Grid.Column="4" Name="dmg8c148beta" />
-                                    <TextBox Grid.Row="28" Grid.Column="4" Name="dmg8f5148b" />
-                                    <TextBox Grid.Row="30" Grid.Column="4" Name="dmg8f5153d" />
-                                    <TextBox Grid.Row="32" Grid.Column="4" Name="dmg8f5166b" />
-                                    <TextBox Grid.Row="34" Grid.Column="4" Name="dmg8f190beta" />
-                                    <TextBlock Grid.Row="36" Grid.Column="0" Grid.ColumnSpan="5" Margin="3" Name="note4xbeta" Text="NOTE: For Apple TV betas, please see the designated tab" />
-                                </Grid>
-                            </ScrollViewer>
-                        </TabItem>
-                        <TabItem Header="4.x Beta ATV" Name="v4BetaATV">
-                            <ScrollViewer>
-                                <Grid Margin="6">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="{StaticResource VersionWidth}" />
-                                        <ColumnDefinition Width="6" />
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="6" />
-                                        <ColumnDefinition Width="{StaticResource DMGWidth}" />
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                    </Grid.RowDefinitions>
-                                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8f5148cATV" Text="4.2b1 (8F5148c)" />
-                                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8f5153dATV" Text="4.2b2 (8F5153d)" />
-                                    <TextBlock Grid.Row="4" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl8f5166bATV" Text="4.2b3 (8F5166b)" />
-                                    <TextBlock Grid.Row="6" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a5220pATV" Text="4.4b1 (9A5220p)" />
-                                    <TextBlock Grid.Row="8" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a5248dATV" Text="4.4b2 (9A5248d)" />
-                                    <TextBlock Grid.Row="10" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a5259fATV" Text="4.4b3 (9A5259f)" />
-                                    <TextBlock Grid.Row="12" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a5288dATV" Text="4.4b4 (9A5288d)" />
-                                    <TextBlock Grid.Row="14" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a5302bATV" Text="4.4b5 (9A5302b)" />
-                                    <TextBlock Grid.Row="16" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a5313eATV" Text="4.4b6 (9A5313e)" />
-                                    <!-- Key -->
-                                    <TextBox Grid.Row="0" Grid.Column="2" Name="key8f5148cATV" />
-                                    <TextBox Grid.Row="2" Grid.Column="2" Name="key8f5153dATV" />
-                                    <TextBox Grid.Row="4" Grid.Column="2" Name="key8f5166bATV" />
-                                    <TextBox Grid.Row="6" Grid.Column="2" Name="key9a5220pATV" />
-                                    <TextBox Grid.Row="8" Grid.Column="2" Name="key9a5248dATV" />
-                                    <TextBox Grid.Row="10" Grid.Column="2" Name="key9a5259fATV" />
-                                    <TextBox Grid.Row="12" Grid.Column="2" Name="key9a5288dATV" />
-                                    <TextBox Grid.Row="14" Grid.Column="2" Name="key9a5302bATV" />
-                                    <TextBox Grid.Row="16" Grid.Column="2" Name="key9a5313eATV" />
-                                    <!-- DMG -->
-                                    <TextBox Grid.Row="0" Grid.Column="4" Name="dmg8f5148cATV" />
-                                    <TextBox Grid.Row="2" Grid.Column="4" Name="dmg8f5153dATV" />
-                                    <TextBox Grid.Row="4" Grid.Column="4" Name="dmg8f5166bATV" />
-                                    <TextBox Grid.Row="6" Grid.Column="4" Name="dmg9a5220pATV" />
-                                    <TextBox Grid.Row="8" Grid.Column="4" Name="dmg9a5248dATV" />
-                                    <TextBox Grid.Row="10" Grid.Column="4" Name="dmg9a5259fATV" />
-                                    <TextBox Grid.Row="12" Grid.Column="4" Name="dmg9a5288dATV" />
-                                    <TextBox Grid.Row="14" Grid.Column="4" Name="dmg9a5302bATV" />
-                                    <TextBox Grid.Row="16" Grid.Column="4" Name="dmg9a5313eATV" />
-                                    <TextBlock Grid.Row="18" Grid.Column="0" Grid.ColumnSpan="5" Margin="3" Name="note4xbetaATV" Text="NOTE: 4.2 betas are based on 4.3 and 4.4 betas are based on 5.0" />
-                                </Grid>
-                            </ScrollViewer>
-                        </TabItem>
-                        <TabItem Header="5.x Final" Name="v5Final">
-                            <ScrollViewer>
-                                <Grid Margin="6">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="{StaticResource VersionWidth}" />
-                                        <ColumnDefinition Width="6" />
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="6" />
-                                        <ColumnDefinition Width="{StaticResource DMGWidth}" />
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                    </Grid.RowDefinitions>
-                                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a334final" Text="5.0 (9A334)" />
-                                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a405" Text="5.0.1 (9A405)" />
-                                    <TextBlock Grid.Row="4" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a406" Text="5.0.1 (9A406)" />
-                                    <!-- Key -->
-                                    <TextBox Grid.Row="0" Grid.Column="2" Name="key9a334final"/>
-                                    <TextBox Grid.Row="2" Grid.Column="2" Name="key9a405"/>
-                                    <TextBox Grid.Row="4" Grid.Column="2" Name="key9a406"/>
-                                    <!-- DMG -->
-                                    <TextBox Grid.Row="0" Grid.Column="4" Name="dmg9a334final"/>
-                                    <TextBox Grid.Row="2" Grid.Column="4" Name="dmg9a405"/>
-                                    <TextBox Grid.Row="4" Grid.Column="4" Name="dmg9a406"/>
-                                    <TextBlock Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="5" Margin="3" Name="note5xfinal" Text="NOTE: On the Apple TV, this will be reported back as 4.4 and is therefore listed under '4.x Final ATV'" />
-                                </Grid>
-                            </ScrollViewer>
-                        </TabItem>
-                        <TabItem Header="5.x Beta" Name="v5Beta">
-                            <ScrollViewer>
-                                <Grid Margin="6">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="{StaticResource VersionWidth}" />
-                                        <ColumnDefinition Width="6" />
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="6" />
-                                        <ColumnDefinition Width="{StaticResource DMGWidth}" />
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                    </Grid.RowDefinitions>
-                                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a5220p" Text="5.0b1 (9A5220p)" />
-                                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a5248d" Text="5.0b2 (9A5248d)" />
-                                    <TextBlock Grid.Row="4" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a5259f" Text="5.0b3 (9A5259f)" />
-                                    <TextBlock Grid.Row="6" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a5274d" Text="5.0b4 (9A5274d)" />
-                                    <TextBlock Grid.Row="8" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a5288d" Text="5.0b5 (9A5288d)" />
-                                    <TextBlock Grid.Row="10" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a5302b" Text="5.0b6 (9A5302b)" />
-                                    <TextBlock Grid.Row="12" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a5313e" Text="5.0b7 (9A5313e)" />
-                                    <TextBlock Grid.Row="14" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a334beta" Text="5.0GM (9A334)" />
-                                    <TextBlock Grid.Row="16" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a402" Text="5.0.1b1 (9A402)" />
-                                    <TextBlock Grid.Row="18" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a404" Text="5.0.1b2 (9A404)" />
-                                    <TextBlock Grid.Row="20" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9b5117b" Text="5.1b1 (9B5117b)" />
-                                    <TextBlock Grid.Row="22" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9b5127c" Text="5.1b2 (9B5127c)" />
-                                    <!-- Key -->
-                                    <TextBox Grid.Row="0" Grid.Column="2" Name="key9a5220p"/>
-                                    <TextBox Grid.Row="2" Grid.Column="2" Name="key9a5248d"/>
-                                    <TextBox Grid.Row="4" Grid.Column="2" Name="key9a5259f"/>
-                                    <TextBox Grid.Row="6" Grid.Column="2" Name="key9a5274d"/>
-                                    <TextBox Grid.Row="8" Grid.Column="2" Name="key9a5288d"/>
-                                    <TextBox Grid.Row="10" Grid.Column="2" Name="key9a5302b"/>
-                                    <TextBox Grid.Row="12" Grid.Column="2" Name="key9a5313e"/>
-                                    <TextBox Grid.Row="14" Grid.Column="2" Name="key9a334beta"/>
-                                    <TextBox Grid.Row="16" Grid.Column="2" Name="key9a402"/>
-                                    <TextBox Grid.Row="18" Grid.Column="2" Name="key9a404"/>
-                                    <TextBox Grid.Row="20" Grid.Column="2" Name="key9b5117b"/>
-                                    <TextBox Grid.Row="22" Grid.Column="2" Name="key9b5127c"/>
-                                    <!-- DMG -->
-                                    <TextBox Grid.Row="0" Grid.Column="4" Name="dmg9a5220p"/>
-                                    <TextBox Grid.Row="2" Grid.Column="4" Name="dmg9a5248d"/>
-                                    <TextBox Grid.Row="4" Grid.Column="4" Name="dmg9a5259f"/>
-                                    <TextBox Grid.Row="6" Grid.Column="4" Name="dmg9a5274d"/>
-                                    <TextBox Grid.Row="8" Grid.Column="4" Name="dmg9a5288d"/>
-                                    <TextBox Grid.Row="10" Grid.Column="4" Name="dmg9a5302b"/>
-                                    <TextBox Grid.Row="12" Grid.Column="4" Name="dmg9a5313e"/>
-                                    <TextBox Grid.Row="14" Grid.Column="4" Name="dmg9a334beta"/>
-                                    <TextBox Grid.Row="16" Grid.Column="4" Name="dmg9a402"/>
-                                    <TextBox Grid.Row="18" Grid.Column="4" Name="dmg9a404"/>
-                                    <TextBox Grid.Row="20" Grid.Column="4" Name="dmg9b5117b"/>
-                                    <TextBox Grid.Row="22" Grid.Column="4" Name="dmg9b5127c"/>
-                                    <TextBlock Grid.Row="24" Grid.Column="0" Grid.ColumnSpan="5" Margin="3" Name="note5xbeta" Text="NOTE: On the Apple TV, the 5.0 betas are reported as 4.4 and are listed under '4.x Beta ATV' And the 5.1 beta is reported as 5.0 and is listed under '5.x Beta ATV'" />
-                                </Grid>
-                            </ScrollViewer>
-                        </TabItem>
-                        <TabItem Header="5.x Beta ATV" Name="v5BetaATV">
-                            <ScrollViewer>
-                                <Grid Margin="6">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="{StaticResource VersionWidth}" />
-                                        <ColumnDefinition Width="6" />
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="6" />
-                                        <ColumnDefinition Width="{StaticResource DMGWidth}" />
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                        <RowDefinition Height="6" />
-                                        <RowDefinition Height="{StaticResource TabAreaItemHeight}" />
-                                    </Grid.RowDefinitions>
-                                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9b5127cATV" Text="5.0b1 (9B5127c)" />
-                                    <!-- Key -->
-                                    <TextBox Grid.Row="0" Grid.Column="2" Name="key9b5127cATV" />
-                                    <!-- DMG -->
-                                    <TextBox Grid.Row="0" Grid.Column="4" Name="dmg9b5127cATV" />
-                                    
+                                    <TextBox Grid.Row="0" Grid.Column="4" Margin="0,3" Name="dmg8f5148cATV" /><!-- Begin 4.x (8F5148c)-->
+                                    <TextBox Grid.Row="1" Grid.Column="4" Margin="0,3" Name="dmg8f5153dATV" />
+                                    <TextBox Grid.Row="2" Grid.Column="4" Margin="0,3" Name="dmg8f5166bATV" />
+                                    <TextBox Grid.Row="3" Grid.Column="4" Margin="0,3" Name="dmg9a5220pATV" />
+                                    <TextBox Grid.Row="4" Grid.Column="4" Margin="0,3" Name="dmg9a5248dATV" />
+                                    <TextBox Grid.Row="5" Grid.Column="4" Margin="0,3" Name="dmg9a5259fATV" />
+                                    <TextBox Grid.Row="6" Grid.Column="4" Margin="0,3" Name="dmg9a5288dATV" />
+                                    <TextBox Grid.Row="7" Grid.Column="4" Margin="0,3" Name="dmg9a5302bATV" />
+                                    <TextBox Grid.Row="8" Grid.Column="4" Margin="0,3" Name="dmg9a5313eATV" />
+                                    <TextBox Grid.Row="9" Grid.Column="4" Margin="0,3" Name="dmg9b5127cATV" /><!-- Begin 5.x (9B5127c) -->
                                 </Grid>
                             </ScrollViewer>
                         </TabItem>

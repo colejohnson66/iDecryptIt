@@ -30,7 +30,6 @@
             <ComboBox Grid.Row="0" Grid.ColumnSpan="2" Name="cmbSelect">
                 <ComboBoxItem Content="English" Name="eng" />
                 <ComboBoxItem Content="Español" Name="spa" />
-                <!--<ComboBoxItem Content="हिंदी - उर्दू" Name="hin" />-->
             </ComboBox>
             <Button Name="btnOK" Grid.Column="1" Grid.Row="2" Click="btnOK_Click">
                 <Image Name="imgOK" Source="Images/Media-playback-start_32.png" Stretch="None" />
@@ -57,7 +56,7 @@
                             </BeginStoryboard>
                         </EventTrigger>
                     </TextBlock.Triggers>
-                    Select Language / Selecciona Idioma de la<!-- / भाषा चुनें-->
+                    Select Language / Selecciona Idioma de la
                 </TextBlock>
                 <!--Image Source="Images/Select_Lang_Marquee_Gradient.png" Stretch="Fill"  /-->
             </Grid>
