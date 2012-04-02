@@ -11,7 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace iDecryptIt_WPF
+namespace ColeStuff.Programs.iDecryptIt
 {
     /// <summary>
     /// Interaction logic for SubmitKey.xaml

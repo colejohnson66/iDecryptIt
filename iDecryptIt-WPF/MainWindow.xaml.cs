@@ -6,26 +6,19 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Threading;
+using System.Windows.Controls;
 
-namespace iDecryptIt_WPF
+namespace ColeStuff.Programs.iDecryptIt
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
+        // MessageBox.Show(((FrameworkElement)e.Source).Name);
         // Strings
         string wantedlang;
         string nokey = "None Published";
@@ -40,11 +33,13 @@ namespace iDecryptIt_WPF
         FileInfo decryptfromfile;
         string decryptfrom;
         string decryptto;
-        double temp;
+        double decryptprog;
         // INI files
         INI l18n;
 
-        // Initializer
+        /// <summary>
+        /// Main Window constructor
+        /// </summary>
         public MainWindow()
         {
             decryptworker.WorkerSupportsCancellation = true;
@@ -72,9 +67,8 @@ namespace iDecryptIt_WPF
                 }
                 else
                 {
-                    temp = (new FileInfo(decryptto).Length) * 100.0;
-                    temp = temp / decryptfromfile.Length;
-                    decryptworker.ReportProgress((int)temp);
+                    decryptprog = ((new FileInfo(decryptto).Length) * 100.0) / decryptfromfile.Length;
+                    decryptworker.ReportProgress(0);
                 }
             }
         }
@@ -87,7 +81,7 @@ namespace iDecryptIt_WPF
                 gridDecrypt.IsEnabled = true;
                 progDecrypt.Visibility = Visibility.Hidden;
             }
-            progDecrypt.Value = temp;
+            progDecrypt.Value = decryptprog;
         }
 
         // My Functions
@@ -424,15 +418,16 @@ namespace iDecryptIt_WPF
             catch (Exception e)
             {
                 MessageBox.Show(
-                    "Error clearing temp directory!\r\n\r\nPlease file a bug report at:\r\nhttp://cole.freehostingcloud.com/cms/Bugs:iDecryptIt\r\nwith the following data:\r\n" + e.Message,
+                    "Error clearing temp directory!\r\n\r\n" +
+                    "Please file a bug report at:\r\n" +
+                    "http://cole.freehostingcloud.com/cms/Bugs:iDecryptIt\r\n" +
+                    "with the following data and an explination of what was happening:\r\n\r\n" +
+                    "Exception: " + e.Message +
+                    "Version: " + GlobalVars.version,
                     "iDecryptIt",
                     MessageBoxButton.OK,
                     MessageBoxImage.Error);
             }
-        }
-        private char Char(int charnum)
-        {
-            return (char)charnum;
         }
 
         // Clicks and Stuff
@@ -510,8 +505,8 @@ namespace iDecryptIt_WPF
 
             // Process
             decryptproc.StartInfo.Arguments =
-                " -i " + Char(34) + textInputFileName.Text + Char(34) +
-                " -o " + Char(34) + textOuputFileName.Text + Char(34) +
+                " -i " + (char)34 + textInputFileName.Text + (char)34 +
+                " -o " + (char)34 + textOuputFileName.Text + (char)34 +
                 " -k " + textDecryptKey.Text;
             decryptproc.Start();
 
@@ -577,7 +572,7 @@ namespace iDecryptIt_WPF
 
             Execution.DoCMD(
                 rundir + "7z.exe",
-                " e " + Char(34) + text7ZInputFileName.Text + Char(34) + " " + Char(34) + "-o" + tempdir + Char(34));
+                " e " + (char)34 + text7ZInputFileName.Text + (char)34 + " " + (char)34 + "-o" + tempdir + (char)34);
 
             #region Prepare to extract HFS
             string[] files = Directory.GetFiles(tempdir, "*.hfs*", SearchOption.AllDirectories);
@@ -617,7 +612,7 @@ namespace iDecryptIt_WPF
 
             Execution.DoCMD(
                 rundir + "7z.exe",
-                " x " + Char(34) + file + Char(34) + " " + Char(34) + "-o" + text7ZOuputFolder.Text + Char(34));
+                " x " + (char)34 + file + (char)34 + " " + (char)34 + "-o" + text7ZOuputFolder.Text + (char)34);
         }
         private void btnAbout_Click(object sender, RoutedEventArgs e)
         {
@@ -1489,20 +1484,33 @@ namespace iDecryptIt_WPF
         private void textInputFileName_TextChanged(object sender, TextChangedEventArgs e)
         {
             string[] split = textInputFileName.Text.Split('\\');
-            string lastindex;
-            string returntext;
-            int lastindexnum = split.Length - 1;
-            lastindex = split[lastindexnum];
-            returntext = split[0];
-            for (int i = 1; i < split.Length; i++)
+            int length = split.Length - 1;
+            string lastindex = split[length];
+            string returntext = split[0];
+            for (int i = 1; i <= length; i++)
             {
-                if (i == lastindexnum)
+                if (i == length)
                 {
-                    returntext = returntext + '\\' + lastindex.Replace(".dmg", "_decrypted.dmg");
+                    returntext = returntext + "\\" + lastindex.Substring(0, split[length].Length - 4);
+                    switch (wantedlang)
+                    {
+                        case "en":
+                            returntext = returntext + "_decrypted.dmg";
+                            break;
+
+                        case "es":
+                            returntext = returntext + "_descifrado.dmg";
+                            break;
+
+                        default:
+                            // Fall back to English
+                            returntext = returntext + "_decrypted.dmg";
+                            break;
+                    }
                 }
                 else
                 {
-                    returntext = returntext + '\\' + split[i];
+                    returntext = returntext + "\\" + split[i];
                 }
             }
             textOuputFileName.Text = returntext;
@@ -1523,7 +1531,10 @@ namespace iDecryptIt_WPF
                 File.Delete(rundir + "iDecryptIt-Updater.exe.new");
                 File.Move(rundir + "iDecryptIt-Updater.exe.new", rundir + "iDecryptIt-Updater.exe");
             }
-            Execution.DoCMD(rundir + "iDecryptIt-Updater.exe", false);
+            if (File.Exists(rundir + "iDecryptIt-Updater.exe"))
+            {
+                Execution.DoCMD(rundir + "iDecryptIt-Updater.exe", false);
+            }
 
             RegistryKey langcode;
             langcode = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Cole Stuff\\iDecryptIt", true);
@@ -1537,9 +1548,10 @@ namespace iDecryptIt_WPF
             }
             SetLangAtStartup();
 
-            if (GlobalClass.GlobalVar != null)
+            if (GlobalVars.executionargs.Length >= 2 &&
+                GlobalVars.executionargs[1].Substring(0, GlobalVars.executionargs[1].Length - 4) == ".dmg")
             {
-                textInputFileName.Text = GlobalClass.GlobalVar;
+                textInputFileName.Text = GlobalVars.executionargs[1];
             }
         }
         private void Window_Closing(object sender, CancelEventArgs e)

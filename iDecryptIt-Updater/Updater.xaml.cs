@@ -1,20 +1,11 @@
-﻿using System;
+﻿using ColeStuff;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Net;
+using System.Windows;
 
 namespace iDecryptIt_Updater
 {
@@ -25,28 +16,27 @@ namespace iDecryptIt_Updater
     {
         string tempdir = System.IO.Path.GetTempPath() + "\\Cole Stuff\\iDecryptIt\\";
         string rundir = Directory.GetCurrentDirectory() + "\\";
-        string contacturl = "http://theiphonewiki.com/wiki/index.php?title=User:5urd/Latest_stable_software_release/iDecryptIt&action=raw";
-        string checker;
-        string[] installArr = "5.10.0.2B39".Split('.');
-
-        Run run = new Run();
+        string[] checkerArr;
+        string[] installArr = new string[4] {
+            "5",
+            "10",
+            "0",
+            "2B38"};
 
         public MainWindow()
         {
-            InitializeComponent();
-        }
-        private void Window_Loaded(object sender, EventArgs e)
-        {
-            // Because the updater downloads to .exe.new after extraction,
-            // if that file exists, delete the .exe and rename the .exe.new to .exe
             if (File.Exists(rundir + "iDecryptIt.exe.new"))
             {
                 // Kill iDecryptIt
-                /*Process[] runningapps = Process.GetProcesses();
+                Process[] runningapps = Process.GetProcesses();
                 foreach (Process p in runningapps)
                 {
-                    if (p.ProcessName == "iDecryptIt" || p.ProcessName == "iDecryptIt.vshost")
+                    if (p.ProcessName.Contains("iDecryptIt") &&
+                        !p.ProcessName.Contains("Updater") &&
+                        !p.ProcessName.Contains("vshost")
+                        )
                     {
+                        // ONLY on main iDecryptIt (not Updater or Debugger)
                         p.Kill();
                         while (!p.HasExited)
                         {
@@ -62,47 +52,58 @@ namespace iDecryptIt_Updater
                     File.Move(rundir + "iDecryptIt.exe.new", rundir + "iDecryptIt.exe");
 
                     // Relaunch iDecryptIt
-                    run.DoCMD("iDecryptIt.exe", false);
-                    Close();
+                    Execution.DoCMD("iDecryptIt.exe", false);
+                    Environment.Exit(1);
                 }
-                catch (UnauthorizedAccessException ex)
+                catch (Exception ex)
                 {
                     MessageBox.Show(
-                        "Unable to delete iDecryptIt!\n\n" +
+                        "Unknown error!\n\n" +
                         "Delete \"iDecryptIt.exe\" and move\n\"iDecryptIt.exe.new\" to \"iDecryptIt.exe\"\n\n" +
                         "Exception: " + ex.Message,
-                        "iDecryptIt Updater",
+                        "iDecryptIt",
                         MessageBoxButton.OK,
                         MessageBoxImage.Error);
-                    Close();
-                }*/
-            }
+                }
 
+                InitializeComponent();
+            }
+        }
+        private void Window_Loaded(object sender, EventArgs e)
+        {
             btnTop.Visibility = Visibility.Hidden;
 
             // Download the raw code
             try
             {
                 WebClient webClient = new WebClient();
-                webClient.DownloadFile(contacturl, @tempdir + "update.txt");
-                checker = File.ReadAllText(tempdir + "update.txt");
+                webClient.DownloadFile(
+                    @"http://theiphonewiki.com/wiki/index.php?title=User:5urd/Latest_stable_software_release/iDecryptIt&action=raw",
+                    tempdir + "update.txt");
+                webClient.Dispose();
+                checkerArr = File.ReadAllText(tempdir + "update.txt").Split('.');
             }
-            catch
+            catch (Exception ex)
             {
-                MessageBox.Show("Unable to contact the iPhone Wiki to download version info!", "ERROR!", MessageBoxButton.OK);
-                Close();
+                MessageBox.Show(
+                    "Unable to download version info!\n\n" +
+                    "Exception: " + ex.Message,
+                    "iDecryptIt",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+                Environment.Exit(-1);
             }
-            string[] checkerArr = checker.Split('.');
             
             // Compare
             if (installArr[3] == checkerArr[3])
             {
                 Close();
             }
-            this.Title = "Update Available";
-            this.txtHeader.Text = "Update Available";
-            this.txtInstalled.Text = "Installed version: " + installArr[0] + "." + installArr[1] + "." + installArr[2] + " (Build " + installArr[3] + ")";
-            this.txtAvailable.Text = "Latest version: " + checkerArr[0] + "." + checkerArr[1] + "." + checkerArr[2] + " (Build " + checkerArr[3] + ")";
+            Title = "Update Available";
+            txtHeader.Text = "Update Available";
+            txtInstalled.Text = "Installed version: " + installArr[0] + "." + installArr[1] + "." + installArr[2] + " (Build " + installArr[3] + ")";
+            txtAvailable.Text = "Latest version: " + checkerArr[0] + "." + checkerArr[1] + "." + checkerArr[2] + " (Build " + checkerArr[3] + ")";
+            btnTop.Visibility = Visibility.Visible;
         }
         private void btnBottom_Click(object sender, RoutedEventArgs e)
         {
@@ -110,7 +111,9 @@ namespace iDecryptIt_Updater
         }
         private void btnTop_Click(object sender, RoutedEventArgs e)
         {
-            
+            btnTop.IsEnabled = false;
+            btnBottom.IsEnabled = false;
+            Height = Height + 28;
         }
     }
 }

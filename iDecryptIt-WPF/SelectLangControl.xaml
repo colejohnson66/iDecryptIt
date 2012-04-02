@@ -1,4 +1,4 @@
-﻿<Window x:Class="iDecryptIt_WPF.SelectLangControl"
+﻿<Window x:Class="ColeStuff.Programs.iDecryptIt.SelectLangControl"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Width="260" Height="109"

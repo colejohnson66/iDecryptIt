@@ -7,7 +7,7 @@ using System.Windows;
 using System.Windows.Threading;
 using System.IO;
 
-namespace iDecryptIt_WPF
+namespace ColeStuff.Programs.iDecryptIt
 {
     /// <summary>
     /// Interaction logic for SplashScreen.xaml
@@ -15,7 +15,7 @@ namespace iDecryptIt_WPF
     public partial class SplashScreen : Window
     {
         INI l18n;
-        string global = null;
+        string[] global = null;
 
         public SplashScreen()
         {
@@ -40,11 +40,19 @@ namespace iDecryptIt_WPF
             }
 
             // If all goes well, grab command line options
-            string[] commandlines = Environment.GetCommandLineArgs();
-            if (commandlines.Length >= 2)
+            global = Environment.GetCommandLineArgs();
+        }
+        private void goconsole()
+        {
+            Action act = () =>
             {
-                global = commandlines[1];
-            }
+                _goconsole();
+            };
+            Dispatcher.BeginInvoke(act);
+        }
+        private void _goconsole()
+        {
+            ConsoleVersion.Main();
         }
         private void updateprog(string text)
         {
@@ -85,6 +93,28 @@ namespace iDecryptIt_WPF
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            Action act;
+
+            // Is this console
+            int length = global.Length;
+            for (int i = 0; i < length; i++)
+            {
+                if (global[i] == "/console")
+                {
+                    // Go Console
+                    act = () =>
+                    {
+                        goconsole();
+                    };
+                    Dispatcher.BeginInvoke(act);
+                    Close(); // Close the window
+                    return; // Then exit this function
+                }
+            }
+
+            // Show Window
+            Opacity = 100;
+
             // Localize this window
             string wantedlang;
             RegistryKey langcode;
@@ -106,9 +136,6 @@ namespace iDecryptIt_WPF
                 }
             }
 
-
-            Action act;
-
             // File Name
             if (global != null)
             {
@@ -117,7 +144,7 @@ namespace iDecryptIt_WPF
                     updateprog(l18n.IniReadValue("SplashScreen", "grabdmg"));
                 };
                 Dispatcher.BeginInvoke(act);
-                GlobalClass.GlobalVar = global;
+                GlobalVars.executionargs = global;
             }
 
             act = () =>
