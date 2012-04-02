@@ -5,7 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Windows;
 
-namespace iDecryptIt_WPF
+namespace ColeStuff.Programs.iDecryptIt
 {
     /// <summary>
     /// Interaction logic for App.xaml

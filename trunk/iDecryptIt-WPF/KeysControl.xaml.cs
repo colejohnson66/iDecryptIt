@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace iDecryptIt_WPF
+namespace ColeStuff.Programs.iDecryptIt
 {
     /// <summary>
     /// Interaction logic for KeysControl.xaml
@@ -22,20 +22,46 @@ namespace iDecryptIt_WPF
         string nokey = "";
         MainWindow mainwindow;
 
-        public KeysControl(MainWindow mw, AssocArray<string> values)
+        public KeysControl(MainWindow mw, AssocArray<object> values)
         {
             InitializeComponent();
             mainwindow = mw; // Used to access the VFDecrypt and XPwn key boxes
             
+            // Device + Version
+            txtDevice.Text = values.Get("device").ToString();
+            txtVersion.Text = values.Get("version").ToString() + "(Build " + values.Get("build").ToString() + ")";
+            switch (values.Get("build").ToString())
+            {
+                case "5A345":
+                    // 2.0
+                    if (Convert.ToBoolean(values.Get("isgm")) == true)
+                    {
+                        txtVersion.Text = txtVersion.Text + " [GM]";
+                    }
+                    break;
 
-            // Set variables
-            txtDevice.Text = values.Get("device");
-            txtVersion.Text = values.Get("version") + "(Build " + values.Get("build") + ")";
-            txtVersion.Text = (values.Get("build") == "8A293" && values.Get("device") != "iphone31") ? txtVersion.Text + " [GM]" : txtVersion.Text;
-            if (values.Get("versionisgm") == "true")
-            keyVFDecrypt.Text = values.Exists("vfdecrypt") ? values.Get("vfdecrypt") : nokey;
-            fileVFDecrypt.Text = values.Exists("vfdecryptdmg") ? values.Get("vfdecryptdmg") + ".dmg" : "XXX-XXXX-XXX.dmg";
-            if (values.Get("noupdateramdisk") == "true")
+                case "8A293":
+                    // 4.0
+                    if (values.Get("device").ToString() != "iphone31" &&
+                        Convert.ToBoolean(values.Get("isgm")) == true)
+                    {
+                        txtVersion.Text = txtVersion.Text + " [GM]";
+                    }
+                    break;
+
+                case "9A334":
+                    // 5.0
+                    if (Convert.ToBoolean(values.Get("isgm")) == true)
+                    {
+                        txtVersion.Text = txtVersion.Text + " [GM]";
+                    }
+                    break;
+            }
+            // VFDecrypt
+            keyVFDecrypt.Text = values.Exists("vfdecrypt") ? values.Get("vfdecrypt").ToString() : nokey;
+            fileVFDecrypt.Text = values.Exists("vfdecryptdmg") ? values.Get("vfdecryptdmg").ToString() + ".dmg" : "XXX-XXXX-XXX.dmg";
+            // Ramdisks
+            if (Convert.ToBoolean(values.Get("NoUpdateRamdisk")) == true)
             {
                 lblUpdateIV.Visibility = Visibility.Collapsed;
                 lblUpdateKey.Visibility = Visibility.Collapsed;
@@ -46,7 +72,7 @@ namespace iDecryptIt_WPF
                 fileUpdate.Visibility = Visibility.Collapsed;
                 fileUpdateNoEncrypt.Visibility = Visibility.Collapsed;
             }
-            if (values.Get("ramdisknotencrypted") == "true")
+            if (Convert.ToBoolean(values.Get("RamdiskNotEncrypted")) == true)
             {
                 lblUpdateIV.Visibility = Visibility.Collapsed;
                 lblUpdateKey.Visibility = Visibility.Collapsed;
@@ -68,7 +94,8 @@ namespace iDecryptIt_WPF
                 keyRestoreNoEncrypt.Visibility = Visibility.Collapsed;
                 fileRestoreNoEncrypt.Visibility = Visibility.Collapsed;
             }
-            if (values.Get("applelogonotencrypted") == "true")
+            // AppleLogo
+            if (Convert.ToBoolean(values.Get("AppleLogoNotEncrypted")) == true)
             {
                 lblAppleLogoIV.Visibility = Visibility.Collapsed;
                 lblAppleLogoKey.Visibility = Visibility.Collapsed;
@@ -82,7 +109,8 @@ namespace iDecryptIt_WPF
                 keyAppleLogoNoEncrypt.Visibility = Visibility.Collapsed;
                 fileAppleLogoNoEncrypt.Visibility = Visibility.Collapsed;
             }
-            if (values.Get("batterylow0notencrypted") == "true")
+            // BatteryLow0
+            if (Convert.ToBoolean(values.Get("BatteryLow0NotEncrypted")) == true)
             {
                 lblBatteryLow0IV.Visibility = Visibility.Collapsed;
                 lblBatteryLow0Key.Visibility = Visibility.Collapsed;
@@ -96,7 +124,8 @@ namespace iDecryptIt_WPF
                 keyBatteryLow0NoEncrypt.Visibility = Visibility.Collapsed;
                 fileBatteryLow0NoEncrypt.Visibility = Visibility.Collapsed;
             }
-            if (values.Get("batterylow1notencrypted") == "true")
+            // BatteryLow1
+            if (Convert.ToBoolean(values.Get("BatteryLow1NotEncrypted")) == true)
             {
                 lblBatteryLow1IV.Visibility = Visibility.Collapsed;
                 lblBatteryLow1Key.Visibility = Visibility.Collapsed;
@@ -110,7 +139,8 @@ namespace iDecryptIt_WPF
                 keyBatteryLow1NoEncrypt.Visibility = Visibility.Collapsed;
                 fileBatteryLow1NoEncrypt.Visibility = Visibility.Collapsed;
             }
-            if (values.Get("batteryfullivnotencrypted") == "true")
+            // BatteryFull
+            if (Convert.ToBoolean(values.Get("BatteryFullNotEncrypted")) == true)
             {
                 lblBatteryFullIV.Visibility = Visibility.Collapsed;
                 lblBatteryFullKey.Visibility = Visibility.Collapsed;
@@ -124,35 +154,8 @@ namespace iDecryptIt_WPF
                 keyBatteryFullNoEncrypt.Visibility = Visibility.Collapsed;
                 fileBatteryFullNoEncrypt.Visibility = Visibility.Collapsed;
             }
-            if (values.Get("batterylow0notencrypted") == "true")
-            {
-                lblBatteryLow0IV.Visibility = Visibility.Collapsed;
-                lblBatteryLow0Key.Visibility = Visibility.Collapsed;
-                keyBatteryLow0IV.Visibility = Visibility.Collapsed;
-                keyBatteryLow0Key.Visibility = Visibility.Collapsed;
-                fileBatteryLow0.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                lblBatteryLow0NoEncrypt.Visibility = Visibility.Collapsed;
-                keyBatteryLow0NoEncrypt.Visibility = Visibility.Collapsed;
-                fileBatteryLow0NoEncrypt.Visibility = Visibility.Collapsed;
-            }
-            if (values.Get("batterylow1notencrypted") == "true")
-            {
-                lblBatteryLow1IV.Visibility = Visibility.Collapsed;
-                lblBatteryLow1Key.Visibility = Visibility.Collapsed;
-                keyBatteryLow1IV.Visibility = Visibility.Collapsed;
-                keyBatteryLow1Key.Visibility = Visibility.Collapsed;
-                fileBatteryLow1.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                lblBatteryLow1NoEncrypt.Visibility = Visibility.Collapsed;
-                keyBatteryLow1NoEncrypt.Visibility = Visibility.Collapsed;
-                fileBatteryLow1NoEncrypt.Visibility = Visibility.Collapsed;
-            }
-            if (values.Get("devicetreenotencrypted") == "true")
+            // DeviceTree
+            if (Convert.ToBoolean(values.Get("DeviceTreeNotEncrypted")) == true)
             {
                 lblDeviceTreeIV.Visibility = Visibility.Collapsed;
                 lblDeviceTreeKey.Visibility = Visibility.Collapsed;
@@ -166,7 +169,8 @@ namespace iDecryptIt_WPF
                 keyDeviceTreeNoEncrypt.Visibility = Visibility.Collapsed;
                 fileDeviceTreeNoEncrypt.Visibility = Visibility.Collapsed;
             }
-            if (values.Get("glyphchargingnotencrypted") == "true")
+            // GlyphCharging
+            if (Convert.ToBoolean(values.Get("GlyphChargingNotEncrypted")) == true)
             {
                 lblGlyphChargingIV.Visibility = Visibility.Collapsed;
                 lblGlyphChargingKey.Visibility = Visibility.Collapsed;
@@ -180,7 +184,8 @@ namespace iDecryptIt_WPF
                 keyGlyphChargingNoEncrypt.Visibility = Visibility.Collapsed;
                 fileGlyphChargingNoEncrypt.Visibility = Visibility.Collapsed;
             }
-            if (values.Get("glyphpluginnotencrypted") == "true")
+            // GlyphPlugin
+            if (Convert.ToBoolean(values.Get("GlyphPluginNotEncrypted")) == true)
             {
                 lblGlyphPluginIV.Visibility = Visibility.Collapsed;
                 lblGlyphPluginKey.Visibility = Visibility.Collapsed;
@@ -194,7 +199,8 @@ namespace iDecryptIt_WPF
                 keyGlyphPluginNoEncrypt.Visibility = Visibility.Collapsed;
                 fileGlyphPluginNoEncrypt.Visibility = Visibility.Collapsed;
             }
-            if (values.Get("ibecnotencrypted") == "true")
+            // iBEC
+            if (Convert.ToBoolean(values.Get("iBECNotEncrypted")) == true)
             {
                 lbliBECIV.Visibility = Visibility.Collapsed;
                 lbliBECKey.Visibility = Visibility.Collapsed;
@@ -208,7 +214,8 @@ namespace iDecryptIt_WPF
                 keyiBECNoEncrypt.Visibility = Visibility.Collapsed;
                 fileiBECNoEncrypt.Visibility = Visibility.Collapsed;
             }
-            if (values.Get("ibootnotencrypted") == "true")
+            // iBoot
+            if (Convert.ToBoolean(values.Get("iBootNotEncrypted")) == true)
             {
                 lbliBootIV.Visibility = Visibility.Collapsed;
                 lbliBootKey.Visibility = Visibility.Collapsed;
@@ -222,7 +229,8 @@ namespace iDecryptIt_WPF
                 keyiBootNoEncrypt.Visibility = Visibility.Collapsed;
                 fileiBootNoEncrypt.Visibility = Visibility.Collapsed;
             }
-            if (values.Get("ibssnotencrypted") == "true")
+            // iBSS
+            if (Convert.ToBoolean(values.Get("iBSSNotEncrypted")) == true)
             {
                 lbliBSSIV.Visibility = Visibility.Collapsed;
                 lbliBSSKey.Visibility = Visibility.Collapsed;
@@ -236,7 +244,8 @@ namespace iDecryptIt_WPF
                 keyiBSSNoEncrypt.Visibility = Visibility.Collapsed;
                 fileiBSSNoEncrypt.Visibility = Visibility.Collapsed;
             }
-            if (values.Get("kernelcachenotencrypted") == "true")
+            // KernelCache
+            if (Convert.ToBoolean(values.Get("KernelCacheNotEncrypted")) == true)
             {
                 lblKernelCacheIV.Visibility = Visibility.Collapsed;
                 lblKernelCacheKey.Visibility = Visibility.Collapsed;
@@ -250,7 +259,8 @@ namespace iDecryptIt_WPF
                 keyKernelCacheNoEncrypt.Visibility = Visibility.Collapsed;
                 fileKernelCacheNoEncrypt.Visibility = Visibility.Collapsed;
             }
-            if (values.Get("llbnotencrypted") == "true")
+            // LLB
+            if (Convert.ToBoolean(values.Get("LLBNoteEncrypted")) == true)
             {
                 lblLLBIV.Visibility = Visibility.Collapsed;
                 lblLLBKey.Visibility = Visibility.Collapsed;
@@ -264,7 +274,8 @@ namespace iDecryptIt_WPF
                 keyLLBNoEncrypt.Visibility = Visibility.Collapsed;
                 fileLLBNoEncrypt.Visibility = Visibility.Collapsed;
             }
-            if (values.Get("needservicenotencrypted") == "true")
+            // NeedService
+            if (Convert.ToBoolean(values.Get("NeedServiceNotEncrypted")) == true)
             {
                 lblNeedServiceIV.Visibility = Visibility.Collapsed;
                 lblNeedServiceKey.Visibility = Visibility.Collapsed;
@@ -278,7 +289,8 @@ namespace iDecryptIt_WPF
                 keyNeedServiceNoEncrypt.Visibility = Visibility.Collapsed;
                 fileNeedServiceNoEncrypt.Visibility = Visibility.Collapsed;
             }
-            if (values.Get("recoverymodenotencrypted") == "true")
+            // RecoveryMode
+            if (Convert.ToBoolean(values.Get("RecoveryModeNotEncrypted")) == true)
             {
                 lblRecoveryModeIV.Visibility = Visibility.Collapsed;
                 lblRecoveryModeKey.Visibility = Visibility.Collapsed;

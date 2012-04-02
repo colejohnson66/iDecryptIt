@@ -6,9 +6,9 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{A627FA1E-BE08-4003-B14B-51DC5C05FE6A}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>iDecryptIt_WPF</RootNamespace>
+    <RootNamespace>ColeStuff.Programs.iDecryptIt</RootNamespace>
     <AssemblyName>iDecryptIt</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>
@@ -27,7 +27,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>1165</ApplicationRevision>
+    <ApplicationRevision>1178</ApplicationRevision>
     <ApplicationVersion>5.10.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -41,24 +41,28 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <DocumentationFile>bin\Debug\iDecryptIt.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>app.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>
-    </StartupObject>
+    <StartupObject>ColeStuff.Programs.iDecryptIt.App</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Windows.Shell, Version=3.5.41019.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+    <Reference Include="RibbonControlsLibrary, Version=4.0.0.11019, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -71,6 +75,8 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -83,12 +89,13 @@
     <Compile Include="About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ColeStuff.DataManipulation.AssocArray.cs" />
-    <Compile Include="ColeStuff.Execution.cs" />
-    <Compile Include="FileName.cs" />
+    <Compile Include="classes\ColeStuff.DataManipulation.AssocArray.cs" />
+    <Compile Include="classes\ColeStuff.Execution.cs" />
+    <Compile Include="GlobalVars.cs" />
     <Compile Include="KeysControl.xaml.cs">
       <DependentUpon>KeysControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Program.cs" />
     <Compile Include="SplashScreen.xaml.cs">
       <DependentUpon>SplashScreen.xaml</DependentUpon>
     </Compile>
@@ -108,6 +115,9 @@
     </Compile>
     <Compile Include="SubmitKey.xaml.cs">
       <DependentUpon>SubmitKey.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WhatAmI.xaml.cs">
+      <DependentUpon>WhatAmI.xaml</DependentUpon>
     </Compile>
     <Page Include="About.xaml">
       <SubType>Designer</SubType>
@@ -141,11 +151,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="WhatAmI.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <AppDesigner Include="Properties\" />
-    <Compile Include="ColeStuff.DataManipulation.INI.cs">
+    <Compile Include="classes\ColeStuff.DataManipulation.INI.cs">
       <Generator>SettingsSingleFileGenerator</Generator>
     </Compile>
     <None Include="l18n\eng.ini">
