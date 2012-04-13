@@ -1,5 +1,4 @@
-﻿using ColeStuff;
-using ColeStuff.DataManipulation;
+﻿using Hexware.DataManipulation;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -11,7 +10,7 @@ using System.Windows;
 using System.Threading;
 using System.Windows.Controls;
 
-namespace ColeStuff.Programs.iDecryptIt
+namespace Hexware.Programs.iDecryptIt
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -35,7 +34,7 @@ namespace ColeStuff.Programs.iDecryptIt
         string decryptto;
         double decryptprog;
         // INI files
-        INI l18n;
+        Ini l18n;
 
         /// <summary>
         /// Main Window constructor
@@ -433,7 +432,7 @@ namespace ColeStuff.Programs.iDecryptIt
         // Clicks and Stuff
         private void btnChangeLanguage_Click(object sender, RoutedEventArgs e)
         {
-            new SelectLangControl(this).Show();
+            new SelectLangControl(this).ShowDialog();
         }
         private void btnDecrypt_Click(object sender, RoutedEventArgs e)
         {
@@ -570,7 +569,7 @@ namespace ColeStuff.Programs.iDecryptIt
             }
             #endregion
 
-            Execution.DoCMD(
+            Process.Start(
                 rundir + "7z.exe",
                 " e " + (char)34 + text7ZInputFileName.Text + (char)34 + " " + (char)34 + "-o" + tempdir + (char)34);
 
@@ -610,7 +609,7 @@ namespace ColeStuff.Programs.iDecryptIt
             }
             #endregion
 
-            Execution.DoCMD(
+            Process.Start(
                 rundir + "7z.exe",
                 " x " + (char)34 + file + (char)34 + " " + (char)34 + "-o" + text7ZOuputFolder.Text + (char)34);
         }
@@ -1533,7 +1532,7 @@ namespace ColeStuff.Programs.iDecryptIt
             }
             if (File.Exists(rundir + "iDecryptIt-Updater.exe"))
             {
-                Execution.DoCMD(rundir + "iDecryptIt-Updater.exe", false);
+                Process.Start(rundir + "iDecryptIt-Updater.exe");
             }
 
             RegistryKey langcode;
@@ -1588,7 +1587,7 @@ namespace ColeStuff.Programs.iDecryptIt
                     rundir + "l18n\\" + lang + ".ini");
             }
 
-            l18n = new INI(rundir + "l18n\\" + lang + ".ini");
+            l18n = new Ini(rundir + "l18n\\" + lang + ".ini");
 
             // Decrypt Area
             btnDecryptText.Text = l18n.IniReadValue("MainWindow", "btnDecryptText");

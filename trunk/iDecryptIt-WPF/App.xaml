@@ -1,4 +1,4 @@
-﻿<Application x:Class="ColeStuff.Programs.iDecryptIt.App"
+﻿<Application x:Class="Hexware.Programs.iDecryptIt.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="SplashScreen.xaml"

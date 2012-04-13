@@ -1,4 +1,4 @@
-﻿using ColeStuff.DataManipulation;
+﻿using Hexware.DataManipulation;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -7,14 +7,14 @@ using System.Windows;
 using System.Windows.Threading;
 using System.IO;
 
-namespace ColeStuff.Programs.iDecryptIt
+namespace Hexware.Programs.iDecryptIt
 {
     /// <summary>
     /// Interaction logic for SplashScreen.xaml
     /// </summary>
     public partial class SplashScreen : Window
     {
-        INI l18n;
+        Ini l18n;
         string[] global = null;
 
         public SplashScreen()
@@ -44,50 +44,17 @@ namespace ColeStuff.Programs.iDecryptIt
         }
         private void goconsole()
         {
-            Action act = () =>
-            {
-                _goconsole();
-            };
-            Dispatcher.BeginInvoke(act);
-        }
-        private void _goconsole()
-        {
             ConsoleVersion.Main();
         }
         private void updateprog(string text)
-        {
-            Action act = () =>
-            {
-                _updateprog(text);
-            };
-            Dispatcher.BeginInvoke(act);
-        }
-        private void _updateprog(string text)
         {
             lblProg.Content = text;
         }
         private void loadmain()
         {
-            Action act = () =>
-            {
-                _loadmain();
-            };
-            Dispatcher.BeginInvoke(act);
-        }
-        private void _loadmain()
-        {
-            MainWindow mainwindow = new MainWindow();
-            mainwindow.Show();
+            new MainWindow().Show();
         }
         private void close()
-        {
-            Action act = () =>
-            {
-                _close();
-            };
-            Dispatcher.BeginInvoke(act);
-        }
-        private void _close()
         {
             this.Close();
         }
@@ -108,7 +75,7 @@ namespace ColeStuff.Programs.iDecryptIt
                     };
                     Dispatcher.BeginInvoke(act);
                     Close(); // Close the window
-                    return; // Then exit this function
+                    return; // Then end
                 }
             }
 
@@ -126,12 +93,12 @@ namespace ColeStuff.Programs.iDecryptIt
                 {
                     // Spanish
                     case "spa":
-                        l18n = new INI(Directory.GetCurrentDirectory() + @"\l18n\spa.ini");
+                        l18n = new Ini(Directory.GetCurrentDirectory() + @"\l18n\spa.ini");
                         Registry.SetValue("HKEY_CURRENT_USER\\SOFTWARE\\Cole Stuff\\iDecryptIt", "language", "spa", RegistryValueKind.String);
                         break;
 
                     default:
-                        l18n = new INI(Directory.GetCurrentDirectory() + @"\l18n\eng.ini");
+                        l18n = new Ini(Directory.GetCurrentDirectory() + @"\l18n\eng.ini");
                         break;
                 }
             }

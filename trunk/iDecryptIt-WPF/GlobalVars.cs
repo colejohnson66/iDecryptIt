@@ -1,4 +1,4 @@
-﻿namespace ColeStuff.Programs.iDecryptIt
+﻿namespace Hexware.Programs.iDecryptIt
 {
     /// <summary>
     /// nothing

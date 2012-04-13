@@ -1,5 +1,4 @@
-﻿using ColeStuff;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.ComponentModel;
@@ -7,7 +6,7 @@ using System.Diagnostics;
 using System.Net;
 using System.Windows;
 
-namespace iDecryptIt_Updater
+namespace Hexware.Programs.iDecryptIt.Updater
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -33,8 +32,7 @@ namespace iDecryptIt_Updater
                 {
                     if (p.ProcessName.Contains("iDecryptIt") &&
                         !p.ProcessName.Contains("Updater") &&
-                        !p.ProcessName.Contains("vshost")
-                        )
+                        !p.ProcessName.Contains("vshost"))
                     {
                         // ONLY on main iDecryptIt (not Updater or Debugger)
                         p.Kill();
@@ -52,7 +50,7 @@ namespace iDecryptIt_Updater
                     File.Move(rundir + "iDecryptIt.exe.new", rundir + "iDecryptIt.exe");
 
                     // Relaunch iDecryptIt
-                    Execution.DoCMD("iDecryptIt.exe", false);
+                    Process.Start("iDecryptIt.exe");
                     Environment.Exit(1);
                 }
                 catch (Exception ex)

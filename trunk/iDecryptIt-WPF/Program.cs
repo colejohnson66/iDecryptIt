@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ColeStuff.Programs.iDecryptIt
+namespace Hexware.Programs.iDecryptIt
 {
     class ConsoleVersion
     {

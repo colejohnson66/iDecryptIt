@@ -3,12 +3,12 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace ColeStuff.DataManipulation
+namespace Hexware.DataManipulation
 {
     /// <summary>
     /// INI file manipulation class
     /// </summary>
-    public class INI
+    public class Ini
     {
         private string path;
 
@@ -34,7 +34,7 @@ namespace ColeStuff.DataManipulation
         /// </summary>
         /// <param name="INIPath">The full path of the INI file</param>
         /// <exception cref="System.IO.FileNotFoundException">The file was not found</exception>
-        public INI(string INIPath)
+        public Ini(string INIPath)
         {
             if (!File.Exists(INIPath))
             {
@@ -150,7 +150,7 @@ namespace ColeStuff.DataManipulation
         /// </summary>
         /// <param name="obj">The INI file used for comparison</param>
         /// <returns>true if same; else false</returns>
-        public bool Equals(INI obj)
+        public bool Equals(Ini obj)
         {
             // If paths equal, then it is equal
             return obj.INIPath == INIPath;

@@ -8,7 +8,7 @@
     <ProjectGuid>{A627FA1E-BE08-4003-B14B-51DC5C05FE6A}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ColeStuff.Programs.iDecryptIt</RootNamespace>
+    <RootNamespace>Hexware.Programs.iDecryptIt</RootNamespace>
     <AssemblyName>iDecryptIt</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>
@@ -58,7 +58,7 @@
     <ApplicationIcon>app.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>ColeStuff.Programs.iDecryptIt.App</StartupObject>
+    <StartupObject>Hexware.Programs.iDecryptIt.App</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Windows.Shell, Version=3.5.41019.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
@@ -89,8 +89,7 @@
     <Compile Include="About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
-    <Compile Include="classes\ColeStuff.DataManipulation.AssocArray.cs" />
-    <Compile Include="classes\ColeStuff.Execution.cs" />
+    <Compile Include="classes\Hexware.DataManipulation.AssocArray.cs" />
     <Compile Include="GlobalVars.cs" />
     <Compile Include="KeysControl.xaml.cs">
       <DependentUpon>KeysControl.xaml</DependentUpon>
@@ -159,7 +158,7 @@
   <ItemGroup>
     <None Include="app.config" />
     <AppDesigner Include="Properties\" />
-    <Compile Include="classes\ColeStuff.DataManipulation.INI.cs">
+    <Compile Include="classes\Hexware.DataManipulation.INI.cs">
       <Generator>SettingsSingleFileGenerator</Generator>
     </Compile>
     <None Include="l18n\eng.ini">
@@ -182,12 +181,10 @@
     <Resource Include="Images\Gnome-logviewer_16.png" />
     <Resource Include="Images\Gnome-logviewer_32.png" />
     <Resource Include="Images\Help-browser_32.png" />
-    <Resource Include="Images\idecryptit_128.png" />
     <Resource Include="Images\idecryptit_16.png" />
     <Resource Include="Images\idecryptit_256.png" />
     <Resource Include="Images\idecryptit_32.png" />
     <Resource Include="Images\idecryptit_48.png" />
-    <Resource Include="Images\idecryptit_64.png" />
     <Resource Include="Images\iPad1,1_32.png" />
     <Resource Include="Images\iPad2,1_32.png" />
     <Resource Include="Images\iPad2,2_32.png" />
@@ -280,6 +277,11 @@
     <Folder Include="keys\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.Increment" />
+    </VisualStudio>
+  </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -9,7 +9,7 @@ using System.Resources;
 [assembly: AssemblyTitle("iDecryptIt")]
 [assembly: AssemblyDescription("Decrypt the root FS of an iDevice")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Cole Stuff")]
+[assembly: AssemblyCompany("Hexware")]
 [assembly: AssemblyProduct("iDecryptIt")]
 [assembly: AssemblyCopyright("Copyright (C) 2010-2011")]
 [assembly: AssemblyTrademark("")]
