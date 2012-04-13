@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
 using System.Windows;
 
-namespace ColeStuff.Programs.iDecryptIt
+namespace Hexware.Programs.iDecryptIt
 {
     /// <summary>
     /// Interaction logic for App.xaml

@@ -5,7 +5,7 @@
 // and
 // throw an exception if array gets too big (2 billion keys seems extreme though)
 
-namespace ColeStuff.DataManipulation
+namespace Hexware.DataManipulation
 {
     /// <summary>
     /// Associative Array manipulation class
@@ -24,7 +24,7 @@ namespace ColeStuff.DataManipulation
         }
 
         /// <summary>
-        /// AssocArray Contructor from [x, 2] System.Object array
+        /// AssocArray Constructor from [x, 2] System.Object array
         /// </summary>
         /// 
         /// <param name="arr">A [x, 2] System.Object array</param>

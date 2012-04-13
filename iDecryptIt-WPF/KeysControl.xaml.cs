@@ -1,4 +1,4 @@
-﻿using ColeStuff.DataManipulation;
+﻿using Hexware.DataManipulation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace ColeStuff.Programs.iDecryptIt
+namespace Hexware.Programs.iDecryptIt
 {
     /// <summary>
     /// Interaction logic for KeysControl.xaml
