@@ -3,9 +3,10 @@ using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Threading;
-using System.IO;
 
 namespace Hexware.Programs.iDecryptIt
 {
@@ -14,8 +15,10 @@ namespace Hexware.Programs.iDecryptIt
     /// </summary>
     public partial class SplashScreen : Window
     {
-        Ini l18n;
-        string[] global = null;
+        [DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
+        public static extern bool FreeConsole();
+
+        //Ini l18n;
 
         public SplashScreen()
         {
@@ -40,11 +43,11 @@ namespace Hexware.Programs.iDecryptIt
             }
 
             // If all goes well, grab command line options
-            global = Environment.GetCommandLineArgs();
+            GlobalVars.executionargs = Environment.GetCommandLineArgs();
         }
         private void goconsole()
         {
-            ConsoleVersion.Main();
+            ConsoleVersion.Main(GlobalVars.executionargs);
         }
         private void updateprog(string text)
         {
@@ -63,10 +66,10 @@ namespace Hexware.Programs.iDecryptIt
             Action act;
 
             // Is this console
-            int length = global.Length;
+            int length = GlobalVars.executionargs.Length;
             for (int i = 0; i < length; i++)
             {
-                if (global[i] == "/console")
+                if (GlobalVars.executionargs[i] == "/console")
                 {
                     // Go Console
                     act = () =>
@@ -74,18 +77,24 @@ namespace Hexware.Programs.iDecryptIt
                         goconsole();
                     };
                     Dispatcher.BeginInvoke(act);
-                    Close(); // Close the window
-                    return; // Then end
+                    this.Close();
+                    return;
                 }
+            }
+
+            // Close console
+            if (FreeConsole() == true)
+            {
+                // Console failed to close
             }
 
             // Show Window
             Opacity = 100;
 
             // Localize this window
-            string wantedlang;
+            /*string wantedlang;
             RegistryKey langcode;
-            langcode = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Cole Stuff\\iDecryptIt", true);
+            langcode = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Hexware\\iDecryptIt", true);
             if (langcode != null)
             {
                 wantedlang = langcode.GetValue("language").ToString();
@@ -94,32 +103,31 @@ namespace Hexware.Programs.iDecryptIt
                     // Spanish
                     case "spa":
                         l18n = new Ini(Directory.GetCurrentDirectory() + @"\l18n\spa.ini");
-                        Registry.SetValue("HKEY_CURRENT_USER\\SOFTWARE\\Cole Stuff\\iDecryptIt", "language", "spa", RegistryValueKind.String);
+                        Registry.SetValue("HKEY_CURRENT_USER\\SOFTWARE\\Hexware\\iDecryptIt", "language", "spa", RegistryValueKind.String);
                         break;
 
                     default:
                         l18n = new Ini(Directory.GetCurrentDirectory() + @"\l18n\eng.ini");
                         break;
                 }
-            }
+            }*/
 
             // File Name
-            if (global != null)
+            if (GlobalVars.executionargs != null)
             {
                 act = () =>
                 {
-                    updateprog(l18n.IniReadValue("SplashScreen", "grabdmg"));
+                    updateprog("Grabbing DMG");
                 };
                 Dispatcher.BeginInvoke(act);
-                GlobalVars.executionargs = global;
             }
 
             act = () =>
             {
-                updateprog(l18n.IniReadValue("SplashScreen", "loading"));
+                updateprog("Loading iDecryptIt");
             };
             Dispatcher.BeginInvoke(act);
-            
+
             act = () =>
             {
                 loadmain();
@@ -128,7 +136,7 @@ namespace Hexware.Programs.iDecryptIt
 
             act = () =>
             {
-                updateprog(l18n.IniReadValue("SplashScreen", "enjoy"));
+                updateprog("Enjoy!");
             };
             Dispatcher.BeginInvoke(act);
 

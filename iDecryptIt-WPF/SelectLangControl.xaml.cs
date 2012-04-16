@@ -29,7 +29,7 @@ namespace Hexware.Programs.iDecryptIt
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             string lang = Registry.CurrentUser
-                .OpenSubKey("SOFTWARE\\Cole Stuff\\iDecryptIt", true)
+                .OpenSubKey("SOFTWARE\\Hexware\\iDecryptIt", true)
                 .GetValue("language")
                 .ToString();
 
@@ -47,7 +47,7 @@ namespace Hexware.Programs.iDecryptIt
             else
             {
                 // Fall back to English if is not any of the above
-                Registry.CurrentUser.DeleteSubKey("SOFTWARE\\Cole Stuff\\iDecryptIt");
+                Registry.CurrentUser.DeleteSubKey("SOFTWARE\\Hexware\\iDecryptIt");
                 cmbSelect.SelectedIndex = 0;
             }
         }
@@ -71,9 +71,9 @@ namespace Hexware.Programs.iDecryptIt
         private void enter(string lang)
         {
             Registry.CurrentUser
-                .CreateSubKey("SOFTWARE\\Cole Stuff\\iDecryptIt")
-                .OpenSubKey("SOFTWARE\\Cole Stuff\\iDecryptIt", true);
-            Registry.SetValue("HKEY_CURRENT_USER\\SOFTWARE\\Cole Stuff\\iDecryptIt", "language", lang, RegistryValueKind.String);
+                .CreateSubKey("SOFTWARE\\Hexware\\iDecryptIt")
+                .OpenSubKey("SOFTWARE\\Hexware\\iDecryptIt", true);
+            Registry.SetValue("HKEY_CURRENT_USER\\SOFTWARE\\Hexware\\iDecryptIt", "language", lang, RegistryValueKind.String);
         }
     }
 }

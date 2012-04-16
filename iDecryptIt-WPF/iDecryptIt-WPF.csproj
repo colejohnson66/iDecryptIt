@@ -11,8 +11,7 @@
     <RootNamespace>Hexware.Programs.iDecryptIt</RootNamespace>
     <AssemblyName>iDecryptIt</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -61,6 +60,10 @@
     <StartupObject>Hexware.Programs.iDecryptIt.App</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Hexware.Plist, Version=1.0.4486.36820, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Resources\Hexware.Plist.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Windows.Shell, Version=3.5.41019.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="RibbonControlsLibrary, Version=4.0.0.11019, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="System" />
@@ -89,7 +92,6 @@
     <Compile Include="About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
-    <Compile Include="classes\Hexware.DataManipulation.AssocArray.cs" />
     <Compile Include="GlobalVars.cs" />
     <Compile Include="KeysControl.xaml.cs">
       <DependentUpon>KeysControl.xaml</DependentUpon>
@@ -158,9 +160,178 @@
   <ItemGroup>
     <None Include="app.config" />
     <AppDesigner Include="Properties\" />
-    <Compile Include="classes\Hexware.DataManipulation.INI.cs">
+    <Compile Include="Resources\Hexware.DataManipulation.INI.cs">
       <Generator>SettingsSingleFileGenerator</Generator>
     </Compile>
+    <EmbeddedResource Include="keys\AppleTV2,1_8C150.plist">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="keys\AppleTV2,1_8C154.plist" />
+    <EmbeddedResource Include="keys\AppleTV2,1_8F191m.plist" />
+    <EmbeddedResource Include="keys\AppleTV2,1_8F202.plist" />
+    <EmbeddedResource Include="keys\AppleTV2,1_8F305.plist" />
+    <EmbeddedResource Include="keys\AppleTV2,1_8F455.plist" />
+    <EmbeddedResource Include="keys\AppleTV2,1_8M89.plist" />
+    <EmbeddedResource Include="keys\AppleTV2,1_9A334v.plist" />
+    <EmbeddedResource Include="keys\AppleTV2,1_9A335a.plist" />
+    <EmbeddedResource Include="keys\AppleTV2,1_9A336a.plist" />
+    <EmbeddedResource Include="keys\AppleTV2,1_9A405l.plist" />
+    <EmbeddedResource Include="keys\AppleTV2,1_9A406a.plist" />
+    <EmbeddedResource Include="keys\AppleTV2,1_9B179b.plist" />
+    <EmbeddedResource Include="keys\iPad1,1_7B367.plist" />
+    <EmbeddedResource Include="keys\iPad1,1_7B405.plist" />
+    <EmbeddedResource Include="keys\iPad1,1_7B500.plist" />
+    <EmbeddedResource Include="keys\iPad1,1_8C148.plist" />
+    <EmbeddedResource Include="keys\iPad1,1_8F190.plist" />
+    <EmbeddedResource Include="keys\iPad1,1_8G4.plist" />
+    <EmbeddedResource Include="keys\iPad1,1_8H7.plist" />
+    <EmbeddedResource Include="keys\iPad1,1_8J3.plist" />
+    <EmbeddedResource Include="keys\iPad1,1_8K2.plist" />
+    <EmbeddedResource Include="keys\iPad1,1_8L1.plist" />
+    <EmbeddedResource Include="keys\iPad1,1_9A334.plist" />
+    <EmbeddedResource Include="keys\iPad1,1_9A405.plist" />
+    <EmbeddedResource Include="keys\iPad1,1_9B176.plist" />
+    <EmbeddedResource Include="keys\iPad2,1_8G4.plist" />
+    <EmbeddedResource Include="keys\iPad2,1_8H7.plist" />
+    <EmbeddedResource Include="keys\iPad2,1_8J2.plist" />
+    <EmbeddedResource Include="keys\iPad2,1_8K2.plist" />
+    <EmbeddedResource Include="keys\iPad2,1_8L1.plist" />
+    <EmbeddedResource Include="keys\iPad2,3_8G4.plist" />
+    <EmbeddedResource Include="keys\iPad2,3_8H7.plist" />
+    <EmbeddedResource Include="keys\iPad2,3_8H8.plist" />
+    <EmbeddedResource Include="keys\iPad2,3_8J2.plist" />
+    <EmbeddedResource Include="keys\iPad2,3_8K2.plist" />
+    <EmbeddedResource Include="keys\iPad2,3_8L1.plist" />
+    <EmbeddedResource Include="keys\iPhone1,1_1A543a.plist" />
+    <EmbeddedResource Include="keys\iPhone1,1_1C25.plist" />
+    <EmbeddedResource Include="keys\iPhone1,1_1C28.plist" />
+    <EmbeddedResource Include="keys\iPhone1,1_3A109a.plist" />
+    <EmbeddedResource Include="keys\iPhone1,1_3B48b.plist" />
+    <EmbeddedResource Include="keys\iPhone1,1_4A102.plist" />
+    <EmbeddedResource Include="keys\iPhone1,1_4A93.plist" />
+    <EmbeddedResource Include="keys\iPhone1,1_5A347.plist" />
+    <EmbeddedResource Include="keys\iPhone1,1_5B108.plist" />
+    <EmbeddedResource Include="keys\iPhone1,1_5C1.plist" />
+    <EmbeddedResource Include="keys\iPhone1,1_5F136.plist" />
+    <EmbeddedResource Include="keys\iPhone1,1_5G77.plist" />
+    <EmbeddedResource Include="keys\iPhone1,1_5H11.plist" />
+    <EmbeddedResource Include="keys\iPhone1,1_7A341.plist" />
+    <EmbeddedResource Include="keys\iPhone1,1_7A400.plist" />
+    <EmbeddedResource Include="keys\iPhone1,1_7C144.plist" />
+    <EmbeddedResource Include="keys\iPhone1,1_7D11.plist" />
+    <EmbeddedResource Include="keys\iPhone1,1_7E18.plist" />
+    <EmbeddedResource Include="keys\iPhone1,2_5A347.plist" />
+    <EmbeddedResource Include="keys\iPhone1,2_5B108.plist" />
+    <EmbeddedResource Include="keys\iPhone1,2_5C1.plist" />
+    <EmbeddedResource Include="keys\iPhone1,2_5F136.plist" />
+    <EmbeddedResource Include="keys\iPhone1,2_5G77.plist" />
+    <EmbeddedResource Include="keys\iPhone1,2_5H11.plist" />
+    <EmbeddedResource Include="keys\iPhone1,2_7A341.plist" />
+    <EmbeddedResource Include="keys\iPhone1,2_7A400.plist" />
+    <EmbeddedResource Include="keys\iPhone1,2_7C144.plist" />
+    <EmbeddedResource Include="keys\iPhone1,2_7D11.plist" />
+    <EmbeddedResource Include="keys\iPhone1,2_7E18.plist" />
+    <EmbeddedResource Include="keys\iPhone1,2_8A293.plist" />
+    <EmbeddedResource Include="keys\iPhone1,2_8A306.plist" />
+    <EmbeddedResource Include="keys\iPhone1,2_8A400.plist" />
+    <EmbeddedResource Include="keys\iPhone1,2_8B117.plist" />
+    <EmbeddedResource Include="keys\iPhone1,2_8C148.plist" />
+    <EmbeddedResource Include="keys\iPhone2,1_7A341.plist" />
+    <EmbeddedResource Include="keys\iPhone2,1_7A400.plist" />
+    <EmbeddedResource Include="keys\iPhone2,1_7C144.plist" />
+    <EmbeddedResource Include="keys\iPhone2,1_7D11.plist" />
+    <EmbeddedResource Include="keys\iPhone2,1_7E18.plist" />
+    <EmbeddedResource Include="keys\iPhone2,1_8A293.plist" />
+    <EmbeddedResource Include="keys\iPhone2,1_8A306.plist" />
+    <EmbeddedResource Include="keys\iPhone2,1_8A400.plist" />
+    <EmbeddedResource Include="keys\iPhone2,1_8B117.plist" />
+    <EmbeddedResource Include="keys\iPhone2,1_8C148a.plist" />
+    <EmbeddedResource Include="keys\iPhone2,1_8F190.plist" />
+    <EmbeddedResource Include="keys\iPhone2,1_8G4.plist" />
+    <EmbeddedResource Include="keys\iPhone2,1_8H7.plist" />
+    <EmbeddedResource Include="keys\iPhone2,1_8J2.plist" />
+    <EmbeddedResource Include="keys\iPhone2,1_8K2.plist" />
+    <EmbeddedResource Include="keys\iPhone2,1_8L1.plist" />
+    <EmbeddedResource Include="keys\iPhone2,1_9A334.plist" />
+    <EmbeddedResource Include="keys\iPhone2,1_9A405.plist" />
+    <EmbeddedResource Include="keys\iPhone2,1_9B176.plist" />
+    <EmbeddedResource Include="keys\iPhone3,1_8A293.plist" />
+    <EmbeddedResource Include="keys\iPhone3,1_8A306.plist" />
+    <EmbeddedResource Include="keys\iPhone3,1_8A400.plist" />
+    <EmbeddedResource Include="keys\iPhone3,1_8B117.plist" />
+    <EmbeddedResource Include="keys\iPhone3,1_8C148.plist" />
+    <EmbeddedResource Include="keys\iPhone3,1_8F190.plist" />
+    <EmbeddedResource Include="keys\iPhone3,1_8G4.plist" />
+    <EmbeddedResource Include="keys\iPhone3,1_8H7.plist" />
+    <EmbeddedResource Include="keys\iPhone3,1_8J2.plist" />
+    <EmbeddedResource Include="keys\iPhone3,1_8K2.plist" />
+    <EmbeddedResource Include="keys\iPhone3,1_8L1.plist" />
+    <EmbeddedResource Include="keys\iPhone3,1_9A334.plist" />
+    <EmbeddedResource Include="keys\iPhone3,1_9A405.plist" />
+    <EmbeddedResource Include="keys\iPhone3,1_9B176.plist" />
+    <EmbeddedResource Include="keys\iPhone3,3_8E200.plist" />
+    <EmbeddedResource Include="keys\iPhone3,3_8E303.plist" />
+    <EmbeddedResource Include="keys\iPhone3,3_8E401.plist" />
+    <EmbeddedResource Include="keys\iPhone3,3_8E501.plist" />
+    <EmbeddedResource Include="keys\iPhone3,3_8E600.plist" />
+    <EmbeddedResource Include="keys\iPhone3,3_9A334.plist" />
+    <EmbeddedResource Include="keys\iPhone3,3_9A405.plist" />
+    <EmbeddedResource Include="keys\iPhone3,3_9B176.plist" />
+    <EmbeddedResource Include="keys\iPhone4,1_9A406.plist" />
+    <EmbeddedResource Include="keys\iPod1,1_3A110a.plist" />
+    <EmbeddedResource Include="keys\iPod1,1_3B48b.plist" />
+    <EmbeddedResource Include="keys\iPod1,1_4A102.plist" />
+    <EmbeddedResource Include="keys\iPod1,1_4A93.plist" />
+    <EmbeddedResource Include="keys\iPod1,1_4B1.plist" />
+    <EmbeddedResource Include="keys\iPod1,1_5A347.plist" />
+    <EmbeddedResource Include="keys\iPod1,1_5B108.plist" />
+    <EmbeddedResource Include="keys\iPod1,1_5C1.plist" />
+    <EmbeddedResource Include="keys\iPod1,1_5F137.plist" />
+    <EmbeddedResource Include="keys\iPod1,1_5G77.plist" />
+    <EmbeddedResource Include="keys\iPod1,1_5H11.plist" />
+    <EmbeddedResource Include="keys\iPod1,1_7A341.plist" />
+    <EmbeddedResource Include="keys\iPod1,1_7C145.plist" />
+    <EmbeddedResource Include="keys\iPod1,1_7D11.plist" />
+    <EmbeddedResource Include="keys\iPod1,1_7E18.plist" />
+    <EmbeddedResource Include="keys\iPod2,1_5F138.plist" />
+    <EmbeddedResource Include="keys\iPod2,1_5G77a.plist" />
+    <EmbeddedResource Include="keys\iPod2,1_5H11a.plist" />
+    <EmbeddedResource Include="keys\iPod2,1_7A341.plist" />
+    <EmbeddedResource Include="keys\iPod2,1_7C145.plist" />
+    <EmbeddedResource Include="keys\iPod2,1_7D11.plist" />
+    <EmbeddedResource Include="keys\iPod2,1_7E18.plist" />
+    <EmbeddedResource Include="keys\iPod2,1_8A293.plist" />
+    <EmbeddedResource Include="keys\iPod2,1_8A400.plist" />
+    <EmbeddedResource Include="keys\iPod2,1_8B117.plist" />
+    <EmbeddedResource Include="keys\iPod2,1_8C148.plist" />
+    <EmbeddedResource Include="keys\iPod3,1_7C145.plist" />
+    <EmbeddedResource Include="keys\iPod3,1_7C146.plist" />
+    <EmbeddedResource Include="keys\iPod3,1_7D11.plist" />
+    <EmbeddedResource Include="keys\iPod3,1_7E18.plist" />
+    <EmbeddedResource Include="keys\iPod3,1_8A293.plist" />
+    <EmbeddedResource Include="keys\iPod3,1_8A400.plist" />
+    <EmbeddedResource Include="keys\iPod3,1_8B117.plist" />
+    <EmbeddedResource Include="keys\iPod3,1_8C148.plist" />
+    <EmbeddedResource Include="keys\iPod3,1_8F190.plist" />
+    <EmbeddedResource Include="keys\iPod3,1_8G4.plist" />
+    <EmbeddedResource Include="keys\iPod3,1_8H7.plist" />
+    <EmbeddedResource Include="keys\iPod3,1_8J2.plist" />
+    <EmbeddedResource Include="keys\iPod3,1_8K2.plist" />
+    <EmbeddedResource Include="keys\iPod3,1_8L1.plist" />
+    <EmbeddedResource Include="keys\iPod3,1_9A334.plist" />
+    <EmbeddedResource Include="keys\iPod3,1_9A405.plist" />
+    <EmbeddedResource Include="keys\iPod4,1_8B117.plist" />
+    <EmbeddedResource Include="keys\iPod4,1_8B118.plist" />
+    <EmbeddedResource Include="keys\iPod4,1_8C148.plist" />
+    <EmbeddedResource Include="keys\iPod4,1_8F190.plist" />
+    <EmbeddedResource Include="keys\iPod4,1_8G4.plist" />
+    <EmbeddedResource Include="keys\iPod4,1_8H7.plist" />
+    <EmbeddedResource Include="keys\iPod4,1_8J2.plist" />
+    <EmbeddedResource Include="keys\iPod4,1_8K2.plist" />
+    <EmbeddedResource Include="keys\iPod4,1_8L1.plist" />
+    <EmbeddedResource Include="keys\iPod4,1_9A334.plist" />
+    <EmbeddedResource Include="keys\iPod4,1_9A405.plist" />
+    <EmbeddedResource Include="keys\iPod4,1_9B176.plist" />
     <None Include="l18n\eng.ini">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -273,9 +444,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="keys\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>

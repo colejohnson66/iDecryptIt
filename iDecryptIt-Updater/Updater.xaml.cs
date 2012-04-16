@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Net;
+using System.Reflection;
 using System.Windows;
 
 namespace Hexware.Programs.iDecryptIt.Updater
@@ -13,8 +14,8 @@ namespace Hexware.Programs.iDecryptIt.Updater
     /// </summary>
     public partial class MainWindow : Window
     {
-        string tempdir = System.IO.Path.GetTempPath() + "\\Cole Stuff\\iDecryptIt\\";
-        string rundir = Directory.GetCurrentDirectory() + "\\";
+        string tempdir = Path.Combine(Path.GetTempPath() + "Hexware\\iDecryptIt") + "\\";
+        string rundir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "\\";
         string[] checkerArr;
         string[] installArr = new string[4] {
             "5",
@@ -69,7 +70,7 @@ namespace Hexware.Programs.iDecryptIt.Updater
         }
         private void Window_Loaded(object sender, EventArgs e)
         {
-            btnTop.Visibility = Visibility.Hidden;
+            btnDownload.Visibility = Visibility.Hidden;
 
             // Download the raw code
             try
@@ -83,12 +84,12 @@ namespace Hexware.Programs.iDecryptIt.Updater
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
+                /*MessageBox.Show(
                     "Unable to download version info!\n\n" +
                     "Exception: " + ex.Message,
                     "iDecryptIt",
                     MessageBoxButton.OK,
-                    MessageBoxImage.Error);
+                    MessageBoxImage.Error);*/
                 Environment.Exit(-1);
             }
             
@@ -97,21 +98,21 @@ namespace Hexware.Programs.iDecryptIt.Updater
             {
                 Close();
             }
-            Title = "Update Available";
+            this.Title = "Update Available";
             txtHeader.Text = "Update Available";
             txtInstalled.Text = "Installed version: " + installArr[0] + "." + installArr[1] + "." + installArr[2] + " (Build " + installArr[3] + ")";
             txtAvailable.Text = "Latest version: " + checkerArr[0] + "." + checkerArr[1] + "." + checkerArr[2] + " (Build " + checkerArr[3] + ")";
-            btnTop.Visibility = Visibility.Visible;
+            btnDownload.Visibility = Visibility.Visible;
         }
-        private void btnBottom_Click(object sender, RoutedEventArgs e)
+        private void btnOk_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            this.Close();
         }
-        private void btnTop_Click(object sender, RoutedEventArgs e)
+        private void btnDownload_Click(object sender, RoutedEventArgs e)
         {
-            btnTop.IsEnabled = false;
-            btnBottom.IsEnabled = false;
-            Height = Height + 28;
+            btnDownload.IsEnabled = false;
+            btnOk.IsEnabled = false;
+            this.Height = this.Height + 30;
         }
     }
 }
