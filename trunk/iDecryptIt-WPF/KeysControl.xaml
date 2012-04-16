@@ -6,6 +6,7 @@
         ResizeMode="NoResize"
         Icon="app.ico"
         Background="{StaticResource Background}">
+    <!-- TODO: Download button -->
     <Grid Margin="6">
         <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -125,9 +126,9 @@
                 <TextBlock Grid.Row="40" Text="iBSS (IV)" Name="lbliBSSIV" VerticalAlignment="Center" />
                 <TextBlock Grid.Row="41" Text="iBSS (Key)" Name="lbliBSSKey" VerticalAlignment="Center" />
                 <TextBlock Grid.Row="42" Text="iBSS" Name="lbliBSSNoEncrypt" VerticalAlignment="Center" />
-                <TextBlock Grid.Row="43" Text="Kernel Cache (IV)" Name="lblKernelCacheIV" VerticalAlignment="Center" />
-                <TextBlock Grid.Row="44" Text="Kernel Cache (Key)" Name="lblKernelCacheKey" VerticalAlignment="Center" />
-                <TextBlock Grid.Row="45" Text="Kernel Cache" Name="lblKernelCacheNoEncrypt" VerticalAlignment="Center" />
+                <TextBlock Grid.Row="43" Text="Kernel Cache (IV)" Name="lblKernelcacheIV" VerticalAlignment="Center" />
+                <TextBlock Grid.Row="44" Text="Kernel Cache (Key)" Name="lblKernelcacheKey" VerticalAlignment="Center" />
+                <TextBlock Grid.Row="45" Text="Kernel Cache" Name="lblKernelcacheNoEncrypt" VerticalAlignment="Center" />
                 <TextBlock Grid.Row="46" Text="LLB (IV)" Name="lblLLBIV" VerticalAlignment="Center" />
                 <TextBlock Grid.Row="47" Text="LLB (Key)" Name="lblLLBKey" VerticalAlignment="Center" />
                 <TextBlock Grid.Row="48" Text="LLB" Name="lblLLBNoEncrypt" VerticalAlignment="Center" />
@@ -181,9 +182,9 @@
                 <TextBox Grid.Row="40" Grid.Column="2" Name="keyiBSSIV" Margin="0,3" />
                 <TextBox Grid.Row="41" Grid.Column="2" Name="keyiBSSKey" Margin="0,3" />
                 <TextBlock Grid.Row="42" Grid.Column="2" Text="Not Encrypted" Name="keyiBSSNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                <TextBox Grid.Row="43" Grid.Column="2" Name="keyKernelCacheIV" Margin="0,3" />
-                <TextBox Grid.Row="44" Grid.Column="2" Name="keyKernelCacheKey" Margin="0,3" />
-                <TextBlock Grid.Row="45" Grid.Column="2" Text="Not Encrypted" Name="keyKernelCacheNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                <TextBox Grid.Row="43" Grid.Column="2" Name="keyKernelcacheIV" Margin="0,3" />
+                <TextBox Grid.Row="44" Grid.Column="2" Name="keyKernelcacheKey" Margin="0,3" />
+                <TextBlock Grid.Row="45" Grid.Column="2" Text="Not Encrypted" Name="keyKernelcacheNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
                 <TextBox Grid.Row="46" Grid.Column="2" Name="keyLLBIV" Margin="0,3" />
                 <TextBox Grid.Row="47" Grid.Column="2" Name="keyLLBKey" Margin="0,3" />
                 <TextBlock Grid.Row="48" Grid.Column="2" Text="Not Encrypted" Name="keyLLBNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
@@ -223,8 +224,8 @@
                 <TextBox Grid.Row="39" Grid.Column="4" Name="fileiBootNoEncrypt" Margin="0,3" />
                 <TextBox Grid.Row="40" Grid.Column="4" Name="fileiBSS" Margin="0,3" Grid.RowSpan="2" VerticalAlignment="Center" />
                 <TextBox Grid.Row="42" Grid.Column="4" Name="fileiBSSNoEncrypt" Margin="0,3" />
-                <TextBox Grid.Row="43" Grid.Column="4" Name="fileKernelCache" Margin="0,3" Grid.RowSpan="2" VerticalAlignment="Center" />
-                <TextBox Grid.Row="45" Grid.Column="4" Name="fileKernelCacheNoEncrypt" Margin="0,3" />
+                <TextBox Grid.Row="43" Grid.Column="4" Name="fileKernelcache" Margin="0,3" Grid.RowSpan="2" VerticalAlignment="Center" />
+                <TextBox Grid.Row="45" Grid.Column="4" Name="fileKernelcacheNoEncrypt" Margin="0,3" />
                 <TextBox Grid.Row="46" Grid.Column="4" Name="fileLLB" Margin="0,3" Grid.RowSpan="2" VerticalAlignment="Center" />
                 <TextBox Grid.Row="48" Grid.Column="4" Name="fileLLBNoEncrypt" Margin="0,3" />
                 <TextBox Grid.Row="49" Grid.Column="4" Name="fileNeedService" Margin="0,3" Grid.RowSpan="2" VerticalAlignment="Center" />

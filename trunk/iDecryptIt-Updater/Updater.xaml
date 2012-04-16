@@ -45,8 +45,8 @@
                     <ColumnDefinition Width="Auto" MinWidth="75" />
                     <ColumnDefinition Width="12" />
                 </Grid.ColumnDefinitions>
-                <Button Grid.Row="3" Grid.Column="2" Content="Download" Name="btnTop" Click="btnTop_Click" />
-                <Button Grid.Row="5" Grid.Column="2" Content="OK" Name="btnBottom" Click="btnBottom_Click" />
+                <Button Grid.Row="3" Grid.Column="2" Content="Download" Name="btnDownload" Click="btnDownload_Click" />
+                <Button Grid.Row="5" Grid.Column="2" Content="OK" Name="btnOk" Click="btnOk_Click" />
                 <TextBlock Grid.Row="3" Name="txtAvailable" />
                 <TextBlock Grid.Row="5" Name="txtInstalled" />
                 <ProgressBar Grid.Row="1" Name="progDLProgress" Visibility="Hidden" />

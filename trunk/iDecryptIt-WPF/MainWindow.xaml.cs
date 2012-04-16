@@ -6,8 +6,9 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
-using System.Windows;
 using System.Threading;
+using System.Reflection;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Hexware.Programs.iDecryptIt
@@ -23,9 +24,9 @@ namespace Hexware.Programs.iDecryptIt
         string nokey = "None Published";
         string unavailable = "Build not available for this device";
         // File paths
-        string rundir = Directory.GetCurrentDirectory() + "\\";
-        string tempdir = System.IO.Path.GetTempPath() + "Cole Stuff\\iDecryptIt\\"; // System.IO Required as Path can mean directory or drawing
-        string helpdir = Directory.GetCurrentDirectory() + "\\help\\";
+        string rundir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "\\";
+        string tempdir = Path.Combine(Path.GetTempPath(), "Hexware\\iDecryptIt") + "\\";
+        string helpdir; // rundir + "help\\"
         // VFDecrypt
         BackgroundWorker decryptworker = new BackgroundWorker();
         Process decryptproc = new Process();
@@ -35,10 +36,7 @@ namespace Hexware.Programs.iDecryptIt
         double decryptprog;
         // INI files
         Ini l18n;
-
-        /// <summary>
-        /// Main Window constructor
-        /// </summary>
+        
         public MainWindow()
         {
             decryptworker.WorkerSupportsCancellation = true;
@@ -51,6 +49,8 @@ namespace Hexware.Programs.iDecryptIt
             decryptproc.StartInfo.RedirectStandardError = true;
             decryptproc.StartInfo.RedirectStandardInput = true;
             decryptproc.StartInfo.RedirectStandardOutput = true;
+
+            helpdir = rundir + "help\\";
 
             InitializeComponent();
         }
@@ -86,7 +86,7 @@ namespace Hexware.Programs.iDecryptIt
         // My Functions
         private void clear(string device)
         {
-            /**
+            /*
              * Tabs
              * 0 = Final
              * 1 = Beta
@@ -409,24 +409,64 @@ namespace Hexware.Programs.iDecryptIt
                 {
                     Directory.Delete(tempdir, true);
                 }
-                if (Directory.Exists(System.IO.Path.GetTempPath() + "Cole Stuff\\iDecryptIt-Setup\\"))
+                if (Directory.Exists(System.IO.Path.GetTempPath() + "Hexware\\iDecryptIt-Setup\\"))
                 {
-                    Directory.Delete(System.IO.Path.GetTempPath() + "Cole Stuff\\iDecryptIt-Setup\\", true);
+                    Directory.Delete(System.IO.Path.GetTempPath() + "Hexware\\iDecryptIt-Setup\\", true);
                 }
             }
             catch (Exception e)
             {
                 MessageBox.Show(
                     "Error clearing temp directory!\r\n\r\n" +
-                    "Please file a bug report at:\r\n" +
-                    "http://cole.freehostingcloud.com/cms/Bugs:iDecryptIt\r\n" +
-                    "with the following data and an explination of what was happening:\r\n\r\n" +
+                    "Please file a bug report\r\n" +// at:\r\n" +
+                    //"http://cole.freehostingcloud.com/iDecryptIt/Bugs\r\n" +
+                    "With the following data and an explanation of what was happening:\r\n\r\n" +
                     "Exception: " + e.Message +
                     "Version: " + GlobalVars.version,
                     "iDecryptIt",
                     MessageBoxButton.OK,
                     MessageBoxImage.Error);
             }
+        }
+        public bool SaveToDisk(string resourceName, string fileName)
+        {
+            try
+            {
+                Assembly assy = Assembly.GetExecutingAssembly();
+                string[] resources = assy.GetManifestResourceNames();
+                int length = resources.Length;
+                for (int i = 0; i < length; i++)
+                {
+                    if (resources[i].ToLower().IndexOf(resourceName.ToLower()) != -1)
+                    {
+                        // resource found
+                        Stream resourceStream = assy.GetManifestResourceStream(resources[i]);
+                        if (resourceStream != null)
+                        {
+                            BinaryReader reader = new BinaryReader(resourceStream);
+                            byte[] buffer = reader.ReadBytes(Convert.ToInt32(resourceStream.Length));
+                            reader.Dispose();
+                            FileStream outputStream = new FileStream(fileName, FileMode.Create);
+                            BinaryWriter writer = new BinaryWriter(outputStream);
+                            outputStream.Dispose();
+                            writer.Write(buffer);
+                            writer.Dispose();
+                            return true;
+                        }
+                        resourceStream.Dispose();
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Unable to open key page.\r\n\r\nPlease notify Hexware with:\r\n" + ex.Message,
+                    "iDecryptIt",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+            return false;
         }
 
         // Clicks and Stuff
@@ -1483,12 +1523,16 @@ namespace Hexware.Programs.iDecryptIt
         private void textInputFileName_TextChanged(object sender, TextChangedEventArgs e)
         {
             string[] split = textInputFileName.Text.Split('\\');
-            int length = split.Length - 1;
-            string lastindex = split[length];
-            string returntext = split[0];
-            for (int i = 1; i <= length; i++)
+            int length = split.Length;
+            string lastindex = split[length - 1];
+            string returntext = "";
+            for (int i = 0; i < length; i++)
             {
-                if (i == length)
+                if (i == 0)
+                {
+                    returntext = split[0];
+                }
+                else if (i == length)
                 {
                     returntext = returntext + "\\" + lastindex.Substring(0, split[length].Length - 4);
                     switch (wantedlang)
@@ -1536,7 +1580,7 @@ namespace Hexware.Programs.iDecryptIt
             }
 
             RegistryKey langcode;
-            langcode = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Cole Stuff\\iDecryptIt", true);
+            langcode = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Hexware\\iDecryptIt", true);
             if (langcode == null)
             {
                 new SelectLangControl(this).Show();

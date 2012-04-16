@@ -2,12 +2,11 @@
 
 namespace Hexware.Programs.iDecryptIt
 {
-    class ConsoleVersion
+    internal class ConsoleVersion
     {
-        internal static void Main()
+        internal static void Main(string[] args)
         {
-            string[] args = GlobalVars.executionargs;
-            Console.WriteLine("yo sup");
+            Console.WriteLine("So, I'm in the console. Now what?");
         }
     }
 }

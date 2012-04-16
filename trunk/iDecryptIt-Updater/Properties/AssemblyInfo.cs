@@ -9,7 +9,7 @@ using System.Resources;
 [assembly: AssemblyTitle("iDecryptIt Updater")]
 [assembly: AssemblyDescription("The update checker for iDecryptIt")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Cole Stuff")]
+[assembly: AssemblyCompany("Hexware")]
 [assembly: AssemblyProduct("iDecryptIt Updater")]
 [assembly: AssemblyCopyright("Copyright (C) 2011")]
 [assembly: AssemblyTrademark("")]
