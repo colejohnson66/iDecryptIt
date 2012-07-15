@@ -1,5 +1,4 @@
-﻿using Hexware.DataManipulation;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -16,10 +15,11 @@ namespace Hexware.Programs.iDecryptIt
     public partial class SplashScreen : Window
     {
         [DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
-        public static extern bool FreeConsole();
+        private static extern bool FreeConsole();
 
-        //Ini l18n;
-
+        /// <summary>
+        /// 
+        /// </summary>
         public SplashScreen()
         {
             // Grab .NET version
@@ -43,11 +43,11 @@ namespace Hexware.Programs.iDecryptIt
             }
 
             // If all goes well, grab command line options
-            GlobalVars.executionargs = Environment.GetCommandLineArgs();
+            GlobalVars.ExecutionArgs = Environment.GetCommandLineArgs();
         }
         private void goconsole()
         {
-            ConsoleVersion.Main(GlobalVars.executionargs);
+            ConsoleVersion.Main(GlobalVars.ExecutionArgs);
         }
         private void updateprog(string text)
         {
@@ -66,10 +66,10 @@ namespace Hexware.Programs.iDecryptIt
             Action act;
 
             // Is this console
-            int length = GlobalVars.executionargs.Length;
+            int length = GlobalVars.ExecutionArgs.Length;
             for (int i = 0; i < length; i++)
             {
-                if (GlobalVars.executionargs[i] == "/console")
+                if (GlobalVars.ExecutionArgs[i] == "/console")
                 {
                     // Go Console
                     act = () =>
@@ -113,7 +113,7 @@ namespace Hexware.Programs.iDecryptIt
             }*/
 
             // File Name
-            if (GlobalVars.executionargs != null)
+            if (GlobalVars.ExecutionArgs != null)
             {
                 act = () =>
                 {

@@ -8,7 +8,7 @@ namespace Hexware.Programs.iDecryptIt
     /// </summary>
     public partial class SubmitKey : Window
     {
-        public SubmitKey()
+        internal SubmitKey()
         {
             InitializeComponent();
         }

@@ -21,7 +21,7 @@ namespace Hexware.Programs.iDecryptIt.Updater
             "5",
             "10",
             "0",
-            "2B38"};
+            "2B39"};
 
         public MainWindow()
         {
