@@ -1,6 +1,7 @@
 ﻿<Window x:Class="Hexware.Programs.iDecryptIt.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         Title="iDecryptIt"
         Icon="app.ico"
         Height="600" Width="800"
@@ -133,87 +134,174 @@
                     <Grid Margin="6">
                         <Grid.ColumnDefinitions>
                             <!-- Apple TV -->
-                            <ColumnDefinition Width="{StaticResource KeepItSquare}" />
+                            <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                             <!-- iPad -->
-                            <ColumnDefinition Width="{StaticResource KeepItSquare}" />
-                            <ColumnDefinition Width="6" />
-                            <ColumnDefinition Width="{StaticResource KeepItSquare}" />
-                            <ColumnDefinition Width="6" />
-                            <ColumnDefinition Width="{StaticResource KeepItSquare}" />
-                            <ColumnDefinition Width="6" />
-                            <ColumnDefinition Width="{StaticResource KeepItSquare}" />
+                            <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                             <!-- iPhone -->
-                            <ColumnDefinition Width="{StaticResource KeepItSquare}" />
+                            <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="6" />
-                            <ColumnDefinition Width="{StaticResource KeepItSquare}" />
+                            <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="6" />
-                            <ColumnDefinition Width="{StaticResource KeepItSquare}" />
+                            <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="6" />
-                            <ColumnDefinition Width="{StaticResource KeepItSquare}" />
+                            <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="6" />
-                            <ColumnDefinition Width="{StaticResource KeepItSquare}" />
+                            <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="6" />
-                            <ColumnDefinition Width="{StaticResource KeepItSquare}" />
+                            <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                             <!-- iPod touch -->
-                            <ColumnDefinition Width="{StaticResource KeepItSquare}" />
+                            <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="6" />
-                            <ColumnDefinition Width="{StaticResource KeepItSquare}" />
+                            <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="6" />
-                            <ColumnDefinition Width="{StaticResource KeepItSquare}" />
+                            <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="6" />
-                            <ColumnDefinition Width="{StaticResource KeepItSquare}" />
+                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
                             <RowDefinition Height="{StaticResource KeepItSquare}" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
-                        <Button x:Name="btnAppleTV21" Grid.Column="0" Grid.Row="1" ToolTip="Apple TV 2G" Click="btnAppleTV21_Click">
-                            <Image Source="Images/AppleTV2,1_32.png" />
-                        </Button>
-                        <Button x:Name="btniPad11" Grid.Column="2" Grid.Row="1" ToolTip="iPad 1G" Click="btniPad11_Click">
-                            <Image Source="Images/iPad1,1_32.png" />
-                        </Button>
-                        <Button x:Name="btniPad21" Grid.Column="4" Grid.Row="1" ToolTip="iPad 2 (Wi-Fi)" Click="btniPad21_Click">
-                            <Image Source="Images/iPad2,1_32.png" />
-                        </Button>
-                        <Button x:Name="btniPad22" Grid.Column="6" Grid.Row="1" ToolTip="iPad 2 (GSM)" Click="btniPad22_Click">
-                            <Image Source="Images/iPad2,2_32.png" />
-                        </Button>
-                        <Button x:Name="btniPad23" Grid.Column="8" Grid.Row="1" ToolTip="iPad 2 (CDMA)" Click="btniPad23_Click">
-                            <Image Source="Images/iPad2,3_32.png" />
-                        </Button>
-                        <Button x:Name="btniPhone11" Grid.Column="10" Grid.Row="1" ToolTip="iPhone 2G" Click="btniPhone11_Click">
+                        <xctk:DropDownButton Grid.Column="0" Grid.Row="1" ToolTip="Apple TV">
+                            Apple TV
+                            <xctk:DropDownButton.DropDownContent>
+                                <Menu>
+                                    <MenuItem x:Name="btnAppleTV21" Header="Apple TV 2G">
+                                        <MenuItem x:Name="btnAppleTV21_8M89" Header="4.0/4.1 (8M89)" Click="key_Click" />
+                                        <MenuItem x:Name="btnAppleTV21_8C150" Header="4.1/4.2 (8C150)" Click="key_Click" />
+                                        <MenuItem x:Name="btnAppleTV21_8C154" Header="4.1.1/4.2.1 (8C154)" Click="key_Click" />
+                                        <MenuItem x:Name="btnAppleTV21_8F191m" Header="4.2/4.3 (8F191m)" Click="key_Click" />
+                                        <MenuItem x:Name="btnAppleTV21_8F202" Header="4.2.1/4.3 (8F202)" Click="key_Click" />
+                                        <MenuItem x:Name="btnAppleTV21_8F305" Header="4.2.2/4.3 (8F305)" Click="key_Click" />
+                                        <MenuItem x:Name="btnAppleTV21_8F455" Header="4.3 (8F455)" Click="key_Click" />
+                                        <MenuItem x:Name="btnAppleTV21_9A334v" Header="4.4/5.0 (9A334v)" Click="key_Click" />
+                                        <MenuItem x:Name="btnAppleTV21_9A335a" Header="4.4.1/5.0 (9A335a)" Click="key_Click" />
+                                        <MenuItem x:Name="btnAppleTV21_9A336a" Header="4.4.2/5.0 (9A336a)" Click="key_Click" />
+                                        <MenuItem x:Name="btnAppleTV21_9A405l" Header="4.4.3/5.0.1 (9A405l)" Click="key_Click" />
+                                        <MenuItem x:Name="btnAppleTV21_9A406a" Header="4.4.4/5.0.1 (9A406a)" Click="key_Click" />
+                                        <MenuItem x:Name="btnAppleTV21_9B179b" Header="5.0/5.1 (9B179b)" Click="key_Click" />
+                                        <MenuItem x:Name="btnAppleTV21_9B206f" Header="5.0.1/5.1 (9B206f)" Click="key_Click" />
+                                        <MenuItem x:Name="btnAppleTV21_9B830" Header="5.0.2/5.1 (9B830)" Click="key_Click" />
+                                    </MenuItem>
+                                    <MenuItem x:Name="btnAppleTV31" Header="Apple TV 3G">
+                                        <MenuItem x:Name="btnAppleTV31_9B179b" Header="5.0/5.1 (9B179b)" Click="key_Click" />
+                                        <MenuItem x:Name="btnAppleTV31_9B206f" Header="5.0.1/5.1.1 (9B206f)" Click="key_Click" />
+                                        <MenuItem x:Name="btnAppleTV31_9B830" Header="5.0.2/5.1.1 (9B830)" Click="key_Click" />
+                                    </MenuItem>
+                                </Menu>
+                            </xctk:DropDownButton.DropDownContent>
+                        </xctk:DropDownButton>
+                        <xctk:DropDownButton Grid.Column="2" Grid.Row="1" ToolTip=" Apple iPad">
+                            Apple iPad
+                            <xctk:DropDownButton.DropDownContent>
+                                <Menu>
+                                    <MenuItem x:Name="btnIPad11" Header="iPad 1G">
+                                        <MenuItem x:Name="btnIPad11_7B367" Header="3.2 (7B367)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPad11_7B405" Header="3.2.1 (7B405)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPad11_7B500" Header="3.2.2 (7B500)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPad11_8C148" Header="4.2.1 (8C148)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPad11_8F190" Header="4.3 (8F190)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPad11_8G4" Header="4.3.1 (8G4)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPad11_8H7" Header="4.3.2 (8H7)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPad11_8J3" Header="4.3.3 (8J3)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPad11_8K2" Header="4.3.4 (8K2)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPad11_8L1" Header="4.3.5 (8L1)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPad11_9A334" Header="5.0 (9A334)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPad11_9A405" Header="5.0.1 (9A405)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPad11_9B176" Header="5.1 (9B176)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPad11_9B206" Header="5.1.1 (9B206)" Click="key_Click" />
+                                    </MenuItem>
+                                    <MenuItem x:Name="btnIPad2" Header="iPad 2">
+										<MenuItem x:Name="btnIPad21" Header="iPad 2 (Wi-Fi)">
+										    <MenuItem x:Name="btnIPad21_8F191" Header="4.3 (8F191)" Click="key_Click" />
+										    <MenuItem x:Name="btnIPad21_8G4" Header="4.3.1 (8G4)" Click="key_Click" />
+										    <MenuItem x:Name="btnIPad21_8H7" Header="4.3.2 (8H7)" Click="key_Click" />
+										    <MenuItem x:Name="btnIPad21_8J2" Header="4.3.3 (8J2)" Click="key_Click" />
+										    <MenuItem x:Name="btnIPad21_8K2" Header="4.3.4 (8K2)" Click="key_Click" />
+										    <MenuItem x:Name="btnIPad21_8L1" Header="4.3.5 (8L1)" Click="key_Click" />
+										    <MenuItem x:Name="btnIPad21_9A334" Header="5.0 (9A334)" Click="key_Click" />
+										    <MenuItem x:Name="btnIPad21_9A405" Header="5.0.1 (9A405)" Click="key_Click" />
+										    <MenuItem x:Name="btnIPad21_9B176" Header="5.1 (9B176)" Click="key_Click" />
+										    <MenuItem x:Name="btnIPad21_9B206" Header="5.1.1 (9B206)" Click="key_Click" />
+										</MenuItem>
+										<MenuItem x:Name="btnIPad22" Header="iPad 2 (GSM)">
+										    <MenuItem x:Name="btnIPad22_8F191" Header="4.3 (8F191)" Click="key_Click" />
+										    <MenuItem x:Name="btnIPad22_8G4" Header="4.3.1 (8G4)" Click="key_Click" />
+										    <MenuItem x:Name="btnIPad22_8H7" Header="4.3.2 (8H7)" Click="key_Click" />
+										    <MenuItem x:Name="btnIPad22_8J2" Header="4.3.3 (8J2)" Click="key_Click" />
+										    <MenuItem x:Name="btnIPad22_8K2" Header="4.3.4 (8K2)" Click="key_Click" />
+										    <MenuItem x:Name="btnIPad22_8L1" Header="4.3.5 (8L1)" Click="key_Click" />
+										    <MenuItem x:Name="btnIPad22_9A334" Header="5.0 (9A334)" Click="key_Click" />
+										    <MenuItem x:Name="btnIPad22_9A405" Header="5.0.1 (9A405)" Click="key_Click" />
+										    <MenuItem x:Name="btnIPad22_9B176" Header="5.1 (9B176)" Click="key_Click" />
+										    <MenuItem x:Name="btnIPad22_9B206" Header="5.1.1 (9B206)" Click="key_Click" />
+										</MenuItem>
+										<MenuItem x:Name="btnIPad23" Header="iPad 2 (CDMA)">
+										    <MenuItem x:Name="btnIPad23_8F191" Header="4.3 (8F191)" Click="key_Click" />
+										    <MenuItem x:Name="btnIPad23_8G4" Header="4.3.1 (8G4)" Click="key_Click" />
+										    <MenuItem x:Name="btnIPad23_8H8" Header="4.3.2 (8H8)" Click="key_Click" />
+										    <MenuItem x:Name="btnIPad23_8J2" Header="4.3.3 (8J2)" Click="key_Click" />
+										    <MenuItem x:Name="btnIPad23_8K2" Header="4.3.4 (8K2)" Click="key_Click" />
+										    <MenuItem x:Name="btnIPad23_8L1" Header="4.3.5 (8L1)" Click="key_Click" />
+										    <MenuItem x:Name="btnIPad23_9A334" Header="5.0 (9A334)" Click="key_Click" />
+										    <MenuItem x:Name="btnIPad23_9A405" Header="5.0.1 (9A405)" Click="key_Click" />
+										    <MenuItem x:Name="btnIPad23_9B176" Header="5.1 (9B176)" Click="key_Click" />
+										    <MenuItem x:Name="btnIPad23_9B206" Header="5.1.1 (9B206)" Click="key_Click" />
+										</MenuItem>
+										<MenuItem x:Name="btnIPad24" Header="iPad 2 (Wi-Fi) [R2]">
+										    <MenuItem x:Name="btnIPad24_9B176" Header="5.1 (9B176)" Click="key_Click" />
+										    <MenuItem x:Name="btnIPad24_9B206" Header="5.1.1 (9B206)" Click="key_Click" />
+										</MenuItem>
+                                    </MenuItem>
+                                    <MenuItem x:Name="btnIPad3" Header="iPad 3">
+                                        <MenuItem x:Name="btnIPad31" Header="iPad 3 (Wi-Fi)" ToolTip="The New iPad (Wi-Fi)">
+										    <MenuItem x:Name="btnIPad31_9B176" Header="5.1 (9B176)" Click="key_Click" />
+										    <MenuItem x:Name="btnIPad31_9B206" Header="5.1.1 (9B206)" Click="key_Click" />
+										</MenuItem>
+                                        <MenuItem x:Name="btnIPad32" Header="iPad 3 (CDMA)" ToolTip="The New iPad (CDMA)">
+										    <MenuItem x:Name="btnIPad32_9B176" Header="5.1 (9B176)" Click="key_Click" />
+										    <MenuItem x:Name="btnIPad32_9B206" Header="5.1.1 (9B206)" Click="key_Click" />
+										</MenuItem>
+                                        <MenuItem x:Name="btnIPad33" Header="iPad 3 (Global)" ToolTip="The New iPad (GSM)">
+										    <MenuItem x:Name="btnIPad33_9B176" Header="5.1 (9B176)" Click="key_Click" />
+										    <MenuItem x:Name="btnIPad33_9B206" Header="5.1.1 (9B206)" Click="key_Click" />
+										</MenuItem>
+                                    </MenuItem>
+                                </Menu>
+                            </xctk:DropDownButton.DropDownContent>
+                        </xctk:DropDownButton>
+                        <Button x:Name="btniPhone11" Grid.Column="4" Grid.Row="1" ToolTip="iPhone 2G" Click="btniPhone11_Click">
                             <Image Source="Images/iPhone1,1_32.png" />
                         </Button>
-                        <Button x:Name="btniPhone12" Grid.Column="12" Grid.Row="1" ToolTip="iPhone 3G" Click="btniPhone12_Click">
+                        <Button x:Name="btniPhone12" Grid.Column="6" Grid.Row="1" ToolTip="iPhone 3G" Click="btniPhone12_Click">
                             <Image Source="Images/iPhone1,2_32.png" />
                         </Button>
-                        <Button x:Name="btniPhone21" Grid.Column="14" Grid.Row="1" ToolTip="iPhone 3GS" Click="btniPhone21_Click">
+                        <Button x:Name="btniPhone21" Grid.Column="8" Grid.Row="1" ToolTip="iPhone 3GS" Click="btniPhone21_Click">
                             <Image Source="Images/iPhone2,1_32.png" />
                         </Button>
-                        <Button x:Name="btniPhone31" Grid.Column="16" Grid.Row="1" ToolTip="iPhone 4 (GSM)" Click="btniPhone31_Click">
+                        <Button x:Name="btniPhone31" Grid.Column="10" Grid.Row="1" ToolTip="iPhone 4 (GSM)" Click="btniPhone31_Click">
                             <Image Source="Images/iPhone3,1_32.png" />
                         </Button>
-                        <Button x:Name="btniPhone33" Grid.Column="18" Grid.Row="1" ToolTip="iPhone 4 (CDMA)" Click="btniPhone33_Click">
+                        <Button x:Name="btniPhone33" Grid.Column="12" Grid.Row="1" ToolTip="iPhone 4 (CDMA)" Click="btniPhone33_Click">
                             <Image Source="Images/iPhone3,3_32.png" />
                         </Button>
-                        <Button x:Name="btniPhone41" Grid.Column="20" Grid.Row="1" ToolTip="iPhone 4S" Click="btniPhone41_Click">
+                        <Button x:Name="btniPhone41" Grid.Column="14" Grid.Row="1" ToolTip="iPhone 4S" Click="btniPhone41_Click">
                             <Image Source="Images/iPhone4,1_32.png" />
                         </Button>
-                        <Button x:Name="btniPod11" Grid.Column="22" Grid.Row="1" ToolTip="iPod touch 1G" Click="btniPod11_Click">
+                        <Button x:Name="btniPod11" Grid.Column="16" Grid.Row="1" ToolTip="iPod touch 1G" Click="btniPod11_Click">
                             <Image Source="Images/iPod1,1_32.png" />
                         </Button>
-                        <Button x:Name="btniPod21" Grid.Column="24" Grid.Row="1" ToolTip="iPod touch 2G" Click="btniPod21_Click">
+                        <Button x:Name="btniPod21" Grid.Column="18" Grid.Row="1" ToolTip="iPod touch 2G" Click="btniPod21_Click">
                             <Image Source="Images/iPod2,1_32.png" />
                         </Button>
-                        <Button x:Name="btniPod31" Grid.Column="26" Grid.Row="1" ToolTip="iPod touch 3G" Click="btniPod31_Click">
+                        <Button x:Name="btniPod31" Grid.Column="20" Grid.Row="1" ToolTip="iPod touch 3G" Click="btniPod31_Click">
                             <Image Source="Images/iPod3,1_32.png" />
                         </Button>
-                        <Button x:Name="btniPod41" Grid.Column="28" Grid.Row="1" ToolTip="iPod touch 4G" Click="btniPod41_Click">
+                        <Button x:Name="btniPod41" Grid.Column="22" Grid.Row="1" ToolTip="iPod touch 4G" Click="btniPod41_Click">
                             <Image Source="Images/iPod4,1_32.png" />
                         </Button>
                     </Grid>
@@ -244,7 +332,7 @@
                                     <ColumnDefinition Width="6" />
                                 </Grid.ColumnDefinitions>
                                 <Image Source="Images/Help-browser_32.png" />
-                                <TextBlock Grid.Column="2" Text="What Am I?" VerticalAlignment="Center" />
+                                <TextBlock Grid.Column="2" Text="What firmware is this IPSW?" VerticalAlignment="Center" />
                             </Grid>
                         </Button>
                         <Grid Grid.Column="2" Height="24">
@@ -429,7 +517,8 @@
                                     <TextBlock Grid.Row="57" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a406" Text="5.0.1 (9A406)" />
                                     <!-- Key -->
                                     <Button Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="3" Name="btn1a420" Content="Prototype" Click="btn1a420_Click" Height="23" />
-                                    <TextBox Grid.Row="1" Grid.Column="2" Margin="0,3" Name="key1a543a" /><!-- Begin 1.x (1A543a) -->
+                                    <TextBox Grid.Row="1" Grid.Column="2" Margin="0,3" Name="key1a543a" />
+                                    <!-- Begin 1.x (1A543a) -->
                                     <TextBox Grid.Row="2" Grid.Column="2" Margin="0,3" Name="key1c25" />
                                     <TextBox Grid.Row="3" Grid.Column="2" Margin="0,3" Name="key1c28" />
                                     <TextBox Grid.Row="4" Grid.Column="2" Margin="0,3" Name="key3a100a" />
@@ -440,7 +529,8 @@
                                     <TextBox Grid.Row="9" Grid.Column="2" Margin="0,3" Name="key4a93" />
                                     <TextBox Grid.Row="10" Grid.Column="2" Margin="0,3" Name="key4a102" />
                                     <TextBox Grid.Row="11" Grid.Column="2" Margin="0,3" Name="key4b1" />
-                                    <TextBox Grid.Row="12" Grid.Column="2" Margin="0,3" Name="key5a345final" /><!-- Begin 2.x (5A345) -->
+                                    <TextBox Grid.Row="12" Grid.Column="2" Margin="0,3" Name="key5a345final" />
+                                    <!-- Begin 2.x (5A345) -->
                                     <TextBox Grid.Row="13" Grid.Column="2" Margin="0,3" Name="key5a347" />
                                     <TextBox Grid.Row="14" Grid.Column="2" Margin="0,3" Name="key5b108" />
                                     <TextBox Grid.Row="15" Grid.Column="2" Margin="0,3" Name="key5c1" />
@@ -451,7 +541,8 @@
                                     <TextBox Grid.Row="20" Grid.Column="2" Margin="0,3" Name="key5g77a" />
                                     <TextBox Grid.Row="21" Grid.Column="2" Margin="0,3" Name="key5h11" />
                                     <TextBox Grid.Row="22" Grid.Column="2" Margin="0,3" Name="key5h11a" />
-                                    <TextBox Grid.Row="23" Grid.Column="2" Margin="0,3" Name="key7a341" /><!-- Begin 3.x (7A341) -->
+                                    <TextBox Grid.Row="23" Grid.Column="2" Margin="0,3" Name="key7a341" />
+                                    <!-- Begin 3.x (7A341) -->
                                     <TextBox Grid.Row="24" Grid.Column="2" Margin="0,3" Name="key7a400" />
                                     <TextBox Grid.Row="25" Grid.Column="2" Margin="0,3" Name="key7c144" />
                                     <TextBox Grid.Row="26" Grid.Column="2" Margin="0,3" Name="key7c145" />
@@ -461,7 +552,8 @@
                                     <TextBox Grid.Row="30" Grid.Column="2" Margin="0,3" Name="key7b367" />
                                     <TextBox Grid.Row="31" Grid.Column="2" Margin="0,3" Name="key7b405" />
                                     <TextBox Grid.Row="32" Grid.Column="2" Margin="0,3" Name="key7b500" />
-                                    <TextBox Grid.Row="33" Grid.Column="2" Margin="0,3" Name="key8a293final" /><!-- Begin 4.x (8A293) -->
+                                    <TextBox Grid.Row="33" Grid.Column="2" Margin="0,3" Name="key8a293final" />
+                                    <!-- Begin 4.x (8A293) -->
                                     <TextBox Grid.Row="34" Grid.Column="2" Margin="0,3" Name="key8a306" />
                                     <TextBox Grid.Row="35" Grid.Column="2" Margin="0,3" Name="key8a400" />
                                     <TextBox Grid.Row="36" Grid.Column="2" Margin="0,3" Name="key8b117" />
@@ -483,11 +575,13 @@
                                     <TextBox Grid.Row="52" Grid.Column="2" Margin="0,3" Name="key8j3" />
                                     <TextBox Grid.Row="53" Grid.Column="2" Margin="0,3" Name="key8k2" />
                                     <TextBox Grid.Row="54" Grid.Column="2" Margin="0,3" Name="key8l1" />
-                                    <TextBox Grid.Row="55" Grid.Column="2" Margin="0,3" Name="key9a334final"/><!-- Begin 5.x (9A334) -->
+                                    <TextBox Grid.Row="55" Grid.Column="2" Margin="0,3" Name="key9a334final"/>
+                                    <!-- Begin 5.x (9A334) -->
                                     <TextBox Grid.Row="56" Grid.Column="2" Margin="0,3" Name="key9a405"/>
                                     <TextBox Grid.Row="57" Grid.Column="2" Margin="0,3" Name="key9a406"/>
                                     <!-- DMG -->
-                                    <TextBox Grid.Row="1" Grid.Column="4" Margin="0,3" Name="dmg1a543a" /><!-- Begin 1.x (1A543a) -->
+                                    <TextBox Grid.Row="1" Grid.Column="4" Margin="0,3" Name="dmg1a543a" />
+                                    <!-- Begin 1.x (1A543a) -->
                                     <TextBox Grid.Row="2" Grid.Column="4" Margin="0,3" Name="dmg1c25" />
                                     <TextBox Grid.Row="3" Grid.Column="4" Margin="0,3" Name="dmg1c28" />
                                     <TextBox Grid.Row="4" Grid.Column="4" Margin="0,3" Name="dmg3a100a" />
@@ -498,7 +592,8 @@
                                     <TextBox Grid.Row="9" Grid.Column="4" Margin="0,3" Name="dmg4a93" />
                                     <TextBox Grid.Row="10" Grid.Column="4" Margin="0,3" Name="dmg4a102" />
                                     <TextBox Grid.Row="11" Grid.Column="4" Margin="0,3" Name="dmg4b1" />
-                                    <TextBox Grid.Row="12" Grid.Column="4" Margin="0,3" Name="dmg5a345final" /><!-- Begin 2.x (5A345) -->
+                                    <TextBox Grid.Row="12" Grid.Column="4" Margin="0,3" Name="dmg5a345final" />
+                                    <!-- Begin 2.x (5A345) -->
                                     <TextBox Grid.Row="13" Grid.Column="4" Margin="0,3" Name="dmg5a347" />
                                     <TextBox Grid.Row="14" Grid.Column="4" Margin="0,3" Name="dmg5b108" />
                                     <TextBox Grid.Row="15" Grid.Column="4" Margin="0,3" Name="dmg5c1" />
@@ -509,7 +604,8 @@
                                     <TextBox Grid.Row="20" Grid.Column="4" Margin="0,3" Name="dmg5g77a" />
                                     <TextBox Grid.Row="21" Grid.Column="4" Margin="0,3" Name="dmg5h11" />
                                     <TextBox Grid.Row="22" Grid.Column="4" Margin="0,3" Name="dmg5h11a" />
-                                    <TextBox Grid.Row="23" Grid.Column="4" Margin="0,3" Name="dmg7a341" /><!-- Begin 3.x (7A341) -->
+                                    <TextBox Grid.Row="23" Grid.Column="4" Margin="0,3" Name="dmg7a341" />
+                                    <!-- Begin 3.x (7A341) -->
                                     <TextBox Grid.Row="24" Grid.Column="4" Margin="0,3" Name="dmg7a400" />
                                     <TextBox Grid.Row="25" Grid.Column="4" Margin="0,3" Name="dmg7c144" />
                                     <TextBox Grid.Row="26" Grid.Column="4" Margin="0,3" Name="dmg7c145" />
@@ -519,7 +615,8 @@
                                     <TextBox Grid.Row="30" Grid.Column="4" Margin="0,3" Name="dmg7b367" />
                                     <TextBox Grid.Row="31" Grid.Column="4" Margin="0,3" Name="dmg7b405" />
                                     <TextBox Grid.Row="32" Grid.Column="4" Margin="0,3" Name="dmg7b500" />
-                                    <TextBox Grid.Row="33" Grid.Column="4" Margin="0,3" Name="dmg8a293final" /><!-- Begin 4.x (8A293) -->
+                                    <TextBox Grid.Row="33" Grid.Column="4" Margin="0,3" Name="dmg8a293final" />
+                                    <!-- Begin 4.x (8A293) -->
                                     <TextBox Grid.Row="34" Grid.Column="4" Margin="0,3" Name="dmg8a306" />
                                     <TextBox Grid.Row="35" Grid.Column="4" Margin="0,3" Name="dmg8a400" />
                                     <TextBox Grid.Row="36" Grid.Column="4" Margin="0,3" Name="dmg8b117" />
@@ -541,7 +638,8 @@
                                     <TextBox Grid.Row="52" Grid.Column="4" Margin="0,3" Name="dmg8j3" />
                                     <TextBox Grid.Row="53" Grid.Column="4" Margin="0,3" Name="dmg8k2" />
                                     <TextBox Grid.Row="54" Grid.Column="4" Margin="0,3" Name="dmg8l1" />
-                                    <TextBox Grid.Row="55" Grid.Column="4" Margin="0,3" Name="dmg9a334final"/><!-- Begin 5.x (9A334) -->
+                                    <TextBox Grid.Row="55" Grid.Column="4" Margin="0,3" Name="dmg9a334final"/>
+                                    <!-- Begin 5.x (9A334) -->
                                     <TextBox Grid.Row="56" Grid.Column="4" Margin="0,3" Name="dmg9a405"/>
                                     <TextBox Grid.Row="57" Grid.Column="4" Margin="0,3" Name="dmg9a406"/>
                                 </Grid>
@@ -658,8 +756,10 @@
                                     <TextBlock Grid.Row="47" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9b5117b" Text="5.1b1 (9B5117b)" />
                                     <TextBlock Grid.Row="48" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9b5127c" Text="5.1b2 (9B5127c)" />
                                     <!-- Key -->
-                                    <TextBox Grid.Row="0" Grid.Column="2" Margin="0,3" Name="key5a147p" /><!-- Begin 1.x (5A147p) -->
-                                    <TextBox Grid.Row="1" Grid.Column="2" Margin="0,3" Name="key5a225c" /><!-- Begin 2.x (5A225c) -->
+                                    <TextBox Grid.Row="0" Grid.Column="2" Margin="0,3" Name="key5a147p" />
+                                    <!-- Begin 1.x (5A147p) -->
+                                    <TextBox Grid.Row="1" Grid.Column="2" Margin="0,3" Name="key5a225c" />
+                                    <!-- Begin 2.x (5A225c) -->
                                     <TextBox Grid.Row="2" Grid.Column="2" Margin="0,3" Name="key5a240d" />
                                     <TextBox Grid.Row="3" Grid.Column="2" Margin="0,3" Name="key5a258f" />
                                     <TextBox Grid.Row="4" Grid.Column="2" Margin="0,3" Name="key5a274d" />
@@ -669,7 +769,8 @@
                                     <TextBox Grid.Row="8" Grid.Column="2" Margin="0,3" Name="key5a345beta" />
                                     <TextBox Grid.Row="9" Grid.Column="2" Margin="0,3" Name="key5f90" />
                                     <TextBox Grid.Row="10" Grid.Column="2" Margin="0,3" Name="key5g27" />
-                                    <TextBox Grid.Row="11" Grid.Column="2" Margin="0,3" Name="key7a238j" /><!-- Begin 3.x (7A238j) -->
+                                    <TextBox Grid.Row="11" Grid.Column="2" Margin="0,3" Name="key7a238j" />
+                                    <!-- Begin 3.x (7A238j) -->
                                     <TextBox Grid.Row="12" Grid.Column="2" Margin="0,3" Name="key7a259g" />
                                     <TextBox Grid.Row="13" Grid.Column="2" Margin="0,3" Name="key7a280f" />
                                     <TextBox Grid.Row="14" Grid.Column="2" Margin="0,3" Name="key7a300g" />
@@ -677,7 +778,8 @@
                                     <TextBox Grid.Row="16" Grid.Column="2" Margin="0,3" Name="key7c97d" />
                                     <TextBox Grid.Row="17" Grid.Column="2" Margin="0,3" Name="key7c106c" />
                                     <TextBox Grid.Row="18" Grid.Column="2" Margin="0,3" Name="key7c116a" />
-                                    <TextBox Grid.Row="19" Grid.Column="2" Margin="0,3" Name="key8a230m" /><!-- Begin 4.x (8A230m) -->
+                                    <TextBox Grid.Row="19" Grid.Column="2" Margin="0,3" Name="key8a230m" />
+                                    <!-- Begin 4.x (8A230m) -->
                                     <TextBox Grid.Row="20" Grid.Column="2" Margin="0,3" Name="key8a248c" />
                                     <TextBox Grid.Row="21" Grid.Column="2" Margin="0,3" Name="key8a260b" />
                                     <TextBox Grid.Row="22" Grid.Column="2" Margin="0,3" Name="key8a274b" />
@@ -695,7 +797,8 @@
                                     <TextBox Grid.Row="34" Grid.Column="2" Margin="0,3" Name="key8f5153d" />
                                     <TextBox Grid.Row="35" Grid.Column="2" Margin="0,3" Name="key8f5166b" />
                                     <TextBox Grid.Row="36" Grid.Column="2" Margin="0,3" Name="key8f190beta" />
-                                    <TextBox Grid.Row="37" Grid.Column="2" Margin="0,3" Name="key9a5220p"/><!-- Begin 5.x (9A5220p) -->
+                                    <TextBox Grid.Row="37" Grid.Column="2" Margin="0,3" Name="key9a5220p"/>
+                                    <!-- Begin 5.x (9A5220p) -->
                                     <TextBox Grid.Row="38" Grid.Column="2" Margin="0,3" Name="key9a5248d"/>
                                     <TextBox Grid.Row="39" Grid.Column="2" Margin="0,3" Name="key9a5259f"/>
                                     <TextBox Grid.Row="40" Grid.Column="2" Margin="0,3" Name="key9a5274d"/>
@@ -708,8 +811,10 @@
                                     <TextBox Grid.Row="47" Grid.Column="2" Margin="0,3" Name="key9b5117b"/>
                                     <TextBox Grid.Row="48" Grid.Column="2" Margin="0,3" Name="key9b5127c"/>
                                     <!-- DMG -->
-                                    <TextBox Grid.Row="0" Grid.Column="4" Margin="0,3" Name="dmg5a147p" /><!-- Begin 1.x (5A147p) -->
-                                    <TextBox Grid.Row="1" Grid.Column="4" Margin="0,3" Name="dmg5a225c" /><!-- Begin 2.x (5A225c) -->
+                                    <TextBox Grid.Row="0" Grid.Column="4" Margin="0,3" Name="dmg5a147p" />
+                                    <!-- Begin 1.x (5A147p) -->
+                                    <TextBox Grid.Row="1" Grid.Column="4" Margin="0,3" Name="dmg5a225c" />
+                                    <!-- Begin 2.x (5A225c) -->
                                     <TextBox Grid.Row="2" Grid.Column="4" Margin="0,3" Name="dmg5a240d" />
                                     <TextBox Grid.Row="3" Grid.Column="4" Margin="0,3" Name="dmg5a258f" />
                                     <TextBox Grid.Row="4" Grid.Column="4" Margin="0,3" Name="dmg5a274d" />
@@ -719,7 +824,8 @@
                                     <TextBox Grid.Row="8" Grid.Column="4" Margin="0,3" Name="dmg5a345beta" />
                                     <TextBox Grid.Row="9" Grid.Column="4" Margin="0,3" Name="dmg5f90" />
                                     <TextBox Grid.Row="10" Grid.Column="4" Margin="0,3" Name="dmg5g27" />
-                                    <TextBox Grid.Row="11" Grid.Column="4" Margin="0,3" Name="dmg7a238j" /><!-- Being 3.x (7A348j) -->
+                                    <TextBox Grid.Row="11" Grid.Column="4" Margin="0,3" Name="dmg7a238j" />
+                                    <!-- Being 3.x (7A348j) -->
                                     <TextBox Grid.Row="12" Grid.Column="4" Margin="0,3" Name="dmg7a259g" />
                                     <TextBox Grid.Row="13" Grid.Column="4" Margin="0,3" Name="dmg7a280f" />
                                     <TextBox Grid.Row="14" Grid.Column="4" Margin="0,3" Name="dmg7a300g" />
@@ -731,7 +837,8 @@
                                     <TextBox Grid.Row="20" Grid.Column="4" Margin="0,3" Name="dmg8a248c" />
                                     <TextBox Grid.Row="21" Grid.Column="4" Margin="0,3" Name="dmg8a260b" />
                                     <TextBox Grid.Row="22" Grid.Column="4" Margin="0,3" Name="dmg8a274b" />
-                                    <TextBox Grid.Row="23" Grid.Column="4" Margin="0,3" Name="dmg8a293beta" /><!-- Begin 4.x (8A230m) -->
+                                    <TextBox Grid.Row="23" Grid.Column="4" Margin="0,3" Name="dmg8a293beta" />
+                                    <!-- Begin 4.x (8A230m) -->
                                     <TextBox Grid.Row="24" Grid.Column="4" Margin="0,3" Name="dmg8b5080" />
                                     <TextBox Grid.Row="25" Grid.Column="4" Margin="0,3" Name="dmg8b5080c" />
                                     <TextBox Grid.Row="26" Grid.Column="4" Margin="0,3" Name="dmg8b5091b" />
@@ -745,7 +852,8 @@
                                     <TextBox Grid.Row="34" Grid.Column="4" Margin="0,3" Name="dmg8f5153d" />
                                     <TextBox Grid.Row="35" Grid.Column="4" Margin="0,3" Name="dmg8f5166b" />
                                     <TextBox Grid.Row="36" Grid.Column="4" Margin="0,3" Name="dmg8f190beta" />
-                                    <TextBox Grid.Row="37" Grid.Column="4" Margin="0,3" Name="dmg9a5220p"/><!-- Begin 5.x (9A5220p) -->
+                                    <TextBox Grid.Row="37" Grid.Column="4" Margin="0,3" Name="dmg9a5220p"/>
+                                    <!-- Begin 5.x (9A5220p) -->
                                     <TextBox Grid.Row="38" Grid.Column="4" Margin="0,3" Name="dmg9a5248d"/>
                                     <TextBox Grid.Row="39" Grid.Column="4" Margin="0,3" Name="dmg9a5259f"/>
                                     <TextBox Grid.Row="40" Grid.Column="4" Margin="0,3" Name="dmg9a5274d"/>
@@ -795,7 +903,8 @@
                                     <TextBlock Grid.Row="9" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a336a" Text="4.4.2/5.0 (9A336a)" />
                                     <TextBlock Grid.Row="10" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a405l" Text="4.4.3/5.0.1 (9A405l)" />
                                     <!-- Key -->
-                                    <TextBox Grid.Row="0" Grid.Column="2" Margin="0,3" Name="key8m89" /><!-- Begin 4.x (8M89) -->
+                                    <TextBox Grid.Row="0" Grid.Column="2" Margin="0,3" Name="key8m89" />
+                                    <!-- Begin 4.x (8M89) -->
                                     <TextBox Grid.Row="1" Grid.Column="2" Margin="0,3" Name="key8c150" />
                                     <TextBox Grid.Row="2" Grid.Column="2" Margin="0,3" Name="key8c154" />
                                     <TextBox Grid.Row="3" Grid.Column="2" Margin="0,3" Name="key8f191m" />
@@ -807,7 +916,8 @@
                                     <TextBox Grid.Row="9" Grid.Column="2" Margin="0,3" Name="key9a336a" />
                                     <TextBox Grid.Row="10" Grid.Column="2" Margin="0,3" Name="key9a405l" />
                                     <!-- DMG -->
-                                    <TextBox Grid.Row="0" Grid.Column="4" Margin="0,3" Name="dmg8m89" /><!-- Begin 4.x (8M89) -->
+                                    <TextBox Grid.Row="0" Grid.Column="4" Margin="0,3" Name="dmg8m89" />
+                                    <!-- Begin 4.x (8M89) -->
                                     <TextBox Grid.Row="1" Grid.Column="4" Margin="0,3" Name="dmg8c150" />
                                     <TextBox Grid.Row="2" Grid.Column="4" Margin="0,3" Name="dmg8c154" />
                                     <TextBox Grid.Row="3" Grid.Column="4" Margin="0,3" Name="dmg8f191m" />
@@ -854,7 +964,8 @@
                                     <TextBlock Grid.Row="8" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9a5313eATV" Text="4.4b6/5.b7 (9A5313e)" />
                                     <TextBlock Grid.Row="9" Grid.Column="0" Margin="{StaticResource VersionMargin}" Name="lbl9b5127cATV" Text="5.0b1/5.1b2 (9B5127c)" />
                                     <!-- Key -->
-                                    <TextBox Grid.Row="0" Grid.Column="2" Margin="0,3" Name="key8f5148cATV" /><!-- Begin 4.x (8F5148c) -->
+                                    <TextBox Grid.Row="0" Grid.Column="2" Margin="0,3" Name="key8f5148cATV" />
+                                    <!-- Begin 4.x (8F5148c) -->
                                     <TextBox Grid.Row="1" Grid.Column="2" Margin="0,3" Name="key8f5153dATV" />
                                     <TextBox Grid.Row="2" Grid.Column="2" Margin="0,3" Name="key8f5166bATV" />
                                     <TextBox Grid.Row="3" Grid.Column="2" Margin="0,3" Name="key9a5220pATV" />
@@ -863,9 +974,11 @@
                                     <TextBox Grid.Row="6" Grid.Column="2" Margin="0,3" Name="key9a5288dATV" />
                                     <TextBox Grid.Row="7" Grid.Column="2" Margin="0,3" Name="key9a5302bATV" />
                                     <TextBox Grid.Row="8" Grid.Column="2" Margin="0,3" Name="key9a5313eATV" />
-                                    <TextBox Grid.Row="9" Grid.Column="2" Margin="0,3" Name="key9b5127cATV" /><!-- Begin 5.x (9B5127c) -->
+                                    <TextBox Grid.Row="9" Grid.Column="2" Margin="0,3" Name="key9b5127cATV" />
+                                    <!-- Begin 5.x (9B5127c) -->
                                     <!-- DMG -->
-                                    <TextBox Grid.Row="0" Grid.Column="4" Margin="0,3" Name="dmg8f5148cATV" /><!-- Begin 4.x (8F5148c)-->
+                                    <TextBox Grid.Row="0" Grid.Column="4" Margin="0,3" Name="dmg8f5148cATV" />
+                                    <!-- Begin 4.x (8F5148c)-->
                                     <TextBox Grid.Row="1" Grid.Column="4" Margin="0,3" Name="dmg8f5153dATV" />
                                     <TextBox Grid.Row="2" Grid.Column="4" Margin="0,3" Name="dmg8f5166bATV" />
                                     <TextBox Grid.Row="3" Grid.Column="4" Margin="0,3" Name="dmg9a5220pATV" />
@@ -874,7 +987,8 @@
                                     <TextBox Grid.Row="6" Grid.Column="4" Margin="0,3" Name="dmg9a5288dATV" />
                                     <TextBox Grid.Row="7" Grid.Column="4" Margin="0,3" Name="dmg9a5302bATV" />
                                     <TextBox Grid.Row="8" Grid.Column="4" Margin="0,3" Name="dmg9a5313eATV" />
-                                    <TextBox Grid.Row="9" Grid.Column="4" Margin="0,3" Name="dmg9b5127cATV" /><!-- Begin 5.x (9B5127c) -->
+                                    <TextBox Grid.Row="9" Grid.Column="4" Margin="0,3" Name="dmg9b5127cATV" />
+                                    <!-- Begin 5.x (9B5127c) -->
                                 </Grid>
                             </ScrollViewer>
                         </TabItem>
@@ -882,6 +996,5 @@
                 </Grid>
             </Grid>
         </Grid>
-        
     </Grid>
 </Window>

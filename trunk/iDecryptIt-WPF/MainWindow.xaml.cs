@@ -1,5 +1,4 @@
-﻿using Hexware.DataManipulation;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,6 +9,8 @@ using System.Threading;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using System.Xml;
+using WPFToolkit = Xceed.Wpf.Toolkit;
 
 namespace Hexware.Programs.iDecryptIt
 {
@@ -18,16 +19,18 @@ namespace Hexware.Programs.iDecryptIt
     /// </summary>
     public partial class MainWindow : Window
     {
-        // MessageBox.Show(((FrameworkElement)e.Source).Name);
         // Strings
         string wantedlang;
         string nokey = "None Published";
         string unavailable = "Build not available for this device";
         // File paths
-        string rundir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "\\";
-        string tempdir = Path.Combine(Path.GetTempPath(), "Hexware\\iDecryptIt") + "\\";
-        string helpdir; // rundir + "help\\"
-        // VFDecrypt
+        static string rundir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "\\";
+        static string tempdir = Path.Combine(
+            Path.GetTempPath(),
+            "Hexware\\iDecryptIt",
+            new Random().Next(0, Int16.MaxValue).ToString()) + "\\";
+        static string helpdir = rundir + "help\\";
+        // XPwn dmg
         BackgroundWorker decryptworker = new BackgroundWorker();
         Process decryptproc = new Process();
         FileInfo decryptfromfile;
@@ -35,9 +38,9 @@ namespace Hexware.Programs.iDecryptIt
         string decryptto;
         double decryptprog;
         // INI files
-        Ini l18n;
+        XmlDocument l18n = new XmlDocument();
         
-        public MainWindow()
+        internal MainWindow()
         {
             decryptworker.WorkerSupportsCancellation = true;
             decryptworker.WorkerReportsProgress = true;
@@ -45,12 +48,10 @@ namespace Hexware.Programs.iDecryptIt
             decryptworker.ProgressChanged += decryptworker_ProgressReported;
 
             decryptproc.StartInfo.UseShellExecute = false;
-            decryptproc.StartInfo.FileName = rundir + "vfdecrypt.exe";
+            decryptproc.StartInfo.FileName = rundir + "dmg.exe";
             decryptproc.StartInfo.RedirectStandardError = true;
             decryptproc.StartInfo.RedirectStandardInput = true;
             decryptproc.StartInfo.RedirectStandardOutput = true;
-
-            helpdir = rundir + "help\\";
 
             InitializeComponent();
         }
@@ -414,21 +415,25 @@ namespace Hexware.Programs.iDecryptIt
                     Directory.Delete(System.IO.Path.GetTempPath() + "Hexware\\iDecryptIt-Setup\\", true);
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error clearing temp directory!\r\n\r\n" +
-                    "Please file a bug report\r\n" +// at:\r\n" +
-                    //"http://cole.freehostingcloud.com/iDecryptIt/Bugs\r\n" +
-                    "With the following data and an explanation of what was happening:\r\n\r\n" +
-                    "Exception: " + e.Message +
-                    "Version: " + GlobalVars.version,
-                    "iDecryptIt",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error);
+                Error("Error cleaning temp directory.", ex);
             }
         }
-        public bool SaveToDisk(string resourceName, string fileName)
+        internal void Error(string message, Exception ex)
+        {
+            MessageBox.Show(
+                message + "\r\n\r\n" +
+                "Please file a bug report\r\n" +// at:\r\n" +
+                "http://twitter.com/HexwareLLC\r\n" +
+                "With the following data and an explanation of what was happening:\r\n\r\n" +
+                (ex == null ? "" : "Exception: " + ex.Message) +
+                "Version: " + GlobalVars.Version,
+                "iDecryptIt",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error);
+        }
+        private Stream GetStream(string resourceName)
         {
             try
             {
@@ -440,33 +445,15 @@ namespace Hexware.Programs.iDecryptIt
                     if (resources[i].ToLower().IndexOf(resourceName.ToLower()) != -1)
                     {
                         // resource found
-                        Stream resourceStream = assy.GetManifestResourceStream(resources[i]);
-                        if (resourceStream != null)
-                        {
-                            BinaryReader reader = new BinaryReader(resourceStream);
-                            byte[] buffer = reader.ReadBytes(Convert.ToInt32(resourceStream.Length));
-                            reader.Dispose();
-                            FileStream outputStream = new FileStream(fileName, FileMode.Create);
-                            BinaryWriter writer = new BinaryWriter(outputStream);
-                            outputStream.Dispose();
-                            writer.Write(buffer);
-                            writer.Dispose();
-                            return true;
-                        }
-                        resourceStream.Dispose();
-                        return false;
+                        return assy.GetManifestResourceStream(resources[i]);
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Unable to open key page.\r\n\r\nPlease notify Hexware with:\r\n" + ex.Message,
-                    "iDecryptIt",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error);
+                Error("Unable to open key page.", ex);
             }
-            return false;
+            return Stream.Null;
         }
 
         // Clicks and Stuff
@@ -498,7 +485,7 @@ namespace Hexware.Programs.iDecryptIt
             if (textDecryptKey.Text == "")
             {
                 MessageBox.Show(
-                    "Make sure there is a key inputed!",
+                    "Make sure there is a key!",
                     "iDecryptIt",
                     MessageBoxButton.OK,
                     MessageBoxImage.Error);
@@ -544,9 +531,7 @@ namespace Hexware.Programs.iDecryptIt
 
             // Process
             decryptproc.StartInfo.Arguments =
-                " -i " + (char)34 + textInputFileName.Text + (char)34 +
-                " -o " + (char)34 + textOuputFileName.Text + (char)34 +
-                " -k " + textDecryptKey.Text;
+                "extract \"" + textInputFileName.Text + "\" \"" + textOuputFileName.Text + "\" " + textDecryptKey.Text;
             decryptproc.Start();
 
             // Screen mods
@@ -565,7 +550,7 @@ namespace Hexware.Programs.iDecryptIt
             if (text7ZInputFileName.Text == "")
             {
                 MessageBox.Show(
-                    "Make sure there is an input file!",
+                    "Make sure there is an input file.",
                     "iDecryptIt",
                     MessageBoxButton.OK,
                     MessageBoxImage.Error);
@@ -574,7 +559,7 @@ namespace Hexware.Programs.iDecryptIt
             if (!File.Exists(text7ZInputFileName.Text))
             {
                 MessageBox.Show(
-                    "The input file does not exist!",
+                    "The input file does not exist.",
                     "iDecryptIt",
                     MessageBoxButton.OK,
                     MessageBoxImage.Error);
@@ -583,7 +568,7 @@ namespace Hexware.Programs.iDecryptIt
             if (Directory.Exists(text7ZInputFileName.Text))
             {
                 MessageBox.Show(
-                    "The input file is actually a directory!",
+                    "The input file is actually a directory.",
                     "iDecryptIt",
                     MessageBoxButton.OK,
                     MessageBoxImage.Error);
@@ -592,7 +577,7 @@ namespace Hexware.Programs.iDecryptIt
             if (text7ZOuputFolder.Text == "")
             {
                 MessageBox.Show(
-                    "Make sure there is an output directory selected!",
+                    "Make sure there is an output directory selected.",
                     "iDecryptIt",
                     MessageBoxButton.OK,
                     MessageBoxImage.Error);
@@ -601,7 +586,7 @@ namespace Hexware.Programs.iDecryptIt
             if (File.Exists(text7ZOuputFolder.Text))
             {
                 MessageBox.Show(
-                    "The output folder is actually a directory!",
+                    "The output folder is actually a file.",
                     "iDecryptIt",
                     MessageBoxButton.OK,
                     MessageBoxImage.Error);
@@ -611,7 +596,7 @@ namespace Hexware.Programs.iDecryptIt
 
             Process.Start(
                 rundir + "7z.exe",
-                " e " + (char)34 + text7ZInputFileName.Text + (char)34 + " " + (char)34 + "-o" + tempdir + (char)34);
+                " e \"" + text7ZInputFileName.Text + "\" \"" + "-o" + tempdir + "\"");
 
             #region Prepare to extract HFS
             string[] files = Directory.GetFiles(tempdir, "*.hfs*", SearchOption.AllDirectories);
@@ -631,7 +616,7 @@ namespace Hexware.Programs.iDecryptIt
                 OpenFileDialog extract = new OpenFileDialog();
                 extract.FileName = "";
                 extract.Multiselect = false;
-                extract.Filter = "Apple Disk Images|*.dmg";
+                extract.Filter = "All Files (*.*)|*.*";
                 extract.InitialDirectory = tempdir;
                 extract.ShowDialog();
                 if (extract.SafeFileName != "")
@@ -651,11 +636,11 @@ namespace Hexware.Programs.iDecryptIt
 
             Process.Start(
                 rundir + "7z.exe",
-                " x " + (char)34 + file + (char)34 + " " + (char)34 + "-o" + text7ZOuputFolder.Text + (char)34);
+                " x \"" + file + "\" \"" + "-o" + text7ZOuputFolder.Text + "\"");
         }
         private void btnAbout_Click(object sender, RoutedEventArgs e)
         {
-            new About().Show();
+            new About().ShowDialog();
         }
         private void btnChangelog_Click(object sender, RoutedEventArgs e)
         {
@@ -693,16 +678,16 @@ namespace Hexware.Programs.iDecryptIt
             extract.RestoreDirectory = true;
             extract.Multiselect = false;
             extract.DefaultExt = ".dmg";
-            extract.Filter = "Apple Disk Images|*.dmg|Apple Firmware Files|*.ipsw";
+            extract.Filter = "Apple Disk Images|*.dmg";//|Apple Firmware Files|*.ipsw";
             extract.ShowDialog();
             if (extract.SafeFileName != "")
             {
                 /*
                 int length = extract.SafeFileName.Length - 1;
-                if (extract.SafeFileName[length - 3] == '.' &&
-                    extract.SafeFileName[length - 2] == 'd' &&
-                    extract.SafeFileName[length - 1] == 'm' &&
-                    extract.SafeFileName[length] == 'g')
+                if (extract.SafeFileName[length - 4] == '.' &&
+                    extract.SafeFileName[length - 3] == 'd' &&
+                    extract.SafeFileName[length - 2] == 'm' &&
+                    extract.SafeFileName[length - 1] == 'g')
                 {*/
                     string[] split = extract.FileName.Split('\\');
                     string returntext;
@@ -717,11 +702,11 @@ namespace Hexware.Programs.iDecryptIt
                     }
                     text7ZOuputFolder.Text = returntext + '\\';
                 /*}
-                else if (extract.SafeFileName[length - 4] == '.' &&
-                         extract.SafeFileName[length - 3] == 'i' &&
-                         extract.SafeFileName[length - 2] == 'p' &&
-                         extract.SafeFileName[length - 1] == 's' &&
-                         extract.SafeFileName[length] == 'w')
+                else if (extract.SafeFileName[length - 5] == '.' &&
+                         extract.SafeFileName[length - 4] == 'i' &&
+                         extract.SafeFileName[length - 3] == 'p' &&
+                         extract.SafeFileName[length - 2] == 's' &&
+                         extract.SafeFileName[length - 1] == 'w')
                 {
                     string[] split = extract.FileName.Split('\\');
                     string returntext;
@@ -765,6 +750,7 @@ namespace Hexware.Programs.iDecryptIt
         }
         private void btnWhatAmI_Click(object sender, RoutedEventArgs e)
         {
+            // What we should do is open the archive and parse the Restore.plist file
             string[] strArr;
             string device;
             string version;
@@ -776,12 +762,13 @@ namespace Hexware.Programs.iDecryptIt
             strArr = textWhatAmIFileName.Text.Split('_');
             if (strArr.Length == 4)
             {
-                // If the last index is 'Restore.ipsw', preceed
+                // If the last index is 'Restore.ipsw', proceed
                 if (strArr[3] == "Restore.ipsw")
                 {
                     device = strArr[0];
                     version = strArr[1];
                     build = strArr[2];
+                    #region Device Switch
                     switch (device)
                     {
                         case "iPad1,1":
@@ -795,6 +782,18 @@ namespace Hexware.Programs.iDecryptIt
                             break;
                         case "iPad2,3":
                             device = "iPad 2 Wi-Fi+3G CDMA";
+                            break;
+                        case "iPad2,4":
+                            device = "iPad 2 Wi-Fi (R2)";
+                            break;
+                        case "iPad3,1":
+                            device = "iPad 3 Wi-Fi";
+                            break;
+                        case "iPad3,2":
+                            device = "iPad 3 Wi-Fi+3G CDMA";
+                            break;
+                        case "iPad3,3":
+                            device = "iPad 3 Wi-Fi+3G Global";
                             break;
                         case "iPhone1,1":
                             device = "iPhone 2G";
@@ -828,6 +827,7 @@ namespace Hexware.Programs.iDecryptIt
                             break;
                         case "AppleTV2,1":
                             device = "Apple TV 2G";
+                            #region Apple TV 2G
                             switch (build)
                             {
                                 case "8M89":
@@ -872,11 +872,45 @@ namespace Hexware.Programs.iDecryptIt
                                 case "9A405l":
                                     version = "4.4.3/5.0.1";
                                     break;
+                                case "9A406a":
+                                    version = "4.4.4/5.0.1";
+                                    break;
                                 case "9B5127c":
                                 case "9B5141a":
+                                case "9B179b":
                                     version = "5.0/5.1";
                                     break;
+                                case "9B206f":
+                                    version = "5.0.1/5.1";
+                                    break;
+                                case "9B830":
+                                    version = "5.0.2/5.1";
+                                    break;
+                                case "10A5316k":
+                                    version = "6.0";
+                                    break;
                             }
+                            #endregion
+                            break;
+                        case "AppleTV3,1":
+                            device = "Apple TV 3G";
+                            #region Apple TV 3G
+                            switch (build)
+                            {
+                                case "9B179b":
+                                    version = "5.0/5.1";
+                                    break;
+                                case "9B206f":
+                                    version = "5.0.1/5.1";
+                                    break;
+                                case "9B830":
+                                    version = "5.0.2/5.1";
+                                    break;
+                                case "10A5316k":
+                                    version = "6.0";
+                                    break;
+                            }
+                            #endregion
                             break;
                         default:
                             MessageBox.Show(
@@ -887,6 +921,7 @@ namespace Hexware.Programs.iDecryptIt
                                 MessageBoxImage.Error);
                             return;
                     }
+                    #endregion
                     MessageBox.Show(
                         "Device: " + device + "\r\n" +
                             "Version: " + version + "\r\n" +
@@ -1491,35 +1526,6 @@ namespace Hexware.Programs.iDecryptIt
             key9b5117b.Text = "24d6e0918608376d5f3521cd64a6b5e85edef48a3a59cccebdbeee40ff81ab1927daa2ea";
             key9b5127c.Text = "998f85f93c88e4dbcd2995e69c40b46c33f6ae4beb5fc0e0719ad2b2a12165e9ba3a71b6";
         }
-        private void btnAppleTV21_Click(object sender, RoutedEventArgs e)
-        {
-            // Apple TV 2G
-            clear("appletv21");
-            // 4.x Final ATV
-            key8m89.Text = "31c700a852f1877c88efc05bc5c63e8c7f081c4cb28d024ed7f9b0dbc98c7e1406e499c6";
-            key8c150.Text = "fd73cd898b7e55f9dc24092a4c574f1f284087075520a7d30232b0b6af8871743a0f0b82";
-            key8c154.Text = "5407d28e075f5a2e06fddb7ad00123aa5a528bd6c2850d5fa0908a4dcae7dd3e00a9cdb2";
-            key8f191m.Text = "a30f67f64a546a28bfd5c6e2e43d14fd8111c55641fc6dc392891e2b14e7e8138db9344c";
-            key8f202.Text = "7fb6a5a1a5d74ceb61180c8740065b79ac87a5c15e554ad4b147ae9e1446254acc9d5e4a";
-            key8f305.Text = "f607711d4db94bba7a4866f095aed082c8485bfbcd0f411f1e65158f585915edd5cfeec1";
-            key8f455.Text = "32c6a922fdc1a474371fcfcbf8b5bf4a87ce01b6e672c360405a0dd238ad693769f0ce77";
-            key9a334v.Text = "e04125691fea59da7bedc605667f459c78d243d1b4df4c6127d154dc84b3657902538aee";
-            key9a335a.Text = "490e91667d6aa9cccc08b6d8e2aa0b354205426d9d00fd9e1b17bcfa3b8b34e5c2aa195a";
-            key9a336a.Text = "2aca488e83805a9e8190a8960a4c694d7b4967cf97ab133b48ab6f688726c37af5e28f3f";
-            key9a405l.Text = "6a0dce2b25b42f7de328b6121a16fd282b8bc16a1718f14cc2dbee0f1a4f0e81d0e1eb03";
-            // 4.x Beta ATV
-            key8f5148cATV.Text = "74e3afbad43debe898a556fa1446740598a556fa1446740598a556fa1446740598a556fa";
-            key8f5153dATV.Text = "85ba2b2d95c89df504f54869b98d0eb26a63f269570e8882cb323b1b753f4f41446a1f0a";
-            key8f5166bATV.Text = "b87f853c8f45aab846ebb507fbfca1039ab3dd7aed32076599d79070bc05240f59957064";
-            key9a5220pATV.Text = "91adee4d938e7f1ab7d9aa0863d9bb58b1056f410b7c1f28444ae1a293d3262cf1622402";
-            key9a5248dATV.Text = "7bf1338a764b9e566982f86a95e597aae247cff3b55f30aeb7f61ec35a1f5b43e6d78773";
-            key9a5259fATV.Text = "37c0ea663c670500c99424031e54a9d4d55e1156914a95ba54a62335c9e5f13d5c2cfe14";
-            key9a5288dATV.Text = "40f3d0718052dda2f2c6637be99dc5717938149ac1b30a979fdd31109dc8fb0e83b4373c";
-            key9a5302bATV.Text = "5134c59a148b2151a001cc5d984bb28339a379a47f2b0a40d9f7e16db0e1c44f7e2da028";
-            key9a5313eATV.Text = "cd5cbb28e733d7a538ad949f3ad295b8780185ff5103feb3e87eedf25ce0aff598e2ba1f";
-            // 5.x Beta ATV
-            key9b5127cATV.Text = "365ac018549add4c5f5f00ab73037deb10b1f63d72db582918a1f6f87ec74a3fb5a9641e";
-        }
         private void textInputFileName_TextChanged(object sender, TextChangedEventArgs e)
         {
             string[] split = textInputFileName.Text.Split('\\');
@@ -1591,10 +1597,10 @@ namespace Hexware.Programs.iDecryptIt
             }
             SetLangAtStartup();
 
-            if (GlobalVars.executionargs.Length >= 2 &&
-                GlobalVars.executionargs[1].Substring(0, GlobalVars.executionargs[1].Length - 4) == ".dmg")
+            if (GlobalVars.ExecutionArgs.Length >= 2 &&
+                GlobalVars.ExecutionArgs[1].Substring(0, GlobalVars.ExecutionArgs[1].Length - 4) == ".dmg")
             {
-                textInputFileName.Text = GlobalVars.executionargs[1];
+                textInputFileName.Text = GlobalVars.ExecutionArgs[1];
             }
         }
         private void Window_Closing(object sender, CancelEventArgs e)
@@ -1622,17 +1628,17 @@ namespace Hexware.Programs.iDecryptIt
                     break;
             }
         }
-        public void setlang(string lang)
+        internal void setlang(string lang)
         {
-            if (!File.Exists(rundir + "l18n\\" + lang + ".ini"))
+            if (!File.Exists(rundir + "l18n\\" + lang + ".xml"))
             {
                 throw new FileNotFoundException(
                     "The supplied l18n code \"" + lang + "\" was not found",
-                    rundir + "l18n\\" + lang + ".ini");
+                    rundir + "l18n\\" + lang + ".xml");
             }
 
-            l18n = new Ini(rundir + "l18n\\" + lang + ".ini");
-
+            //l18n.Load(rundir + "l18n\\" + lang + ".xml");
+            /*
             // Decrypt Area
             btnDecryptText.Text = l18n.IniReadValue("MainWindow", "btnDecryptText");
             txtInputLabel.Text = l18n.IniReadValue("MainWindow", "txtInputLabel");
@@ -1658,7 +1664,49 @@ namespace Hexware.Programs.iDecryptIt
             tabBetaATV.Header = l18n.IniReadValue("MainWindow", "tabBeta");
             // Notes
             nokey = l18n.IniReadValue("MainWindow", "nokey");
-            unavailable = l18n.IniReadValue("MainWindow", "unavailable");
+            unavailable = l18n.IniReadValue("MainWindow", "unavailable");*/
+        }
+
+        private void key_Click(object sender, RoutedEventArgs e)
+        {
+            // Remove "btn", then split
+            string[] value = ((MenuItem)sender).Name.Substring(3).Split(new char[] { '_' });
+            bool gm = value[1].Contains("GM");
+            if (gm)
+            {
+                value[1] = value[1].Substring(0, value[1].Length - 2);
+            }
+
+            // Add ',' between the two digits
+            int length = value[0].Length - 1; // -1 for last digit (char)
+            StringBuilder sb = new StringBuilder(length + 2);
+            sb.Append(value[0].Substring(0, length));
+            sb.Append(',');
+            sb.Append(value[0][length]);
+			sb.Clear();
+            value[0] = sb.ToString();
+
+            // Make file name
+            length = length + 2; // +1 for the -1. +1 for the ","
+            sb = new StringBuilder(length + 7); // +1 for "_"; +6 for ".plist"
+            sb.Append(value[0]);
+            sb.Append('_');
+            sb.Append(value[1]);
+            sb.Append(".plist");
+
+            // Load key page
+            Stream stream = GetStream(sb.ToString());
+			sb.Clear();
+            if (stream == Stream.Null)
+            {
+                MessageBox.Show(
+                    "Sorry, but that version doesn't have any published keys.",
+                    "iDecryptIt",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+                return;
+            }
+            new KeysControl(this, stream, false).Show(); // gm);
         }
     }
 }

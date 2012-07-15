@@ -5,7 +5,8 @@
         Height="450" Width="600"
         ResizeMode="NoResize"
         Icon="app.ico"
-        Background="{StaticResource Background}">
+        Background="{StaticResource Background}"
+        Loaded="Window_Loaded">
     <!-- TODO: Download button -->
     <Grid Margin="6">
         <Grid.RowDefinitions>

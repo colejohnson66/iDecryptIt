@@ -60,12 +60,13 @@
     <StartupObject>Hexware.Programs.iDecryptIt.App</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Hexware.Plist, Version=1.0.4486.36820, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Hexware.Plist">
       <HintPath>Resources\Hexware.Plist.dll</HintPath>
     </Reference>
+    <Reference Include="Ionic.Zip">
+      <HintPath>Resources\Ionic.Zip.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Windows.Shell, Version=3.5.41019.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
-    <Reference Include="RibbonControlsLibrary, Version=4.0.0.11019, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -83,6 +84,10 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WPFToolkit.Extended, Version=1.6.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Resources\WPFToolkit.Extended.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -160,9 +165,6 @@
   <ItemGroup>
     <None Include="app.config" />
     <AppDesigner Include="Properties\" />
-    <Compile Include="Resources\Hexware.DataManipulation.INI.cs">
-      <Generator>SettingsSingleFileGenerator</Generator>
-    </Compile>
     <EmbeddedResource Include="keys\AppleTV2,1_8C150.plist">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -292,7 +294,9 @@
     <EmbeddedResource Include="keys\iPod1,1_7A341.plist" />
     <EmbeddedResource Include="keys\iPod1,1_7C145.plist" />
     <EmbeddedResource Include="keys\iPod1,1_7D11.plist" />
-    <EmbeddedResource Include="keys\iPod1,1_7E18.plist" />
+    <EmbeddedResource Include="keys\iPod1,1_7E18.plist">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="keys\iPod2,1_5F138.plist" />
     <EmbeddedResource Include="keys\iPod2,1_5G77a.plist" />
     <EmbeddedResource Include="keys\iPod2,1_5H11a.plist" />
@@ -332,10 +336,31 @@
     <EmbeddedResource Include="keys\iPod4,1_9A334.plist" />
     <EmbeddedResource Include="keys\iPod4,1_9A405.plist" />
     <EmbeddedResource Include="keys\iPod4,1_9B176.plist" />
+    <None Include="EULA">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <EmbeddedResource Include="keys\iPad1,1_9B206.plist" />
+    <EmbeddedResource Include="keys\iPhone2,1_9B206.plist" />
+    <EmbeddedResource Include="keys\iPhone3,1_9B206.plist" />
+    <EmbeddedResource Include="keys\iPhone3,1_9B208.plist" />
+    <EmbeddedResource Include="keys\iPhone3,3_9B206.plist" />
+    <EmbeddedResource Include="keys\iPod3,1_9B206.plist" />
+    <EmbeddedResource Include="keys\iPod4,1_9B206.plist" />
+    <EmbeddedResource Include="keys\AppleTV2,1_9B206f.plist" />
+    <EmbeddedResource Include="keys\AppleTV2,1_9B830.plist" />
     <None Include="l18n\eng.ini">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="l18n\spa.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="LICENSE">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Licenses\Hexware.Plist\COPYING">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Licenses\xpwn\LICENSE">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Properties\Settings.settings">
@@ -344,6 +369,21 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Licenses\WPFToolkit.Extended\license.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Licenses\7z\license.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Licenses\Ionic.Zip\License.bzip2.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Licenses\Ionic.Zip\License.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Licenses\Ionic.Zip\License.zlib.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Resource Include="Images\7zip_32.png" />
     <Resource Include="Images\appicon.ico" />
     <Resource Include="Images\AppleTV2,1_32.png" />
@@ -378,18 +418,15 @@
     <Resource Include="Images\System-users_32.png" />
     <Resource Include="Images\Unlocked_32.png" />
     <Resource Include="app.ico" />
-    <Content Include="7z.dll">
+    <None Include="7z.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="7z.exe">
+    </None>
+    <None Include="7z.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="cygcrypto-0.9.8.dll">
+    </None>
+    <None Include="dmg.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="cygwin1.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </None>
     <Content Include="help\changelog.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -412,9 +449,6 @@
     <Resource Include="Images\VS_2010_128.png" />
     <Resource Include="Images\7zip_128.png" />
     <Resource Include="Images\iPhone_Wiki_128.png" />
-    <Content Include="vfdecrypt.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
@@ -444,7 +478,9 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>

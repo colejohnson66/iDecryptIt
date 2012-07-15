@@ -11,7 +11,7 @@ using System.Resources;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Hexware")]
 [assembly: AssemblyProduct("iDecryptIt")]
-[assembly: AssemblyCopyright("Copyright (C) 2010-2011")]
+[assembly: AssemblyCopyright("Copyright (C) 2010-2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -30,6 +30,6 @@ using System.Resources;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("5.10.0.1162")]
-[assembly: AssemblyFileVersion("5.10.0.1162")]
+[assembly: AssemblyVersion("6.00.0.1162")]
+[assembly: AssemblyFileVersion("6.00.0.1162")]
 [assembly: NeutralResourcesLanguageAttribute("en-US")]

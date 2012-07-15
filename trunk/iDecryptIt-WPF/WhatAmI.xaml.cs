@@ -8,7 +8,7 @@ namespace Hexware.Programs.iDecryptIt
     /// </summary>
     public partial class WhatAmI : Window
     {
-        public WhatAmI()
+        internal WhatAmI()
         {
             InitializeComponent();
         }

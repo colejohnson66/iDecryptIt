@@ -8,7 +8,7 @@ namespace Hexware.Programs.iDecryptIt
     /// </summary>
     public partial class About : Window
     {
-        public About()
+        internal About()
         {
             InitializeComponent();
         }

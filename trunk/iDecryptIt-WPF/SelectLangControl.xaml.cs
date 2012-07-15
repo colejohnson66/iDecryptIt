@@ -21,7 +21,7 @@ namespace Hexware.Programs.iDecryptIt
     {
         private MainWindow mainwindow;
 
-        public SelectLangControl(MainWindow mw)
+        internal SelectLangControl(MainWindow mw)
         {
             InitializeComponent();
             mainwindow = mw;
