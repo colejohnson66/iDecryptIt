@@ -1,0 +1,24 @@
+C:\Users\5urd\Subversion\iDecryptIt\trunk\iDecryptIt-WPF\bin\Debug\iDecryptIt-Updater.exe
+C:\Users\5urd\Subversion\iDecryptIt\trunk\iDecryptIt-WPF\bin\Debug\iDecryptIt-Updater.pdb
+C:\Users\5urd\Subversion\iDecryptIt\trunk\iDecryptIt-Updater\obj\x86\Debug\Updater.baml
+C:\Users\5urd\Subversion\iDecryptIt\trunk\iDecryptIt-Updater\obj\x86\Debug\App.baml
+C:\Users\5urd\Subversion\iDecryptIt\trunk\iDecryptIt-Updater\obj\x86\Debug\Updater.g.cs
+C:\Users\5urd\Subversion\iDecryptIt\trunk\iDecryptIt-Updater\obj\x86\Debug\App.g.cs
+C:\Users\5urd\Subversion\iDecryptIt\trunk\iDecryptIt-Updater\obj\x86\Debug\iDecryptIt-Updater_MarkupCompile.cache
+C:\Users\5urd\Subversion\iDecryptIt\trunk\iDecryptIt-Updater\obj\x86\Debug\iDecryptIt-Updater.g.resources
+C:\Users\5urd\Subversion\iDecryptIt\trunk\iDecryptIt-Updater\obj\x86\Debug\iDecryptIt_Updater.Properties.Resources.resources
+C:\Users\5urd\Subversion\iDecryptIt\trunk\iDecryptIt-Updater\obj\x86\Debug\iDecryptIt-Updater.csproj.GenerateResource.Cache
+C:\Users\5urd\Subversion\iDecryptIt\trunk\iDecryptIt-Updater\obj\x86\Debug\iDecryptIt-Updater.exe
+C:\Users\5urd\Subversion\iDecryptIt\trunk\iDecryptIt-Updater\obj\x86\Debug\iDecryptIt-Updater.pdb
+C:\Users\5urd\Source Code\iDecryptIt\trunk\iDecryptIt-WPF\bin\Debug\iDecryptIt-Updater.exe
+C:\Users\5urd\Source Code\iDecryptIt\trunk\iDecryptIt-WPF\bin\Debug\iDecryptIt-Updater.pdb
+C:\Users\5urd\Source Code\iDecryptIt\trunk\iDecryptIt-Updater\obj\x86\Debug\Updater.baml
+C:\Users\5urd\Source Code\iDecryptIt\trunk\iDecryptIt-Updater\obj\x86\Debug\App.baml
+C:\Users\5urd\Source Code\iDecryptIt\trunk\iDecryptIt-Updater\obj\x86\Debug\Updater.g.cs
+C:\Users\5urd\Source Code\iDecryptIt\trunk\iDecryptIt-Updater\obj\x86\Debug\App.g.cs
+C:\Users\5urd\Source Code\iDecryptIt\trunk\iDecryptIt-Updater\obj\x86\Debug\iDecryptIt-Updater_MarkupCompile.cache
+C:\Users\5urd\Source Code\iDecryptIt\trunk\iDecryptIt-Updater\obj\x86\Debug\iDecryptIt-Updater.g.resources
+C:\Users\5urd\Source Code\iDecryptIt\trunk\iDecryptIt-Updater\obj\x86\Debug\iDecryptIt_Updater.Properties.Resources.resources
+C:\Users\5urd\Source Code\iDecryptIt\trunk\iDecryptIt-Updater\obj\x86\Debug\iDecryptIt-Updater.csproj.GenerateResource.Cache
+C:\Users\5urd\Source Code\iDecryptIt\trunk\iDecryptIt-Updater\obj\x86\Debug\iDecryptIt-Updater.exe
+C:\Users\5urd\Source Code\iDecryptIt\trunk\iDecryptIt-Updater\obj\x86\Debug\iDecryptIt-Updater.pdb
