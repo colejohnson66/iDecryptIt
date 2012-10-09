@@ -149,9 +149,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="SelectLangControl.xaml.cs">
-      <DependentUpon>SelectLangControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="SubmitKey.xaml.cs">
       <DependentUpon>SubmitKey.xaml</DependentUpon>
     </Compile>
@@ -182,10 +179,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="SelectLangControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="SubmitKey.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

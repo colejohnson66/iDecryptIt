@@ -23,6 +23,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Margin="3,3,3,0">
             <Grid Margin="6" Background="{StaticResource GreyBorder}">
@@ -510,9 +511,9 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="{StaticResource KeepItSquare}" />
                             <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="{StaticResource KeepItSquare}" />
+                            <ColumnDefinition Width="{StaticResource KeepItSquare}" /><!--
                             <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="{StaticResource KeepItSquare}" />
+                            <ColumnDefinition Width="{StaticResource KeepItSquare}" />-->
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
@@ -530,10 +531,19 @@
                         </Button>
                         <Button x:Name="btnHelpOut" Grid.Column="6" Grid.Row="1" ToolTip="Publish Key" Click="btnHelpOut_Click">
                             <Image Source="Images/System-users_32.png" />
-                        </Button>
+                        </Button><!--
                         <Button x:Name="btnChangeLanguage" Grid.Column="8" Grid.Row="1" ToolTip="Change Language" Click="btnChangeLanguage_Click">
                             <Image Source="Images/Preferences-desktop-locale_es_us_32.png" />
-                        </Button>
+                        </Button>-->
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="4" Name="KeysArea" Margin="3,0">
+            <Grid Margin="6" Background="{StaticResource GreyBorder}">
+                <Grid Margin="3" Background="White">
+                    <Grid Margin="6">
+                        <Label Content="Keys Go Here, So Suck It" />
                     </Grid>
                 </Grid>
             </Grid>
