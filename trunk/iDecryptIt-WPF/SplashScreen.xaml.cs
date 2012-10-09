@@ -17,20 +17,16 @@ namespace Hexware.Programs.iDecryptIt
         [DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
         private static extern bool FreeConsole();
 
-        /// <summary>
-        /// 
-        /// </summary>
         public SplashScreen()
         {
             // Grab .NET version
-            RegistryKey installed_versions = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\NET Framework Setup\NDP");
-            string[] version_names = installed_versions.GetSubKeyNames();
+            RegistryKey installedVers = Registry.LocalMachine.OpenSubKey(
+                @"SOFTWARE\Microsoft\NET Framework Setup\NDP");
+            string[] version_names = installedVers.GetSubKeyNames();
             double Framework = Convert.ToDouble(
                 version_names[version_names.Length - 1].Remove(0, 1),
                 CultureInfo.InvariantCulture);
             //int SP = Convert.ToInt32(installed_versions.OpenSubKey(version_names[version_names.Length - 1]).GetValue("SP", 0));
-
-            InitializeComponent();
 
             if (Framework < 4.0)
             {
@@ -41,6 +37,8 @@ namespace Hexware.Programs.iDecryptIt
                     MessageBoxImage.Warning);
                 Environment.Exit(-1); // this.Close() does not work if it has not been initialized
             }
+
+            InitializeComponent();
 
             // If all goes well, grab command line options
             GlobalVars.ExecutionArgs = Environment.GetCommandLineArgs();
@@ -83,7 +81,7 @@ namespace Hexware.Programs.iDecryptIt
             }
 
             // Close console
-            if (FreeConsole() == true)
+            if (FreeConsole())
             {
                 // Console failed to close
             }
@@ -113,7 +111,7 @@ namespace Hexware.Programs.iDecryptIt
             }*/
 
             // File Name
-            if (GlobalVars.ExecutionArgs != null)
+            if (GlobalVars.ExecutionArgs != null && GlobalVars.ExecutionArgs.Length > 0)
             {
                 act = () =>
                 {

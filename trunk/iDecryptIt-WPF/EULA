@@ -1,53 +1,120 @@
-Please read the following terms and conditions carefully before using this SOFTWARE 
-PRODUCT. Your use, distribution or installation of this copy of iDecryptIt 
-indicates your acceptance of this License.
+                    iDecryptIt End User License Agreement
+                         Version 6.00.0, ## --- 201#
 
-SOFTWARE PRODUCT here means Software, image files, all accompanying files, data 
-and materials received with your download of iDecryptIt.
+ Copyright (C) 201# Hexware, LLC <https://www.twitter.com/HexwareLLC/>
+ Everyone is permitted to copy and distribute verbatim copies of this license
+   document, but changing it is not allowed.
 
-If you do not agree to any of the terms of this License, then do not install, 
-distribute or use the SOFTWARE PRODUCT.
+================================================================================
+0) Definitions.
 
-Warrantee covers defects in the software, which prevents successfully installing 
-the software in the buyer's PC. Warrantee does not cover fitness of purpose, not 
-meeting of expectations or needs in the mind of the buyer. 
+COPYRIGHT refers to any work that is covered under copyright laws.
 
-This SOFTWARE PRODUCT is for personal or professional use only and may be installed 
-and used by on one or more computers. Its component parts may not be separated for use 
-on more than one computer. All components accompanying the software are copyrighted 
-by Hexware and may not be taken apart, modified, used or published with other 
-software or means except with the SOFTWARE PRODUCT software and may not be 
-distributed or copied in any manner.
+LICENSE refers to any document containing a notice of COPYRIGHT.
 
-By agreeing to install SOFTWARE PRODUCT, you are agreeing to allow automatic software 
-updates provided by SOFTWARE PRODUCT distributed by Hexware provided by SourceForge.
+THIS LICENSE refers to this document.
 
-This SOFTWARE PRODUCT, all accompanying files, data and materials, are distributed 
-"AS IS" and with no warranties of any kind, whether express or implied. The user 
-must assume all risk of using the program. This disclaimer of warranty constitutes 
-an essential part of the agreement.
+PROGRAM refers to any copyrightable work or instructions or tasks designed for a
+  computer.
 
-Any liability of Hexware will be limited exclusively to refund of purchase 
-price. In addition, in no event shall Hexware, or its principals, shareholders, 
-officers, employees, affiliates, contractors, subsidiaries, or parent organizations, 
-be liable for any incidental, consequential, punitive or any other damages whatsoever 
-relating to the use of SOFTWARE PRODUCT.
+YOU refers to the user of this PROGRAM.
 
-In addition, in no event does Hexware authorize you to use this SOFTWARE PRODUCT 
-in applications or systems where the SOFTWARE PRODUCT's failure to perform can reasonably 
-be expected to result in a physical injury, or in loss of life. Any such use by you is 
-entirely at your own risk, and you agree to hold Hexware harmless from any claims 
-or losses relating to such unauthorized use.
+OBJECT CODE refers to any non-source form of a PROGRAM.
 
-This Agreement constitutes the entire statement of the Agreement between the parties on 
-the subject matter, and merges and supersedes all other or prior understandings, 
-purchase orders, agreements and arrangements. This Agreement shall be governed by the 
-laws of YOUR COUNTRY OR STATE.
+THIS PROGRAM refers to iDecryptIt and all of its accompanying files, including,
+  but not limited to, image files, OBJECT CODE, and all materials recieved with
+  your download of iDecryptIt.
 
-Hexware, the owner of the copyright of this SOFTWARE PRODUCT, all of its derivatives, 
-title and accompanying materials are the exclusive property of Hexware. All rights 
-of any kind, which are not expressly granted in this License, are entirely and 
-exclusively reserved to and by Hexware. You may not create derivative works based 
-on this SOFTWARE PRODUCT without distributing under the GNU General Public License v3. 
-There are no third party beneficiaries of any promises, obligations or representations 
-made by Hexware herein.
+To MODIFY a work means to copy from or adapt all or part of the work in a
+  fashion requiring copyright permission, other than making an exact copy. The
+  resulting work in called a MODIFIED VERSION of the earlier work.
+
+A COVERED WORK means either the unmodified PROGRAM or a work based on THIS
+  PROGAM.
+
+To PROPAGATE a work means to do anything with it that, without permission, would
+  make you directly or secondarily liable for infringement under applicable
+  copyright law, except executin it on a computer or modifying a private copy.
+  PROPAGATION includes, but is not limited to, copying, distribution (with or
+  without modification), making it available to the public, and in some
+  countries, other activities as well.
+
+To CONVEY a work means any kind of PROPAGATION that enables others parties to
+  make or recieve copies. Mere interaction with a user through a computer
+  network or in person, with no transfer of a copy, is not CONVEYING.
+
+
+================================================================================
+1) Agreement
+
+Your installation of THIS PROGRAM signifies your agreement to be bound to the
+  terms of THIS LICENSE and all accompanying LICENSES. If YOU do not wish to be
+  bound by these agreements, then do not install THIS PROGRAM.
+
+All included OBJECT CODE that is not the iDecryptIt executable is appropriatly
+  licensed in the <licenses/> directory and freely available on their respective
+  websites.
+
+================================================================================
+2) Source Code
+
+The SOURCE CODE for a work means the preferred form of the work for making
+  modifications to it.
+
+The SOURCE CODE for THIS PROGRAM is licensed under the GNU General Public
+  License Version 3 <http://www.gnu.org/licenses/gpl.html> and is freely
+  available on SourceForge <http://www.sourceforge.net/projects/idecryptit/>.
+
+
+================================================================================
+3) Warranty
+
+WARRANTY covers defects in the work, which prevents successfully installing or
+  running THIS PROGRAM on the user's computer. WARRANTY does not cover
+  modifications to THIS PROGAM'S OBJECT CODE in any way that would otherwise
+  prevent installation or running THIS PROGRAM.
+
+THIS PROGRAM is distributed "AS IS" and with no WARRANTIES of any kind, whether
+  express or implied. YOU assume all risk of using the program. This disclaimer
+  of WARRANTY constitutes an essential part of the agreement.
+
+Installing THIS PROGRAM on YOUR computer means you accept all responsibility for
+  damages caused by defects in THIS PROGRAM.
+
+In no event shall Hexware, LLC, its principals, shareholders, officers,
+  employees, affiliates, contractors, subsidiaries, or parent organizations, be
+  liable for any incidental, consequential, punitive or any other damages
+  whatsoever relating to the use of THIS PROGRAM.
+
+
+================================================================================
+4) Usage
+
+THIS PROGRAM is free software and may be obtained for free at SourceForge
+  <http://www.sourceforge.net/projects/idecryptit/>.
+  
+THIS PROGRAM may be freely used on any computer it can be run on.
+
+
+================================================================================
+5) Support
+
+Developers of the libraries used in THIS PROGRAM, excluding Hexware, LLC, are
+  not obligated to provide support for THIS PROGRAM. This includes Igor Pavel of
+  7-zip, p0sixninja or xpwn, and any other developers not responsible for the
+  actual OBJECT CODE of iDecryptIt itself.
+
+
+================================================================================
+6) Copyright and Derivatives
+
+All source code provided for iDecryptIt that is freely available on SourceForge
+  <http://www.sourceforge.net/projects/idecryptit/> is copyright of Hexware, LLC
+  and all derivatives must retain the GNU General Public License Version 3
+  notice on all documents.
+
+All derivatives of THIS PROGRAM must provide its recipients with code licensed
+  under the GNU General Public License Version 3 with all source documents
+  retaining the appropriate copyright notice.
+
+================================================================================

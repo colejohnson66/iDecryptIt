@@ -14,40 +14,47 @@ namespace Hexware.Programs.iDecryptIt.Updater
     /// </summary>
     public partial class MainWindow : Window
     {
-        string tempdir = Path.Combine(Path.GetTempPath() + "Hexware\\iDecryptIt") + "\\";
+        static string tempdir = Path.Combine(
+            Path.GetTempPath(),
+            "Hexware\\iDecryptIt-Updater_",
+            new Random().Next(0, Int32.MaxValue).ToString("X")) + "\\";
         string rundir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "\\";
         string[] checkerArr;
-        string[] installArr = new string[4] {
+        string[] installArr = new string[] {
             "5",
             "10",
             "0",
             "2B39"};
 
-        public MainWindow()
+        internal MainWindow()
         {
+            this.Closing += MainWindow_Closing;
+
             if (File.Exists(rundir + "iDecryptIt.exe.new"))
             {
                 // Kill iDecryptIt
-                Process[] runningapps = Process.GetProcesses();
-                foreach (Process p in runningapps)
+                try
                 {
-                    if (p.ProcessName.Contains("iDecryptIt") &&
-                        !p.ProcessName.Contains("Updater") &&
-                        !p.ProcessName.Contains("vshost"))
+                    Process[] runningapps = Process.GetProcesses();
+                    for (int i = 0; i < runningapps.Length; i++)
                     {
-                        // ONLY on main iDecryptIt (not Updater or Debugger)
-                        p.Kill();
-                        while (!p.HasExited)
+                        if (runningapps[i].ProcessName.Contains("iDecryptIt") &&
+                            !runningapps[i].ProcessName.Contains("Updater") &&
+                            !runningapps[i].ProcessName.Contains("vshost"))
                         {
+                            // ONLY on main iDecryptIt (not Updater or Debugger)
+                            runningapps[i].Kill();
                         }
                     }
+                }
+                catch (Exception)
+                {
+                    this.Close();
+                    return;
                 }
                 try
                 {
                     File.Delete(rundir + "iDecryptIt.exe");
-                    while (File.Exists(rundir + "iDecryptIt.exe"))
-                    {
-                    }
                     File.Move(rundir + "iDecryptIt.exe.new", rundir + "iDecryptIt.exe");
 
                     // Relaunch iDecryptIt
@@ -68,6 +75,16 @@ namespace Hexware.Programs.iDecryptIt.Updater
                 InitializeComponent();
             }
         }
+        private void MainWindow_Closing(object sender, CancelEventArgs e)
+        {
+            try
+            {
+                Directory.Delete(tempdir, true);
+            }
+            catch (Exception)
+            {
+            }
+        }
         private void Window_Loaded(object sender, EventArgs e)
         {
             btnDownload.Visibility = Visibility.Hidden;
@@ -82,7 +99,7 @@ namespace Hexware.Programs.iDecryptIt.Updater
                 webClient.Dispose();
                 checkerArr = File.ReadAllText(tempdir + "update.txt").Split('.');
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 /*MessageBox.Show(
                     "Unable to download version info!\n\n" +
@@ -93,10 +110,11 @@ namespace Hexware.Programs.iDecryptIt.Updater
                 Environment.Exit(-1);
             }
             
-            // Compare
+            // Compare build numbers
             if (installArr[3] == checkerArr[3])
             {
                 Close();
+                return;
             }
             this.Title = "Update Available";
             txtHeader.Text = "Update Available";
