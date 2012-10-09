@@ -165,11 +165,13 @@
                                         <MenuItem x:Name="btnAppleTV21_9B179b" Header="5.0/5.1 (9B179b)" Click="key_Click" />
                                         <MenuItem x:Name="btnAppleTV21_9B206f" Header="5.0.1/5.1 (9B206f)" Click="key_Click" />
                                         <MenuItem x:Name="btnAppleTV21_9B830" Header="5.0.2/5.1 (9B830)" Click="key_Click" />
+                                        <MenuItem x:Name="btnAppleTV21_10A406e" Header="5.1/6.0 (10A406e)" Click="key_Click" />
                                     </MenuItem>
                                     <MenuItem x:Name="btnAppleTV31" Header="Apple TV 3G">
                                         <MenuItem x:Name="btnAppleTV31_9B179b" Header="5.0/5.1 (9B179b)" Click="key_Click" />
                                         <MenuItem x:Name="btnAppleTV31_9B206f" Header="5.0.1/5.1.1 (9B206f)" Click="key_Click" />
                                         <MenuItem x:Name="btnAppleTV31_9B830" Header="5.0.2/5.1.1 (9B830)" Click="key_Click" />
+                                        <MenuItem x:Name="btnAppleTV31_10A406e" Header="5.1/6.0 (10A406e)" Click="key_Click" />
                                     </MenuItem>
                                 </Menu>
                             </xctk:DropDownButton.DropDownContent>
@@ -205,8 +207,9 @@
 										    <MenuItem x:Name="btnIPad21_9A334" Header="5.0 (9A334)" Click="key_Click" />
 										    <MenuItem x:Name="btnIPad21_9A405" Header="5.0.1 (9A405)" Click="key_Click" />
 										    <MenuItem x:Name="btnIPad21_9B176" Header="5.1 (9B176)" Click="key_Click" />
-										    <MenuItem x:Name="btnIPad21_9B206" Header="5.1.1 (9B206)" Click="key_Click" />
-										</MenuItem>
+                                            <MenuItem x:Name="btnIPad21_9B206" Header="5.1.1 (9B206)" Click="key_Click" />
+                                            <MenuItem x:Name="btnIPad21_10A403" Header="6.0 (10A403)" Click="key_Click" />
+                                        </MenuItem>
 										<MenuItem x:Name="btnIPad22" Header="iPad 2 (GSM)">
 										    <MenuItem x:Name="btnIPad22_8F191" Header="4.3 (8F191)" Click="key_Click" />
 										    <MenuItem x:Name="btnIPad22_8G4" Header="4.3.1 (8G4)" Click="key_Click" />
@@ -217,8 +220,9 @@
 										    <MenuItem x:Name="btnIPad22_9A334" Header="5.0 (9A334)" Click="key_Click" />
 										    <MenuItem x:Name="btnIPad22_9A405" Header="5.0.1 (9A405)" Click="key_Click" />
 										    <MenuItem x:Name="btnIPad22_9B176" Header="5.1 (9B176)" Click="key_Click" />
-										    <MenuItem x:Name="btnIPad22_9B206" Header="5.1.1 (9B206)" Click="key_Click" />
-										</MenuItem>
+                                            <MenuItem x:Name="btnIPad22_9B206" Header="5.1.1 (9B206)" Click="key_Click" />
+                                            <MenuItem x:Name="btnIPad22_10A403" Header="6.0 (10A403)" Click="key_Click" />
+                                        </MenuItem>
 										<MenuItem x:Name="btnIPad23" Header="iPad 2 (CDMA)">
 										    <MenuItem x:Name="btnIPad23_8F191" Header="4.3 (8F191)" Click="key_Click" />
 										    <MenuItem x:Name="btnIPad23_8G4" Header="4.3.1 (8G4)" Click="key_Click" />
@@ -229,26 +233,31 @@
 										    <MenuItem x:Name="btnIPad23_9A334" Header="5.0 (9A334)" Click="key_Click" />
 										    <MenuItem x:Name="btnIPad23_9A405" Header="5.0.1 (9A405)" Click="key_Click" />
 										    <MenuItem x:Name="btnIPad23_9B176" Header="5.1 (9B176)" Click="key_Click" />
-										    <MenuItem x:Name="btnIPad23_9B206" Header="5.1.1 (9B206)" Click="key_Click" />
-										</MenuItem>
+                                            <MenuItem x:Name="btnIPad23_9B206" Header="5.1.1 (9B206)" Click="key_Click" />
+                                            <MenuItem x:Name="btnIPad23_10A403" Header="6.0 (10A403)" Click="key_Click" />
+                                        </MenuItem>
 										<MenuItem x:Name="btnIPad24" Header="iPad 2 (Wi-Fi) [R2]">
 										    <MenuItem x:Name="btnIPad24_9B176" Header="5.1 (9B176)" Click="key_Click" />
-										    <MenuItem x:Name="btnIPad24_9B206" Header="5.1.1 (9B206)" Click="key_Click" />
-										</MenuItem>
+                                            <MenuItem x:Name="btnIPad24_9B206" Header="5.1.1 (9B206)" Click="key_Click" />
+                                            <MenuItem x:Name="btnIPad24_10A403" Header="6.0 (10A403)" Click="key_Click" />
+                                        </MenuItem>
                                     </MenuItem>
                                     <MenuItem x:Name="btnIPad3" Header="iPad 3">
                                         <MenuItem x:Name="btnIPad31" Header="iPad 3 (Wi-Fi)" ToolTip="The New iPad (Wi-Fi)">
 										    <MenuItem x:Name="btnIPad31_9B176" Header="5.1 (9B176)" Click="key_Click" />
-										    <MenuItem x:Name="btnIPad31_9B206" Header="5.1.1 (9B206)" Click="key_Click" />
-										</MenuItem>
+                                            <MenuItem x:Name="btnIPad31_9B206" Header="5.1.1 (9B206)" Click="key_Click" />
+                                            <MenuItem x:Name="btnIPad31_10A403" Header="6.0 (10A403)" Click="key_Click" />
+                                        </MenuItem>
                                         <MenuItem x:Name="btnIPad32" Header="iPad 3 (CDMA)" ToolTip="The New iPad (CDMA)">
 										    <MenuItem x:Name="btnIPad32_9B176" Header="5.1 (9B176)" Click="key_Click" />
-										    <MenuItem x:Name="btnIPad32_9B206" Header="5.1.1 (9B206)" Click="key_Click" />
-										</MenuItem>
+                                            <MenuItem x:Name="btnIPad32_9B206" Header="5.1.1 (9B206)" Click="key_Click" />
+                                            <MenuItem x:Name="btnIPad32_10A403" Header="6.0 (10A403)" Click="key_Click" />
+                                        </MenuItem>
                                         <MenuItem x:Name="btnIPad33" Header="iPad 3 (Global)" ToolTip="The New iPad (GSM)">
 										    <MenuItem x:Name="btnIPad33_9B176" Header="5.1 (9B176)" Click="key_Click" />
-										    <MenuItem x:Name="btnIPad33_9B206" Header="5.1.1 (9B206)" Click="key_Click" />
-										</MenuItem>
+                                            <MenuItem x:Name="btnIPad33_9B206" Header="5.1.1 (9B206)" Click="key_Click" />
+                                            <MenuItem x:Name="btnIPad33_10A403" Header="6.0 (10A403)" Click="key_Click" />
+                                        </MenuItem>
                                     </MenuItem>
                                 </Menu>
                             </xctk:DropDownButton.DropDownContent>
@@ -317,6 +326,7 @@
                                         <MenuItem x:Name="btnIPhone21_9A405" Header="5.0.1 (9A405)" Click="key_Click" />
                                         <MenuItem x:Name="btnIPhone21_9B176" Header="5.1 (9B176)" Click="key_Click" />
                                         <MenuItem x:Name="btnIPhone21_9B206" Header="5.1.1 (9B206)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPhone21_10A403" Header="6.0 (10A403)" Click="key_Click" />
                                     </MenuItem>
                                     <MenuItem x:Name="btnIPhone3" Header="iPhone 4">
                                         <MenuItem x:Name="btnIPhone31" Header="iPhone 4 (GSM)">
@@ -335,8 +345,9 @@
 										    <MenuItem x:Name="btnIPhone31_9A405" Header="5.0.1 (9A405)" Click="key_Click" />
 										    <MenuItem x:Name="btnIPhone31_9B176" Header="5.1 (9B176)" Click="key_Click" />
 										    <MenuItem x:Name="btnIPhone31_9B206" Header="5.1.1 (9B206)" Click="key_Click" />
-										    <MenuItem x:Name="btnIPhone31_9B208" Header="5.1.1 (9B208)" Click="key_Click" />
-										</MenuItem>
+                                            <MenuItem x:Name="btnIPhone31_9B208" Header="5.1.1 (9B208)" Click="key_Click" />
+                                            <MenuItem x:Name="btnIPhone31_10A403" Header="6.0 (10A403)" Click="key_Click" />
+                                        </MenuItem>
                                         <MenuItem x:Name="btnIPhone33" Header="iPhone 4 (CDMA)">
 										    <MenuItem x:Name="btnIPhone33_8E218" Header="4.2.5 (8E128)" Click="key_Click" />
 										    <MenuItem x:Name="btnIPhone33_8E200" Header="4.2.6 (8E200)" Click="key_Click" />
@@ -347,17 +358,30 @@
 										    <MenuItem x:Name="btnIPhone33_9A334" Header="5.0 (9A334)" Click="key_Click" />
 										    <MenuItem x:Name="btnIPhone33_9A405" Header="5.0.1 (9A405)" Click="key_Click" />
 										    <MenuItem x:Name="btnIPhone33_9B176" Header="5.1 (9B176)" Click="key_Click" />
-										    <MenuItem x:Name="btnIPhone33_9B206" Header="5.1.1 (9B206)" Click="key_Click" />
-										</MenuItem>
+                                            <MenuItem x:Name="btnIPhone33_9B206" Header="5.1.1 (9B206)" Click="key_Click" />
+                                            <MenuItem x:Name="btnIPhone33_10A403" Header="6.0 (10A403)" Click="key_Click" />
+                                        </MenuItem>
+                                        <MenuItem x:Name="btnIPhone32" Header="iPhone 4 (GSM) [R2]">
+                                            <MenuItem x:Name="btnIPhone32_10A403" Header="6.0 (10A403)" Click="key_Click" />
+                                        </MenuItem>
                                     </MenuItem>
-									<MenuItem x:Name="btnIPhone41" Header="iPhone 4S">
+                                    <MenuItem x:Name="btnIPhone41" Header="iPhone 4S">
                                         <MenuItem x:Name="btnIPhone41_9A334" Header="5.0 (9A334)" Click="key_Click" />
                                         <MenuItem x:Name="btnIPhone41_9A405" Header="5.0.1 (9A405)" Click="key_Click" />
                                         <MenuItem x:Name="btnIPhone41_9A406" Header="5.0.1 (9A406)" Click="key_Click" />
                                         <MenuItem x:Name="btnIPhone41_9B179" Header="5.1 (9B179)" Click="key_Click" />
                                         <MenuItem x:Name="btnIPhone41_9B206" Header="5.1.1 (9B206)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPhone41_10A403" Header="6.0 (10A403)" Click="key_Click" />
                                     </MenuItem>
-								</Menu>
+                                    <MenuItem x:Name="btnIPhone5" Header="iPhone 5">
+                                        <MenuItem x:Name="btnIPhone51" Header="iPhone 5 (GSM)">
+                                            <MenuItem x:Name="btnIPhone51_10A403" Header="6.0 (10A405)" Click="key_Click" />
+                                        </MenuItem>
+                                        <MenuItem x:Name="btnIPhone52" Header="iPhone 5 (Global)">
+                                            <MenuItem x:Name="btnIPhone52_10A403" Header="6.0 (10A405)" Click="key_Click" />
+                                        </MenuItem>
+                                    </MenuItem>
+                                </Menu>
                             </xctk:DropDownButton.DropDownContent>
                         </xctk:DropDownButton>
                         <xctk:DropDownButton Grid.Column="6" Grid.Row="1" ToolTip="Apple iPod touch">
@@ -383,53 +407,54 @@
                                         <MenuItem x:Name="btnIPod11_7D11" Header="3.1.2 (7D11)" Click="key_Click" />
                                         <MenuItem x:Name="btnIPod11_7E18" Header="3.1.3 (7E18)" Click="key_Click" />
                                     </MenuItem>
-                                    <MenuItem x:Name="btnbtnIPod21" Header="Apple TV 3G">
-                                        <MenuItem x:Name="btnbtnIPod21_5F138" Header="2.1.1 (5F138)" Click="key_Click" />
-                                        <MenuItem x:Name="btnbtnIPod21_5G77a" Header="2.2 (5G77a)" Click="key_Click" />
-                                        <MenuItem x:Name="btnbtnIPod21_5H11a" Header="2.2.1 (5H11a)" Click="key_Click" />
-                                        <MenuItem x:Name="btnbtnIPod21_7A341" Header="3.0 (7A341)" Click="key_Click" />
-                                        <MenuItem x:Name="btnbtnIPod21_7C145" Header="3.1.1 (7C145)" Click="key_Click" />
-                                        <MenuItem x:Name="btnbtnIPod21_7D11" Header="3.1.2 (7D11)" Click="key_Click" />
-                                        <MenuItem x:Name="btnbtnIPod21_7E18" Header="3.1.3 (7E18)" Click="key_Click" />
-                                        <MenuItem x:Name="btnbtnIPod21_8A293" Header="4.0 (8A293)" Click="key_Click" />
-                                        <MenuItem x:Name="btnbtnIPod21_8A400" Header="4.0.2 (8A400)" Click="key_Click" />
-                                        <MenuItem x:Name="btnbtnIPod21_8B117" Header="4.1 (8B117)" Click="key_Click" />
-                                        <MenuItem x:Name="btnbtnIPod21_8C148" Header="4.2.1 (8C148)" Click="key_Click" />
+                                    <MenuItem x:Name="btnIPod21" Header="Apple TV 3G">
+                                        <MenuItem x:Name="btnIPod21_5F138" Header="2.1.1 (5F138)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPod21_5G77a" Header="2.2 (5G77a)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPod21_5H11a" Header="2.2.1 (5H11a)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPod21_7A341" Header="3.0 (7A341)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPod21_7C145" Header="3.1.1 (7C145)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPod21_7D11" Header="3.1.2 (7D11)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPod21_7E18" Header="3.1.3 (7E18)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPod21_8A293" Header="4.0 (8A293)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPod21_8A400" Header="4.0.2 (8A400)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPod21_8B117" Header="4.1 (8B117)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPod21_8C148" Header="4.2.1 (8C148)" Click="key_Click" />
                                     </MenuItem>
-                                    <MenuItem x:Name="btnbtnIPod31" Header="Apple TV 3G">
-                                        <MenuItem x:Name="btnbtnIPod31_7C145" Header="3.1.1 (7C145)" Click="key_Click" />
-                                        <MenuItem x:Name="btnbtnIPod31_7C146" Header="3.1.1 (7C146)" Click="key_Click" />
-                                        <MenuItem x:Name="btnbtnIPod31_7D11" Header="3.1.2 (7D11)" Click="key_Click" />
-                                        <MenuItem x:Name="btnbtnIPod31_7E18" Header="3.1.3 (7E18)" Click="key_Click" />
-                                        <MenuItem x:Name="btnbtnIPod31_8A293" Header="4.0 (8A293)" Click="key_Click" />
-                                        <MenuItem x:Name="btnbtnIPod31_8A400" Header="4.0.2 (8A400)" Click="key_Click" />
-                                        <MenuItem x:Name="btnbtnIPod31_8B117" Header="4.1 (8B117)" Click="key_Click" />
-                                        <MenuItem x:Name="btnbtnIPod31_8C148" Header="4.2.1 (8C148)" Click="key_Click" />
-                                        <MenuItem x:Name="btnbtnIPod31_8F190" Header="4.3 (8F190)" Click="key_Click" />
-                                        <MenuItem x:Name="btnbtnIPod31_8G4" Header="4.3.1 (8G4)" Click="key_Click" />
-                                        <MenuItem x:Name="btnbtnIPod31_8H7" Header="4.3.2 (8H7)" Click="key_Click" />
-                                        <MenuItem x:Name="btnbtnIPod31_8J2" Header="4.3.3 (8J2)" Click="key_Click" />
-                                        <MenuItem x:Name="btnbtnIPod31_8K2" Header="4.3.4 (8K2)" Click="key_Click" />
-                                        <MenuItem x:Name="btnbtnIPod31_8L1" Header="4.3.5 (8L1)" Click="key_Click" />
-                                        <MenuItem x:Name="btnbtnIPod31_9A334" Header="5.0 (9A334)" Click="key_Click" />
-                                        <MenuItem x:Name="btnbtnIPod31_9A405" Header="5.0.1 (9A405)" Click="key_Click" />
-                                        <MenuItem x:Name="btnbtnIPod31_9B176" Header="5.1 (9B176)" Click="key_Click" />
-                                        <MenuItem x:Name="btnbtnIPod31_9B206" Header="5.1.1 (9B206)" Click="key_Click" />
+                                    <MenuItem x:Name="btnIPod31" Header="Apple TV 3G">
+                                        <MenuItem x:Name="btnIPod31_7C145" Header="3.1.1 (7C145)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPod31_7C146" Header="3.1.1 (7C146)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPod31_7D11" Header="3.1.2 (7D11)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPod31_7E18" Header="3.1.3 (7E18)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPod31_8A293" Header="4.0 (8A293)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPod31_8A400" Header="4.0.2 (8A400)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPod31_8B117" Header="4.1 (8B117)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPod31_8C148" Header="4.2.1 (8C148)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPod31_8F190" Header="4.3 (8F190)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPod31_8G4" Header="4.3.1 (8G4)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPod31_8H7" Header="4.3.2 (8H7)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPod31_8J2" Header="4.3.3 (8J2)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPod31_8K2" Header="4.3.4 (8K2)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPod31_8L1" Header="4.3.5 (8L1)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPod31_9A334" Header="5.0 (9A334)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPod31_9A405" Header="5.0.1 (9A405)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPod31_9B176" Header="5.1 (9B176)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPod31_9B206" Header="5.1.1 (9B206)" Click="key_Click" />
                                     </MenuItem>
-                                    <MenuItem x:Name="btnbtnIPod41" Header="Apple TV 3G">
-                                        <MenuItem x:Name="btnbtnIPod41_8B117" Header="4.1 (8B117)" Click="key_Click" />
-                                        <MenuItem x:Name="btnbtnIPod41_8B118" Header="4.1 (8B118)" Click="key_Click" />
-                                        <MenuItem x:Name="btnbtnIPod41_8C148" Header="4.2.1 (8C148)" Click="key_Click" />
-                                        <MenuItem x:Name="btnbtnIPod41_8F190" Header="4.3 (8F190)" Click="key_Click" />
-                                        <MenuItem x:Name="btnbtnIPod41_8G4" Header="4.3.1 (8G4)" Click="key_Click" />
-                                        <MenuItem x:Name="btnbtnIPod41_8H7" Header="4.3.2 (8H7)" Click="key_Click" />
-                                        <MenuItem x:Name="btnbtnIPod41_8J2" Header="4.3.3 (8J2)" Click="key_Click" />
-                                        <MenuItem x:Name="btnbtnIPod41_8K2" Header="4.3.4 (8K2)" Click="key_Click" />
-                                        <MenuItem x:Name="btnbtnIPod41_8L1" Header="4.3.5 (8L1)" Click="key_Click" />
-                                        <MenuItem x:Name="btnbtnIPod41_9A334" Header="5.0 (9A334)" Click="key_Click" />
-                                        <MenuItem x:Name="btnbtnIPod41_9A405" Header="5.0.1 (9A405)" Click="key_Click" />
-                                        <MenuItem x:Name="btnbtnIPod41_9B176" Header="5.1 (9B176)" Click="key_Click" />
-                                        <MenuItem x:Name="btnbtnIPod41_9B206" Header="5.1.1 (9B206)" Click="key_Click" />
+                                    <MenuItem x:Name="btnIPod41" Header="Apple TV 3G">
+                                        <MenuItem x:Name="btnIPod41_8B117" Header="4.1 (8B117)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPod41_8B118" Header="4.1 (8B118)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPod41_8C148" Header="4.2.1 (8C148)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPod41_8F190" Header="4.3 (8F190)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPod41_8G4" Header="4.3.1 (8G4)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPod41_8H7" Header="4.3.2 (8H7)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPod41_8J2" Header="4.3.3 (8J2)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPod41_8K2" Header="4.3.4 (8K2)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPod41_8L1" Header="4.3.5 (8L1)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPod41_9A334" Header="5.0 (9A334)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPod41_9A405" Header="5.0.1 (9A405)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPod41_9B176" Header="5.1 (9B176)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPod41_9B206" Header="5.1.1 (9B206)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPod41_10A403" Header="6.0 (10A403)" Click="key_Click" />
                                     </MenuItem>
                                 </Menu>
                             </xctk:DropDownButton.DropDownContent>

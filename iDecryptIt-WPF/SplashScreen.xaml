@@ -46,7 +46,7 @@
                         <RowDefinition Height="26" />
                     </Grid.RowDefinitions>
                     <Label Content="iDecryptIt" FontSize="32" />
-                    <Label Content="by Hexware" Grid.Row="2" />
+                    <Label Content="by Hexware, LLC" Grid.Row="2" />
                     <!--<Label Content="cole.freehostingcloud.com/cms/iDecryptIt:Main" Grid.Row="4" />-->
                     <Label Content="Code released under GNU GPL v3" Grid.Row="6" />
                 </Grid>
