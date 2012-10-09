@@ -127,10 +127,10 @@ namespace Hexware.Programs.iDecryptIt
         }
 
         // Clicks and Stuff
-        private void btnChangeLanguage_Click(object sender, RoutedEventArgs e)
+        /*private void btnChangeLanguage_Click(object sender, RoutedEventArgs e)
         {
             new SelectLangControl(this).ShowDialog();
-        }
+        }*/
         private void btnDecrypt_Click(object sender, RoutedEventArgs e)
         {
             #region Is data filled?
@@ -483,11 +483,20 @@ namespace Hexware.Programs.iDecryptIt
                         case "iPhone3,1":
                             device = "iPhone 4 GSM";
                             break;
+                        case "iPhone3,2":
+                            device = "iPhone 4 GSM (R2)";
+                            break;
                         case "iPhone3,3":
                             device = "iPhone 4 CDMA";
                             break;
                         case "iPhone4,1":
                             device = "iPhone 4S";
+                            break;
+                        case "iPhone5,1":
+                            device = "iPhone 5 GSM";
+                            break;
+                        case "iPhone5,2":
+                            device = "iPhone 5 CDMA";
                             break;
                         case "iPod1,1":
                             device = "iPod touch 1G";
@@ -500,6 +509,9 @@ namespace Hexware.Programs.iDecryptIt
                             break;
                         case "iPod4,1":
                             device = "iPod touch 4G";
+                            break;
+                        case "iPod5,1":
+                            device = "iPod touch 5G";
                             break;
                         case "AppleTV2,1":
                             device = "Apple TV 2G";
@@ -563,7 +575,13 @@ namespace Hexware.Programs.iDecryptIt
                                     version = "5.0.2/5.1";
                                     break;
                                 case "10A5316k":
+                                case "10A5338d":
+                                case "10A5355d":
+                                case "10A5376e":
                                     version = "6.0";
+                                    break;
+                                case "10A406e":
+                                    version = "5.1/6.0";
                                     break;
                             }
                             #endregion
@@ -583,7 +601,13 @@ namespace Hexware.Programs.iDecryptIt
                                     version = "5.0.2/5.1";
                                     break;
                                 case "10A5316k":
+                                case "10A5338d":
+                                case "10A5355d":
+                                case "10A5376e":
                                     version = "6.0";
+                                    break;
+                                case "10A406e":
+                                    version = "5.1/6.0";
                                     break;
                             }
                             #endregion
@@ -643,7 +667,7 @@ namespace Hexware.Programs.iDecryptIt
                 else if (i == length)
                 {
                     returntext = returntext + "\\" + lastindex.Substring(0, split[length].Length - 4);
-                    switch (wantedlang)
+                    /*switch (wantedlang)
                     {
                         case "en":
                             returntext = returntext + "_decrypted.dmg";
@@ -653,11 +677,11 @@ namespace Hexware.Programs.iDecryptIt
                             returntext = returntext + "_descifrado.dmg";
                             break;
 
-                        default:
+                        default:*/
                             // Fall back to English
                             returntext = returntext + "_decrypted.dmg";
-                            break;
-                    }
+                            //break;
+                    //}
                 }
                 else
                 {
@@ -669,7 +693,7 @@ namespace Hexware.Programs.iDecryptIt
         private void key_Click(object sender, RoutedEventArgs e)
         {
             // Remove "btn", then split
-            string[] value = ((MenuItem)sender).Name.Substring(3).Split(new char[] { '_' });
+            string[] value = ((MenuItem)sender).Name.Substring(3).Split('_');
             bool gm = value[1].Contains("GM");
             if (gm)
             {
@@ -739,7 +763,7 @@ namespace Hexware.Programs.iDecryptIt
         }
 
         // Language Stuff
-        private void SetLangAtStartup()
+        /*private void SetLangAtStartup()
         {
             switch (wantedlang)
             {
@@ -767,7 +791,7 @@ namespace Hexware.Programs.iDecryptIt
             }
 
             //l18n.Load(rundir + "l18n\\" + lang + ".xml");
-            /*
+            
             // Decrypt Area
             btnDecryptText.Text = l18n.IniReadValue("MainWindow", "btnDecryptText");
             txtInputLabel.Text = l18n.IniReadValue("MainWindow", "txtInputLabel");
@@ -793,7 +817,7 @@ namespace Hexware.Programs.iDecryptIt
             tabBetaATV.Header = l18n.IniReadValue("MainWindow", "tabBeta");
             // Notes
             nokey = l18n.IniReadValue("MainWindow", "nokey");
-            unavailable = l18n.IniReadValue("MainWindow", "unavailable");*/
-        }
+            unavailable = l18n.IniReadValue("MainWindow", "unavailable");
+        }*/
     }
 }
