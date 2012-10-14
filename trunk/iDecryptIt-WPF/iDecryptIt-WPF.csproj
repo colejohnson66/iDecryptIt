@@ -130,9 +130,6 @@
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
     <Compile Include="GlobalVars.cs" />
-    <Compile Include="KeysControl.xaml.cs">
-      <DependentUpon>KeysControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="SplashScreen.xaml.cs">
@@ -156,10 +153,6 @@
       <DependentUpon>WhatAmI.xaml</DependentUpon>
     </Compile>
     <Page Include="About.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="KeysControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -320,9 +313,7 @@
     <EmbeddedResource Include="keys\iPod1,1_7A341.plist" />
     <EmbeddedResource Include="keys\iPod1,1_7C145.plist" />
     <EmbeddedResource Include="keys\iPod1,1_7D11.plist" />
-    <EmbeddedResource Include="keys\iPod1,1_7E18.plist">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
+    <EmbeddedResource Include="keys\iPod1,1_7E18.plist" />
     <EmbeddedResource Include="keys\iPod2,1_5F138.plist" />
     <EmbeddedResource Include="keys\iPod2,1_5G77a.plist" />
     <EmbeddedResource Include="keys\iPod2,1_5H11a.plist" />
