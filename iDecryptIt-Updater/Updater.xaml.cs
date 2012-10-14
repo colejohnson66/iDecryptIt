@@ -10,14 +10,13 @@ using System.Windows;
 namespace Hexware.Programs.iDecryptIt.Updater
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// derp
     /// </summary>
     public partial class MainWindow : Window
     {
         static string tempdir = Path.Combine(
             Path.GetTempPath(),
-            "Hexware\\iDecryptIt-Updater_",
-            new Random().Next(0, Int32.MaxValue).ToString("X")) + "\\";
+            "Hexware\\iDecryptIt-Updater_" + new Random().Next(0, Int32.MaxValue).ToString("X")) + "\\";
         string rundir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "\\";
         string[] checkerArr;
         string[] installArr = new string[] {
@@ -26,9 +25,18 @@ namespace Hexware.Programs.iDecryptIt.Updater
             "0",
             "2B39"};
 
-        internal MainWindow()
+        /// <summary>
+        /// DO NOT SET THIS TO INTERNAL!
+        /// IT WILL COMPILE BUT WILL FAIL WITH A CONFUSING XAML PARSE ERROR!
+        /// </summary>
+        public MainWindow()
         {
             this.Closing += MainWindow_Closing;
+
+            if (!Directory.Exists(tempdir))
+            {
+                Directory.CreateDirectory(tempdir);
+            }
 
             if (File.Exists(rundir + "iDecryptIt.exe.new"))
             {
@@ -81,7 +89,11 @@ namespace Hexware.Programs.iDecryptIt.Updater
             {
                 Directory.Delete(tempdir, true);
             }
+#if DEBUG
+            catch (Exception ex)
+#else
             catch (Exception)
+#endif
             {
             }
         }
@@ -99,7 +111,11 @@ namespace Hexware.Programs.iDecryptIt.Updater
                 webClient.Dispose();
                 checkerArr = File.ReadAllText(tempdir + "update.txt").Split('.');
             }
+#if DEBUG
+            catch (Exception ex)
+#else
             catch (Exception)
+#endif
             {
                 /*MessageBox.Show(
                     "Unable to download version info!\n\n" +
@@ -113,7 +129,7 @@ namespace Hexware.Programs.iDecryptIt.Updater
             // Compare build numbers
             if (installArr[3] == checkerArr[3])
             {
-                Close();
+                this.Close();
                 return;
             }
             this.Title = "Update Available";
@@ -130,7 +146,7 @@ namespace Hexware.Programs.iDecryptIt.Updater
         {
             btnDownload.IsEnabled = false;
             btnOk.IsEnabled = false;
-            this.Height = this.Height + 30;
+            this.Height = this.Height + 27;
         }
     }
 }

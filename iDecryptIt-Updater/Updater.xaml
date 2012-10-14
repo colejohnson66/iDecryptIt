@@ -7,9 +7,12 @@
         ShowInTaskbar="False"
         ResizeMode="NoResize"
         Name="Window"
-        Height="241" Width="450"
-        Background="{StaticResource Background}"
+        Height="255" Width="450"
         Loaded="Window_Loaded">
+    <!--
+        You may think the designer is right, well guess what:
+        IT IS NOT! SEE FOR YOURSELF! HIT THAT DEBUG BUTTON! I DARE YOU!
+    -->
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
@@ -45,7 +48,7 @@
                     <ColumnDefinition Width="Auto" MinWidth="75" />
                     <ColumnDefinition Width="12" />
                 </Grid.ColumnDefinitions>
-                <Button Grid.Row="3" Grid.Column="2" Content="Download" Name="btnDownload" Click="btnDownload_Click" />
+                <Button Grid.Row="3" Grid.Column="2" Content="Download" Name="btnDownload" Click="btnDownload_Click" Visibility="Collapsed" />
                 <Button Grid.Row="5" Grid.Column="2" Content="OK" Name="btnOk" Click="btnOk_Click" />
                 <TextBlock Grid.Row="3" Name="txtAvailable" />
                 <TextBlock Grid.Row="5" Name="txtInstalled" />
