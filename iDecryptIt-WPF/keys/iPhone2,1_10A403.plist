@@ -3,39 +3,63 @@
 <plist>
 	<dict>
 		<key>Version</key>
-		<string>2.0.1</string>
+		<string>6.0GM and 6.0</string>
 		<key>Build</key>
-		<string>5B108</string>
+		<string>10A403</string>
 		<key>Device</key>
-		<string>iPod touch 1G</string>
+		<string>iPhone 3GS</string>
 		<key>Codename</key>
-		<string>Big Bear</string>
+		<string>Sundance</string>
+		<key>Baseband</key>
+		<string>05.16.07</string>
+		<key>Download</key>
+		<string>http://appldnld.apple.com/iOS6/Restore/041-7173.20120919.sDDMh/iPhone2,1_6.0_10A403_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>
-			<string>018-3796-9</string>
+			<string>038-6491-001</string>
 			<key>Key</key>
-			<string>2cfca55aabb22fde7746e6a034f738b7795458be9902726002a8341995558990f41e3755</string>
+			<string>9b80f46bffd90f2507fd1978df3d72e933ac0f894b8ff13aca73f2ef6b822186a4075236</string>
 		</dict>
-		<key>Update Ramdisk</key>
-		<dict>
-			<key>File Name</key>
-			<string>018-3881-4</string>
-			<key>IV</key>
-			<string>TODO</string>
-			<key>Key</key>
-			<string>TODO</string>
-		</dict>
+		<key>No Update Ramdisk</key>
+		<true />
 		<key>Restore Ramdisk</key>
 		<dict>
 			<key>File Name</key>
-			<string>018-3882-4</string>
+			<string>038-1203-273</string>
 			<key>IV</key>
-			<string>024fdbba71ebf34df5b525cd975aefe8</string>
+			<string>404e344acc3ab148a3d90997f00aa308</string>
 			<key>Key</key>
-			<string>219eac3e01276c7ec50432123f50971a</string>
+			<string>96bbec672f7c5533250f4fa14798647031b5913843d00d8a4c9b6ebec0664f55</string>
 		</dict>
 		<key>AppleLogo</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>TODO</string>
+			<key>Key</key>
+			<string>TODO</string>
+		</dict>
+		<key>BatteryCharging0</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>TODO</string>
+			<key>Key</key>
+			<string>TODO</string>
+		</dict>
+		<key>BatteryCharging1</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>TODO</string>
+			<key>Key</key>
+			<string>TODO</string>
+		</dict>
+		<key>BatteryFull</key>
 		<dict>
 			<key>Encryption</key>
 			<true />
@@ -94,54 +118,45 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>2efa019c5b20a427daf6a3cbf4452209</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>1a982cd5566a3476db211c4c1aafbd2450843d79f6478a87a3b0b9f1562fc1d1</string>
 		</dict>
 		<key>iBoot</key>
 		<dict>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>1ede720c9c329081dfac906fc2d497e9</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>2a83acad1432e9a41854ff33c2404814bbcd64c392ef11d3dbed92c2947fd148</string>
 		</dict>
 		<key>iBSS</key>
 		<dict>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>c32ff0788530d2650a3c1108a959aed0</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>bf3b69f9bd9c3ec1a6aae962d9cb3da4bbc4e1de12608df2756dc0814857fee8</string>
 		</dict>
 		<key>Kernelcache</key>
 		<dict>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>3cc0a84f6b8120fd4f40cff12cc58ed6</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>5bb60c7597bf4ed465f8c68938c36184e6af924dda3f8dc4d3eb2767213bcb91</string>
 		</dict>
 		<key>LLB</key>
 		<dict>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>62e04bfb4f633c5098cad1dde38ac051</string>
 			<key>Key</key>
-			<string>TODO</string>
-		</dict>
-		<key>NeedService</key>
-		<dict>
-			<key>Encryption</key>
-			<true />
-			<key>IV</key>
-			<string>TODO</string>
-			<key>Key</key>
-			<string>TODO</string>
+			<string>5928cf1fe79143bf9b12e34f1add8368766582fd98fe4f3ffc65238e35bad359</string>
 		</dict>
 		<key>RecoveryMode</key>
 		<dict>
