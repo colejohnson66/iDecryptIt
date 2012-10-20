@@ -1,4 +1,5 @@
 ﻿using Hexware.Plist;
+using Ionic.Zip;
 using Microsoft.Win32;
 using System;
 using System.ComponentModel;
@@ -18,8 +19,6 @@ namespace Hexware.Programs.iDecryptIt
     /// </summary>
     public partial class MainWindow : Window
     {
-        // Strings
-        //string wantedlang;
         // File paths
         static string rundir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "\\";
         static string tempdir = Path.Combine(
@@ -29,13 +28,11 @@ namespace Hexware.Programs.iDecryptIt
         static string helpdir = rundir + "help\\";
         // XPwn's dmg
         BackgroundWorker decryptworker;
-        Process decryptproc;
-        FileInfo decryptfromfile;
-        string decryptfrom;
-        string decryptto;
-        double decryptprog;
-        // INI files
-        //XmlDocument l18n = new XmlDocument();
+        Process decryptProc;
+        FileInfo decryptFromFile;
+        string decryptFrom;
+        string decryptTo;
+        double decryptProg;
         
         /// <summary>
         /// herp derp
@@ -50,13 +47,13 @@ namespace Hexware.Programs.iDecryptIt
         {
             while (!decryptworker.CancellationPending)
             {
-                if (decryptproc.HasExited)
+                if (decryptProc.HasExited)
                 {
                     decryptworker.ReportProgress(100);
                 }
                 else
                 {
-                    decryptprog = ((new FileInfo(decryptto).Length) * 100.0) / decryptfromfile.Length;
+                    decryptProg = ((new FileInfo(decryptTo).Length) * 100.0) / decryptFromFile.Length;
                     decryptworker.ReportProgress(0);
                 }
             }
@@ -70,7 +67,7 @@ namespace Hexware.Programs.iDecryptIt
                 gridDecrypt.IsEnabled = true;
                 progDecrypt.Visibility = Visibility.Hidden;
             }
-            progDecrypt.Value = decryptprog;
+            progDecrypt.Value = decryptProg;
         }
 
         // Functions
@@ -128,7 +125,7 @@ namespace Hexware.Programs.iDecryptIt
             }
             return Stream.Null;
         }
-        internal void LoadKey(Stream document, bool goldenMaster)
+        private void LoadKey(Stream document, bool goldenMaster)
         {
             PlistDocument doc = null;
 
@@ -943,29 +940,29 @@ namespace Hexware.Programs.iDecryptIt
             #endregion
 
             // Variables
-            decryptfrom = textInputFileName.Text;
-            decryptto = textOuputFileName.Text;
+            decryptFrom = textInputFileName.Text;
+            decryptTo = textOuputFileName.Text;
 
             // File length
-            decryptfromfile = new FileInfo(decryptfrom);
+            decryptFromFile = new FileInfo(decryptFrom);
 
             // Process
-            decryptproc = new Process();
-            decryptproc.StartInfo.UseShellExecute = false;
-            decryptproc.StartInfo.FileName = rundir + "dmg.exe";
-            decryptproc.StartInfo.RedirectStandardError = true;
-            decryptproc.StartInfo.RedirectStandardInput = true;
-            decryptproc.StartInfo.RedirectStandardOutput = true;
-            decryptproc.StartInfo.Arguments =
+            decryptProc = new Process();
+            decryptProc.StartInfo.UseShellExecute = false;
+            decryptProc.StartInfo.FileName = rundir + "dmg.exe";
+            decryptProc.StartInfo.RedirectStandardError = true;
+            decryptProc.StartInfo.RedirectStandardInput = true;
+            decryptProc.StartInfo.RedirectStandardOutput = true;
+            decryptProc.StartInfo.Arguments =
                 "extract \"" + textInputFileName.Text + "\" \"" + textOuputFileName.Text + "\" " + textDecryptKey.Text;
-            decryptproc.Start();
+            decryptProc.Start();
 
             // Screen mods
             gridDecrypt.IsEnabled = false;
             progDecrypt.Visibility = Visibility.Visible;
 
             // Wait for file to exist before starting worker (processes are aSYNC)
-            while (!File.Exists(decryptto))
+            while (!File.Exists(decryptTo))
             {
             }
             decryptworker = new BackgroundWorker();

@@ -1,9 +1,11 @@
 ﻿using System;
+using System.IO;
+using System.Reflection;
 using System.Runtime.InteropServices;
 
 namespace Hexware.Programs.iDecryptIt
 {
-    internal class Program
+    internal static class Program
     {
         [DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
         private static extern bool FreeConsole();
@@ -25,11 +27,11 @@ namespace Hexware.Programs.iDecryptIt
                 {
                     debug = true;
                 }
-                else if (args[i].Length > 5 && args[i].Substring(args[i].Length - 4) == ".dmg")
+                else if (args[i].Length > 4 && args[i].Substring(args[i].Length - 4) == ".dmg")
                 {
                     GlobalVars.ExecutionArgs["dmg"] = args[i];
                 }
-                else if (args[i].Length > 6 && args[i].Substring(args[i].Length - 5) == ".ipsw")
+                else if (args[i].Length > 5 && args[i].Substring(args[i].Length - 5) == ".ipsw")
                 {
                     GlobalVars.ExecutionArgs["dmg"] = args[i];
                 }
@@ -111,16 +113,50 @@ namespace Hexware.Programs.iDecryptIt
         }
         internal static void Keys()
         {
+            string input;
+            Console.WriteLine("Enter the device:");
+            Console.WriteLine("  AppleTV2,1 - Apple TV 2G");
+            Console.WriteLine("  AppleTV3,1 - Apple TV 3G");
+            Console.WriteLine("  iPad1,1 ---- iPad 1G");
+            Console.WriteLine("  iPad2,1 ---- iPad 2 Wi-Fi");
+            Console.WriteLine("  iPad2,2 ---- iPad 2 GSM");
+            Console.WriteLine("  iPad2,3 ---- iPad 2 CDMA");
+            Console.WriteLine("  iPad2,4 ---- iPad 2 Wi-Fi R2/Rev A");
+            Console.WriteLine("  iPad3,1 ---- iPad 3 Wi-Fi");
+            Console.WriteLine("  iPad3,2 ---- iPad 3 CDMA");
+            Console.WriteLine("  iPad3,3 ---- iPad 3 Global");
+            Console.WriteLine("  iPhone1,1 -- iPhone 2G");
+            Console.WriteLine("  iPhone1,2 -- iPhone 3G");
+            Console.WriteLine("  iPhone2,1 -- iPhone 3GS");
+            Console.WriteLine("  iPhone3,1 -- iPhone 4 GSM");
+            Console.WriteLine("  iPhone3,2 -- iPhone 4 GSM R2/Rev A");
+            Console.WriteLine("  iPhone3,3 -- iPhone 4 CDMA");
+            Console.WriteLine("  iPhone4,1 -- iPhone 4S");
+            Console.WriteLine("  iPhone5,1 -- iPhone 5 GSM");
+            Console.WriteLine("  iPhone5,2 -- iPhone 5 Global");
+            Console.WriteLine("  iPod1,1 ---- iPod touch 1G");
+            Console.WriteLine("  iPod2,1 ---- iPod touch 2G");
+            Console.WriteLine("  iPod3,1 ---- iPod touch 3G");
+            Console.WriteLine("  iPod4,1 ---- iPod touch 4G");
+            Console.WriteLine("  iPod5,1 ---- iPod touch 5G");
+            Console.Write("Input: ");
+            input = Console.ReadLine();
+            Console.WriteLine("Enter the build:");
+            Console.Write("Input: ");
+            input = input + "_" + Console.ReadLine();
+
+            // Key stream
+            Stream stream = GetStream(input);
         }
         internal static void About()
         {
             DateTime buildTime = RetrieveLinkerTimestamp();
             Console.WriteLine("iDecryptIt " + GlobalVars.Version);
             Console.WriteLine("  Copyright (c) Hexware, LLC");
-            Console.WriteLine("  Built on {0:R}", buildTime);
+            Console.WriteLine("  Built on " + buildTime.ToString("R"));
             Console.WriteLine();
             Console.WriteLine("iDecryptIt is free software licensed under GNU GPL v3 with portions under other licenses:");
-            Console.WriteLine("  7 Zip---------------- GNU LGPL v2.1 with portions under unRAR restriction");
+            Console.WriteLine("  7 Zip --------------- GNU LGPL v2.1 with portions under unRAR restriction");
             Console.WriteLine("  Hexware.Plist ------- GNU LGPL v3");
             Console.WriteLine("  Ionic.Zip ----------- Ms-Pl with portions under Apache and a BSD-like license");
             Console.WriteLine("  WPFToolkit.Extended - Ms-Pl");
@@ -137,7 +173,6 @@ namespace Hexware.Programs.iDecryptIt
         }
         internal static DateTime RetrieveLinkerTimestamp()
         {
-            string filePath = System.Reflection.Assembly.GetCallingAssembly().Location;
             const int c_PeHeaderOffset = 60;
             const int c_LinkerTimestampOffset = 8;
             byte[] b = new byte[2048];
@@ -145,8 +180,11 @@ namespace Hexware.Programs.iDecryptIt
 
             try
             {
-                s = new System.IO.FileStream(filePath, System.IO.FileMode.Open, System.IO.FileAccess.Read);
+                s = new FileStream(Assembly.GetCallingAssembly().Location, FileMode.Open, FileAccess.Read);
                 s.Read(b, 0, 2048);
+            }
+            catch (Exception)
+            {
             }
             finally
             {
@@ -156,12 +194,33 @@ namespace Hexware.Programs.iDecryptIt
                 }
             }
 
-            int i = System.BitConverter.ToInt32(b, c_PeHeaderOffset);
-            int secondsSince1970 = System.BitConverter.ToInt32(b, i + c_LinkerTimestampOffset);
+            int i = BitConverter.ToInt32(b, c_PeHeaderOffset);
+            int secondsSince1970 = BitConverter.ToInt32(b, i + c_LinkerTimestampOffset);
             DateTime dt = new DateTime(1970, 1, 1, 0, 0, 0);
             dt = dt.AddSeconds(secondsSince1970);
             dt = dt.AddHours(TimeZone.CurrentTimeZone.GetUtcOffset(dt).Hours);
             return dt;
+        }
+        internal static Stream GetStream(string resourceName)
+        {
+            try
+            {
+                Assembly assy = Assembly.GetExecutingAssembly();
+                string[] resources = assy.GetManifestResourceNames();
+                int length = resources.Length;
+                for (int i = 0; i < length; i++)
+                {
+                    if (resources[i].ToLower().IndexOf(resourceName.ToLower()) != -1)
+                    {
+                        // resource found
+                        return assy.GetManifestResourceStream(resources[i]);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+            }
+            return Stream.Null;
         }
     }
 }
