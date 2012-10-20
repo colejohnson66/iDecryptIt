@@ -1,17 +1,15 @@
 ﻿using Hexware.Plist;
 using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
+using System.Net;
 using System.Text;
-using System.Threading;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
-using System.Xml;
-using System.Net;
 
 namespace Hexware.Programs.iDecryptIt
 {
@@ -39,7 +37,10 @@ namespace Hexware.Programs.iDecryptIt
         // INI files
         //XmlDocument l18n = new XmlDocument();
         
-        internal MainWindow()
+        /// <summary>
+        /// herp derp
+        /// </summary>
+        public MainWindow()
         {
             InitializeComponent();
         }
@@ -1064,10 +1065,6 @@ namespace Hexware.Programs.iDecryptIt
                 rundir + "7z.exe",
                 " x \"" + file + "\" \"" + "-o" + text7ZOuputFolder.Text + "\"");
         }
-        private void btnAbout_Click(object sender, RoutedEventArgs e)
-        {
-            new About().ShowDialog();
-        }
         private void btnChangelog_Click(object sender, RoutedEventArgs e)
         {
             Process.Start("file://" + helpdir + "changelog.html");
@@ -1506,11 +1503,7 @@ namespace Hexware.Programs.iDecryptIt
 
 
             // were we given a file name on launch?
-            if (GlobalVars.ExecutionArgs.Length >= 2 &&
-                GlobalVars.ExecutionArgs[1].Substring(GlobalVars.ExecutionArgs[1].Length - 4, 4) == ".dmg")
-            {
-                textInputFileName.Text = GlobalVars.ExecutionArgs[1];
-            }
+            textInputFileName.Text = (string)GlobalVars.ExecutionArgs["dmg"];
         }
         private void Window_Closing(object sender, CancelEventArgs e)
         {
