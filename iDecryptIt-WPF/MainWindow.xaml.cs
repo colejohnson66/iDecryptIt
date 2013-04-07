@@ -9,6 +9,7 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -18,13 +19,13 @@ namespace Hexware.Programs.iDecryptIt
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
-    {
+	{
+		[DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
+		private static extern bool FreeConsole();
+
         // File paths
         static string rundir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "\\";
-        static string tempdir = Path.Combine(
-            Path.GetTempPath(),
-            "Hexware\\iDecryptIt_",
-            new Random().Next(0, Int32.MaxValue).ToString("X")) + "\\";
+		string tempdir;
         static string helpdir = rundir + "help\\";
         // XPwn's dmg
         BackgroundWorker decryptworker;
@@ -33,6 +34,8 @@ namespace Hexware.Programs.iDecryptIt
         string decryptFrom;
         string decryptTo;
         double decryptProg;
+		// Console loading portion
+		internal static bool debug;
         
         /// <summary>
         /// herp derp
@@ -40,6 +43,11 @@ namespace Hexware.Programs.iDecryptIt
         public MainWindow()
         {
             InitializeComponent();
+
+			if (!debug)
+			{
+				FreeConsole();
+			}
         }
 
         // Background workers
@@ -90,18 +98,33 @@ namespace Hexware.Programs.iDecryptIt
             }
         }
         internal void Error(string message, Exception ex)
-        {
-            MessageBox.Show(
-                message + "\r\n\r\n" +
-                "Please file a bug report\r\n" +// at:\r\n" +
-                "http://twitter.com/HexwareLLC\r\n" +
-                "With the following data and an explanation of what was happening:\r\n\r\n" +
-                (ex == null ? "" : "Exception: " + ex.Message + "\r\n") +
-                "Version: " + GlobalVars.Version + "\r\n",
-                "iDecryptIt",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error);
+		{
+			MessageBox.Show(
+				message + "\r\n\r\n" +
+				"Please file a bug report\r\n" +// at:\r\n" +
+				"(http://twitter.com/HexwareLLC)\r\n" +
+				"with the following data and an explanation of what was happening:\r\n\r\n" +
+				(ex == null ? "" : "Exception: " + ex.Message + "\r\n") +
+				"Version: " + GlobalVars.Version + "\r\n",
+				"iDecryptIt",
+				MessageBoxButton.OK,
+				MessageBoxImage.Error);
         }
+		internal void FatalError(string message, Exception ex)
+		{
+			MessageBox.Show(
+				"iDecryptIt has encountered a fatal error and must close.\r\n\r\n" +
+				message + "\r\n\r\n" +
+				"Please file a bug report\r\n" +// at:\r\n" +
+				"(http://twitter.com/HexwareLLC)\r\n" +
+				"with the following data and an explanation of what was happening:\r\n\r\n" +
+				(ex == null ? "" : "Exception: " + ex.Message + "\r\n") +
+				"Version: " + GlobalVars.Version + "\r\n",
+				"iDecryptIt",
+				MessageBoxButton.OK,
+				MessageBoxImage.Error);
+			Close();
+		}
         internal Stream GetStream(string resourceName)
         {
             try
@@ -117,13 +140,12 @@ namespace Hexware.Programs.iDecryptIt
                         return assy.GetManifestResourceStream(resources[i]);
                     }
                 }
-                Error("Key page not found.", null);
             }
             catch (Exception ex)
             {
                 Error("Unable to open key page.", ex);
-            }
-            return Stream.Null;
+			}
+			return Stream.Null;
         }
         private void LoadKey(Stream document, bool goldenMaster)
         {
@@ -228,7 +250,9 @@ namespace Hexware.Programs.iDecryptIt
             }
             fileRestore.Text = plist.Get<PlistDict>("Restore Ramdisk").Get<PlistString>("File Name").Value + ".dmg";
             fileRestoreNoEncrypt.Text = fileRestore.Text;
-            if (plist.Exists("Ramdisk Not Encrypted") && plist.Get<PlistBool>("Ramdisk Not Encrypted").Value)
+			// (ramdisk not encrypted) || (ramdisk encrypted and no IV/key)
+            if ((plist.Exists("Ramdisk Not Encrypted") && plist.Get<PlistBool>("Ramdisk Not Encrypted").Value) ||
+				(!plist.Exists("Ramdisk Not Encrypted") && !plist.Get<PlistDict>("Restore Ramdisk").Exists("IV")))
             {
                 // Hide Encrypted Ramdisks
                 lblUpdateIV.Visibility = Visibility.Collapsed;
@@ -254,8 +278,8 @@ namespace Hexware.Programs.iDecryptIt
                 // Keys
                 if (!plist.Exists("No Update Ramdisk") || !plist.Get<PlistBool>("No Update Ramdisk").Value)
                 {
-                    keyUpdateIV.Text = plist.Get<PlistDict>("Update Ramdisk").Get<PlistString>("IV").Value;
-                    keyUpdateKey.Text = plist.Get<PlistDict>("Update Ramdisk").Get<PlistString>("Key").Value;
+					keyUpdateIV.Text = plist.Get<PlistDict>("Update Ramdisk").Get<PlistString>("IV").Value;
+					keyUpdateKey.Text = plist.Get<PlistDict>("Update Ramdisk").Get<PlistString>("Key").Value;
                 }
                 keyRestoreIV.Text = plist.Get<PlistDict>("Restore Ramdisk").Get<PlistString>("IV").Value;
                 keyRestoreKey.Text = plist.Get<PlistDict>("Restore Ramdisk").Get<PlistString>("Key").Value;
@@ -1472,6 +1496,10 @@ namespace Hexware.Programs.iDecryptIt
         // Load and Close
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+			tempdir = Path.Combine(
+				Path.GetTempPath(),
+				"Hexware\\iDecryptIt_" + new Random().Next(0, Int32.MaxValue).ToString("X")) + "\\";
+
             if (!Directory.Exists(tempdir))
             {
                 Directory.CreateDirectory(tempdir);
@@ -1482,7 +1510,7 @@ namespace Hexware.Programs.iDecryptIt
             {
                 WebClient webClient = new WebClient();
                 webClient.DownloadFile(
-                    @"http://theiphonewiki.com/wiki/index.php?title=User:5urd/Latest_stable_software_release/iDecryptIt&action=raw",
+                    @"http://theiphonewiki.com/w/index.php?title=User:5urd/Latest_stable_software_release/iDecryptIt&action=raw",
                     tempdir + "update.txt");
                 webClient.Dispose();
                 if (File.ReadAllText(tempdir + "update.txt") != GlobalVars.Version)
@@ -1498,8 +1526,7 @@ namespace Hexware.Programs.iDecryptIt
             {
             }
 
-
-            // were we given a file name on launch?
+			// Were we passed a file name? (handled by console portion)
             textInputFileName.Text = (string)GlobalVars.ExecutionArgs["dmg"];
         }
         private void Window_Closing(object sender, CancelEventArgs e)

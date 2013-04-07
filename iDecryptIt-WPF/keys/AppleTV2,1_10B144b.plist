@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist>
+	<dict>
+		<key>Version</key>
+		<string>5.2</string>
+		<key>Build</key>
+		<string>10B144b</string>
+		<key>Device</key>
+		<string>Apple TV 2G</string>
+		<key>Codename</key>
+		<string>Brighton</string>
+		<key>Download</key>
+		<string>http://appldnld.apple.com/AppleTV/041-6474.20130128.Cnnew/AppleTV2,1_5.2_10B144b_Restore.ipsw</string>
+		<key>Root FS</key>
+		<dict>
+			<key>File Name</key>
+			<string>038-5750-129</string>
+			<key>Key</key>
+			<string>693d830170427c2441248f39c56bfbf3bf37b4364859ae00083d88952ffc4df6191825c8</string>
+		</dict>
+		<key>No Update Ramdisk</key>
+		<true />
+		<key>Restore Ramdisk</key>
+		<dict>
+			<key>File Name</key>
+			<string>048-0804-003</string>
+			<key>IV</key>
+			<string>adb23f4a624b9436ae2f7cf6e17fd0f7</string>
+			<key>Key</key>
+			<string>6aad58a5d981dda1fddadcebdafd632f8a9df5ef7ae2c2474fa307fc7f7de8e1</string>
+		</dict>
+		<key>AppleLogo</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>f3a9657780126e29987868d6771108ff</string>
+			<key>Key</key>
+			<string>5a38d308c96f43956b3c8f9186ea09136281b3151e3de61bd4cb4d708315a549</string>
+		</dict>
+		<key>BatteryCharging0</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>4672f28b1970f14fac1e5b225f0b333b</string>
+			<key>Key</key>
+			<string>06693e6bb7aa3cfb2ce7bebce7598e838f2191b3e80c9b0d1eaf9ddb478a5e33</string>
+		</dict>
+		<key>BatteryCharging1</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>8645a19630afa62ec6d8746faecf62e3</string>
+			<key>Key</key>
+			<string>b0f7c84070bc4f7339a6115bf7e6e212f5f8246187ffe1cfffe3ad212d04f640</string>
+		</dict>
+		<key>BatteryFull</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>4e60c785a1829e2ca3ca9aa59ed85a2c</string>
+			<key>Key</key>
+			<string>b55b2e8f9e40d5d644114f80a24535b368c582b3bb7b80d99bb012994683d119</string>
+		</dict>
+		<key>BatteryLow0</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>fb778c37feef0a5a9a1d8068cb8da3b0</string>
+			<key>Key</key>
+			<string>a0b82ee27c38ff570225c8a4f524988be83b27888c714cf1a07d3e393f67d29b</string>
+		</dict>
+		<key>BatteryLow1</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>1066dc3f9dda6bbef8c5181a32ddbe91</string>
+			<key>Key</key>
+			<string>4a8f9e36eaee21062a1aa2a650b62ac4deb6ae3f99a689235077479075fb8b7d</string>
+		</dict>
+		<key>DeviceTree</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>df2668e42dd9ecee557a8cdeefafb748</string>
+			<key>Key</key>
+			<string>ce48657e0e575cbd17e6753ffad85b7831418c4d5b991435965541eaddfdaf9a</string>
+		</dict>
+		<key>GlyphCharging</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>7f3c76fd4a617c0a80b6856572c8278a</string>
+			<key>Key</key>
+			<string>88ac29ba826164875e78d271f7bbd56c134ae1d18abacb020eb2e8347bf802f3</string>
+		</dict>
+		<key>GlyphPlugin</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>b25bf39c26eb3c2e73c7618a3b87f8cb</string>
+			<key>Key</key>
+			<string>d5ea9e20e12842995f043a5e655241740bd990958edac61ad1fa06c6c7fe8312</string>
+		</dict>
+		<key>iBEC</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>54d5ab595179a136429c15b26cbc981d</string>
+			<key>Key</key>
+			<string>8480b0fd46fd32761ad897415711312b116eaa8e62d52ff64c105b2378524914</string>
+		</dict>
+		<key>iBoot</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>bd063a17084886c64d8b28851b619f40</string>
+			<key>Key</key>
+			<string>8fed07137a988253240b13e8b15dc34712c6ec1c8746d2531c03fe8da215e959</string>
+		</dict>
+		<key>iBSS</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>c14caf1c929efa37727e7b232304d184</string>
+			<key>Key</key>
+			<string>2fc6581e36855589f93dc002db82fb7c9a301b2585d2bb165040e9de27e36dcc</string>
+		</dict>
+		<key>Kernelcache</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>99020e36ff4b7ef19600e14f5dbedceb</string>
+			<key>Key</key>
+			<string>31d7a543bf19512959f5e7871a1921c4912986ce9fc4dc5976ec97034290e81c</string>
+		</dict>
+		<key>LLB</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>c50c4e4dd3b66e0593d8234649e37cee</string>
+			<key>Key</key>
+			<string>b13bd7beb88355d62f318bae10c6821f3c12ee69c78d4cb0aa3b92af3783a33c</string>
+		</dict>
+		<key>RecoveryMode</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>aa5ee5be3acff114ded6c3f2dc48797f</string>
+			<key>Key</key>
+			<string>90fc9bce1a4015a6c8bddeff0a26f7946707ef53384e3ffe631ebd0fb2281662</string>
+		</dict>
+	</dict>
+</plist>

@@ -179,9 +179,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>0b3af425ffa427e79a994297e8e216b5</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>be98b31bde94a4896c8dce2b252a6c2c26391221f2bdbe173c9d54ad0b2118f5</string>
 		</dict>
 	</dict>
 </plist>

@@ -26,153 +26,153 @@
 			<key>File Name</key>
 			<string>038-4304-027</string>
 			<key>IV</key>
-			<string>339CB99862663FAD230B8F0F881BE518</string>
+			<string>339cb99862663fad230b8f0f881be518</string>
 			<key>Key</key>
-			<string>BD364CBEF93B2DC638400DE6B6832206B237B28961FBC5BD556266DE654E0A49</string>
+			<string>bd364cbef93b2dc638400de6b6832206b237b28961fbc5bd556266de654e0a49</string>
 		</dict>
 		<key>Restore Ramdisk</key>
 		<dict>
 			<key>File Name</key>
 			<string>038-4361-021</string>
 			<key>IV</key>
-			<string>3474F5208FC45AAE32734213171B95EE</string>
+			<string>3474f5208fc45aae32734213171b95ee</string>
 			<key>Key</key>
-			<string>4F1419111E1C66C2E597FA79ACFAD75CE501D043AF6EDA8A980B6CD4332823EC</string>
+			<string>4f1419111e1c66c2e597fa79acfad75ce501d043af6eda8a980b6cd4332823ec</string>
 		</dict>
 		<key>AppleLogo</key>
 		<dict>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>9D8C3366E67A76FBA95288C2DA08F677</string>
+			<string>9d8c3366e67a76fba95288c2da08f677</string>
 			<key>Key</key>
-			<string>B165B5F5EAA3F9C4CAA1EAD70DB3075F80F2D9AD86BE84CFA42188FAC3EF3C09</string>
+			<string>b165b5f5eaa3f9c4caa1ead70db3075f80f2d9ad86be84cfa42188fac3ef3c09</string>
 		</dict>
 		<key>BatteryCharging0</key>
 		<dict>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>D6DF6980BFC7211668CEC8780035CD20</string>
+			<string>d6df6980bfc7211668cec8780035cd20</string>
 			<key>Key</key>
-			<string>360990BBA3D329D25475A3F1C2E06C2E980BDF2A2DF3FA3526FEA63E78324C28</string>
+			<string>360990bba3d329d25475a3f1c2e06c2e980bdf2a2df3fa3526fea63e78324c28</string>
 		</dict>
 		<key>BatteryCharging1</key>
 		<dict>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>4B5335AE4900DBECBC0DDA27D64DF464</string>
+			<string>4b5335ae4900dbecbc0dda27d64df464</string>
 			<key>Key</key>
-			<string>299BBAF30BF918039AD5249FBEDF5E15DD13921B2373ECE40EED3E518199B04A</string>
+			<string>299bbaf30bf918039ad5249fbedf5e15dd13921b2373ece40eed3e518199b04a</string>
 		</dict>
 		<key>BatteryFull</key>
 		<dict>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>77B28D3A25E13B0DD5CF7D03931EFB5D</string>
+			<string>77b28d3a25e13b0dd5cf7d03931efb5d</string>
 			<key>Key</key>
-			<string>5833441F004AF05141E4BCA1D5405C332B3825D2F92905A106841E739B47BD68</string>
+			<string>5833441f004af05141e4bca1d5405c332b3825d2f92905a106841e739b47bd68</string>
 		</dict>
 		<key>BatteryLow0</key>
 		<dict>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>4D2A83F3FC8EA03C88F5C9748F62BAA1</string>
+			<string>4d2a83f3fc8ea03c88f5c9748f62baa1</string>
 			<key>Key</key>
-			<string>B7C00F5EF88DBFCAFF8F9F3EF3183F97786947B444D23CC0315FF5F0C81F4494</string>
+			<string>b7c00f5ef88dbfcaff8f9f3ef3183f97786947b444d23cc0315ff5f0c81f4494</string>
 		</dict>
 		<key>BatteryLow1</key>
 		<dict>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>DE145B2C54F7C7611B6EE7226F90718C</string>
+			<string>de145b2c54f7c7611b6ee7226f90718c</string>
 			<key>Key</key>
-			<string>FBAF36E1D67A9CA9E46A1856233861D6552390093304B2193DA2AF7099FC4FC4</string>
+			<string>fbaf36e1d67a9ca9e46a1856233861d6552390093304b2193da2af7099fc4fc4</string>
 		</dict>
 		<key>DeviceTree</key>
 		<dict>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>863B51688385F28267112E02BB7CF910</string>
+			<string>863b51688385f28267112e02bb7cf910</string>
 			<key>Key</key>
-			<string>2F2CF5C8EE5515B0889D0F1C9A071E353C210F616DB22A3389B4BC6C45D1AB00</string>
+			<string>2f2cf5c8ee5515b0889d0f1c9a071e353c210f616db22a3389b4bc6c45d1ab00</string>
 		</dict>
 		<key>GlyphCharging</key>
 		<dict>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>D71FB4F81D378DAA313D4B23C7E23D59</string>
+			<string>d71fb4f81d378daa313d4b23c7e23d59</string>
 			<key>Key</key>
-			<string>466BEDCD62762EB340A09B414576C6EB2B51F494B3AAA4C90CA7CF1F3AE26C7B</string>
+			<string>466bedcd62762eb340a09b414576c6eb2b51f494b3aaa4c90ca7cf1f3ae26c7b</string>
 		</dict>
 		<key>GlyphPlugin</key>
 		<dict>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>FED3AB96E402EBE756D5FBF78482D48F</string>
+			<string>fed3ab96e402ebe756d5fbf78482d48f</string>
 			<key>Key</key>
-			<string>DAF317421843120B1070C24F5395E68BD1DEA9117B09A76239D4AFE6C0A17A71</string>
+			<string>daf317421843120b1070c24f5395e68bd1dea9117b09a76239d4afe6c0a17a71</string>
 		</dict>
 		<key>iBEC</key>
 		<dict>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>19DB86B7CFA95C222D50C9E3FE6C2681</string>
+			<string>19db86b7cfa95c222d50c9e3fe6c2681</string>
 			<key>Key</key>
-			<string>84B1DC2BAA4573899128AE72CD8D2E27CD024EF563755362E6C07547463A6E6B</string>
+			<string>84b1dc2baa4573899128ae72cd8d2e27cd024ef563755362e6c07547463a6e6b</string>
 		</dict>
 		<key>iBoot</key>
 		<dict>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>B1846DE299191186CE3BBB22432ECA12</string>
+			<string>b1846de299191186ce3bbb22432eca12</string>
 			<key>Key</key>
-			<string>E8E26976984E83F967B16BDB3A65A3EC45003CDF2AAF8D541104C26797484138</string>
+			<string>e8e26976984e83f967b16bdb3a65a3ec45003cdf2aaf8d541104c26797484138</string>
 		</dict>
 		<key>iBSS</key>
 		<dict>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>345A34EB3CAF3AF6A72A0A9559C2E1F9</string>
+			<string>345a34eb3caf3af6a72a0a9559c2e1f9</string>
 			<key>Key</key>
-			<string>3FFB0887082322CC696A3B1DD69547880363A6F54F1A03B20132D401278F3E47</string>
+			<string>3ffb0887082322cc696a3b1dd69547880363a6f54f1a03b20132d401278f3e47</string>
 		</dict>
 		<key>Kernelcache</key>
 		<dict>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>CF59841C24FCAACA03BEAC5733563A91</string>
+			<string>cf59841c24fcaaca03beac5733563a91</string>
 			<key>Key</key>
-			<string>FD757514D0086BE75E9AC2A3C601D1EF6CC7E0EEEDB048BE19B0A2CDF43B9803</string>
+			<string>fd757514d0086be75e9ac2a3c601d1ef6cc7e0eeedb048be19b0a2cdf43b9803</string>
 		</dict>
 		<key>LLB</key>
 		<dict>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>842C075D390C0E3A1B56E4598C0748CD</string>
+			<string>842c075d390c0e3a1b56e4598c0748cd</string>
 			<key>Key</key>
-			<string>C85FC8EDAA9ED11AA0EF8CA9918792CB6685D17A3807407201514DDD29B8096B</string>
+			<string>c85fc8edaa9ed11aa0ef8ca9918792cb6685d17a3807407201514ddd29b8096b</string>
 		</dict>
 		<key>RecoveryMode</key>
 		<dict>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>C5644001B41BF69C802D0CC8062DBC7A</string>
+			<string>c5644001b41bf69c802d0cc8062dbc7a</string>
 			<key>Key</key>
-			<string>DBED1F3DDD7DE7F56EB9363FB45E84B0A3CDFBAF125D4E90F13490B96BBBE0DD</string>
+			<string>dbed1f3ddd7de7f56eb9363fb45e84b0a3cdfbaf125d4e90f13490b96bbbe0dd</string>
 		</dict>
 	</dict>
 </plist>

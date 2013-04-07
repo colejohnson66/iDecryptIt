@@ -122,10 +122,6 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="WPFToolkit.Extended, Version=1.6.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Resources\WPFToolkit.Extended.dll</HintPath>
-    </Reference>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -168,12 +164,6 @@
     <None Include="EULA">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <EmbeddedResource Include="keys\AppleTV2,1_10A406e.plist" />
-    <EmbeddedResource Include="keys\iPhone2,1_10A403.plist" />
-    <EmbeddedResource Include="keys\iPhone3,1_10A403.plist" />
-    <EmbeddedResource Include="keys\iPhone3,2_10A403.plist" />
-    <EmbeddedResource Include="keys\iPhone3,3_10A403.plist" />
-    <EmbeddedResource Include="keys\iPod4,1_10A403.plist" />
     <None Include="LICENSE">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -212,6 +202,9 @@
     <None Include="Licenses\Ionic.Zip\License.zlib.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Reference Include="Xceed.Wpf.Toolkit">
+      <HintPath>Resources\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
     <Resource Include="Images\appicon.ico" />
     <Resource Include="Images\dmg.ico" />
     <Resource Include="Images\dmg.png" />
@@ -276,6 +269,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="keys\AppleTV2,1_10A406e.plist" />
     <EmbeddedResource Include="keys\AppleTV2,1_8C150.plist" />
     <EmbeddedResource Include="keys\AppleTV2,1_8C154.plist" />
     <EmbeddedResource Include="keys\AppleTV2,1_8F191m.plist" />
@@ -350,6 +344,7 @@
     <EmbeddedResource Include="keys\iPhone1,2_8A400.plist" />
     <EmbeddedResource Include="keys\iPhone1,2_8B117.plist" />
     <EmbeddedResource Include="keys\iPhone1,2_8C148.plist" />
+    <EmbeddedResource Include="keys\iPhone2,1_10A403.plist" />
     <EmbeddedResource Include="keys\iPhone2,1_7A341.plist" />
     <EmbeddedResource Include="keys\iPhone2,1_7A400.plist" />
     <EmbeddedResource Include="keys\iPhone2,1_7C144.plist" />
@@ -370,6 +365,7 @@
     <EmbeddedResource Include="keys\iPhone2,1_9A405.plist" />
     <EmbeddedResource Include="keys\iPhone2,1_9B176.plist" />
     <EmbeddedResource Include="keys\iPhone2,1_9B206.plist" />
+    <EmbeddedResource Include="keys\iPhone3,1_10A403.plist" />
     <EmbeddedResource Include="keys\iPhone3,1_8A293.plist" />
     <EmbeddedResource Include="keys\iPhone3,1_8A306.plist" />
     <EmbeddedResource Include="keys\iPhone3,1_8A400.plist" />
@@ -386,6 +382,8 @@
     <EmbeddedResource Include="keys\iPhone3,1_9B176.plist" />
     <EmbeddedResource Include="keys\iPhone3,1_9B206.plist" />
     <EmbeddedResource Include="keys\iPhone3,1_9B208.plist" />
+    <EmbeddedResource Include="keys\iPhone3,2_10A403.plist" />
+    <EmbeddedResource Include="keys\iPhone3,3_10A403.plist" />
     <EmbeddedResource Include="keys\iPhone3,3_8E200.plist" />
     <EmbeddedResource Include="keys\iPhone3,3_8E303.plist" />
     <EmbeddedResource Include="keys\iPhone3,3_8E401.plist" />
@@ -439,6 +437,7 @@
     <EmbeddedResource Include="keys\iPod3,1_9A334.plist" />
     <EmbeddedResource Include="keys\iPod3,1_9A405.plist" />
     <EmbeddedResource Include="keys\iPod3,1_9B206.plist" />
+    <EmbeddedResource Include="keys\iPod4,1_10A403.plist" />
     <EmbeddedResource Include="keys\iPod4,1_8B117.plist" />
     <EmbeddedResource Include="keys\iPod4,1_8B118.plist" />
     <EmbeddedResource Include="keys\iPod4,1_8C148.plist" />
