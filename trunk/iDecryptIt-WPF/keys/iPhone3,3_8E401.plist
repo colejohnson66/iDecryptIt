@@ -26,9 +26,9 @@
 			<key>File Name</key>
 			<string>038-0971-006</string>
 			<key>IV</key>
-			<string>TODO</string>
+			<string>06609d02d698e5c054f781a8ab1be08d</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>eba8c74a44cf6282dc2e4e95b517033fcd918863012e479346f90090e6e989cc</string>
 		</dict>
 		<key>Restore Ramdisk</key>
 		<dict>
@@ -107,9 +107,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>4cefae53fea79f566b70cbc5964a977e</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>39c4f58aacb8f2a46ee43822befbc083313c2aa44bf7afc4d204d5d5aac6be2e</string>
 		</dict>
 		<key>GlyphPlugin</key>
 		<dict>

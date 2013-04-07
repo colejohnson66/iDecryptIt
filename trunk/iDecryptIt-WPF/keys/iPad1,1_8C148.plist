@@ -11,7 +11,7 @@
 		<key>Codename</key>
 		<string>Jasper</string>
 		<key>Baseband</key>
-		<string>7.10.00</string>
+		<string>07.10.00</string>
 		<key>Download</key>
 		<string>http://appldnld.apple.com/iPad/061-9857.20101122.VGthy/iPad1,1_4.2.1_8C148_Restore.ipsw</string>
 		<key>Root FS</key>
@@ -164,15 +164,6 @@
 			<string>a4e10301bb038b5fc6a66792ef1e2892</string>
 			<key>Key</key>
 			<string>1f675ad80b3f5c8a509fe47a1730a94cd5f4f38cc5571924e9ab694129e9021d</string>
-		</dict>
-		<key>NeedService</key>
-		<dict>
-			<key>Encryption</key>
-			<true />
-			<key>IV</key>
-			<string>TODO</string>
-			<key>Key</key>
-			<string>TODO</string>
 		</dict>
 		<key>RecoveryMode</key>
 		<dict>

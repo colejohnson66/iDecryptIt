@@ -28,7 +28,7 @@
 			<key>IV</key>
 			<string>f2169e17ca185c29d5e3f06898a51692</string>
 			<key>Key</key>
-			<string>c8f511134a5b8e7154bb3b8a66fbf1f837da55c8cda2f397a30209dbf4d88b6b6</string>
+			<string>c8f511134a5b8e7154bb3b8a66fbf1f837da55c8cda2f397a30209dbf4d88b6b</string>
 		</dict>
 		<key>Restore Ramdisk</key>
 		<dict>
@@ -53,45 +53,45 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>7a9d1e039d59592cecd7cef6e3d6884b</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>092c9cbc0d902fbfc0557db9f35140b40e47c2f3722aa631ba1a67febfc0c1ae</string>
 		</dict>
 		<key>BatteryCharging1</key>
 		<dict>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>7b6840974c201c1cbcb79918f7723817</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>517b58b749cb6f7d435dcba38656b24c5599ba40bf462dacac06f1686adbb8e1</string>
 		</dict>
 		<key>BatteryFull</key>
 		<dict>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>0e918bba3f5aa183831399ef0a6af4af</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>395a51ab52a8bce85fb4c9067217bdc97ab0944c6b3959bc56782cf4ef1a90ec</string>
 		</dict>
 		<key>BatteryLow0</key>
 		<dict>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>cb8581d9e6e1ea8c20633643b665482f</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>f52918225feb2f7dfa8307ba350171ac16f17d7c9b63688a22027c4fdd35602f</string>
 		</dict>
 		<key>BatteryLow1</key>
 		<dict>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>528c39e76137347b502841b504efd86c</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>a8b8237aa3b68ada530b372cfabc32a128718a19c230fde44557168a3528a034</string>
 		</dict>
 		<key>DeviceTree</key>
 		<dict>
@@ -107,18 +107,18 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>d7036408cb220a313b17e4cc000f08fd</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>4e9ec78e578522b3412d9a69c9d8031e8527915bc0463c914d79f0e80e19cfbd</string>
 		</dict>
 		<key>GlyphPlugin</key>
 		<dict>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>d706e87acda5632dc065131acf8329b4</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>9ea2565013c6225c810c559f99a061fb1487911933c271f71c0609a4d291c98b</string>
 		</dict>
 		<key>iBEC</key>
 		<dict>
