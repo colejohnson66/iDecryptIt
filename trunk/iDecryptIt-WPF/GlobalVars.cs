@@ -4,16 +4,7 @@ namespace Hexware.Programs.iDecryptIt
 {
     internal static class GlobalVars
     {
-        internal static string[] VersionArr = new string[] {
-            "5",
-            "10",
-            "0",
-            "2B39"};
-        internal const string Version = "5.10.0.2B39";
-        internal static Dictionary<string, object> ExecutionArgs = new Dictionary<string, object>()
-        {
-            //{ "console", "" },
-            { "dmg", "" }, // Passed dmg or ipsw
-        };
+        internal const string Version = "6.13.0b2 (2C07)";
+        internal static Dictionary<string, object> ExecutionArgs = new Dictionary<string, object>();
     }
 }

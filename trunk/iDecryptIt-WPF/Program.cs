@@ -26,15 +26,29 @@ namespace Hexware.Programs.iDecryptIt
                     debug = true;
                 }
                 else if (args[i].Length > 4 && args[i].Substring(args[i].Length - 4) == ".dmg")
-                {
-                    GlobalVars.ExecutionArgs["dmg"] = args[i];
+				{
+					if (GlobalVars.ExecutionArgs.ContainsKey("dmg"))
+					{
+						GlobalVars.ExecutionArgs["dmg"] = args[i];
+					}
+					else
+					{
+						GlobalVars.ExecutionArgs.Add("dmg", args[i]);
+					}
                 }
                 else if (args[i].Length > 5 && args[i].Substring(args[i].Length - 5) == ".ipsw")
-                {
-                    GlobalVars.ExecutionArgs["dmg"] = args[i];
+				{
+					if (GlobalVars.ExecutionArgs.ContainsKey("ipsw"))
+					{
+						GlobalVars.ExecutionArgs["ipsw"] = args[i];
+					}
+					else
+					{
+						GlobalVars.ExecutionArgs.Add("ipsw", args[i]);
+					}
                 }
             }
-            if (!console)
+            if (console)
             {
                 // MainWindow.MainWindow() will FreeConsole()
                 Console.WriteLine("Loading...");
@@ -71,7 +85,8 @@ namespace Hexware.Programs.iDecryptIt
                     select = Console.ReadKey(true);
                 }
                 Console.WriteLine(select.KeyChar); // finish off line
-                Console.WriteLine(); // then add the blank one
+				Console.WriteLine(); // then add the blank one
+				Thread.Sleep(250); // make it look like we're working
                 Console.WriteLine("===============================================================================");
                 if (select.Key == ConsoleKey.D)
                 {

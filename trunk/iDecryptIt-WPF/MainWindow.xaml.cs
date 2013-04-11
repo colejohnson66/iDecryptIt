@@ -1095,6 +1095,7 @@ namespace Hexware.Programs.iDecryptIt
         {
             Process.Start("file://" + helpdir + "submitkey.html");
         }
+		/* btn1a420_Click(Object, RoutedEventArgs)
         private void btn1a420_Click(object sender, RoutedEventArgs e)
         {
             // File removed from RapidShare
@@ -1106,6 +1107,7 @@ namespace Hexware.Programs.iDecryptIt
             return;
             //Process.Start("http://rapidshare.com/files/207764160/iphoneproto.zip");
         }
+		*/
         private void btnSelectVFDecryptInputFile_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog decrypt = new OpenFileDialog();
@@ -1216,6 +1218,7 @@ namespace Hexware.Programs.iDecryptIt
                     device = strArr[0];
                     version = strArr[1];
                     build = strArr[2];
+					// TODO: Replace this with a dictionary
                     #region Device Switch
                     switch (device)
                     {
@@ -1232,17 +1235,35 @@ namespace Hexware.Programs.iDecryptIt
                             device = "iPad 2 Wi-Fi+3G CDMA";
                             break;
                         case "iPad2,4":
-                            device = "iPad 2 Wi-Fi (R2)";
+                            device = "iPad 2 Wi-Fi (Rev A)";
                             break;
+						case "iPad2,5":
+							device = "iPad mini 1G Wi-Fi";
+							break;
+						case "iPad2,6":
+							device = "iPad mini 1G Wi-Fi+LTE GSM";
+							break;
+						case "iPad2,7":
+							device = "iPad mini 1G Wi-Fi+LTE Global";
+							break;
                         case "iPad3,1":
                             device = "iPad 3 Wi-Fi";
-                            break;
-                        case "iPad3,2":
-                            device = "iPad 3 Wi-Fi+3G CDMA";
-                            break;
-                        case "iPad3,3":
-                            device = "iPad 3 Wi-Fi+3G Global";
-                            break;
+							break;
+						case "iPad3,2":
+							device = "iPad 3 Wi-Fi+3G CDMA";
+							break;
+						case "iPad3,3":
+							device = "iPad 3 Wi-Fi+3G Global";
+							break;
+						case "iPad3,4":
+							device = "iPad 4 Wi-Fi";
+							break;
+						case "iPad3,5":
+							device = "iPad 4 Wi-Fi+LTE GSM";
+							break;
+						case "iPad3,6":
+							device = "iPad 4 Wi-Fi+LTE Global";
+							break;
                         case "iPhone1,1":
                             device = "iPhone 2G";
                             break;
@@ -1256,7 +1277,7 @@ namespace Hexware.Programs.iDecryptIt
                             device = "iPhone 4 GSM";
                             break;
                         case "iPhone3,2":
-                            device = "iPhone 4 GSM (R2)";
+                            device = "iPhone 4 GSM (Rev A)";
                             break;
                         case "iPhone3,3":
                             device = "iPhone 4 CDMA";
@@ -1349,12 +1370,19 @@ namespace Hexware.Programs.iDecryptIt
                                 case "10A5316k":
                                 case "10A5338d":
                                 case "10A5355d":
-                                case "10A5376e":
-                                    version = "6.0";
-                                    break;
-                                case "10A406e":
-                                    version = "5.1/6.0";
-                                    break;
+								case "10A5376e":
+								case "10A406e":
+									version = "5.1/6.0";
+									break;
+								case "10B5105c":
+								case "10B5117b":
+								case "10B5126b":
+								case "10B144b":
+									version = "5.2/6.1";
+									break;
+								case "10B329a":
+									version = "5.2.1/6.1.3";
+									break;
                             }
                             #endregion
                             break;
@@ -1375,19 +1403,41 @@ namespace Hexware.Programs.iDecryptIt
                                 case "10A5316k":
                                 case "10A5338d":
                                 case "10A5355d":
-                                case "10A5376e":
-                                    version = "6.0";
-                                    break;
-                                case "10A406e":
-                                    version = "5.1/6.0";
-                                    break;
+								case "10A5376e":
+								case "10A406e":
+									version = "5.1/6.0";
+									break;
+								case "10B5105c":
+								case "10B5117b":
+								case "10B5126b":
+								case "10B144b":
+									version = "5.2/6.1";
+									break;
+								case "10B329a":
+									version = "5.2.1/6.1.3";
+									break;
                             }
                             #endregion
                             break;
-                        default:
+						case "AppleTV3,2":
+							device = "Apple TV 3G (Rev A)";
+							#region Apple TV 3G Rev A
+							switch (build)
+							{
+								case "10B144b":
+									version = "5.2/6.1";
+									break;
+								case "10B329a":
+									version = "5.2.1/6.1.3";
+									break;
+							}
+							#endregion
+							break;
+						default:
                             MessageBox.Show(
                                 "The supplied device: '" + device + "' does not follow the format:\r\n" +
-                                    "{iPad/iPhone/iPad/AppleTV}{#},{#}",
+                                    "\t{iPad/iPhone/iPad/AppleTV}{#},{#}" +
+									"or is not supported at the moment.",
                                 "iDecryptIt",
                                 MessageBoxButton.OK,
                                 MessageBoxImage.Error);
@@ -1503,6 +1553,7 @@ namespace Hexware.Programs.iDecryptIt
             }
 
             // Check for updates
+			/* DISABLED UNTIL FINAL RELEASE
             try
             {
                 WebClient webClient = new WebClient();
@@ -1521,10 +1572,13 @@ namespace Hexware.Programs.iDecryptIt
             }
             catch (Exception)
             {
-            }
+            }*/
 
-            // Were we passed a file name? (handled by console portion)
-            textInputFileName.Text = (string)GlobalVars.ExecutionArgs["dmg"];
+            // Passed argument (see console portion)
+			if (GlobalVars.ExecutionArgs.ContainsKey("dmg"))
+			{
+				textInputFileName.Text = (string)GlobalVars.ExecutionArgs["dmg"];
+			}
         }
         private void Window_Closing(object sender, CancelEventArgs e)
         {
