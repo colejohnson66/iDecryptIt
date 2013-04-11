@@ -440,10 +440,10 @@
                                             <MenuItem x:Name="btnIPhone31_9B206" Header="5.1.1 (9B206)" Click="key_Click" />
                                             <MenuItem x:Name="btnIPhone31_9B208" Header="5.1.1 (9B208)" Click="key_Click" />
                                             <MenuItem x:Name="btnIPhone31_10A403" Header="6.0 (10A403)" Click="key_Click" />
-											<MenuItem x:Name="btnIPhone31_10A523" Header="6.0.1 (10A523)" Click="key_Click" />
-											<MenuItem x:Name="btnIPhone31_10B144" Header="6.1 (10B144)" Click="key_Click" />
-											<MenuItem x:Name="btnIPhone31_10B146" Header="6.1.2 (10B146)" Click="key_Click" />
-											<MenuItem x:Name="btnIPhone31_10B329" Header="6.1.3 (10B329)" Click="key_Click" />
+                                            <MenuItem x:Name="btnIPhone31_10A523" Header="6.0.1 (10A523)" Click="key_Click" />
+                                            <MenuItem x:Name="btnIPhone31_10B144" Header="6.1 (10B144)" Click="key_Click" />
+                                            <MenuItem x:Name="btnIPhone31_10B146" Header="6.1.2 (10B146)" Click="key_Click" />
+                                            <MenuItem x:Name="btnIPhone31_10B329" Header="6.1.3 (10B329)" Click="key_Click" />
                                         </MenuItem>
                                         <MenuItem x:Name="btnIPhone33" Header="iPhone 4 (CDMA)">
                                             <MenuItem x:Name="btnIPhone33_8E218" Header="4.2.5 (8E128)" Click="key_Click" />
@@ -457,17 +457,17 @@
                                             <MenuItem x:Name="btnIPhone33_9B176" Header="5.1 (9B176)" Click="key_Click" />
                                             <MenuItem x:Name="btnIPhone33_9B206" Header="5.1.1 (9B206)" Click="key_Click" />
                                             <MenuItem x:Name="btnIPhone33_10A403" Header="6.0 (10A403)" Click="key_Click" />
-											<MenuItem x:Name="btnIPhone33_10A523" Header="6.0.1 (10A523)" Click="key_Click" />
-											<MenuItem x:Name="btnIPhone33_10B141" Header="6.1 (10B141)" Click="key_Click" />
-											<MenuItem x:Name="btnIPhone33_10B146" Header="6.1.2 (10B146)" Click="key_Click" />
-											<MenuItem x:Name="btnIPhone33_10B329" Header="6.1.3 (10B329)" Click="key_Click" />
+                                            <MenuItem x:Name="btnIPhone33_10A523" Header="6.0.1 (10A523)" Click="key_Click" />
+                                            <MenuItem x:Name="btnIPhone33_10B141" Header="6.1 (10B141)" Click="key_Click" />
+                                            <MenuItem x:Name="btnIPhone33_10B146" Header="6.1.2 (10B146)" Click="key_Click" />
+                                            <MenuItem x:Name="btnIPhone33_10B329" Header="6.1.3 (10B329)" Click="key_Click" />
                                         </MenuItem>
                                         <MenuItem x:Name="btnIPhone32" Header="iPhone 4 (GSM) [Rev A]">
                                             <MenuItem x:Name="btnIPhone32_10A403" Header="6.0 (10A403)" Click="key_Click" />
-											<MenuItem x:Name="btnIPhone32_10A523" Header="6.0.1 (10A523)" Click="key_Click" />
-											<MenuItem x:Name="btnIPhone32_10B144" Header="6.1 (10B144)" Click="key_Click" />
-											<MenuItem x:Name="btnIPhone32_10B146" Header="6.1.2 (10B146)" Click="key_Click" />
-											<MenuItem x:Name="btnIPhone32_10B329" Header="6.1.3 (10B329)" Click="key_Click" />
+                                            <MenuItem x:Name="btnIPhone32_10A523" Header="6.0.1 (10A523)" Click="key_Click" />
+                                            <MenuItem x:Name="btnIPhone32_10B144" Header="6.1 (10B144)" Click="key_Click" />
+                                            <MenuItem x:Name="btnIPhone32_10B146" Header="6.1.2 (10B146)" Click="key_Click" />
+                                            <MenuItem x:Name="btnIPhone32_10B329" Header="6.1.3 (10B329)" Click="key_Click" />
                                         </MenuItem>
                                     </MenuItem>
                                     <MenuItem x:Name="btnIPhone41" Header="iPhone 4S">
@@ -486,19 +486,19 @@
                                     <MenuItem x:Name="btnIPhone5" Header="iPhone 5">
                                         <MenuItem x:Name="btnIPhone51" Header="iPhone 5 (GSM)">
                                             <MenuItem x:Name="btnIPhone51_10A405" Header="6.0 (10A405)" Click="key_Click" />
-											<MenuItem x:Name="btnIPhone51_10A525" Header="6.0.1 (10A525)" Click="key_Click" />
-											<MenuItem x:Name="btnIPhone51_10A551" Header="6.0.2 (10A551)" Click="key_Click" />
-											<MenuItem x:Name="btnIPhone51_10B143" Header="6.1 (10B143)" Click="key_Click" />
-											<MenuItem x:Name="btnIPhone51_10B146" Header="6.1.2 (10B146)" Click="key_Click" />
-											<MenuItem x:Name="btnIPhone51_10B329" Header="6.1.3 (10B329)" Click="key_Click" />
+                                            <MenuItem x:Name="btnIPhone51_10A525" Header="6.0.1 (10A525)" Click="key_Click" />
+                                            <MenuItem x:Name="btnIPhone51_10A551" Header="6.0.2 (10A551)" Click="key_Click" />
+                                            <MenuItem x:Name="btnIPhone51_10B143" Header="6.1 (10B143)" Click="key_Click" />
+                                            <MenuItem x:Name="btnIPhone51_10B146" Header="6.1.2 (10B146)" Click="key_Click" />
+                                            <MenuItem x:Name="btnIPhone51_10B329" Header="6.1.3 (10B329)" Click="key_Click" />
                                         </MenuItem>
                                         <MenuItem x:Name="btnIPhone52" Header="iPhone 5 (Global)">
                                             <MenuItem x:Name="btnIPhone52_10A403" Header="6.0 (10A405)" Click="key_Click" />
-											<MenuItem x:Name="btnIPhone52_10A525" Header="6.0.1 (10A525)" Click="key_Click" />
-											<MenuItem x:Name="btnIPhone52_10A551" Header="6.0.2 (10A551)" Click="key_Click" />
-											<MenuItem x:Name="btnIPhone52_10B143" Header="6.1 (10B143)" Click="key_Click" />
-											<MenuItem x:Name="btnIPhone52_10B146" Header="6.1.2 (10B146)" Click="key_Click" />
-											<MenuItem x:Name="btnIPhone52_10B329" Header="6.1.3 (10B329)" Click="key_Click" />
+                                            <MenuItem x:Name="btnIPhone52_10A525" Header="6.0.1 (10A525)" Click="key_Click" />
+                                            <MenuItem x:Name="btnIPhone52_10A551" Header="6.0.2 (10A551)" Click="key_Click" />
+                                            <MenuItem x:Name="btnIPhone52_10B143" Header="6.1 (10B143)" Click="key_Click" />
+                                            <MenuItem x:Name="btnIPhone52_10B146" Header="6.1.2 (10B146)" Click="key_Click" />
+                                            <MenuItem x:Name="btnIPhone52_10B329" Header="6.1.3 (10B329)" Click="key_Click" />
                                         </MenuItem>
                                     </MenuItem>
                                 </Menu>
@@ -575,19 +575,19 @@
                                         <MenuItem x:Name="btnIPod41_9B176" Header="5.1 (9B176)" Click="key_Click" />
                                         <MenuItem x:Name="btnIPod41_9B206" Header="5.1.1 (9B206)" Click="key_Click" />
                                         <MenuItem x:Name="btnIPod41_10A403" Header="6.0 (10A403)" Click="key_Click" />
-										<MenuItem x:Name="btnIPod41_10A523" Header="6.0.1 (10A523)" Click="key_Click" />
-										<MenuItem x:Name="btnIPod41_10B144" Header="6.1 (10B144)" Click="key_Click" />
-										<MenuItem x:Name="btnIPod41_10B146" Header="6.1.2 (10B146)" Click="key_Click" />
-										<MenuItem x:Name="btnIPod41_10B329" Header="6.1.3 (10B329)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPod41_10A523" Header="6.0.1 (10A523)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPod41_10B144" Header="6.1 (10B144)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPod41_10B146" Header="6.1.2 (10B146)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPod41_10B329" Header="6.1.3 (10B329)" Click="key_Click" />
                                     </MenuItem>
-									<MenuItem x:Name="btnIPod51" Header="iPod touch 5G">
+                                    <MenuItem x:Name="btnIPod51" Header="iPod touch 5G">
                                         <MenuItem x:Name="btnIPod51_10A406" Header="6.0 (10A406)" Click="key_Click" />
-										<MenuItem x:Name="btnIPod51_10A523" Header="6.0.1 (10A523)" Click="key_Click" />
-										<MenuItem x:Name="btnIPod51_10B141" Header="6.1 (10B141)" Click="key_Click" />
-										<MenuItem x:Name="btnIPod51_10B146" Header="6.1.2 (10B146)" Click="key_Click" />
-										<MenuItem x:Name="btnIPod51_10B329" Header="6.1.3 (10B329)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPod51_10A523" Header="6.0.1 (10A523)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPod51_10B141" Header="6.1 (10B141)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPod51_10B146" Header="6.1.2 (10B146)" Click="key_Click" />
+                                        <MenuItem x:Name="btnIPod51_10B329" Header="6.1.3 (10B329)" Click="key_Click" />
                                     </MenuItem>
-								</Menu>
+                                </Menu>
                             </xctk:DropDownButton.DropDownContent>
                         </xctk:DropDownButton>
                     </Grid>

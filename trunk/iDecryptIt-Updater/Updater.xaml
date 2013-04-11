@@ -2,7 +2,6 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Checking for Updates..."
-        WindowStyle="ThreeDBorderWindow"
         WindowStartupLocation="CenterOwner"
         ShowInTaskbar="False"
         ResizeMode="NoResize"
@@ -12,6 +11,7 @@
     <!--
         You may think the designer is right, well guess what:
         IT IS NOT! SEE FOR YOURSELF! HIT THAT DEBUG BUTTON! I DARE YOU!
+        HA HA HA HA HA HA!
     -->
     <Grid>
         <Grid.RowDefinitions>

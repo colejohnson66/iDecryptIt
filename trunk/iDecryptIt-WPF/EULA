@@ -1,5 +1,5 @@
                     iDecryptIt End User License Agreement
-                         Version 6.00.0, ## --- 201#
+                         Version 6.13.0, ## --- 201#
 
  Copyright (C) 201# Hexware, LLC <https://www.twitter.com/HexwareLLC/>
  Everyone is permitted to copy and distribute verbatim copies of this license
@@ -110,11 +110,11 @@ Developers of the libraries used in THIS PROGRAM, excluding Hexware, LLC, are
 
 All source code provided for iDecryptIt that is freely available on SourceForge
   <http://www.sourceforge.net/projects/idecryptit/> is copyright of Hexware, LLC
-  and all derivatives must retain the GNU General Public License Version 3
-  notice on all documents.
+  and all derivatives must retain the GNU General Public License notice on all
+  documents.
 
 All derivatives of THIS PROGRAM must provide its recipients with code licensed
-  under the GNU General Public License Version 3 with all source documents
-  retaining the appropriate copyright notice.
+  under the GNU General Public License Version 3 (or any later version) with all
+  source documents retaining the appropriate copyright notice.
 
 ================================================================================
