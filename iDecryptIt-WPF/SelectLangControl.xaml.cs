@@ -14,9 +14,6 @@ using System.Windows.Shapes;
 
 namespace Hexware.Programs.iDecryptIt
 {
-    /// <summary>
-    /// Interaction logic for SelectLangControl.xaml
-    /// </summary>
     public partial class SelectLangControl : Window
     {
         private MainWindow mainwindow;

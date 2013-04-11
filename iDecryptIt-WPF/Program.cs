@@ -36,16 +36,16 @@ namespace Hexware.Programs.iDecryptIt
             }
             if (!console)
             {
-				// MainWindow.MainWindow() will FreeConsole()
-				Console.WriteLine("Loading...");
-				MainWindow.debug = debug;
+                // MainWindow.MainWindow() will FreeConsole()
+                Console.WriteLine("Loading...");
+                MainWindow.debug = debug;
                 App.Main();
                 return;
             }
 
             // Console Version
-			Console.WriteLine("This feature is incomplete and may not work as expected or at all.");
-			Thread.Sleep(500);
+            Console.WriteLine("This feature is incomplete and may not work as expected or at all.");
+            Thread.Sleep(500);
             Console.WriteLine("===============================================================================");
             Console.WriteLine("  iDecryptIt " + GlobalVars.Version + " by Hexware, LLC");
             Console.WriteLine("===============================================================================");
@@ -64,12 +64,12 @@ namespace Hexware.Programs.iDecryptIt
                 Console.WriteLine("  s - Submit keys");
                 Console.WriteLine("  x - Exit");
                 Console.Write("Input: ");
-				select = new ConsoleKeyInfo('\0', ConsoleKey.PrintScreen, false, false, false);
-				while (Char.IsControl(select.KeyChar))
-				{
-					// don't display is just in case it is a control key
-					select = Console.ReadKey(true);
-				}
+                select = new ConsoleKeyInfo('\0', ConsoleKey.PrintScreen, false, false, false);
+                while (Char.IsControl(select.KeyChar))
+                {
+                    // don't display is just in case it is a control key
+                    select = Console.ReadKey(true);
+                }
                 Console.WriteLine(select.KeyChar); // finish off line
                 Console.WriteLine(); // then add the blank one
                 Console.WriteLine("===============================================================================");
@@ -119,11 +119,11 @@ namespace Hexware.Programs.iDecryptIt
         {
             string input;
             Console.WriteLine("Enter the device:");
-			Console.WriteLine("  Apple TV:");
+            Console.WriteLine("  Apple TV:");
             Console.WriteLine("    AppleTV2,1 - Apple TV 2G");
             Console.WriteLine("    AppleTV3,1 - Apple TV 3G");
-			Console.WriteLine("    AppleTV3,2 - Apple TV 3G Rev A");
-			Console.WriteLine("  iPad:");
+            Console.WriteLine("    AppleTV3,2 - Apple TV 3G Rev A");
+            Console.WriteLine("  iPad:");
             Console.WriteLine("    iPad1,1 ---- iPad 1G");
             Console.WriteLine("    iPad2,1 ---- iPad 2 Wi-Fi");
             Console.WriteLine("    iPad2,2 ---- iPad 2 GSM");
@@ -132,14 +132,14 @@ namespace Hexware.Programs.iDecryptIt
             Console.WriteLine("    iPad3,1 ---- iPad 3 Wi-Fi");
             Console.WriteLine("    iPad3,2 ---- iPad 3 CDMA");
             Console.WriteLine("    iPad3,3 ---- iPad 3 Global");
-			Console.WriteLine("    iPad3,4 ---- iPad 4 Wi-Fi");
-			Console.WriteLine("    iPad3,5 ---- iPad 4 GSM");
-			Console.WriteLine("    iPad3,6 ---- iPad 4 Global");
-			Console.WriteLine("  iPad mini:");
-			Console.WriteLine("    iPad2,5 ---- iPad mini 1G Wi-Fi");
-			Console.WriteLine("    iPad2,6 ---- iPad mini 1G GSM");
-			Console.WriteLine("    iPad2,7 ---- iPad mini 1G Global");
-			Console.WriteLine("  iPhone:");
+            Console.WriteLine("    iPad3,4 ---- iPad 4 Wi-Fi");
+            Console.WriteLine("    iPad3,5 ---- iPad 4 GSM");
+            Console.WriteLine("    iPad3,6 ---- iPad 4 Global");
+            Console.WriteLine("  iPad mini:");
+            Console.WriteLine("    iPad2,5 ---- iPad mini 1G Wi-Fi");
+            Console.WriteLine("    iPad2,6 ---- iPad mini 1G GSM");
+            Console.WriteLine("    iPad2,7 ---- iPad mini 1G Global");
+            Console.WriteLine("  iPhone:");
             Console.WriteLine("    iPhone1,1 -- iPhone 2G");
             Console.WriteLine("    iPhone1,2 -- iPhone 3G");
             Console.WriteLine("    iPhone2,1 -- iPhone 3GS");
@@ -149,7 +149,7 @@ namespace Hexware.Programs.iDecryptIt
             Console.WriteLine("    iPhone4,1 -- iPhone 4S");
             Console.WriteLine("    iPhone5,1 -- iPhone 5 GSM");
             Console.WriteLine("    iPhone5,2 -- iPhone 5 Global");
-			Console.WriteLine("  iPod touch:");
+            Console.WriteLine("  iPod touch:");
             Console.WriteLine("    iPod1,1 ---- iPod touch 1G");
             Console.WriteLine("    iPod2,1 ---- iPod touch 2G");
             Console.WriteLine("    iPod3,1 ---- iPod touch 3G");

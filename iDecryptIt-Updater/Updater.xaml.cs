@@ -9,9 +9,6 @@ using System.Windows;
 
 namespace Hexware.Programs.iDecryptIt.Updater
 {
-    /// <summary>
-    /// derp
-    /// </summary>
     public partial class MainWindow : Window
     {
         static string tempdir = Path.Combine(
@@ -25,10 +22,6 @@ namespace Hexware.Programs.iDecryptIt.Updater
             "0",
             "2B39"};
 
-        /// <summary>
-        /// DO NOT SET THIS TO INTERNAL!
-        /// IT WILL COMPILE BUT WILL FAIL WITH A CONFUSING XAML PARSE ERROR!
-        /// </summary>
         public MainWindow()
         {
             this.Closing += MainWindow_Closing;
