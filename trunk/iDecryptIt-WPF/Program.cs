@@ -48,11 +48,13 @@ namespace Hexware.Programs.iDecryptIt
 					}
                 }
             }
-            if (console)
+            if (!console)
             {
                 // MainWindow.MainWindow() will FreeConsole()
+				Console.WriteLine("(to launch the incomplete console version, use the \\console switch)");
                 Console.WriteLine("Loading...");
                 MainWindow.debug = debug;
+				Thread.Sleep(500);
                 App.Main();
                 return;
             }
