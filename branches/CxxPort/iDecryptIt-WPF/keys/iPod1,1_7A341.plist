@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist>
+	<dict>
+		<key>Version</key>
+		<string>3.0GM and 3.0</string>
+		<key>Build</key>
+		<string>7A341</string>
+		<key>Device</key>
+		<string>iPod touch 1G</string>
+		<key>Codename</key>
+		<string>Kirkwood</string>
+		<key>Root FS</key>
+		<dict>
+			<key>File Name</key>
+			<string>018-5299-002</string>
+			<key>Key</key>
+			<string>16fdad25424dc17008728e89f4900b887732dcc5fb48eedc9f1c9433af558db705eb0577</string>
+		</dict>
+		<key>Update Ramdisk</key>
+		<dict>
+			<key>File Name</key>
+			<string>018-5303-002</string>
+			<key>IV</key>
+			<string>0dc67d4f50ac62ee142b99baa569d0f4</string>
+			<key>Key</key>
+			<string>5a0f82979f336baa58ed37926bd89dfe</string>
+		</dict>
+		<key>Restore Ramdisk</key>
+		<dict>
+			<key>File Name</key>
+			<string>018-5305-002</string>
+			<key>IV</key>
+			<string>caca33f1aca029320d60873a4deed68d</string>
+			<key>Key</key>
+			<string>9962589aabb4d5ec56b7a867ab5b11b0</string>
+		</dict>
+		<key>AppleLogo</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>30c0cb05ae49d0484392261b2c8b21a8</string>
+			<key>Key</key>
+			<string>f9841fa3197f0bd9fd162ce170c5f6f9</string>
+		</dict>
+		<key>BatteryCharging0</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>TODO</string>
+			<key>Key</key>
+			<string>TODO</string>
+		</dict>
+		<key>BatteryCharging1</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>TODO</string>
+			<key>Key</key>
+			<string>TODO</string>
+		</dict>
+		<key>BatteryFull</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>TODO</string>
+			<key>Key</key>
+			<string>TODO</string>
+		</dict>
+		<key>BatteryLow0</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>TODO</string>
+			<key>Key</key>
+			<string>TODO</string>
+		</dict>
+		<key>BatteryLow1</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>TODO</string>
+			<key>Key</key>
+			<string>TODO</string>
+		</dict>
+		<key>DeviceTree</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>TODO</string>
+			<key>Key</key>
+			<string>TODO</string>
+		</dict>
+		<key>GlyphCharging</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>TODO</string>
+			<key>Key</key>
+			<string>TODO</string>
+		</dict>
+		<key>GlyphPlugin</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>TODO</string>
+			<key>Key</key>
+			<string>TODO</string>
+		</dict>
+		<key>iBEC</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>TODO</string>
+			<key>Key</key>
+			<string>TODO</string>
+		</dict>
+		<key>iBoot</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>TODO</string>
+			<key>Key</key>
+			<string>TODO</string>
+		</dict>
+		<key>iBSS</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>TODO</string>
+			<key>Key</key>
+			<string>TODO</string>
+		</dict>
+		<key>Kernelcache</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>a4db9183cd79722b4146c9de09ab29c5</string>
+			<key>Key</key>
+			<string>02418105dfb3be2af2a76248e026f702</string>
+		</dict>
+		<key>LLB</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>TODO</string>
+			<key>Key</key>
+			<string>TODO</string>
+		</dict>
+		<key>NeedService</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>TODO</string>
+			<key>Key</key>
+			<string>TODO</string>
+		</dict>
+		<key>RecoveryMode</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>848d4cef8e4d8182c3f10062cf5347fe</string>
+			<key>Key</key>
+			<string>5a56972f4750335c448f3219269ed202</string>
+		</dict>
+	</dict>
+</plist>
