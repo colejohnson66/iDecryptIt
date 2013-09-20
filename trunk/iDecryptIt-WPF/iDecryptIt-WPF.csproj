@@ -194,7 +194,6 @@
       <HintPath>Resources\Xceed.Wpf.Toolkit.dll</HintPath>
     </Reference>
     <Resource Include="Images\appicon.ico" />
-    <Resource Include="Images\dmg.ico" />
     <Resource Include="Images\dmg.png" />
     <Resource Include="Images\Gnome-logviewer_16.png" />
     <Resource Include="Images\Gnome-logviewer_32.png" />
@@ -469,7 +468,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.Increment" BuildVersion_UpdateAssemblyVersion="True" />
+      <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.None.Increment" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

@@ -103,7 +103,7 @@
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="6" />
                                 </Grid.ColumnDefinitions>
-                                <Image Source="Images/7zip_32.png" />
+                                <!--<Image Source="Images/7zip_32.png" />-->
                                 <TextBlock Grid.Column="2" Text="Extract" VerticalAlignment="Center" x:Name="btnExtractText" />
                             </Grid>
                         </Button>
@@ -618,7 +618,7 @@
                                     <ColumnDefinition Width="6" />
                                 </Grid.ColumnDefinitions>
                                 <Image Source="Images/Help-browser_32.png" />
-                                <TextBlock Grid.Column="2" Text="What firmware is this IPSW?" VerticalAlignment="Center" />
+                                <TextBlock Grid.Column="2" Text="Identify Version" VerticalAlignment="Center" />
                             </Grid>
                         </Button>
                         <Grid Grid.Column="2" Height="24">

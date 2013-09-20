@@ -22,17 +22,17 @@ namespace Hexware.Programs.iDecryptIt
 
 		static string rundir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "\\";
 		string tempdir;
-		static string helpdir = rundir + "help\\";
-		// dmg (currently VFDecrypt)
+        static string helpdir = rundir + "help\\";
+
+        internal static bool debug;
+
 		BackgroundWorker decryptworker;
 		Process decryptProc;
 		FileInfo decryptFromFile;
 		string decryptFrom;
 		string decryptTo;
 		double decryptProg;
-		// console portion
-		internal static bool debug;
-		
+
 		/// <summary>
 		/// herp derp
 		/// </summary>
@@ -95,7 +95,17 @@ namespace Hexware.Programs.iDecryptIt
 		}
 		internal void Debug(string component, string message)
 		{
-		
+            if (debug)
+            {
+                if (component.Length > 10)
+                {
+                    Console.WriteLine("[{0}] {1}", component, message);
+                }
+                else
+                {
+                    Console.WriteLine("[{0}]{1} {2}", component, new String(' ', 10 - component.Length), message);
+                }
+            }
 		}
 		internal void Error(string message, Exception ex)
 		{
@@ -940,7 +950,7 @@ namespace Hexware.Programs.iDecryptIt
 			decryptTo = textOuputFileName.Text;
 			decryptFromFile = new FileInfo(decryptFrom);
 
-			Process.Start(
+			decryptProc = Process.Start(
 				rundir + "dmg.exe",
 				"extract \"" + textInputFileName.Text + "\" \"" + textOuputFileName.Text + "\" " + textDecryptKey.Text);
 
