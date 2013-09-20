@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -11,10 +11,11 @@ namespace Hexware.Programs.iDecryptIt.Updater
 {
     public partial class MainWindow : Window
     {
-        static string tempdir = Path.Combine(
+        static string newVersionFolder = Path.Combine(
             Path.GetTempPath(),
-            "Hexware\\iDecryptIt-Updater_" + new Random().Next(0, Int32.MaxValue).ToString("X")) + "\\";
-        string rundir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "\\";
+            "Hexware",
+            "iDecryptIt-Update");
+        string rundir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
         string[] checkerArr;
         string[] installArr = new string[] {
             "5",
@@ -26,14 +27,9 @@ namespace Hexware.Programs.iDecryptIt.Updater
         {
             this.Closing += MainWindow_Closing;
 
-            if (!Directory.Exists(tempdir))
+            //if (Folder.Exists(newVersionFolder))
+            if (File.Exists(Path.Combine(rundir, "iDecryptIt.exe.new")))
             {
-                Directory.CreateDirectory(tempdir);
-            }
-
-            if (File.Exists(rundir + "iDecryptIt.exe.new"))
-            {
-                // Kill iDecryptIt
                 try
                 {
                     Process[] runningapps = Process.GetProcesses();
@@ -43,7 +39,7 @@ namespace Hexware.Programs.iDecryptIt.Updater
                             !runningapps[i].ProcessName.Contains("Updater") &&
                             !runningapps[i].ProcessName.Contains("vshost"))
                         {
-                            // ONLY on main iDecryptIt (not Updater or Debugger)
+                            // Don't kill the updater or the VS debugger
                             runningapps[i].Kill();
                         }
                     }
@@ -60,15 +56,15 @@ namespace Hexware.Programs.iDecryptIt.Updater
 
                     // Relaunch iDecryptIt
                     Process.Start("iDecryptIt.exe");
-                    Environment.Exit(1);
+                    Environment.Exit(0);
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(
-                        "Unknown error!\n\n" +
+                        "An unknown error has occured.\n\n" +
                         "Delete \"iDecryptIt.exe\" and move\n\"iDecryptIt.exe.new\" to \"iDecryptIt.exe\"\n\n" +
                         "Exception: " + ex.Message,
-                        "iDecryptIt",
+                        "iDecryptIt - Unknown error",
                         MessageBoxButton.OK,
                         MessageBoxImage.Error);
                 }
@@ -76,33 +72,18 @@ namespace Hexware.Programs.iDecryptIt.Updater
                 InitializeComponent();
             }
         }
-        private void MainWindow_Closing(object sender, CancelEventArgs e)
-        {
-            try
-            {
-                Directory.Delete(tempdir, true);
-            }
-#if DEBUG
-            catch (Exception ex)
-#else
-            catch (Exception)
-#endif
-            {
-            }
-        }
         private void Window_Loaded(object sender, EventArgs e)
         {
             btnDownload.Visibility = Visibility.Hidden;
 
-            // Download the raw code
+            // Download the version
             try
             {
                 WebClient webClient = new WebClient();
-                webClient.DownloadFile(
-                    @"http://theiphonewiki.com/wiki/index.php?title=User:5urd/Latest_stable_software_release/iDecryptIt&action=raw",
-                    tempdir + "update.txt");
+                byte[] buf = webClient.DownloadData(
+                    @"http://theiphonewiki.com/w/index.php?title=User:5urd/Latest_stable_software_release/iDecryptIt&action=raw");
                 webClient.Dispose();
-                checkerArr = File.ReadAllText(tempdir + "update.txt").Split('.');
+                checkerArr = File.ReadAllText(Path.Combine(tempdir, "update.txt")).Split('.');
             }
 #if DEBUG
             catch (Exception ex)
@@ -110,13 +91,8 @@ namespace Hexware.Programs.iDecryptIt.Updater
             catch (Exception)
 #endif
             {
-                /*MessageBox.Show(
-                    "Unable to download version info!\n\n" +
-                    "Exception: " + ex.Message,
-                    "iDecryptIt",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error);*/
-                Environment.Exit(-1);
+                this.Close();
+                return;
             }
             
             // Compare build numbers
@@ -139,7 +115,7 @@ namespace Hexware.Programs.iDecryptIt.Updater
         {
             btnDownload.IsEnabled = false;
             btnOk.IsEnabled = false;
-            this.Height = this.Height + 27;
+            this.Height = this.Height + progDownload.Height; // + 27;
         }
     }
 }
