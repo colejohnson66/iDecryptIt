@@ -9,7 +9,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 {
 	internal class Program
 	{
-		// TODO: Replace XML with (the currently being programmed) OpenCF
+		// TODO: Replace XML with (WIP) OpenCF
 		static string[] links = new string[256];
 		static string[] blanks = new string[128];
 		static short linksPosition = 0;
@@ -161,6 +161,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 				if (contents[0] == '[' && contents[1] == '[')
 				{
 					// Alpine 1A420 (iPhone)
+					throw new Exception(); // verification check
 					return;
 				}
 				if (contents[0] != '{' && contents[1] != '{')
@@ -409,6 +410,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 				}
 				else // Just something else
 				{
+					throw new Exception(); // Just in case
 					plist.AppendChild(xml.CreateElement("key"));
 					plist.ChildNodes.Item(num).InnerText = thiskey;
 					num++;
