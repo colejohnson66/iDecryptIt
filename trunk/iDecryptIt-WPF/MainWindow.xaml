@@ -82,7 +82,7 @@
                 </Grid>
             </Grid>
         </Grid>
-        <Grid Grid.Row="1" Name="SevenZipArea" Margin="3,0">
+        <Grid Grid.Row="1" x:Name="SevenZipArea" Margin="3,0">
             <Grid Margin="6" Background="{StaticResource GrayBorder}">
                 <Grid Margin="3" Background="White">
                     <Grid Margin="6">
@@ -128,7 +128,7 @@
                 </Grid>
             </Grid>
         </Grid>
-        <Grid Grid.Row="2" Name="KeySelectArea" Margin="3,0">
+        <Grid Grid.Row="2" x:Name="KeySelectArea" Margin="3,0">
             <Grid Margin="6" Background="{StaticResource GrayBorder}">
                 <Grid Margin="3" Background="White">
                     <Grid Margin="6">
@@ -640,7 +640,7 @@
                 </Grid>
             </Grid>
         </Grid>
-        <Grid Grid.Row="3" Name="ExtrasArea" Margin="3,0">
+        <Grid Grid.Row="3" x:Name="ExtrasArea" Margin="3,0">
             <Grid Margin="6" Background="{StaticResource GrayBorder}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -705,7 +705,7 @@
                 </Grid>
             </Grid>
         </Grid>
-        <Grid Grid.Row="4" Name="KeysArea" Margin="3,0">
+        <Grid Grid.Row="4" x:Name="KeysArea" Margin="3,0">
             <Grid Margin="6" Background="{StaticResource GrayBorder}">
                 <Grid Margin="3" Background="White">
                     <ScrollViewer Margin="6">
@@ -782,165 +782,165 @@
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
-                            <TextBlock Grid.Row="0" Name="txtDevice" Text="DEVICE" FontSize="32" Grid.ColumnSpan="5" />
-                            <TextBlock Grid.Row="2" Name="txtVersion" Text="VERSION (BUILD)" FontSize="16" Margin="12,0,0,0" Grid.ColumnSpan="5" />
-                            <TextBlock Grid.Row="4" Text="Root FS Key" Name="lblRootFSKey" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="5" Text="Restore Ramdisk (IV)" Name="lblRestoreIV" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="6" Text="Restore Ramdisk (Key)" Name="lblRestoreKey" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="7" Text="Restore Ramdisk" Name="lblRestoreNoEncrypt" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="8" Text="Update Ramdisk (IV)" Name="lblUpdateIV" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="9" Text="Update Ramdisk (Key)" Name="lblUpdateKey" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="10" Text="Update Ramdisk" Name="lblUpdateNoEncrypt" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="11" Text="Apple Logo (IV)" Name="lblAppleLogoIV" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="12" Text="Apple Logo (Key)" Name="lblAppleLogoKey" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="13" Text="Apple Logo" Name="lblAppleLogoNoEncrypt" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="14" Text="Battery Charging 0 (IV)" Name="lblBatteryCharging0IV" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="15" Text="Battery Charging 0 (Key)" Name="lblBatteryCharging0Key" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="16" Text="Battery Charging 0" Name="lblBatteryCharging0NoEncrypt" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="17" Text="Battery Charging 1 (IV)" Name="lblBatteryCharging1IV" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="18" Text="Battery Charging 1 (Key)" Name="lblBatteryCharging1Key" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="19" Text="Battery Charging 1" Name="lblBatteryCharging1NoEncrypt" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="20" Text="Battery Full (IV)" Name="lblBatteryFullIV" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="21" Text="Battery Full (Key)" Name="lblBatteryFullKey" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="22" Text="Battery Full" Name="lblBatteryFullNoEncrypt" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="23" Text="Battery Low 0 (IV)" Name="lblBatteryLow0IV" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="24" Text="Battery Low 0 (Key)" Name="lblBatteryLow0Key" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="25" Text="Battery Low 0" Name="lblBatteryLow0NoEncrypt" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="26" Text="Battery Low 1 (IV)" Name="lblBatteryLow1IV" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="27" Text="Battery Low 1 (Key)" Name="lblBatteryLow1Key" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="28" Text="Battery Low 1" Name="lblBatteryLow1NoEncrypt" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="29" Text="Device Tree (IV)" Name="lblDeviceTreeIV" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="30" Text="Device Tree (Key)" Name="lblDeviceTreeKey" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="31" Text="Device Tree" Name="lblDeviceTreeNoEncrypt" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="32" Text="Glyph Charging (IV)" Name="lblGlyphChargingIV" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="33" Text="Glyph Charging (Key)" Name="lblGlyphChargingKey" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="34" Text="Glyph Charging" Name="lblGlyphChargingNoEncrypt" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="35" Text="Glyph Plugin (IV)" Name="lblGlyphPluginIV" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="36" Text="Glyph Plugin (Key)" Name="lblGlyphPluginKey" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="37" Text="Glyph Plugin" Name="lblGlyphPluginNoEncrypt" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="38" Text="iBEC (IV)" Name="lbliBECIV" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="39" Text="iBEC (Key)" Name="lbliBECKey" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="40" Text="iBEC" Name="lbliBECNoEncrypt" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="41" Text="iBoot (IV)" Name="lbliBootIV" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="42" Text="iBoot (Key)" Name="lbliBootKey" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="43" Text="iBoot" Name="lbliBootNoEncrypt" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="44" Text="iBSS (IV)" Name="lbliBSSIV" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="45" Text="iBSS (Key)" Name="lbliBSSKey" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="46" Text="iBSS" Name="lbliBSSNoEncrypt" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="47" Text="Kernel Cache (IV)" Name="lblKernelcacheIV" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="48" Text="Kernel Cache (Key)" Name="lblKernelcacheKey" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="49" Text="Kernel Cache" Name="lblKernelcacheNoEncrypt" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="50" Text="LLB (IV)" Name="lblLLBIV" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="51" Text="LLB (Key)" Name="lblLLBKey" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="52" Text="LLB" Name="lblLLBNoEncrypt" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="53" Text="Need Service (IV)" Name="lblNeedServiceIV" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="54" Text="Need Service (Key)" Name="lblNeedServiceKey" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="55" Text="Need Service" Name="lblNeedServiceNoEncrypt" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="56" Text="Recovery Mode (IV)" Name="lblRecoveryModeIV" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="57" Text="Recovery Mode (Key)" Name="lblRecoveryModeKey" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="58" Text="Recovery Mode" Name="lblRecoveryModeNoEncrypt" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="59" Text="SEP-Firmware (IV)" Name="lblSEPFirmwareIV" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="60" Text="SEP-Firmware (Key)" Name="lblSEPFirmwareKey" VerticalAlignment="Center" />
-                            <TextBlock Grid.Row="61" Text="SEP-Firmware" Name="lblSEPFirmwareNoEncrypt" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="0" x:Name="txtDevice" Text="DEVICE" FontSize="32" Grid.ColumnSpan="5" />
+                            <TextBlock Grid.Row="2" x:Name="txtVersion" Text="VERSION (BUILD)" FontSize="16" Margin="12,0,0,0" Grid.ColumnSpan="5" />
+                            <TextBlock Grid.Row="4" Text="Root FS Key" x:Name="lblRootFSKey" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="5" Text="Restore Ramdisk (IV)" x:Name="lblRestoreIV" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="6" Text="Restore Ramdisk (Key)" x:Name="lblRestoreKey" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="7" Text="Restore Ramdisk" x:Name="lblRestoreNoEncrypt" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="8" Text="Update Ramdisk (IV)" x:Name="lblUpdateIV" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="9" Text="Update Ramdisk (Key)" x:Name="lblUpdateKey" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="10" Text="Update Ramdisk" x:Name="lblUpdateNoEncrypt" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="11" Text="Apple Logo (IV)" x:Name="lblAppleLogoIV" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="12" Text="Apple Logo (Key)" x:Name="lblAppleLogoKey" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="13" Text="Apple Logo" x:Name="lblAppleLogoNoEncrypt" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="14" Text="Battery Charging 0 (IV)" x:Name="lblBatteryCharging0IV" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="15" Text="Battery Charging 0 (Key)" x:Name="lblBatteryCharging0Key" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="16" Text="Battery Charging 0" x:Name="lblBatteryCharging0NoEncrypt" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="17" Text="Battery Charging 1 (IV)" x:Name="lblBatteryCharging1IV" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="18" Text="Battery Charging 1 (Key)" x:Name="lblBatteryCharging1Key" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="19" Text="Battery Charging 1" x:Name="lblBatteryCharging1NoEncrypt" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="20" Text="Battery Full (IV)" x:Name="lblBatteryFullIV" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="21" Text="Battery Full (Key)" x:Name="lblBatteryFullKey" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="22" Text="Battery Full" x:Name="lblBatteryFullNoEncrypt" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="23" Text="Battery Low 0 (IV)" x:Name="lblBatteryLow0IV" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="24" Text="Battery Low 0 (Key)" x:Name="lblBatteryLow0Key" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="25" Text="Battery Low 0" x:Name="lblBatteryLow0NoEncrypt" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="26" Text="Battery Low 1 (IV)" x:Name="lblBatteryLow1IV" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="27" Text="Battery Low 1 (Key)" x:Name="lblBatteryLow1Key" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="28" Text="Battery Low 1" x:Name="lblBatteryLow1NoEncrypt" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="29" Text="Device Tree (IV)" x:Name="lblDeviceTreeIV" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="30" Text="Device Tree (Key)" x:Name="lblDeviceTreeKey" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="31" Text="Device Tree" x:Name="lblDeviceTreeNoEncrypt" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="32" Text="Glyph Charging (IV)" x:Name="lblGlyphChargingIV" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="33" Text="Glyph Charging (Key)" x:Name="lblGlyphChargingKey" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="34" Text="Glyph Charging" x:Name="lblGlyphChargingNoEncrypt" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="35" Text="Glyph Plugin (IV)" x:Name="lblGlyphPluginIV" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="36" Text="Glyph Plugin (Key)" x:Name="lblGlyphPluginKey" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="37" Text="Glyph Plugin" x:Name="lblGlyphPluginNoEncrypt" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="38" Text="iBEC (IV)" x:Name="lbliBECIV" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="39" Text="iBEC (Key)" x:Name="lbliBECKey" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="40" Text="iBEC" x:Name="lbliBECNoEncrypt" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="41" Text="iBoot (IV)" x:Name="lbliBootIV" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="42" Text="iBoot (Key)" x:Name="lbliBootKey" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="43" Text="iBoot" x:Name="lbliBootNoEncrypt" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="44" Text="iBSS (IV)" x:Name="lbliBSSIV" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="45" Text="iBSS (Key)" x:Name="lbliBSSKey" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="46" Text="iBSS" x:Name="lbliBSSNoEncrypt" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="47" Text="Kernel Cache (IV)" x:Name="lblKernelcacheIV" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="48" Text="Kernel Cache (Key)" x:Name="lblKernelcacheKey" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="49" Text="Kernel Cache" x:Name="lblKernelcacheNoEncrypt" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="50" Text="LLB (IV)" x:Name="lblLLBIV" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="51" Text="LLB (Key)" x:Name="lblLLBKey" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="52" Text="LLB" x:Name="lblLLBNoEncrypt" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="53" Text="Need Service (IV)" x:Name="lblNeedServiceIV" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="54" Text="Need Service (Key)" x:Name="lblNeedServiceKey" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="55" Text="Need Service" x:Name="lblNeedServiceNoEncrypt" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="56" Text="Recovery Mode (IV)" x:Name="lblRecoveryModeIV" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="57" Text="Recovery Mode (Key)" x:Name="lblRecoveryModeKey" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="58" Text="Recovery Mode" x:Name="lblRecoveryModeNoEncrypt" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="59" Text="SEP-Firmware (IV)" x:Name="lblSEPFirmwareIV" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="60" Text="SEP-Firmware (Key)" x:Name="lblSEPFirmwareKey" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="61" Text="SEP-Firmware" x:Name="lblSEPFirmwareNoEncrypt" VerticalAlignment="Center" />
 
-                            <TextBox Grid.Row="4" Grid.Column="2" Name="keyRootFS" Margin="0,3" />
-                            <TextBox Grid.Row="5" Grid.Column="2" Name="keyRestoreIV" Margin="0,3" />
-                            <TextBox Grid.Row="6" Grid.Column="2" Name="keyRestoreKey" Margin="0,3" />
-                            <TextBlock Grid.Row="7" Grid.Column="2" Text="Not Encrypted" Name="keyRestoreNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                            <TextBox Grid.Row="8" Grid.Column="2" Name="keyUpdateIV" Margin="0,3" />
-                            <TextBox Grid.Row="9" Grid.Column="2" Name="keyUpdateKey" Margin="0,3" />
-                            <TextBlock Grid.Row="10" Grid.Column="2" Text="Not Encrypted" Name="keyUpdateNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                            <TextBox Grid.Row="11" Grid.Column="2" Name="keyAppleLogoIV" Margin="0,3" />
-                            <TextBox Grid.Row="12" Grid.Column="2" Name="keyAppleLogoKey" Margin="0,3" />
-                            <TextBlock Grid.Row="13" Grid.Column="2" Text="Not Encrypted" Name="keyAppleLogoNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                            <TextBox Grid.Row="14" Grid.Column="2" Name="keyBatteryCharging0IV" Margin="0,3" />
-                            <TextBox Grid.Row="15" Grid.Column="2" Name="keyBatteryCharging0Key" Margin="0,3" />
-                            <TextBlock Grid.Row="16" Grid.Column="2" Text="Not Encrypted" Name="keyBatteryCharging0NoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                            <TextBox Grid.Row="17" Grid.Column="2" Name="keyBatteryCharging1IV" Margin="0,3" />
-                            <TextBox Grid.Row="18" Grid.Column="2" Name="keyBatteryCharging1Key" Margin="0,3" />
-                            <TextBlock Grid.Row="19" Grid.Column="2" Text="Not Encrypted" Name="keyBatteryCharging1NoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                            <TextBox Grid.Row="20" Grid.Column="2" Name="keyBatteryFullIV" Margin="0,3" />
-                            <TextBox Grid.Row="21" Grid.Column="2" Name="keyBatteryFullKey" Margin="0,3" />
-                            <TextBlock Grid.Row="22" Grid.Column="2" Text="Not Encrypted" Name="keyBatteryFullNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                            <TextBox Grid.Row="23" Grid.Column="2" Name="keyBatteryLow0IV" Margin="0,3" />
-                            <TextBox Grid.Row="24" Grid.Column="2" Name="keyBatteryLow0Key" Margin="0,3" />
-                            <TextBlock Grid.Row="25" Grid.Column="2" Text="Not Encrypted" Name="keyBatteryLow0NoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                            <TextBox Grid.Row="26" Grid.Column="2" Name="keyBatteryLow1IV" Margin="0,3" />
-                            <TextBox Grid.Row="27" Grid.Column="2" Name="keyBatteryLow1Key" Margin="0,3" />
-                            <TextBlock Grid.Row="28" Grid.Column="2" Text="Not Encrypted" Name="keyBatteryLow1NoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                            <TextBox Grid.Row="29" Grid.Column="2" Name="keyDeviceTreeIV" Margin="0,3" />
-                            <TextBox Grid.Row="30" Grid.Column="2" Name="keyDeviceTreeKey" Margin="0,3" />
-                            <TextBlock Grid.Row="31" Grid.Column="2" Text="Not Encrypted" Name="keyDeviceTreeNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                            <TextBox Grid.Row="32" Grid.Column="2" Name="keyGlyphChargingIV" Margin="0,3" />
-                            <TextBox Grid.Row="33" Grid.Column="2" Name="keyGlyphChargingKey" Margin="0,3" />
-                            <TextBlock Grid.Row="34" Grid.Column="2" Text="Not Encrypted" Name="keyGlyphChargingNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                            <TextBox Grid.Row="35" Grid.Column="2" Name="keyGlyphPluginIV" Margin="0,3" />
-                            <TextBox Grid.Row="36" Grid.Column="2" Name="keyGlyphPluginKey" Margin="0,3" />
-                            <TextBlock Grid.Row="37" Grid.Column="2" Text="Not Encrypted" Name="keyGlyphPluginNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                            <TextBox Grid.Row="38" Grid.Column="2" Name="keyiBECIV" Margin="0,3" />
-                            <TextBox Grid.Row="39" Grid.Column="2" Name="keyiBECKey" Margin="0,3" />
-                            <TextBlock Grid.Row="40" Grid.Column="2" Text="Not Encrypted" Name="keyiBECNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                            <TextBox Grid.Row="41" Grid.Column="2" Name="keyiBootIV" Margin="0,3" />
-                            <TextBox Grid.Row="42" Grid.Column="2" Name="keyiBootKey" Margin="0,3" />
-                            <TextBlock Grid.Row="43" Grid.Column="2" Text="Not Encrypted" Name="keyiBootNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                            <TextBox Grid.Row="44" Grid.Column="2" Name="keyiBSSIV" Margin="0,3" />
-                            <TextBox Grid.Row="45" Grid.Column="2" Name="keyiBSSKey" Margin="0,3" />
-                            <TextBlock Grid.Row="46" Grid.Column="2" Text="Not Encrypted" Name="keyiBSSNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                            <TextBox Grid.Row="47" Grid.Column="2" Name="keyKernelcacheIV" Margin="0,3" />
-                            <TextBox Grid.Row="48" Grid.Column="2" Name="keyKernelcacheKey" Margin="0,3" />
-                            <TextBlock Grid.Row="49" Grid.Column="2" Text="Not Encrypted" Name="keyKernelcacheNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                            <TextBox Grid.Row="50" Grid.Column="2" Name="keyLLBIV" Margin="0,3" />
-                            <TextBox Grid.Row="51" Grid.Column="2" Name="keyLLBKey" Margin="0,3" />
-                            <TextBlock Grid.Row="52" Grid.Column="2" Text="Not Encrypted" Name="keyLLBNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                            <TextBox Grid.Row="53" Grid.Column="2" Name="keyNeedServiceIV" Margin="0,3" />
-                            <TextBox Grid.Row="54" Grid.Column="2" Name="keyNeedServiceKey" Margin="0,3" />
-                            <TextBlock Grid.Row="55" Grid.Column="2" Text="Not Encrypted" Name="keyNeedServiceNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                            <TextBox Grid.Row="56" Grid.Column="2" Name="keyRecoveryModeIV" Margin="0,3" />
-                            <TextBox Grid.Row="57" Grid.Column="2" Name="keyRecoveryModeKey" Margin="0,3" />
-                            <TextBlock Grid.Row="58" Grid.Column="2" Text="Not Encrypted" Name="keyRecoveryModeNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                            <TextBox Grid.Row="59" Grid.Column="2" Name="keySEPFirmwareIV" Margin="0,3" />
-                            <TextBox Grid.Row="60" Grid.Column="2" Name="keySEPFirmwareKey" Margin="0,3" />
-                            <TextBlock Grid.Row="61" Grid.Column="2" Text="Not Encrypted" Name="keySEPFirmwareNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <TextBox Grid.Row="4" Grid.Column="2" x:Name="keyRootFS" Margin="0,3" />
+                            <TextBox Grid.Row="5" Grid.Column="2" x:Name="keyRestoreIV" Margin="0,3" />
+                            <TextBox Grid.Row="6" Grid.Column="2" x:Name="keyRestoreKey" Margin="0,3" />
+                            <TextBlock Grid.Row="7" Grid.Column="2" Text="Not Encrypted" x:Name="keyRestoreNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <TextBox Grid.Row="8" Grid.Column="2" x:Name="keyUpdateIV" Margin="0,3" />
+                            <TextBox Grid.Row="9" Grid.Column="2" x:Name="keyUpdateKey" Margin="0,3" />
+                            <TextBlock Grid.Row="10" Grid.Column="2" Text="Not Encrypted" x:Name="keyUpdateNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <TextBox Grid.Row="11" Grid.Column="2" x:Name="keyAppleLogoIV" Margin="0,3" />
+                            <TextBox Grid.Row="12" Grid.Column="2" x:Name="keyAppleLogoKey" Margin="0,3" />
+                            <TextBlock Grid.Row="13" Grid.Column="2" Text="Not Encrypted" x:Name="keyAppleLogoNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <TextBox Grid.Row="14" Grid.Column="2" x:Name="keyBatteryCharging0IV" Margin="0,3" />
+                            <TextBox Grid.Row="15" Grid.Column="2" x:Name="keyBatteryCharging0Key" Margin="0,3" />
+                            <TextBlock Grid.Row="16" Grid.Column="2" Text="Not Encrypted" x:Name="keyBatteryCharging0NoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <TextBox Grid.Row="17" Grid.Column="2" x:Name="keyBatteryCharging1IV" Margin="0,3" />
+                            <TextBox Grid.Row="18" Grid.Column="2" x:Name="keyBatteryCharging1Key" Margin="0,3" />
+                            <TextBlock Grid.Row="19" Grid.Column="2" Text="Not Encrypted" x:Name="keyBatteryCharging1NoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <TextBox Grid.Row="20" Grid.Column="2" x:Name="keyBatteryFullIV" Margin="0,3" />
+                            <TextBox Grid.Row="21" Grid.Column="2" x:Name="keyBatteryFullKey" Margin="0,3" />
+                            <TextBlock Grid.Row="22" Grid.Column="2" Text="Not Encrypted" x:Name="keyBatteryFullNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <TextBox Grid.Row="23" Grid.Column="2" x:Name="keyBatteryLow0IV" Margin="0,3" />
+                            <TextBox Grid.Row="24" Grid.Column="2" x:Name="keyBatteryLow0Key" Margin="0,3" />
+                            <TextBlock Grid.Row="25" Grid.Column="2" Text="Not Encrypted" x:Name="keyBatteryLow0NoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <TextBox Grid.Row="26" Grid.Column="2" x:Name="keyBatteryLow1IV" Margin="0,3" />
+                            <TextBox Grid.Row="27" Grid.Column="2" x:Name="keyBatteryLow1Key" Margin="0,3" />
+                            <TextBlock Grid.Row="28" Grid.Column="2" Text="Not Encrypted" x:Name="keyBatteryLow1NoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <TextBox Grid.Row="29" Grid.Column="2" x:Name="keyDeviceTreeIV" Margin="0,3" />
+                            <TextBox Grid.Row="30" Grid.Column="2" x:Name="keyDeviceTreeKey" Margin="0,3" />
+                            <TextBlock Grid.Row="31" Grid.Column="2" Text="Not Encrypted" x:Name="keyDeviceTreeNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <TextBox Grid.Row="32" Grid.Column="2" x:Name="keyGlyphChargingIV" Margin="0,3" />
+                            <TextBox Grid.Row="33" Grid.Column="2" x:Name="keyGlyphChargingKey" Margin="0,3" />
+                            <TextBlock Grid.Row="34" Grid.Column="2" Text="Not Encrypted" x:Name="keyGlyphChargingNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <TextBox Grid.Row="35" Grid.Column="2" x:Name="keyGlyphPluginIV" Margin="0,3" />
+                            <TextBox Grid.Row="36" Grid.Column="2" x:Name="keyGlyphPluginKey" Margin="0,3" />
+                            <TextBlock Grid.Row="37" Grid.Column="2" Text="Not Encrypted" x:Name="keyGlyphPluginNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <TextBox Grid.Row="38" Grid.Column="2" x:Name="keyiBECIV" Margin="0,3" />
+                            <TextBox Grid.Row="39" Grid.Column="2" x:Name="keyiBECKey" Margin="0,3" />
+                            <TextBlock Grid.Row="40" Grid.Column="2" Text="Not Encrypted" x:Name="keyiBECNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <TextBox Grid.Row="41" Grid.Column="2" x:Name="keyiBootIV" Margin="0,3" />
+                            <TextBox Grid.Row="42" Grid.Column="2" x:Name="keyiBootKey" Margin="0,3" />
+                            <TextBlock Grid.Row="43" Grid.Column="2" Text="Not Encrypted" x:Name="keyiBootNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <TextBox Grid.Row="44" Grid.Column="2" x:Name="keyiBSSIV" Margin="0,3" />
+                            <TextBox Grid.Row="45" Grid.Column="2" x:Name="keyiBSSKey" Margin="0,3" />
+                            <TextBlock Grid.Row="46" Grid.Column="2" Text="Not Encrypted" x:Name="keyiBSSNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <TextBox Grid.Row="47" Grid.Column="2" x:Name="keyKernelcacheIV" Margin="0,3" />
+                            <TextBox Grid.Row="48" Grid.Column="2" x:Name="keyKernelcacheKey" Margin="0,3" />
+                            <TextBlock Grid.Row="49" Grid.Column="2" Text="Not Encrypted" x:Name="keyKernelcacheNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <TextBox Grid.Row="50" Grid.Column="2" x:Name="keyLLBIV" Margin="0,3" />
+                            <TextBox Grid.Row="51" Grid.Column="2" x:Name="keyLLBKey" Margin="0,3" />
+                            <TextBlock Grid.Row="52" Grid.Column="2" Text="Not Encrypted" x:Name="keyLLBNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <TextBox Grid.Row="53" Grid.Column="2" x:Name="keyNeedServiceIV" Margin="0,3" />
+                            <TextBox Grid.Row="54" Grid.Column="2" x:Name="keyNeedServiceKey" Margin="0,3" />
+                            <TextBlock Grid.Row="55" Grid.Column="2" Text="Not Encrypted" x:Name="keyNeedServiceNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <TextBox Grid.Row="56" Grid.Column="2" x:Name="keyRecoveryModeIV" Margin="0,3" />
+                            <TextBox Grid.Row="57" Grid.Column="2" x:Name="keyRecoveryModeKey" Margin="0,3" />
+                            <TextBlock Grid.Row="58" Grid.Column="2" Text="Not Encrypted" x:Name="keyRecoveryModeNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <TextBox Grid.Row="59" Grid.Column="2" x:Name="keySEPFirmwareIV" Margin="0,3" />
+                            <TextBox Grid.Row="60" Grid.Column="2" x:Name="keySEPFirmwareKey" Margin="0,3" />
+                            <TextBlock Grid.Row="61" Grid.Column="2" Text="Not Encrypted" x:Name="keySEPFirmwareNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
 
-                            <TextBox Grid.Row="4" Grid.Column="4" Name="fileRootFS" Margin="0,3" />
-                            <TextBox Grid.Row="5" Grid.Column="4" Name="fileRestore" Margin="0,3" Grid.RowSpan="2" VerticalAlignment="Center" />
-                            <TextBox Grid.Row="7" Grid.Column="4" Name="fileRestoreNoEncrypt" Margin="0,3" />
-                            <TextBox Grid.Row="8" Grid.Column="4" Name="fileUpdate" Margin="0,3" Grid.RowSpan="2" VerticalAlignment="Center" />
-                            <TextBox Grid.Row="10" Grid.Column="4" Name="fileUpdateNoEncrypt" Margin="0,3" />
-                            <TextBox Grid.Row="11" Grid.Column="4" Name="fileAppleLogo" Margin="0,3" Grid.RowSpan="2" VerticalAlignment="Center" />
-                            <TextBox Grid.Row="13" Grid.Column="4" Name="fileAppleLogoNoEncrypt" Margin="0,3" />
-                            <TextBox Grid.Row="14" Grid.Column="4" Name="fileBatteryCharging0" Margin="0,3" Grid.RowSpan="2" VerticalAlignment="Center" />
-                            <TextBox Grid.Row="16" Grid.Column="4" Name="fileBatteryCharging0NoEncrypt" Margin="0,3" />
-                            <TextBox Grid.Row="17" Grid.Column="4" Name="fileBatteryCharging1" Margin="0,3" Grid.RowSpan="2" VerticalAlignment="Center" />
-                            <TextBox Grid.Row="19" Grid.Column="4" Name="fileBatteryCharging1NoEncrypt" Margin="0,3" />
-                            <TextBox Grid.Row="20" Grid.Column="4" Name="fileBatteryFull" Margin="0,3" Grid.RowSpan="2" VerticalAlignment="Center" />
-                            <TextBox Grid.Row="22" Grid.Column="4" Name="fileBatteryFullNoEncrypt" Margin="0,3" />
-                            <TextBox Grid.Row="23" Grid.Column="4" Name="fileBatteryLow0" Margin="0,3" Grid.RowSpan="2" VerticalAlignment="Center" />
-                            <TextBox Grid.Row="25" Grid.Column="4" Name="fileBatteryLow0NoEncrypt" Margin="0,3" />
-                            <TextBox Grid.Row="26" Grid.Column="4" Name="fileBatteryLow1" Margin="0,3" Grid.RowSpan="2" VerticalAlignment="Center" />
-                            <TextBox Grid.Row="28" Grid.Column="4" Name="fileBatteryLow1NoEncrypt" Margin="0,3" />
-                            <TextBox Grid.Row="29" Grid.Column="4" Name="fileDeviceTree" Margin="0,3" Grid.RowSpan="2" VerticalAlignment="Center" />
-                            <TextBox Grid.Row="31" Grid.Column="4" Name="fileDeviceTreeNoEncrypt" Margin="0,3" />
-                            <TextBox Grid.Row="32" Grid.Column="4" Name="fileGlyphCharging" Margin="0,3" Grid.RowSpan="2" VerticalAlignment="Center" />
-                            <TextBox Grid.Row="34" Grid.Column="4" Name="fileGlyphChargingNoEncrypt" Margin="0,3" />
-                            <TextBox Grid.Row="35" Grid.Column="4" Name="fileGlyphPlugin" Margin="0,3" Grid.RowSpan="2" VerticalAlignment="Center" />
-                            <TextBox Grid.Row="37" Grid.Column="4" Name="fileGlyphPluginNoEncrypt" Margin="0,3" />
-                            <TextBox Grid.Row="38" Grid.Column="4" Name="fileiBEC" Margin="0,3" Grid.RowSpan="2" VerticalAlignment="Center" />
-                            <TextBox Grid.Row="40" Grid.Column="4" Name="fileiBECNoEncrypt" Margin="0,3" />
-                            <TextBox Grid.Row="41" Grid.Column="4" Name="fileiBoot" Margin="0,3" Grid.RowSpan="2" VerticalAlignment="Center" />
-                            <TextBox Grid.Row="43" Grid.Column="4" Name="fileiBootNoEncrypt" Margin="0,3" />
-                            <TextBox Grid.Row="44" Grid.Column="4" Name="fileiBSS" Margin="0,3" Grid.RowSpan="2" VerticalAlignment="Center" />
-                            <TextBox Grid.Row="46" Grid.Column="4" Name="fileiBSSNoEncrypt" Margin="0,3" />
-                            <TextBox Grid.Row="47" Grid.Column="4" Name="fileKernelcache" Margin="0,3" Grid.RowSpan="2" VerticalAlignment="Center" />
-                            <TextBox Grid.Row="49" Grid.Column="4" Name="fileKernelcacheNoEncrypt" Margin="0,3" />
-                            <TextBox Grid.Row="50" Grid.Column="4" Name="fileLLB" Margin="0,3" Grid.RowSpan="2" VerticalAlignment="Center" />
-                            <TextBox Grid.Row="52" Grid.Column="4" Name="fileLLBNoEncrypt" Margin="0,3" />
-                            <TextBox Grid.Row="53" Grid.Column="4" Name="fileNeedService" Margin="0,3" Grid.RowSpan="2" VerticalAlignment="Center" />
-                            <TextBox Grid.Row="55" Grid.Column="4" Name="fileNeedServiceNoEncrypt" Margin="0,3" />
-                            <TextBox Grid.Row="56" Grid.Column="4" Name="fileRecoveryMode" Margin="0,3" Grid.RowSpan="2" VerticalAlignment="Center" />
-                            <TextBox Grid.Row="58" Grid.Column="4" Name="fileRecoveryModeNoEncrypt" Margin="0,3" />
-                            <TextBox Grid.Row="59" Grid.Column="4" Name="fileSEPFirmware" Margin="0,3" Grid.RowSpan="2" VerticalAlignment="Center" />
-                            <TextBox Grid.Row="61" Grid.Column="4" Name="fileSEPFirmwareNoEncrypt" Margin="0,3" />
+                            <TextBox Grid.Row="4" Grid.Column="4" x:Name="fileRootFS" Margin="0,3" />
+                            <TextBox Grid.Row="5" Grid.Column="4" x:Name="fileRestore" Margin="0,3" Grid.RowSpan="2" VerticalAlignment="Center" />
+                            <TextBox Grid.Row="7" Grid.Column="4" x:Name="fileRestoreNoEncrypt" Margin="0,3" />
+                            <TextBox Grid.Row="8" Grid.Column="4" x:Name="fileUpdate" Margin="0,3" Grid.RowSpan="2" VerticalAlignment="Center" />
+                            <TextBox Grid.Row="10" Grid.Column="4" x:Name="fileUpdateNoEncrypt" Margin="0,3" />
+                            <TextBox Grid.Row="11" Grid.Column="4" x:Name="fileAppleLogo" Margin="0,3" Grid.RowSpan="2" VerticalAlignment="Center" />
+                            <TextBox Grid.Row="13" Grid.Column="4" x:Name="fileAppleLogoNoEncrypt" Margin="0,3" />
+                            <TextBox Grid.Row="14" Grid.Column="4" x:Name="fileBatteryCharging0" Margin="0,3" Grid.RowSpan="2" VerticalAlignment="Center" />
+                            <TextBox Grid.Row="16" Grid.Column="4" x:Name="fileBatteryCharging0NoEncrypt" Margin="0,3" />
+                            <TextBox Grid.Row="17" Grid.Column="4" x:Name="fileBatteryCharging1" Margin="0,3" Grid.RowSpan="2" VerticalAlignment="Center" />
+                            <TextBox Grid.Row="19" Grid.Column="4" x:Name="fileBatteryCharging1NoEncrypt" Margin="0,3" />
+                            <TextBox Grid.Row="20" Grid.Column="4" x:Name="fileBatteryFull" Margin="0,3" Grid.RowSpan="2" VerticalAlignment="Center" />
+                            <TextBox Grid.Row="22" Grid.Column="4" x:Name="fileBatteryFullNoEncrypt" Margin="0,3" />
+                            <TextBox Grid.Row="23" Grid.Column="4" x:Name="fileBatteryLow0" Margin="0,3" Grid.RowSpan="2" VerticalAlignment="Center" />
+                            <TextBox Grid.Row="25" Grid.Column="4" x:Name="fileBatteryLow0NoEncrypt" Margin="0,3" />
+                            <TextBox Grid.Row="26" Grid.Column="4" x:Name="fileBatteryLow1" Margin="0,3" Grid.RowSpan="2" VerticalAlignment="Center" />
+                            <TextBox Grid.Row="28" Grid.Column="4" x:Name="fileBatteryLow1NoEncrypt" Margin="0,3" />
+                            <TextBox Grid.Row="29" Grid.Column="4" x:Name="fileDeviceTree" Margin="0,3" Grid.RowSpan="2" VerticalAlignment="Center" />
+                            <TextBox Grid.Row="31" Grid.Column="4" x:Name="fileDeviceTreeNoEncrypt" Margin="0,3" />
+                            <TextBox Grid.Row="32" Grid.Column="4" x:Name="fileGlyphCharging" Margin="0,3" Grid.RowSpan="2" VerticalAlignment="Center" />
+                            <TextBox Grid.Row="34" Grid.Column="4" x:Name="fileGlyphChargingNoEncrypt" Margin="0,3" />
+                            <TextBox Grid.Row="35" Grid.Column="4" x:Name="fileGlyphPlugin" Margin="0,3" Grid.RowSpan="2" VerticalAlignment="Center" />
+                            <TextBox Grid.Row="37" Grid.Column="4" x:Name="fileGlyphPluginNoEncrypt" Margin="0,3" />
+                            <TextBox Grid.Row="38" Grid.Column="4" x:Name="fileiBEC" Margin="0,3" Grid.RowSpan="2" VerticalAlignment="Center" />
+                            <TextBox Grid.Row="40" Grid.Column="4" x:Name="fileiBECNoEncrypt" Margin="0,3" />
+                            <TextBox Grid.Row="41" Grid.Column="4" x:Name="fileiBoot" Margin="0,3" Grid.RowSpan="2" VerticalAlignment="Center" />
+                            <TextBox Grid.Row="43" Grid.Column="4" x:Name="fileiBootNoEncrypt" Margin="0,3" />
+                            <TextBox Grid.Row="44" Grid.Column="4" x:Name="fileiBSS" Margin="0,3" Grid.RowSpan="2" VerticalAlignment="Center" />
+                            <TextBox Grid.Row="46" Grid.Column="4" x:Name="fileiBSSNoEncrypt" Margin="0,3" />
+                            <TextBox Grid.Row="47" Grid.Column="4" x:Name="fileKernelcache" Margin="0,3" Grid.RowSpan="2" VerticalAlignment="Center" />
+                            <TextBox Grid.Row="49" Grid.Column="4" x:Name="fileKernelcacheNoEncrypt" Margin="0,3" />
+                            <TextBox Grid.Row="50" Grid.Column="4" x:Name="fileLLB" Margin="0,3" Grid.RowSpan="2" VerticalAlignment="Center" />
+                            <TextBox Grid.Row="52" Grid.Column="4" x:Name="fileLLBNoEncrypt" Margin="0,3" />
+                            <TextBox Grid.Row="53" Grid.Column="4" x:Name="fileNeedService" Margin="0,3" Grid.RowSpan="2" VerticalAlignment="Center" />
+                            <TextBox Grid.Row="55" Grid.Column="4" x:Name="fileNeedServiceNoEncrypt" Margin="0,3" />
+                            <TextBox Grid.Row="56" Grid.Column="4" x:Name="fileRecoveryMode" Margin="0,3" Grid.RowSpan="2" VerticalAlignment="Center" />
+                            <TextBox Grid.Row="58" Grid.Column="4" x:Name="fileRecoveryModeNoEncrypt" Margin="0,3" />
+                            <TextBox Grid.Row="59" Grid.Column="4" x:Name="fileSEPFirmware" Margin="0,3" Grid.RowSpan="2" VerticalAlignment="Center" />
+                            <TextBox Grid.Row="61" Grid.Column="4" x:Name="fileSEPFirmwareNoEncrypt" Margin="0,3" />
                         </Grid>
                     </ScrollViewer>
                 </Grid>

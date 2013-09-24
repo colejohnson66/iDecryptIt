@@ -14,6 +14,6 @@
     <EnableUnmanagedDebugging>true</EnableUnmanagedDebugging>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
-    <StartArguments />
+    <StartArguments>/debug</StartArguments>
   </PropertyGroup>
 </Project>
