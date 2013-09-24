@@ -59,7 +59,7 @@ namespace Hexware.Programs.iDecryptIt
                 {
                     decryptProg = ((new FileInfo(decryptTo).Length) * 100.0) / decryptFromFile.Length;
                     decryptworker.ReportProgress(0);
-                    Thread.Sleep(100);
+                    Thread.Sleep(100); // don't hog the CPU
                 }
             }
         }
@@ -1018,7 +1018,7 @@ namespace Hexware.Programs.iDecryptIt
         }
         private void btnExtract_Click(object sender, RoutedEventArgs e)
         {
-            #region Verify input
+            #region Input validation
             if (String.IsNullOrWhiteSpace(text7ZInputFileName.Text) ||
                 String.IsNullOrWhiteSpace(text7ZOuputFolder.Text))
             {
@@ -1055,10 +1055,10 @@ namespace Hexware.Programs.iDecryptIt
 
             Process.Start(
                 rundir + "7z.exe",
-                " e \"" + text7ZInputFileName.Text + "\" \"" + "-o" + tempdir + "\"");
+                " e \"" + text7ZInputFileName.Text + "\" \"" + "-o" + text7ZOuputFolder.Text + "\"");
 
             // Prepare to extract HFS
-            string[] files = Directory.GetFiles(tempdir, "*.hfs*", SearchOption.AllDirectories);
+            /*string[] files = Directory.GetFiles(tempdir, "*.hfs*", SearchOption.AllDirectories);
             string file;
 
             if (files.Length == 1)
@@ -1088,7 +1088,7 @@ namespace Hexware.Programs.iDecryptIt
 
             Process.Start(
                 rundir + "7z.exe",
-                " x \"" + file + "\" \"" + "-o" + text7ZOuputFolder.Text + "\"");
+                " x \"" + file + "\" \"" + "-o" + text7ZOuputFolder.Text + "\"");*/
         }
         private void btnChangelog_Click(object sender, RoutedEventArgs e)
         {
