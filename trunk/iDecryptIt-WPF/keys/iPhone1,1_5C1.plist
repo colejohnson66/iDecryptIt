@@ -156,14 +156,5 @@
 			<key>Key</key>
 			<string>TODO</string>
 		</dict>
-		<key>WTF</key>
-		<dict>
-			<key>Encryption</key>
-			<true />
-			<key>IV</key>
-			<string>TODO</string>
-			<key>Key</key>
-			<string>TODO</string>
-		</dict>
 	</dict>
 </plist>

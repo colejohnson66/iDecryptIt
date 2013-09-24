@@ -44,6 +44,10 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 			{ "iphone41", "iPhone 4S" },
 			{ "iphone51", "iPhone 5 (GSM)" },
 			{ "iphone52", "iPhone 5 (Global)" },
+			{ "iphone53", "iPhone 5c (GSM)" },
+			{ "iphone54", "iPhone 5c (Global)" },
+			{ "iphone61", "iPhone 5s (GSM)" },
+			{ "iphone62", "iPhone 5s (Global)" },
 			{ "ipod11", "iPod touch 1G" },
 			{ "ipod21", "iPod touch 2G" },
 			{ "ipod31", "iPod touch 3G" },
@@ -161,7 +165,6 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 				if (contents[0] == '[' && contents[1] == '[')
 				{
 					// Alpine 1A420 (iPhone)
-					throw new Exception(); // verification check
 					return;
 				}
 				if (contents[0] != '{' && contents[1] != '{')
@@ -408,17 +411,19 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 					plist.ChildNodes.Item(num).InnerText = devices[data[thiskey]];
 					num++;
 				}
-				else // Just something else
-				{
-					throw new Exception(); // Just in case
-					plist.AppendChild(xml.CreateElement("key"));
-					plist.ChildNodes.Item(num).InnerText = thiskey;
-					num++;
-					temp = data[thiskey];
-					plist.AppendChild(xml.CreateElement("string"));
-					plist.ChildNodes.Item(num).InnerText = temp;
-					num++;
-				}
+                else if (thiskey == "displayversion")
+                {
+                }
+                else // Just something else
+                {
+                    plist.AppendChild(xml.CreateElement("key"));
+                    plist.ChildNodes.Item(num).InnerText = thiskey;
+                    num++;
+                    temp = data[thiskey];
+                    plist.AppendChild(xml.CreateElement("string"));
+                    plist.ChildNodes.Item(num).InnerText = temp;
+                    num++;
+                }
 			}
 
 			// Prepare to save data
@@ -436,7 +441,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 			Array.Resize<char>(ref deviceNumbers, 3); // Add room for comma
 			deviceNumbers[2] = deviceNumbers[1]; // Move second number over
 			deviceNumbers[1] = ',';
-			device = device.Substring(device.Length - 2) + new String(deviceNumbers);
+			device = device.Substring(0, device.Length - 2) + new String(deviceNumbers);
 
 			// Save data
 			filename = Path.Combine(keyPath, device + "_" + build + ".plist");

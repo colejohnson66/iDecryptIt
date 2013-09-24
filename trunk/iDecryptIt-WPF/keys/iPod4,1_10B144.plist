@@ -3,13 +3,15 @@
 <plist>
 	<dict>
 		<key>Version</key>
-		<string>6.1b5</string>
+		<string>6.1b5 and 6.1</string>
 		<key>Build</key>
 		<string>10B144</string>
 		<key>Device</key>
 		<string>iPod touch 4G</string>
 		<key>Codename</key>
 		<string>Brighton</string>
+		<key>Download</key>
+		<string>http://appldnld.apple.com/iOS6.1/091-0688.20130128.omwy3/iPod4,1_6.1_10B144_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

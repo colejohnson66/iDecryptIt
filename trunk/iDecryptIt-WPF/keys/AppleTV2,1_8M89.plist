@@ -22,7 +22,7 @@
 		<key>Update Ramdisk</key>
 		<dict>
 			<key>File Name</key>
-			<string>018-8618-062</string>
+			<string>018-8613-062</string>
 			<key>IV</key>
 			<string>5fe67aa4b1ad60114ed6c661f3e3fd64</string>
 			<key>Key</key>
@@ -31,7 +31,7 @@
 		<key>Restore Ramdisk</key>
 		<dict>
 			<key>File Name</key>
-			<string>018-8613-062</string>
+			<string>018-8618-062</string>
 			<key>IV</key>
 			<string>193f5c4a3a8fb0643e9cac4020b67e1c</string>
 			<key>Key</key>
