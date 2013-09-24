@@ -1475,22 +1475,23 @@ namespace Hexware.Programs.iDecryptIt
         {
             string[] split = textInputFileName.Text.Split('\\');
             int length = split.Length;
-            string lastindex = split[length - 1];
-            string returntext = "";
+            string lastIndex = split[length - 1];
+            string returntext = null;
             for (int i = 0; i < length; i++)
             {
                 if (i == 0)
                 {
                     returntext = split[0];
                 }
-                else if (i == length)
+                else if (i == length - 1)
                 {
-                    returntext = returntext + "\\" + lastindex.Substring(0, split[length].Length - 4);
-                    returntext = returntext + "_decrypted.dmg";
+                    returntext = Path.Combine(
+                        returntext,
+                        lastIndex.Substring(0, lastIndex.Length - 4) + "_decrypted.dmg");
                 }
                 else
                 {
-                    returntext = returntext + "\\" + split[i];
+                    returntext = Path.Combine(returntext, split[i]);
                 }
             }
             textOutputFileName.Text = returntext;
@@ -1499,11 +1500,12 @@ namespace Hexware.Programs.iDecryptIt
         {
             // Remove "btn", then split
             string[] value = ((MenuItem)sender).Name.Substring(3).Split('_');
-            bool gm = value[1].Contains("GM");
+            /*bool gm = value[1].Contains("GM");
             if (gm)
             {
+                // remove GM
                 value[1] = value[1].Substring(0, value[1].Length - 2);
-            }
+            }*/
 
             // Add ',' between the two digits
             int length = value[0].Length - 1; // -1 for last digit (char)
@@ -1526,18 +1528,19 @@ namespace Hexware.Programs.iDecryptIt
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             // find a temp dir that doesn't exist
-            tempdir = null;
-            while (tempdir == null || !Directory.Exists(tempdir))
+            tempdir = Path.Combine(
+                Path.GetTempPath(),
+                "Hexware",
+                "iDecryptIt_" + new Random().Next(0, Int32.MaxValue).ToString("X"));
+
+            if (!Directory.Exists(tempdir))
             {
-                tempdir = Path.Combine(
-                    Path.GetTempPath(),
-                    "Hexware",
-                    "iDecryptIt_" + new Random().Next(0, Int32.MaxValue).ToString("X")) + "\\";
                 Directory.CreateDirectory(tempdir);
             }
 
+            tempdir = tempdir + "\\";
+
             // Check for updates
-            /* DISABLED UNTIL FINAL RELEASE
             try
             {
                 WebClient webClient = new WebClient();
@@ -1548,7 +1551,7 @@ namespace Hexware.Programs.iDecryptIt
                 if (File.ReadAllText(tempdir + "update.txt") != GlobalVars.Version)
                 {
                     MessageBox.Show(
-                        "Update Available!",
+                        "Update Available.",
                         "iDecryptIt: Update Available",
                         MessageBoxButton.OK,
                         MessageBoxImage.Information);
@@ -1556,7 +1559,7 @@ namespace Hexware.Programs.iDecryptIt
             }
             catch (Exception)
             {
-            }*/
+            }
 
             // Passed argument (see console portion)
             if (GlobalVars.ExecutionArgs.ContainsKey("dmg"))
