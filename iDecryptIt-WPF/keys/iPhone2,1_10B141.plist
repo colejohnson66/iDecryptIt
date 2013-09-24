@@ -3,12 +3,12 @@
 <plist>
 	<dict>
 		<key>Version</key>
-		<string>6.1</string>
+		<string>6.1b5 and 6.1</string>
 		<key>Build</key>
 		<string>10B141</string>
 		<key>Device</key>
 		<string>iPhone 3GS</string>
-		<key>aseband</key>
+		<key>Baseband</key>
 		<string>05.16.08</string>
 		<key>Codename</key>
 		<string>Brighton</string>
