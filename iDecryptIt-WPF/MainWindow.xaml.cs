@@ -959,7 +959,7 @@ namespace Hexware.Programs.iDecryptIt
         {
             #region Input Validation
             if (String.IsNullOrWhiteSpace(textInputFileName.Text) ||
-                String.IsNullOrWhiteSpace(textOuputFileName.Text) ||
+                String.IsNullOrWhiteSpace(textOutputFileName.Text) ||
                 String.IsNullOrWhiteSpace(textDecryptKey.Text))
             {
                 return;
@@ -973,7 +973,7 @@ namespace Hexware.Programs.iDecryptIt
                     MessageBoxImage.Error);
                 return;
             }
-            if (File.Exists(textOuputFileName.Text))
+            if (File.Exists(textOutputFileName.Text))
             {
                 if (MessageBox.Show(
                     "The output file already exists. Shall I delete it?",
@@ -983,12 +983,12 @@ namespace Hexware.Programs.iDecryptIt
                 {
                     return;
                 }
-                File.Delete(textOuputFileName.Text);
+                File.Delete(textOutputFileName.Text);
             }
             #endregion
 
             decryptFrom = textInputFileName.Text;
-            decryptTo = textOuputFileName.Text;
+            decryptTo = textOutputFileName.Text;
             decryptFromFile = new FileInfo(decryptFrom);
 
             ProcessStartInfo x = new ProcessStartInfo();
@@ -996,7 +996,7 @@ namespace Hexware.Programs.iDecryptIt
             x.RedirectStandardOutput = true;
             x.UseShellExecute = false;
             x.FileName = rundir + "dmg.exe";
-            x.Arguments = "extract \"" + textInputFileName.Text + "\" \"" + textOuputFileName.Text + "\" -k " + textDecryptKey.Text;
+            x.Arguments = "extract \"" + textInputFileName.Text + "\" \"" + textOutputFileName.Text + "\" -k " + textDecryptKey.Text;
             decryptProc = Process.Start(x);
             decryptProc.BeginOutputReadLine(); // The program pauses if the buffer is full
             decryptProc.BeginErrorReadLine();
@@ -1493,7 +1493,7 @@ namespace Hexware.Programs.iDecryptIt
                     returntext = returntext + "\\" + split[i];
                 }
             }
-            textOuputFileName.Text = returntext;
+            textOutputFileName.Text = returntext;
         }
         private void key_Click(object sender, RoutedEventArgs e)
         {
@@ -1525,12 +1525,14 @@ namespace Hexware.Programs.iDecryptIt
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            tempdir = Path.Combine(
-                Path.GetTempPath(),
-                "Hexware\\iDecryptIt_" + new Random().Next(0, Int32.MaxValue).ToString("X")) + "\\";
-
-            if (!Directory.Exists(tempdir))
+            // find a temp dir that doesn't exist
+            tempdir = null;
+            while (tempdir == null || !Directory.Exists(tempdir))
             {
+                tempdir = Path.Combine(
+                    Path.GetTempPath(),
+                    "Hexware",
+                    "iDecryptIt_" + new Random().Next(0, Int32.MaxValue).ToString("X")) + "\\";
                 Directory.CreateDirectory(tempdir);
             }
 

@@ -67,7 +67,7 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <TextBlock x:Name="txtOutputLabel" Text="Output File:  " HorizontalAlignment="Right" VerticalAlignment="Center" />
-                            <TextBox x:Name="textOuputFileName" Grid.Column="1" />
+                            <TextBox x:Name="textOutputFileName" Grid.Column="1" />
                         </Grid>
                         <Grid Grid.Column="6" Height="24">
                             <Grid.ColumnDefinitions>
