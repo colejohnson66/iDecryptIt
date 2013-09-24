@@ -10,6 +10,7 @@ using System.Net;
 using System.Text;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -58,6 +59,7 @@ namespace Hexware.Programs.iDecryptIt
                 {
                     decryptProg = ((new FileInfo(decryptTo).Length) * 100.0) / decryptFromFile.Length;
                     decryptworker.ReportProgress(0);
+                    Thread.Sleep(100);
                 }
             }
         }
@@ -66,9 +68,10 @@ namespace Hexware.Programs.iDecryptIt
             if (e.ProgressPercentage == 100)
             {
                 decryptworker.CancelAsync();
-                progDecrypt.Value = 100;
+                progDecrypt.Value = 100.0;
                 gridDecrypt.IsEnabled = true;
                 progDecrypt.Visibility = Visibility.Hidden;
+                return;
             }
             progDecrypt.Value = decryptProg;
         }
@@ -954,7 +957,7 @@ namespace Hexware.Programs.iDecryptIt
 
         private void btnDecrypt_Click(object sender, RoutedEventArgs e)
         {
-            #region Verify input
+            #region Input Validation
             if (String.IsNullOrWhiteSpace(textInputFileName.Text) ||
                 String.IsNullOrWhiteSpace(textOuputFileName.Text) ||
                 String.IsNullOrWhiteSpace(textDecryptKey.Text))
@@ -989,14 +992,14 @@ namespace Hexware.Programs.iDecryptIt
             decryptFromFile = new FileInfo(decryptFrom);
 
             ProcessStartInfo x = new ProcessStartInfo();
+            x.RedirectStandardError = true;
             x.RedirectStandardOutput = true;
             x.UseShellExecute = false;
             x.FileName = rundir + "dmg.exe";
             x.Arguments = "extract \"" + textInputFileName.Text + "\" \"" + textOuputFileName.Text + "\" -k " + textDecryptKey.Text;
             decryptProc = Process.Start(x);
-            //decryptProc = Process.Start(
-            //    rundir + "dmg.exe",
-            //    "extract \"" + textInputFileName.Text + "\" \"" + textOuputFileName.Text + "\" " + textDecryptKey.Text);
+            decryptProc.BeginOutputReadLine(); // The program pauses if the buffer is full
+            decryptProc.BeginErrorReadLine();
 
             // Screen mods
             gridDecrypt.IsEnabled = false;
@@ -1483,21 +1486,7 @@ namespace Hexware.Programs.iDecryptIt
                 else if (i == length)
                 {
                     returntext = returntext + "\\" + lastindex.Substring(0, split[length].Length - 4);
-                    /*switch (wantedlang)
-                    {
-                        case "en":
-                            returntext = returntext + "_decrypted.dmg";
-                            break;
-
-                        case "es":
-                            returntext = returntext + "_descifrado.dmg";
-                            break;
-
-                        default:*/
-                            // Fall back to English
-                            returntext = returntext + "_decrypted.dmg";
-                            //break;
-                    //}
+                    returntext = returntext + "_decrypted.dmg";
                 }
                 else
                 {
