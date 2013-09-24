@@ -75,7 +75,7 @@ namespace Hexware.Programs.iDecryptIt
 			if (!console)
 			{
 				// MainWindow.MainWindow() will FreeConsole() if `debug` is false
-				Console.WriteLine("(to launch the incomplete console version, use the //console switch)");
+				Console.WriteLine("(to launch the incomplete console version, use the /console switch)");
 				Console.WriteLine("Loading...");
 				MainWindow.debug = debug;
 				Thread.Sleep(500);

@@ -988,9 +988,15 @@ namespace Hexware.Programs.iDecryptIt
             decryptTo = textOuputFileName.Text;
             decryptFromFile = new FileInfo(decryptFrom);
 
-            decryptProc = Process.Start(
-                rundir + "dmg.exe",
-                "extract \"" + textInputFileName.Text + "\" \"" + textOuputFileName.Text + "\" " + textDecryptKey.Text);
+            ProcessStartInfo x = new ProcessStartInfo();
+            x.RedirectStandardOutput = true;
+            x.UseShellExecute = false;
+            x.FileName = rundir + "dmg.exe";
+            x.Arguments = "extract \"" + textInputFileName.Text + "\" \"" + textOuputFileName.Text + "\" -k " + textDecryptKey.Text;
+            decryptProc = Process.Start(x);
+            //decryptProc = Process.Start(
+            //    rundir + "dmg.exe",
+            //    "extract \"" + textInputFileName.Text + "\" \"" + textOuputFileName.Text + "\" " + textDecryptKey.Text);
 
             // Screen mods
             gridDecrypt.IsEnabled = false;
@@ -1570,6 +1576,7 @@ namespace Hexware.Programs.iDecryptIt
         private void Window_Closing(object sender, CancelEventArgs e)
         {
             Cleanup();
+            Application.Current.Shutdown();
         }
     }
 }
