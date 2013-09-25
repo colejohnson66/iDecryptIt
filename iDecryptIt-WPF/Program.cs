@@ -28,13 +28,12 @@ namespace Hexware.Programs.iDecryptIt
 {
 	internal static class Program
 	{
-		internal static bool debug = false;
-
 		[STAThread]
 		internal static void Main(string[] args)
 		{
 			// Initialization logic
 			bool console = false;
+		    bool debug = false;
 			for (int i = 0; i < args.Length; i++)
 			{
 				if (args[i] == "/console")
@@ -45,10 +44,10 @@ namespace Hexware.Programs.iDecryptIt
 				{
 					debug = true;
 				}
-				else if (args[i] == "/help")
+				/*else if (args[i] == "/help")
 				{
 					
-				}
+				}*/
 				else if (args[i].Length > 4 && args[i].Substring(args[i].Length - 4) == ".dmg")
 				{
 					if (GlobalVars.ExecutionArgs.ContainsKey("dmg"))
@@ -79,7 +78,7 @@ namespace Hexware.Programs.iDecryptIt
 				Console.WriteLine("Loading...");
 				MainWindow.debug = debug;
 				Thread.Sleep(500);
-				App.Main();
+				App.Main(); // returns on close
 				return;
 			}
 
@@ -87,7 +86,7 @@ namespace Hexware.Programs.iDecryptIt
 			Console.WriteLine("This feature is incomplete and may not work as expected or at all.");
 			Thread.Sleep(500);
 			Console.WriteLine("===============================================================================");
-			Console.WriteLine("  iDecryptIt " + GlobalVars.Version + " by Hexware, LLC");
+			Console.WriteLine("  iDecryptIt " + GlobalVars.Version + " by Hexware");
 			Console.WriteLine("===============================================================================");
 			bool exit = false;
 			ConsoleKeyInfo select;

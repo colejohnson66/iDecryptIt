@@ -1,7 +1,6 @@
 <Window x:Class="Hexware.Programs.iDecryptIt.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         Title="iDecryptIt"
         Icon="app.ico"
         Height="600" Width="800"
@@ -128,7 +127,72 @@
                 </Grid>
             </Grid>
         </Grid>
-        <Grid Grid.Row="2" x:Name="KeySelectArea" Margin="3,0">
+        <Grid Grid.Row="2" x:Name="ExtrasArea" Margin="3,0">
+            <Grid Margin="6" Background="{StaticResource GrayBorder}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="100" />
+                </Grid.ColumnDefinitions>
+                <Grid Margin="3,3,1,3" Background="White">
+                    <Grid Margin="6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="6" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="6" />
+                            <ColumnDefinition Width="Auto" MinWidth="75" />
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="btnWhatAmI" Click="btnWhatAmI_Click">
+                            <Grid Height="32">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="32" />
+                                    <ColumnDefinition Width="6" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="6" />
+                                </Grid.ColumnDefinitions>
+                                <Image Source="Images/Help-browser_32.png" />
+                                <TextBlock Grid.Column="2" Text="Identify Version" VerticalAlignment="Center" />
+                            </Grid>
+                        </Button>
+                        <Grid Grid.Column="2" Height="24">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock x:Name="textWhatAmIFileLabel" Text="File Name:  " HorizontalAlignment="Right" VerticalAlignment="Center" />
+                            <TextBox x:Name="textWhatAmIFileName" Grid.Column="1" />
+                        </Grid>
+                        <Button x:Name="btnSelectWhatAmIFile" Content="Select File" Grid.Column="4" Height="23" Click="btnSelectWhatAmIFile_Click" />
+                    </Grid>
+                </Grid>
+                <Grid Margin="2,3,3,3" Background="White" Grid.Column="1">
+                    <Grid Margin="6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="{StaticResource KeepItSquare}" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="{StaticResource KeepItSquare}" /><!--
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="{StaticResource KeepItSquare}" />-->
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="{StaticResource KeepItSquare}" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Button x:Name="btnREADME" Grid.Column="0" Grid.Row="1" ToolTip="README" Click="btnREADME_Click">
+                            <Image Source="Images/Help-browser_32.png" />
+                        </Button>
+                        <Button x:Name="btnChangelog" Grid.Column="2" Grid.Row="1" ToolTip="Changelog" Click="btnChangelog_Click">
+                            <Image Source="Images/Gnome-logviewer_32.png" />
+                        </Button><!--
+                        <Button x:Name="btnChangeLanguage" Grid.Column="4" Grid.Row="1" ToolTip="Change Language" Click="btnChangeLanguage_Click">
+                            <Image Source="Images/Preferences-desktop-locale_es_us_32.png" />
+                        </Button>-->
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="3" x:Name="KeySelectArea" Margin="3,0">
             <Grid Margin="6" Background="{StaticResource GrayBorder}">
                 <Grid Margin="3" Background="White">
                     <Grid Margin="6">
@@ -145,13 +209,12 @@
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
-                            <RowDefinition Height="{StaticResource KeepItSquare}" />
+                            <RowDefinition Height="Auto" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
-                        <xctk:DropDownButton Grid.Column="0" Grid.Row="1" ToolTip="Apple TV">
-                            Apple TV
-                            <xctk:DropDownButton.DropDownContent>
-                                <Menu>
+                        <Button Grid.Row="1" Grid.Column="0" Content="Apple TV" Click="keySelect_Click" ContextMenuService.IsEnabled="False">
+                            <Button.ContextMenu>
+                                <ContextMenu>
                                     <MenuItem x:Name="btnAppleTV21" Header="Apple TV 2G">
                                         <MenuItem x:Name="btnAppleTV21_8M89" Header="4.0/4.1 (8M89)" Click="key_Click" />
                                         <MenuItem x:Name="btnAppleTV21_8C150" Header="4.1/4.2 (8C150)" Click="key_Click" />
@@ -190,13 +253,12 @@
                                         <MenuItem x:Name="btnAppleTV32_10B809" Header="5.3/6.1.4 (10B809)" Click="key_Click" />
                                         <MenuItem x:Name="btnAppleTV32_11A470e" Header="6.0/7.0.1 (11A470a)" Click="key_Click" />
                                     </MenuItem>
-                                </Menu>
-                            </xctk:DropDownButton.DropDownContent>
-                        </xctk:DropDownButton>
-                        <xctk:DropDownButton Grid.Column="2" Grid.Row="1" ToolTip="Apple iPad">
-                            Apple iPad
-                            <xctk:DropDownButton.DropDownContent>
-                                <Menu>
+                                </ContextMenu>
+                            </Button.ContextMenu>
+                        </Button>
+                        <Button Grid.Row="1" Grid.Column="2" Content="Apple iPad" Click="keySelect_Click" ContextMenuService.IsEnabled="False">
+                            <Button.ContextMenu>
+                                <ContextMenu>
                                     <MenuItem Header="iPad 1G">
                                         <MenuItem x:Name="btnIPad11_7B367" Header="3.2 (7B367)" Click="key_Click" />
                                         <MenuItem x:Name="btnIPad11_7B405" Header="3.2.1 (7B405)" Click="key_Click" />
@@ -335,13 +397,12 @@
                                             <MenuItem x:Name="btnIPad36_11A465" Header="7.0 (11A465)" Click="key_Click" />
                                         </MenuItem>
                                     </MenuItem>
-                                </Menu>
-                            </xctk:DropDownButton.DropDownContent>
-                        </xctk:DropDownButton>
-                        <xctk:DropDownButton Grid.Column="4" Grid.Row="1" ToolTip="Apple iPad mini">
-                            Apple iPad mini 1G
-                            <xctk:DropDownButton.DropDownContent>
-                                <Menu>
+                                </ContextMenu>
+                            </Button.ContextMenu>
+                        </Button>
+                        <Button Grid.Row="1" Grid.Column="4" Content="Apple iPad mini 1G" Click="keySelect_Click" ContextMenuService.IsEnabled="False">
+                            <Button.ContextMenu>
+                                <ContextMenu>
                                     <MenuItem x:Name="btnIPad25" Header="iPad mini 1G (Wi-Fi)" ToolTip="iPad mini (Wi-Fi)">
                                         <MenuItem x:Name="btnIPad25_10A406" Header="6.0 (10A406)" Click="key_Click"/>
                                         <MenuItem x:Name="btnIPad25_10A523" Header="6.0.1 (10A523)" Click="key_Click" />
@@ -367,13 +428,12 @@
                                         <MenuItem x:Name="btnIPad27_10B329" Header="6.1.3 (10B329)" Click="key_Click" />
                                         <MenuItem x:Name="btnIPad27_11A465" Header="7.0 (11A465)" Click="key_Click" />
                                     </MenuItem>
-                                </Menu>
-                            </xctk:DropDownButton.DropDownContent>
-                        </xctk:DropDownButton>
-                        <xctk:DropDownButton Grid.Column="6" Grid.Row="1" ToolTip="Apple iPhone">
-                            Apple iPhone
-                            <xctk:DropDownButton.DropDownContent>
-                                <Menu>
+                                </ContextMenu>
+                            </Button.ContextMenu>
+                        </Button>
+                        <Button Grid.Row="1" Grid.Column="6" Content="Apple iPhone" Click="keySelect_Click" ContextMenuService.IsEnabled="False">
+                            <Button.ContextMenu>
+                                <ContextMenu>
                                     <MenuItem Header="iPhone 2G">
                                         <MenuItem x:Name="btnIPhone11_1A543a" Header="1.0 (1A543a)" Click="key_Click" />
                                         <MenuItem x:Name="btnIPhone11_1C25" Header="1.0.1 (1C25)" Click="key_Click" />
@@ -546,13 +606,12 @@
                                             <MenuItem x:Name="btnIPhone62_11A470a" Header="7.0.1 (11A470a)" Click="key_Click" />
                                         </MenuItem>
                                     </MenuItem>
-                                </Menu>
-                            </xctk:DropDownButton.DropDownContent>
-                        </xctk:DropDownButton>
-                        <xctk:DropDownButton Grid.Column="8" Grid.Row="1" ToolTip="Apple iPod touch">
-                            Apple iPod touch
-                            <xctk:DropDownButton.DropDownContent>
-                                <Menu>
+                                </ContextMenu>
+                            </Button.ContextMenu>
+                        </Button>
+                        <Button Grid.Row="1" Grid.Column="8" Content="Apple iPod touch" Click="keySelect_Click" ContextMenuService.IsEnabled="False">
+                            <Button.ContextMenu>
+                                <ContextMenu>
                                     <MenuItem x:Name="btnIPod11" Header="iPod touch 1G">
                                         <MenuItem x:Name="btnIPod11_3A100a" Header="1.1 (3A100a)" Click="key_Click" />
                                         <MenuItem x:Name="btnIPod11_3A101a" Header="1.1 (3A101a)" Click="key_Click" />
@@ -633,74 +692,9 @@
                                         <MenuItem x:Name="btnIPod51_10B329" Header="6.1.3 (10B329)" Click="key_Click" />
                                         <MenuItem x:Name="btnIPod51_11A465" Header="7.0 (11A465)" Click="key_Click" />
                                     </MenuItem>
-                                </Menu>
-                            </xctk:DropDownButton.DropDownContent>
-                        </xctk:DropDownButton>
-                    </Grid>
-                </Grid>
-            </Grid>
-        </Grid>
-        <Grid Grid.Row="3" x:Name="ExtrasArea" Margin="3,0">
-            <Grid Margin="6" Background="{StaticResource GrayBorder}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="100" />
-                </Grid.ColumnDefinitions>
-                <Grid Margin="3,3,1,3" Background="White">
-                    <Grid Margin="6">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="6" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="6" />
-                            <ColumnDefinition Width="Auto" MinWidth="75" />
-                        </Grid.ColumnDefinitions>
-                        <Button x:Name="btnWhatAmI" Click="btnWhatAmI_Click">
-                            <Grid Height="32">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="32" />
-                                    <ColumnDefinition Width="6" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="6" />
-                                </Grid.ColumnDefinitions>
-                                <Image Source="Images/Help-browser_32.png" />
-                                <TextBlock Grid.Column="2" Text="Identify Version" VerticalAlignment="Center" />
-                            </Grid>
+                                </ContextMenu>
+                            </Button.ContextMenu>
                         </Button>
-                        <Grid Grid.Column="2" Height="24">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <TextBlock x:Name="textWhatAmIFileLabel" Text="File Name:  " HorizontalAlignment="Right" VerticalAlignment="Center" />
-                            <TextBox x:Name="textWhatAmIFileName" Grid.Column="1" />
-                        </Grid>
-                        <Button x:Name="btnSelectWhatAmIFile" Content="Select File" Grid.Column="4" Height="23" Click="btnSelectWhatAmIFile_Click" />
-                    </Grid>
-                </Grid>
-                <Grid Margin="2,3,3,3" Background="White" Grid.Column="1">
-                    <Grid Margin="6">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="{StaticResource KeepItSquare}" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="{StaticResource KeepItSquare}" /><!--
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="{StaticResource KeepItSquare}" />-->
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="{StaticResource KeepItSquare}" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <Button x:Name="btnREADME" Grid.Column="0" Grid.Row="1" ToolTip="README" Click="btnREADME_Click">
-                            <Image Source="Images/Help-browser_32.png" />
-                        </Button>
-                        <Button x:Name="btnChangelog" Grid.Column="2" Grid.Row="1" ToolTip="Changelog" Click="btnChangelog_Click">
-                            <Image Source="Images/Gnome-logviewer_32.png" />
-                        </Button><!--
-                        <Button x:Name="btnChangeLanguage" Grid.Column="4" Grid.Row="1" ToolTip="Change Language" Click="btnChangeLanguage_Click">
-                            <Image Source="Images/Preferences-desktop-locale_es_us_32.png" />
-                        </Button>-->
                     </Grid>
                 </Grid>
             </Grid>
