@@ -192,9 +192,6 @@
     <None Include="Licenses\Ionic.Zip\License.zlib.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Licenses\Xceed.Wpf\license.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="Licenses\xpwn\LICENSE">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -203,9 +200,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Reference Include="Xceed.Wpf.Toolkit">
-      <HintPath>Resources\Xceed.Wpf.Toolkit.dll</HintPath>
-    </Reference>
     <Resource Include="Images\appicon.ico" />
     <Resource Include="Images\dmg.png" />
     <Resource Include="Images\Gnome-logviewer_16.png" />
@@ -469,7 +463,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.Increment" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" />
+      <UserProperties BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.None.Increment" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
