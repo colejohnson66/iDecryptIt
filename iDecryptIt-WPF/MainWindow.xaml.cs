@@ -1,5 +1,4 @@
 using Hexware.Plist;
-using Ionic.Zip;
 using Microsoft.Win32;
 using System;
 using System.ComponentModel;
@@ -245,6 +244,24 @@ namespace Hexware.Programs.iDecryptIt
             }
             #endregion
             #region Ramdisks
+            // Show everything
+            lblUpdateIV.Visibility = Visibility.Visible;
+            lblUpdateKey.Visibility = Visibility.Visible;
+            lblUpdateNoEncrypt.Visibility = Visibility.Visible;
+            keyUpdateIV.Visibility = Visibility.Visible;
+            keyUpdateKey.Visibility = Visibility.Visible;
+            keyUpdateNoEncrypt.Visibility = Visibility.Visible;
+            fileUpdate.Visibility = Visibility.Visible;
+            fileUpdateNoEncrypt.Visibility = Visibility.Visible;
+            lblRestoreIV.Visibility = Visibility.Visible;
+            lblRestoreKey.Visibility = Visibility.Visible;
+            lblRestoreNoEncrypt.Visibility = Visibility.Visible;
+            keyRestoreIV.Visibility = Visibility.Visible;
+            keyRestoreKey.Visibility = Visibility.Visible;
+            keyRestoreNoEncrypt.Visibility = Visibility.Visible;
+            fileRestore.Visibility = Visibility.Visible;
+            fileRestoreNoEncrypt.Visibility = Visibility.Visible;
+
             if (plist.Exists("No Update Ramdisk") && plist.Get<PlistBool>("No Update Ramdisk").Value)
             {
                 // Hide Update Ramdisk
@@ -259,8 +276,6 @@ namespace Hexware.Programs.iDecryptIt
             }
             else
             {
-                fileUpdate.Visibility = Visibility.Visible;
-                fileUpdateNoEncrypt.Visibility = Visibility.Visible;
                 fileUpdate.Text = plist.Get<PlistDict>("Update Ramdisk").Get<PlistString>("File Name").Value + ".dmg";
                 fileUpdateNoEncrypt.Text = fileUpdate.Text;
             }
@@ -273,7 +288,7 @@ namespace Hexware.Programs.iDecryptIt
             if ((plist.Exists("Ramdisk Not Encrypted") && plist.Get<PlistBool>("Ramdisk Not Encrypted").Value) ||
                 (!plist.Exists("Ramdisk Not Encrypted") && !plist.Get<PlistDict>("Restore Ramdisk").Exists("IV")))
             {
-                // Hide Encrypted Ramdisks
+                // Hide encrypted Ramdisks
                 lblUpdateIV.Visibility = Visibility.Collapsed;
                 lblUpdateKey.Visibility = Visibility.Collapsed;
                 keyUpdateIV.Visibility = Visibility.Collapsed;
@@ -287,7 +302,7 @@ namespace Hexware.Programs.iDecryptIt
             }
             else
             {
-                // Hide Unencrypted Ramdisks
+                // Hide unencrypted Ramdisks
                 lblUpdateNoEncrypt.Visibility = Visibility.Collapsed;
                 keyUpdateNoEncrypt.Visibility = Visibility.Collapsed;
                 fileUpdateNoEncrypt.Visibility = Visibility.Collapsed;
