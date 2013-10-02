@@ -359,12 +359,14 @@
     <EmbeddedResource Include="keys\iPhone3,1_10B146.plist" />
     <EmbeddedResource Include="keys\iPhone3,1_10B329.plist" />
     <EmbeddedResource Include="keys\iPhone3,1_11A465.plist" />
+    <EmbeddedResource Include="keys\iPhone3,1_11A501.plist" />
     <EmbeddedResource Include="keys\iPhone3,2_10A403.plist" />
     <EmbeddedResource Include="keys\iPhone3,2_10A523.plist" />
     <EmbeddedResource Include="keys\iPhone3,2_10B144.plist" />
     <EmbeddedResource Include="keys\iPhone3,2_10B146.plist" />
     <EmbeddedResource Include="keys\iPhone3,2_10B329.plist" />
     <EmbeddedResource Include="keys\iPhone3,2_11A465.plist" />
+    <EmbeddedResource Include="keys\iPhone3,2_11A501.plist" />
     <EmbeddedResource Include="keys\iPhone3,3_8E200.plist" />
     <EmbeddedResource Include="keys\iPhone3,3_8E303.plist" />
     <EmbeddedResource Include="keys\iPhone3,3_8E401.plist" />
@@ -380,6 +382,7 @@
     <EmbeddedResource Include="keys\iPhone3,3_10B146.plist" />
     <EmbeddedResource Include="keys\iPhone3,3_10B329.plist" />
     <EmbeddedResource Include="keys\iPhone3,3_11A465.plist" />
+    <EmbeddedResource Include="keys\iPhone3,3_11A501.plist" />
     <EmbeddedResource Include="keys\iPhone4,1_9A406.plist" />
     <EmbeddedResource Include="keys\iPod1,1_3A110a.plist" />
     <EmbeddedResource Include="keys\iPod1,1_3B48b.plist" />
@@ -451,7 +454,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.Increment" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" />
+      <UserProperties BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.None.Increment" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
