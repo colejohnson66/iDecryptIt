@@ -38,7 +38,7 @@ namespace Hexware.Programs.iDecryptIt
 			{
 				if (args[i] == "/console")
 				{
-					console = true;
+					//console = true;
 				}
 				else if (args[i] == "/debug")
 				{
@@ -74,7 +74,7 @@ namespace Hexware.Programs.iDecryptIt
 			if (!console)
 			{
 				// MainWindow.MainWindow() will FreeConsole() if `debug` is false
-				Console.WriteLine("(to launch the incomplete console version, use the /console switch)");
+				//Console.WriteLine("(to launch the incomplete console version, use the /console switch)");
 				Console.WriteLine("Loading...");
 				MainWindow.debug = debug;
 				Thread.Sleep(500);
@@ -214,7 +214,6 @@ namespace Hexware.Programs.iDecryptIt
 			Console.WriteLine("  7 Zip --------- GNU LGPL v2.1 with portions under unRAR restriction");
 			Console.WriteLine("  Hexware.Plist - GNU LGPL v3");
 			//Console.WriteLine("  Ionic.Zip ----- Ms-Pl with portions under Apache and a BSD-like license");
-			Console.WriteLine("  Xceed.Wpf ----- Ms-Pl");
 			Console.WriteLine("  xpwn dmg ------ GNU GPL v3");
 		}
 		internal static void Readme()
