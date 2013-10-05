@@ -26,9 +26,9 @@
 			<key>File Name</key>
 			<string>018-3881-4</string>
 			<key>IV</key>
-			<string>TODO</string>
+			<string>4089a0cc1526664d4ecda5447756b6a2</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>7df17fba69481d3d1c82e8f3c3779648</string>
 		</dict>
 		<key>Restore Ramdisk</key>
 		<dict>
@@ -44,81 +44,73 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>ac2bb3007164beaa32dbfbcd1a9f4826</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>9a35ddc405748e1acb2bc74be9c039d5</string>
 		</dict>
 		<key>BatteryLow0</key>
 		<dict>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>1fd704a626b0fe007ad46c06140a6ad0</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>58c8b75318f1503c2339852c8265dbd3</string>
 		</dict>
 		<key>BatteryLow1</key>
 		<dict>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>001f3c6b5137a7ebc652540a094c71da</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>cb1c751fd28fa254d111c49e40dcd807</string>
 		</dict>
 		<key>DeviceTree</key>
 		<dict>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>2c71827c46f54f236195d8d4ef7b1e98</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>9fee3d739fa079acc76c2ef508525abd</string>
 		</dict>
 		<key>GlyphCharging</key>
 		<dict>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>74324f7862d35bd5f9141395ceffc804</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>b0deafad784eeee9f1b41a34d076715f</string>
 		</dict>
 		<key>GlyphPlugin</key>
 		<dict>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>232abe78d479fdd80a767cfc0ca02b33</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>8bb9d426ccba11524fd3d3d4b631f108</string>
 		</dict>
 		<key>iBEC</key>
 		<dict>
 			<key>Encryption</key>
-			<true />
-			<key>IV</key>
-			<string>TODO</string>
-			<key>Key</key>
-			<string>TODO</string>
+			<false />
 		</dict>
 		<key>iBoot</key>
 		<dict>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>2819aca510bb7653b1a5991c5c195d39</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>ba0c56c504c255919d50d27e4664bce9</string>
 		</dict>
 		<key>iBSS</key>
 		<dict>
 			<key>Encryption</key>
-			<true />
-			<key>IV</key>
-			<string>TODO</string>
-			<key>Key</key>
-			<string>TODO</string>
+			<false />
 		</dict>
 		<key>Kernelcache</key>
 		<dict>
@@ -132,29 +124,25 @@
 		<key>LLB</key>
 		<dict>
 			<key>Encryption</key>
-			<true />
-			<key>IV</key>
-			<string>TODO</string>
-			<key>Key</key>
-			<string>TODO</string>
+			<false />
 		</dict>
 		<key>NeedService</key>
 		<dict>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>f35d5e11e9dae866889734922ce3553d</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>8488818c87dbea9199761628c59fa1da</string>
 		</dict>
 		<key>RecoveryMode</key>
 		<dict>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>8007e654e86c3f9294068de07b5d64ab</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>7c475bddb3c3b84e688812e05aa1f230</string>
 		</dict>
 	</dict>
 </plist>
