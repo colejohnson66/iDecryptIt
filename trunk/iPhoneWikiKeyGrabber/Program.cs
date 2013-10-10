@@ -11,7 +11,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 	{
 		// TODO: Replace XML with (WIP) OpenCF
 		static string[] links = new string[256];
-		static string[] blanks = new string[128];
+		static string[] blanks = new string[256];
 		static short linksPosition = 0;
 		static short blanksPosition = 0;
 		static string keyPath = Path.Combine(Directory.GetCurrentDirectory(), "keys");
@@ -121,7 +121,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 				{
 					url = nodes.Item(i).Attributes.Item(0).Value;
 					// Ignore download URLs
-					if (url.Contains("theiphonewiki.com/wiki/"))
+					if (url.Contains("theiphonewiki.com"))
 					{
 						// Is this a baseband link
 						for (int ii = 0; ii < 10; ii++)
@@ -207,28 +207,17 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 					// Halt because OCD
 					throw new Exception();
 				}
-				switch (key)
-				{
-					case "version":
-						key = "Version";
-						break;
-					case "build":
-						key = "Build";
-						break;
-					case "device":
-						key = "Device";
-						break;
-					case "codename":
-						key = "Codename";
-						break;
-					case "baseband":
-						key = "Baseband";
-						break;
-					case "downloadurl":
-						key = "Download";
-						break;
-				}
-				// Check for "Not Encrypted"
+                if (key == "version")
+                {
+                    // Old format pages
+                    throw new Exception();
+                }
+                if (key == "DownloadURL")
+                {
+                    key = "Download";
+                }
+
+				// Convert template to a dictionary
 				if (value.Trim() == "Not Encrypted")
 				{
 					data.Add(key.Replace("IV", "") + "NotEncrypted", "true");
@@ -247,7 +236,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 			string temp;
 			foreach (string thiskey in data.Keys)
 			{
-				if (thiskey == "rootfsdmg")
+				if (thiskey == "RootFS")
 				{
 					plist.AppendChild(xml.CreateElement("key"));
 					plist.ChildNodes.Item(num).InnerText = "Root FS";
@@ -258,18 +247,18 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 					plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("string"));
 					plist.ChildNodes.Item(num).ChildNodes.Item(1).InnerText = data[thiskey];
 				}
-				else if (thiskey == "rootfskey")
+				else if (thiskey == "RootFSKey")
 				{
 					plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("key"));
 					plist.ChildNodes.Item(num).ChildNodes.Item(2).InnerText = "Key";
 					plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("string"));
 					plist.ChildNodes.Item(num).ChildNodes.Item(3).InnerText = data[thiskey];
-					if (!data.ContainsKey("gmrootfskey"))
+                    if (!data.ContainsKey("GMRootFSKey"))
 					{
 						num++;
 					}
 				}
-				else if (thiskey == "gmrootfskey")
+                else if (thiskey == "GMRootFSKey")
 				{
 					plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("key"));
 					plist.ChildNodes.Item(num).ChildNodes.Item(4).InnerText = "GM Key";
@@ -277,7 +266,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 					plist.ChildNodes.Item(num).ChildNodes.Item(5).InnerText = data[thiskey];
 					num++;
 				}
-				else if (thiskey == "updatedmg")
+				else if (thiskey == "UpdateRamdisk")
 				{
 					plist.AppendChild(xml.CreateElement("key"));
 					plist.ChildNodes.Item(num).InnerText = "Update Ramdisk";
@@ -287,12 +276,12 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 					plist.ChildNodes.Item(num).ChildNodes.Item(0).InnerText = "File Name";
 					plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("string"));
 					plist.ChildNodes.Item(num).ChildNodes.Item(1).InnerText = data[thiskey];
-					if (!data.ContainsKey("updateiv"))
+					if (!data.ContainsKey("UpdateRamdiskIV"))
 					{
 						num++;
 					}
 				}
-				else if (thiskey == "restoredmg")
+				else if (thiskey == "RestoreRamdisk")
 				{
 					plist.AppendChild(xml.CreateElement("key"));
 					plist.ChildNodes.Item(num).InnerText = "Restore Ramdisk";
@@ -302,19 +291,19 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 					plist.ChildNodes.Item(num).ChildNodes.Item(0).InnerText = "File Name";
 					plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("string"));
 					plist.ChildNodes.Item(num).ChildNodes.Item(1).InnerText = data[thiskey];
-					if (!data.ContainsKey("restoreiv"))
+                    if (!data.ContainsKey("RestoreRamdiskIV"))
 					{
 						num++;
 					}
 				}
-				else if (thiskey == "updateiv" || thiskey == "restoreiv")
+                else if (thiskey == "UpdateRamdiskIV" || thiskey == "RestoreRamdiskIV")
 				{
 					plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("key"));
 					plist.ChildNodes.Item(num).ChildNodes.Item(2).InnerText = "IV";
 					plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("string"));
 					plist.ChildNodes.Item(num).ChildNodes.Item(3).InnerText = data[thiskey];
 				}
-				else if (thiskey == "updatekey" || thiskey == "restorekey")
+                else if (thiskey == "UpdateRamdiskKey" || thiskey == "RestoreRamdiskKey")
 				{
 					plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("key"));
 					plist.ChildNodes.Item(num).ChildNodes.Item(4).InnerText = "Key";
@@ -322,7 +311,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 					plist.ChildNodes.Item(num).ChildNodes.Item(5).InnerText = data[thiskey];
 					num++;
 				}
-				else if (thiskey == "noupdateramdisk")
+				else if (thiskey == "NoUpdateRamdisk")
 				{
 					plist.AppendChild(xml.CreateElement("key"));
 					plist.ChildNodes.Item(num).InnerText = "No Update Ramdisk";
@@ -330,7 +319,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 					plist.AppendChild(xml.CreateElement("true"));
 					num++;
 				}
-				else if (thiskey == "ramdisknotencrypted")
+				else if (thiskey == "RamdiskNotEncrypted")
 				{
 					plist.AppendChild(xml.CreateElement("key"));
 					plist.ChildNodes.Item(num).InnerText = "Ramdisk Not Encrypted";
@@ -363,7 +352,6 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 				}
 				else if (thiskey.Contains("NotEncrypted"))
 				{
-					// Not Encrypted
 					plist.AppendChild(xml.CreateElement("key"));
 					plist.ChildNodes.Item(num).InnerText = thiskey.Replace("NotEncrypted", "");
 					num++;
@@ -380,24 +368,6 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 					plist.ChildNodes.Item(num).InnerText = "Version";
 					num++;
 					plist.AppendChild(xml.CreateElement("string"));
-					/*temp = data[thiskey];
-					if (temp.Length > 5)
-					{
-						// trim to first '['
-						StringBuilder sb = new StringBuilder();
-						for (int i = 0; i < temp.Length; i++)
-						{
-							if (temp[i] == '[')
-							{
-								break;
-							}
-							sb.Append(temp[i]);
-						}
-						plist.ChildNodes.Item(num).InnerText = sb.ToString();
-						num++;
-						continue;
-					}
-					plist.ChildNodes.Item(num).InnerText = temp;*/
 					// Remove duplicate data from Golden Masters ([[Golden Master|GM]])
 					plist.ChildNodes.Item(num).InnerText = data[thiskey].Split('[')[0];
 					num++;
@@ -411,7 +381,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 					plist.ChildNodes.Item(num).InnerText = devices[data[thiskey]];
 					num++;
 				}
-                else if (thiskey == "displayversion")
+                else if (thiskey == "DisplayVersion")
                 {
                 }
                 else // Just something else
@@ -447,7 +417,9 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 			filename = Path.Combine(keyPath, device + "_" + build + ".plist");
 			if (File.Exists(filename))
 			{
-				File.Delete(filename);
+                // Something is wrong
+                throw new Exception();
+				//File.Delete(filename);
 			}
 			XmlWriter writer = XmlWriter.Create(filename, settings);
 			xml.Save(writer);
