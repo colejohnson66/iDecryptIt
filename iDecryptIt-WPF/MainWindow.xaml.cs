@@ -1212,8 +1212,16 @@ namespace Hexware.Programs.iDecryptIt
             x.RedirectStandardOutput = true;
             x.UseShellExecute = false;
             x.FileName = rundir + "dmg.exe";
-            x.Arguments = "extract \"" + textInputFileName.Text + "\" \"" + textOutputFileName.Text + "\" -k " + textDecryptKey.Text;
-            decryptProc = Process.Start(x);
+            x.Arguments = String.Format("extract \"{0}\" \"{1}\" -k {2}", textInputFileName.Text, textOutputFileName.Text, textDecryptKey.Text);
+            Debug("DECRYPT", "Args: " + x.Arguments);
+            x.ErrorDialog = true;
+
+            decryptProc = new Process();
+            decryptProc.EnableRaisingEvents = true;
+            decryptProc.OutputDataReceived +=decryptProc_OutputDataReceived;
+            decryptProc.StartInfo = x;
+            decryptProc.ErrorDataReceived += decryptProc_ErrorDataReceived;
+            decryptProc.Start();
             decryptProc.BeginOutputReadLine(); // The program pauses if the buffer is full
             decryptProc.BeginErrorReadLine();
 
@@ -1232,6 +1240,16 @@ namespace Hexware.Programs.iDecryptIt
             decryptworker.DoWork += decryptworker_DoWork;
             decryptworker.ProgressChanged += decryptworker_ProgressReported;
             decryptworker.RunWorkerAsync();
+        }
+
+        private void decryptProc_OutputDataReceived(object sender, DataReceivedEventArgs e)
+        {
+            Console.WriteLine(e.Data);
+        }
+
+        void decryptProc_ErrorDataReceived(object sender, DataReceivedEventArgs e)
+        {
+            Console.WriteLine(e.Data);
         }
         private void btnExtract_Click(object sender, RoutedEventArgs e)
         {
