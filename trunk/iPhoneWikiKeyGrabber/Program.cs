@@ -186,16 +186,13 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 			string[] lines = contents
 				.Replace("{{keys", "")
 				.Replace("}}", "")
+                .Replace(" | ", "")
 				.Split(new char[] { '\n', '\r' }, 100, StringSplitOptions.RemoveEmptyEntries);
-
-			// Remove " | " from lines
-			int length = lines.Length;
-			for (int i = 0; i < length; i++)
-				lines[i] = lines[i].Substring(3, lines[i].Length - 3);
 
 			// Prepare
 			string key;
-			string value;
+            string value;
+            int length = lines.Length;
 			Dictionary<string, string> data = new Dictionary<string, string>();
 			for (int i = 0; i < length; i++)
 			{
@@ -214,185 +211,185 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                 }
                 if (key == "DownloadURL")
                 {
-                    key = "Download";
+                    key = "Download URL";
                 }
 
 				// Convert template to a dictionary
-				if (value.Trim() == "Not Encrypted")
+				/*if (value.Trim() == "Not Encrypted")
 				{
 					data.Add(key.Replace("IV", "") + "NotEncrypted", "true");
 				}
 				else
-				{
+				{*/
 					data.Add(key, value.Trim());
-				}
+				//}
 			}
 
 			// Build XML
-			int num = 0; // what outer element we are on
+			int num = -1; // what outer element we are on
 			string device;
 			string build;
 			string filename;
-			string temp;
-			foreach (string thiskey in data.Keys)
+            Dictionary<string, string>.Enumerator dict = data.GetEnumerator();
+            while (dict.MoveNext())
 			{
-				if (thiskey == "RootFS")
-				{
-					plist.AppendChild(xml.CreateElement("key"));
-					plist.ChildNodes.Item(num).InnerText = "Root FS";
-					num++;
-					plist.AppendChild(xml.CreateElement("dict"));
-					plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("key"));
-					plist.ChildNodes.Item(num).ChildNodes.Item(0).InnerText = "File Name";
-					plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("string"));
-					plist.ChildNodes.Item(num).ChildNodes.Item(1).InnerText = data[thiskey];
-				}
-				else if (thiskey == "RootFSKey")
-				{
-					plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("key"));
-					plist.ChildNodes.Item(num).ChildNodes.Item(2).InnerText = "Key";
-					plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("string"));
-					plist.ChildNodes.Item(num).ChildNodes.Item(3).InnerText = data[thiskey];
-                    if (!data.ContainsKey("GMRootFSKey"))
-					{
-						num++;
-					}
-				}
-                else if (thiskey == "GMRootFSKey")
-				{
-					plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("key"));
-					plist.ChildNodes.Item(num).ChildNodes.Item(4).InnerText = "GM Key";
-					plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("string"));
-					plist.ChildNodes.Item(num).ChildNodes.Item(5).InnerText = data[thiskey];
-					num++;
-				}
-				else if (thiskey == "UpdateRamdisk")
-				{
-					plist.AppendChild(xml.CreateElement("key"));
-					plist.ChildNodes.Item(num).InnerText = "Update Ramdisk";
-					num++;
-					plist.AppendChild(xml.CreateElement("dict"));
-					plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("key"));
-					plist.ChildNodes.Item(num).ChildNodes.Item(0).InnerText = "File Name";
-					plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("string"));
-					plist.ChildNodes.Item(num).ChildNodes.Item(1).InnerText = data[thiskey];
-					if (!data.ContainsKey("UpdateRamdiskIV"))
-					{
-						num++;
-					}
-				}
-				else if (thiskey == "RestoreRamdisk")
-				{
-					plist.AppendChild(xml.CreateElement("key"));
-					plist.ChildNodes.Item(num).InnerText = "Restore Ramdisk";
-					num++;
-					plist.AppendChild(xml.CreateElement("dict"));
-					plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("key"));
-					plist.ChildNodes.Item(num).ChildNodes.Item(0).InnerText = "File Name";
-					plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("string"));
-					plist.ChildNodes.Item(num).ChildNodes.Item(1).InnerText = data[thiskey];
-                    if (!data.ContainsKey("RestoreRamdiskIV"))
-					{
-						num++;
-					}
-				}
-                else if (thiskey == "UpdateRamdiskIV" || thiskey == "RestoreRamdiskIV")
-				{
-					plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("key"));
-					plist.ChildNodes.Item(num).ChildNodes.Item(2).InnerText = "IV";
-					plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("string"));
-					plist.ChildNodes.Item(num).ChildNodes.Item(3).InnerText = data[thiskey];
-				}
-                else if (thiskey == "UpdateRamdiskKey" || thiskey == "RestoreRamdiskKey")
-				{
-					plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("key"));
-					plist.ChildNodes.Item(num).ChildNodes.Item(4).InnerText = "Key";
-					plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("string"));
-					plist.ChildNodes.Item(num).ChildNodes.Item(5).InnerText = data[thiskey];
-					num++;
-				}
-				else if (thiskey == "NoUpdateRamdisk")
-				{
-					plist.AppendChild(xml.CreateElement("key"));
-					plist.ChildNodes.Item(num).InnerText = "No Update Ramdisk";
-					num++;
-					plist.AppendChild(xml.CreateElement("true"));
-					num++;
-				}
-				else if (thiskey == "RamdiskNotEncrypted")
-				{
-					plist.AppendChild(xml.CreateElement("key"));
-					plist.ChildNodes.Item(num).InnerText = "Ramdisk Not Encrypted";
-					num++;
-					plist.AppendChild(xml.CreateElement("true"));
-					num++;
-				}
-				else if (thiskey.Contains("IV"))
-				{
-					plist.AppendChild(xml.CreateElement("key"));
-					plist.ChildNodes.Item(num).InnerText = thiskey.Replace("IV", "");
-					num++;
-					plist.AppendChild(xml.CreateElement("dict"));
-					plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("key"));
-					plist.ChildNodes.Item(num).ChildNodes.Item(0).InnerText = "Encryption";
-					plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("true"));
-					// 
-					plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("key"));
-					plist.ChildNodes.Item(num).ChildNodes.Item(2).InnerText = "IV";
-					plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("string"));
-					plist.ChildNodes.Item(num).ChildNodes.Item(3).InnerText = data[thiskey];
-				}
-				else if (thiskey.Contains("Key"))
-				{
-					plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("key"));
-					plist.ChildNodes.Item(num).ChildNodes.Item(4).InnerText = "Key";
-					plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("string"));
-					plist.ChildNodes.Item(num).ChildNodes.Item(5).InnerText = data[thiskey];
-					num++;
-				}
-				else if (thiskey.Contains("NotEncrypted"))
-				{
-					plist.AppendChild(xml.CreateElement("key"));
-					plist.ChildNodes.Item(num).InnerText = thiskey.Replace("NotEncrypted", "");
-					num++;
-					plist.AppendChild(xml.CreateElement("dict"));
-					plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("key"));
-					plist.ChildNodes.Item(num).ChildNodes.Item(0).InnerText = "Encryption";
-					plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("false"));
-					//
-					num++;
-				}
-				else if (thiskey == "Version")
-				{
-					plist.AppendChild(xml.CreateElement("key"));
-					plist.ChildNodes.Item(num).InnerText = "Version";
-					num++;
-					plist.AppendChild(xml.CreateElement("string"));
-					// Remove duplicate data from Golden Masters ([[Golden Master|GM]])
-					plist.ChildNodes.Item(num).InnerText = data[thiskey].Split('[')[0];
-					num++;
-				}
-				else if (thiskey == "Device")
-				{
-					plist.AppendChild(xml.CreateElement("key"));
-					plist.ChildNodes.Item(num).InnerText = thiskey;
-					num++;
-					plist.AppendChild(xml.CreateElement("string"));
-					plist.ChildNodes.Item(num).InnerText = devices[data[thiskey]];
-					num++;
-				}
-                else if (thiskey == "DisplayVersion")
+                KeyValuePair<string, string> elem = dict.Current;
+                if (elem.Key == "RootFS")
                 {
+                    plist.AppendChild(xml.CreateElement("key"));
+                    num++;
+                    plist.ChildNodes.Item(num).InnerText = "Root FS";
+                    plist.AppendChild(xml.CreateElement("dict"));
+                    num++;
+                    
+                    plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("key"));
+                    plist.ChildNodes.Item(num).ChildNodes.Item(0).InnerText = "File Name";
+                    plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("string"));
+                    plist.ChildNodes.Item(num).ChildNodes.Item(1).InnerText = elem.Value + ".dmg";
+
+                    dict.MoveNext();
+                    elem = dict.Current;
+                    Assert(elem.Key == "RootFSKey");
+                    plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("key"));
+                    plist.ChildNodes.Item(num).ChildNodes.Item(2).InnerText = "Key";
+                    plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("string"));
+                    plist.ChildNodes.Item(num).ChildNodes.Item(3).InnerText = elem.Value + ".dmg";
+
+                    if (!data.ContainsKey("GMRootFSKey"))
+                    {
+                        continue;
+                    }
+                    dict.MoveNext();
+                    elem = dict.Current;
+                    plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("key"));
+                    plist.ChildNodes.Item(num).ChildNodes.Item(4).InnerText = "Key";
+                    plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("string"));
+                    plist.ChildNodes.Item(num).ChildNodes.Item(5).InnerText = elem.Value + ".dmg";
+                }
+                else if (elem.Key == "NoUpdateRamdisk")
+                {
+                    plist.AppendChild(xml.CreateElement("key"));
+                    num++;
+                    plist.ChildNodes.Item(num).InnerText = "No Update Ramdisk";
+                    plist.AppendChild(xml.CreateElement("true"));
+                    num++;
+                }
+                else if (elem.Key == "RamdiskNotEncrypted")
+                {
+                    plist.AppendChild(xml.CreateElement("key"));
+                    plist.ChildNodes.Item(num).InnerText = "Ramdisk Not Encrypted";
+                    num++;
+                    plist.AppendChild(xml.CreateElement("true"));
+                    num++;
+                }
+                else if (elem.Key == "UpdateRamdisk" || elem.Key == "RestoreRamdisk")
+                {
+				    string elemKey = elem.Key;
+                    plist.AppendChild(xml.CreateElement("key"));
+                    num++;
+                    plist.ChildNodes.Item(num).InnerText = elemKey.Replace("Ram", " Ram");
+                    plist.AppendChild(xml.CreateElement("dict"));
+                    num++;
+
+                    plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("key"));
+                    plist.ChildNodes.Item(num).ChildNodes.Item(0).InnerText = "File Name";
+                    plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("string"));
+                    plist.ChildNodes.Item(num).ChildNodes.Item(1).InnerText = elem.Value + ".dmg";
+
+                    if (data.ContainsKey("RamdiskNotEncrypted"))
+                    {
+                        continue;
+                    }
+
+                    dict.MoveNext();
+                    elem = dict.Current;
+                    Assert(elem.Key == elemKey + "IV");
+                    plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("key"));
+                    plist.ChildNodes.Item(num).ChildNodes.Item(2).InnerText = "IV";
+                    plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("string"));
+                    plist.ChildNodes.Item(num).ChildNodes.Item(3).InnerText = elem.Value;
+
+                    dict.MoveNext();
+                    elem = dict.Current;
+                    Assert(elem.Key == elemKey + "Key");
+                    plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("key"));
+                    plist.ChildNodes.Item(num).ChildNodes.Item(4).InnerText = "Key";
+                    plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("string"));
+                    plist.ChildNodes.Item(num).ChildNodes.Item(5).InnerText = elem.Value;
+                }
+                else if (elem.Key != "Version" && elem.Key != "DisplayVersion" &&
+                    elem.Key != "Build" && elem.Key != "Device" && elem.Key != "Codename" &&
+                    elem.Key != "Baseband" && elem.Key != "Download URL")
+                {
+                    // An IMG3 file
+                    plist.AppendChild(xml.CreateElement("key"));
+                    num++;
+                    plist.ChildNodes.Item(num).InnerText = elem.Key;
+                    plist.AppendChild(xml.CreateElement("dict"));
+                    num++;
+
+                    dict.MoveNext();
+                    elem = dict.Current;
+                    if (elem.Value == "Not Encrypted")
+                    {
+                    }
+                    else
+                    {
+                    }
+                }
+                else if (elem.Key.Contains("IV"))
+                {
+                    plist.AppendChild(xml.CreateElement("key"));
+                    plist.ChildNodes.Item(num).InnerText = elem.Key.Replace("IV", "");
+                    num++;
+                    plist.AppendChild(xml.CreateElement("dict"));
+                    plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("key"));
+                    plist.ChildNodes.Item(num).ChildNodes.Item(0).InnerText = "Encryption";
+                    plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("true"));
+                    // 
+                    plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("key"));
+                    plist.ChildNodes.Item(num).ChildNodes.Item(2).InnerText = "IV";
+                    plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("string"));
+                    plist.ChildNodes.Item(num).ChildNodes.Item(3).InnerText = elem.Value;
+                }
+                else if (elem.Key.Contains("Key"))
+                {
+                    plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("key"));
+                    plist.ChildNodes.Item(num).ChildNodes.Item(4).InnerText = "Key";
+                    plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("string"));
+                    plist.ChildNodes.Item(num).ChildNodes.Item(5).InnerText = elem.Value;
+                    num++;
+                }
+                else if (elem.Key == "Version")
+                {
+                    plist.AppendChild(xml.CreateElement("key"));
+                    num++;
+                    plist.ChildNodes.Item(num).InnerText = "Version";
+                    plist.AppendChild(xml.CreateElement("string"));
+                    num++;
+                    // Remove duplicate data from Golden Masters ([[Golden Master|GM]])
+                    plist.ChildNodes.Item(num).InnerText = elem.Value.Split('[')[0];
+                }
+                else if (elem.Key == "DisplayVersion")
+                {
+                }
+                else if (elem.Key == "Device")
+                {
+                    plist.AppendChild(xml.CreateElement("key"));
+                    num++;
+                    plist.ChildNodes.Item(num).InnerText = "Device";
+                    plist.AppendChild(xml.CreateElement("string"));
+                    num++;
+                    plist.ChildNodes.Item(num).InnerText = devices[elem.Value];
                 }
                 else // Just something else
                 {
                     plist.AppendChild(xml.CreateElement("key"));
-                    plist.ChildNodes.Item(num).InnerText = thiskey;
                     num++;
-                    temp = data[thiskey];
+                    plist.ChildNodes.Item(num).InnerText = elem.Key;
                     plist.AppendChild(xml.CreateElement("string"));
-                    plist.ChildNodes.Item(num).InnerText = temp;
                     num++;
+                    plist.ChildNodes.Item(num).InnerText = elem.Value;
                 }
 			}
 
@@ -425,5 +422,13 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 			xml.Save(writer);
 			writer.Close();
 		}
+
+        static void Assert(bool cond)
+        {
+            if (!cond)
+            {
+                throw new Exception();
+            }
+        }
 	}
 }
