@@ -218,10 +218,10 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 				}
 				else if (key == "DisplayVersion")
 				{
-					data["Version"] == "DisplayVersion";
+					data["Version"] = "DisplayVersion";
 					continue;
 				}
-			`	else if (key == "DownloadURL")
+				else if (key == "DownloadURL")
 				{
 					key = "Download URL";
 				}
@@ -242,7 +242,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 				num++;
 			}
 			
-			BuildXml(plist, keys, data);
+			BuildXml(plist, keys, data, xml);
 
 			string filename = GetFilename(data);
 			if (File.Exists(filename))
@@ -256,10 +256,10 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 			writer.Close();
 		}
 		
-		public static void BuildXml(XmlNode plist, string[] keys, Dictionary<string, string> data)
+		public static void BuildXml(XmlNode plist, string[] keys, Dictionary<string, string> data, XmlDocument xml)
 		{
 			// What outer-most element we are on; incremented AFTER element is used
-			num = 0; // what outer-most element we are on - in
+			int num = 0; // what outer-most element we are on - in
 			
 			for (int i = 0; i < data.Count; i++)
 			{
@@ -353,16 +353,16 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 				    thiskey == "GlyphPlugin" || thiskey == "iBEC" ||
 				    thiskey == "iBoot" || thiskey == "iBSS" ||
 				    thiskey == "Kernelcache" || thiskey == "LLB" ||
-				    thiskey == "NeedService" || thiskey == "RecoveryMode"
+				    thiskey == "NeedService" || thiskey == "RecoveryMode" ||
 				    thiskey == "SEP-Firmware")
 				{
 					plist.AppendChild(xml.CreateElement("key"));
 					plist.ChildNodes.Item(num).InnerText = thiskey;
 					num++;
 					plist.AppendChild(xml.CreateElement("dict"));
-					plist.ChildNodes.Item(num).Appendchild(xml.CreateElement("key"));
+					plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("key"));
 					plist.ChildNodes.Item(num).ChildNodes.Item(0).InnerText = "Encryption";
-					if (dict[thiskey + "IV"] == "Not Encrypted")
+					if (data[thiskey + "IV"] == "Not Encrypted")
 					{
 						plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("false"));
 					}
@@ -372,11 +372,11 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 						plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("key"));
 						plist.ChildNodes.Item(num).ChildNodes.Item(2).InnerText = "IV";
 						plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("string"));
-						plist.ChildNodes.Item(num).ChildNodes.Item(3).InnerText = dict[thiskey + "IV"];
+						plist.ChildNodes.Item(num).ChildNodes.Item(3).InnerText = data[thiskey + "IV"];
 						plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("key"));
 						plist.ChildNodes.Item(num).ChildNodes.Item(4).InnerText = "Key";
 						plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("string"));
-						plist.ChildNodes.Item(num).ChildNodes.Item(5).InnerText = dict[thiskey + "Key"];
+						plist.ChildNodes.Item(num).ChildNodes.Item(5).InnerText = data[thiskey + "Key"];
 					}
 					num++;
 				}
@@ -386,9 +386,8 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 					plist.AppendChild(xml.CreateElement("key"));
 					plist.ChildNodes.Item(num).InnerText = thiskey;
 					num++;
-					temp = data[thiskey];
 					plist.AppendChild(xml.CreateElement("string"));
-					plist.ChildNodes.Item(num).InnerText = temp;
+					plist.ChildNodes.Item(num).InnerText = data[thiskey];
 					num++;
 				}
 			}
