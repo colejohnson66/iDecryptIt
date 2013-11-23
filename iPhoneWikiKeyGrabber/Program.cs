@@ -218,14 +218,14 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 				}
 				else if (key == "DisplayVersion")
 				{
-					data["Version"] = "DisplayVersion";
+					data["Version"] = value.Trim();
 					continue;
 				}
 				else if (key == "DownloadURL")
 				{
 					key = "Download URL";
 				}
-				else if (key.Contains("SEPFirmware"))
+				else if (key.StartsWith("SEPFirmware"))
 				{
 					key = key.Replace("SEPFirmware", "SEP-Firmware");
 				}
@@ -299,7 +299,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 					plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("string"));
 					plist.ChildNodes.Item(num).ChildNodes.Item(1).InnerText = data["RootFS"];
 					plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("key"));
-					plist.ChildNodes.Item(num).ChildNodes.Item(2).InnerText = "Key"
+                    plist.ChildNodes.Item(num).ChildNodes.Item(2).InnerText = "Key";
 					plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("string"));
 					plist.ChildNodes.Item(num).ChildNodes.Item(3).InnerText = data["RootFSKey"];
 					if (data.ContainsKey("GMRootFSKey"))
@@ -308,7 +308,6 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 						plist.ChildNodes.Item(num).ChildNodes.Item(4).InnerText = "GM Key";
 						plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("string"));
 						plist.ChildNodes.Item(num).ChildNodes.Item(5).InnerText = data["GMRootFSKey"];
-						num++;
 					}
 					num++;
 				}
@@ -332,17 +331,24 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 					plist.ChildNodes.Item(num).ChildNodes.Item(1).InnerText = data[thiskey];
 					plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("key"));
 					plist.ChildNodes.Item(num).ChildNodes.Item(2).InnerText = "Encryption";
-					if (data.ContainsKey("RamdiskNotEncrypted"))
+                    string build = data["Build"];
+					if (data.ContainsKey("RamdiskNotEncrypted") ||
+                        build[0] == '1' || build[0] == '3' || build[0] == '4' ||
+                        build == "5A147p" || build == "5A225c" || build == "5A240d")
 					{
 						plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("false"));
 					}
 					else
 					{
-						plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("true"));
-						plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("IV"));
-						plist.ChildNodes.Item(num).ChildNodes.Item(4).InnerText = data[thiskey + "IV"];
-						plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("Key"));
-						plist.ChildNodes.Item(num).ChildNodes.Item(5).InnerText = data[thiskey + "Key"];
+                        plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("true"));
+                        plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("key"));
+                        plist.ChildNodes.Item(num).ChildNodes.Item(4).InnerText = "IV";
+                        plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("string"));
+                        plist.ChildNodes.Item(num).ChildNodes.Item(5).InnerText = data[thiskey + "IV"];
+                        plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("key"));
+                        plist.ChildNodes.Item(num).ChildNodes.Item(6).InnerText = "Key";
+                        plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("string"));
+                        plist.ChildNodes.Item(num).ChildNodes.Item(7).InnerText = data[thiskey + "Key"];
 					}
 					num++;
 				}
@@ -380,16 +386,18 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 					}
 					num++;
 				}
-				else // Just something else
-				{
-					throw new Exception();
-					plist.AppendChild(xml.CreateElement("key"));
-					plist.ChildNodes.Item(num).InnerText = thiskey;
-					num++;
-					plist.AppendChild(xml.CreateElement("string"));
-					plist.ChildNodes.Item(num).InnerText = data[thiskey];
-					num++;
-				}
+                else if (thiskey.EndsWith("IV") || thiskey.EndsWith("Key") || thiskey == "RamdiskNotEncrypted")
+                {
+                }
+                else // Just something else
+                {
+                    plist.AppendChild(xml.CreateElement("key"));
+                    plist.ChildNodes.Item(num).InnerText = thiskey;
+                    num++;
+                    plist.AppendChild(xml.CreateElement("string"));
+                    plist.ChildNodes.Item(num).InnerText = data[thiskey];
+                    num++;
+                }
 			}
 		}
 
