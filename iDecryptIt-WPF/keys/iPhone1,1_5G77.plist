@@ -12,7 +12,7 @@
 		<string>Timberline</string>
 		<key>Baseband</key>
 		<string>04.05.04_G</string>
-		<key>Download</key>
+		<key>Download URL</key>
 		<string>http://appldnld.apple.com.edgesuite.net/content.info.apple.com/iPhone/061-5779.20081120.Pt5yH/iPhone1,1_2.2_5G77_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
@@ -25,6 +25,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>018-4377-1</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>TODO</string>
 			<key>Key</key>
@@ -34,6 +36,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>018-4378-1</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>182cdda90a38870de96880ee7ff5bbbc</string>
 			<key>Key</key>
@@ -96,11 +100,7 @@
 		<key>iBEC</key>
 		<dict>
 			<key>Encryption</key>
-			<true />
-			<key>IV</key>
-			<string>TODO</string>
-			<key>Key</key>
-			<string>TODO</string>
+			<false />
 		</dict>
 		<key>iBoot</key>
 		<dict>
@@ -114,11 +114,7 @@
 		<key>iBSS</key>
 		<dict>
 			<key>Encryption</key>
-			<true />
-			<key>IV</key>
-			<string>TODO</string>
-			<key>Key</key>
-			<string>TODO</string>
+			<false />
 		</dict>
 		<key>Kernelcache</key>
 		<dict>
@@ -132,11 +128,7 @@
 		<key>LLB</key>
 		<dict>
 			<key>Encryption</key>
-			<true />
-			<key>IV</key>
-			<string>TODO</string>
-			<key>Key</key>
-			<string>TODO</string>
+			<false />
 		</dict>
 		<key>NeedService</key>
 		<dict>

@@ -3,14 +3,14 @@
 <plist>
 	<dict>
 		<key>Version</key>
-		<string>4.2</string>
+		<string>4.2 (4.3)</string>
 		<key>Build</key>
 		<string>8F191m</string>
 		<key>Device</key>
 		<string>Apple TV 2G</string>
 		<key>Codename</key>
 		<string>Durango</string>
-		<key>Download</key>
+		<key>Download URL</key>
 		<string>http://appldnld.apple.com/AppleTV/061-9584.20110308.Cxdew/AppleTV2,1_4.3_8F191m_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
@@ -21,12 +21,12 @@
 		</dict>
 		<key>No Update Ramdisk</key>
 		<true />
-		<key>Ramdisk Not Encrypted</key>
-		<true />
 		<key>Restore Ramdisk</key>
 		<dict>
 			<key>File Name</key>
 			<string>038-0791-023</string>
+			<key>Encryption</key>
+			<false />
 		</dict>
 		<key>AppleLogo</key>
 		<dict>

@@ -21,6 +21,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>018-3984-1</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>537eb4e7129ea81f572ec23dbec42b80</string>
 			<key>Key</key>
@@ -30,6 +32,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>018-3990-1</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>TODO</string>
 			<key>Key</key>
@@ -92,11 +96,7 @@
 		<key>iBEC</key>
 		<dict>
 			<key>Encryption</key>
-			<true />
-			<key>IV</key>
-			<string>TODO</string>
-			<key>Key</key>
-			<string>TODO</string>
+			<false />
 		</dict>
 		<key>iBoot</key>
 		<dict>
@@ -110,11 +110,7 @@
 		<key>iBSS</key>
 		<dict>
 			<key>Encryption</key>
-			<true />
-			<key>IV</key>
-			<string>TODO</string>
-			<key>Key</key>
-			<string>TODO</string>
+			<false />
 		</dict>
 		<key>Kernelcache</key>
 		<dict>
@@ -128,11 +124,7 @@
 		<key>LLB</key>
 		<dict>
 			<key>Encryption</key>
-			<true />
-			<key>IV</key>
-			<string>TODO</string>
-			<key>Key</key>
-			<string>TODO</string>
+			<false />
 		</dict>
 		<key>NeedService</key>
 		<dict>

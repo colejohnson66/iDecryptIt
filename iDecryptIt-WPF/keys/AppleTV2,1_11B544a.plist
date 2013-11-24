@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist>
+	<dict>
+		<key>Version</key>
+		<string>6.0.2 (7.0.4)</string>
+		<key>Build</key>
+		<string>11B544a</string>
+		<key>Device</key>
+		<string>Apple TV 2G</string>
+		<key>Codename</key>
+		<string>InnsbruckTaos</string>
+		<key>Download URL</key>
+		<string>http://appldnld.apple.com/iOS7/031-1765.20131114.P3wE4/AppleTV2,1_6.0.2_11B554a_Restore.ipsw</string>
+		<key>Root FS</key>
+		<dict>
+			<key>File Name</key>
+			<string>058-1087-002</string>
+			<key>Key</key>
+			<string>828bad3149b4f268155606d4863cae9622b4653a9e4956b9a63b5c806fb6d0a2dc61477e</string>
+		</dict>
+		<key>No Update Ramdisk</key>
+		<true />
+		<key>Restore Ramdisk</key>
+		<dict>
+			<key>File Name</key>
+			<string>058-1056-002</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>54a0946552b402886107771c2fb594d4</string>
+			<key>Key</key>
+			<string>4337a012fab9e5e593b6092dbff1aa299915322c1039ec4d8305483c91bfa452</string>
+		</dict>
+		<key>AppleLogo</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>9ae516d12c0a4de5ba25d90eaf638c19</string>
+			<key>Key</key>
+			<string>b04550e1b9b59036bb3be7cfe2c64529f6f765e6ab0b79c3b692b4ad140056d2</string>
+		</dict>
+		<key>DeviceTree</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>fa4076add1867c967c3bb3e91806fbca</string>
+			<key>Key</key>
+			<string>74cd04e5a4c12c6c6add83f174d6ac2ab4c240b652e35b079ecc583c7a0815ba</string>
+		</dict>
+		<key>iBEC</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>d892a1d5f0ac647b2977eeb1942a3d8e</string>
+			<key>Key</key>
+			<string>f755524f30465cbb3451b9e150cfd2c5eb1b174b318106dfe87b2f1ab52f2ded</string>
+		</dict>
+		<key>iBoot</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>d38580872c9ce8f6c4b3eba938896c21</string>
+			<key>Key</key>
+			<string>a8ff04394318c021e5a634f7fc812f21d85675a099fa2e830b5ef9f293f1e6d6</string>
+		</dict>
+		<key>iBSS</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>db0da94f80213aca4a2d085811c3c914</string>
+			<key>Key</key>
+			<string>9cb3deeb02aef20607e164cf15ded051554bc2f43c656581d8defb6278a0c08b</string>
+		</dict>
+		<key>Kernelcache</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>620931064812b5fab0932a1211929404</string>
+			<key>Key</key>
+			<string>5b46e1f0c520c464ff9610242fac99fe485b334c771851aa301e30e6291d87e4</string>
+		</dict>
+		<key>LLB</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>1d4fdfdd90863f9b4c4098c32284bcd4</string>
+			<key>Key</key>
+			<string>081e3c76e5a627bb02fb9c0b0d85570d5dc3e5f8bb146c0dd99049bd558f5a24</string>
+		</dict>
+		<key>RecoveryMode</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>08f4fc0535d52da3fe3adf2aba776dde</string>
+			<key>Key</key>
+			<string>3e2d4000ed633565a577b4f25121d51bc8f97be598ed5ffabb2b3158faf1d4bd</string>
+		</dict>
+	</dict>
+</plist>

@@ -12,7 +12,7 @@
 		<string>Apex</string>
 		<key>Baseband</key>
 		<string>01.59.00</string>
-		<key>Download</key>
+		<key>Download URL</key>
 		<string>http://appldnld.apple.com/iPhone4/061-8807.20100811.3Edre/iPhone3,1_4.0.2_8A400_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
@@ -25,6 +25,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>018-8387-002</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>bc4c0adfb04b864b7c548133a2383ef5</string>
 			<key>Key</key>
@@ -34,6 +36,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>018-8393-002</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>b662a1cd9b51d43029624adf2c65e56a</string>
 			<key>Key</key>

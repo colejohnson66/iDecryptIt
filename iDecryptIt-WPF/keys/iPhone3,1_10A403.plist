@@ -12,7 +12,7 @@
 		<string>Sundance</string>
 		<key>Baseband</key>
 		<string>04.12.02</string>
-		<key>Download</key>
+		<key>Download URL</key>
 		<string>http://appldnld.apple.com/iOS6/Restore/041-7175.20120919.wvv7Y/iPhone3,1_6.0_10A403_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
@@ -25,6 +25,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>038-6454-001</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>6f28d334c28c4452548b6edd725e3462</string>
 			<key>Key</key>
@@ -34,6 +36,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>038-6451-001</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>6e6031e8a7757fa54aed9ac05dafde0a</string>
 			<key>Key</key>

@@ -10,7 +10,7 @@
 		<string>iPod touch 4G</string>
 		<key>Codename</key>
 		<string>Telluride</string>
-		<key>Download</key>
+		<key>Download URL</key>
 		<string>http://appldnld.apple.com/iPhone4/061-9622.20111012.Evry3/iPod4,1_5.0_9A334_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
@@ -25,6 +25,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>018-7923-347</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>6aa6791d75e07b6866e42b04f80b90d6</string>
 			<key>Key</key>

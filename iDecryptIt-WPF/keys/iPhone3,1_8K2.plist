@@ -12,7 +12,7 @@
 		<string>Durango</string>
 		<key>Baseband</key>
 		<string>04.10.01</string>
-		<key>Download</key>
+		<key>Download URL</key>
 		<string>http://appldnld.apple.com/iPhone4/041-1923.20110715.BnATg/iPhone3,1_4.3.4_8K2_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
@@ -21,17 +21,19 @@
 			<key>Key</key>
 			<string>f3b2e5122cfd8b8215ed8271d83af0183f6d6634afd63444dfd7787e274b7520fc9d5c40</string>
 		</dict>
-		<key>Ramdisk Not Encrypted</key>
-		<true />
 		<key>Update Ramdisk</key>
 		<dict>
 			<key>File Name</key>
 			<string>038-2175-001</string>
+			<key>Encryption</key>
+			<false />
 		</dict>
 		<key>Restore Ramdisk</key>
 		<dict>
 			<key>File Name</key>
 			<string>038-2174-001</string>
+			<key>Encryption</key>
+			<false />
 		</dict>
 		<key>AppleLogo</key>
 		<dict>

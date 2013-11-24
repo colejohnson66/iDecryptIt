@@ -10,7 +10,7 @@
 		<string>iPod touch 4G</string>
 		<key>Codename</key>
 		<string>BrightonMaps</string>
-		<key>Download</key>
+		<key>Download URL</key>
 		<string>http://appldnld.apple.com/iOS6.1/091-2655.20130319.Wyt54/iPod4,1_6.1.3_10B329_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
@@ -23,6 +23,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>048-2533-005</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>95db8d068243c94eaec48503e81785ba</string>
 			<key>Key</key>
@@ -32,6 +34,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>048-2441-007</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>bd08885edcbb892945416c230ab4ebba</string>
 			<key>Key</key>

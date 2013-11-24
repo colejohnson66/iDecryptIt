@@ -3,14 +3,14 @@
 <plist>
 	<dict>
 		<key>Version</key>
-		<string>4.2.1</string>
+		<string>4.2.1 (4.3)</string>
 		<key>Build</key>
 		<string>8F202</string>
 		<key>Device</key>
 		<string>Apple TV 2G</string>
 		<key>Codename</key>
 		<string>DurangoTide</string>
-		<key>Download</key>
+		<key>Download URL</key>
 		<string>http://appldnld.apple.com/AppleTV/041-0574.20110322.Dcfr5/AppleTV2,1_4.3_8F202_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
@@ -25,6 +25,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>038-0946-003</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>87af8e20133c17d45dab42702eeb136d</string>
 			<key>Key</key>

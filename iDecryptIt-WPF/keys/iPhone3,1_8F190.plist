@@ -12,7 +12,7 @@
 		<string>Durango</string>
 		<key>Baseband</key>
 		<string>04.10.01</string>
-		<key>Download</key>
+		<key>Download URL</key>
 		<string>http://appldnld.apple.com/iPhone4/041-0330.20110311.Cswe3/iPhone3,1_4.3_8F190_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
@@ -25,6 +25,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>038-0707-006</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>a6fa038915d5aab8c2cc041071d54542</string>
 			<key>Key</key>
@@ -34,6 +36,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>038-0715-006</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>d11772b6a3bdd4f0b4cd8795b9f10ad9</string>
 			<key>Key</key>

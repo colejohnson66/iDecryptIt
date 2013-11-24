@@ -12,7 +12,7 @@
 		<string>Little Bear</string>
 		<key>Baseband</key>
 		<string>04.04.05_G</string>
-		<key>Download</key>
+		<key>Download URL</key>
 		<string>http://appldnld.apple.com.edgesuite.net/content.info.apple.com/iPhone/061-4313.20080226.Sw39i/iPhone1,1_1.1.4_4A102_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
@@ -25,11 +25,15 @@
 		<dict>
 			<key>File Name</key>
 			<string>022-3896-4</string>
+			<key>Encryption</key>
+			<false />
 		</dict>
 		<key>Restore Ramdisk</key>
 		<dict>
 			<key>File Name</key>
 			<string>022-3900-4</string>
+			<key>Encryption</key>
+			<false />
 		</dict>
 	</dict>
 </plist>

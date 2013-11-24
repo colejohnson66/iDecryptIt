@@ -12,7 +12,7 @@
 		<string>Baker</string>
 		<key>Baseband</key>
 		<string>05.14.02</string>
-		<key>Download</key>
+		<key>Download URL</key>
 		<string>http://appldnld.apple.com/iPhone4/061-7932.20100908.3fgt5/iPhone1,2_4.1_8B117_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
@@ -25,6 +25,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>018-7072-079</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>4f545fda195abfded796f10627fedd6f</string>
 			<key>Key</key>
@@ -34,6 +36,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>018-7079-079</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>a0fc6ca4ef7ef305d975e7f881ddcc7f</string>
 			<key>Key</key>

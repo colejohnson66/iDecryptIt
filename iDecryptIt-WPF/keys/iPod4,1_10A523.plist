@@ -10,7 +10,7 @@
 		<string>iPod touch 4G</string>
 		<key>Codename</key>
 		<string>Sundance</string>
-		<key>Download</key>
+		<key>Download URL</key>
 		<string>http://appldnld.apple.com/iOS6/041-7439.20121101.rgt54/iPod4,1_6.0.1_10A523_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
@@ -23,6 +23,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>038-7927-011</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>cb4c3fbf282d03a1335ba4c374938058</string>
 			<key>Key</key>
@@ -32,6 +34,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>038-7924-011</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>c0bcc59087dda18d0627af51700b80b1</string>
 			<key>Key</key>

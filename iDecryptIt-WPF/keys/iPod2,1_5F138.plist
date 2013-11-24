@@ -10,7 +10,7 @@
 		<string>iPod touch 2G</string>
 		<key>Codename</key>
 		<string>Sugar Bowl</string>
-		<key>Download</key>
+		<key>Download URL</key>
 		<string>http://appldnld.apple.com.edgesuite.net/content.info.apple.com/iPod/SBML/osx/bundles/061-5494.20080909.8i9o0/iPod2,1_2.1.1_5F138_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
@@ -23,6 +23,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>018-4177-1</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>5447fa2ce0e2a6e39ffe8983be161e88</string>
 			<key>Key</key>
@@ -32,6 +34,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>018-4166-1</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>2f4481855ca39e67dfbf3d19b8ade60e</string>
 			<key>Key</key>

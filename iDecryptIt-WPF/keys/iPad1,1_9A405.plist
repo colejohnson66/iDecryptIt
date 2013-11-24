@@ -12,7 +12,7 @@
 		<string>Telluride</string>
 		<key>Baseband</key>
 		<string>07.11.01</string>
-		<key>Download</key>
+		<key>Download URL</key>
 		<string>http://appldnld.apple.com/iPhone4/041-3308.20111109.Fvgtr/iPad1,1_5.0.1_9A405_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
@@ -25,6 +25,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>038-3711-001</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>cf48dcfb36a2ae968e582b87a3d9dd55</string>
 			<key>Key</key>
@@ -34,6 +36,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>038-3715-001</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>6071de3113ff3b4a5f6f2ebc907af054</string>
 			<key>Key</key>

@@ -10,7 +10,7 @@
 		<string>iPad 2 (Wi-Fi)</string>
 		<key>Codename</key>
 		<string>Durango</string>
-		<key>Download</key>
+		<key>Download URL</key>
 		<string>http://appldnld.apple.com/iPhone4/041-0663.20110414.U7bTI/iPad2,1_4.3.2_8H7_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
@@ -19,17 +19,19 @@
 			<key>Key</key>
 			<string>51e154b3f8baadceb317ad6e815b7f75bc956c1fa1f213d7a344e5a6eda4a54b7e79bb50</string>
 		</dict>
-		<key>Ramdisk Not Encrypted</key>
-		<true />
 		<key>Update Ramdisk</key>
 		<dict>
 			<key>File Name</key>
 			<string>038-1032-007</string>
+			<key>Encryption</key>
+			<false />
 		</dict>
 		<key>Restore Ramdisk</key>
 		<dict>
 			<key>File Name</key>
 			<string>038-1042-007</string>
+			<key>Encryption</key>
+			<false />
 		</dict>
 		<key>AppleLogo</key>
 		<dict>

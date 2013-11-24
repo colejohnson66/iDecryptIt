@@ -10,7 +10,7 @@
 		<string>iPod touch 4G</string>
 		<key>Codename</key>
 		<string>Brighton</string>
-		<key>Download</key>
+		<key>Download URL</key>
 		<string>http://appldnld.apple.com/iOS6.1/091-0688.20130128.omwy3/iPod4,1_6.1_10B144_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
@@ -23,6 +23,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>048-0785-001</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>dc9bb3b13453edc0759c4232af9753ed</string>
 			<key>Key</key>
@@ -32,6 +34,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>048-0804-001</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>6124b49aefe5d9d021e2a00212db67bd</string>
 			<key>Key</key>

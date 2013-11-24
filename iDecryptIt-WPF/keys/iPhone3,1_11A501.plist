@@ -12,7 +12,7 @@
 		<string>Innsbruck</string>
 		<key>Baseband</key>
 		<string>04.12.09</string>
-		<key>Download</key>
+		<key>Download URL</key>
 		<string>http://appldnld.apple.com/iOS7/091-9871.20130924.7imYu/iPhone3,1_7.0.2_11A501_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
@@ -25,6 +25,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>048-8790-002</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>9533c08893897f2fa181e7081c178179</string>
 			<key>Key</key>
@@ -34,6 +36,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>048-9414-002</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>505940fadf550d798521d089cfe6bc28</string>
 			<key>Key</key>

@@ -21,6 +21,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>018-6509-015</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>c23f914e487b35897d065202db69a507</string>
 			<key>Key</key>
@@ -30,6 +32,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>018-6508-014</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>2e7aa9f6dc823657f1c930a00db8efe1</string>
 			<key>Key</key>

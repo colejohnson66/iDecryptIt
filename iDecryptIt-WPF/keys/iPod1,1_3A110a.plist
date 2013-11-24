@@ -10,7 +10,7 @@
 		<string>iPod touch 1G</string>
 		<key>Codename</key>
 		<string>Snowbird</string>
-		<key>Download</key>
+		<key>Download URL</key>
 		<string>http://appldnld.apple.com.edgesuite.net/content.info.apple.com/iPod/SBML/osx/bundles/061-3932.20070927.p23dD/iPod1,1_1.1.1_3A110a_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
@@ -23,11 +23,15 @@
 		<dict>
 			<key>File Name</key>
 			<string>022-3656-1</string>
+			<key>Encryption</key>
+			<false />
 		</dict>
 		<key>Restore Ramdisk</key>
 		<dict>
 			<key>File Name</key>
 			<string>022-3655-1</string>
+			<key>Encryption</key>
+			<false />
 		</dict>
 	</dict>
 </plist>
