@@ -3,14 +3,14 @@
 <plist>
 	<dict>
 		<key>Version</key>
-		<string>4.0</string>
+		<string>4.0 (4.1)</string>
 		<key>Build</key>
 		<string>8M89</string>
 		<key>Device</key>
 		<string>Apple TV 2G</string>
 		<key>Codename</key>
 		<string>Mojave</string>
-		<key>Download</key>
+		<key>Download URL</key>
 		<string>http://appldnld.apple.com/AppleTV/061-8940.20100926.Tvtnz/AppleTV2,1_4.1_8M89_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
@@ -23,6 +23,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>018-8613-062</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>5fe67aa4b1ad60114ed6c661f3e3fd64</string>
 			<key>Key</key>
@@ -32,6 +34,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>018-8618-062</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>193f5c4a3a8fb0643e9cac4020b67e1c</string>
 			<key>Key</key>

@@ -10,7 +10,7 @@
 		<string>iPod touch 4G</string>
 		<key>Codename</key>
 		<string>Jasper</string>
-		<key>Download</key>
+		<key>Download URL</key>
 		<string>http://appldnld.apple.com/iPhone4/061-9859.20101122.$erft/iPod4,1_4.2.1_8C148_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
@@ -23,6 +23,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>038-0024-002</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>509e699fcfbc5317fa5eb3e79fc5a932</string>
 			<key>Key</key>
@@ -32,6 +34,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>038-0032-002</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>9b20ae16bebf4cf1b9101374c3ab0095</string>
 			<key>Key</key>

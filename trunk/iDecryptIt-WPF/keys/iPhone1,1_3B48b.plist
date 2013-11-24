@@ -12,7 +12,7 @@
 		<string>Oktoberfest</string>
 		<key>Baseband</key>
 		<string>04.02.13_G</string>
-		<key>Download</key>
+		<key>Download URL</key>
 		<string>http://appldnld.apple.com.edgesuite.net/content.info.apple.com/iPhone/061-4037.20071107.5Bghn/iPhone1,1_1.1.2_3B48b_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
@@ -25,11 +25,15 @@
 		<dict>
 			<key>File Name</key>
 			<string>022-3726-1</string>
+			<key>Encryption</key>
+			<false />
 		</dict>
 		<key>Restore Ramdisk</key>
 		<dict>
 			<key>File Name</key>
 			<string>022-3729-1</string>
+			<key>Encryption</key>
+			<false />
 		</dict>
 	</dict>
 </plist>

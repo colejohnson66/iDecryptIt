@@ -12,7 +12,7 @@
 		<string>Brighton</string>
 		<key>Baseband</key>
 		<string>04.12.05</string>
-		<key>Download</key>
+		<key>Download URL</key>
 		<string>http://appldnld.apple.com/iOS6.1/091-0722.20130215.BzrgV/iPhone3,1_6.1.2_10B146_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
@@ -25,6 +25,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>048-0838-002</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>9d1b9ffe841b3a95a7f886294f00d12c</string>
 			<key>Key</key>
@@ -34,6 +36,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>048-1037-002</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>fab2441195cde907e72d8edc17313173</string>
 			<key>Key</key>

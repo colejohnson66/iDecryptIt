@@ -10,7 +10,7 @@
 		<string>iPod touch 3G</string>
 		<key>Codename</key>
 		<string>Apex</string>
-		<key>Download</key>
+		<key>Download URL</key>
 		<string>http://appldnld.apple.com.edgesuite.net/content.info.apple.com/iPhone4/061-7381.20100621.AzSP9/iPod3,1_4.0_8A293_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
@@ -25,6 +25,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>018-6194-407</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>4df6899367973ddf12b1fc22e53c2850</string>
 			<key>Key</key>
@@ -34,6 +36,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>018-6307-378</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>0b02c0daefed9ec93e52a20b9575b754</string>
 			<key>Key</key>

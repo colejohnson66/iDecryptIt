@@ -10,7 +10,7 @@
 		<string>iPod touch 3G</string>
 		<key>Codename</key>
 		<string>Northstar</string>
-		<key>Download</key>
+		<key>Download URL</key>
 		<string>http://appldnld.apple.com.edgesuite.net/content.info.apple.com/iPod/SBML/osx/bundles/061-7163.20090909.NtstR/iPod3,1_3.1.1_7C145_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
@@ -23,6 +23,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>018-6045-001</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>663139ba9ff0d04dbbd68534629994b7</string>
 			<key>Key</key>
@@ -32,6 +34,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>018-6044-001</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>8d41dc41fbf2ce35f7f39379db9da6dc</string>
 			<key>Key</key>

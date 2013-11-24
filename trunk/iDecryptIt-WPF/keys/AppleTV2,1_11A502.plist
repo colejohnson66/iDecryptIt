@@ -3,14 +3,14 @@
 <plist>
 	<dict>
 		<key>Version</key>
-		<string>6.0</string>
+		<string>6.0 (7.0.2)</string>
 		<key>Build</key>
 		<string>11A502</string>
 		<key>Device</key>
 		<string>Apple TV 2G</string>
 		<key>Codename</key>
 		<string>Innsbruck</string>
-		<key>Download</key>
+		<key>Download URL</key>
 		<string>http://appldnld.apple.com/AppleTV/031-0449.20130923.xlzdm/AppleTV2,1_6.0_11A502_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
@@ -25,6 +25,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>048-9508-001</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>5c215526a4f75a81286e4f72fe7392b5</string>
 			<key>Key</key>

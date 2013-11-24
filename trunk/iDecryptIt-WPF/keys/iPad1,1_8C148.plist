@@ -12,7 +12,7 @@
 		<string>Jasper</string>
 		<key>Baseband</key>
 		<string>07.10.00</string>
-		<key>Download</key>
+		<key>Download URL</key>
 		<string>http://appldnld.apple.com/iPad/061-9857.20101122.VGthy/iPad1,1_4.2.1_8C148_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
@@ -25,6 +25,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>038-0024-002</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>509e699fcfbc5317fa5eb3e79fc5a932</string>
 			<key>Key</key>
@@ -34,6 +36,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>038-0032-002</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>9b20ae16bebf4cf1b9101374c3ab0095</string>
 			<key>Key</key>

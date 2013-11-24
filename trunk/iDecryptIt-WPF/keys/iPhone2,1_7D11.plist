@@ -12,7 +12,7 @@
 		<string>Northstar</string>
 		<key>Baseband</key>
 		<string>05.11.07</string>
-		<key>Download</key>
+		<key>Download URL</key>
 		<string>http://appldnld.apple.com.edgesuite.net/content.info.apple.com/iPhone/061-7270.20091008.phn32/iPhone2,1_3.1.2_7D11_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
@@ -25,6 +25,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>018-6049-015</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>6f44e621edcba2a4e7d4f20320712480</string>
 			<key>Key</key>
@@ -34,6 +36,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>018-6051-014</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>fd19726dc6b555b6bb4dbbcd91d1e7c0</string>
 			<key>Key</key>

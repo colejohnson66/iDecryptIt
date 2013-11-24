@@ -12,7 +12,7 @@
 		<string>Wildcat</string>
 		<key>Baseband</key>
 		<string>06.15.00</string>
-		<key>Download</key>
+		<key>Download URL</key>
 		<string>http://appldnld.apple.com/iPad/061-8801.20100811.CvfR5/iPad1,1_3.2.2_7B500_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
@@ -25,6 +25,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>018-8374-001</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>3f6f0bdb71a33c801a9b67a616e9cfe3</string>
 			<key>Key</key>
@@ -34,6 +36,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>018-8375-001</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>309d4fc146b47f43e8bc27133d7ce6bc</string>
 			<key>Key</key>

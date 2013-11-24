@@ -12,7 +12,7 @@
 		<string>Jasper</string>
 		<key>Baseband</key>
 		<string>05.15.04</string>
-		<key>Download</key>
+		<key>Download URL</key>
 		<string>http://appldnld.apple.com/iPhone4/061-9895.20101122.Cdew2/iPhone2,1_4.2.1_8C148a_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
@@ -25,6 +25,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>018-9937-002</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>8b3c5a98748af177364bddbb1e5aad31</string>
 			<key>Key</key>
@@ -34,6 +36,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>038-0082-001</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>50932f5bd4dbd51fc0073851fe8b073c</string>
 			<key>Key</key>

@@ -3,14 +3,14 @@
 <plist>
 	<dict>
 		<key>Version</key>
-		<string>5.0.2</string>
+		<string>5.0.2 (5.1.1)</string>
 		<key>Build</key>
 		<string>9B830</string>
 		<key>Device</key>
 		<string>Apple TV 2G</string>
 		<key>Codename</key>
 		<string>HoodooTide</string>
-		<key>Download</key>
+		<key>Download URL</key>
 		<string>http://appldnld.apple.com/AppleTV/041-4362.20120605.t8i4U/AppleTV2,1_5.0.2_9B830_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
@@ -25,6 +25,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>038-4379-031</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>2125250914722704700cc735cbe4a3ae</string>
 			<key>Key</key>

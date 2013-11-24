@@ -10,7 +10,7 @@
 		<string>iPod touch 3G</string>
 		<key>Codename</key>
 		<string>Baker</string>
-		<key>Download</key>
+		<key>Download URL</key>
 		<string>http://appldnld.apple.com/iPhone4/061-7941.20100908.sV9KE/iPod3,1_4.1_8B117_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
@@ -23,6 +23,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>018-7108-078</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>6800a52c8761b30b001327ea9b918653</string>
 			<key>Key</key>
@@ -32,6 +34,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>018-7081-078</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>1edc4378f31ce728a2412ff93c78b8dd</string>
 			<key>Key</key>

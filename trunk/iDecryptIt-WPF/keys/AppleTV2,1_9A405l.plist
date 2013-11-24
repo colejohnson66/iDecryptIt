@@ -3,14 +3,14 @@
 <plist>
 	<dict>
 		<key>Version</key>
-		<string>4.4.3</string>
+		<string>4.4.3 (5.0.1)</string>
 		<key>Build</key>
 		<string>9A405l</string>
 		<key>Device</key>
 		<string>Apple TV 2G</string>
 		<key>Codename</key>
 		<string>Telluride</string>
-		<key>Download</key>
+		<key>Download URL</key>
 		<string>http://appldnld.apple.com/AppleTV/041-3117.20111117.Gj79d/AppleTV2,1_4.4.3_9A405l_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
@@ -21,12 +21,12 @@
 		</dict>
 		<key>No Update Ramdisk</key>
 		<true />
-		<key>Ramdisk Not Encrypted</key>
-		<true />
 		<key>Restore Ramdisk</key>
 		<dict>
 			<key>File Name</key>
 			<string>038-3734-008</string>
+			<key>Encryption</key>
+			<false />
 		</dict>
 		<key>AppleLogo</key>
 		<dict>

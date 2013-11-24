@@ -3,14 +3,14 @@
 <plist>
 	<dict>
 		<key>Version</key>
-		<string>5.1.1</string>
+		<string>5.1.1 (6.0.1)</string>
 		<key>Build</key>
 		<string>10A831</string>
 		<key>Device</key>
 		<string>Apple TV 2G</string>
 		<key>Codename</key>
 		<string>SundanceTide</string>
-		<key>Download</key>
+		<key>Download URL</key>
 		<string>http://appldnld.apple.com/AppleTV/041-7275.20121128.qw234/AppleTV2,1_5.1.1_10A831_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
@@ -25,6 +25,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>038-6585-033</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>9f23c76c9352ead1ae040ede2b7b503b</string>
 			<key>Key</key>

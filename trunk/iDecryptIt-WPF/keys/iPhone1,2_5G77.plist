@@ -12,7 +12,7 @@
 		<string>Timberline</string>
 		<key>Baseband</key>
 		<string>02.28.00</string>
-		<key>Download</key>
+		<key>Download URL</key>
 		<string>http://appldnld.apple.com.edgesuite.net/content.info.apple.com/iPhone/061-5778.20081120.Aqw4R/iPhone1,2_2.2_5G77_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
@@ -25,15 +25,19 @@
 		<dict>
 			<key>File Name</key>
 			<string>018-4377-1</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
-			<string>d12a3835f7dc67dfa3ab760474527686</string>
+			<string>TODO</string>
 			<key>Key</key>
-			<string>ef028e568652ea6ad10306bfa0d9c602</string>
+			<string>TODO</string>
 		</dict>
 		<key>Restore Ramdisk</key>
 		<dict>
 			<key>File Name</key>
 			<string>018-4378-1</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>182cdda90a38870de96880ee7ff5bbbc</string>
 			<key>Key</key>
@@ -44,54 +48,54 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>12356af8872da8ca51ed67d9fb979ba1</string>
+			<string>TODO</string>
 			<key>Key</key>
-			<string>1250b059f0849f0677aecce5a32577d4</string>
+			<string>TODO</string>
 		</dict>
 		<key>BatteryLow0</key>
 		<dict>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>c8b1050f1ccf97961d0de1fe23097acb</string>
+			<string>TODO</string>
 			<key>Key</key>
-			<string>34be1385a2f63d4cf0fe881a20ef62d1</string>
+			<string>TODO</string>
 		</dict>
 		<key>BatteryLow1</key>
 		<dict>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>1b179ace1f182b7acefcaf6544356712</string>
+			<string>TODO</string>
 			<key>Key</key>
-			<string>8ea64eb6b90e50e71ddb5f3ab614e069</string>
+			<string>TODO</string>
 		</dict>
 		<key>DeviceTree</key>
 		<dict>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>86d71dbf31963b575930c22636fe6e06</string>
+			<string>TODO</string>
 			<key>Key</key>
-			<string>c872b159343b37721852182e20675244</string>
+			<string>TODO</string>
 		</dict>
 		<key>GlyphCharging</key>
 		<dict>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>0a5bddd21214c76df8cd09f66cd2cb44</string>
+			<string>TODO</string>
 			<key>Key</key>
-			<string>1384de3d01b16c223b047766f77bfff1</string>
+			<string>TODO</string>
 		</dict>
 		<key>GlyphPlugin</key>
 		<dict>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>e062cdb840affe8ead0da75a41612a4e</string>
+			<string>TODO</string>
 			<key>Key</key>
-			<string>ba2280a97156f9a603266f5fe3c700ce</string>
+			<string>TODO</string>
 		</dict>
 		<key>iBEC</key>
 		<dict>
@@ -103,9 +107,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>a1ae49052d85cecdefd81ac688ea5e8e</string>
+			<string>TODO</string>
 			<key>Key</key>
-			<string>fe925012579850c40cb12b4e56c0488d</string>
+			<string>TODO</string>
 		</dict>
 		<key>iBSS</key>
 		<dict>
@@ -131,18 +135,18 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>69043732e07eb158f88ab2f86e8fee40</string>
+			<string>TODO</string>
 			<key>Key</key>
-			<string>b0a8ccb312fb5ea63cce75af1335af36</string>
+			<string>TODO</string>
 		</dict>
 		<key>RecoveryMode</key>
 		<dict>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>17ec3a494c20a48d8c06c3138a6d3e7e</string>
+			<string>TODO</string>
 			<key>Key</key>
-			<string>18e7f5cbc3c074fc71b22962153bf899</string>
+			<string>TODO</string>
 		</dict>
 	</dict>
 </plist>

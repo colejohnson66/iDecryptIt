@@ -10,7 +10,7 @@
 		<string>iPod touch 2G</string>
 		<key>Codename</key>
 		<string>Apex</string>
-		<key>Download</key>
+		<key>Download URL</key>
 		<string>http://appldnld.apple.com.edgesuite.net/content.info.apple.com/iPhone4/061-7435.20100621.tr49t/iPod2,1_4.0_8A293_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
@@ -27,6 +27,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>018-6462-368</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>b2b8949bd33b65f22bd0c7e55ccc836b</string>
 			<key>Key</key>

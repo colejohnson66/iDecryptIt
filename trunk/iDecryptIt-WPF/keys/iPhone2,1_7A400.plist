@@ -12,7 +12,7 @@
 		<string>Kirkwood</string>
 		<key>Baseband</key>
 		<string>04.26.08</string>
-		<key>Download</key>
+		<key>Download URL</key>
 		<string>http://appldnld.apple.com.edgesuite.net/content.info.apple.com/iPhone/061-6976.20090731.Vgbt5/iPhone2,1_3.0.1_7A400_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
@@ -25,6 +25,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>018-5804-001</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>dfbcae5f5d7f53348e60b464f21a2a33</string>
 			<key>Key</key>
@@ -34,6 +36,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>018-5810-001</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>6ed2cb29324c20d52647d0e45385e62d</string>
 			<key>Key</key>

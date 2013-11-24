@@ -12,7 +12,7 @@
 		<string>Phoenix</string>
 		<key>Baseband</key>
 		<string>1.0.06</string>
-		<key>Download</key>
+		<key>Download URL</key>
 		<string>http://appldnld.apple.com/iPhone4/041-1959.20110721.jvP29/iPhone3,3_4.2.10_8E600_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
@@ -25,6 +25,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>038-2275-001</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>0e4a23e90f448f0810b7adfa6bc80947</string>
 			<key>Key</key>
@@ -34,6 +36,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>038-2280-001</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>592d8ed4d1f64a4e6d90f7ddf0815399</string>
 			<key>Key</key>

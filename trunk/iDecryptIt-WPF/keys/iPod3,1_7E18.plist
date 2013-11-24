@@ -10,7 +10,7 @@
 		<string>iPod touch 3G</string>
 		<key>Codename</key>
 		<string>SUNorthstarTwo</string>
-		<key>Download</key>
+		<key>Download URL</key>
 		<string>http://appldnld.apple.com.edgesuite.net/content.info.apple.com/iPhone/061-7473.20100202.4i44t/iPod3,1_3.1.3_7E18_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
@@ -23,6 +23,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>018-6513-015</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>ba606fbd3cd095001aa345d6e62d1986</string>
 			<key>Key</key>
@@ -32,6 +34,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>018-6496-015</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>ed40b5cf7bc9f3eb2db62b8f11d86a7d</string>
 			<key>Key</key>

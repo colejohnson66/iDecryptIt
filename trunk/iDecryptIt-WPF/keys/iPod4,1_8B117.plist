@@ -10,7 +10,7 @@
 		<string>iPod touch 4G</string>
 		<key>Codename</key>
 		<string>Baker</string>
-		<key>Download</key>
+		<key>Download URL</key>
 		<string>http://appldnld.apple.com/iPhone4/061-8490.20100901.hyjtR/iPod4,1_4.1_8B117_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
@@ -23,6 +23,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>018-7074-092</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>4445214ed192b6ccfe6953c6ae80c55e</string>
 			<key>Key</key>
@@ -32,6 +34,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>018-7082-092</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>103ae8786d55bebdea996a56706641c9</string>
 			<key>Key</key>
@@ -64,6 +68,15 @@
 			<key>Key</key>
 			<string>1b6ae72875b6bb0d060027ab711009472ce238b8de5d18132f54ab61791a8dfb</string>
 		</dict>
+		<key>BatteryFull</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>0913cdec90342840d372ad027c8abdec</string>
+			<key>Key</key>
+			<string>46466217bb4f87f6f5f70af0021b5c41301dcc3e19d0f5d8fcb352ce2c2d90f3</string>
+		</dict>
 		<key>BatteryLow0</key>
 		<dict>
 			<key>Encryption</key>
@@ -81,15 +94,6 @@
 			<string>bbc56f1b02a1d8e415bb44ec79e1e138</string>
 			<key>Key</key>
 			<string>976ca0a3f2d1aaaede1db3ba986a000f4db6b355c7636479b62c3f22c3462442</string>
-		</dict>
-		<key>BatteryFull</key>
-		<dict>
-			<key>Encryption</key>
-			<true />
-			<key>IV</key>
-			<string>0913cdec90342840d372ad027c8abdec</string>
-			<key>Key</key>
-			<string>46466217bb4f87f6f5f70af0021b5c41301dcc3e19d0f5d8fcb352ce2c2d90f3</string>
 		</dict>
 		<key>DeviceTree</key>
 		<dict>

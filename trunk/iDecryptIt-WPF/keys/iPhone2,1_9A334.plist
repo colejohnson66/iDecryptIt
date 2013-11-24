@@ -12,7 +12,7 @@
 		<string>Telluride</string>
 		<key>Baseband</key>
 		<string>05.16.05</string>
-		<key>Download</key>
+		<key>Download URL</key>
 		<string>http://appldnld.apple.com/iPhone4/041-8356.20111012.SQRDT/iPhone2,1_5.0_9A334_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
@@ -27,6 +27,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>018-7919-343</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>57da5d3b645d4accee13806b7f46a3b3</string>
 			<key>Key</key>

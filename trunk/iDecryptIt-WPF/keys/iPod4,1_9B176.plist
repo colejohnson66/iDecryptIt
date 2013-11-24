@@ -10,7 +10,7 @@
 		<string>iPod touch 4G</string>
 		<key>Codename</key>
 		<string>Hoodoo</string>
-		<key>Download</key>
+		<key>Download URL</key>
 		<string>http://appldnld.apple.com/iOS5/041-1542.20120307.Jyknq/iPod4,1_5.1_9B176_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
@@ -23,6 +23,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>038-1800-166</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>9171fb6d2ea90cc6de31ad9f142eb28c</string>
 			<key>Key</key>
@@ -32,6 +34,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>038-1813-172</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>78a5b5e905b90e50c0cdfa4f0859540e</string>
 			<key>Key</key>

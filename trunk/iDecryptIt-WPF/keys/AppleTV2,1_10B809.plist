@@ -3,14 +3,14 @@
 <plist>
 	<dict>
 		<key>Version</key>
-		<string>5.3</string>
+		<string>5.3 (6.1.4)</string>
 		<key>Build</key>
 		<string>10B809</string>
 		<key>Device</key>
 		<string>Apple TV 2G</string>
 		<key>Codename</key>
 		<string>BrightonTide</string>
-		<key>Download</key>
+		<key>Download URL</key>
 		<string>http://appldnld.apple.com/AppleTV/091-5256.20130618.MagBg/AppleTV2,1_5.3_10B809_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
@@ -25,6 +25,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>048-5479-003</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>bee7f2bc37b701853d030543d2c643e0</string>
 			<key>Key</key>

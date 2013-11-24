@@ -10,7 +10,7 @@
 		<string>iPod touch 2G</string>
 		<key>Codename</key>
 		<string>Timberline</string>
-		<key>Download</key>
+		<key>Download URL</key>
 		<string>http://appldnld.apple.com.edgesuite.net/content.info.apple.com/iPod/SBML/osx/061-5358.20081120.Gtghy/iPod2,1_2.2_5G77a_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
@@ -23,6 +23,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>018-4112-121</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>6f711568306ac332f1743a06f0498714</string>
 			<key>Key</key>
@@ -32,6 +34,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>018-4085-128</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>479c46f27f5b18ac5fa01885cf2b06f9</string>
 			<key>Key</key>

@@ -12,7 +12,7 @@
 		<string>Durango</string>
 		<key>Baseband</key>
 		<string>04.10.01</string>
-		<key>Download</key>
+		<key>Download URL</key>
 		<string>http://appldnld.apple.com/iPhone4/041-1966.20110721.V3Ufe/iPhone3,1_4.3.5_8L1_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
@@ -21,17 +21,19 @@
 			<key>Key</key>
 			<string>e5e061077217c4937e14d9c4ae1eeb8d69827aa4838168033dd5f1806ab485306a8aa3cf</string>
 		</dict>
-		<key>Ramdisk Not Encrypted</key>
-		<true />
 		<key>Update Ramdisk</key>
 		<dict>
 			<key>File Name</key>
 			<string>038-2268-002</string>
+			<key>Encryption</key>
+			<false />
 		</dict>
 		<key>Restore Ramdisk</key>
 		<dict>
 			<key>File Name</key>
 			<string>038-2265-002</string>
+			<key>Encryption</key>
+			<false />
 		</dict>
 		<key>AppleLogo</key>
 		<dict>
@@ -41,24 +43,6 @@
 			<string>bd6eae47ffd9aecfb36245db70a72412</string>
 			<key>Key</key>
 			<string>195a152a260fae31fb5085e8736132be44f15973c47330aebcaea3f121713e83</string>
-		</dict>
-		<key>BatteryLow0</key>
-		<dict>
-			<key>Encryption</key>
-			<true />
-			<key>IV</key>
-			<string>3c4bc90ba0605e081563bf63faa5d458</string>
-			<key>Key</key>
-			<string>4522c625eb6737adb9247df7272404ded0bcf6316f7ccedbbf03ea6aa88b47b6</string>
-		</dict>
-		<key>BatteryLow1</key>
-		<dict>
-			<key>Encryption</key>
-			<true />
-			<key>IV</key>
-			<string>0fe9f884a394bf962dae19dee7e4a3d9</string>
-			<key>Key</key>
-			<string>caef72aa0ea0d1463017ec04113bb156ef88b7e7a3c48c20543cae6e7115f27d</string>
 		</dict>
 		<key>BatteryCharging0</key>
 		<dict>
@@ -86,6 +70,24 @@
 			<string>2f3ab8f159813bf236528a28b5acb151</string>
 			<key>Key</key>
 			<string>4db22a039c6ee7310279faafb41bc9d98a9af5b5dd1420ce00fb2139762eef34</string>
+		</dict>
+		<key>BatteryLow0</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>3c4bc90ba0605e081563bf63faa5d458</string>
+			<key>Key</key>
+			<string>4522c625eb6737adb9247df7272404ded0bcf6316f7ccedbbf03ea6aa88b47b6</string>
+		</dict>
+		<key>BatteryLow1</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>0fe9f884a394bf962dae19dee7e4a3d9</string>
+			<key>Key</key>
+			<string>caef72aa0ea0d1463017ec04113bb156ef88b7e7a3c48c20543cae6e7115f27d</string>
 		</dict>
 		<key>DeviceTree</key>
 		<dict>

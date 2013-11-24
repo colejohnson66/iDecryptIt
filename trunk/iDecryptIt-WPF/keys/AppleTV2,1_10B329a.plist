@@ -3,14 +3,14 @@
 <plist>
 	<dict>
 		<key>Version</key>
-		<string>5.2.1</string>
+		<string>5.2.1 (6.1.3)</string>
 		<key>Build</key>
 		<string>10B329a</string>
 		<key>Device</key>
 		<string>Apple TV 2G</string>
 		<key>Codename</key>
 		<string>BrightonMaps</string>
-		<key>Download</key>
+		<key>Download URL</key>
 		<string>http://appldnld.apple.com/AppleTV/091-2469.20130319.Scop4/AppleTV2,1_5.2.1_10B329a_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
@@ -25,6 +25,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>048-2901-001</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>073ce9b9da17b327502e2458c2e5a277</string>
 			<key>Key</key>

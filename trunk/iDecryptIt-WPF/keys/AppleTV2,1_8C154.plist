@@ -3,14 +3,14 @@
 <plist>
 	<dict>
 		<key>Version</key>
-		<string>4.1.1</string>
+		<string>4.1.1 (4.2.1)</string>
 		<key>Build</key>
 		<string>8C154</string>
 		<key>Device</key>
 		<string>Apple TV 2G</string>
 		<key>Codename</key>
 		<string>Jasper</string>
-		<key>Download</key>
+		<key>Download URL</key>
 		<string>http://appldnld.apple.com/AppleTV/061-9978.20101214.gmabr/AppleTV2,1_4.2.1_8C154_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
@@ -25,6 +25,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>038-0318-001</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>7c256102d0580b960213540965618b5b</string>
 			<key>Key</key>

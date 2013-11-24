@@ -8,11 +8,11 @@
 		<string>10B146</string>
 		<key>Device</key>
 		<string>iPhone 3GS</string>
-		<key>aseband</key>
+		<key>Baseband</key>
 		<string>05.16.08</string>
 		<key>Codename</key>
 		<string>Brighton</string>
-		<key>Download</key>
+		<key>Download URL</key>
 		<string>http://appldnld.apple.com/iOS6.1/091-0744.20130215.2E34r/iPhone2,1_6.1.2_10B146_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
@@ -25,6 +25,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>048-0739-002</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>0450b79be1f5e0e2549c0c0e400726d7</string>
 			<key>Key</key>
@@ -34,6 +36,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>048-0728-002</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>e955fb2268d1d94996831492dac9664d</string>
 			<key>Key</key>

@@ -12,7 +12,7 @@
 		<string>Hoodoo</string>
 		<key>Baseband</key>
 		<string>05.16.05</string>
-		<key>Download</key>
+		<key>Download URL</key>
 		<string>http://appldnld.apple.com/iOS5/041-1535.20120307.Jer6N/iPhone2,1_5.1_9B176_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
@@ -25,6 +25,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>038-1799-165</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>94e32a52e309d13e8975ad7eaa2dec39</string>
 			<key>Key</key>
@@ -34,6 +36,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>038-1811-170</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>4782da1f21aa63915b3e34cfe31acb20</string>
 			<key>Key</key>

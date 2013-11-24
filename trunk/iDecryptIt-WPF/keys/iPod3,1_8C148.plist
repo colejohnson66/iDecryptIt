@@ -10,7 +10,7 @@
 		<string>iPod touch 3G</string>
 		<key>Codename</key>
 		<string>Jasper</string>
-		<key>Download</key>
+		<key>Download URL</key>
 		<string>http://appldnld.apple.com/iPhone4/061-9860.20101122.Xsde3/iPod3,1_4.2.1_8C148_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
@@ -23,6 +23,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>038-0055-002</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>d7f909a6bace11ab7f7a606ed3afce70</string>
 			<key>Key</key>
@@ -32,6 +34,8 @@
 		<dict>
 			<key>File Name</key>
 			<string>038-0031-002</string>
+			<key>Encryption</key>
+			<true />
 			<key>IV</key>
 			<string>9064ae28aef1db52cde6f7568c188766</string>
 			<key>Key</key>
