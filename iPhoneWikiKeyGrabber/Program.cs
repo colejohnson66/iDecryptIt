@@ -333,7 +333,8 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 					plist.ChildNodes.Item(num).ChildNodes.Item(2).InnerText = "Encryption";
                     string build = data["Build"];
 					if (data.ContainsKey("RamdiskNotEncrypted") ||
-                        build[0] == '1' || build[0] == '3' || build[0] == '4' ||
+                        build == "1A543a" || build == "1C25" || build == "1C28" ||
+                        build[0] == '3' || build[0] == '4' ||
                         build == "5A147p" || build == "5A225c" || build == "5A240d")
 					{
 						plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("false"));
