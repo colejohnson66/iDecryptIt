@@ -93,7 +93,7 @@ namespace Hexware.Programs.iDecryptIt
                 progDecrypt.Visibility = Visibility.Hidden;
                 return;
             }
-            progDecrypt.Value = decryptProg;
+            progDecrypt.Value = (decryptProg > 100.0) ? 100.0 : decryptProg;
         }
 
         private void Cleanup()

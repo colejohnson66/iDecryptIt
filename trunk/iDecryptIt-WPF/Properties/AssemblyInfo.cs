@@ -2,7 +2,7 @@
  * File:   AssemblyInfo.cs
  * Author: Hexware
  * =============================================================================
- * Copyright (c) 2011-2013, Hexware
+ * Copyright (c) 2011-2014 Cole Johnson
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,15 +26,15 @@ using System.Resources;
 [assembly: AssemblyTitle("iDecryptIt")]
 [assembly: AssemblyDescription("iOS firmware tools")]
 [assembly: AssemblyConfiguration("Release")]
-[assembly: AssemblyCompany("Hexware")]
+[assembly: AssemblyCompany("Cole Johnson")]
 [assembly: AssemblyProduct("iDecryptIt")]
-[assembly: AssemblyCopyright("Copyright (C) 2010-2013")]
+[assembly: AssemblyCopyright("Copyright (C) 2010-2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
 [assembly: ComVisible(true)]
 [assembly: Guid("ba12c942-94e7-4c25-b4b9-29c3e37dbf14")]
 
-[assembly: AssemblyVersion("7.02.1.1263")]
-[assembly: AssemblyFileVersion("7.02.1.1263")]
+[assembly: AssemblyVersion("7.04.0.1266")]
+[assembly: AssemblyFileVersion("7.04.0.1266")]
 [assembly: NeutralResourcesLanguageAttribute("en-US")]
