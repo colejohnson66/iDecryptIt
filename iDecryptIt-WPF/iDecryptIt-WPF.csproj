@@ -29,7 +29,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>1230</ApplicationRevision>
-    <ApplicationVersion>7.0.0.%2a</ApplicationVersion>
+    <ApplicationVersion>7.04.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -171,6 +171,15 @@
     <None Include="app.config" />
     <AppDesigner Include="Properties\" />
     <None Include="iDecryptIt.snk" />
+    <EmbeddedResource Include="keys\AppleTV2,1_11B511d.plist" />
+    <EmbeddedResource Include="keys\AppleTV2,1_11B544a.plist" />
+    <EmbeddedResource Include="keys\iPhone3,1_11B511.plist" />
+    <EmbeddedResource Include="keys\iPhone3,1_11B554a.plist" />
+    <EmbeddedResource Include="keys\iPhone3,2_11B511.plist" />
+    <EmbeddedResource Include="keys\iPhone3,2_11B554a.plist" />
+    <EmbeddedResource Include="keys\iPhone3,3_11B511.plist" />
+    <EmbeddedResource Include="keys\iPhone3,3_11B554a.plist" />
+    <EmbeddedResource Include="keys\iPod4,1_10B400.plist" />
     <None Include="LICENSE">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -273,12 +282,10 @@
     <EmbeddedResource Include="keys\iPad2,2_8K2.plist" />
     <EmbeddedResource Include="keys\iPad2,2_8L1.plist" />
     <EmbeddedResource Include="keys\iPad2,3_8G4.plist" />
-    <EmbeddedResource Include="keys\iPad2,3_8H7.plist" />
     <EmbeddedResource Include="keys\iPad2,3_8H8.plist" />
     <EmbeddedResource Include="keys\iPad2,3_8J2.plist" />
     <EmbeddedResource Include="keys\iPad2,3_8K2.plist" />
     <EmbeddedResource Include="keys\iPad2,3_8L1.plist" />
-    <EmbeddedResource Include="keys\iPhone1,1_1A543a.plist" />
     <EmbeddedResource Include="keys\iPhone1,1_1C25.plist" />
     <EmbeddedResource Include="keys\iPhone1,1_1C28.plist" />
     <EmbeddedResource Include="keys\iPhone1,1_3A109a.plist" />
@@ -296,7 +303,6 @@
     <EmbeddedResource Include="keys\iPhone1,1_7C144.plist" />
     <EmbeddedResource Include="keys\iPhone1,1_7D11.plist" />
     <EmbeddedResource Include="keys\iPhone1,1_7E18.plist" />
-    <EmbeddedResource Include="keys\iPhone1,2_5A347.plist" />
     <EmbeddedResource Include="keys\iPhone1,2_5B108.plist" />
     <EmbeddedResource Include="keys\iPhone1,2_5C1.plist" />
     <EmbeddedResource Include="keys\iPhone1,2_5F136.plist" />
@@ -352,7 +358,6 @@
     <EmbeddedResource Include="keys\iPhone3,1_9A405.plist" />
     <EmbeddedResource Include="keys\iPhone3,1_9B176.plist" />
     <EmbeddedResource Include="keys\iPhone3,1_9B206.plist" />
-    <EmbeddedResource Include="keys\iPhone3,1_9B208.plist" />
     <EmbeddedResource Include="keys\iPhone3,1_10A403.plist" />
     <EmbeddedResource Include="keys\iPhone3,1_10A523.plist" />
     <EmbeddedResource Include="keys\iPhone3,1_10B144.plist" />
@@ -383,7 +388,6 @@
     <EmbeddedResource Include="keys\iPhone3,3_10B329.plist" />
     <EmbeddedResource Include="keys\iPhone3,3_11A465.plist" />
     <EmbeddedResource Include="keys\iPhone3,3_11A501.plist" />
-    <EmbeddedResource Include="keys\iPhone4,1_9A406.plist" />
     <EmbeddedResource Include="keys\iPod1,1_3A110a.plist" />
     <EmbeddedResource Include="keys\iPod1,1_3B48b.plist" />
     <EmbeddedResource Include="keys\iPod1,1_4A102.plist" />
@@ -411,7 +415,6 @@
     <EmbeddedResource Include="keys\iPod2,1_8B117.plist" />
     <EmbeddedResource Include="keys\iPod2,1_8C148.plist" />
     <EmbeddedResource Include="keys\iPod3,1_7C145.plist" />
-    <EmbeddedResource Include="keys\iPod3,1_7C146.plist" />
     <EmbeddedResource Include="keys\iPod3,1_7D11.plist" />
     <EmbeddedResource Include="keys\iPod3,1_7E18.plist" />
     <EmbeddedResource Include="keys\iPod3,1_8A293.plist" />
@@ -429,7 +432,6 @@
     <EmbeddedResource Include="keys\iPod3,1_9B176.plist" />
     <EmbeddedResource Include="keys\iPod3,1_9B206.plist" />
     <EmbeddedResource Include="keys\iPod4,1_8B117.plist" />
-    <EmbeddedResource Include="keys\iPod4,1_8B118.plist" />
     <EmbeddedResource Include="keys\iPod4,1_8C148.plist" />
     <EmbeddedResource Include="keys\iPod4,1_8F190.plist" />
     <EmbeddedResource Include="keys\iPod4,1_8G4.plist" />
@@ -454,7 +456,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.None.Increment" />
+      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.Increment" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
