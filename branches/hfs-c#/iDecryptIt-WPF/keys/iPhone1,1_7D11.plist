@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist>
+	<dict>
+		<key>Version</key>
+		<string>3.1.2</string>
+		<key>Build</key>
+		<string>7D11</string>
+		<key>Device</key>
+		<string>iPhone 2G</string>
+		<key>Codename</key>
+		<string>Northstar</string>
+		<key>Baseband</key>
+		<string>04.05.04_G</string>
+		<key>Download URL</key>
+		<string>http://appldnld.apple.com.edgesuite.net/content.info.apple.com/iPhone/061-7268.20091008.32pNe/iPhone1,1_3.1.2_7D11_Restore.ipsw</string>
+		<key>Root FS</key>
+		<dict>
+			<key>File Name</key>
+			<string>018-6028-014</string>
+			<key>Key</key>
+			<string>fe431a1e436e5298d3c871359768aab43189fd5e7375a2ced3405dd8a223879a4d64a28e</string>
+		</dict>
+		<key>Update Ramdisk</key>
+		<dict>
+			<key>File Name</key>
+			<string>018-6134-014</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>TODO</string>
+			<key>Key</key>
+			<string>TODO</string>
+		</dict>
+		<key>Restore Ramdisk</key>
+		<dict>
+			<key>File Name</key>
+			<string>018-6136-014</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>0e128e1f69806afc476b73250908d641</string>
+			<key>Key</key>
+			<string>6a4db11073eb748bad1fabafb066fe13</string>
+		</dict>
+		<key>AppleLogo</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>677b4c711e3cacb72505feae8e1eae5d</string>
+			<key>Key</key>
+			<string>1fb738d6c091113d7dfdd89864a718d9</string>
+		</dict>
+		<key>BatteryCharging0</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>TODO</string>
+			<key>Key</key>
+			<string>TODO</string>
+		</dict>
+		<key>BatteryCharging1</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>TODO</string>
+			<key>Key</key>
+			<string>TODO</string>
+		</dict>
+		<key>BatteryFull</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>TODO</string>
+			<key>Key</key>
+			<string>TODO</string>
+		</dict>
+		<key>BatteryLow0</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>TODO</string>
+			<key>Key</key>
+			<string>TODO</string>
+		</dict>
+		<key>BatteryLow1</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>TODO</string>
+			<key>Key</key>
+			<string>TODO</string>
+		</dict>
+		<key>DeviceTree</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>TODO</string>
+			<key>Key</key>
+			<string>TODO</string>
+		</dict>
+		<key>GlyphCharging</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>TODO</string>
+			<key>Key</key>
+			<string>TODO</string>
+		</dict>
+		<key>GlyphPlugin</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>TODO</string>
+			<key>Key</key>
+			<string>TODO</string>
+		</dict>
+		<key>iBEC</key>
+		<dict>
+			<key>Encryption</key>
+			<false />
+		</dict>
+		<key>iBoot</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>db240b5ba6163898bbbc055be2276ea0</string>
+			<key>Key</key>
+			<string>a0ae133d5de080b4341d3eeb8aff63d4</string>
+		</dict>
+		<key>iBSS</key>
+		<dict>
+			<key>Encryption</key>
+			<false />
+		</dict>
+		<key>Kernelcache</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>25b7f586d184c329d3d05953a6516a36</string>
+			<key>Key</key>
+			<string>dd03b5b52a53d3582b18a0052ef84038</string>
+		</dict>
+		<key>LLB</key>
+		<dict>
+			<key>Encryption</key>
+			<false />
+		</dict>
+		<key>NeedService</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>TODO</string>
+			<key>Key</key>
+			<string>TODO</string>
+		</dict>
+		<key>RecoveryMode</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>dbf44c3cc2944b87bdecdbdcd8e42b82</string>
+			<key>Key</key>
+			<string>6d7d035c04c60ab2776a5e7c729daf0a</string>
+		</dict>
+	</dict>
+</plist>
