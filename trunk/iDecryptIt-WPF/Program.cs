@@ -2,7 +2,7 @@
  * File:   Program.cs
  * Author: Hexware
  * =============================================================================
- * Copyright (c) 2011-2013, Hexware
+ * Copyright (c) 2011-2014, Hexware
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -207,7 +207,7 @@ namespace Hexware.Programs.iDecryptIt
 		{
 			DateTime buildTime = RetrieveLinkerTimestamp();
 			Console.WriteLine("iDecryptIt " + GlobalVars.Version);
-			Console.WriteLine("  Copyright (c) 2011-2013 Hexware");
+			Console.WriteLine("  Copyright (c) 2011-2014 Hexware");
 			Console.WriteLine("  Built on " + buildTime.ToString("R"));
 			Console.WriteLine();
 			Console.WriteLine("iDecryptIt is free software licensed under GNU GPL v3 with portions under other licenses:");

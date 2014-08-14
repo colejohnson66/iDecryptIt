@@ -54,17 +54,12 @@ namespace Hexware.Programs.iDecryptIt
         string decryptTo;
         double decryptProg;
 
-        /// <summary>
-        /// herp derp
-        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
 
             if (!debug)
-            {
                 FreeConsole();
-            }
         }
 
         private void decryptworker_DoWork(object sender, DoWorkEventArgs e)
@@ -175,13 +170,13 @@ namespace Hexware.Programs.iDecryptIt
             }
             catch (Exception ex)
             {
-                Error("Unable to open key page.", ex);
+                Error("Unable to retrieve keys.", ex);
             }
             return Stream.Null;
         }
         private void LoadKey(Stream document, bool goldenMaster)
         {
-            // This REALLY needs to be redone
+            // This code is hideous. I'm not proud of it, but it works.
             PlistDocument doc = null;
 
             // Open stream
@@ -205,7 +200,7 @@ namespace Hexware.Programs.iDecryptIt
                 return;
             }
 
-            // Magic. Do not touch.
+            // Magic. Don't touch.
             PlistDict plist = doc.Document.Value;
             string temp;
             #region Device
@@ -1339,6 +1334,7 @@ namespace Hexware.Programs.iDecryptIt
         }
         /*private void btn1a420_Click(object sender, RoutedEventArgs e)
         {
+            // TODO: https://mega.co.nz/#!Ml8hyCQI!d2ihbCEvtkFcFSgldAPqIQ1_OpRIWAeJZl_HODWjC7s
             Process.Start("http://rapidshare.com/files/207764160/iphoneproto.zip");
         }*/
         private void btnSelectRootFSInputFile_Click(object sender, RoutedEventArgs e)
@@ -1439,16 +1435,14 @@ namespace Hexware.Programs.iDecryptIt
         }
         private void btnWhatAmI_Click(object sender, RoutedEventArgs e)
         {
-            // What we should do is open the archive and parse the Restore.plist file
+            // TODO: Open the archive and parse the Restore.plist file
             string[] strArr;
             string device;
             string version;
             string build;
 
             if (String.IsNullOrWhiteSpace(textWhatAmIFileName.Text))
-            {
                 return;
-            }
 
             strArr = textWhatAmIFileName.Text.Split('_');
             if (strArr.Length != 4)
@@ -1476,6 +1470,7 @@ namespace Hexware.Programs.iDecryptIt
             version = strArr[1];
             build = strArr[2];
             // TODO: Replace this with a dictionary
+            // TODO: Update Apple TV versions
             #region Device Switch
             switch (device)
             {
@@ -1520,6 +1515,24 @@ namespace Hexware.Programs.iDecryptIt
                     break;
                 case "iPad3,6":
                     device = "iPad 4 Global";
+                    break;
+                case "iPad4,1":
+                    device = "iPad Air Wi-Fi";
+                    break;
+                case "iPad4,2":
+                    device = "iPad Air Cellular";
+                    break;
+                case "iPad4,3":
+                    device = "iPad Air Cellular (Rev A)";
+                    break;
+                case "iPad4,4":
+                    device = "iPad mini 2G Wi-Fi";
+                    break;
+                case "iPad4,5":
+                    device = "iPad mini 2G Cellular";
+                    break;
+                case "iPad4,6":
+                    device = "iPad mini 2G Cellular (Rev A)";
                     break;
                 case "iPhone1,1":
                     device = "iPhone 2G";
@@ -1862,6 +1875,7 @@ namespace Hexware.Programs.iDecryptIt
                 string version = File.ReadAllText(tempdir + "update.txt");
                 Debug("INIT", "Installed version: " + GlobalVars.Version);
                 Debug("INIT", "Latest version: " + version);
+#if !DEBUG
                 if (version != GlobalVars.Version)
                 {
                     MessageBox.Show(
@@ -1870,6 +1884,7 @@ namespace Hexware.Programs.iDecryptIt
                         MessageBoxButton.OK,
                         MessageBoxImage.Information);
                 }
+#endif
             }
             catch (Exception)
             {
