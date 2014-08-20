@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F63ABAE0-3F98-4A3D-AD0D-A46A9EBCD54B}</ProjectGuid>
+    <ProjectGuid>{E7A476C2-218E-4B2B-BB96-74600DB9216E}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Xpwn.Hfs</RootNamespace>
-    <AssemblyName>hfs</AssemblyName>
+    <RootNamespace>Xpwn.Dmg</RootNamespace>
+    <AssemblyName>dmg</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -32,7 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Xpwn.Hfs.Program</StartupObject>
+    <StartupObject>Xpwn.Dmg.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -51,60 +52,42 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
-      <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4.5 %28x86 and x64%29</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="hfs\btree.c" />
-    <Content Include="hfs\catalog.c" />
-    <Content Include="hfs\CMakeLists.txt" />
-    <Content Include="hfs\extents.c" />
-    <Content Include="hfs\fastunicodecompare.c" />
-    <Content Include="hfs\flatfile.c" />
-    <Content Include="hfs\hfs.c" />
-    <Content Include="hfs\hfscompress.c" />
-    <Content Include="hfs\hfslib.c" />
-    <Content Include="hfs\includes\abstractfile.h" />
-    <Content Include="hfs\includes\common.h" />
-    <Content Include="hfs\includes\hfs\hfscompress.h" />
-    <Content Include="hfs\includes\hfs\hfslib.h" />
-    <Content Include="hfs\includes\hfs\hfsplus.h" />
-    <Content Include="hfs\includes\partial\firmwaremaster.h" />
-    <Content Include="hfs\includes\partial\partial.h" />
-    <Content Include="hfs\includes\xpwn\8900.h" />
-    <Content Include="hfs\includes\xpwn\ibootim.h" />
-    <Content Include="hfs\includes\xpwn\img2.h" />
-    <Content Include="hfs\includes\xpwn\img3.h" />
-    <Content Include="hfs\includes\xpwn\libxpwn.h" />
-    <Content Include="hfs\includes\xpwn\lzss.h" />
-    <Content Include="hfs\includes\xpwn\lzssfile.h" />
-    <Content Include="hfs\includes\xpwn\nor_files.h" />
-    <Content Include="hfs\includes\xpwn\outputstate.h" />
-    <Content Include="hfs\includes\xpwn\plist.h" />
-    <Content Include="hfs\includes\xpwn\pwnutil.h" />
-    <Content Include="hfs\rawfile.c" />
-    <Content Include="hfs\utility.c" />
-    <Content Include="hfs\volume.c" />
-    <Content Include="hfs\xattr.c" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Shared\Xpwn.Shared.csproj">
       <Project>{65062d4c-2bff-4c0c-9574-71d045e3174c}</Project>
       <Name>Xpwn.Shared</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="dmg\checksum.c" />
+    <Content Include="dmg\CMakeLists.txt" />
+    <Content Include="dmg\dmg.c" />
+    <Content Include="dmg\dmgfile.c" />
+    <Content Include="dmg\dmglib.c" />
+    <Content Include="dmg\filevault.c" />
+    <Content Include="dmg\includes\abstractfile.h" />
+    <Content Include="dmg\includes\common.h" />
+    <Content Include="dmg\includes\dmg\dmg.h" />
+    <Content Include="dmg\includes\dmg\dmgfile.h" />
+    <Content Include="dmg\includes\dmg\dmglib.h" />
+    <Content Include="dmg\includes\dmg\filevault.h" />
+    <Content Include="dmg\includes\partial\firmwaremaster.h" />
+    <Content Include="dmg\includes\partial\partial.h" />
+    <Content Include="dmg\includes\xpwn\8900.h" />
+    <Content Include="dmg\includes\xpwn\ibootim.h" />
+    <Content Include="dmg\includes\xpwn\img2.h" />
+    <Content Include="dmg\includes\xpwn\img3.h" />
+    <Content Include="dmg\includes\xpwn\libxpwn.h" />
+    <Content Include="dmg\includes\xpwn\lzss.h" />
+    <Content Include="dmg\includes\xpwn\lzssfile.h" />
+    <Content Include="dmg\includes\xpwn\nor_files.h" />
+    <Content Include="dmg\includes\xpwn\outputstate.h" />
+    <Content Include="dmg\includes\xpwn\plist.h" />
+    <Content Include="dmg\includes\xpwn\pwnutil.h" />
+    <Content Include="dmg\io.c" />
+    <Content Include="dmg\partition.c" />
+    <Content Include="dmg\resources.c" />
+    <Content Include="dmg\udif.c" />
+    <Content Include="dmg\win32test.c" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
