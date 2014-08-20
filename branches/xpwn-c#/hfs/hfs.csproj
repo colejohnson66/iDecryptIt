@@ -82,6 +82,43 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="hfs\btree.c" />
+    <Content Include="hfs\catalog.c" />
+    <Content Include="hfs\CMakeLists.txt" />
+    <Content Include="hfs\extents.c" />
+    <Content Include="hfs\fastunicodecompare.c" />
+    <Content Include="hfs\flatfile.c" />
+    <Content Include="hfs\hfs.c" />
+    <Content Include="hfs\hfscompress.c" />
+    <Content Include="hfs\hfslib.c" />
+    <Content Include="hfs\includes\abstractfile.h" />
+    <Content Include="hfs\includes\common.h" />
+    <Content Include="hfs\includes\dmg\dmg.h" />
+    <Content Include="hfs\includes\dmg\dmgfile.h" />
+    <Content Include="hfs\includes\dmg\dmglib.h" />
+    <Content Include="hfs\includes\dmg\filevault.h" />
+    <Content Include="hfs\includes\hfs\hfscompress.h" />
+    <Content Include="hfs\includes\hfs\hfslib.h" />
+    <Content Include="hfs\includes\hfs\hfsplus.h" />
+    <Content Include="hfs\includes\partial\firmwaremaster.h" />
+    <Content Include="hfs\includes\partial\partial.h" />
+    <Content Include="hfs\includes\xpwn\8900.h" />
+    <Content Include="hfs\includes\xpwn\ibootim.h" />
+    <Content Include="hfs\includes\xpwn\img2.h" />
+    <Content Include="hfs\includes\xpwn\img3.h" />
+    <Content Include="hfs\includes\xpwn\libxpwn.h" />
+    <Content Include="hfs\includes\xpwn\lzss.h" />
+    <Content Include="hfs\includes\xpwn\lzssfile.h" />
+    <Content Include="hfs\includes\xpwn\nor_files.h" />
+    <Content Include="hfs\includes\xpwn\outputstate.h" />
+    <Content Include="hfs\includes\xpwn\plist.h" />
+    <Content Include="hfs\includes\xpwn\pwnutil.h" />
+    <Content Include="hfs\rawfile.c" />
+    <Content Include="hfs\utility.c" />
+    <Content Include="hfs\volume.c" />
+    <Content Include="hfs\xattr.c" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
