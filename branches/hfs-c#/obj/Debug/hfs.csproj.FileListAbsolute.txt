@@ -1,0 +1,5 @@
+D:\iDecryptIt\branches\hfs-c#\hfs\obj\Debug\hfs.csprojResolveAssemblyReference.cache
+D:\iDecryptIt\branches\hfs-c#\hfs\bin\Debug\hfs.dll
+D:\iDecryptIt\branches\hfs-c#\hfs\bin\Debug\hfs.pdb
+D:\iDecryptIt\branches\hfs-c#\hfs\obj\Debug\hfs.dll
+D:\iDecryptIt\branches\hfs-c#\hfs\obj\Debug\hfs.pdb
