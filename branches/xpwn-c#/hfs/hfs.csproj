@@ -94,10 +94,6 @@
     <Content Include="hfs\hfslib.c" />
     <Content Include="hfs\includes\abstractfile.h" />
     <Content Include="hfs\includes\common.h" />
-    <Content Include="hfs\includes\dmg\dmg.h" />
-    <Content Include="hfs\includes\dmg\dmgfile.h" />
-    <Content Include="hfs\includes\dmg\dmglib.h" />
-    <Content Include="hfs\includes\dmg\filevault.h" />
     <Content Include="hfs\includes\hfs\hfscompress.h" />
     <Content Include="hfs\includes\hfs\hfslib.h" />
     <Content Include="hfs\includes\hfs\hfsplus.h" />
@@ -118,6 +114,12 @@
     <Content Include="hfs\utility.c" />
     <Content Include="hfs\volume.c" />
     <Content Include="hfs\xattr.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Shared\Xpwn.Shared.csproj">
+      <Project>{65062d4c-2bff-4c0c-9574-71d045e3174c}</Project>
+      <Name>Xpwn.Shared</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
