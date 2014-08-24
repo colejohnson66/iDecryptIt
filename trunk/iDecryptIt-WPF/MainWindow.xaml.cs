@@ -80,7 +80,7 @@ namespace Hexware.Programs.iDecryptIt
         }
         private void decryptworker_ProgressReported(object sender, ProgressChangedEventArgs e)
         {
-            if (e.ProgressPercentage == 100)
+            if (e.ProgressPercentage == 100 && !decryptworker.CancellationPending)
             {
                 decryptworker.CancelAsync();
                 progDecrypt.Value = 100.0;
@@ -114,16 +114,16 @@ namespace Hexware.Programs.iDecryptIt
         }
         internal void Debug(string component, string message)
         {
-            if (debug)
+            if (!debug)
+                return;
+
+            if (component.Length > 10)
             {
-                if (component.Length > 10)
-                {
-                    Console.WriteLine("[{0}] {1}", component, message);
-                }
-                else
-                {
-                    Console.WriteLine("[{0}]{1} {2}", component, new String(' ', 10 - component.Length), message);
-                }
+                Console.WriteLine("[{0}] {1}", component, message);
+            }
+            else
+            {
+                Console.WriteLine("[{0}]{1} {2}", component, new String(' ', 10 - component.Length), message);
             }
         }
         internal void Error(string message, Exception ex)
@@ -1208,18 +1208,16 @@ namespace Hexware.Programs.iDecryptIt
             x.UseShellExecute = false;
             x.FileName = rundir + "dmg.exe";
             x.Arguments = String.Format("extract \"{0}\" \"{1}\" -k {2}", textInputFileName.Text, textOutputFileName.Text, textDecryptKey.Text);
-            Debug("DECRYPT", "Args: " + x.Arguments);
             x.ErrorDialog = true;
 
             decryptProc = new Process();
             decryptProc.EnableRaisingEvents = true;
-            decryptProc.OutputDataReceived +=decryptProc_OutputDataReceived;
+            decryptProc.OutputDataReceived += decryptProc_OutputDataReceived;
             decryptProc.StartInfo = x;
             decryptProc.ErrorDataReceived += decryptProc_ErrorDataReceived;
             decryptProc.Start();
-            // TODO: test
-            //decryptProc.BeginOutputReadLine(); // The program pauses if the buffer is full
-            //decryptProc.BeginErrorReadLine();
+            decryptProc.BeginOutputReadLine(); // The program pauses if the buffer is full
+            decryptProc.BeginErrorReadLine();
 
             // Screen mods
             gridDecrypt.IsEnabled = false;
@@ -1237,16 +1235,17 @@ namespace Hexware.Programs.iDecryptIt
             decryptworker.ProgressChanged += decryptworker_ProgressReported;
             decryptworker.RunWorkerAsync();
         }
-
         private void decryptProc_OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
-            Console.WriteLine(e.Data);
+            if (debug)
+                Console.WriteLine(e.Data);
+        }
+        private void decryptProc_ErrorDataReceived(object sender, DataReceivedEventArgs e)
+        {
+            if (debug)
+                Console.WriteLine(e.Data);
         }
 
-        void decryptProc_ErrorDataReceived(object sender, DataReceivedEventArgs e)
-        {
-            Console.WriteLine(e.Data);
-        }
         private void btnExtract_Click(object sender, RoutedEventArgs e)
         {
             Debug("EXTRACT", "Validating input.");
@@ -1288,47 +1287,14 @@ namespace Hexware.Programs.iDecryptIt
             Debug("EXTRACT", "Launching 7zip.");
             Process.Start(
                 rundir + "7z.exe",
-                " x \"" + text7ZInputFileName.Text + "\" \"" + "-o" + text7ZOuputFolder.Text + "\"");
-
-            // Prepare to extract HFS
-            /*string[] files = Directory.GetFiles(tempdir, "*.hfs*", SearchOption.AllDirectories);
-            string file;
-
-            if (files.Length == 1)
-            {
-                file = files[0];
-            }
-            else
-            {
-                MessageBox.Show(
-                    "Please select the biggest file.",
-                    "iDecryptIt",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Information);
-
-                OpenFileDialog extract = new OpenFileDialog();
-                extract.FileName = "";
-                extract.Multiselect = false;
-                extract.Filter = "All Files (*.*)|*.*";
-                extract.InitialDirectory = tempdir;
-                extract.ShowDialog();
-                if (String.IsNullOrWhiteSpace(extract.SafeFileName) || !File.Exists(extract.FileName))
-                {
-                    return;
-                }
-                file = extract.FileName;
-            }
-
-            Process.Start(
-                rundir + "7z.exe",
-                " x \"" + file + "\" \"" + "-o" + text7ZOuputFolder.Text + "\"");*/
+                " x \"" + text7ZInputFileName.Text + "\" \"-o" + text7ZOuputFolder.Text + "\"");
         }
         private void btnChangelog_Click(object sender, RoutedEventArgs e)
         {
             Debug("CHANGE", "Loading Changelog.");
             Process.Start("file://" + helpdir + "changelog.html");
         }
-        private void btnREADME_Click(object sender, RoutedEventArgs e)
+        private void btnReadme_Click(object sender, RoutedEventArgs e)
         {
             Debug("README", "Loading README.");
             Process.Start("file://" + helpdir + "README.html");
