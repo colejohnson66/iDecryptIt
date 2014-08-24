@@ -10,13 +10,8 @@
         Closing="Window_Closing">
     <Window.Resources>
         <SolidColorBrush x:Key="GrayBorder">#20000000</SolidColorBrush>
-        <GridLength x:Key="KeepItSquare">37</GridLength>
-        <GridLength x:Key="VersionWidth">110</GridLength>
-        <GridLength x:Key="VersionWidthATVBeta">135</GridLength>
-        <GridLength x:Key="DMGWidth">120</GridLength>
-        <Thickness x:Key="VersionMargin">3,6,0,6</Thickness>
     </Window.Resources>
-    <Grid x:Name="LayoutRoot">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -32,11 +27,11 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="6" />
-                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="3*" />
+                            <ColumnDefinition Width="6" />
+                            <ColumnDefinition Width="3*" />
                             <ColumnDefinition Width="6" />
                             <ColumnDefinition Width="2*" />
-                            <ColumnDefinition Width="6" />
-                            <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="6" />
                             <ColumnDefinition Width="Auto" MinWidth="75" />
                         </Grid.ColumnDefinitions>
@@ -76,15 +71,15 @@
                             <TextBlock x:Name="textDecryptLabel" Text="Key:  " HorizontalAlignment="Right" VerticalAlignment="Center" />
                             <TextBox x:Name="textDecryptKey" Grid.Column="1" />
                         </Grid>
-                        <Button x:Name="btnSelectRootFSInputFile" Content="Select Input File" Grid.Column="8" Height="23" Click="btnSelectRootFSInputFile_Click" />
+                        <Button x:Name="btnSelectRootFSInputFile" Content="Select Input File" Grid.Column="8" Height="24" Click="btnSelectRootFSInputFile_Click" />
                     </Grid>
                 </Grid>
             </Grid>
         </Grid>
-        <Grid Grid.Row="1" x:Name="SevenZipArea" Margin="3,0">
+        <Grid Grid.Row="1" Margin="3,0">
             <Grid Margin="6" Background="{StaticResource GrayBorder}">
                 <Grid Margin="3" Background="White">
-                    <Grid Margin="6">
+                    <Grid Margin="6" x:Name="gridExtract">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="6" />
@@ -119,22 +114,22 @@
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <TextBlock x:Name="txt7ZOutputLabel" Text="Output File:  " HorizontalAlignment="Right" VerticalAlignment="Center" />
+                            <TextBlock x:Name="txt7ZOutputLabel" Text="Output Folder:  " HorizontalAlignment="Right" VerticalAlignment="Center" />
                             <TextBox x:Name="text7ZOuputFolder" Grid.Column="1" />
                         </Grid>
-                        <Button x:Name="btnSelect7ZInputFile" Content="Select Input File" Grid.Column="6" Height="23" Click="btnSelect7ZInputFile_Click" />
+                        <Button x:Name="btnSelect7ZInputFile" Content="Select Input File" Grid.Column="6" Height="24" Click="btnSelect7ZInputFile_Click" />
                     </Grid>
                 </Grid>
             </Grid>
         </Grid>
-        <Grid Grid.Row="2" x:Name="ExtrasArea" Margin="3,0">
+        <Grid Grid.Row="2" Margin="3,0">
             <Grid Margin="6" Background="{StaticResource GrayBorder}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <Grid Margin="3,3,1,3" Background="White">
-                    <Grid Margin="6">
+                    <Grid Margin="6" x:Name="gridIdentify">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="6" />
@@ -166,36 +161,26 @@
                     </Grid>
                 </Grid>
                 <Grid Margin="2,3,3,3" Background="White" Grid.Column="1">
-                    <Grid Margin="6">
+                    <Grid Margin="6" x:Name="gridExtras">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="{StaticResource KeepItSquare}" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="{StaticResource KeepItSquare}" /><!--
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="{StaticResource KeepItSquare}" />-->
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="6" />
+                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="{StaticResource KeepItSquare}" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <Button x:Name="btnREADME" Grid.Column="0" Grid.Row="1" ToolTip="README" Click="btnREADME_Click">
+                        <Button x:Name="btnREADME" Grid.Column="0" ToolTip="Readme" Click="btnReadme_Click">
                             <Image Source="Images/Help-browser_32.png" />
                         </Button>
-                        <Button x:Name="btnChangelog" Grid.Column="2" Grid.Row="1" ToolTip="Changelog" Click="btnChangelog_Click">
+                        <Button x:Name="btnChangelog" Grid.Column="2" ToolTip="Changelog" Click="btnChangelog_Click">
                             <Image Source="Images/Gnome-logviewer_32.png" />
-                        </Button><!--
-                        <Button x:Name="btnChangeLanguage" Grid.Column="4" Grid.Row="1" ToolTip="Change Language" Click="btnChangeLanguage_Click">
-                            <Image Source="Images/Preferences-desktop-locale_es_us_32.png" />
-                        </Button>-->
+                        </Button>
                     </Grid>
                 </Grid>
             </Grid>
         </Grid>
-        <Grid Grid.Row="3" x:Name="DeviceArea" Margin="3,0">
+        <Grid Grid.Row="3" Margin="3,0">
             <Grid Margin="6" Background="{StaticResource GrayBorder}">
                 <Grid Margin="3" Background="White">
-                    <Grid Margin="6">
+                    <Grid Margin="6" x:Name="gridDevices">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
@@ -939,12 +924,12 @@
                 </Grid>
             </Grid>
         </Grid>
-        <Grid Grid.Row="4" x:Name="KeysArea" Margin="3,0">
+        <Grid Grid.Row="4" Margin="3,0,3,3">
             <Grid Margin="6" Background="{StaticResource GrayBorder}">
                 <Grid Margin="3" Background="White">
                     <ScrollViewer Margin="6">
-                        <!-- Gay Layout Fix -->
-                        <Grid Margin="0,0,6,0">
+                        <!-- Stupid layout fix -->
+                        <Grid Margin="0,0,6,0" x:Name="gridKeys">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" /><!-- Type -->
                                 <ColumnDefinition Width="6" />
@@ -1016,8 +1001,8 @@
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
-                            <TextBlock Grid.Row="0" x:Name="txtDevice" Text="DEVICE" FontSize="32" Grid.ColumnSpan="5" />
-                            <TextBlock Grid.Row="2" x:Name="txtVersion" Text="VERSION (BUILD)" FontSize="16" Margin="12,0,0,0" Grid.ColumnSpan="5" />
+                            <TextBlock Grid.Row="0" Text="Device" x:Name="txtDevice" FontSize="32" Grid.ColumnSpan="5" />
+                            <TextBlock Grid.Row="2" Text="Version (Build)" x:Name="txtVersion" FontSize="16" Margin="12,0,0,0" Grid.ColumnSpan="5" />
                             <TextBlock Grid.Row="4" Text="Root FS Key" x:Name="lblRootFSKey" VerticalAlignment="Center" />
                             <TextBlock Grid.Row="5" Text="Restore Ramdisk (IV)" x:Name="lblRestoreIV" VerticalAlignment="Center" />
                             <TextBlock Grid.Row="6" Text="Restore Ramdisk (Key)" x:Name="lblRestoreKey" VerticalAlignment="Center" />
