@@ -174,7 +174,7 @@ namespace Hexware.Programs.iDecryptIt
             }
             return Stream.Null;
         }
-        private void LoadKey(Stream document, bool goldenMaster)
+        private void LoadFirmwareKeys(Stream document, bool goldenMaster)
         {
             // This code is hideous. I'm not proud of it, but it works.
             PlistDocument doc = null;
@@ -1217,8 +1217,9 @@ namespace Hexware.Programs.iDecryptIt
             decryptProc.StartInfo = x;
             decryptProc.ErrorDataReceived += decryptProc_ErrorDataReceived;
             decryptProc.Start();
-            decryptProc.BeginOutputReadLine(); // The program pauses if the buffer is full
-            decryptProc.BeginErrorReadLine();
+            // TODO: test
+            //decryptProc.BeginOutputReadLine(); // The program pauses if the buffer is full
+            //decryptProc.BeginErrorReadLine();
 
             // Screen mods
             gridDecrypt.IsEnabled = false;
@@ -1836,7 +1837,7 @@ namespace Hexware.Programs.iDecryptIt
                     MessageBoxImage.Information);
                 return;
             }
-            LoadKey(stream, false); // gm);
+            LoadFirmwareKeys(stream, false); // gm);
         }
         private void keySelect_Click(object sender, RoutedEventArgs e)
         {
