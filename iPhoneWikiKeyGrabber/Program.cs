@@ -9,11 +9,8 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 {
 	public class Program
 	{
-		// TODO: Replace XML with (WIP) OpenCF
-		static string[] links = new string[512];
-		static string[] blanks = new string[512];
-		static short linksPosition = 0;
-		static short blanksPosition = 0;
+        // TODO: Replace XML with (WIP) OpenCF
+        static List<string> links = new List<string>();
 		static string keyPath = Path.Combine(Directory.GetCurrentDirectory(), "keys");
 		static XmlWriterSettings settings = new XmlWriterSettings();
 		static Dictionary<string, string> devices = new Dictionary<string, string>()
@@ -67,7 +64,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 				Directory.Delete(keyPath, true);
 			Directory.CreateDirectory(keyPath);
 
-			Console.WriteLine("Grabbing raw rendered HTML");
+			Console.WriteLine("Grabbing list of key pages");
 			WebClient client = new WebClient();
 			string download = "<xml>" + client.DownloadString(new Uri("http://theiphonewiki.com/w/index.php?title=Firmware&action=render")) + "</xml>";
 
@@ -77,12 +74,12 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 			settings.NewLineChars = "\r\n";
 
             // Thankfully, MediaWiki outputs valid XHTML
-            Console.WriteLine("Parsing XML");
+            Console.WriteLine("Parsing page");
 			XmlDocument document = new XmlDocument();
 			document.InnerXml = download;
 			XmlNodeList list = document.ChildNodes.Item(0).ChildNodes;
 			int length = list.Count;
-			for (int i = 3; i < length; i++)
+			for (int i = 1; i < length; i++)
 			{
 				if (list.Item(i).Name == "table")
 				{
@@ -92,12 +89,14 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 
 			// Parse individual pages
 			Console.WriteLine("Parsing individual pages");
-			for (int i = 0; i < linksPosition; i++)
-			{
-				Console.WriteLine("    {0}", links[i].Substring(28));
-				download = client.DownloadString(new Uri(links[i].Replace("/wiki/", "/w/index.php?title=") + "&action=raw"));
-				ParseAndSaveKeyPage(download);
-			}
+            foreach (string link in links)
+            {
+                Console.WriteLine("    {0}", link.Substring(28));
+                download = client.DownloadString(new Uri(link.Replace("/wiki/", "/w/index.php?title=") + "&action=raw"));
+                ParseAndSaveKeyPage(download);
+            }
+
+            Console.WriteLine("Done");
 			Console.ReadLine();
 		}
 		private static void ParseTableNode(XmlNodeList table)
@@ -105,7 +104,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 			for (int tr = 1; tr < table.Count; tr++)
 			{
 				XmlNodeList thisRow = table.Item(tr).ChildNodes;
-				for (int td = 1; td < thisRow.Count; td++)
+				for (int td = 0; td < thisRow.Count; td++)
 				{
 					ParseTableDataNode(thisRow.Item(td).ChildNodes);
 				}
@@ -114,15 +113,14 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 		private static void ParseTableDataNode(XmlNodeList nodes)
 		{
 			string url;
-			bool add;
 			int length = nodes.Count;
 			for (int i = 0; i < length; i++)
 			{
-				// Assume URL is good
-				add = true;
 				if (nodes.Item(i).Name == "a")
-				{
-					url = nodes.Item(i).Attributes.Item(0).Value;
+                {
+                    bool add = true; // Assume URL is good
+                    url = nodes.Item(i).Attributes.Item(0).Value;
+
 					// Ignore download URLs
 					if (url.Contains("theiphonewiki.com"))
 					{
@@ -136,26 +134,23 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 							}
 						}
 
-						// Check if baseband test failed. If so, does page exist?
+						// Check if baseband test failed. Does page exist?
 						if (add && url.Contains("redlink=1"))
 						{
 							add = false;
-							blanks[blanksPosition] = url;
-							blanksPosition++;
 						}
 
-						// It must contain Apple_TV, iPad, iPhone, or iPod_touch
-						if (!url.Contains("Apple_TV") && !url.Contains("iPad") &&
-							!url.Contains("iPhone") && !url.Contains("iPod_touch"))
+						// It must contain AppleTV, iPad, iPhone, or iPod
+						if (!url.Contains("AppleTV") && !url.Contains("iPad") &&
+							!url.Contains("iPhone") && !url.Contains("iPod"))
 						{
 							add = false;
 						}
 
-						if (add)
-						{
-							links[linksPosition] = url.Replace("http://the", "http://www.the");
-							linksPosition++;
-						}
+                        if (add)
+                        {
+                            links.Add(url.Replace("http://the", "http://www.the"));
+                        }
 					}
 				}
 			}
@@ -196,8 +191,8 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 			for (int i = 0; i < length; i++)
 				lines[i] = lines[i].Substring(3, lines[i].Length - 3);
 
-			// Prepare
-			string key;
+            // Convert template to a dictionary
+            string key;
 			string value;
 			Dictionary<string, string> data = new Dictionary<string, string>();
 			for (int i = 0; i < length; i++)
@@ -229,10 +224,10 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 					key = key.Replace("SEPFirmware", "SEP-Firmware");
 				}
 
-				// Convert template to a dictionary
 				data.Add(key, value.Trim());
 			}
 			
+            // Convert data.Keys to a string array
 			string[] keys = new string[data.Count];
 			int num = 0;
 			foreach (string thiskey in data.Keys)
@@ -248,7 +243,6 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 			{
 				// Something is wrong
 				throw new Exception();
-				//File.Delete(filename);
 			}
 			XmlWriter writer = XmlWriter.Create(filename, settings);
 			xml.Save(writer);
@@ -272,19 +266,21 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 					plist.ChildNodes.Item(num).InnerText = thiskey;
 					num++;
 					plist.AppendChild(xml.CreateElement("string"));
-					if (thiskey == "Version")
-					{
-						// Remove everything past the "[[Golden Master|GM]]" on GM pages
-						plist.ChildNodes.Item(num).InnerText = data[thiskey].Split('[')[0];
-					}
-					else if (thiskey == "Device")
-					{
-						plist.ChildNodes.Item(num).InnerText = devices[data[thiskey]];
-					}
-					else
-					{
-						plist.ChildNodes.Item(num).InnerText = data[thiskey];
-					}
+                    if (thiskey == "Version")
+                    {
+                        // Remove everything past the "[[Golden Master|GM]]" on GM pages
+                        // Both options work for public firmwares, but the first may not on betas
+                        plist.ChildNodes.Item(num).InnerText = data[thiskey].Split('[', 'b')[0];
+                        //string[] split = data[thiskey].Split(new string[] { " and " }, StringSplitOptions.None)[1];
+                    }
+                    else if (thiskey == "Device")
+                    {
+                        plist.ChildNodes.Item(num).InnerText = devices[data[thiskey]];
+                    }
+                    else
+                    {
+                        plist.ChildNodes.Item(num).InnerText = data[thiskey];
+                    }
 					num++;
 				}
 				else if (thiskey == "RootFS")
@@ -303,6 +299,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 					plist.ChildNodes.Item(num).ChildNodes.Item(3).InnerText = data["RootFSKey"];
 					if (data.ContainsKey("GMRootFSKey"))
 					{
+                        // Only applicable to 4.0GM/4.0 8A293 (excluding iPhone3,1)
 						plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("key"));
 						plist.ChildNodes.Item(num).ChildNodes.Item(4).InnerText = "GM Key";
 						plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("string"));
@@ -312,11 +309,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 				}
 				else if (thiskey == "NoUpdateRamdisk")
 				{
-					//plist.AppendChild(xml.CreateElement("key"));
-					//plist.ChildNodes.Item(num).InnerText = "No Update Ramdisk";
-					//num++;
-					//plist.AppendChild(xml.CreateElement("true"));
-					//num++;
+                    // Don't put anything for the update ramdisk if there isn't one
 				}
 				else if (thiskey == "UpdateRamdisk" || thiskey == "RestoreRamdisk")
 				{
