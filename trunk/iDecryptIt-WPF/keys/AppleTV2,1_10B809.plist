@@ -15,16 +15,14 @@
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>
-			<string>048-5474-003</string>
+			<string>048-5474-003.dmg</string>
 			<key>Key</key>
 			<string>363c94645e9a481eb7911210fa9ff1d4eaec046ddf52428ec02e50b71be06e69cb25de62</string>
 		</dict>
-		<key>No Update Ramdisk</key>
-		<true />
 		<key>Restore Ramdisk</key>
 		<dict>
 			<key>File Name</key>
-			<string>048-5479-003</string>
+			<string>048-5479-003.dmg</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -34,6 +32,8 @@
 		</dict>
 		<key>AppleLogo</key>
 		<dict>
+			<key>File Name</key>
+			<string>applelogo~appletv.s5l8930x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -43,6 +43,8 @@
 		</dict>
 		<key>BatteryCharging0</key>
 		<dict>
+			<key>File Name</key>
+			<string>batterycharging0.s5l8930x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -52,6 +54,8 @@
 		</dict>
 		<key>BatteryCharging1</key>
 		<dict>
+			<key>File Name</key>
+			<string>batterycharging1.s5l8930x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -61,6 +65,8 @@
 		</dict>
 		<key>BatteryFull</key>
 		<dict>
+			<key>File Name</key>
+			<string>batteryfull.s5l8930x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -70,6 +76,8 @@
 		</dict>
 		<key>BatteryLow0</key>
 		<dict>
+			<key>File Name</key>
+			<string>batterylow0.s5l8930x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -79,6 +87,8 @@
 		</dict>
 		<key>BatteryLow1</key>
 		<dict>
+			<key>File Name</key>
+			<string>batterylow1.s5l8930x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -88,6 +98,8 @@
 		</dict>
 		<key>DeviceTree</key>
 		<dict>
+			<key>File Name</key>
+			<string>DeviceTree.k66ap.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -97,6 +109,8 @@
 		</dict>
 		<key>GlyphCharging</key>
 		<dict>
+			<key>File Name</key>
+			<string>glyphcharging.s5l8930x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -106,6 +120,8 @@
 		</dict>
 		<key>GlyphPlugin</key>
 		<dict>
+			<key>File Name</key>
+			<string>glyphplugin.s5l8930x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -115,6 +131,8 @@
 		</dict>
 		<key>iBEC</key>
 		<dict>
+			<key>File Name</key>
+			<string>iBEC.k66ap.RELEASE.dfu</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -124,6 +142,8 @@
 		</dict>
 		<key>iBoot</key>
 		<dict>
+			<key>File Name</key>
+			<string>iBoot.k66ap.RELEASE.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -133,6 +153,8 @@
 		</dict>
 		<key>iBSS</key>
 		<dict>
+			<key>File Name</key>
+			<string>iBSS.k66ap.RELEASE.dfu</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -142,6 +164,8 @@
 		</dict>
 		<key>Kernelcache</key>
 		<dict>
+			<key>File Name</key>
+			<string>kernelcache.release.k66</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -151,6 +175,8 @@
 		</dict>
 		<key>LLB</key>
 		<dict>
+			<key>File Name</key>
+			<string>LLB.k66ap.RELEASE.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -160,6 +186,8 @@
 		</dict>
 		<key>RecoveryMode</key>
 		<dict>
+			<key>File Name</key>
+			<string>recoverymode~appletv.s5l8930x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>

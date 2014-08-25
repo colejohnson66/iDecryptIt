@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist>
+	<dict>
+		<key>Version</key>
+		<string>2.0</string>
+		<key>Build</key>
+		<string>5A347</string>
+		<key>Device</key>
+		<string>iPhone 3G</string>
+		<key>Codename</key>
+		<string>Big Bear</string>
+		<key>Baseband</key>
+		<string>01.45.00</string>
+		<key>Download URL</key>
+		<string>http://appldnld.apple.com.edgesuite.net/content.info.apple.com/iPhone/061-4955.20080710.bgt53/iPhone1,2_2.0_5A347_Restore.ipsw</string>
+		<key>Root FS</key>
+		<dict>
+			<key>File Name</key>
+			<string>018-3782-2.dmg</string>
+			<key>Key</key>
+			<string>2cfca55aabb22fde7746e6a034f738b7795458be9902726002a8341995558990f41e3755</string>
+		</dict>
+		<key>Restore Ramdisk</key>
+		<dict>
+			<key>File Name</key>
+			<string>018-3783-2.dmg</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>29681f625d1f61271ec3116601b8bcde</string>
+			<key>Key</key>
+			<string>850afc271132d15ae6989565567e65bf</string>
+		</dict>
+		<key>AppleLogo</key>
+		<dict>
+			<key>File Name</key>
+			<string>applelogo.s5l8900x.img3</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>5d1c8f19b86411f032d647de174ca7cd</string>
+			<key>Key</key>
+			<string>94bf8963c8ef945e919adb1ee38f8d74</string>
+		</dict>
+		<key>BatteryLow0</key>
+		<dict>
+			<key>File Name</key>
+			<string>batterylow0.s5l8900x.img3</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>TODO</string>
+			<key>Key</key>
+			<string>TODO</string>
+		</dict>
+		<key>BatteryLow1</key>
+		<dict>
+			<key>File Name</key>
+			<string>batterylow1.s5l8900x.img3</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>TODO</string>
+			<key>Key</key>
+			<string>TODO</string>
+		</dict>
+		<key>DeviceTree</key>
+		<dict>
+			<key>File Name</key>
+			<string>DeviceTree.n82ap.img3</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>f801d9f5a539a4cff9a2346593cc0e94</string>
+			<key>Key</key>
+			<string>b166c4676bf65ffcaab58b5f0b78fe7d</string>
+		</dict>
+		<key>GlyphCharging</key>
+		<dict>
+			<key>File Name</key>
+			<string>glyphcharging.s5l8900x.img3</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>TODO</string>
+			<key>Key</key>
+			<string>TODO</string>
+		</dict>
+		<key>GlyphPlugin</key>
+		<dict>
+			<key>File Name</key>
+			<string>glyphplugin.s5l8900x.img3</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>TODO</string>
+			<key>Key</key>
+			<string>TODO</string>
+		</dict>
+		<key>iBEC</key>
+		<dict>
+			<key>File Name</key>
+			<string>iBEC.n82ap.RELEASE.dfu</string>
+			<key>Encryption</key>
+			<false />
+		</dict>
+		<key>iBoot</key>
+		<dict>
+			<key>File Name</key>
+			<string>iBoot.n82ap.RELEASE.img3</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>38d71e258626bbfe04d4657b25f6b054</string>
+			<key>Key</key>
+			<string>872781af5cb0878b9a8f79d604bf6bd8</string>
+		</dict>
+		<key>iBSS</key>
+		<dict>
+			<key>File Name</key>
+			<string>iBSS.n82ap.RELEASE.dfu</string>
+			<key>Encryption</key>
+			<false />
+		</dict>
+		<key>Kernelcache</key>
+		<dict>
+			<key>File Name</key>
+			<string>kernelcache.release.s5l8900x</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>3525bab8a8375143469c5c6a4533d9bc</string>
+			<key>Key</key>
+			<string>e8a54cb7b34773d67a2e6540c588129f</string>
+		</dict>
+		<key>LLB</key>
+		<dict>
+			<key>File Name</key>
+			<string>LLB.n82ap.RELEASE.img3</string>
+			<key>Encryption</key>
+			<false />
+		</dict>
+		<key>NeedService</key>
+		<dict>
+			<key>File Name</key>
+			<string>needservice.s5l8900x.img3</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>TODO</string>
+			<key>Key</key>
+			<string>TODO</string>
+		</dict>
+		<key>RecoveryMode</key>
+		<dict>
+			<key>File Name</key>
+			<string>recoverymode.s5l8900x.img3</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>1007fd4b6d504082573ae48d96fa88e7</string>
+			<key>Key</key>
+			<string>94bd127dfec81a27a486d599b821875e</string>
+		</dict>
+	</dict>
+</plist>

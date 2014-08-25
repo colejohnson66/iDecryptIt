@@ -15,21 +15,21 @@
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>
-			<string>022-3893-4</string>
+			<string>022-3893-4.dmg</string>
 			<key>Key</key>
 			<string>d0a0c0977bd4b6350b256d6650ec9eca419b6f961f593e74b7e5b93e010b698ca6cca1fe</string>
 		</dict>
 		<key>Update Ramdisk</key>
 		<dict>
 			<key>File Name</key>
-			<string>022-3896-4</string>
+			<string>022-3896-4.dmg</string>
 			<key>Encryption</key>
 			<false />
 		</dict>
 		<key>Restore Ramdisk</key>
 		<dict>
 			<key>File Name</key>
-			<string>022-3900-4</string>
+			<string>022-3900-4.dmg</string>
 			<key>Encryption</key>
 			<false />
 		</dict>

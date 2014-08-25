@@ -13,14 +13,14 @@
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>
-			<string>018-3976-1</string>
+			<string>018-3976-1.dmg</string>
 			<key>Key</key>
 			<string>31e3ff09ff046d5237187346ee893015354d2135e3f0f39480be63dd2a18444961c2da5d</string>
 		</dict>
 		<key>Update Ramdisk</key>
 		<dict>
 			<key>File Name</key>
-			<string>018-3984-1</string>
+			<string>018-3984-1.dmg</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -31,25 +31,29 @@
 		<key>Restore Ramdisk</key>
 		<dict>
 			<key>File Name</key>
-			<string>018-3990-1</string>
+			<string>018-3990-1.dmg</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>e3ae96be1b77d92431e9458381cffdc7</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>0efc377a2982a98b2ab2e3c098a12908</string>
 		</dict>
 		<key>AppleLogo</key>
 		<dict>
+			<key>File Name</key>
+			<string>applelogo.s5l8900x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>bf67cfba9160ad7dbdf44f2baf176458</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>4b69f6c9eed042cacf89fc575ff3b193</string>
 		</dict>
 		<key>BatteryLow0</key>
 		<dict>
+			<key>File Name</key>
+			<string>batterylow0.s5l8900x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -59,6 +63,8 @@
 		</dict>
 		<key>BatteryLow1</key>
 		<dict>
+			<key>File Name</key>
+			<string>batterylow1.s5l8900x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -68,15 +74,19 @@
 		</dict>
 		<key>DeviceTree</key>
 		<dict>
+			<key>File Name</key>
+			<string>DeviceTree.n45ap.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>be606c8201a122182df9b0e3db4a9bcc</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>dbe4e063c3e863e4e8c4a2492b44b50f</string>
 		</dict>
 		<key>GlyphCharging</key>
 		<dict>
+			<key>File Name</key>
+			<string>glyphcharging.s5l8900x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -86,6 +96,8 @@
 		</dict>
 		<key>GlyphPlugin</key>
 		<dict>
+			<key>File Name</key>
+			<string>glyphplugin.s5l8900x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -95,39 +107,47 @@
 		</dict>
 		<key>iBEC</key>
 		<dict>
+			<key>File Name</key>
+			<string>iBEC.n45ap.RELEASE.dfu</string>
 			<key>Encryption</key>
 			<false />
 		</dict>
 		<key>iBoot</key>
 		<dict>
+			<key>File Name</key>
+			<string>iBoot.n45ap.RELEASE.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>f7e464f98b0b7fe6dfdbd8d0a7f239a1</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>524df80669f9f0237f097db25e8e0c6b</string>
 		</dict>
 		<key>iBSS</key>
 		<dict>
+			<key>File Name</key>
+			<string>iBSS.n45ap.RELEASE.dfu</string>
 			<key>Encryption</key>
 			<false />
 		</dict>
 		<key>Kernelcache</key>
 		<dict>
+			<key>File Name</key>
+			<string>kernelcache.release.s5l8900x</string>
 			<key>Encryption</key>
-			<true />
-			<key>IV</key>
-			<string>TODO</string>
-			<key>Key</key>
-			<string>TODO</string>
+			<false />
 		</dict>
 		<key>LLB</key>
 		<dict>
+			<key>File Name</key>
+			<string>LLB.n45ap.RELEASE.img3</string>
 			<key>Encryption</key>
 			<false />
 		</dict>
 		<key>NeedService</key>
 		<dict>
+			<key>File Name</key>
+			<string>needservice.s5l8900x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -137,12 +157,14 @@
 		</dict>
 		<key>RecoveryMode</key>
 		<dict>
+			<key>File Name</key>
+			<string>recoverymode.s5l8900x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>0e1504c70c2b7eabe2488a5bf7b1ac60</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>2e5d3470a5a1c9ab8b6c7c334569e86f</string>
 		</dict>
 	</dict>
 </plist>
