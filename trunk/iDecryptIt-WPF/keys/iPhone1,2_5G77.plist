@@ -17,25 +17,25 @@
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>
-			<string>018-4380-1</string>
+			<string>018-4380-1.dmg</string>
 			<key>Key</key>
-			<string>7b5acd2292fd5c8577adc21f1c76df2cbb5ff247ca3766e62ae3251f8d92c8e4af279a64</string>
+			<string>dc39d88afe4cbd8a3f36824b8fd68acf04ac72718c09100816c5cb89889b8079e96802f0</string>
 		</dict>
 		<key>Update Ramdisk</key>
 		<dict>
 			<key>File Name</key>
-			<string>018-4377-1</string>
+			<string>018-4377-1.dmg</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>93c059c2116e1957a3c414ec336b1d27</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>4cce03e3467e5c830f1ac8bd9cabe8ae</string>
 		</dict>
 		<key>Restore Ramdisk</key>
 		<dict>
 			<key>File Name</key>
-			<string>018-4378-1</string>
+			<string>018-4378-1.dmg</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -45,15 +45,19 @@
 		</dict>
 		<key>AppleLogo</key>
 		<dict>
+			<key>File Name</key>
+			<string>applelogo.s5l8900x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>24b311c220a2d5947e45c37a24e91c90</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>4157f794afedbb68b6e3d40771b23fd8</string>
 		</dict>
 		<key>BatteryLow0</key>
 		<dict>
+			<key>File Name</key>
+			<string>batterylow0.s5l8900x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -63,6 +67,8 @@
 		</dict>
 		<key>BatteryLow1</key>
 		<dict>
+			<key>File Name</key>
+			<string>batterylow1.s5l8900x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -72,15 +78,19 @@
 		</dict>
 		<key>DeviceTree</key>
 		<dict>
+			<key>File Name</key>
+			<string>DeviceTree.n82ap.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>0e3c03beffb18f79265c1714f44b7916</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>79289e93e78a578900a46c0b8ea474b8</string>
 		</dict>
 		<key>GlyphCharging</key>
 		<dict>
+			<key>File Name</key>
+			<string>glyphcharging.s5l8900x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -90,6 +100,8 @@
 		</dict>
 		<key>GlyphPlugin</key>
 		<dict>
+			<key>File Name</key>
+			<string>glyphplugin.s5l8900x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -99,39 +111,51 @@
 		</dict>
 		<key>iBEC</key>
 		<dict>
+			<key>File Name</key>
+			<string>iBEC.n82ap.RELEASE.dfu</string>
 			<key>Encryption</key>
 			<false />
 		</dict>
 		<key>iBoot</key>
 		<dict>
+			<key>File Name</key>
+			<string>iBoot.n82ap.RELEASE.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>85a5cf386038be29603b6a21160dd8f8</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>7abaae0c10cbc47359f052e83836d47f</string>
 		</dict>
 		<key>iBSS</key>
 		<dict>
+			<key>File Name</key>
+			<string>iBSS.n82ap.RELEASE.dfu</string>
 			<key>Encryption</key>
 			<false />
 		</dict>
 		<key>Kernelcache</key>
 		<dict>
+			<key>File Name</key>
+			<string>kernelcache.release.s5l8900x</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>ff4c66886a10aaea2a8fff0f70dd201a</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>a3ad8e780bc8148e8e6299d3352b96bc</string>
 		</dict>
 		<key>LLB</key>
 		<dict>
+			<key>File Name</key>
+			<string>LLB.n82ap.RELEASE.img3</string>
 			<key>Encryption</key>
 			<false />
 		</dict>
 		<key>NeedService</key>
 		<dict>
+			<key>File Name</key>
+			<string>needservice.s5l8900x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -141,12 +165,14 @@
 		</dict>
 		<key>RecoveryMode</key>
 		<dict>
+			<key>File Name</key>
+			<string>recoverymode.s5l8900x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>46f155e69a37cbbf2b6c81fd1fe7a9c7</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>f26e84c8d9ea34ea913608b47d66bdf7</string>
 		</dict>
 	</dict>
 </plist>
