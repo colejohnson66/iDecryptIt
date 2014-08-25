@@ -8,11 +8,9 @@
         Background="{StaticResource Background}"
         Loaded="Window_Loaded"
         Closing="Window_Closing">
-    <Window.Resources>
-        <SolidColorBrush x:Key="GrayBorder">#20000000</SolidColorBrush>
-    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -52,7 +50,7 @@
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <TextBlock x:Name="txtInputLabel" Text="Input File:  " HorizontalAlignment="Right" VerticalAlignment="Center" />
+                            <TextBlock x:Name="txtInputLabel" Text="Input File:  " VerticalAlignment="Center" />
                             <TextBox x:Name="textInputFileName" Grid.Column="1" TextChanged="textInputFileName_TextChanged" />
                         </Grid>
                         <Grid Grid.Column="4" Height="24">
@@ -60,7 +58,7 @@
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <TextBlock x:Name="txtOutputLabel" Text="Output File:  " HorizontalAlignment="Right" VerticalAlignment="Center" />
+                            <TextBlock x:Name="txtOutputLabel" Text="Output File:  " VerticalAlignment="Center" />
                             <TextBox x:Name="textOutputFileName" Grid.Column="1" />
                         </Grid>
                         <Grid Grid.Column="6" Height="24">
@@ -68,7 +66,7 @@
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <TextBlock x:Name="textDecryptLabel" Text="Key:  " HorizontalAlignment="Right" VerticalAlignment="Center" />
+                            <TextBlock x:Name="textDecryptLabel" Text="Key:  " VerticalAlignment="Center" />
                             <TextBox x:Name="textDecryptKey" Grid.Column="1" />
                         </Grid>
                         <Button x:Name="btnSelectRootFSInputFile" Content="Select Input File" Grid.Column="8" Height="24" Click="btnSelectRootFSInputFile_Click" />
@@ -106,7 +104,7 @@
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <TextBlock x:Name="txt7ZInputLabel" Text="Input File:  " HorizontalAlignment="Right" VerticalAlignment="Center" />
+                            <TextBlock x:Name="txt7ZInputLabel" Text="Input File:  " VerticalAlignment="Center" />
                             <TextBox x:Name="text7ZInputFileName" Grid.Column="1" />
                         </Grid>
                         <Grid Grid.Column="4" Height="24">
@@ -114,7 +112,7 @@
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <TextBlock x:Name="txt7ZOutputLabel" Text="Output Folder:  " HorizontalAlignment="Right" VerticalAlignment="Center" />
+                            <TextBlock x:Name="txt7ZOutputLabel" Text="Output Folder:  " VerticalAlignment="Center" />
                             <TextBox x:Name="text7ZOuputFolder" Grid.Column="1" />
                         </Grid>
                         <Button x:Name="btnSelect7ZInputFile" Content="Select Input File" Grid.Column="6" Height="24" Click="btnSelect7ZInputFile_Click" />
@@ -154,10 +152,10 @@
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <TextBlock x:Name="textWhatAmIFileLabel" Text="File Name:  " HorizontalAlignment="Right" VerticalAlignment="Center" />
+                            <TextBlock x:Name="textWhatAmIFileLabel" Text="File Name:  " VerticalAlignment="Center" />
                             <TextBox x:Name="textWhatAmIFileName" Grid.Column="1" />
                         </Grid>
-                        <Button x:Name="btnSelectWhatAmIFile" Content="Select File" Grid.Column="4" Height="23" Click="btnSelectWhatAmIFile_Click" />
+                        <Button x:Name="btnSelectWhatAmIFile" Content="Select File" Grid.Column="4" Height="24" Click="btnSelectWhatAmIFile_Click" />
                     </Grid>
                 </Grid>
                 <Grid Margin="2,3,3,3" Background="White" Grid.Column="1">
@@ -924,7 +922,69 @@
                 </Grid>
             </Grid>
         </Grid>
-        <Grid Grid.Row="4" Margin="3,0,3,3">
+        <Grid Grid.Row="4" Margin="3,0">
+            <Grid Margin="6" Background="{StaticResource GrayBorder}">
+                <Grid Margin="3" Background="White">
+                    <Grid Margin="6" x:Name="gridVersion">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="6" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="6" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="6" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="btnGetKeys" Click="btnGetKeys_Click">
+                            <Grid Height="32">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="32" />
+                                    <ColumnDefinition Width="6" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="6" />
+                                </Grid.ColumnDefinitions>
+                                <Image Source="Images/dialog-password_32.png" />
+                                <TextBlock Grid.Column="2" Text="Get Keys" VerticalAlignment="Center" x:Name="btnGetKeysText" />
+                            </Grid>
+                        </Button>
+                        <Grid Grid.Column="2" Height="24">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock x:Name="txtSelectDevice" Text="Device:  " VerticalAlignment="Center" />
+                            <ComboBox x:Name="cmbDeviceDropDown" Grid.Column="1"
+                                      DisplayMemberPath="Value" SelectedValuePath="ID"
+                                      SelectedValue="{Binding DevicesViewModel.Value}"
+                                      SelectionChanged="cmbDeviceDropDown_SelectionChanged" />
+                        </Grid>
+                        <Grid Grid.Column="4" Height="24">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock x:Name="txtSelectModel" Text="Model:  " VerticalAlignment="Center" />
+                            <ComboBox x:Name="cmbModelDropDown" Grid.Column="1" IsEnabled="False"
+                                      DisplayMemberPath="Value" SelectedValuePath="ID"
+                                      SelectedValue="{Binding ModelsViewModel.Value}"
+                                      SelectionChanged="cmbModelDropDown_SelectionChanged" />
+                        </Grid>
+                        <Grid Grid.Column="6" Height="24">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock x:Name="txtSelectVersion" Text="Version:  " VerticalAlignment="Center" />
+                            <ComboBox x:Name="cmbVersionDropDown" Grid.Column="1" IsEnabled="False"
+                                      DisplayMemberPath="Value" SelectedValuePath="ID"
+                                      SelectedValue="{Binding VersionsViewModel.Value}"
+                                      SelectionChanged="cmbVersionDropDown_SelectionChanged" />
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="5" Margin="3,0,3,3">
             <Grid Margin="6" Background="{StaticResource GrayBorder}">
                 <Grid Margin="3" Background="White">
                     <ScrollViewer Margin="6">
