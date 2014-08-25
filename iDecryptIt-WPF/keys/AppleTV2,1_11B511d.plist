@@ -15,16 +15,14 @@
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>
-			<string>048-8108-072</string>
+			<string>048-8108-072.dmg</string>
 			<key>Key</key>
 			<string>236fa27aa6dcef133ca544f93a06ed822c5e815005749f96ef23e22fa5434507204ff212</string>
 		</dict>
-		<key>No Update Ramdisk</key>
-		<true />
 		<key>Restore Ramdisk</key>
 		<dict>
 			<key>File Name</key>
-			<string>058-0369-006</string>
+			<string>058-0369-006.dmg</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -34,6 +32,8 @@
 		</dict>
 		<key>AppleLogo</key>
 		<dict>
+			<key>File Name</key>
+			<string>applelogo~appletv.s5l8930x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -43,6 +43,8 @@
 		</dict>
 		<key>DeviceTree</key>
 		<dict>
+			<key>File Name</key>
+			<string>DeviceTree.k66ap.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -52,6 +54,8 @@
 		</dict>
 		<key>iBEC</key>
 		<dict>
+			<key>File Name</key>
+			<string>iBEC.k66ap.RELEASE.dfu</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -61,6 +65,8 @@
 		</dict>
 		<key>iBoot</key>
 		<dict>
+			<key>File Name</key>
+			<string>iBoot.k66ap.RELEASE.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -70,6 +76,8 @@
 		</dict>
 		<key>iBSS</key>
 		<dict>
+			<key>File Name</key>
+			<string>iBSS.k66ap.RELEASE.dfu</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -79,6 +87,8 @@
 		</dict>
 		<key>Kernelcache</key>
 		<dict>
+			<key>File Name</key>
+			<string>kernelcache.release.k66</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -88,6 +98,8 @@
 		</dict>
 		<key>LLB</key>
 		<dict>
+			<key>File Name</key>
+			<string>LLB.k66ap.RELEASE.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -97,6 +109,8 @@
 		</dict>
 		<key>RecoveryMode</key>
 		<dict>
+			<key>File Name</key>
+			<string>recoverymode~appletv.s5l8930x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
