@@ -7,11 +7,11 @@ using System.Xml;
 
 namespace Hexware.Programs.iDecryptIt.KeyGrabber
 {
-	internal class Program
+	public class Program
 	{
 		// TODO: Replace XML with (WIP) OpenCF
-		static string[] links = new string[256];
-		static string[] blanks = new string[256];
+		static string[] links = new string[512];
+		static string[] blanks = new string[512];
 		static short linksPosition = 0;
 		static short blanksPosition = 0;
 		static string keyPath = Path.Combine(Directory.GetCurrentDirectory(), "keys");
@@ -37,10 +37,10 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 			{ "ipad36", "iPad 4 (Global)" },
 			{ "ipad41", "iPad Air (Wi-Fi)" },
             { "ipad42", "iPad Air (Cellular)" },
-            { "ipad42", "iPad Air (Cellular) [Rev A]" },
+            { "ipad43", "iPad Air (Cellular) [Rev A]" },
             { "ipad44", "iPad mini 2G (Wi-Fi)" },
             { "ipad45", "iPad mini 2G (Cellular)" },
-            { "ipad45", "iPad mini 2G (Cellular) [Rev A]" },
+            { "ipad46", "iPad mini 2G (Cellular) [Rev A]" },
             { "iphone11", "iPhone 2G" },
 			{ "iphone12", "iPhone 3G" },
 			{ "iphone21", "iPhone 3GS" },
@@ -61,15 +61,12 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 			{ "ipod51", "iPod touch 5G" }
 		};
 
-		private static void Main(string[] args)
+		public static void Main(string[] args)
 		{
 			if (Directory.Exists(keyPath))
-			{
 				Directory.Delete(keyPath, true);
-			}
 			Directory.CreateDirectory(keyPath);
 
-			// Thankfully, MediaWiki outputs valid XHTML
 			Console.WriteLine("Grabbing raw rendered HTML");
 			WebClient client = new WebClient();
 			string download = "<xml>" + client.DownloadString(new Uri("http://theiphonewiki.com/w/index.php?title=Firmware&action=render")) + "</xml>";
@@ -79,8 +76,8 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 			settings.IndentChars = "\t";
 			settings.NewLineChars = "\r\n";
 
-			// Parse XML
-			Console.WriteLine("Parsing XML");
+            // Thankfully, MediaWiki outputs valid XHTML
+            Console.WriteLine("Parsing XML");
 			XmlDocument document = new XmlDocument();
 			document.InnerXml = download;
 			XmlNodeList list = document.ChildNodes.Item(0).ChildNodes;
@@ -299,7 +296,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 					plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("key"));
 					plist.ChildNodes.Item(num).ChildNodes.Item(0).InnerText = "File Name";
 					plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("string"));
-					plist.ChildNodes.Item(num).ChildNodes.Item(1).InnerText = data["RootFS"];
+                    plist.ChildNodes.Item(num).ChildNodes.Item(1).InnerText = data["RootFS"] + ".dmg";
 					plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("key"));
                     plist.ChildNodes.Item(num).ChildNodes.Item(2).InnerText = "Key";
 					plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("string"));
@@ -315,11 +312,11 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 				}
 				else if (thiskey == "NoUpdateRamdisk")
 				{
-					plist.AppendChild(xml.CreateElement("key"));
-					plist.ChildNodes.Item(num).InnerText = "No Update Ramdisk";
-					num++;
-					plist.AppendChild(xml.CreateElement("true"));
-					num++;
+					//plist.AppendChild(xml.CreateElement("key"));
+					//plist.ChildNodes.Item(num).InnerText = "No Update Ramdisk";
+					//num++;
+					//plist.AppendChild(xml.CreateElement("true"));
+					//num++;
 				}
 				else if (thiskey == "UpdateRamdisk" || thiskey == "RestoreRamdisk")
 				{
@@ -330,7 +327,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 					plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("key"));
 					plist.ChildNodes.Item(num).ChildNodes.Item(0).InnerText = "File Name";
 					plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("string"));
-					plist.ChildNodes.Item(num).ChildNodes.Item(1).InnerText = data[thiskey];
+					plist.ChildNodes.Item(num).ChildNodes.Item(1).InnerText = data[thiskey] + ".dmg";
 					plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("key"));
 					plist.ChildNodes.Item(num).ChildNodes.Item(2).InnerText = "Encryption";
                     string build = data["Build"];
@@ -369,8 +366,12 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 					plist.ChildNodes.Item(num).InnerText = thiskey;
 					num++;
 					plist.AppendChild(xml.CreateElement("dict"));
-					plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("key"));
-					plist.ChildNodes.Item(num).ChildNodes.Item(0).InnerText = "Encryption";
+                    plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("key"));
+                    plist.ChildNodes.Item(num).ChildNodes.Item(0).InnerText = "File Name";
+                    plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("string"));
+                    plist.ChildNodes.Item(num).ChildNodes.Item(1).InnerText = data[thiskey];
+                    plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("key"));
+					plist.ChildNodes.Item(num).ChildNodes.Item(2).InnerText = "Encryption";
 					if (data[thiskey + "IV"] == "Not Encrypted")
 					{
 						plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("false"));
@@ -379,13 +380,13 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 					{
 						plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("true"));
 						plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("key"));
-						plist.ChildNodes.Item(num).ChildNodes.Item(2).InnerText = "IV";
+						plist.ChildNodes.Item(num).ChildNodes.Item(4).InnerText = "IV";
 						plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("string"));
-						plist.ChildNodes.Item(num).ChildNodes.Item(3).InnerText = data[thiskey + "IV"];
+						plist.ChildNodes.Item(num).ChildNodes.Item(5).InnerText = data[thiskey + "IV"];
 						plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("key"));
-						plist.ChildNodes.Item(num).ChildNodes.Item(4).InnerText = "Key";
+						plist.ChildNodes.Item(num).ChildNodes.Item(6).InnerText = "Key";
 						plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("string"));
-						plist.ChildNodes.Item(num).ChildNodes.Item(5).InnerText = data[thiskey + "Key"];
+						plist.ChildNodes.Item(num).ChildNodes.Item(7).InnerText = data[thiskey + "Key"];
 					}
 					num++;
 				}
