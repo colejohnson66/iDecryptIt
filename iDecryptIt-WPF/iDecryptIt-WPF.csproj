@@ -110,6 +110,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\changes-allow_32.png" />
+    <Resource Include="Images\dialog-password_32.png" />
     <Reference Include="Hexware.Plist">
       <HintPath>Resources\Hexware.Plist.dll</HintPath>
     </Reference>
@@ -135,7 +137,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ComboBoxEntry.cs" />
     <Compile Include="GlobalVars.cs" />
+    <Compile Include="KeySelectionLists.cs" />
+    <Compile Include="KeySelectionViewModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -205,7 +210,6 @@
     <Resource Include="Images\idecryptit_256.png" />
     <Resource Include="Images\idecryptit_32.png" />
     <Resource Include="Images\idecryptit_48.png" />
-    <Resource Include="Images\System-users_32.png" />
     <Resource Include="Images\Unlocked_32.png" />
     <Resource Include="app.ico" />
     <None Include="7z.dll">
@@ -455,7 +459,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.Increment" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" />
+      <UserProperties BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.None.Increment" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

@@ -2,7 +2,7 @@
  * File:   MainWindow.xaml.cs
  * Author: Hexware
  * =============================================================================
- * Copyright (c) 2011-2013, Hexware
+ * Copyright (c) 2011-2014, Hexware
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,7 +23,6 @@ using Microsoft.Win32;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -33,6 +32,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Collections.Generic;
 
 namespace Hexware.Programs.iDecryptIt
 {
@@ -47,6 +47,13 @@ namespace Hexware.Programs.iDecryptIt
 
         internal static bool debug;
 
+        public KeySelectionViewModel DevicesViewModel;
+        private string selectedDevice;
+        public KeySelectionViewModel ModelsViewModel;
+        private string selectedModel;
+        public KeySelectionViewModel VersionsViewModel;
+        private string selectedVersion;
+
         BackgroundWorker decryptworker;
         Process decryptProc;
         FileInfo decryptFromFile;
@@ -56,10 +63,20 @@ namespace Hexware.Programs.iDecryptIt
 
         public MainWindow()
         {
-            InitializeComponent();
-
             if (!debug)
                 FreeConsole();
+
+            DataContext = this;
+
+            KeySelectionLists.Init();
+
+            DevicesViewModel = new KeySelectionViewModel();
+            ModelsViewModel = new KeySelectionViewModel();
+            VersionsViewModel = new KeySelectionViewModel();
+
+            InitializeComponent();
+
+            cmbDeviceDropDown.ItemsSource = KeySelectionLists.Devices;
         }
 
         private void decryptworker_DoWork(object sender, DoWorkEventArgs e)
@@ -151,6 +168,47 @@ namespace Hexware.Programs.iDecryptIt
                 MessageBoxButton.OK,
                 MessageBoxImage.Error);
             Close();
+        }
+
+        private void keySelect_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = (Button)sender;
+            ContextMenu menu = button.ContextMenu;
+            menu.IsEnabled = true;
+            menu.Placement = PlacementMode.Bottom;
+            menu.PlacementTarget = button;
+            menu.IsOpen = true;
+        }
+        private void key_Click(object sender, RoutedEventArgs e)
+        {
+            // Remove "btn", then split
+            string[] value = ((MenuItem)sender).Name.Substring(3).Split('_');
+            /*bool gm = value[1].Contains("GM");
+            if (gm)
+            {
+                // remove GM
+                value[1] = value[1].Substring(0, value[1].Length - 2);
+            }*/
+
+            // Add ',' between the two digits
+            int length = value[0].Length - 1; // -1 for last digit (char)
+            value[0] = value[0].Substring(0, length) + "," + value[0][length];
+
+            // Load key page
+            Stream stream = GetStream(value[0] + "_" + value[1] + ".plist");
+            if (stream == Stream.Null)
+            {
+                MessageBox.Show(
+                    "Sorry, but that version doesn't have any published keys.",
+                    "iDecryptIt",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+                return;
+            }
+            LoadFirmwareKeys(stream, false); // gm);
+        }
+        private void btnGetKeys_Click(object sender, RoutedEventArgs e)
+        {
         }
         internal Stream GetStream(string resourceName)
         {
@@ -1777,43 +1835,6 @@ namespace Hexware.Programs.iDecryptIt
             }
             textOutputFileName.Text = returntext;
         }
-        private void key_Click(object sender, RoutedEventArgs e)
-        {
-            // Remove "btn", then split
-            string[] value = ((MenuItem)sender).Name.Substring(3).Split('_');
-            /*bool gm = value[1].Contains("GM");
-            if (gm)
-            {
-                // remove GM
-                value[1] = value[1].Substring(0, value[1].Length - 2);
-            }*/
-
-            // Add ',' between the two digits
-            int length = value[0].Length - 1; // -1 for last digit (char)
-            value[0] = value[0].Substring(0, length) + "," + value[0][length];
-
-            // Load key page
-            Stream stream = GetStream(value[0] + "_" + value[1] + ".plist");
-            if (stream == Stream.Null)
-            {
-                MessageBox.Show(
-                    "Sorry, but that version doesn't have any published keys.",
-                    "iDecryptIt",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Information);
-                return;
-            }
-            LoadFirmwareKeys(stream, false); // gm);
-        }
-        private void keySelect_Click(object sender, RoutedEventArgs e)
-        {
-            Button button = (Button)sender;
-            ContextMenu menu = button.ContextMenu;
-            menu.IsEnabled = true;
-            menu.Placement = PlacementMode.Bottom;
-            menu.PlacementTarget = button;
-            menu.IsOpen = true;
-        }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -1829,6 +1850,7 @@ namespace Hexware.Programs.iDecryptIt
                 Directory.CreateDirectory(tempdir);
             }
 
+#if !DEBUG
             // Check for updates
             Debug("INIT", "Checking for updates.");
             try
@@ -1842,7 +1864,7 @@ namespace Hexware.Programs.iDecryptIt
                 string version = File.ReadAllText(tempdir + "update.txt");
                 Debug("INIT", "Installed version: " + GlobalVars.Version);
                 Debug("INIT", "Latest version: " + version);
-#if !DEBUG
+
                 if (version != GlobalVars.Version)
                 {
                     MessageBox.Show(
@@ -1851,11 +1873,11 @@ namespace Hexware.Programs.iDecryptIt
                         MessageBoxButton.OK,
                         MessageBoxImage.Information);
                 }
-#endif
             }
             catch (Exception)
             {
             }
+#endif
 
             // Passed argument (see console portion)
             Debug("INIT", "Checking for program argument.");
@@ -1870,6 +1892,59 @@ namespace Hexware.Programs.iDecryptIt
             Cleanup();
             Thread.Sleep(500);
             Application.Current.Shutdown();
+        }
+
+        private void cmbDeviceDropDown_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count == 0)
+                return;
+
+            ComboBoxEntry entry = (ComboBoxEntry)e.AddedItems[0];
+
+            Debug("KEYSELECT", "Selected device changed: \"" + entry.ID + "\".");
+
+            selectedDevice = entry.ID;
+            selectedModel = null;
+            selectedVersion = null;
+
+            cmbModelDropDown.IsEnabled = true;
+            cmbVersionDropDown.IsEnabled = false;
+
+            if (entry.ID == "appletv")
+                cmbModelDropDown.ItemsSource = KeySelectionLists.AppleTV;
+            else if (entry.ID == "ipad")
+                cmbModelDropDown.ItemsSource = KeySelectionLists.iPad;
+            else if (entry.ID == "ipadmini")
+                cmbModelDropDown.ItemsSource = KeySelectionLists.iPadMini;
+            else if (entry.ID == "iphone")
+                cmbModelDropDown.ItemsSource = KeySelectionLists.iPhone;
+            else
+                cmbModelDropDown.ItemsSource = KeySelectionLists.iPodTouch;
+        }
+        private void cmbModelDropDown_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count == 0)
+                return;
+
+            ComboBoxEntry entry = (ComboBoxEntry)e.AddedItems[0];
+
+            Debug("KEYSELECT", "Selected model changed: \"" + entry.ID + "\".");
+
+            selectedModel = entry.ID;
+            selectedVersion = null;
+
+            cmbVersionDropDown.IsEnabled = true;
+        }
+        private void cmbVersionDropDown_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count == 0)
+                return;
+
+            ComboBoxEntry entry = (ComboBoxEntry)e.AddedItems[0];
+
+            Debug("KEYSELECT", "Selected version changed: \"" + entry.ID + "\".");
+
+            selectedVersion = entry.ID;
         }
     }
 }
