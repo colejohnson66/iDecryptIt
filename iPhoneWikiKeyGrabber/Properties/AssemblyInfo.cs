@@ -1,14 +1,13 @@
 ﻿using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 using System.Resources;
+using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("iPhoneWikiKeyGrabber")]
 [assembly: AssemblyDescription("Grab decryption keys from The iPhone Wiki")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Hexware")]
 [assembly: AssemblyProduct("iPhoneWikiKeyGrabber")]
-[assembly: AssemblyCopyright("Copyright © 2012-2013")]
+[assembly: AssemblyCopyright("Copyright © 2012-2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
