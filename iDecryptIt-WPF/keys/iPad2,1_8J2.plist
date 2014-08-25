@@ -15,158 +15,188 @@
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>
-			<string>038-1425-003</string>
+			<string>038-1425-003.dmg</string>
 			<key>Key</key>
 			<string>7ac7018b57235d34fcbe0c84713ea7c6c482322559336845d299508f6a8643c2078de051</string>
 		</dict>
 		<key>Update Ramdisk</key>
 		<dict>
 			<key>File Name</key>
-			<string>038-1439-003</string>
+			<string>038-1439-003.dmg</string>
 			<key>Encryption</key>
 			<false />
 		</dict>
 		<key>Restore Ramdisk</key>
 		<dict>
 			<key>File Name</key>
-			<string>038-1495-003</string>
+			<string>038-1495-003.dmg</string>
 			<key>Encryption</key>
 			<false />
 		</dict>
 		<key>AppleLogo</key>
 		<dict>
+			<key>File Name</key>
+			<string>applelogo.s5l8940x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>5e9e57d087bfd5f60b73fcd1ea52a727</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>af4ac4335be75a5c75b31c418c7bab71d09610786bc8dad28416aba053296ead</string>
 		</dict>
 		<key>BatteryCharging0</key>
 		<dict>
+			<key>File Name</key>
+			<string>batterycharging0.s5l8940x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>9cd13815fbe5de3698588c62d15e2f7f</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>c27b0c11b5a069ee8df2b7d5020e171a10899314022740d28df02f2b1beb4c8d</string>
 		</dict>
 		<key>BatteryCharging1</key>
 		<dict>
+			<key>File Name</key>
+			<string>batterycharging1.s5l8940x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>f5d30f83cd3daeeae2d6a61cbd1e5b93</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>9433b96340c59d35e3ae30b5d1faac725102b60a3ddf480207c2e60242b524ef</string>
 		</dict>
 		<key>BatteryFull</key>
 		<dict>
+			<key>File Name</key>
+			<string>batteryfull.s5l8940x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>63e55009576f876eb77695aa2c0db43c</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>39fd9863b77fd3f1fa17b805599927e65abd657967e6827d3136ada078c1eebb</string>
 		</dict>
 		<key>BatteryLow0</key>
 		<dict>
+			<key>File Name</key>
+			<string>batterylow0.s5l8940x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>8fbc678701c5defce7b6f03282342d30</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>3f8859045169870263e4aab47fb24fd31e69b7fc053e0aa697ecfbfe10d4459c</string>
 		</dict>
 		<key>BatteryLow1</key>
 		<dict>
+			<key>File Name</key>
+			<string>batterylow1.s5l8940x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>f06c5c582407e62017c8224e52d57ec9</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>1b596ceccceea56e7e281faa0f49239b28e80413d3bce88f26b0206277c34c86</string>
 		</dict>
 		<key>DeviceTree</key>
 		<dict>
+			<key>File Name</key>
+			<string>DeviceTree.k93ap.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>f342ca096feea198dcecaccf4d6ceaab</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>37b6cfe5fecba5f1822df1bed4123d2d9e20e52cb5898b7903a4eb8a958b603a</string>
 		</dict>
 		<key>GlyphCharging</key>
 		<dict>
+			<key>File Name</key>
+			<string>glyphcharging.s5l8940x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>df9b23a896398872aa6c920c7c118227</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>0aa6d55d11810c5efc9644f5aba3ba7f7f37635099d7cd648528bd779aa520ed</string>
 		</dict>
 		<key>GlyphPlugin</key>
 		<dict>
+			<key>File Name</key>
+			<string>glyphplugin.s5l8940x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>ed37ffa30377f9c6d85f57740e29054e</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>51bedc30eb589dabac91b961a52b1634c6ab3a5f882d4c80cfee0111136c66a9</string>
 		</dict>
 		<key>iBEC</key>
 		<dict>
+			<key>File Name</key>
+			<string>iBEC.k93ap.RELEASE.dfu</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>a98aab2fc688b1490fc019088c94635c</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>c5561f3075b8004ee16f2a47a4490ef3771506ccba428d1ab90742b3d2e2b7e0</string>
 		</dict>
 		<key>iBoot</key>
 		<dict>
+			<key>File Name</key>
+			<string>iBoot.k93ap.RELEASE.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>ec3e3136de445f7a09f78c39868a18a5</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>3eaf3b04298b38a25a45616d950e72f094e9f9f3b2d3e9f62a1161cbb68a5988</string>
 		</dict>
 		<key>iBSS</key>
 		<dict>
+			<key>File Name</key>
+			<string>iBSS.k93ap.RELEASE.dfu</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>59fd32ebe84a12ad18a524a0b5aae3c2</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>a203f60ad4e03bfba75917d46a7e03bfb28007b138ee629fe89342bd6517958d</string>
 		</dict>
 		<key>Kernelcache</key>
 		<dict>
+			<key>File Name</key>
+			<string>kernelcache.release.k93</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>2dbde04cf5f4288d686295d5ae261f39</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>ded845427dbc580c2382a6427e92253d47da4f95aa4e5f87411b36b6f4374002</string>
 		</dict>
 		<key>LLB</key>
 		<dict>
+			<key>File Name</key>
+			<string>LLB.k93ap.RELEASE.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>f146f97a8f8aee15a1f25cd6179d0d47</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>9a2153c8c9ea9e505ba29889b5a97dd816f9458846b9cff6b68791f5db3623b9</string>
 		</dict>
 		<key>RecoveryMode</key>
 		<dict>
+			<key>File Name</key>
+			<string>recoverymode-768x1024.s5l8940x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>05a780fe24ea85ec65fd590709fb4795</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>7a44cf88e2a7ac38482e46d6de3fd6dad05715fa104502e05b4f21a652e58229</string>
 		</dict>
 	</dict>
 </plist>

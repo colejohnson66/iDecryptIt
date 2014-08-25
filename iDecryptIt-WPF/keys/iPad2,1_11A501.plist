@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist>
+	<dict>
+		<key>Version</key>
+		<string>7.0.2</string>
+		<key>Build</key>
+		<string>11A501</string>
+		<key>Device</key>
+		<string>iPad 2 (Wi-Fi)</string>
+		<key>Codename</key>
+		<string>Innsbruck</string>
+		<key>Download URL</key>
+		<string>http://appldnld.apple.com/iOS7/091-9807.20130924.uIRgn/iPad2,1_7.0.2_11A501_Restore.ipsw</string>
+		<key>Root FS</key>
+		<dict>
+			<key>File Name</key>
+			<string>048-8512-002.dmg</string>
+			<key>Key</key>
+			<string>95bbdd04f73e0f684d1b0afedcf1e8770c337c450c26016e324e84f09739b3100830ba57</string>
+		</dict>
+		<key>Update Ramdisk</key>
+		<dict>
+			<key>File Name</key>
+			<string>048-8795-002.dmg</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>67e726940d458ca0c85b067b65d221a9</string>
+			<key>Key</key>
+			<string>758053de69e1025fe6aadbec144eda389187e958c14a5031687273727f5983d1</string>
+		</dict>
+		<key>Restore Ramdisk</key>
+		<dict>
+			<key>File Name</key>
+			<string>048-8789-002.dmg</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>109b1ce9cb69eec40035a4a526f202ef</string>
+			<key>Key</key>
+			<string>52074a90377fb7f451270cb18c2d847d071cd0ec213c4b070ce3a334fac57471</string>
+		</dict>
+		<key>AppleLogo</key>
+		<dict>
+			<key>File Name</key>
+			<string>applelogo.s5l8940x.img3</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>7d67cafd08e775b239f991887e6ac905</string>
+			<key>Key</key>
+			<string>fc2566abd39c6ab058fdd445efbf7ee2c96c28f3d26d2f8b62046658403c7890</string>
+		</dict>
+		<key>BatteryCharging0</key>
+		<dict>
+			<key>File Name</key>
+			<string>batterycharging0.s5l8940x.img3</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>896cfd527f563ba170f553fb1bb9fd0a</string>
+			<key>Key</key>
+			<string>1c2c738ac000fa7bd6385e8487c330de798ef4728e603ac33851d982940eaf71</string>
+		</dict>
+		<key>BatteryCharging1</key>
+		<dict>
+			<key>File Name</key>
+			<string>batterycharging1.s5l8940x.img3</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>15035f62650f854eaeb139e7a7bde835</string>
+			<key>Key</key>
+			<string>9cb0cb2b29be6fce4480cb63037d26360429af374a0adaa7b411d14fa5a4b396</string>
+		</dict>
+		<key>BatteryFull</key>
+		<dict>
+			<key>File Name</key>
+			<string>batteryfull~ipad.s5l8940x.img3</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>83fd4c34df6f90988663ce5f5d7ec33c</string>
+			<key>Key</key>
+			<string>f9192ea7ae2e23e2320e8a41420e6e7598faf388fc374470cbd3e9c55d85a7e3</string>
+		</dict>
+		<key>BatteryLow0</key>
+		<dict>
+			<key>File Name</key>
+			<string>batterylow0~ipad.s5l8940x.img3</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>032b33c123e7db56e5785bcee619d99f</string>
+			<key>Key</key>
+			<string>47d6c5cba238b15946c27386ea1cabeed2c9b0a7b20da5222cca193dae3b74a8</string>
+		</dict>
+		<key>BatteryLow1</key>
+		<dict>
+			<key>File Name</key>
+			<string>batterylow1~ipad.s5l8940x.img3</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>57998cfb597253298841fbdc57e071b6</string>
+			<key>Key</key>
+			<string>ee190aece4b541039e0ad21d1f53a9d397748336502b1c5a5e6c4b3a9dad22c4</string>
+		</dict>
+		<key>DeviceTree</key>
+		<dict>
+			<key>File Name</key>
+			<string>DeviceTree.k93ap.img3</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>b1aee8c72a3a3a45cfa0eb6836b8ee56</string>
+			<key>Key</key>
+			<string>f64c729f1ce98ab9b9694d2806e57bc654bbd91cbc60119873c34b886880285d</string>
+		</dict>
+		<key>GlyphPlugin</key>
+		<dict>
+			<key>File Name</key>
+			<string>glyphplugin~ipad-30pin.s5l8940x.img3</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>995ac17d4baf29d3ded467ca8aecadcf</string>
+			<key>Key</key>
+			<string>c81a46d748d9151664265cb8364792eb8f2b48e73b4408aaa0158710b4e533c2</string>
+		</dict>
+		<key>iBEC</key>
+		<dict>
+			<key>File Name</key>
+			<string>iBEC.k93ap.RELEASE.dfu</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>93c0e8079c9b0cf7f89ef9eb19ba2977</string>
+			<key>Key</key>
+			<string>9f6733ca35f329f4d15a0ccda104bd790143b4ba22c0726e5b7bff30c322a4d4</string>
+		</dict>
+		<key>iBoot</key>
+		<dict>
+			<key>File Name</key>
+			<string>iBoot.k93ap.RELEASE.img3</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>fdf5588f34634b2279812c6785aa1061</string>
+			<key>Key</key>
+			<string>2f2f6b0bc8fe399cdf799a7787c57d3fe8579037e4ede18a02d7b0b6b1f89b5e</string>
+		</dict>
+		<key>iBSS</key>
+		<dict>
+			<key>File Name</key>
+			<string>iBSS.k93ap.RELEASE.dfu</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>b27e53e7687ff34f963c365b2cc409c7</string>
+			<key>Key</key>
+			<string>1dc6947bcb3d4fa5609dabb70704ce96185983a061c6c12c608ab0fb50b8c30c</string>
+		</dict>
+		<key>Kernelcache</key>
+		<dict>
+			<key>File Name</key>
+			<string>kernelcache.release.k93</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>d9ee78ee5f3f6d01c600231e97de842e</string>
+			<key>Key</key>
+			<string>da0608a5a8604990fe51196c5c9084b0346f1b39892f2efdcb35e73c8e35c587</string>
+		</dict>
+		<key>LLB</key>
+		<dict>
+			<key>File Name</key>
+			<string>LLB.k93ap.RELEASE.img3</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>051223e8e353005742df6c74fd2a9eb1</string>
+			<key>Key</key>
+			<string>e06cad6f9efa1d1985915eac14cea17b199e522d7d139c5509bae9ea7b729f9f</string>
+		</dict>
+		<key>RecoveryMode</key>
+		<dict>
+			<key>File Name</key>
+			<string>recoverymode~ipad-30pin.s5l8940x.img3</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>c4b9d6e5fc5aaf6e45c1d76a0b1d64e8</string>
+			<key>Key</key>
+			<string>eb8b3382c39f16bdf1e17ad9985ff617b91ae9729affff2458dc85f6b11d8eda</string>
+		</dict>
+	</dict>
+</plist>

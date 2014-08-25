@@ -17,16 +17,14 @@
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>
-			<string>694-5281-6</string>
+			<string>694-5281-6.dmg</string>
 			<key>Key</key>
 			<string>7d5962d0b582ec2557c2cade50de90f4353a1c1de07b74212513fef9cc71fb890574bfe5</string>
 		</dict>
-		<key>No Update Ramdisk</key>
-		<true />
 		<key>Restore Ramdisk</key>
 		<dict>
 			<key>File Name</key>
-			<string>009-7662-6</string>
+			<string>009-7662-6.dmg</string>
 			<key>Encryption</key>
 			<false />
 		</dict>
