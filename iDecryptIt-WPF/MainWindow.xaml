@@ -190,12 +190,7 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <Button Grid.Row="1" Grid.Column="0" Content="Apple TV" Click="keySelect_Click" ContextMenuService.IsEnabled="False">
+                        <Button Grid.Column="0" Content="Apple TV" Click="keySelect_Click" ContextMenuService.IsEnabled="False">
                             <Button.ContextMenu>
                                 <ContextMenu>
                                     <MenuItem x:Name="btnAppleTV21" Header="Apple TV 2G">
@@ -260,7 +255,7 @@
                                 </ContextMenu>
                             </Button.ContextMenu>
                         </Button>
-                        <Button Grid.Row="1" Grid.Column="2" Content="Apple iPad" Click="keySelect_Click" ContextMenuService.IsEnabled="False">
+                        <Button Grid.Column="2" Content="Apple iPad" Click="keySelect_Click" ContextMenuService.IsEnabled="False">
                             <Button.ContextMenu>
                                 <ContextMenu>
                                     <MenuItem Header="iPad 1G">
@@ -497,7 +492,7 @@
                                 </ContextMenu>
                             </Button.ContextMenu>
                         </Button>
-                        <Button Grid.Row="1" Grid.Column="4" Content="Apple iPad mini" Click="keySelect_Click" ContextMenuService.IsEnabled="False">
+                        <Button Grid.Column="4" Content="Apple iPad mini" Click="keySelect_Click" ContextMenuService.IsEnabled="False">
                             <Button.ContextMenu>
                                 <ContextMenu>
                                     <MenuItem Header="iPad mini 1G">
@@ -574,7 +569,7 @@
                                 </ContextMenu>
                             </Button.ContextMenu>
                         </Button>
-                        <Button Grid.Row="1" Grid.Column="6" Content="Apple iPhone" Click="keySelect_Click" ContextMenuService.IsEnabled="False">
+                        <Button Grid.Column="6" Content="Apple iPhone" Click="keySelect_Click" ContextMenuService.IsEnabled="False">
                             <Button.ContextMenu>
                                 <ContextMenu>
                                     <MenuItem Header="iPhone 2G">
@@ -824,7 +819,7 @@
                                 </ContextMenu>
                             </Button.ContextMenu>
                         </Button>
-                        <Button Grid.Row="1" Grid.Column="8" Content="Apple iPod touch" Click="keySelect_Click" ContextMenuService.IsEnabled="False">
+                        <Button Grid.Column="8" Content="Apple iPod touch" Click="keySelect_Click" ContextMenuService.IsEnabled="False">
                             <Button.ContextMenu>
                                 <ContextMenu>
                                     <MenuItem x:Name="btnIPod11" Header="iPod touch 1G">

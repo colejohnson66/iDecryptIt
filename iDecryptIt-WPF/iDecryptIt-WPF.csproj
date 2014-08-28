@@ -113,7 +113,6 @@
     <Reference Include="Hexware.Plist">
       <HintPath>Resources\Hexware.Plist.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Windows.Shell, Version=3.5.41019.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />

@@ -32,7 +32,6 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Collections.Generic;
 
 namespace Hexware.Programs.iDecryptIt
 {
@@ -66,16 +65,14 @@ namespace Hexware.Programs.iDecryptIt
             if (!debug)
                 FreeConsole();
 
-            DataContext = this;
-
-            KeySelectionLists.Init();
-
             DevicesViewModel = new KeySelectionViewModel();
             ModelsViewModel = new KeySelectionViewModel();
             VersionsViewModel = new KeySelectionViewModel();
 
             InitializeComponent();
 
+            this.DataContext = this;
+            KeySelectionLists.Init();
             cmbDeviceDropDown.ItemsSource = KeySelectionLists.Devices;
         }
 
@@ -209,6 +206,17 @@ namespace Hexware.Programs.iDecryptIt
         }
         private void btnGetKeys_Click(object sender, RoutedEventArgs e)
         {
+            Stream stream = GetStream(selectedModel + "_" + selectedVersion + ".plist");
+            if (stream == Stream.Null)
+            {
+                MessageBox.Show(
+                    "Sorry, but that version doesn't have any published keys.",
+                    "iDecryptIt",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+                return;
+            }
+            LoadFirmwareKeys(stream, false);
         }
         internal Stream GetStream(string resourceName)
         {
@@ -309,7 +317,7 @@ namespace Hexware.Programs.iDecryptIt
             #endregion
             #region Root FS Key
             temp = plist.Get<PlistDict>("Root FS").Get<PlistString>("File Name").Value;
-            fileRootFS.Text = (temp != "XXX-XXXX-XXX" && temp != "") ? temp + ".dmg" : "XXX-XXXX-XXX.dmg";
+            fileRootFS.Text = (temp != "") ? temp : "XXX-XXXX-XXX.dmg";
             temp = plist.Get<PlistDict>("Root FS").Get<PlistString>((goldenMaster) ? "GM Key" : "Key").Value;
             if (temp != "TODO")
             {
@@ -349,13 +357,13 @@ namespace Hexware.Programs.iDecryptIt
             }
             else
             {
-                fileUpdate.Text = plist.Get<PlistDict>("Update Ramdisk").Get<PlistString>("File Name").Value + ".dmg";
+                fileUpdate.Text = plist.Get<PlistDict>("Update Ramdisk").Get<PlistString>("File Name").Value;
                 fileUpdateNoEncrypt.Text = fileUpdate.Text;
             }
 
             fileRestore.Visibility = Visibility.Visible;
             fileRestoreNoEncrypt.Visibility = Visibility.Visible;
-            fileRestore.Text = plist.Get<PlistDict>("Restore Ramdisk").Get<PlistString>("File Name").Value + ".dmg";
+            fileRestore.Text = plist.Get<PlistDict>("Restore Ramdisk").Get<PlistString>("File Name").Value;
             fileRestoreNoEncrypt.Text = fileRestore.Text;
             // (ramdisk not encrypted) || (ramdisk encrypted and no IV/key)
             if ((plist.Exists("Ramdisk Not Encrypted") && plist.Get<PlistBool>("Ramdisk Not Encrypted").Value) ||
@@ -1812,28 +1820,19 @@ namespace Hexware.Programs.iDecryptIt
         }
         private void textInputFileName_TextChanged(object sender, TextChangedEventArgs e)
         {
-            string[] split = textInputFileName.Text.Split('\\');
-            int length = split.Length;
-            string lastIndex = split[length - 1];
-            string returntext = null;
-            for (int i = 0; i < length; i++)
+            try
             {
-                if (i == 0)
+                string folder = Path.GetDirectoryName(textInputFileName.Text);
+                string file = Path.GetFileName(textInputFileName.Text);
+                if (file.Substring(file.Length - 4, 4) != ".dmg")
                 {
-                    returntext = split[0];
+                    return;
                 }
-                else if (i == length - 1)
-                {
-                    returntext = Path.Combine(
-                        returntext,
-                        lastIndex.Substring(0, lastIndex.Length - 4) + "_decrypted.dmg");
-                }
-                else
-                {
-                    returntext = Path.Combine(returntext, split[i]);
-                }
+                file = file.Substring(0, file.Length - 4) + "_decrypted.dmg";
+                textOutputFileName.Text = Path.Combine(folder, file);
             }
-            textOutputFileName.Text = returntext;
+            catch (Exception)
+            { }
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -1843,47 +1842,28 @@ namespace Hexware.Programs.iDecryptIt
             tempdir = Path.Combine(
                 Path.GetTempPath(),
                 "Hexware",
-                "iDecryptIt_" + new Random().Next(0, Int32.MaxValue).ToString("X")) + "\\";
-
+                "iDecryptIt_" + new Random().Next().ToString("X")) + "\\";
             if (!Directory.Exists(tempdir))
             {
                 Directory.CreateDirectory(tempdir);
             }
 
-#if !DEBUG
-            // Check for updates
-            Debug("INIT", "Checking for updates.");
+            Debug("UPDATE", "Checking for updates.");
             try
             {
                 WebClient webClient = new WebClient();
-                webClient.DownloadFile(
-                    @"http://theiphonewiki.com/w/index.php?title=User:5urd/Latest_stable_software_release/iDecryptIt&action=raw",
-                    tempdir + "update.txt");
-                webClient.Dispose();
-
-                string version = File.ReadAllText(tempdir + "update.txt");
-                Debug("INIT", "Installed version: " + GlobalVars.Version);
-                Debug("INIT", "Latest version: " + version);
-
-                if (version != GlobalVars.Version)
-                {
-                    MessageBox.Show(
-                        "Update Available.",
-                        "iDecryptIt: Update Available",
-                        MessageBoxButton.OK,
-                        MessageBoxImage.Information);
-                }
+                webClient.DownloadStringCompleted += WebClient_DownloadStringCompleted;
+                webClient.DownloadStringAsync(new Uri(
+                    @"http://theiphonewiki.com/w/index.php?title=User:5urd/Latest_stable_software_release/iDecryptIt&action=raw"));
             }
             catch (Exception)
-            {
-            }
-#endif
+            { }
 
-            // Passed argument (see console portion)
+            // Passed argument
             Debug("INIT", "Checking for program argument.");
             if (GlobalVars.ExecutionArgs.ContainsKey("dmg"))
             {
-                textInputFileName.Text = (string)GlobalVars.ExecutionArgs["dmg"];
+                textInputFileName.Text = GlobalVars.ExecutionArgs["dmg"];
             }
         }
         private void Window_Closing(object sender, CancelEventArgs e)
@@ -1892,6 +1872,26 @@ namespace Hexware.Programs.iDecryptIt
             Cleanup();
             Thread.Sleep(500);
             Application.Current.Shutdown();
+        }
+
+        private void WebClient_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
+        {
+            if (e.Result != null)
+            {
+                Debug("UPDATE", "Installed version: " + GlobalVars.Version);
+                Debug("UPDATE", "Latest version: " + e.Result);
+
+#if !DEBUG
+                if (e.Result != GlobalVars.Version)
+                {
+                    MessageBox.Show(
+                        "Update Available.",
+                        "iDecryptIt: Update Available",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information);
+                }
+#endif
+            }
         }
 
         private void cmbDeviceDropDown_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -1909,6 +1909,8 @@ namespace Hexware.Programs.iDecryptIt
 
             cmbModelDropDown.IsEnabled = true;
             cmbVersionDropDown.IsEnabled = false;
+
+            cmbVersionDropDown.ItemsSource = null;
 
             if (entry.ID == "appletv")
                 cmbModelDropDown.ItemsSource = KeySelectionLists.AppleTV;
@@ -1934,6 +1936,90 @@ namespace Hexware.Programs.iDecryptIt
             selectedVersion = null;
 
             cmbVersionDropDown.IsEnabled = true;
+
+            // TODO: Use a `Dictionary<string, List<ComboBoxEntry>>`
+            if (entry.ID == "AppleTV2,1")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.AppleTV21;
+            else if (entry.ID == "AppleTV3,1")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.AppleTV31;
+            else if (entry.ID == "AppleTV3,2")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.AppleTV32;
+            else if (entry.ID == "iPad1,1")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad11;
+            else if (entry.ID == "iPad2,1")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad21;
+            else if (entry.ID == "iPad2,2")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad22;
+            else if (entry.ID == "iPad2,3")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad23;
+            else if (entry.ID == "iPad2,4")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad24;
+            else if (entry.ID == "iPad2,5")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad25;
+            else if (entry.ID == "iPad2,6")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad26;
+            else if (entry.ID == "iPad2,7")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad27;
+            else if (entry.ID == "iPad3,1")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad31;
+            else if (entry.ID == "iPad3,2")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad32;
+            else if (entry.ID == "iPad3,3")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad33;
+            else if (entry.ID == "iPad3,4")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad34;
+            else if (entry.ID == "iPad3,5")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad35;
+            else if (entry.ID == "iPad3,6")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad36;
+            else if (entry.ID == "iPad4,1")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad41;
+            else if (entry.ID == "iPad4,2")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad42;
+            else if (entry.ID == "iPad4,3")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad43;
+            else if (entry.ID == "iPad4,4")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad44;
+            else if (entry.ID == "iPad4,5")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad45;
+            else if (entry.ID == "iPad4,6")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad46;
+            else if (entry.ID == "iPhone1,1")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPhone11;
+            else if (entry.ID == "iPhone1,2")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPhone12;
+            else if (entry.ID == "iPhone2,1")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPhone21;
+            else if (entry.ID == "iPhone3,1")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPhone31;
+            else if (entry.ID == "iPhone3,2")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPhone32;
+            else if (entry.ID == "iPhone3,3")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPhone33;
+            else if (entry.ID == "iPhone4,1")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPhone41;
+            else if (entry.ID == "iPhone5,1")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPhone51;
+            else if (entry.ID == "iPhone5,2")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPhone52;
+            else if (entry.ID == "iPhone5,3")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPhone53;
+            else if (entry.ID == "iPhone5,4")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPhone54;
+            else if (entry.ID == "iPhone6,1")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPhone61;
+            else if (entry.ID == "iPhone6,2")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPhone62;
+            else if (entry.ID == "iPod1,1")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPod11;
+            else if (entry.ID == "iPod2,1")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPod21;
+            else if (entry.ID == "iPod3,1")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPod31;
+            else if (entry.ID == "iPod4,1")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPod41;
+            else
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPod51;
         }
         private void cmbVersionDropDown_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
