@@ -2,7 +2,7 @@
  * File:   GlobalVars.cs
  * Author: Hexware
  * =============================================================================
- * Copyright (c) 2011-2014, Hexware
+ * Copyright (c) 2012-2014, Hexware
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,6 +25,6 @@ namespace Hexware.Programs.iDecryptIt
     internal static class GlobalVars
     {
         internal const string Version = "8.00.0.2C72";
-        internal static Dictionary<string, object> ExecutionArgs = new Dictionary<string, object>();
+        internal static Dictionary<string, string> ExecutionArgs = new Dictionary<string, string>();
     }
 }
