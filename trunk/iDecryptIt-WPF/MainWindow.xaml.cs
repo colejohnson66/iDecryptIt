@@ -167,43 +167,6 @@ namespace Hexware.Programs.iDecryptIt
             Close();
         }
 
-        private void keySelect_Click(object sender, RoutedEventArgs e)
-        {
-            Button button = (Button)sender;
-            ContextMenu menu = button.ContextMenu;
-            menu.IsEnabled = true;
-            menu.Placement = PlacementMode.Bottom;
-            menu.PlacementTarget = button;
-            menu.IsOpen = true;
-        }
-        private void key_Click(object sender, RoutedEventArgs e)
-        {
-            // Remove "btn", then split
-            string[] value = ((MenuItem)sender).Name.Substring(3).Split('_');
-            /*bool gm = value[1].Contains("GM");
-            if (gm)
-            {
-                // remove GM
-                value[1] = value[1].Substring(0, value[1].Length - 2);
-            }*/
-
-            // Add ',' between the two digits
-            int length = value[0].Length - 1; // -1 for last digit (char)
-            value[0] = value[0].Substring(0, length) + "," + value[0][length];
-
-            // Load key page
-            Stream stream = GetStream(value[0] + "_" + value[1] + ".plist");
-            if (stream == Stream.Null)
-            {
-                MessageBox.Show(
-                    "Sorry, but that version doesn't have any published keys.",
-                    "iDecryptIt",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Information);
-                return;
-            }
-            LoadFirmwareKeys(stream, false); // gm);
-        }
         private void btnGetKeys_Click(object sender, RoutedEventArgs e)
         {
             Stream stream = GetStream(selectedModel + "_" + selectedVersion + ".plist");
