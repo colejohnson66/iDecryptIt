@@ -218,14 +218,10 @@ namespace Hexware.Programs.iDecryptIt
                 Error("Error loading key file.", ex);
                 try
                 {
-                    // Wrap it in case the constructor has disposed of it already.
                     doc.Dispose();
                 }
                 catch (Exception)
-                {
-                }
-                doc = null;
-                this.Close();
+                { }
                 return;
             }
 
@@ -306,7 +302,7 @@ namespace Hexware.Programs.iDecryptIt
             fileRestore.Visibility = Visibility.Visible;
             fileRestoreNoEncrypt.Visibility = Visibility.Visible;
 
-            if (plist.Exists("No Update Ramdisk") && plist.Get<PlistBool>("No Update Ramdisk").Value)
+            if (!plist.Exists("Update Ramdisk"))
             {
                 // Hide Update Ramdisk
                 lblUpdateIV.Visibility = Visibility.Collapsed;
@@ -354,7 +350,7 @@ namespace Hexware.Programs.iDecryptIt
                 keyRestoreNoEncrypt.Visibility = Visibility.Collapsed;
                 fileRestoreNoEncrypt.Visibility = Visibility.Collapsed;
                 // Keys
-                if (!plist.Exists("No Update Ramdisk") || !plist.Get<PlistBool>("No Update Ramdisk").Value)
+                if (plist.Exists("Update Ramdisk"))
                 {
                     keyUpdateIV.Visibility = Visibility.Visible;
                     keyUpdateKey.Visibility = Visibility.Visible;
