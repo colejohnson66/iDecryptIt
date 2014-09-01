@@ -24,16 +24,21 @@ using System.Resources;
 
 [assembly: AssemblyTitle("iDecryptIt")]
 [assembly: AssemblyDescription("iOS firmware tools")]
-[assembly: AssemblyConfiguration("Release")]
 [assembly: AssemblyCompany("Cole Johnson")]
 [assembly: AssemblyProduct("iDecryptIt")]
-[assembly: AssemblyCopyright("Copyright (C) 2010-2014")]
+[assembly: AssemblyCopyright("Copyright (C) 2011-2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
+
+#if DEBUG
+[assembly: AssemblyConfiguration("Debug")]
+#else
+[assembly: AssemblyConfiguration("Release")]
+#endif
 
 [assembly: ComVisible(true)]
 [assembly: Guid("ba12c942-94e7-4c25-b4b9-29c3e37dbf14")]
 
-[assembly: AssemblyVersion("7.04.0.1370")]
-[assembly: AssemblyFileVersion("7.04.0.1370")]
+[assembly: AssemblyVersion("7.04.0.1371")]
+[assembly: AssemblyFileVersion("7.04.0.1371")]
 [assembly: NeutralResourcesLanguageAttribute("en-US")]
