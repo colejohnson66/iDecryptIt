@@ -24,7 +24,7 @@ namespace Hexware.Programs.iDecryptIt
 {
     internal static class GlobalVars
     {
-        internal const string Version = "8.00.0.2D71";
+        internal const string Version = "8.00.0.2D72";
         internal static Dictionary<string, string> ExecutionArgs = new Dictionary<string, string>();
     }
 }
