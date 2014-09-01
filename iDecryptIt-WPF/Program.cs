@@ -2,7 +2,7 @@
  * File:   Program.cs
  * Author: Hexware
  * =============================================================================
- * Copyright (c) 2011-2014, Hexware
+ * Copyright (c) 2012-2014, Hexware
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,7 +21,6 @@
 using System;
 using System.IO;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Threading;
 
 namespace Hexware.Programs.iDecryptIt

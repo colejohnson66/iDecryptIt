@@ -22,7 +22,7 @@ using System.ComponentModel;
 
 namespace Hexware.Programs.iDecryptIt
 {
-    public class KeySelectionViewModel : INotifyPropertyChanged
+    public partial class KeySelectionViewModel
     {
         private string _id;
         private string _value;
@@ -56,9 +56,10 @@ namespace Hexware.Programs.iDecryptIt
                 }
             }
         }
+    }
 
-        #region INotifyPropertyChanged Members
-
+    public partial class KeySelectionViewModel : INotifyPropertyChanged
+    {
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void NotifyPropertyChanged(string propertyName)
@@ -68,7 +69,5 @@ namespace Hexware.Programs.iDecryptIt
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
-
-        #endregion
     }
 }
