@@ -1,21 +1,23 @@
 /* =============================================================================
  * File:   MainWindow.xaml.cs
- * Author: Hexware
+ * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2010-2014, Hexware
+ * Copyright (c) 2010-2014, Cole Johnson
  * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * This file is part of iDecryptIt
  * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * iDecryptIt is free software: you can redistribute it and/or modify it under
+ *   the terms of the GNU General Public License as published by the Free
+ *   Software Foundation, either version 3 of the License, or (at your option)
+ *   any later version.
  * 
- * You should have received a copy of the GNU General Public License
- *   along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * iDecryptIt is distributed in the hope that it will be useful, but WITHOUT
+ *   ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ *   FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+ *   more details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ *   iDecryptIt. If not, see <http://www.gnu.org/licenses/>.
  * =============================================================================
  */
 using Hexware.Plist;
@@ -39,9 +41,10 @@ namespace Hexware.Programs.iDecryptIt
         [DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
         private static extern bool FreeConsole();
 
-        static string rundir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "\\";
-        string tempdir;
-        static string helpdir = rundir + "help\\";
+        static string execDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        //string tempDir;
+        string execHash = new Random().Next().ToString("X");
+        static string helpDir = Path.Combine(execDir, "help");
 
         internal static bool debug;
 
@@ -106,12 +109,12 @@ namespace Hexware.Programs.iDecryptIt
 
         private void Cleanup()
         {
-            Debug("DEINIT", "Clearing temp directory.");
+            /*Debug("[DEINIT]", "Clearing temp directory.");
             try
             {
-                if (Directory.Exists(tempdir))
+                if (Directory.Exists(tempDir))
                 {
-                    Directory.Delete(tempdir, true);
+                    Directory.Delete(tempDir, true);
                 }
 
                 string temp = Path.Combine(Path.GetTempPath(), "Hexware", "iDecryptIt-Setup");
@@ -123,47 +126,138 @@ namespace Hexware.Programs.iDecryptIt
             catch (Exception)
             {
                 // don't error here. it's just a temp directory
-            }
+            }*/
         }
+
         internal void Debug(string component, string message)
         {
             if (!debug)
                 return;
 
-            if (component.Length > 10)
-            {
-                Console.WriteLine("[{0}] {1}", component, message);
-            }
-            else
-            {
-                Console.WriteLine("[{0}]{1} {2}", component, new String(' ', 10 - component.Length), message);
-            }
+            Console.WriteLine("{0} {1}", component.PadRight(12), message);
         }
-        internal void Error(string message, Exception ex)
+        internal void Error(string message, Exception except)
         {
-            MessageBox.Show(
+            Debug("[ERROR]", message);
+            Debug("[ERROR]", "Exception type: " + except.GetType().Name);
+            Debug("[ERROR]", "Exception message: " + except.Message);
+
+            MessageBoxResult res = MessageBox.Show(
                 message + "\r\n\r\n" +
-                "Please file a bug report with the following data and an" +
-                "explanation of what was happening:\r\n\r\n" +
-                (ex == null ? "" : "Exception: " + ex.Message + "\r\n") +
-                "Version: " + GlobalVars.Version + "\r\n",
+                    "Do you want iDecryptIt to save an error log for bug reporting?" +
+                    "(no personally identifiable information will be included)",
+                "iDecryptIt",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Error);
+
+            if (res != MessageBoxResult.Yes)
+                return;
+
+            string fileName = null;
+            try {
+                fileName = SaveErrorLog(message, except);
+            } catch (Exception ex) {
+                string exName = ex.GetType().Name;
+                Debug("[ERRLOG]", exName + " thrown while saving log.");
+                MessageBox.Show(
+                    "A(n) " + exName + " error occured while saving the error log.",
+                    "iDecryptIt",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+                return;
+            }
+
+            MessageBox.Show(
+                "The error log was saved to your desktop as \"" + fileName + "\".\r\n" +
+                "Please file a bug report.",
+                "iDecryptIt",
+                MessageBoxButton.OK,
+                MessageBoxImage.Information);
+        }
+        internal void FatalError(string message, Exception except)
+        {
+            Debug("[FATAL]", message);
+            Debug("[FATAL]", "Exception type: " + except.GetType().Name);
+            Debug("[FATAL]", "Exception message: " + except.Message);
+
+            MessageBox.Show(
+                "iDecryptIt has encoundered a fatal error and must close.\r\n" + message,
                 "iDecryptIt",
                 MessageBoxButton.OK,
                 MessageBoxImage.Error);
-        }
-        internal void FatalError(string message, Exception ex)
-        {
+
+            string fileName = null;
+            try {
+                fileName = SaveErrorLog(message, except);
+            } catch (Exception ex) {
+                string exName = ex.GetType().Name;
+                Debug("[ERRLOG]", exName + " thrown while saving log.");
+                MessageBox.Show(
+                    "A(n) " + exName + " error occured while saving the error log.",
+                    "iDecryptIt",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+                Close();
+                return;
+            }
+
             MessageBox.Show(
-                "iDecryptIt has encountered a fatal error and must close.\r\n\r\n" +
-                message + "\r\n\r\n" +
-                "Please file a bug report with the following data and an" +
-                "explanation of what was happening:\r\n\r\n" +
-                (ex == null ? "" : "Exception: " + ex.Message + "\r\n") +
-                "Version: " + GlobalVars.Version + "\r\n",
+                "An error log was saved to your desktop as \"" + fileName + "\".\r\n" +
+                "Please file a bug report. (no personally identifiable information was included)",
                 "iDecryptIt",
                 MessageBoxButton.OK,
-                MessageBoxImage.Error);
+                MessageBoxImage.Information);
             Close();
+        }
+        internal string SaveErrorLog(string message, Exception except)
+        {
+            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            string fileName = "iDecryptIt_" + execHash + ".log";
+            string fullPath = Path.Combine(desktopPath, fileName);
+            Debug("[ERRLOG]", "Saving to \"" + fullPath + "\".");
+
+            StreamWriter stream = new StreamWriter(fullPath, true, Encoding.UTF8);
+            Debug("[ERRLOG]", "Saving log.");
+
+            if (Environment.Is64BitProcess)
+                stream.WriteLine("iDecryptIt " + GlobalVars.Version + " x64");
+            else
+                stream.WriteLine("iDecryptIt " + GlobalVars.Version);
+            stream.WriteLine("Compile time: " + GlobalVars.CompileTimestamp.ToString() + " UTC");
+            stream.WriteLine("Log time: " + DateTime.UtcNow + " UTC");
+            stream.WriteLine("Execution string: " + Environment.CommandLine);
+            WriteSystemConfig(stream);
+            stream.WriteLine("Stack trace: ");
+            stream.WriteLine(Environment.StackTrace);
+            stream.WriteLine("Error message: " + message);
+            if (except != null) {
+                stream.WriteLine("Exception:");
+                stream.WriteLine(except.ToString());
+            }
+            stream.WriteLine();
+            stream.WriteLine();
+
+            Debug("[ERRLOG]", "Closing log.");
+            stream.Close();
+            stream.Dispose();
+
+            return fileName;
+        }
+        internal void WriteSystemConfig(StreamWriter stream)
+        {
+            stream.WriteLine("System config:");
+            stream.WriteLine("  Current dir:  " + Environment.CurrentDirectory);
+            stream.WriteLine("  Is 64-bit OS: " + Environment.Is64BitOperatingSystem.ToString());
+            stream.WriteLine("  OS version:   " + Environment.OSVersion.ToString());
+            stream.WriteLine("  Processor:    " + Environment.ProcessorCount);
+            stream.WriteLine("  .NET version: " + Environment.Version);
+            stream.WriteLine("  Working set:  " + Environment.WorkingSet);
+
+            Process me = Process.GetCurrentProcess();
+            stream.WriteLine("Process info:");
+            stream.WriteLine("  Processor time:   " + me.PrivilegedProcessorTime);
+            stream.WriteLine("  Process affinity: " + me.ProcessorAffinity);
+            stream.WriteLine("  Execution time:   " + me.StartTime.ToUniversalTime() + " UTC");
         }
 
         private void btnGetKeys_Click(object sender, RoutedEventArgs e)
@@ -1190,7 +1284,7 @@ namespace Hexware.Programs.iDecryptIt
 
         private void btnDecrypt_Click(object sender, RoutedEventArgs e)
         {
-            Debug("DECRYPT", "Validating input.");
+            Debug("[DECRYPT]", "Validating input.");
             #region Input Validation
             if (String.IsNullOrWhiteSpace(textInputFileName.Text) ||
                 String.IsNullOrWhiteSpace(textOutputFileName.Text) ||
@@ -1225,12 +1319,12 @@ namespace Hexware.Programs.iDecryptIt
             decryptTo = textOutputFileName.Text;
             decryptFromFile = new FileInfo(decryptFrom);
 
-            Debug("DECRYPT", "Launching dmg.");
+            Debug("[DECRYPT]", "Launching dmg.");
             ProcessStartInfo x = new ProcessStartInfo();
             x.RedirectStandardError = true;
             x.RedirectStandardOutput = true;
             x.UseShellExecute = false;
-            x.FileName = rundir + "dmg.exe";
+            x.FileName = Path.Combine(execDir, "dmg.exe");
             x.Arguments = String.Format("extract \"{0}\" \"{1}\" -k {2}", textInputFileName.Text, textOutputFileName.Text, textDecryptKey.Text);
             x.ErrorDialog = true;
 
@@ -1251,7 +1345,7 @@ namespace Hexware.Programs.iDecryptIt
             while (!File.Exists(decryptTo))
             {
             }
-            Debug("DECRYPT", "Starting progress checker.");
+            Debug("[DECRYPT]", "Starting progress checker.");
             decryptworker = new BackgroundWorker();
             decryptworker.WorkerSupportsCancellation = true;
             decryptworker.WorkerReportsProgress = true;
@@ -1272,7 +1366,7 @@ namespace Hexware.Programs.iDecryptIt
 
         private void btnExtract_Click(object sender, RoutedEventArgs e)
         {
-            Debug("EXTRACT", "Validating input.");
+            Debug("[EXTRACT]", "Validating input.");
             #region Input validation
             if (String.IsNullOrWhiteSpace(text7ZInputFileName.Text) ||
                 String.IsNullOrWhiteSpace(text7ZOuputFolder.Text))
@@ -1308,20 +1402,20 @@ namespace Hexware.Programs.iDecryptIt
             }
             #endregion
 
-            Debug("EXTRACT", "Launching 7zip.");
+            Debug("[EXTRACT]", "Launching 7zip.");
             Process.Start(
-                rundir + "7z.exe",
+                Path.Combine(execDir, "7z.exe"),
                 " x \"" + text7ZInputFileName.Text + "\" \"-o" + text7ZOuputFolder.Text + "\"");
         }
         private void btnChangelog_Click(object sender, RoutedEventArgs e)
         {
-            Debug("CHANGE", "Loading Changelog.");
-            Process.Start("file://" + helpdir + "changelog.html");
+            Debug("[CHANGE]", "Loading Changelog.");
+            Process.Start("file://" + helpDir + "changelog.html");
         }
         private void btnReadme_Click(object sender, RoutedEventArgs e)
         {
-            Debug("README", "Loading README.");
-            Process.Start("file://" + helpdir + "README.html");
+            Debug("[README]", "Loading README.");
+            Process.Start("file://" + helpDir + "README.html");
         }
         /*private void btn1a420_Click(object sender, RoutedEventArgs e)
         {
@@ -1330,14 +1424,14 @@ namespace Hexware.Programs.iDecryptIt
         }*/
         private void btnSelectRootFSInputFile_Click(object sender, RoutedEventArgs e)
         {
-            Debug("SELECTFS", "Loading file dialog.");
+            Debug("[SELECTFS]", "Loading file dialog.");
             OpenFileDialog decrypt = new OpenFileDialog();
             decrypt.FileName = "";
             decrypt.RestoreDirectory = true;
             decrypt.DefaultExt = ".dmg";
             decrypt.Filter = "Apple Disk Images|*.dmg";
             decrypt.ShowDialog();
-            Debug("SELECTFS", "Closing file dialog.");
+            Debug("[SELECTFS]", "File dialog closed.");
             if (!String.IsNullOrWhiteSpace(decrypt.SafeFileName))
             {
                 textInputFileName.Text = decrypt.FileName;
@@ -1345,7 +1439,7 @@ namespace Hexware.Programs.iDecryptIt
         }
         private void btnSelect7ZInputFile_Click(object sender, RoutedEventArgs e)
         {
-            Debug("SELECT7Z", "Loading file dialog.");
+            Debug("[SELECT7Z]", "Loading file dialog.");
             OpenFileDialog extract = new OpenFileDialog();
             extract.FileName = "";
             extract.RestoreDirectory = true;
@@ -1353,7 +1447,7 @@ namespace Hexware.Programs.iDecryptIt
             extract.DefaultExt = ".dmg";
             extract.Filter = "Apple Disk Images|*.dmg";//|Apple Firmware Files|*.ipsw";
             extract.ShowDialog();
-            Debug("SELECT7Z", "Closing file dialog.");
+            Debug("[SELECT7Z]", "File dialog closed.");
             if (!String.IsNullOrWhiteSpace(extract.SafeFileName))
             {
                 /*
@@ -1410,7 +1504,7 @@ namespace Hexware.Programs.iDecryptIt
         }
         private void btnSelectWhatAmIFile_Click(object sender, RoutedEventArgs e)
         {
-            Debug("SELECTWHAT", "Opening file dialog.");
+            Debug("[SELECTWHAT]", "Opening file dialog.");
             OpenFileDialog what = new OpenFileDialog();
             what.FileName = "";
             what.RestoreDirectory = true;
@@ -1418,7 +1512,7 @@ namespace Hexware.Programs.iDecryptIt
             what.DefaultExt = ".ipsw";
             what.Filter = "Apple Firmware Files|*.ipsw";
             what.ShowDialog();
-            Debug("SELECTWHAT", "Closing file dialog.");
+            Debug("[SELECTWHAT]", "Closing file dialog.");
             if (!String.IsNullOrWhiteSpace(what.SafeFileName))
             {
                 textWhatAmIFileName.Text = what.SafeFileName;
@@ -1795,18 +1889,23 @@ namespace Hexware.Programs.iDecryptIt
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            // Find a temp directory
-            Debug("INIT", "Finding a temp directory.");
-            tempdir = Path.Combine(
-                Path.GetTempPath(),
-                "Hexware",
-                "iDecryptIt_" + new Random().Next().ToString("X")) + "\\";
-            if (!Directory.Exists(tempdir))
-            {
-                Directory.CreateDirectory(tempdir);
+            //Debug("[INIT]", "Finding a temp directory.");
+            //tempDir = Path.Combine(
+            //    Path.GetTempPath(),
+            //    "Hexware",
+            //    "iDecryptIt_" + execHash + "\\";
+            //if (!Directory.Exists(tempDir))
+            //{
+            //    Directory.CreateDirectory(tempDir);
+            //}
+
+            if (GlobalVars.ExecutionArgs.ContainsKey("dmg")) {
+                string fileName = GlobalVars.ExecutionArgs["dmg"];
+                Debug("[INIT]", "File argument supplied: \"" + fileName + "\".");
+                textInputFileName.Text = fileName;
             }
 
-            Debug("UPDATE", "Checking for updates.");
+            Debug("[UPDATE]", "Checking for updates.");
             try
             {
                 WebClient webClient = new WebClient();
@@ -1816,17 +1915,10 @@ namespace Hexware.Programs.iDecryptIt
             }
             catch (Exception)
             { }
-
-            // Passed argument
-            Debug("INIT", "Checking for program argument.");
-            if (GlobalVars.ExecutionArgs.ContainsKey("dmg"))
-            {
-                textInputFileName.Text = GlobalVars.ExecutionArgs["dmg"];
-            }
         }
         private void Window_Closing(object sender, CancelEventArgs e)
         {
-            Debug("DEINIT", "Closing.");
+            Debug("[DEINIT]", "Closing.");
             Cleanup();
             Thread.Sleep(500);
             Application.Current.Shutdown();
@@ -1836,8 +1928,8 @@ namespace Hexware.Programs.iDecryptIt
         {
             if (e.Result != null)
             {
-                Debug("UPDATE", "Installed version: " + GlobalVars.Version);
-                Debug("UPDATE", "Latest version: " + e.Result);
+                Debug("[UPDATE]", "Installed version: " + GlobalVars.Version);
+                Debug("[UPDATE]", "Latest version: " + e.Result);
 
 #if !DEBUG
                 if (e.Result != GlobalVars.Version)
@@ -1859,7 +1951,7 @@ namespace Hexware.Programs.iDecryptIt
 
             ComboBoxEntry entry = (ComboBoxEntry)e.AddedItems[0];
 
-            Debug("KEYSELECT", "Selected device changed: \"" + entry.ID + "\".");
+            Debug("[KEYSELECT]", "Selected device changed: \"" + entry.ID + "\".");
 
             selectedDevice = entry.ID;
             selectedModel = null;
@@ -1888,7 +1980,7 @@ namespace Hexware.Programs.iDecryptIt
 
             ComboBoxEntry entry = (ComboBoxEntry)e.AddedItems[0];
 
-            Debug("KEYSELECT", "Selected model changed: \"" + entry.ID + "\".");
+            Debug("[KEYSELECT]", "Selected model changed: \"" + entry.ID + "\".");
 
             selectedModel = entry.ID;
             selectedVersion = null;
@@ -1986,7 +2078,7 @@ namespace Hexware.Programs.iDecryptIt
 
             ComboBoxEntry entry = (ComboBoxEntry)e.AddedItems[0];
 
-            Debug("KEYSELECT", "Selected version changed: \"" + entry.ID + "\".");
+            Debug("[KEYSELECT]", "Selected version changed: \"" + entry.ID + "\".");
 
             selectedVersion = entry.ID;
         }

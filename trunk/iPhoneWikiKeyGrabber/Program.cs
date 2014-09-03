@@ -36,50 +36,6 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
         static List<string> links = new List<string>();
 		static string keyPath = Path.Combine(Directory.GetCurrentDirectory(), "keys");
 		static XmlWriterSettings settings = new XmlWriterSettings();
-		/*static Dictionary<string, string> devices = new Dictionary<string, string>()
-		{
-			{ "appletv21", "Apple TV 2G" },
-			{ "appletv31", "Apple TV 3G" },
-			{ "appletv32", "Apple TV 3G (Rev A)" },
-			{ "ipad11", "iPad 1G" },
-			{ "ipad21", "iPad 2 (Wi-Fi)" },
-			{ "ipad22", "iPad 2 (GSM)" },
-			{ "ipad23", "iPad 2 (CDMA)" },
-			{ "ipad24", "iPad 2 (Wi-Fi) [Rev A]" },
-			{ "ipad25", "iPad mini 1G (Wi-Fi)" },
-			{ "ipad26", "iPad mini 1G (GSM)" },
-			{ "ipad27", "iPad mini 1G (Global)" },
-			{ "ipad31", "iPad 3 (Wi-Fi)" },
-			{ "ipad32", "iPad 3 (CDMA)" },
-			{ "ipad33", "iPad 3 (Global)" },
-			{ "ipad34", "iPad 4 (Wi-Fi)" },
-			{ "ipad35", "iPad 4 (GSM)" },
-			{ "ipad36", "iPad 4 (Global)" },
-			{ "ipad41", "iPad Air (Wi-Fi)" },
-            { "ipad42", "iPad Air (Cellular)" },
-            { "ipad43", "iPad Air (Cellular) [Rev A]" },
-            { "ipad44", "iPad mini 2G (Wi-Fi)" },
-            { "ipad45", "iPad mini 2G (Cellular)" },
-            { "ipad46", "iPad mini 2G (Cellular) [Rev A]" },
-            { "iphone11", "iPhone 2G" },
-			{ "iphone12", "iPhone 3G" },
-			{ "iphone21", "iPhone 3GS" },
-			{ "iphone31", "iPhone 4 (GSM)" },
-			{ "iphone32", "iPhone 4 (GSM) [Rev A]" },
-			{ "iphone33", "iPhone 4 (CDMA)" },
-			{ "iphone41", "iPhone 4S" },
-			{ "iphone51", "iPhone 5 (GSM)" },
-			{ "iphone52", "iPhone 5 (Global)" },
-			{ "iphone53", "iPhone 5c (GSM)" },
-			{ "iphone54", "iPhone 5c (Global)" },
-			{ "iphone61", "iPhone 5s (GSM)" },
-			{ "iphone62", "iPhone 5s (Global)" },
-			{ "ipod11", "iPod touch 1G" },
-			{ "ipod21", "iPod touch 2G" },
-			{ "ipod31", "iPod touch 3G" },
-			{ "ipod41", "iPod touch 4G" },
-			{ "ipod51", "iPod touch 5G" }
-		};*/
 
 		public static void Main(string[] args)
         {
@@ -110,9 +66,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 			for (int i = 1; i < length; i++)
 			{
 				if (list.Item(i).Name == "table")
-				{
 					ParseTableNode(list.Item(i).ChildNodes);
-				}
 			}
 
 			// Parse individual pages
