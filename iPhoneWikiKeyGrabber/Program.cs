@@ -1,19 +1,42 @@
-﻿using System;
+﻿/* =============================================================================
+ * File:   Program.cs
+ * Author: Cole Johnson
+ * =============================================================================
+ * Copyright (c) 2013-2014, Cole Johnson
+ * 
+ * This file is part of iDecryptIt
+ * 
+ * iDecryptIt is free software: you can redistribute it and/or modify it under
+ *   the terms of the GNU General Public License as published by the Free
+ *   Software Foundation, either version 3 of the License, or (at your option)
+ *   any later version.
+ * 
+ * iDecryptIt is distributed in the hope that it will be useful, but WITHOUT
+ *   ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ *   FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+ *   more details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ *   iDecryptIt. If not, see <http://www.gnu.org/licenses/>.
+ * =============================================================================
+ */
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Xml;
 
 namespace Hexware.Programs.iDecryptIt.KeyGrabber
 {
 	public class Program
 	{
-        // TODO: Replace XML with (WIP) OpenCF
+        // TODO: Replace XML building with Hexware.Plist for now, then OpenCF#
         static List<string> links = new List<string>();
 		static string keyPath = Path.Combine(Directory.GetCurrentDirectory(), "keys");
 		static XmlWriterSettings settings = new XmlWriterSettings();
-		static Dictionary<string, string> devices = new Dictionary<string, string>()
+		/*static Dictionary<string, string> devices = new Dictionary<string, string>()
 		{
 			{ "appletv21", "Apple TV 2G" },
 			{ "appletv31", "Apple TV 3G" },
@@ -56,12 +79,17 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 			{ "ipod31", "iPod touch 3G" },
 			{ "ipod41", "iPod touch 4G" },
 			{ "ipod51", "iPod touch 5G" }
-		};
+		};*/
 
 		public static void Main(string[] args)
-		{
-			if (Directory.Exists(keyPath))
-				Directory.Delete(keyPath, true);
+        {
+            if (Directory.Exists(keyPath))
+            {
+                // I don't know why, but not waiting prevents the
+                //   CreateDirectory(...) call below to do nothing
+                Directory.Delete(keyPath, true);
+                Thread.Sleep(100);
+            }
 			Directory.CreateDirectory(keyPath);
 
 			Console.WriteLine("Grabbing list of key pages");
@@ -214,8 +242,24 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 				{
 					data["Version"] = value.Trim();
 					continue;
-				}
-				else if (key == "DownloadURL")
+                }
+                else if (key == "Device")
+                {
+                    value = value.Replace("appletv", "AppleTV");
+                    value = value.Replace("ipad", "iPad");
+                    value = value.Replace("iphone", "iPhone");
+                    value = value.Replace("ipod", "iPod");
+
+                    char[] numbers = new char[]
+                    {
+                        value[value.Length - 2],
+                        ',',
+                        value[value.Length - 1]
+                    };
+
+                    value = value.Substring(0, value.Length - 2) + new String(numbers);
+                }
+                else if (key == "DownloadURL")
 				{
 					key = "Download URL";
 				}
@@ -273,10 +317,10 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                         plist.ChildNodes.Item(num).InnerText = data[thiskey].Split('[', 'b')[0];
                         //string[] split = data[thiskey].Split(new string[] { " and " }, StringSplitOptions.None)[1];
                     }
-                    else if (thiskey == "Device")
+                    /*else if (thiskey == "Device")
                     {
                         plist.ChildNodes.Item(num).InnerText = devices[data[thiskey]];
-                    }
+                    }*/
                     else
                     {
                         plist.ChildNodes.Item(num).InnerText = data[thiskey];
@@ -401,7 +445,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 		public static string GetFilename(Dictionary<string, string> data)
 		{
 			// Fix capitalization
-			string device = data["Device"]
+			/*string device = data["Device"]
 				.Replace("appletv", "AppleTV")
 				.Replace("ipad", "iPad")
 				.Replace("iphone", "iPhone")
@@ -413,8 +457,8 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 			deviceNumbers[2] = deviceNumbers[1]; // Move second number over
 			deviceNumbers[1] = ',';
 			device = device.Substring(0, device.Length - 2) + new String(deviceNumbers);
-
-			return Path.Combine(keyPath, device + "_" + data["Build"] + ".plist");
+            */
+			return Path.Combine(keyPath, data["Device"] + "_" + data["Build"] + ".plist");
 		}
 	}
 }
