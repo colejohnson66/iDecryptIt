@@ -55,7 +55,7 @@ namespace Hexware.Programs.iDecryptIt
         public KeySelectionViewModel VersionsViewModel;
         private string selectedVersion;
 
-        BackgroundWorker decryptworker;
+        BackgroundWorker decryptWorker;
         Process decryptProc;
         FileInfo decryptFromFile;
         string decryptFrom;
@@ -78,33 +78,191 @@ namespace Hexware.Programs.iDecryptIt
             cmbDeviceDropDown.ItemsSource = KeySelectionLists.Devices;
         }
 
-        private void decryptworker_DoWork(object sender, DoWorkEventArgs e)
+        private void decryptWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            while (!decryptworker.CancellationPending)
+            while (!decryptWorker.CancellationPending)
             {
                 if (decryptProc.HasExited)
                 {
-                    decryptworker.ReportProgress(100);
+                    decryptWorker.ReportProgress(100);
                 }
                 else
                 {
                     decryptProg = ((new FileInfo(decryptTo).Length) * 100.0) / decryptFromFile.Length;
-                    decryptworker.ReportProgress(0);
+                    decryptWorker.ReportProgress(0);
                     Thread.Sleep(100); // don't hog the CPU
                 }
             }
         }
-        private void decryptworker_ProgressReported(object sender, ProgressChangedEventArgs e)
+        private void decryptWorker_ProgressReported(object sender, ProgressChangedEventArgs e)
         {
-            if (e.ProgressPercentage == 100 && !decryptworker.CancellationPending)
+            if (e.ProgressPercentage == 100 && !decryptWorker.CancellationPending)
             {
-                decryptworker.CancelAsync();
+                decryptWorker.CancelAsync();
                 progDecrypt.Value = 100.0;
                 gridDecrypt.IsEnabled = true;
                 progDecrypt.Visibility = Visibility.Hidden;
                 return;
             }
             progDecrypt.Value = (decryptProg > 100.0) ? 100.0 : decryptProg;
+        }
+
+        private void WebClient_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
+        {
+            if (e.Result != null) {
+                Debug("[UPDATE]", "Installed version: " + GlobalVars.Version);
+                Debug("[UPDATE]", "Latest version: " + e.Result);
+
+#if !DEBUG
+                if (e.Result != GlobalVars.Version)
+                {
+                    MessageBox.Show(
+                        "Update Available.",
+                        "iDecryptIt: Update Available",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information);
+                }
+#endif
+            }
+        }
+
+        private void cmbDeviceDropDown_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count == 0)
+                return;
+
+            ComboBoxEntry entry = (ComboBoxEntry)e.AddedItems[0];
+
+            Debug("[KEYSELECT]", "Selected device changed: \"" + entry.ID + "\".");
+
+            selectedDevice = entry.ID;
+            selectedModel = null;
+            selectedVersion = null;
+
+            cmbModelDropDown.IsEnabled = true;
+            cmbVersionDropDown.IsEnabled = false;
+
+            cmbVersionDropDown.ItemsSource = null;
+
+            if (entry.ID == "appletv")
+                cmbModelDropDown.ItemsSource = KeySelectionLists.AppleTV;
+            else if (entry.ID == "ipad")
+                cmbModelDropDown.ItemsSource = KeySelectionLists.iPad;
+            else if (entry.ID == "ipadmini")
+                cmbModelDropDown.ItemsSource = KeySelectionLists.iPadMini;
+            else if (entry.ID == "iphone")
+                cmbModelDropDown.ItemsSource = KeySelectionLists.iPhone;
+            else
+                cmbModelDropDown.ItemsSource = KeySelectionLists.iPodTouch;
+        }
+        private void cmbModelDropDown_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count == 0)
+                return;
+
+            ComboBoxEntry entry = (ComboBoxEntry)e.AddedItems[0];
+
+            Debug("[KEYSELECT]", "Selected model changed: \"" + entry.ID + "\".");
+
+            selectedModel = entry.ID;
+            selectedVersion = null;
+
+            cmbVersionDropDown.IsEnabled = true;
+
+            // TODO: Use a `Dictionary<string, List<ComboBoxEntry>>`
+            if (entry.ID == "AppleTV2,1")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.AppleTV21;
+            else if (entry.ID == "AppleTV3,1")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.AppleTV31;
+            else if (entry.ID == "AppleTV3,2")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.AppleTV32;
+            else if (entry.ID == "iPad1,1")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad11;
+            else if (entry.ID == "iPad2,1")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad21;
+            else if (entry.ID == "iPad2,2")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad22;
+            else if (entry.ID == "iPad2,3")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad23;
+            else if (entry.ID == "iPad2,4")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad24;
+            else if (entry.ID == "iPad2,5")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad25;
+            else if (entry.ID == "iPad2,6")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad26;
+            else if (entry.ID == "iPad2,7")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad27;
+            else if (entry.ID == "iPad3,1")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad31;
+            else if (entry.ID == "iPad3,2")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad32;
+            else if (entry.ID == "iPad3,3")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad33;
+            else if (entry.ID == "iPad3,4")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad34;
+            else if (entry.ID == "iPad3,5")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad35;
+            else if (entry.ID == "iPad3,6")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad36;
+            else if (entry.ID == "iPad4,1")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad41;
+            else if (entry.ID == "iPad4,2")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad42;
+            else if (entry.ID == "iPad4,3")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad43;
+            else if (entry.ID == "iPad4,4")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad44;
+            else if (entry.ID == "iPad4,5")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad45;
+            else if (entry.ID == "iPad4,6")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad46;
+            else if (entry.ID == "iPhone1,1")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPhone11;
+            else if (entry.ID == "iPhone1,2")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPhone12;
+            else if (entry.ID == "iPhone2,1")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPhone21;
+            else if (entry.ID == "iPhone3,1")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPhone31;
+            else if (entry.ID == "iPhone3,2")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPhone32;
+            else if (entry.ID == "iPhone3,3")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPhone33;
+            else if (entry.ID == "iPhone4,1")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPhone41;
+            else if (entry.ID == "iPhone5,1")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPhone51;
+            else if (entry.ID == "iPhone5,2")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPhone52;
+            else if (entry.ID == "iPhone5,3")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPhone53;
+            else if (entry.ID == "iPhone5,4")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPhone54;
+            else if (entry.ID == "iPhone6,1")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPhone61;
+            else if (entry.ID == "iPhone6,2")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPhone62;
+            else if (entry.ID == "iPod1,1")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPod11;
+            else if (entry.ID == "iPod2,1")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPod21;
+            else if (entry.ID == "iPod3,1")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPod31;
+            else if (entry.ID == "iPod4,1")
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPod41;
+            else
+                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPod51;
+        }
+        private void cmbVersionDropDown_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count == 0)
+                return;
+
+            ComboBoxEntry entry = (ComboBoxEntry)e.AddedItems[0];
+
+            Debug("[KEYSELECT]", "Selected version changed: \"" + entry.ID + "\".");
+
+            selectedVersion = entry.ID;
         }
 
         private void Cleanup()
@@ -139,8 +297,13 @@ namespace Hexware.Programs.iDecryptIt
         internal void Error(string message, Exception except)
         {
             Debug("[ERROR]", message);
-            Debug("[ERROR]", "Exception type: " + except.GetType().Name);
-            Debug("[ERROR]", "Exception message: " + except.Message);
+            if (except == null) {
+                Debug("[ERROR]", "Exception type: null");
+                Debug("[ERROR]", "Exception message: null");
+            } else {
+                Debug("[ERROR]", "Exception type: " + except.GetType().Name);
+                Debug("[ERROR]", "Exception message: " + except.Message);
+            }
 
             MessageBoxResult res = MessageBox.Show(
                 message + "\r\n\r\n" +
@@ -176,9 +339,14 @@ namespace Hexware.Programs.iDecryptIt
         }
         internal void FatalError(string message, Exception except)
         {
-            Debug("[FATAL]", message);
-            Debug("[FATAL]", "Exception type: " + except.GetType().Name);
-            Debug("[FATAL]", "Exception message: " + except.Message);
+            Debug("[ERROR]", message);
+            if (except == null) {
+                Debug("[ERROR]", "Exception type: null");
+                Debug("[ERROR]", "Exception message: null");
+            } else {
+                Debug("[ERROR]", "Exception type: " + except.GetType().Name);
+                Debug("[ERROR]", "Exception message: " + except.Message);
+            }
 
             MessageBox.Show(
                 "iDecryptIt has encoundered a fatal error and must close.\r\n" + message,
@@ -227,13 +395,16 @@ namespace Hexware.Programs.iDecryptIt
             stream.WriteLine("Log time: " + DateTime.UtcNow + " UTC");
             stream.WriteLine("Execution string: " + Environment.CommandLine);
             WriteSystemConfig(stream);
+            stream.WriteLine("Error message: " + message);
+            if (except == null) {
+                stream.WriteLine("Exception type:    null");
+                stream.WriteLine("Exception message: null");
+            } else {
+                stream.WriteLine("Exception type:    " + except.GetType().Name);
+                stream.WriteLine("Exception message: " + except.Message);
+            }
             stream.WriteLine("Stack trace: ");
             stream.WriteLine(Environment.StackTrace);
-            stream.WriteLine("Error message: " + message);
-            if (except != null) {
-                stream.WriteLine("Exception:");
-                stream.WriteLine(except.ToString());
-            }
             stream.WriteLine();
             stream.WriteLine();
 
@@ -249,7 +420,7 @@ namespace Hexware.Programs.iDecryptIt
             stream.WriteLine("  Current dir:  " + Environment.CurrentDirectory);
             stream.WriteLine("  Is 64-bit OS: " + Environment.Is64BitOperatingSystem.ToString());
             stream.WriteLine("  OS version:   " + Environment.OSVersion.ToString());
-            stream.WriteLine("  Processor:    " + Environment.ProcessorCount);
+            stream.WriteLine("  Processors:   " + Environment.ProcessorCount);
             stream.WriteLine("  .NET version: " + Environment.Version);
             stream.WriteLine("  Working set:  " + Environment.WorkingSet);
 
@@ -1346,12 +1517,12 @@ namespace Hexware.Programs.iDecryptIt
             {
             }
             Debug("[DECRYPT]", "Starting progress checker.");
-            decryptworker = new BackgroundWorker();
-            decryptworker.WorkerSupportsCancellation = true;
-            decryptworker.WorkerReportsProgress = true;
-            decryptworker.DoWork += decryptworker_DoWork;
-            decryptworker.ProgressChanged += decryptworker_ProgressReported;
-            decryptworker.RunWorkerAsync();
+            decryptWorker = new BackgroundWorker();
+            decryptWorker.WorkerSupportsCancellation = true;
+            decryptWorker.WorkerReportsProgress = true;
+            decryptWorker.DoWork += decryptWorker_DoWork;
+            decryptWorker.ProgressChanged += decryptWorker_ProgressReported;
+            decryptWorker.RunWorkerAsync();
         }
         private void decryptProc_OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
@@ -1922,165 +2093,6 @@ namespace Hexware.Programs.iDecryptIt
             Cleanup();
             Thread.Sleep(500);
             Application.Current.Shutdown();
-        }
-
-        private void WebClient_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
-        {
-            if (e.Result != null)
-            {
-                Debug("[UPDATE]", "Installed version: " + GlobalVars.Version);
-                Debug("[UPDATE]", "Latest version: " + e.Result);
-
-#if !DEBUG
-                if (e.Result != GlobalVars.Version)
-                {
-                    MessageBox.Show(
-                        "Update Available.",
-                        "iDecryptIt: Update Available",
-                        MessageBoxButton.OK,
-                        MessageBoxImage.Information);
-                }
-#endif
-            }
-        }
-
-        private void cmbDeviceDropDown_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (e.AddedItems.Count == 0)
-                return;
-
-            ComboBoxEntry entry = (ComboBoxEntry)e.AddedItems[0];
-
-            Debug("[KEYSELECT]", "Selected device changed: \"" + entry.ID + "\".");
-
-            selectedDevice = entry.ID;
-            selectedModel = null;
-            selectedVersion = null;
-
-            cmbModelDropDown.IsEnabled = true;
-            cmbVersionDropDown.IsEnabled = false;
-
-            cmbVersionDropDown.ItemsSource = null;
-
-            if (entry.ID == "appletv")
-                cmbModelDropDown.ItemsSource = KeySelectionLists.AppleTV;
-            else if (entry.ID == "ipad")
-                cmbModelDropDown.ItemsSource = KeySelectionLists.iPad;
-            else if (entry.ID == "ipadmini")
-                cmbModelDropDown.ItemsSource = KeySelectionLists.iPadMini;
-            else if (entry.ID == "iphone")
-                cmbModelDropDown.ItemsSource = KeySelectionLists.iPhone;
-            else
-                cmbModelDropDown.ItemsSource = KeySelectionLists.iPodTouch;
-        }
-        private void cmbModelDropDown_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (e.AddedItems.Count == 0)
-                return;
-
-            ComboBoxEntry entry = (ComboBoxEntry)e.AddedItems[0];
-
-            Debug("[KEYSELECT]", "Selected model changed: \"" + entry.ID + "\".");
-
-            selectedModel = entry.ID;
-            selectedVersion = null;
-
-            cmbVersionDropDown.IsEnabled = true;
-
-            // TODO: Use a `Dictionary<string, List<ComboBoxEntry>>`
-            if (entry.ID == "AppleTV2,1")
-                cmbVersionDropDown.ItemsSource = KeySelectionLists.AppleTV21;
-            else if (entry.ID == "AppleTV3,1")
-                cmbVersionDropDown.ItemsSource = KeySelectionLists.AppleTV31;
-            else if (entry.ID == "AppleTV3,2")
-                cmbVersionDropDown.ItemsSource = KeySelectionLists.AppleTV32;
-            else if (entry.ID == "iPad1,1")
-                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad11;
-            else if (entry.ID == "iPad2,1")
-                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad21;
-            else if (entry.ID == "iPad2,2")
-                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad22;
-            else if (entry.ID == "iPad2,3")
-                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad23;
-            else if (entry.ID == "iPad2,4")
-                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad24;
-            else if (entry.ID == "iPad2,5")
-                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad25;
-            else if (entry.ID == "iPad2,6")
-                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad26;
-            else if (entry.ID == "iPad2,7")
-                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad27;
-            else if (entry.ID == "iPad3,1")
-                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad31;
-            else if (entry.ID == "iPad3,2")
-                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad32;
-            else if (entry.ID == "iPad3,3")
-                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad33;
-            else if (entry.ID == "iPad3,4")
-                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad34;
-            else if (entry.ID == "iPad3,5")
-                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad35;
-            else if (entry.ID == "iPad3,6")
-                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad36;
-            else if (entry.ID == "iPad4,1")
-                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad41;
-            else if (entry.ID == "iPad4,2")
-                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad42;
-            else if (entry.ID == "iPad4,3")
-                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad43;
-            else if (entry.ID == "iPad4,4")
-                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad44;
-            else if (entry.ID == "iPad4,5")
-                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad45;
-            else if (entry.ID == "iPad4,6")
-                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPad46;
-            else if (entry.ID == "iPhone1,1")
-                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPhone11;
-            else if (entry.ID == "iPhone1,2")
-                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPhone12;
-            else if (entry.ID == "iPhone2,1")
-                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPhone21;
-            else if (entry.ID == "iPhone3,1")
-                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPhone31;
-            else if (entry.ID == "iPhone3,2")
-                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPhone32;
-            else if (entry.ID == "iPhone3,3")
-                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPhone33;
-            else if (entry.ID == "iPhone4,1")
-                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPhone41;
-            else if (entry.ID == "iPhone5,1")
-                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPhone51;
-            else if (entry.ID == "iPhone5,2")
-                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPhone52;
-            else if (entry.ID == "iPhone5,3")
-                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPhone53;
-            else if (entry.ID == "iPhone5,4")
-                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPhone54;
-            else if (entry.ID == "iPhone6,1")
-                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPhone61;
-            else if (entry.ID == "iPhone6,2")
-                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPhone62;
-            else if (entry.ID == "iPod1,1")
-                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPod11;
-            else if (entry.ID == "iPod2,1")
-                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPod21;
-            else if (entry.ID == "iPod3,1")
-                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPod31;
-            else if (entry.ID == "iPod4,1")
-                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPod41;
-            else
-                cmbVersionDropDown.ItemsSource = KeySelectionLists.iPod51;
-        }
-        private void cmbVersionDropDown_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (e.AddedItems.Count == 0)
-                return;
-
-            ComboBoxEntry entry = (ComboBoxEntry)e.AddedItems[0];
-
-            Debug("[KEYSELECT]", "Selected version changed: \"" + entry.ID + "\".");
-
-            selectedVersion = entry.ID;
         }
     }
 }
