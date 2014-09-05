@@ -220,6 +220,7 @@ namespace Hexware.Programs.iDecryptIt
         internal static void Changelog()
         {
         }
+
         internal static DateTime RetrieveLinkerTimestamp()
         {
             const int c_PeHeaderOffset = 60;
@@ -249,6 +250,7 @@ namespace Hexware.Programs.iDecryptIt
             dt = dt.AddHours(TimeZone.CurrentTimeZone.GetUtcOffset(dt).Hours);
             return dt;
         }
+
         internal static Stream GetStream(string resourceName)
         {
             try
