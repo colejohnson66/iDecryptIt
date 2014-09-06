@@ -52,10 +52,10 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
             WebClient client = new WebClient();
             string download = "<xml>" + client.DownloadString(new Uri("http://theiphonewiki.com/w/index.php?title=Firmware&action=render")) + "</xml>";
 
-            settings.Encoding = Encoding.UTF8;
             settings.Indent = true;
             settings.IndentChars = "\t";
-            settings.NewLineChars = "\r\n";
+            settings.NewLineChars = "\n";
+            settings.CloseOutput = true;
 
             // Thankfully, MediaWiki outputs valid XHTML
             Console.WriteLine("Parsing page");
@@ -173,9 +173,9 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
             // Remove " | " from lines
             int length = lines.Length;
             for (int i = 0; i < length; i++)
-                lines[i] = lines[i].Substring(3, lines[i].Length - 3);
+                lines[i] = lines[i].Substring(3);
 
-            // Convert template to a dictionary
+            // Convert page to a dictionary
             string key;
             string value;
             Dictionary<string, string> data = new Dictionary<string, string>();
@@ -189,11 +189,6 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                     // Halt because OCD
                     throw new Exception();
                 }
-                if (key == "version")
-                {
-                    // Old format pages
-                    throw new Exception();
-                }
                 else if (key == "DisplayVersion")
                 {
                     data["Version"] = value.Trim();
@@ -201,6 +196,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                 }
                 else if (key == "Device")
                 {
+                    // This could be done with a Regex replace.
                     value = value.Replace("appletv", "AppleTV");
                     value = value.Replace("ipad", "iPad");
                     value = value.Replace("iphone", "iPhone");
@@ -226,7 +222,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 
                 data.Add(key, value.Trim());
             }
-            
+
             // Convert data.Keys to a string array
             string[] keys = new string[data.Count];
             int num = 0;
@@ -238,7 +234,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
             
             BuildXml(plist, keys, data, xml);
 
-            string filename = GetFilename(data);
+            string filename = Path.Combine(keyPath, data["Device"] + "_" + data["Build"] + ".plist");
             if (File.Exists(filename))
             {
                 // Something is wrong
@@ -273,10 +269,6 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                         plist.ChildNodes.Item(num).InnerText = data[thiskey].Split('[', 'b')[0];
                         //string[] split = data[thiskey].Split(new string[] { " and " }, StringSplitOptions.None)[1];
                     }
-                    /*else if (thiskey == "Device")
-                    {
-                        plist.ChildNodes.Item(num).InnerText = devices[data[thiskey]];
-                    }*/
                     else
                     {
                         plist.ChildNodes.Item(num).InnerText = data[thiskey];
@@ -396,25 +388,6 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                     num++;
                 }
             }
-        }
-
-        public static string GetFilename(Dictionary<string, string> data)
-        {
-            // Fix capitalization
-            /*string device = data["Device"]
-                .Replace("appletv", "AppleTV")
-                .Replace("ipad", "iPad")
-                .Replace("iphone", "iPhone")
-                .Replace("ipod", "iPod");
-            
-            // Add missing comma
-            char[] deviceNumbers = device.Substring(device.Length - 2).ToCharArray(); // Get two numbers
-            Array.Resize<char>(ref deviceNumbers, 3); // Add room for comma
-            deviceNumbers[2] = deviceNumbers[1]; // Move second number over
-            deviceNumbers[1] = ',';
-            device = device.Substring(0, device.Length - 2) + new String(deviceNumbers);
-            */
-            return Path.Combine(keyPath, data["Device"] + "_" + data["Build"] + ".plist");
         }
     }
 }
