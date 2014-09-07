@@ -78,110 +78,6 @@ namespace Hexware.Programs.iDecryptIt
             cmbDeviceDropDown.ItemsSource = KeySelectionLists.Devices;
         }
 
-        private void decryptWorker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            while (!decryptWorker.CancellationPending)
-            {
-                if (decryptProc.HasExited)
-                {
-                    decryptWorker.ReportProgress(100);
-                }
-                else
-                {
-                    decryptProg = ((new FileInfo(decryptTo).Length) * 100.0) / decryptFromFile.Length;
-                    decryptWorker.ReportProgress(0);
-                    Thread.Sleep(100); // don't hog the CPU
-                }
-            }
-        }
-        private void decryptWorker_ProgressReported(object sender, ProgressChangedEventArgs e)
-        {
-            if (e.ProgressPercentage == 100 && !decryptWorker.CancellationPending)
-            {
-                decryptWorker.CancelAsync();
-                progDecrypt.Value = 100.0;
-                gridDecrypt.IsEnabled = true;
-                progDecrypt.Visibility = Visibility.Hidden;
-                return;
-            }
-            progDecrypt.Value = (decryptProg > 100.0) ? 100.0 : decryptProg;
-        }
-
-        private void WebClient_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
-        {
-            if (e.Result != null) {
-                Debug("[UPDATE]", "Installed version: " + GlobalVars.Version);
-                Debug("[UPDATE]", "Latest version: " + e.Result);
-
-#if !DEBUG
-                if (e.Result != GlobalVars.Version)
-                {
-                    MessageBox.Show(
-                        "Update Available.",
-                        "iDecryptIt: Update Available",
-                        MessageBoxButton.OK,
-                        MessageBoxImage.Information);
-                }
-#endif
-            }
-        }
-
-        private void cmbDeviceDropDown_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (e.AddedItems.Count == 0)
-                return;
-
-            ComboBoxEntry entry = (ComboBoxEntry)e.AddedItems[0];
-
-            Debug("[KEYSELECT]", "Selected device changed: \"" + entry.ID + "\".");
-
-            selectedDevice = entry.ID;
-            selectedModel = null;
-            selectedVersion = null;
-
-            cmbModelDropDown.IsEnabled = true;
-            cmbVersionDropDown.IsEnabled = false;
-
-            cmbVersionDropDown.ItemsSource = null;
-
-            if (entry.ID == "appletv")
-                cmbModelDropDown.ItemsSource = KeySelectionLists.AppleTV;
-            else if (entry.ID == "ipad")
-                cmbModelDropDown.ItemsSource = KeySelectionLists.iPad;
-            else if (entry.ID == "ipadmini")
-                cmbModelDropDown.ItemsSource = KeySelectionLists.iPadMini;
-            else if (entry.ID == "iphone")
-                cmbModelDropDown.ItemsSource = KeySelectionLists.iPhone;
-            else
-                cmbModelDropDown.ItemsSource = KeySelectionLists.iPodTouch;
-        }
-        private void cmbModelDropDown_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (e.AddedItems.Count == 0)
-                return;
-
-            ComboBoxEntry entry = (ComboBoxEntry)e.AddedItems[0];
-
-            Debug("[KEYSELECT]", "Selected model changed: \"" + entry.ID + "\".");
-
-            selectedModel = entry.ID;
-            selectedVersion = null;
-
-            cmbVersionDropDown.IsEnabled = true;
-            cmbVersionDropDown.ItemsSource = KeySelectionLists.Models[entry.ID];
-        }
-        private void cmbVersionDropDown_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (e.AddedItems.Count == 0)
-                return;
-
-            ComboBoxEntry entry = (ComboBoxEntry)e.AddedItems[0];
-
-            Debug("[KEYSELECT]", "Selected version changed: \"" + entry.ID + "\".");
-
-            selectedVersion = entry.ID;
-        }
-
         private void Cleanup()
         {
             /*Debug("[DEINIT]", "Clearing temp directory.");
@@ -1996,9 +1892,9 @@ namespace Hexware.Programs.iDecryptIt
             Debug("[UPDATE]", "Checking for updates.");
             try
             {
-                WebClient webClient = new WebClient();
-                webClient.DownloadStringCompleted += WebClient_DownloadStringCompleted;
-                webClient.DownloadStringAsync(new Uri(
+                WebClient updateChecker = new WebClient();
+                updateChecker.DownloadStringCompleted += updateChecker_DownloadStringCompleted;
+                updateChecker.DownloadStringAsync(new Uri(
                     @"http://theiphonewiki.com/w/index.php?title=User:5urd/Latest_stable_software_release/iDecryptIt&action=raw"));
             }
             catch (Exception)
@@ -2010,6 +1906,93 @@ namespace Hexware.Programs.iDecryptIt
             Cleanup();
             Thread.Sleep(500);
             Application.Current.Shutdown();
+        }
+
+        private void decryptWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            while (!decryptWorker.CancellationPending) {
+                if (decryptProc.HasExited) {
+                    decryptWorker.ReportProgress(100);
+                } else {
+                    decryptProg = ((new FileInfo(decryptTo).Length) * 100.0) / decryptFromFile.Length;
+                    decryptWorker.ReportProgress(0);
+                    Thread.Sleep(100); // don't hog the CPU
+                }
+            }
+        }
+        private void decryptWorker_ProgressReported(object sender, ProgressChangedEventArgs e)
+        {
+            if (e.ProgressPercentage == 100 && !decryptWorker.CancellationPending) {
+                decryptWorker.CancelAsync();
+                progDecrypt.Value = 100.0;
+                gridDecrypt.IsEnabled = true;
+                progDecrypt.Visibility = Visibility.Hidden;
+                return;
+            }
+            progDecrypt.Value = (decryptProg > 100.0) ? 100.0 : decryptProg;
+        }
+
+        private void updateChecker_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
+        {
+            if (e.Result != null) {
+                Debug("[UPDATE]", "Installed version: " + GlobalVars.Version);
+                Debug("[UPDATE]", "Latest version: " + e.Result);
+
+#if !DEBUG
+                if (e.Result != GlobalVars.Version)
+                {
+                    MessageBox.Show(
+                        "Update Available.",
+                        "iDecryptIt: Update Available",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information);
+                }
+#endif
+            }
+        }
+
+        private void cmbDeviceDropDown_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count == 0)
+                return;
+
+            ComboBoxEntry entry = (ComboBoxEntry)e.AddedItems[0];
+            Debug("[KEYSELECT]", "Selected device changed: \"" + entry.ID + "\".");
+
+            selectedDevice = entry.ID;
+
+            selectedModel = null;
+            cmbModelDropDown.IsEnabled = true;
+            cmbModelDropDown.ItemsSource = KeySelectionLists.DeviceHelper[entry.ID];
+
+            selectedVersion = null;
+            cmbVersionDropDown.IsEnabled = false;
+            cmbVersionDropDown.ItemsSource = null;
+        }
+        private void cmbModelDropDown_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count == 0)
+                return;
+
+            ComboBoxEntry entry = (ComboBoxEntry)e.AddedItems[0];
+            Debug("[KEYSELECT]", "Selected model changed: \"" + entry.ID + "\".");
+
+            selectedModel = entry.ID;
+
+            selectedVersion = null;
+            cmbVersionDropDown.IsEnabled = true;
+            cmbVersionDropDown.ItemsSource = KeySelectionLists.ModelHelper[entry.ID];
+        }
+        private void cmbVersionDropDown_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count == 0)
+                return;
+
+            ComboBoxEntry entry = (ComboBoxEntry)e.AddedItems[0];
+
+            Debug("[KEYSELECT]", "Selected version changed: \"" + entry.ID + "\".");
+
+            selectedVersion = entry.ID;
         }
     }
 }

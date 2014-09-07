@@ -32,13 +32,14 @@ namespace Hexware.Programs.iDecryptIt
     internal static class KeySelectionLists
     {
         internal static List<ComboBoxEntry> Devices;
-        internal static Dictionary<string, List<ComboBoxEntry>> Models;
+        internal static Dictionary<string, List<ComboBoxEntry>> DeviceHelper;
 
         internal static List<ComboBoxEntry> AppleTV;
         internal static List<ComboBoxEntry> iPad;
         internal static List<ComboBoxEntry> iPadMini;
         internal static List<ComboBoxEntry> iPhone;
         internal static List<ComboBoxEntry> iPodTouch;
+        internal static Dictionary<string, List<ComboBoxEntry>> ModelHelper;
 
         // What's an Apple TV?
         internal static List<ComboBoxEntry> AppleTV21;
@@ -100,55 +101,65 @@ namespace Hexware.Programs.iDecryptIt
             Devices.Add(new ComboBoxEntry("iphone", "iPhone"));
             Devices.Add(new ComboBoxEntry("ipodtouch", "iPod touch"));
 
-            Models = new Dictionary<string, List<ComboBoxEntry>>();
-            Models.Add("AppleTV2,1", AppleTV21); // Apple TV 2G
-            Models.Add("AppleTV3,1", AppleTV31); // Apple TV 3G
-            Models.Add("AppleTV3,2", AppleTV32);
-            Models.Add("iPad1,1", iPad11); // iPad 1G
-            Models.Add("iPad2,1", iPad21); // iPad 2
-            Models.Add("iPad2,2", iPad22);
-            Models.Add("iPad2,3", iPad23);
-            Models.Add("iPad2,4", iPad24);
-            Models.Add("iPad2,5", iPad25); // iPad mini 1G
-            Models.Add("iPad2,6", iPad26);
-            Models.Add("iPad2,7", iPad27);
-            Models.Add("iPad3,1", iPad31); // iPad 3
-            Models.Add("iPad3,2", iPad32);
-            Models.Add("iPad3,3", iPad33);
-            Models.Add("iPad3,4", iPad34); // iPad 4
-            Models.Add("iPad3,5", iPad35);
-            Models.Add("iPad3,6", iPad36);
-            Models.Add("iPad4,1", iPad41); // iPad Air
-            Models.Add("iPad4,2", iPad42);
-            Models.Add("iPad4,3", iPad43);
-            Models.Add("iPad4,4", iPad44); // iPad mini 2G
-            Models.Add("iPad4,5", iPad45);
-            Models.Add("iPad4,6", iPad46);
-            Models.Add("iPhone1,1", iPhone11); // iPhone 2G
-            Models.Add("iPhone1,2", iPhone12); // iPhone 3G
-            Models.Add("iPhone2,1", iPhone21); // iPhone 3GS
-            Models.Add("iPhone3,1", iPhone31); // iPhone 4
-            Models.Add("iPhone3,2", iPhone32);
-            Models.Add("iPhone3,3", iPhone33);
-            Models.Add("iPhone4,1", iPhone41); // iPhone 4S
-            Models.Add("iPhone5,1", iPhone51); // iPhone 5
-            Models.Add("iPhone5,2", iPhone52);
-            Models.Add("iPhone5,3", iPhone53); // iPhone 5c
-            Models.Add("iPhone5,4", iPhone54);
-            Models.Add("iPhone6,1", iPhone61); // iPhone 5s
-            Models.Add("iPhone6,2", iPhone62);
-            Models.Add("iPod1,1", iPod11); // iPod 1G
-            Models.Add("iPod2,1", iPod21); // iPod 2G
-            Models.Add("iPod3,1", iPod31); // iPod 3G
-            Models.Add("iPod4,1", iPod41); // iPod 4G
-            Models.Add("iPod5,1", iPod51); // iPod 5G
-
             InitModels();
             InitAppleTV();
             InitIPad();
             InitIPadMini();
             InitIPhone();
             InitIPodTouch();
+            InitHelpers(); // THIS MUST BE LAST
+        }
+        private static void InitHelpers()
+        {
+            DeviceHelper = new Dictionary<string, List<ComboBoxEntry>>();
+            DeviceHelper.Add("appletv", AppleTV);
+            DeviceHelper.Add("ipad", iPad);
+            DeviceHelper.Add("ipadmini", iPadMini);
+            DeviceHelper.Add("iphone", iPhone);
+            DeviceHelper.Add("ipodtouch", iPodTouch);
+
+            ModelHelper = new Dictionary<string, List<ComboBoxEntry>>();
+            ModelHelper.Add("AppleTV2,1", AppleTV21); // Apple TV 2G
+            ModelHelper.Add("AppleTV3,1", AppleTV31); // Apple TV 3G
+            ModelHelper.Add("AppleTV3,2", AppleTV32);
+            ModelHelper.Add("iPad1,1", iPad11); // iPad 1G
+            ModelHelper.Add("iPad2,1", iPad21); // iPad 2
+            ModelHelper.Add("iPad2,2", iPad22);
+            ModelHelper.Add("iPad2,3", iPad23);
+            ModelHelper.Add("iPad2,4", iPad24);
+            ModelHelper.Add("iPad2,5", iPad25); // iPad mini 1G
+            ModelHelper.Add("iPad2,6", iPad26);
+            ModelHelper.Add("iPad2,7", iPad27);
+            ModelHelper.Add("iPad3,1", iPad31); // iPad 3
+            ModelHelper.Add("iPad3,2", iPad32);
+            ModelHelper.Add("iPad3,3", iPad33);
+            ModelHelper.Add("iPad3,4", iPad34); // iPad 4
+            ModelHelper.Add("iPad3,5", iPad35);
+            ModelHelper.Add("iPad3,6", iPad36);
+            ModelHelper.Add("iPad4,1", iPad41); // iPad Air
+            ModelHelper.Add("iPad4,2", iPad42);
+            ModelHelper.Add("iPad4,3", iPad43);
+            ModelHelper.Add("iPad4,4", iPad44); // iPad mini 2G
+            ModelHelper.Add("iPad4,5", iPad45);
+            ModelHelper.Add("iPad4,6", iPad46);
+            ModelHelper.Add("iPhone1,1", iPhone11); // iPhone 2G
+            ModelHelper.Add("iPhone1,2", iPhone12); // iPhone 3G
+            ModelHelper.Add("iPhone2,1", iPhone21); // iPhone 3GS
+            ModelHelper.Add("iPhone3,1", iPhone31); // iPhone 4
+            ModelHelper.Add("iPhone3,2", iPhone32);
+            ModelHelper.Add("iPhone3,3", iPhone33);
+            ModelHelper.Add("iPhone4,1", iPhone41); // iPhone 4S
+            ModelHelper.Add("iPhone5,1", iPhone51); // iPhone 5
+            ModelHelper.Add("iPhone5,2", iPhone52);
+            ModelHelper.Add("iPhone5,3", iPhone53); // iPhone 5c
+            ModelHelper.Add("iPhone5,4", iPhone54);
+            ModelHelper.Add("iPhone6,1", iPhone61); // iPhone 5s
+            ModelHelper.Add("iPhone6,2", iPhone62);
+            ModelHelper.Add("iPod1,1", iPod11); // iPod 1G
+            ModelHelper.Add("iPod2,1", iPod21); // iPod 2G
+            ModelHelper.Add("iPod3,1", iPod31); // iPod 3G
+            ModelHelper.Add("iPod4,1", iPod41); // iPod 4G
+            ModelHelper.Add("iPod5,1", iPod51); // iPod 5G
         }
         private static void InitModels()
         {

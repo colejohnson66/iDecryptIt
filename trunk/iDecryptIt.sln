@@ -1,5 +1,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 14
+VisualStudioVersion = 14.0.22013.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iDecryptIt-WPF", "iDecryptIt-WPF\iDecryptIt-WPF.csproj", "{A627FA1E-BE08-4003-B14B-51DC5C05FE6A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iPhoneWikiKeyGrabber", "iPhoneWikiKeyGrabber\iPhoneWikiKeyGrabber.csproj", "{AE4ED7CC-5ED3-45AF-B5C2-F592D42573F7}"
@@ -21,9 +23,11 @@ Global
 		{A627FA1E-BE08-4003-B14B-51DC5C05FE6A}.Release|x86.ActiveCfg = Release|x86
 		{A627FA1E-BE08-4003-B14B-51DC5C05FE6A}.Release|x86.Build.0 = Release|x86
 		{AE4ED7CC-5ED3-45AF-B5C2-F592D42573F7}.Debug|x64.ActiveCfg = Debug|x86
+		{AE4ED7CC-5ED3-45AF-B5C2-F592D42573F7}.Debug|x64.Build.0 = Debug|x86
 		{AE4ED7CC-5ED3-45AF-B5C2-F592D42573F7}.Debug|x86.ActiveCfg = Debug|x86
 		{AE4ED7CC-5ED3-45AF-B5C2-F592D42573F7}.Debug|x86.Build.0 = Debug|x86
-		{AE4ED7CC-5ED3-45AF-B5C2-F592D42573F7}.Release|x64.ActiveCfg = Release|x86
+		{AE4ED7CC-5ED3-45AF-B5C2-F592D42573F7}.Release|x64.ActiveCfg = Debug|x86
+		{AE4ED7CC-5ED3-45AF-B5C2-F592D42573F7}.Release|x64.Build.0 = Debug|x86
 		{AE4ED7CC-5ED3-45AF-B5C2-F592D42573F7}.Release|x86.ActiveCfg = Release|x86
 		{AE4ED7CC-5ED3-45AF-B5C2-F592D42573F7}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
