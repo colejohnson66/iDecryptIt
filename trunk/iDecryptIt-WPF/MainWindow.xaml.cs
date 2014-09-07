@@ -1388,10 +1388,6 @@ namespace Hexware.Programs.iDecryptIt
             Debug("[README]", "Loading README.");
             Process.Start("file://" + helpDir + "README.html");
         }
-        /*private void btn1a420_Click(object sender, RoutedEventArgs e)
-        {
-            Process.Start("");
-        }*/
 
         private void btnExtract_Click(object sender, RoutedEventArgs e)
         {
@@ -1874,16 +1870,6 @@ namespace Hexware.Programs.iDecryptIt
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            //Debug("[INIT]", "Finding a temp directory.");
-            //tempDir = Path.Combine(
-            //    Path.GetTempPath(),
-            //    "Hexware",
-            //    "iDecryptIt_" + execHash + "\\";
-            //if (!Directory.Exists(tempDir))
-            //{
-            //    Directory.CreateDirectory(tempDir);
-            //}
-
             if (GlobalVars.ExecutionArgs.ContainsKey("dmg")) {
                 string fileName = GlobalVars.ExecutionArgs["dmg"];
                 Debug("[INIT]", "File argument supplied: \"" + fileName + "\".");
