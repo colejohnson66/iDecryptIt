@@ -33,6 +33,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Threading;
 
 namespace Hexware.Programs.iDecryptIt
 {
@@ -76,28 +77,8 @@ namespace Hexware.Programs.iDecryptIt
             this.DataContext = this;
             KeySelectionLists.Init();
             cmbDeviceDropDown.ItemsSource = KeySelectionLists.Devices;
-        }
 
-        private void Cleanup()
-        {
-            /*Debug("[DEINIT]", "Clearing temp directory.");
-            try
-            {
-                if (Directory.Exists(tempDir))
-                {
-                    Directory.Delete(tempDir, true);
-                }
-
-                string temp = Path.Combine(Path.GetTempPath(), "Hexware", "iDecryptIt-Setup");
-                if (Directory.Exists(temp))
-                {
-                    Directory.Delete(temp, true);
-                }
-            }
-            catch (Exception)
-            {
-                // don't error here. it's just a temp directory
-            }*/
+            this.Dispatcher.UnhandledException += Dispatcher_UnhandledException;
         }
 
         internal void Debug(string component, string message)
@@ -251,9 +232,19 @@ namespace Hexware.Programs.iDecryptIt
                 return;
 
             Debug("[KEYSELECT]", "Opening keys for " + selectedModel + " " + selectedVersion + ".");
+
+            // Oh, you want the prototype beta, huh?
+            if (selectedModel == "iPhone1,1" && selectedVersion == "1A420") {
+                try {
+                    Process.Start("https://mega.co.nz/#!Ml8hyCQI!d2ihbCEvtkFcFSgldAPqIQ1_OpRIWAeJZl_HODWjC7s");
+                } catch (Exception ex) {
+                    Error("Unable to open prototype beta webpage", ex);
+                }
+                return;
+            }
+
             Stream stream = GetStream(selectedModel + "_" + selectedVersion + ".plist");
-            if (stream == Stream.Null)
-            {
+            if (stream == Stream.Null) {
                 Debug("[KEYSELECT]", "Key file doesn't exist. No keys available.");
                 MessageBox.Show(
                     "Sorry, but that version doesn't have any published keys.",
@@ -1271,6 +1262,18 @@ namespace Hexware.Programs.iDecryptIt
             doc = null;
         }
 
+        private void btnSelectRootFSInputFile_Click(object sender, RoutedEventArgs e)
+        {
+            Debug("[SELECTFS]", "Loading file dialog.");
+            OpenFileDialog decrypt = new OpenFileDialog();
+            decrypt.Filter = "Apple Disk Images|*.dmg";
+            decrypt.CheckFileExists = true;
+            decrypt.ShowDialog();
+            Debug("[SELECTFS]", "File dialog closed.");
+            if (!String.IsNullOrWhiteSpace(decrypt.SafeFileName)) {
+                textInputFileName.Text = decrypt.FileName;
+            }
+        }
         private void btnDecrypt_Click(object sender, RoutedEventArgs e)
         {
             Debug("[DECRYPT]", "Validating input.");
@@ -1351,18 +1354,54 @@ namespace Hexware.Programs.iDecryptIt
             if (debug)
                 Console.WriteLine(e.Data);
         }
+        private void decryptWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            while (!decryptWorker.CancellationPending) {
+                if (decryptProc.HasExited) {
+                    decryptWorker.ReportProgress(100);
+                } else {
+                    decryptProg = ((new FileInfo(decryptTo).Length) * 100.0) / decryptFromLength;
+                    decryptWorker.ReportProgress(0);
+                    Thread.Sleep(100); // don't hog the CPU
+                }
+            }
+        }
+        private void decryptWorker_ProgressReported(object sender, ProgressChangedEventArgs e)
+        {
+            if (e.ProgressPercentage == 100 && !decryptWorker.CancellationPending) {
+                decryptWorker.CancelAsync();
+                progDecrypt.Value = 100.0;
+                gridDecrypt.IsEnabled = true;
+                progDecrypt.Visibility = Visibility.Hidden;
+                return;
+            }
+            progDecrypt.Value = (decryptProg > 100.0) ? 100.0 : decryptProg;
+        }
+
+        private void btnChangelog_Click(object sender, RoutedEventArgs e)
+        {
+            Debug("[CHANGE]", "Loading Changelog.");
+            Process.Start("file://" + helpDir + "changelog.html");
+        }
+        private void btnReadme_Click(object sender, RoutedEventArgs e)
+        {
+            Debug("[README]", "Loading README.");
+            Process.Start("file://" + helpDir + "README.html");
+        }
+        /*private void btn1a420_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("");
+        }*/
 
         private void btnExtract_Click(object sender, RoutedEventArgs e)
         {
             Debug("[EXTRACT]", "Validating input.");
             #region Input validation
             if (String.IsNullOrWhiteSpace(text7ZInputFileName.Text) ||
-                String.IsNullOrWhiteSpace(text7ZOuputFolder.Text))
-            {
+                String.IsNullOrWhiteSpace(text7ZOuputFolder.Text)) {
                 return;
             }
-            if (!File.Exists(text7ZInputFileName.Text))
-            {
+            if (!File.Exists(text7ZInputFileName.Text)) {
                 MessageBox.Show(
                     "The input file does not exist.",
                     "iDecryptIt",
@@ -1370,8 +1409,7 @@ namespace Hexware.Programs.iDecryptIt
                     MessageBoxImage.Error);
                 return;
             }
-            if (Directory.Exists(text7ZInputFileName.Text))
-            {
+            if (Directory.Exists(text7ZInputFileName.Text)) {
                 MessageBox.Show(
                     "The specified location is actually a directory.",
                     "iDecryptIt",
@@ -1379,8 +1417,7 @@ namespace Hexware.Programs.iDecryptIt
                     MessageBoxImage.Error);
                 return;
             }
-            if (File.Exists(text7ZOuputFolder.Text))
-            {
+            if (File.Exists(text7ZOuputFolder.Text)) {
                 MessageBox.Show(
                     "The output folder is actually a file.",
                     "iDecryptIt",
@@ -1395,109 +1432,25 @@ namespace Hexware.Programs.iDecryptIt
                 Path.Combine(execDir, "7z.exe"),
                 " x \"" + text7ZInputFileName.Text + "\" \"-o" + text7ZOuputFolder.Text + "\"");
         }
-        private void btnChangelog_Click(object sender, RoutedEventArgs e)
-        {
-            Debug("[CHANGE]", "Loading Changelog.");
-            Process.Start("file://" + helpDir + "changelog.html");
-        }
-        private void btnReadme_Click(object sender, RoutedEventArgs e)
-        {
-            Debug("[README]", "Loading README.");
-            Process.Start("file://" + helpDir + "README.html");
-        }
-        /*private void btn1a420_Click(object sender, RoutedEventArgs e)
-        {
-            Process.Start("https://mega.co.nz/#!Ml8hyCQI!d2ihbCEvtkFcFSgldAPqIQ1_OpRIWAeJZl_HODWjC7s");
-        }*/
-        private void btnSelectRootFSInputFile_Click(object sender, RoutedEventArgs e)
-        {
-            Debug("[SELECTFS]", "Loading file dialog.");
-            OpenFileDialog decrypt = new OpenFileDialog();
-            decrypt.FileName = "";
-            decrypt.RestoreDirectory = true;
-            decrypt.DefaultExt = ".dmg";
-            decrypt.Filter = "Apple Disk Images|*.dmg";
-            decrypt.ShowDialog();
-            Debug("[SELECTFS]", "File dialog closed.");
-            if (!String.IsNullOrWhiteSpace(decrypt.SafeFileName))
-            {
-                textInputFileName.Text = decrypt.FileName;
-            }
-        }
         private void btnSelect7ZInputFile_Click(object sender, RoutedEventArgs e)
         {
             Debug("[SELECT7Z]", "Loading file dialog.");
             OpenFileDialog extract = new OpenFileDialog();
-            extract.FileName = "";
-            extract.RestoreDirectory = true;
-            extract.Multiselect = false;
-            extract.DefaultExt = ".dmg";
-            extract.Filter = "Apple Disk Images|*.dmg";//|Apple Firmware Files|*.ipsw";
+            extract.Filter = "Apple Disk Images|*.dmg";
+            extract.CheckFileExists = true;
             extract.ShowDialog();
             Debug("[SELECT7Z]", "File dialog closed.");
-            if (!String.IsNullOrWhiteSpace(extract.SafeFileName))
-            {
-                /*
-                int length = extract.SafeFileName.Length - 1;
-                if (extract.SafeFileName[length - 4] == '.' &&
-                    extract.SafeFileName[length - 3] == 'd' &&
-                    extract.SafeFileName[length - 2] == 'm' &&
-                    extract.SafeFileName[length - 1] == 'g')
-                {*/
-                    string[] split = extract.FileName.Split('\\');
-                    string returntext;
-                    int lastindexnum = split.Length - 1;
-                    returntext = split[0];
-                    for (int i = 1; i < split.Length; i++)
-                    {
-                        if (i != lastindexnum)
-                        {
-                            returntext = returntext + '\\' + split[i];
-                        }
-                    }
-                    text7ZOuputFolder.Text = returntext + '\\';
-                /*}
-                else if (extract.SafeFileName[length - 5] == '.' &&
-                         extract.SafeFileName[length - 4] == 'i' &&
-                         extract.SafeFileName[length - 3] == 'p' &&
-                         extract.SafeFileName[length - 2] == 's' &&
-                         extract.SafeFileName[length - 1] == 'w')
-                {
-                    string[] split = extract.FileName.Split('\\');
-                    string returntext;
-                    int lastindexnum = split.Length - 1;
-                    returntext = split[0];
-                    for (int i = 1; i < split.Length; i++)
-                    {
-                        if (i != lastindexnum)
-                        {
-                            returntext = returntext + '\\' + split[i];
-                        }
-                        else
-                        {
-                            // Put file name minus ".ipsw" in output
-                        }
-                    }
-                    text7ZOuputFolder.Text = returntext + '\\';
-                }
-                else
-                {
-                    // Dunno how, but it happened
-                    return;
-                }*/
-
+            if (!String.IsNullOrWhiteSpace(extract.SafeFileName)) {
                 text7ZInputFileName.Text = extract.FileName;
+                text7ZOuputFolder.Text = Path.GetDirectoryName(extract.FileName);
             }
         }
         private void btnSelectWhatAmIFile_Click(object sender, RoutedEventArgs e)
         {
             Debug("[SELECTWHAT]", "Opening file dialog.");
             OpenFileDialog what = new OpenFileDialog();
-            what.FileName = "";
-            what.RestoreDirectory = true;
-            what.Multiselect = false;
-            what.DefaultExt = ".ipsw";
             what.Filter = "Apple Firmware Files|*.ipsw";
+            what.CheckFileExists = true;
             what.ShowDialog();
             Debug("[SELECTWHAT]", "Closing file dialog.");
             if (!String.IsNullOrWhiteSpace(what.SafeFileName))
@@ -1505,6 +1458,7 @@ namespace Hexware.Programs.iDecryptIt
                 textWhatAmIFileName.Text = what.SafeFileName;
             }
         }
+
         private void btnWhatAmI_Click(object sender, RoutedEventArgs e)
         {
             // TODO: Open the archive and parse the Restore.plist file
@@ -1874,6 +1828,50 @@ namespace Hexware.Programs.iDecryptIt
             { }
         }
 
+        private void cmbDeviceDropDown_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count == 0)
+                return;
+
+            ComboBoxEntry entry = (ComboBoxEntry)e.AddedItems[0];
+            Debug("[KEYSELECT]", "Selected device changed: \"" + entry.ID + "\".");
+
+            selectedDevice = entry.ID;
+
+            selectedModel = null;
+            cmbModelDropDown.IsEnabled = true;
+            cmbModelDropDown.ItemsSource = KeySelectionLists.DevicesHelper[entry.ID];
+
+            selectedVersion = null;
+            cmbVersionDropDown.IsEnabled = false;
+            cmbVersionDropDown.ItemsSource = null;
+        }
+        private void cmbModelDropDown_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count == 0)
+                return;
+
+            ComboBoxEntry entry = (ComboBoxEntry)e.AddedItems[0];
+            Debug("[KEYSELECT]", "Selected model changed: \"" + entry.ID + "\".");
+
+            selectedModel = entry.ID;
+
+            selectedVersion = null;
+            cmbVersionDropDown.IsEnabled = true;
+            cmbVersionDropDown.ItemsSource = KeySelectionLists.ModelsHelper[entry.ID];
+        }
+        private void cmbVersionDropDown_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count == 0)
+                return;
+
+            ComboBoxEntry entry = (ComboBoxEntry)e.AddedItems[0];
+
+            Debug("[KEYSELECT]", "Selected version changed: \"" + entry.ID + "\".");
+
+            selectedVersion = entry.ID;
+        }
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             //Debug("[INIT]", "Finding a temp directory.");
@@ -1906,35 +1904,9 @@ namespace Hexware.Programs.iDecryptIt
         private void Window_Closing(object sender, CancelEventArgs e)
         {
             Debug("[DEINIT]", "Closing.");
-            Cleanup();
             Thread.Sleep(500);
             Application.Current.Shutdown();
         }
-
-        private void decryptWorker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            while (!decryptWorker.CancellationPending) {
-                if (decryptProc.HasExited) {
-                    decryptWorker.ReportProgress(100);
-                } else {
-                    decryptProg = ((new FileInfo(decryptTo).Length) * 100.0) / decryptFromLength;
-                    decryptWorker.ReportProgress(0);
-                    Thread.Sleep(100); // don't hog the CPU
-                }
-            }
-        }
-        private void decryptWorker_ProgressReported(object sender, ProgressChangedEventArgs e)
-        {
-            if (e.ProgressPercentage == 100 && !decryptWorker.CancellationPending) {
-                decryptWorker.CancelAsync();
-                progDecrypt.Value = 100.0;
-                gridDecrypt.IsEnabled = true;
-                progDecrypt.Visibility = Visibility.Hidden;
-                return;
-            }
-            progDecrypt.Value = (decryptProg > 100.0) ? 100.0 : decryptProg;
-        }
-
         private void updateChecker_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
         {
             if (e.Result != null) {
@@ -1954,48 +1926,9 @@ namespace Hexware.Programs.iDecryptIt
             }
         }
 
-        private void cmbDeviceDropDown_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Dispatcher_UnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            if (e.AddedItems.Count == 0)
-                return;
-
-            ComboBoxEntry entry = (ComboBoxEntry)e.AddedItems[0];
-            Debug("[KEYSELECT]", "Selected device changed: \"" + entry.ID + "\".");
-
-            selectedDevice = entry.ID;
-
-            selectedModel = null;
-            cmbModelDropDown.IsEnabled = true;
-            cmbModelDropDown.ItemsSource = KeySelectionLists.DeviceHelper[entry.ID];
-
-            selectedVersion = null;
-            cmbVersionDropDown.IsEnabled = false;
-            cmbVersionDropDown.ItemsSource = null;
-        }
-        private void cmbModelDropDown_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (e.AddedItems.Count == 0)
-                return;
-
-            ComboBoxEntry entry = (ComboBoxEntry)e.AddedItems[0];
-            Debug("[KEYSELECT]", "Selected model changed: \"" + entry.ID + "\".");
-
-            selectedModel = entry.ID;
-
-            selectedVersion = null;
-            cmbVersionDropDown.IsEnabled = true;
-            cmbVersionDropDown.ItemsSource = KeySelectionLists.ModelHelper[entry.ID];
-        }
-        private void cmbVersionDropDown_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (e.AddedItems.Count == 0)
-                return;
-
-            ComboBoxEntry entry = (ComboBoxEntry)e.AddedItems[0];
-
-            Debug("[KEYSELECT]", "Selected version changed: \"" + entry.ID + "\".");
-
-            selectedVersion = entry.ID;
+            FatalError("An unknown error has occured.", e.Exception);
         }
     }
 }
