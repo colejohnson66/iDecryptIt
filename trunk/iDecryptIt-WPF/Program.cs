@@ -21,64 +21,36 @@
  * =============================================================================
  */
 using System;
-using System.IO;
-using System.Reflection;
 using System.Threading;
 
 namespace Hexware.Programs.iDecryptIt
 {
     internal static class Program
     {
-        internal static bool debug = false;
-
         [STAThread]
         internal static void Main(string[] args)
         {
             bool console = false;
-            for (int i = 0; i < args.Length; i++)
-            {
-                if (args[i] == "/console")
-                {
+            bool debug = false;
+            for (int i = 0; i < args.Length; i++) {
+                if (args[i] == "/console") {
                     //console = true;
-                }
-                else if (args[i] == "/debug")
-                {
+                } else if (args[i] == "/debug") {
                     debug = true;
-                }
-                /*else if (args[i] == "/help")
-                {
-                    
-                }*/
-                else if (args[i].Length > 4 && args[i].Substring(args[i].Length - 4) == ".dmg")
-                {
+                } else if (args[i] == "/version") {
+                    PrintLicense();
+                    return;
+                } else if (args[i].Length > 4 && args[i].Substring(args[i].Length - 4) == ".dmg") {
                     if (GlobalVars.ExecutionArgs.ContainsKey("dmg"))
-                    {
                         GlobalVars.ExecutionArgs["dmg"] = args[i];
-                    }
                     else
-                    {
                         GlobalVars.ExecutionArgs.Add("dmg", args[i]);
-                    }
-                }
-                else if (args[i].Length > 5 && args[i].Substring(args[i].Length - 5) == ".ipsw")
-                {
-                    if (GlobalVars.ExecutionArgs.ContainsKey("ipsw"))
-                    {
-                        GlobalVars.ExecutionArgs["ipsw"] = args[i];
-                    }
-                    else
-                    {
-                        GlobalVars.ExecutionArgs.Add("ipsw", args[i]);
-                    }
                 }
             }
 
             GlobalVars.Init(args);
 
-            if (!console)
-            {
-                // MainWindow.MainWindow() will FreeConsole() if `debug` is false
-                //Console.WriteLine("(to launch the incomplete console version, use the /console switch)");
+            if (!console) {
                 Console.WriteLine("Loading...");
                 MainWindow.debug = debug;
                 Thread.Sleep(500);
@@ -90,25 +62,23 @@ namespace Hexware.Programs.iDecryptIt
             Console.WriteLine("This feature is incomplete and may not work as expected or at all.");
             Thread.Sleep(500);
             Console.WriteLine("===============================================================================");
-            Console.WriteLine("  iDecryptIt " + GlobalVars.Version + " by Hexware");
+            Console.WriteLine("  iDecryptIt " + GlobalVars.Version + GlobalVars.Version64 + " by Hexware");
             Console.WriteLine("===============================================================================");
             bool exit = false;
             ConsoleKeyInfo select;
-            while (!exit)
-            {
+            while (!exit) {
                 Console.WriteLine();
                 Console.WriteLine("What would you like to do?");
                 Console.WriteLine("  d - Decrypt a firmware");
                 Console.WriteLine("  e - Extract a firmware");
                 Console.WriteLine("  k - View keys for a firmware");
-                Console.WriteLine("  a - View \"About iDecryptIt\"");
-                Console.WriteLine("  r - View README");
-                Console.WriteLine("  c - What's New?");
+                Console.WriteLine("  a - About iDecryptIt");
+                Console.WriteLine("  r - View ReadMe");
+                Console.WriteLine("  c - View Changelog");
                 Console.WriteLine("  x - Exit");
                 Console.Write("Input: ");
                 select = new ConsoleKeyInfo('\0', ConsoleKey.PrintScreen, false, false, false);
-                while (Char.IsControl(select.KeyChar))
-                {
+                while (Char.IsControl(select.KeyChar)) {
                     // don't display is just in case it is a control key
                     select = Console.ReadKey(true);
                 }
@@ -116,32 +86,19 @@ namespace Hexware.Programs.iDecryptIt
                 Console.WriteLine(); // then add the blank one
                 Thread.Sleep(250); // make it look like we're working
                 Console.WriteLine("===============================================================================");
-                if (select.Key == ConsoleKey.D)
-                {
+                if (select.Key == ConsoleKey.D) {
                     Decrypt();
-                }
-                else if (select.Key == ConsoleKey.E)
-                {
+                } else if (select.Key == ConsoleKey.E) {
                     Extract();
-                }
-                else if (select.Key == ConsoleKey.K)
-                {
+                } else if (select.Key == ConsoleKey.K) {
                     Keys();
-                }
-                else if (select.Key == ConsoleKey.A)
-                {
+                } else if (select.Key == ConsoleKey.A) {
                     About();
-                }
-                else if (select.Key == ConsoleKey.R)
-                {
+                } else if (select.Key == ConsoleKey.R) {
                     Readme();
-                }
-                else if (select.Key == ConsoleKey.C)
-                {
+                } else if (select.Key == ConsoleKey.C) {
                     Changelog();
-                }
-                else if (select.Key == ConsoleKey.X)
-                {
+                } else if (select.Key == ConsoleKey.X) {
                     break;
                 }
                 Console.WriteLine("===============================================================================");
@@ -198,16 +155,12 @@ namespace Hexware.Programs.iDecryptIt
             Console.WriteLine("Enter the build:");
             Console.Write("Input: ");
             input = input + "_" + Console.ReadLine();
-
-            // Key stream
-            // Stream stream = GetStream(input);
         }
         internal static void About()
         {
-            DateTime buildTime = RetrieveLinkerTimestamp();
-            Console.WriteLine("iDecryptIt " + GlobalVars.Version);
+            Console.WriteLine("iDecryptIt " + GlobalVars.Version + GlobalVars.Version64);
             Console.WriteLine("  Copyright (c) 2010-2014 Cole Johnson");
-            Console.WriteLine("  Built on " + buildTime.ToString("R"));
+            Console.WriteLine("  Built on " + GlobalVars.CompileTimestamp.ToString("R"));
             Console.WriteLine();
             Console.WriteLine("iDecryptIt is free software licensed under GNU GPL v3 with portions under other licenses:");
             Console.WriteLine("  7-zip --------- GNU LGPL v2.1 with portions under unRAR restriction");
@@ -221,56 +174,27 @@ namespace Hexware.Programs.iDecryptIt
         {
         }
 
-        internal static DateTime RetrieveLinkerTimestamp()
+        private static void PrintLicense()
         {
-            const int c_PeHeaderOffset = 60;
-            const int c_LinkerTimestampOffset = 8;
-            byte[] b = new byte[2048];
-            Stream s = null;
+            Console.WriteLine("iDecryptIt " + GlobalVars.Version + GlobalVars.Version64);
+            Console.WriteLine("Copyright (c) 2010-2014, Cole Johnson");
+            Console.WriteLine();
 
-            try
-            {
-                s = new FileStream(Assembly.GetCallingAssembly().Location, FileMode.Open, FileAccess.Read);
-                s.Read(b, 0, 2048);
-            }
-            catch (Exception)
-            {
-                return new DateTime();
-            }
-            finally
-            {
-                if (s != null)
-                    s.Close();
-            }
+            Console.Write("iDecryptIt is free software: you can redistribute it and/or modify it under ");
+            Console.Write("the terms of the GNU General Public License as published by the Free ");
+            Console.Write("Software Foundation, either version 3 of the License, or (at your option) ");
+            Console.WriteLine("any later version.");
+            Console.WriteLine();
 
-            int i = BitConverter.ToInt32(b, c_PeHeaderOffset);
-            int secondsSince1970 = BitConverter.ToInt32(b, i + c_LinkerTimestampOffset);
-            DateTime dt = new DateTime(1970, 1, 1, 0, 0, 0);
-            dt = dt.AddSeconds(secondsSince1970);
-            dt = dt.AddHours(TimeZone.CurrentTimeZone.GetUtcOffset(dt).Hours);
-            return dt;
-        }
+            Console.Write("iDecryptIt is distributed in the hope that it will be useful, but WITHOUT ");
+            Console.Write("ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or ");
+            Console.Write("FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for ");
+            Console.WriteLine("more details.");
+            Console.WriteLine();
 
-        internal static Stream GetStream(string resourceName)
-        {
-            try
-            {
-                Assembly assy = Assembly.GetExecutingAssembly();
-                string[] resources = assy.GetManifestResourceNames();
-                int length = resources.Length;
-                for (int i = 0; i < length; i++)
-                {
-                    if (resources[i].ToLower().IndexOf(resourceName.ToLower()) != -1)
-                    {
-                        // resource found
-                        return assy.GetManifestResourceStream(resources[i]);
-                    }
-                }
-            }
-            catch (Exception)
-            {
-            }
-            return Stream.Null;
+            Console.Write("You should have recieved a copy of the GNU General Public License along with ");
+            Console.WriteLine("iDecryptIt. If not, see <http://www.gnu.org/licenses/>.");
+            Console.WriteLine();
         }
     }
 }
