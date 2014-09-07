@@ -57,7 +57,7 @@ namespace Hexware.Programs.iDecryptIt
 
         BackgroundWorker decryptWorker;
         Process decryptProc;
-        FileInfo decryptFromFile;
+        long decryptFromLength;
         string decryptFrom;
         string decryptTo;
         double decryptProg;
@@ -246,9 +246,15 @@ namespace Hexware.Programs.iDecryptIt
 
         private void btnGetKeys_Click(object sender, RoutedEventArgs e)
         {
+            Debug("[KEYSELECT]", "Validating input.");
+            if (selectedModel == null || selectedVersion == null)
+                return;
+
+            Debug("[KEYSELECT]", "Opening keys for " + selectedModel + " " + selectedVersion + ".");
             Stream stream = GetStream(selectedModel + "_" + selectedVersion + ".plist");
             if (stream == Stream.Null)
             {
+                Debug("[KEYSELECT]", "Key file doesn't exist. No keys available.");
                 MessageBox.Show(
                     "Sorry, but that version doesn't have any published keys.",
                     "iDecryptIt",
@@ -260,6 +266,7 @@ namespace Hexware.Programs.iDecryptIt
         }
         internal Stream GetStream(string resourceName)
         {
+            Debug("[GETSTREAM]", "Attempting read of stored resource, \"" + resourceName + "\".");
             try
             {
                 Assembly assy = Assembly.GetExecutingAssembly();
@@ -283,9 +290,12 @@ namespace Hexware.Programs.iDecryptIt
         private void LoadFirmwareKeys(Stream document, bool goldenMaster)
         {
             // This code is hideous. I'm not proud of it, but it works.
+            // The "hide everything, then show what we need" could be fixed by seperating,
+            //   say, the AppleLogo area into two grids, one for encrypted, one for not.
             PlistDocument doc = null;
 
             // Open stream
+            Debug("[LOADKEYS]", "Opening key stream.");
             try
             {
                 doc = new PlistDocument(document);
@@ -293,12 +303,6 @@ namespace Hexware.Programs.iDecryptIt
             catch (Exception ex)
             {
                 Error("Error loading key file.", ex);
-                try
-                {
-                    doc.Dispose();
-                }
-                catch (Exception)
-                { }
                 return;
             }
 
@@ -306,6 +310,7 @@ namespace Hexware.Programs.iDecryptIt
             PlistDict plist = doc.Document.Value;
             string temp;
             #region Device
+            Debug("[LOADKEYS]", "Device.");
             txtDevice.Text = plist.Get<PlistString>("Device").Value;
             #endregion
             #region Version
@@ -319,28 +324,28 @@ namespace Hexware.Programs.iDecryptIt
                 {
                     case "5A345":
                         // 2.0
-                        if (plist.Get<PlistString>("Device").Value != "iPhone 3G")
+                        if (plist.Get<PlistString>("Device").Value != "iPhone1,2")
                         {
                             sb.Append(" [GM]");
                         }
                         break;
                     case "7A341":
                         // 3.0
-                        if (plist.Get<PlistString>("Device").Value != "iPhone 3GS")
+                        if (plist.Get<PlistString>("Device").Value != "iPhone2,1")
                         {
                             sb.Append(" [GM]");
                         }
                         break;
                     case "8A293":
                         // 4.0
-                        if (plist.Get<PlistString>("Device").Value != "iPhone 4 (GSM)")
+                        if (plist.Get<PlistString>("Device").Value != "iPhone3,1")
                         {
                             sb.Append(" [GM]");
                         }
                         break;
                     case "9A334":
                         // 5.0
-                        if (plist.Get<PlistString>("Device").Value != "iPhone 4S")
+                        if (plist.Get<PlistString>("Device").Value != "iPhone4,1")
                         {
                             sb.Append(" [GM]");
                         }
@@ -1301,7 +1306,7 @@ namespace Hexware.Programs.iDecryptIt
 
             decryptFrom = textInputFileName.Text;
             decryptTo = textOutputFileName.Text;
-            decryptFromFile = new FileInfo(decryptFrom);
+            decryptFromLength = new FileInfo(decryptFrom).Length;
 
             Debug("[DECRYPT]", "Launching dmg.");
             ProcessStartInfo x = new ProcessStartInfo();
@@ -1318,7 +1323,7 @@ namespace Hexware.Programs.iDecryptIt
             decryptProc.StartInfo = x;
             decryptProc.ErrorDataReceived += decryptProc_ErrorDataReceived;
             decryptProc.Start();
-            decryptProc.BeginOutputReadLine(); // The program pauses if the buffer is full
+            decryptProc.BeginOutputReadLine(); // Execution halts if the buffer is full
             decryptProc.BeginErrorReadLine();
 
             // Screen mods
@@ -1327,8 +1332,7 @@ namespace Hexware.Programs.iDecryptIt
 
             // Wait for file to exist before starting worker (processes are asynchronous)
             while (!File.Exists(decryptTo))
-            {
-            }
+            { }
             Debug("[DECRYPT]", "Starting progress checker.");
             decryptWorker = new BackgroundWorker();
             decryptWorker.WorkerSupportsCancellation = true;
@@ -1403,8 +1407,7 @@ namespace Hexware.Programs.iDecryptIt
         }
         /*private void btn1a420_Click(object sender, RoutedEventArgs e)
         {
-            // TODO: https://mega.co.nz/#!Ml8hyCQI!d2ihbCEvtkFcFSgldAPqIQ1_OpRIWAeJZl_HODWjC7s
-            Process.Start("http://rapidshare.com/files/207764160/iphoneproto.zip");
+            Process.Start("https://mega.co.nz/#!Ml8hyCQI!d2ihbCEvtkFcFSgldAPqIQ1_OpRIWAeJZl_HODWjC7s");
         }*/
         private void btnSelectRootFSInputFile_Click(object sender, RoutedEventArgs e)
         {
@@ -1914,7 +1917,7 @@ namespace Hexware.Programs.iDecryptIt
                 if (decryptProc.HasExited) {
                     decryptWorker.ReportProgress(100);
                 } else {
-                    decryptProg = ((new FileInfo(decryptTo).Length) * 100.0) / decryptFromFile.Length;
+                    decryptProg = ((new FileInfo(decryptTo).Length) * 100.0) / decryptFromLength;
                     decryptWorker.ReportProgress(0);
                     Thread.Sleep(100); // don't hog the CPU
                 }
