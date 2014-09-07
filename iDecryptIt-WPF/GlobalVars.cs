@@ -28,6 +28,7 @@ namespace Hexware.Programs.iDecryptIt
     internal static class GlobalVars
     {
         internal static string Version;
+        internal static string Version64;
         internal static DateTime CompileTimestamp;
         internal static Dictionary<string, string> ExecutionArgs = new Dictionary<string, string>();
 
@@ -86,6 +87,8 @@ namespace Hexware.Programs.iDecryptIt
             Version = String.Format(
                 "{0}.{1:D2}.{2}.{3}",
                 ver.Major, ver.Minor, ver.Build, new String(build));
+
+            Version64 = (Environment.Is64BitProcess) ? " x64" : "";
 
             CompileTimestamp = GetLinkerTimestampUTC(thisAssembly);
         }
