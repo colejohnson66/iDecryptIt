@@ -32,14 +32,14 @@ namespace Hexware.Programs.iDecryptIt
     internal static class KeySelectionLists
     {
         internal static List<ComboBoxEntry> Devices;
-        internal static Dictionary<string, List<ComboBoxEntry>> DeviceHelper;
+        internal static Dictionary<string, List<ComboBoxEntry>> DevicesHelper;
 
         private static List<ComboBoxEntry> AppleTV;
         private static List<ComboBoxEntry> iPad;
         private static List<ComboBoxEntry> iPadMini;
         private static List<ComboBoxEntry> iPhone;
         private static List<ComboBoxEntry> iPodTouch;
-        internal static Dictionary<string, List<ComboBoxEntry>> ModelHelper;
+        internal static Dictionary<string, List<ComboBoxEntry>> ModelsHelper;
 
         // What's an Apple TV?
         private static List<ComboBoxEntry> AppleTV21;
@@ -95,11 +95,11 @@ namespace Hexware.Programs.iDecryptIt
         internal static void Init()
         {
             Devices = new List<ComboBoxEntry>();
-            Devices.Add(new ComboBoxEntry("appletv", "Apple TV"));
-            Devices.Add(new ComboBoxEntry("ipad", "iPad"));
-            Devices.Add(new ComboBoxEntry("ipadmini", "iPad mini"));
-            Devices.Add(new ComboBoxEntry("iphone", "iPhone"));
-            Devices.Add(new ComboBoxEntry("ipodtouch", "iPod touch"));
+            Devices.Add(new ComboBoxEntry("AppleTV", "Apple TV"));
+            Devices.Add(new ComboBoxEntry("iPad", "iPad"));
+            Devices.Add(new ComboBoxEntry("iPadMini", "iPad mini"));
+            Devices.Add(new ComboBoxEntry("iPhone", "iPhone"));
+            Devices.Add(new ComboBoxEntry("iPodTouch", "iPod touch"));
 
             InitModels();
             InitAppleTV();
@@ -111,55 +111,55 @@ namespace Hexware.Programs.iDecryptIt
         }
         private static void InitHelpers()
         {
-            DeviceHelper = new Dictionary<string, List<ComboBoxEntry>>();
-            DeviceHelper.Add("appletv", AppleTV);
-            DeviceHelper.Add("ipad", iPad);
-            DeviceHelper.Add("ipadmini", iPadMini);
-            DeviceHelper.Add("iphone", iPhone);
-            DeviceHelper.Add("ipodtouch", iPodTouch);
+            DevicesHelper = new Dictionary<string, List<ComboBoxEntry>>();
+            DevicesHelper.Add("AppleTV", AppleTV);
+            DevicesHelper.Add("iPad", iPad);
+            DevicesHelper.Add("iPadMini", iPadMini);
+            DevicesHelper.Add("iPhone", iPhone);
+            DevicesHelper.Add("iPodTouch", iPodTouch);
 
-            ModelHelper = new Dictionary<string, List<ComboBoxEntry>>();
-            ModelHelper.Add("AppleTV2,1", AppleTV21); // Apple TV 2G
-            ModelHelper.Add("AppleTV3,1", AppleTV31); // Apple TV 3G
-            ModelHelper.Add("AppleTV3,2", AppleTV32);
-            ModelHelper.Add("iPad1,1", iPad11); // iPad 1G
-            ModelHelper.Add("iPad2,1", iPad21); // iPad 2
-            ModelHelper.Add("iPad2,2", iPad22);
-            ModelHelper.Add("iPad2,3", iPad23);
-            ModelHelper.Add("iPad2,4", iPad24);
-            ModelHelper.Add("iPad2,5", iPad25); // iPad mini 1G
-            ModelHelper.Add("iPad2,6", iPad26);
-            ModelHelper.Add("iPad2,7", iPad27);
-            ModelHelper.Add("iPad3,1", iPad31); // iPad 3
-            ModelHelper.Add("iPad3,2", iPad32);
-            ModelHelper.Add("iPad3,3", iPad33);
-            ModelHelper.Add("iPad3,4", iPad34); // iPad 4
-            ModelHelper.Add("iPad3,5", iPad35);
-            ModelHelper.Add("iPad3,6", iPad36);
-            ModelHelper.Add("iPad4,1", iPad41); // iPad Air
-            ModelHelper.Add("iPad4,2", iPad42);
-            ModelHelper.Add("iPad4,3", iPad43);
-            ModelHelper.Add("iPad4,4", iPad44); // iPad mini 2G
-            ModelHelper.Add("iPad4,5", iPad45);
-            ModelHelper.Add("iPad4,6", iPad46);
-            ModelHelper.Add("iPhone1,1", iPhone11); // iPhone 2G
-            ModelHelper.Add("iPhone1,2", iPhone12); // iPhone 3G
-            ModelHelper.Add("iPhone2,1", iPhone21); // iPhone 3GS
-            ModelHelper.Add("iPhone3,1", iPhone31); // iPhone 4
-            ModelHelper.Add("iPhone3,2", iPhone32);
-            ModelHelper.Add("iPhone3,3", iPhone33);
-            ModelHelper.Add("iPhone4,1", iPhone41); // iPhone 4S
-            ModelHelper.Add("iPhone5,1", iPhone51); // iPhone 5
-            ModelHelper.Add("iPhone5,2", iPhone52);
-            ModelHelper.Add("iPhone5,3", iPhone53); // iPhone 5c
-            ModelHelper.Add("iPhone5,4", iPhone54);
-            ModelHelper.Add("iPhone6,1", iPhone61); // iPhone 5s
-            ModelHelper.Add("iPhone6,2", iPhone62);
-            ModelHelper.Add("iPod1,1", iPod11); // iPod 1G
-            ModelHelper.Add("iPod2,1", iPod21); // iPod 2G
-            ModelHelper.Add("iPod3,1", iPod31); // iPod 3G
-            ModelHelper.Add("iPod4,1", iPod41); // iPod 4G
-            ModelHelper.Add("iPod5,1", iPod51); // iPod 5G
+            ModelsHelper = new Dictionary<string, List<ComboBoxEntry>>();
+            ModelsHelper.Add("AppleTV2,1", AppleTV21); // Apple TV 2G
+            ModelsHelper.Add("AppleTV3,1", AppleTV31); // Apple TV 3G
+            ModelsHelper.Add("AppleTV3,2", AppleTV32);
+            ModelsHelper.Add("iPad1,1", iPad11); // iPad 1G
+            ModelsHelper.Add("iPad2,1", iPad21); // iPad 2
+            ModelsHelper.Add("iPad2,2", iPad22);
+            ModelsHelper.Add("iPad2,3", iPad23);
+            ModelsHelper.Add("iPad2,4", iPad24);
+            ModelsHelper.Add("iPad2,5", iPad25); // iPad mini 1G
+            ModelsHelper.Add("iPad2,6", iPad26);
+            ModelsHelper.Add("iPad2,7", iPad27);
+            ModelsHelper.Add("iPad3,1", iPad31); // iPad 3
+            ModelsHelper.Add("iPad3,2", iPad32);
+            ModelsHelper.Add("iPad3,3", iPad33);
+            ModelsHelper.Add("iPad3,4", iPad34); // iPad 4
+            ModelsHelper.Add("iPad3,5", iPad35);
+            ModelsHelper.Add("iPad3,6", iPad36);
+            ModelsHelper.Add("iPad4,1", iPad41); // iPad Air
+            ModelsHelper.Add("iPad4,2", iPad42);
+            ModelsHelper.Add("iPad4,3", iPad43);
+            ModelsHelper.Add("iPad4,4", iPad44); // iPad mini 2G
+            ModelsHelper.Add("iPad4,5", iPad45);
+            ModelsHelper.Add("iPad4,6", iPad46);
+            ModelsHelper.Add("iPhone1,1", iPhone11); // iPhone 2G
+            ModelsHelper.Add("iPhone1,2", iPhone12); // iPhone 3G
+            ModelsHelper.Add("iPhone2,1", iPhone21); // iPhone 3GS
+            ModelsHelper.Add("iPhone3,1", iPhone31); // iPhone 4
+            ModelsHelper.Add("iPhone3,2", iPhone32);
+            ModelsHelper.Add("iPhone3,3", iPhone33);
+            ModelsHelper.Add("iPhone4,1", iPhone41); // iPhone 4S
+            ModelsHelper.Add("iPhone5,1", iPhone51); // iPhone 5
+            ModelsHelper.Add("iPhone5,2", iPhone52);
+            ModelsHelper.Add("iPhone5,3", iPhone53); // iPhone 5c
+            ModelsHelper.Add("iPhone5,4", iPhone54);
+            ModelsHelper.Add("iPhone6,1", iPhone61); // iPhone 5s
+            ModelsHelper.Add("iPhone6,2", iPhone62);
+            ModelsHelper.Add("iPod1,1", iPod11); // iPod 1G
+            ModelsHelper.Add("iPod2,1", iPod21); // iPod 2G
+            ModelsHelper.Add("iPod3,1", iPod31); // iPod 3G
+            ModelsHelper.Add("iPod4,1", iPod41); // iPod 4G
+            ModelsHelper.Add("iPod5,1", iPod51); // iPod 5G
         }
         private static void InitModels()
         {
@@ -572,6 +572,7 @@ namespace Hexware.Programs.iDecryptIt
         private static void InitIPhone()
         {
             iPhone11 = new List<ComboBoxEntry>();
+            iPhone11.Add(new ComboBoxEntry("1A420", "1.0 proto beta (1A420)"));
             iPhone11.Add(new ComboBoxEntry("1A543a", "1.0 (1A543a)"));
             iPhone11.Add(new ComboBoxEntry("1C25", "1.0.1 (1C25)"));
             iPhone11.Add(new ComboBoxEntry("1C28", "1.0.2 (1C28)"));
