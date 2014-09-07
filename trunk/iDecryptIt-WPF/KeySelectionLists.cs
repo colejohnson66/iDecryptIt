@@ -34,63 +34,63 @@ namespace Hexware.Programs.iDecryptIt
         internal static List<ComboBoxEntry> Devices;
         internal static Dictionary<string, List<ComboBoxEntry>> DeviceHelper;
 
-        internal static List<ComboBoxEntry> AppleTV;
-        internal static List<ComboBoxEntry> iPad;
-        internal static List<ComboBoxEntry> iPadMini;
-        internal static List<ComboBoxEntry> iPhone;
-        internal static List<ComboBoxEntry> iPodTouch;
+        private static List<ComboBoxEntry> AppleTV;
+        private static List<ComboBoxEntry> iPad;
+        private static List<ComboBoxEntry> iPadMini;
+        private static List<ComboBoxEntry> iPhone;
+        private static List<ComboBoxEntry> iPodTouch;
         internal static Dictionary<string, List<ComboBoxEntry>> ModelHelper;
 
         // What's an Apple TV?
-        internal static List<ComboBoxEntry> AppleTV21;
-        internal static List<ComboBoxEntry> AppleTV31;
-        internal static List<ComboBoxEntry> AppleTV32;
+        private static List<ComboBoxEntry> AppleTV21;
+        private static List<ComboBoxEntry> AppleTV31;
+        private static List<ComboBoxEntry> AppleTV32;
 
         // iPad
-        internal static List<ComboBoxEntry> iPad11;
-        internal static List<ComboBoxEntry> iPad21;
-        internal static List<ComboBoxEntry> iPad22;
-        internal static List<ComboBoxEntry> iPad23;
-        internal static List<ComboBoxEntry> iPad24;
-        internal static List<ComboBoxEntry> iPad31;
-        internal static List<ComboBoxEntry> iPad32;
-        internal static List<ComboBoxEntry> iPad33;
-        internal static List<ComboBoxEntry> iPad34;
-        internal static List<ComboBoxEntry> iPad35;
-        internal static List<ComboBoxEntry> iPad36;
-        internal static List<ComboBoxEntry> iPad41;
-        internal static List<ComboBoxEntry> iPad42;
-        internal static List<ComboBoxEntry> iPad43;
+        private static List<ComboBoxEntry> iPad11;
+        private static List<ComboBoxEntry> iPad21;
+        private static List<ComboBoxEntry> iPad22;
+        private static List<ComboBoxEntry> iPad23;
+        private static List<ComboBoxEntry> iPad24;
+        private static List<ComboBoxEntry> iPad31;
+        private static List<ComboBoxEntry> iPad32;
+        private static List<ComboBoxEntry> iPad33;
+        private static List<ComboBoxEntry> iPad34;
+        private static List<ComboBoxEntry> iPad35;
+        private static List<ComboBoxEntry> iPad36;
+        private static List<ComboBoxEntry> iPad41;
+        private static List<ComboBoxEntry> iPad42;
+        private static List<ComboBoxEntry> iPad43;
 
         // iPad mini
-        internal static List<ComboBoxEntry> iPad25;
-        internal static List<ComboBoxEntry> iPad26;
-        internal static List<ComboBoxEntry> iPad27;
-        internal static List<ComboBoxEntry> iPad44;
-        internal static List<ComboBoxEntry> iPad45;
-        internal static List<ComboBoxEntry> iPad46;
+        private static List<ComboBoxEntry> iPad25;
+        private static List<ComboBoxEntry> iPad26;
+        private static List<ComboBoxEntry> iPad27;
+        private static List<ComboBoxEntry> iPad44;
+        private static List<ComboBoxEntry> iPad45;
+        private static List<ComboBoxEntry> iPad46;
 
         // iPhone, duh
-        internal static List<ComboBoxEntry> iPhone11;
-        internal static List<ComboBoxEntry> iPhone12;
-        internal static List<ComboBoxEntry> iPhone21;
-        internal static List<ComboBoxEntry> iPhone31;
-        internal static List<ComboBoxEntry> iPhone32;
-        internal static List<ComboBoxEntry> iPhone33;
-        internal static List<ComboBoxEntry> iPhone41;
-        internal static List<ComboBoxEntry> iPhone51;
-        internal static List<ComboBoxEntry> iPhone52;
-        internal static List<ComboBoxEntry> iPhone53;
-        internal static List<ComboBoxEntry> iPhone54;
-        internal static List<ComboBoxEntry> iPhone61;
-        internal static List<ComboBoxEntry> iPhone62;
+        private static List<ComboBoxEntry> iPhone11;
+        private static List<ComboBoxEntry> iPhone12;
+        private static List<ComboBoxEntry> iPhone21;
+        private static List<ComboBoxEntry> iPhone31;
+        private static List<ComboBoxEntry> iPhone32;
+        private static List<ComboBoxEntry> iPhone33;
+        private static List<ComboBoxEntry> iPhone41;
+        private static List<ComboBoxEntry> iPhone51;
+        private static List<ComboBoxEntry> iPhone52;
+        private static List<ComboBoxEntry> iPhone53;
+        private static List<ComboBoxEntry> iPhone54;
+        private static List<ComboBoxEntry> iPhone61;
+        private static List<ComboBoxEntry> iPhone62;
 
         // iPod touch
-        internal static List<ComboBoxEntry> iPod11;
-        internal static List<ComboBoxEntry> iPod21;
-        internal static List<ComboBoxEntry> iPod31;
-        internal static List<ComboBoxEntry> iPod41;
-        internal static List<ComboBoxEntry> iPod51;
+        private static List<ComboBoxEntry> iPod11;
+        private static List<ComboBoxEntry> iPod21;
+        private static List<ComboBoxEntry> iPod31;
+        private static List<ComboBoxEntry> iPod41;
+        private static List<ComboBoxEntry> iPod51;
 
         internal static void Init()
         {
