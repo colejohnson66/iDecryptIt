@@ -1458,26 +1458,14 @@ namespace Hexware.Programs.iDecryptIt
         private void btnWhatAmI_Click(object sender, RoutedEventArgs e)
         {
             // TODO: Open the archive and parse the Restore.plist file
+            //   If it doesn't exist, use the filename
             string[] strArr;
-            string device;
-            string version;
-            string build;
 
             if (String.IsNullOrWhiteSpace(textWhatAmIFileName.Text))
                 return;
 
             strArr = textWhatAmIFileName.Text.Split('_');
-            if (strArr.Length != 4)
-            {
-                MessageBox.Show(
-                    "The supplied IPSW File that was given is not in the following format:\r\n" +
-                        "{DEVICE}_{VERSION}_{BUILD}_Restore.ipsw",
-                    "iDecryptIt",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error);
-                return;
-            }
-            if (strArr[3] != "Restore.ipsw")
+            if (strArr.Length != 4 || strArr[3] != "Restore.ipsw")
             {
                 MessageBox.Show(
                     "The supplied IPSW File that was given is not in the following format:\r\n" +
@@ -1488,317 +1476,253 @@ namespace Hexware.Programs.iDecryptIt
                 return;
             }
 
-            device = strArr[0];
-            version = strArr[1];
-            build = strArr[2];
-            // TODO: Replace this with a dictionary
-            // TODO: Update Apple TV versions
-            #region Device Switch
-            switch (device)
-            {
-                case "iPad1,1":
-                    device = "iPad 1G";
-                    break;
-                case "iPad2,1":
-                    device = "iPad 2 Wi-Fi";
-                    break;
-                case "iPad2,2":
-                    device = "iPad 2 GSM";
-                    break;
-                case "iPad2,3":
-                    device = "iPad 2 CDMA";
-                    break;
-                case "iPad2,4":
-                    device = "iPad 2 Wi-Fi (Rev A)";
-                    break;
-                case "iPad2,5":
-                    device = "iPad mini 1G Wi-Fi";
-                    break;
-                case "iPad2,6":
-                    device = "iPad mini 1G GSM";
-                    break;
-                case "iPad2,7":
-                    device = "iPad mini 1G Global";
-                    break;
-                case "iPad3,1":
-                    device = "iPad 3 Wi-Fi";
-                    break;
-                case "iPad3,2":
-                    device = "iPad 3 CDMA";
-                    break;
-                case "iPad3,3":
-                    device = "iPad 3 Global";
-                    break;
-                case "iPad3,4":
-                    device = "iPad 4 Wi-Fi";
-                    break;
-                case "iPad3,5":
-                    device = "iPad 4 GSM";
-                    break;
-                case "iPad3,6":
-                    device = "iPad 4 Global";
-                    break;
-                case "iPad4,1":
-                    device = "iPad Air Wi-Fi";
-                    break;
-                case "iPad4,2":
-                    device = "iPad Air Cellular";
-                    break;
-                case "iPad4,3":
-                    device = "iPad Air Cellular (Rev A)";
-                    break;
-                case "iPad4,4":
-                    device = "iPad mini 2G Wi-Fi";
-                    break;
-                case "iPad4,5":
-                    device = "iPad mini 2G Cellular";
-                    break;
-                case "iPad4,6":
-                    device = "iPad mini 2G Cellular (Rev A)";
-                    break;
-                case "iPhone1,1":
-                    device = "iPhone 2G";
-                    break;
-                case "iPhone1,2":
-                    device = "iPhone 3G";
-                    break;
-                case "iPhone2,1":
-                    device = "iPhone 3GS";
-                    break;
-                case "iPhone3,1":
-                    device = "iPhone 4 GSM";
-                    break;
-                case "iPhone3,2":
-                    device = "iPhone 4 GSM (Rev A)";
-                    break;
-                case "iPhone3,3":
-                    device = "iPhone 4 CDMA";
-                    break;
-                case "iPhone4,1":
-                    device = "iPhone 4S";
-                    break;
-                case "iPhone5,1":
-                    device = "iPhone 5 GSM";
-                    break;
-                case "iPhone5,2":
-                    device = "iPhone 5 Global";
-                    break;
-                case "iPhone5,3":
-                    device = "iPhone 5c GSM";
-                    break;
-                case "iPhone5,4":
-                    device = "iPhone 5c Global";
-                    break;
-                case "iPhone6,1":
-                    device = "iPhone 5s GSM";
-                    break;
-                case "iPhone6,2":
-                    device = "iPhone 5s Global";
-                    break;
-                case "iPod1,1":
-                    device = "iPod touch 1G";
-                    break;
-                case "iPod2,1":
-                    device = "iPod touch 2G";
-                    break;
-                case "iPod3,1":
-                    device = "iPod touch 3G";
-                    break;
-                case "iPod4,1":
-                    device = "iPod touch 4G";
-                    break;
-                case "iPod5,1":
-                    device = "iPod touch 5G";
-                    break;
-                case "AppleTV2,1":
-                    device = "Apple TV 2G";
-                    #region Apple TV 2G
-                    switch (build)
-                    {
-                        case "8M89":
-                            version = "4.0/4.1";
-                            break;
-                        case "8C150":
-                            version = "4.1/4.2";
-                            break;
-                        case "8C154":
-                            version = "4.1.1/4.2.1";
-                            break;
-                        case "8F5148c":
-                        case "8F5153d":
-                        case "8F5166b":
-                        case "8F191m":
-                            version = "4.2/4.3";
-                            break;
-                        case "8F202":
-                            version = "4.2.1/4.3";
-                            break;
-                        case "8F305":
-                            version = "4.2.2/4.3";
-                            break;
-                        case "8F455":
-                            version = "4.3";
-                            break;
-                        case "9A5220p":
-                        case "9A5248d":
-                        case "9A5259f":
-                        case "9A5288d":
-                        case "9A5302b":
-                        case "9A5313e":
-                        case "9A334v":
-                            version = "4.4/5.0";
-                            break;
-                        case "9A335a":
-                            version = "4.4.1/5.0";
-                            break;
-                        case "9A336a":
-                            version = "4.4.2/5.0";
-                            break;
-                        case "9A405l":
-                            version = "4.4.3/5.0.1";
-                            break;
-                        case "9A406a":
-                            version = "4.4.4/5.0.1";
-                            break;
-                        case "9B5127c":
-                        case "9B5141a":
-                        case "9B179b":
-                            version = "5.0/5.1";
-                            break;
-                        case "9B206f":
-                            version = "5.0.1/5.1";
-                            break;
-                        case "9B830":
-                            version = "5.0.2/5.1";
-                            break;
-                        case "10A5316k":
-                        case "10A5338d":
-                        case "10A5355d":
-                        case "10A5376e":
-                        case "10A406e":
-                            version = "5.1/6.0";
-                            break;
-                        case "10B5105c":
-                        case "10B5117b":
-                        case "10B5126b":
-                        case "10B144b":
-                            version = "5.2/6.1";
-                            break;
-                        case "10B329a":
-                            version = "5.2.1/6.1.3";
-                            break;
-                        case "10B809":
-                            version = "5.3/6.1.4";
-                            break;
-                        case "11A4372q":
-                        case "11A4400f":
-                            version = "5.4/6.0";
-                            break;
-                        case "11A4435d":
-                        case "11A4449a":
-                            version = "6.0/7.0";
-                            break;
-                        case "11A470e":
-                            version = "6.0/7.0.1";
-                            break;
-                        case "11A502":
-                            version = "6.0/7.0.2";
-                            break;
-                    }
-                    #endregion
-                    break;
-                case "AppleTV3,1":
-                    device = "Apple TV 3G";
-                    #region Apple TV 3G
-                    switch (build)
-                    {
-                        case "9B179b":
-                            version = "5.0/5.1";
-                            break;
-                        case "9B206f":
-                            version = "5.0.1/5.1";
-                            break;
-                        case "9B830":
-                            version = "5.0.2/5.1";
-                            break;
-                        case "10A5316k":
-                        case "10A5338d":
-                        case "10A5355d":
-                        case "10A5376e":
-                        case "10A406e":
-                            version = "5.1/6.0";
-                            break;
-                        case "10B5105c":
-                        case "10B5117b":
-                        case "10B5126b":
-                        case "10B144b":
-                            version = "5.2/6.1";
-                            break;
-                        case "10B329a":
-                            version = "5.2.1/6.1.3";
-                            break;
-                        case "10B809":
-                            version = "5.3/6.1.4";
-                            break;
-                        case "11A4372q":
-                        case "11A4400f":
-                            version = "5.4/6.0";
-                            break;
-                        case "11A4435d":
-                        case "11A4449a":
-                            version = "6.0/7.0";
-                            break;
-                        case "11A470e":
-                            version = "6.0/7.0.1";
-                            break;
-                        case "11A502":
-                            version = "6.0/7.0.2";
-                            break;
-                    }
-                    #endregion
-                    break;
-                case "AppleTV3,2":
-                    device = "Apple TV 3G (Rev A)";
-                    #region Apple TV 3G Rev A
-                    switch (build)
-                    {
-                        case "10B144b":
-                            version = "5.2/6.1";
-                            break;
-                        case "10B329a":
-                            version = "5.2.1/6.1.3";
-                            break;
-                        case "10B809":
-                            version = "5.3/6.1.4";
-                            break;
-                        case "11A4372q":
-                        case "11A4400f":
-                            version = "5.4/6.0";
-                            break;
-                        case "11A4435d":
-                        case "11A4449a":
-                            version = "6.0/7.0";
-                            break;
-                        case "11A470e":
-                            version = "6.0/7.0.1";
-                            break;
-                        case "11A502":
-                            version = "6.0/7.0.2";
-                            break;
-                    }
-                    #endregion
-                    break;
-                default:
-                    MessageBox.Show(
-                        "The supplied device: '" + device + "' does not follow the format:\r\n" +
-                            "\t{iPad/iPhone/iPad/AppleTV}{#},{#}" +
-                            "or is not supported at the moment.",
-                        "iDecryptIt",
-                        MessageBoxButton.OK,
-                        MessageBoxImage.Error);
-                    return;
+            string device;
+            string version = strArr[1];
+            string build = strArr[2];
+            if (!GlobalVars.DeviceNames.TryGetValue(strArr[0], out device)) {
+                MessageBox.Show(
+                    "The supplied device: '" + strArr[0] + "' does not follow the format:\r\n" +
+                        "\t{iPad/iPhone/iPad/AppleTV}{#},{#}" +
+                        "or is not supported at the moment.",
+                    "iDecryptIt",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+                return;
             }
-            #endregion
+
+            if (strArr[0] == "AppleTV2,1") {
+                switch (build) {
+                    case "8M89":
+                        version = "4.0/4.1";
+                        break;
+                    case "8C150":
+                        version = "4.1/4.2";
+                        break;
+                    case "8C154":
+                        version = "4.1.1/4.2.1";
+                        break;
+                    case "8F5148c":
+                    case "8F5153d":
+                    case "8F5166b":
+                    case "8F191m":
+                        version = "4.2/4.3";
+                        break;
+                    case "8F202":
+                        version = "4.2.1/4.3";
+                        break;
+                    case "8F305":
+                        version = "4.2.2/4.3";
+                        break;
+                    case "8F455":
+                        version = "4.3";
+                        break;
+                    case "9A5220p":
+                    case "9A5248d":
+                    case "9A5259f":
+                    case "9A5288d":
+                    case "9A5302b":
+                    case "9A5313e":
+                    case "9A334v":
+                        version = "4.4/5.0";
+                        break;
+                    case "9A335a":
+                        version = "4.4.1/5.0";
+                        break;
+                    case "9A336a":
+                        version = "4.4.2/5.0";
+                        break;
+                    case "9A405l":
+                        version = "4.4.3/5.0.1";
+                        break;
+                    case "9A406a":
+                        version = "4.4.4/5.0.1";
+                        break;
+                    case "9B5127c":
+                    case "9B5141a":
+                    case "9B179b":
+                        version = "5.0/5.1";
+                        break;
+                    case "9B206f":
+                        version = "5.0.1/5.1";
+                        break;
+                    case "9B830":
+                        version = "5.0.2/5.1";
+                        break;
+                    case "10A5316k":
+                    case "10A5338d":
+                    case "10A5355d":
+                    case "10A5376e":
+                    case "10A406e":
+                        version = "5.1/6.0";
+                        break;
+                    case "10B5105c":
+                    case "10B5117b":
+                    case "10B5126b":
+                    case "10B144b":
+                        version = "5.2/6.1";
+                        break;
+                    case "10B329a":
+                        version = "5.2.1/6.1.3";
+                        break;
+                    case "10B809":
+                        version = "5.3/6.1.4";
+                        break;
+                    case "11A4372q":
+                    case "11A4400f":
+                        version = "5.4/6.0";
+                        break;
+                    case "11A4435d":
+                    case "11A4449a":
+                        version = "6.0/7.0";
+                        break;
+                    case "11A470e":
+                        version = "6.0/7.0.1";
+                        break;
+                    case "11A502":
+                        version = "6.0/7.0.2";
+                        break;
+                    case "11B511d":
+                        version = "6.0.1/7.0.3";
+                        break;
+                    case "11B554a":
+                        version = "6.0.2/7.0.4";
+                        break;
+                    case "11B651":
+                        version = "6.0.2/7.0.6";
+                        break;
+                    case "11D5099e":
+                    case "11D5115d":
+                    case "11D5127c":
+                    case "11D5134c":
+                    case "11D5145e":
+                    case "11D169b":
+                        version = "6.1/7.1";
+                        break;
+                    case "11D201c":
+                        version = "6.1.1/7.1.1";
+                        break;
+                    case "11D257c":
+                        version = "6.2/7.1.2";
+                        break;
+                }
+            } else if (strArr[0] == "AppleTV3,1") {
+                switch (build) {
+                    case "9B179b":
+                        version = "5.0/5.1";
+                        break;
+                    case "9B206f":
+                        version = "5.0.1/5.1";
+                        break;
+                    case "9B830":
+                        version = "5.0.2/5.1";
+                        break;
+                    case "10A5316k":
+                    case "10A5338d":
+                    case "10A5355d":
+                    case "10A5376e":
+                    case "10A406e":
+                        version = "5.1/6.0";
+                        break;
+                    case "10B5105c":
+                    case "10B5117b":
+                    case "10B5126b":
+                    case "10B144b":
+                        version = "5.2/6.1";
+                        break;
+                    case "10B329a":
+                        version = "5.2.1/6.1.3";
+                        break;
+                    case "10B809":
+                        version = "5.3/6.1.4";
+                        break;
+                    case "11A4372q":
+                    case "11A4400f":
+                        version = "5.4/6.0";
+                        break;
+                    case "11A4435d":
+                    case "11A4449a":
+                        version = "6.0/7.0";
+                        break;
+                    case "11A470e":
+                        version = "6.0/7.0.1";
+                        break;
+                    case "11A502":
+                        version = "6.0/7.0.2";
+                        break;
+                    case "11B511d":
+                        version = "6.0.1/7.0.3";
+                        break;
+                    case "11B554a":
+                        version = "6.0.2/7.0.4";
+                        break;
+                    case "11B651":
+                        version = "6.0.2/7.0.6";
+                        break;
+                    case "11D5099e":
+                    case "11D5115d":
+                    case "11D5127c":
+                    case "11D5134c":
+                    case "11D5145e":
+                    case "11D169b":
+                        version = "6.1/7.1";
+                        break;
+                    case "11D201c":
+                        version = "6.1.1/7.1.1";
+                        break;
+                    case "11D257c":
+                        version = "6.2/7.1.2";
+                        break;
+                }
+            } else if (strArr[0] == "AppleTV3,2") {
+                switch (build) {
+                    case "10B144b":
+                        version = "5.2/6.1";
+                        break;
+                    case "10B329a":
+                        version = "5.2.1/6.1.3";
+                        break;
+                    case "10B809":
+                        version = "5.3/6.1.4";
+                        break;
+                    case "11A4372q":
+                    case "11A4400f":
+                        version = "5.4/6.0";
+                        break;
+                    case "11A4435d":
+                    case "11A4449a":
+                        version = "6.0/7.0";
+                        break;
+                    case "11A470e":
+                        version = "6.0/7.0.1";
+                        break;
+                    case "11A502":
+                        version = "6.0/7.0.2";
+                        break;
+                    case "11B511d":
+                        version = "6.0.1/7.0.3";
+                        break;
+                    case "11B554a":
+                        version = "6.0.2/7.0.4";
+                        break;
+                    case "11B651":
+                        version = "6.0.2/7.0.6";
+                        break;
+                    case "11D5099e":
+                    case "11D5115d":
+                    case "11D5127c":
+                    case "11D5134c":
+                    case "11D5145e":
+                    case "11D169b":
+                        version = "6.1/7.1";
+                        break;
+                    case "11D201c":
+                        version = "6.1.1/7.1.1";
+                        break;
+                    case "11D257c":
+                        version = "6.2/7.1.2";
+                        break;
+                }
+            }
             MessageBox.Show(
                 "Device: " + device + "\r\n" +
                     "Version: " + version + "\r\n" +
