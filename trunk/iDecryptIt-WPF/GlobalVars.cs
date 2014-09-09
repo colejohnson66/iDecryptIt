@@ -80,6 +80,9 @@ namespace Hexware.Programs.iDecryptIt
         {
             Assembly thisAssembly = Assembly.GetExecutingAssembly();
 
+            // Microsoft is weird and uses version numbers of the form
+            //   {major}.{minor}.{build}.{revision} while we use (the sane)
+            //   {major}.{minor}.{revision}.{build}.
             Version ver = thisAssembly.GetName().Version;
             char[] build = ver.Revision.ToString().ToCharArray();
             build[0]++;
@@ -112,9 +115,7 @@ namespace Hexware.Programs.iDecryptIt
 
             int i = BitConverter.ToInt32(b, c_PeHeaderOffset);
             int secondsSince1970 = BitConverter.ToInt32(b, i + c_LinkerTimestampOffset);
-            DateTime dt = new DateTime(1970, 1, 1, 0, 0, 0);
-            dt = dt.AddSeconds(secondsSince1970);
-            return dt;
+            return new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(secondsSince1970);
         }
     }
 }

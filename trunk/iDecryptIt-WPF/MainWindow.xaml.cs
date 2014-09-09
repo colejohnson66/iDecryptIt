@@ -181,10 +181,7 @@ namespace Hexware.Programs.iDecryptIt
             StreamWriter stream = new StreamWriter(fullPath, true, Encoding.UTF8);
             Debug("[ERRLOG]", "Saving log.");
 
-            if (Environment.Is64BitProcess)
-                stream.WriteLine("iDecryptIt " + GlobalVars.Version + " x64");
-            else
-                stream.WriteLine("iDecryptIt " + GlobalVars.Version);
+            stream.WriteLine("iDecryptIt " + GlobalVars.Version + GlobalVars.Version64);
             stream.WriteLine("Compile time: " + GlobalVars.CompileTimestamp.ToString() + " UTC");
             stream.WriteLine("Log time: " + DateTime.UtcNow + " UTC");
             stream.WriteLine("Execution string: " + Environment.CommandLine);
@@ -1344,6 +1341,18 @@ namespace Hexware.Programs.iDecryptIt
             decryptWorker.ProgressChanged += decryptWorker_ProgressReported;
             decryptWorker.RunWorkerAsync();
         }
+        private void textInputFileName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            try {
+                string folder = Path.GetDirectoryName(textInputFileName.Text);
+                string file = Path.GetFileName(textInputFileName.Text);
+                if (file.Substring(file.Length - 4, 4) != ".dmg") {
+                    return;
+                }
+                file = file.Substring(0, file.Length - 4) + "_decrypted.dmg";
+                textOutputFileName.Text = Path.Combine(folder, file);
+            } catch (Exception) { }
+        }
         private void decryptProc_OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
             if (debug)
@@ -1638,22 +1647,6 @@ namespace Hexware.Programs.iDecryptIt
                 }
             }
             return version;
-        }
-        private void textInputFileName_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            try
-            {
-                string folder = Path.GetDirectoryName(textInputFileName.Text);
-                string file = Path.GetFileName(textInputFileName.Text);
-                if (file.Substring(file.Length - 4, 4) != ".dmg")
-                {
-                    return;
-                }
-                file = file.Substring(0, file.Length - 4) + "_decrypted.dmg";
-                textOutputFileName.Text = Path.Combine(folder, file);
-            }
-            catch (Exception)
-            { }
         }
 
         private void cmbDeviceDropDown_SelectionChanged(object sender, SelectionChangedEventArgs e)
