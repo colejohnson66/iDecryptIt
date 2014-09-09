@@ -1477,8 +1477,6 @@ namespace Hexware.Programs.iDecryptIt
             }
 
             string device;
-            string version = strArr[1];
-            string build = strArr[2];
             if (!GlobalVars.DeviceNames.TryGetValue(strArr[0], out device)) {
                 MessageBox.Show(
                     "The supplied device: '" + strArr[0] + "' does not follow the format:\r\n" +
@@ -1490,7 +1488,25 @@ namespace Hexware.Programs.iDecryptIt
                 return;
             }
 
-            if (strArr[0] == "AppleTV2,1") {
+            string version = strArr[1];
+            if (strArr[0][0] == 'A') {
+                string temp = BuildToAppleTVVersion(strArr[0], strArr[2]);
+                if (temp != null)
+                    version = temp;
+            }
+
+            MessageBox.Show(
+                "Device: " + device + "\r\n" +
+                    "Version: " + version + "\r\n" +
+                    "Build: " + strArr[2],
+                "iDecryptIt",
+                MessageBoxButton.OK,
+                MessageBoxImage.Information);
+        }
+        private string BuildToAppleTVVersion(string device, string build)
+        {
+            string version = null;
+            if (device == "AppleTV2,1") {
                 switch (build) {
                     case "8M89":
                         version = "4.0/4.1";
@@ -1543,7 +1559,7 @@ namespace Hexware.Programs.iDecryptIt
                         break;
                 }
             }
-            if (strArr[0] == "AppleTV2,1" || strArr[0] == "AppleTV3,1") {
+            if (device == "AppleTV2,1" || device == "AppleTV3,1") {
                 switch (build) {
                     case "9B179b":
                         version = "5.0/5.1";
@@ -1571,7 +1587,7 @@ namespace Hexware.Programs.iDecryptIt
                         break;
                 }
             }
-            if (strArr[0] == "AppleTV2,1" || strArr[0] == "AppleTV3,1" || strArr[0] == "AppleTV3,2") {
+            if (device == "AppleTV2,1" || device == "AppleTV3,1" || device == "AppleTV3,2") {
                 switch (build) {
                     case "10B144b":
                         version = "5.2/6.1";
@@ -1621,13 +1637,7 @@ namespace Hexware.Programs.iDecryptIt
                         break;
                 }
             }
-            MessageBox.Show(
-                "Device: " + device + "\r\n" +
-                    "Version: " + version + "\r\n" +
-                    "Build: " + build,
-                "iDecryptIt",
-                MessageBoxButton.OK,
-                MessageBoxImage.Information);
+            return version;
         }
         private void textInputFileName_TextChanged(object sender, TextChangedEventArgs e)
         {
