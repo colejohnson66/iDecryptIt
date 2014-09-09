@@ -1539,73 +1539,11 @@ namespace Hexware.Programs.iDecryptIt
                         break;
                     case "9B5127c":
                     case "9B5141a":
-                    case "9B179b":
                         version = "5.0/5.1";
                         break;
-                    case "9B206f":
-                        version = "5.0.1/5.1";
-                        break;
-                    case "9B830":
-                        version = "5.0.2/5.1";
-                        break;
-                    case "10A5316k":
-                    case "10A5338d":
-                    case "10A5355d":
-                    case "10A5376e":
-                    case "10A406e":
-                        version = "5.1/6.0";
-                        break;
-                    case "10B5105c":
-                    case "10B5117b":
-                    case "10B5126b":
-                    case "10B144b":
-                        version = "5.2/6.1";
-                        break;
-                    case "10B329a":
-                        version = "5.2.1/6.1.3";
-                        break;
-                    case "10B809":
-                        version = "5.3/6.1.4";
-                        break;
-                    case "11A4372q":
-                    case "11A4400f":
-                        version = "5.4/6.0";
-                        break;
-                    case "11A4435d":
-                    case "11A4449a":
-                        version = "6.0/7.0";
-                        break;
-                    case "11A470e":
-                        version = "6.0/7.0.1";
-                        break;
-                    case "11A502":
-                        version = "6.0/7.0.2";
-                        break;
-                    case "11B511d":
-                        version = "6.0.1/7.0.3";
-                        break;
-                    case "11B554a":
-                        version = "6.0.2/7.0.4";
-                        break;
-                    case "11B651":
-                        version = "6.0.2/7.0.6";
-                        break;
-                    case "11D5099e":
-                    case "11D5115d":
-                    case "11D5127c":
-                    case "11D5134c":
-                    case "11D5145e":
-                    case "11D169b":
-                        version = "6.1/7.1";
-                        break;
-                    case "11D201c":
-                        version = "6.1.1/7.1.1";
-                        break;
-                    case "11D257c":
-                        version = "6.2/7.1.2";
-                        break;
                 }
-            } else if (strArr[0] == "AppleTV3,1") {
+            }
+            if (strArr[0] == "AppleTV2,1" || strArr[0] == "AppleTV3,1") {
                 switch (build) {
                     case "9B179b":
                         version = "5.0/5.1";
@@ -1623,57 +1561,17 @@ namespace Hexware.Programs.iDecryptIt
                     case "10A406e":
                         version = "5.1/6.0";
                         break;
+                    case "10A831":
+                        version = "5.1.1/6.0.1";
+                        break;
                     case "10B5105c":
                     case "10B5117b":
                     case "10B5126b":
-                    case "10B144b":
                         version = "5.2/6.1";
                         break;
-                    case "10B329a":
-                        version = "5.2.1/6.1.3";
-                        break;
-                    case "10B809":
-                        version = "5.3/6.1.4";
-                        break;
-                    case "11A4372q":
-                    case "11A4400f":
-                        version = "5.4/6.0";
-                        break;
-                    case "11A4435d":
-                    case "11A4449a":
-                        version = "6.0/7.0";
-                        break;
-                    case "11A470e":
-                        version = "6.0/7.0.1";
-                        break;
-                    case "11A502":
-                        version = "6.0/7.0.2";
-                        break;
-                    case "11B511d":
-                        version = "6.0.1/7.0.3";
-                        break;
-                    case "11B554a":
-                        version = "6.0.2/7.0.4";
-                        break;
-                    case "11B651":
-                        version = "6.0.2/7.0.6";
-                        break;
-                    case "11D5099e":
-                    case "11D5115d":
-                    case "11D5127c":
-                    case "11D5134c":
-                    case "11D5145e":
-                    case "11D169b":
-                        version = "6.1/7.1";
-                        break;
-                    case "11D201c":
-                        version = "6.1.1/7.1.1";
-                        break;
-                    case "11D257c":
-                        version = "6.2/7.1.2";
-                        break;
                 }
-            } else if (strArr[0] == "AppleTV3,2") {
+            }
+            if (strArr[0] == "AppleTV2,1" || strArr[0] == "AppleTV3,1" || strArr[0] == "AppleTV3,2") {
                 switch (build) {
                     case "10B144b":
                         version = "5.2/6.1";
