@@ -24,7 +24,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
-using System.Text;
 using System.Threading;
 using System.Xml;
 
@@ -42,7 +41,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
             if (Directory.Exists(keyPath))
             {
                 // I don't know why, but not waiting prevents the
-                //   CreateDirectory(...) call below to do nothing
+                //   CreateDirectory(...) call below not working
                 Directory.Delete(keyPath, true);
                 Thread.Sleep(100);
             }
@@ -178,6 +177,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
             // Convert page to a dictionary
             string key;
             string value;
+            string displayVersion = null;
             Dictionary<string, string> data = new Dictionary<string, string>();
             for (int i = 0; i < length; i++)
             {
@@ -191,12 +191,12 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                 }
                 else if (key == "DisplayVersion")
                 {
-                    data["Version"] = value.Trim();
+                    displayVersion = value.Trim();
                     continue;
                 }
                 else if (key == "Device")
                 {
-                    // This could be done with a Regex replace.
+                    // TODO: Regex
                     value = value.Replace("appletv", "AppleTV");
                     value = value.Replace("ipad", "iPad");
                     value = value.Replace("iphone", "iPhone");
@@ -223,6 +223,12 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                 data.Add(key, value.Trim());
             }
 
+            // Handle usage of "DisplayVersion" on gold masters
+            if (displayVersion != null && data["Device"].Contains("AppleTV"))
+                data["Version"] = displayVersion;
+
+
+            // TODO: Move this into the `data` builder block above
             // Convert data.Keys to a string array
             string[] keys = new string[data.Count];
             int num = 0;
@@ -243,9 +249,10 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
             XmlWriter writer = XmlWriter.Create(filename, settings);
             xml.Save(writer);
             writer.Close();
+            writer.Dispose();
         }
         
-        public static void BuildXml(XmlNode plist, string[] keys, Dictionary<string, string> data, XmlDocument xml)
+        private static void BuildXml(XmlNode plist, string[] keys, Dictionary<string, string> data, XmlDocument xml)
         {
             // What outer-most element we are on; incremented AFTER element is used
             int num = 0; // what outer-most element we are on - in
