@@ -1520,29 +1520,22 @@ namespace Hexware.Programs.iDecryptIt
 
             switch (build) {
                 case "8M89":
-                    version = "4.0/4.1";
-                    break;
+                    return "4.0/4.1";
                 case "8C150":
-                    version = "4.1/4.2";
-                    break;
+                    return "4.1/4.2";
                 case "8C154":
-                    version = "4.1.1/4.2.1";
-                    break;
+                    return "4.1.1/4.2.1";
                 case "8F5148c":
                 case "8F5153d":
                 case "8F5166b":
                 case "8F191m":
-                    version = "4.2/4.3";
-                    break;
+                    return "4.2/4.3";
                 case "8F202":
-                    version = "4.2.1/4.3";
-                    break;
+                    return "4.2.1/4.3";
                 case "8F305":
-                    version = "4.2.2/4.3";
-                    break;
+                    return "4.2.2/4.3";
                 case "8F455":
-                    version = "4.3";
-                    break;
+                    return "4.3";
                 case "9A5220p":
                 case "9A5248d":
                 case "9A5259f":
@@ -1550,104 +1543,77 @@ namespace Hexware.Programs.iDecryptIt
                 case "9A5302b":
                 case "9A5313e":
                 case "9A334v":
-                    version = "4.4/5.0";
-                    break;
+                    return "4.4/5.0";
                 case "9A335a":
-                    version = "4.4.1/5.0";
-                    break;
+                    return "4.4.1/5.0";
                 case "9A336a":
-                    version = "4.4.2/5.0";
-                    break;
+                    return "4.4.2/5.0";
                 case "9A405l":
-                    version = "4.4.3/5.0.1";
-                    break;
+                    return "4.4.3/5.0.1";
                 case "9A406a":
-                    version = "4.4.4/5.0.1";
-                    break;
+                    return "4.4.4/5.0.1";
                 case "9B5127c":
                 case "9B5141a":
-                    version = "5.0/5.1";
-                    break;
+                    return "5.0/5.1";
                 case "9B179b": // AppleTV3,1 introduced
-                    version = "5.0/5.1";
-                    break;
+                    return "5.0/5.1";
                 case "9B206f":
-                    version = "5.0.1/5.1";
-                    break;
+                    return "5.0.1/5.1";
                 case "9B830":
-                    version = "5.0.2/5.1";
-                    break;
+                    return "5.0.2/5.1";
                 case "10A5316k":
                 case "10A5338d":
                 case "10A5355d":
                 case "10A5376e":
                 case "10A406e":
-                    version = "5.1/6.0";
-                    break;
+                    return "5.1/6.0";
                 case "10A831":
-                    version = "5.1.1/6.0.1";
-                    break;
+                    return "5.1.1/6.0.1";
                 case "10B5105c":
                 case "10B5117b":
                 case "10B5126b":
-                    version = "5.2/6.1";
-                    break;
+                    return "5.2/6.1";
                 case "10B144b": // AppleTV3,2 introduced
-                    version = "5.2/6.1";
-                    break;
+                    return "5.2/6.1";
                 case "10B329a":
-                    version = "5.2.1/6.1.3";
-                    break;
+                    return "5.2.1/6.1.3";
                 case "10B809":
-                    version = "5.3/6.1.4";
-                    break;
+                    return "5.3/6.1.4";
                 case "11A4372q":
                 case "11A4400f":
-                    version = "5.4/6.0";
-                    break;
+                    return "5.4/6.0";
                 case "11A4435d":
                 case "11A4449a":
-                    version = "6.0/7.0";
-                    break;
+                    return "6.0/7.0";
                 case "11A470e":
-                    version = "6.0/7.0.1";
-                    break;
+                    return "6.0/7.0.1";
                 case "11A502":
-                    version = "6.0/7.0.2";
-                    break;
+                    return "6.0/7.0.2";
                 case "11B511d":
-                    version = "6.0.1/7.0.3";
-                    break;
+                    return "6.0.1/7.0.3";
                 case "11B554a":
-                    version = "6.0.2/7.0.4";
-                    break;
+                    return "6.0.2/7.0.4";
                 case "11B651":
-                    version = "6.0.2/7.0.6";
-                    break;
+                    return "6.0.2/7.0.6";
                 case "11D5099e":
                 case "11D5115d":
                 case "11D5127c":
                 case "11D5134c":
                 case "11D5145e":
                 case "11D169b":
-                    version = "6.1/7.1";
-                    break;
+                    return "6.1/7.1";
                 case "11D201c":
-                    version = "6.1.1/7.1.1";
-                    break;
+                    return "6.1.1/7.1.1";
                 case "11D257c":
-                    version = "6.2/7.1.2";
-                    break;
+                    return "6.2/7.1.2";
                 case "11D258":
-                    version = "6.2.1/7.1.2";
-                    break;
+                    return "6.2.1/7.1.2";
                 case "12A4297e": // AppleTV2,1 dropped
                 case "12A4318c":
                 case "12A4331d":
                 case "12A4345d":
                 case "12A365b":
-                    version = "7.0/8.0";
-                    break;
+                    return "7.0/8.0";
             }
             return version;
         }
