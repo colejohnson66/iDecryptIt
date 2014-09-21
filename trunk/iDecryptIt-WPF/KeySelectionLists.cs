@@ -84,6 +84,8 @@ namespace Hexware.Programs.iDecryptIt
         private static List<ComboBoxEntry> iPhone54;
         private static List<ComboBoxEntry> iPhone61;
         private static List<ComboBoxEntry> iPhone62;
+        private static List<ComboBoxEntry> iPhone71;
+        private static List<ComboBoxEntry> iPhone72;
 
         // iPod touch
         private static List<ComboBoxEntry> iPod11;
@@ -155,6 +157,8 @@ namespace Hexware.Programs.iDecryptIt
             ModelsHelper.Add("iPhone5,4", iPhone54);
             ModelsHelper.Add("iPhone6,1", iPhone61); // iPhone 5s
             ModelsHelper.Add("iPhone6,2", iPhone62);
+            ModelsHelper.Add("iPhone7,1", iPhone71); // iPhone 6+
+            ModelsHelper.Add("iPhone7,2", iPhone72); // iPhone 6
             ModelsHelper.Add("iPod1,1", iPod11); // iPod 1G
             ModelsHelper.Add("iPod2,1", iPod21); // iPod 2G
             ModelsHelper.Add("iPod3,1", iPod31); // iPod 3G
@@ -206,6 +210,8 @@ namespace Hexware.Programs.iDecryptIt
             iPhone.Add(new ComboBoxEntry("iPhone5,4", "5c Global (iPhone5,4)"));
             iPhone.Add(new ComboBoxEntry("iPhone6,1", "5s GSM (iPhone6,1)"));
             iPhone.Add(new ComboBoxEntry("iPhone6,2", "5s Global (iPhone6,2)"));
+            iPhone.Add(new ComboBoxEntry("iPhone7,1", "6 Plus (iPhone7,1)"));
+            iPhone.Add(new ComboBoxEntry("iPhone7,2", "6 (iPhone7,2)"));
 
             iPodTouch = new List<ComboBoxEntry>();
             iPodTouch.Add(new ComboBoxEntry("iPod1,1", "1G (iPod1,1)"));
@@ -244,6 +250,7 @@ namespace Hexware.Programs.iDecryptIt
             AppleTV21.Add(new ComboBoxEntry("11D169b", "6.1/7.1 (11D169b)"));
             AppleTV21.Add(new ComboBoxEntry("11D201c", "6.1.1/7.1.1 (11D201c)"));
             AppleTV21.Add(new ComboBoxEntry("11D257c", "6.2/7.1.2 (11D257c)"));
+            AppleTV21.Add(new ComboBoxEntry("11D258", "6.2.1/7.1.2 (11D258)"));
 
             AppleTV31 = new List<ComboBoxEntry>();
             AppleTV31.Add(new ComboBoxEntry("9B179b", "5.0/5.1 (9B179b)"));
@@ -261,6 +268,7 @@ namespace Hexware.Programs.iDecryptIt
             AppleTV31.Add(new ComboBoxEntry("11D169b", "6.1/7.1 (11D169b)"));
             AppleTV31.Add(new ComboBoxEntry("11D201c", "6.1.1/7.1.1 (11D201c)"));
             AppleTV31.Add(new ComboBoxEntry("11D257c", "6.2/7.1.2 (11D257c)"));
+            AppleTV31.Add(new ComboBoxEntry("12A365b", "7.0/8.0 (12A365b)"));
 
             AppleTV32 = new List<ComboBoxEntry>();
             AppleTV32.Add(new ComboBoxEntry("10B144b", "5.2/6.1 (10B144b)"));
@@ -274,6 +282,7 @@ namespace Hexware.Programs.iDecryptIt
             AppleTV32.Add(new ComboBoxEntry("11D169b", "6.1/7.1 (11D169b)"));
             AppleTV32.Add(new ComboBoxEntry("11D201c", "6.1.1/7.1.1 (11D201c)"));
             AppleTV32.Add(new ComboBoxEntry("11D257c", "6.2/7.1.2 (11D257c)"));
+            AppleTV32.Add(new ComboBoxEntry("12A365b", "7.0/8.0 (12A365b)"));
         }
         private static void InitIPad()
         {
@@ -317,6 +326,7 @@ namespace Hexware.Programs.iDecryptIt
             iPad21.Add(new ComboBoxEntry("11D167", "7.1 (11D167)"));
             iPad21.Add(new ComboBoxEntry("11D201", "7.1.1 (11D201)"));
             iPad21.Add(new ComboBoxEntry("11D257", "7.1.2 (11D257)"));
+            iPad21.Add(new ComboBoxEntry("12A365", "8.0 (12A365)"));
 
             iPad22 = new List<ComboBoxEntry>();
             iPad22.Add(new ComboBoxEntry("8F191", "4.3 (8F191)"));
@@ -342,6 +352,7 @@ namespace Hexware.Programs.iDecryptIt
             iPad22.Add(new ComboBoxEntry("11D167", "7.1 (11D167)"));
             iPad22.Add(new ComboBoxEntry("11D201", "7.1.1 (11D201)"));
             iPad22.Add(new ComboBoxEntry("11D257", "7.1.2 (11D257)"));
+            iPad22.Add(new ComboBoxEntry("12A365", "8.0 (12A365)"));
 
             iPad23 = new List<ComboBoxEntry>();
             iPad23.Add(new ComboBoxEntry("8F191", "4.3 (8F191)"));
@@ -367,6 +378,7 @@ namespace Hexware.Programs.iDecryptIt
             iPad23.Add(new ComboBoxEntry("11D167", "7.1 (11D167)"));
             iPad23.Add(new ComboBoxEntry("11D201", "7.1.1 (11D201)"));
             iPad23.Add(new ComboBoxEntry("11D257", "7.1.2 (11D257)"));
+            iPad23.Add(new ComboBoxEntry("12A365", "8.0 (12A365)"));
 
             iPad24 = new List<ComboBoxEntry>();
             iPad24.Add(new ComboBoxEntry("9B176", "5.1 (9B176)"));
@@ -384,6 +396,7 @@ namespace Hexware.Programs.iDecryptIt
             iPad24.Add(new ComboBoxEntry("11D167", "7.1 (11D167)"));
             iPad24.Add(new ComboBoxEntry("11D201", "7.1.1 (11D201)"));
             iPad24.Add(new ComboBoxEntry("11D257", "7.1.2 (11D257)"));
+            iPad24.Add(new ComboBoxEntry("12A365", "8.0 (12A365)"));
 
             iPad31 = new List<ComboBoxEntry>();
             iPad31.Add(new ComboBoxEntry("9B176", "5.1 (9B176)"));
@@ -401,6 +414,7 @@ namespace Hexware.Programs.iDecryptIt
             iPad31.Add(new ComboBoxEntry("11D167", "7.1 (11D167)"));
             iPad31.Add(new ComboBoxEntry("11D201", "7.1.1 (11D201)"));
             iPad31.Add(new ComboBoxEntry("11D257", "7.1.2 (11D257)"));
+            iPad31.Add(new ComboBoxEntry("12A365", "8.0 (12A365)"));
 
             iPad32 = new List<ComboBoxEntry>();
             iPad32.Add(new ComboBoxEntry("9B176", "5.1 (9B176)"));
@@ -418,6 +432,7 @@ namespace Hexware.Programs.iDecryptIt
             iPad32.Add(new ComboBoxEntry("11D167", "7.1 (11D167)"));
             iPad32.Add(new ComboBoxEntry("11D201", "7.1.1 (11D201)"));
             iPad32.Add(new ComboBoxEntry("11D257", "7.1.2 (11D257)"));
+            iPad32.Add(new ComboBoxEntry("12A365", "8.0 (12A365)"));
 
             iPad33 = new List<ComboBoxEntry>();
             iPad33.Add(new ComboBoxEntry("9B176", "5.1 (9B176)"));
@@ -435,6 +450,7 @@ namespace Hexware.Programs.iDecryptIt
             iPad33.Add(new ComboBoxEntry("11D167", "7.1 (11D167)"));
             iPad33.Add(new ComboBoxEntry("11D201", "7.1.1 (11D201)"));
             iPad33.Add(new ComboBoxEntry("11D257", "7.1.2 (11D257)"));
+            iPad33.Add(new ComboBoxEntry("12A365", "8.0 (12A365)"));
 
             iPad34 = new List<ComboBoxEntry>();
             iPad34.Add(new ComboBoxEntry("10A407", "6.0 (10A407)"));
@@ -450,6 +466,7 @@ namespace Hexware.Programs.iDecryptIt
             iPad34.Add(new ComboBoxEntry("11D167", "7.1 (11D167)"));
             iPad34.Add(new ComboBoxEntry("11D201", "7.1.1 (11D201)"));
             iPad34.Add(new ComboBoxEntry("11D257", "7.1.2 (11D257)"));
+            iPad34.Add(new ComboBoxEntry("12A365", "8.0 (12A365)"));
 
             iPad35 = new List<ComboBoxEntry>();
             iPad35.Add(new ComboBoxEntry("10A8426", "6.0.1 (10A8426)"));
@@ -464,6 +481,7 @@ namespace Hexware.Programs.iDecryptIt
             iPad35.Add(new ComboBoxEntry("11D167", "7.1 (11D167)"));
             iPad35.Add(new ComboBoxEntry("11D201", "7.1.1 (11D201)"));
             iPad35.Add(new ComboBoxEntry("11D257", "7.1.2 (11D257)"));
+            iPad35.Add(new ComboBoxEntry("12A365", "8.0 (12A365)"));
 
             iPad36 = new List<ComboBoxEntry>();
             iPad36.Add(new ComboBoxEntry("10A8426", "6.0.1 (10A8426)"));
@@ -478,6 +496,7 @@ namespace Hexware.Programs.iDecryptIt
             iPad36.Add(new ComboBoxEntry("11D167", "7.1 (11D167)"));
             iPad36.Add(new ComboBoxEntry("11D201", "7.1.1 (11D201)"));
             iPad36.Add(new ComboBoxEntry("11D257", "7.1.2 (11D257)"));
+            iPad36.Add(new ComboBoxEntry("12A365", "8.0 (12A365)"));
 
             iPad41 = new List<ComboBoxEntry>();
             iPad41.Add(new ComboBoxEntry("11B511", "7.0.3 (11B511)"));
@@ -486,6 +505,7 @@ namespace Hexware.Programs.iDecryptIt
             iPad41.Add(new ComboBoxEntry("11D167", "7.1 (11D167)"));
             iPad41.Add(new ComboBoxEntry("11D201", "7.1.1 (11D201)"));
             iPad41.Add(new ComboBoxEntry("11D257", "7.1.2 (11D257)"));
+            iPad41.Add(new ComboBoxEntry("12A365", "8.0 (12A365)"));
 
             iPad42 = new List<ComboBoxEntry>();
             iPad42.Add(new ComboBoxEntry("11B511", "7.0.3 (11B511)"));
@@ -494,11 +514,13 @@ namespace Hexware.Programs.iDecryptIt
             iPad42.Add(new ComboBoxEntry("11D167", "7.1 (11D167)"));
             iPad42.Add(new ComboBoxEntry("11D201", "7.1.1 (11D201)"));
             iPad42.Add(new ComboBoxEntry("11D257", "7.1.2 (11D257)"));
+            iPad42.Add(new ComboBoxEntry("12A365", "8.0 (12A365)"));
 
             iPad43 = new List<ComboBoxEntry>();
             iPad43.Add(new ComboBoxEntry("11D167", "7.1 (11D167)"));
             iPad43.Add(new ComboBoxEntry("11D201", "7.1.1 (11D201)"));
             iPad43.Add(new ComboBoxEntry("11D257", "7.1.2 (11D257)"));
+            iPad43.Add(new ComboBoxEntry("12A365", "8.0 (12A365)"));
         }
         private static void InitIPadMini()
         {
@@ -517,6 +539,7 @@ namespace Hexware.Programs.iDecryptIt
             iPad25.Add(new ComboBoxEntry("11D167", "7.1 (11D167)"));
             iPad25.Add(new ComboBoxEntry("11D201", "7.1.1 (11D201)"));
             iPad25.Add(new ComboBoxEntry("11D257", "7.1.2 (11D257)"));
+            iPad25.Add(new ComboBoxEntry("12A365", "8.0 (12A365)"));
 
             iPad26 = new List<ComboBoxEntry>();
             iPad26.Add(new ComboBoxEntry("10A8426", "6.0.1 (10A8426)"));
@@ -532,6 +555,7 @@ namespace Hexware.Programs.iDecryptIt
             iPad26.Add(new ComboBoxEntry("11D167", "7.1 (11D167)"));
             iPad26.Add(new ComboBoxEntry("11D201", "7.1.1 (11D201)"));
             iPad26.Add(new ComboBoxEntry("11D257", "7.1.2 (11D257)"));
+            iPad26.Add(new ComboBoxEntry("12A365", "8.0 (12A365)"));
 
             iPad27 = new List<ComboBoxEntry>();
             iPad27.Add(new ComboBoxEntry("10A8426", "6.0.1 (10A8426)"));
@@ -547,6 +571,7 @@ namespace Hexware.Programs.iDecryptIt
             iPad27.Add(new ComboBoxEntry("11D167", "7.1 (11D167)"));
             iPad27.Add(new ComboBoxEntry("11D201", "7.1.1 (11D201)"));
             iPad27.Add(new ComboBoxEntry("11D257", "7.1.2 (11D257)"));
+            iPad27.Add(new ComboBoxEntry("12A365", "8.0 (12A365)"));
 
             iPad44 = new List<ComboBoxEntry>();
             iPad44.Add(new ComboBoxEntry("11B511", "7.0.3 (11B511)"));
@@ -555,6 +580,7 @@ namespace Hexware.Programs.iDecryptIt
             iPad44.Add(new ComboBoxEntry("11D167", "7.1 (11D167)"));
             iPad44.Add(new ComboBoxEntry("11D201", "7.1.1 (11D201)"));
             iPad44.Add(new ComboBoxEntry("11D257", "7.1.2 (11D257)"));
+            iPad44.Add(new ComboBoxEntry("12A365", "8.0 (12A365)"));
 
             iPad45 = new List<ComboBoxEntry>();
             iPad45.Add(new ComboBoxEntry("11B511", "7.0.3 (11B511)"));
@@ -563,11 +589,13 @@ namespace Hexware.Programs.iDecryptIt
             iPad45.Add(new ComboBoxEntry("11D167", "7.1 (11D167)"));
             iPad45.Add(new ComboBoxEntry("11D201", "7.1.1 (11D201)"));
             iPad45.Add(new ComboBoxEntry("11D257", "7.1.2 (11D257)"));
+            iPad45.Add(new ComboBoxEntry("12A365", "8.0 (12A365)"));
 
             iPad46 = new List<ComboBoxEntry>();
             iPad46.Add(new ComboBoxEntry("11D167", "7.1 (11D167)"));
             iPad46.Add(new ComboBoxEntry("11D201", "7.1.1 (11D201)"));
             iPad46.Add(new ComboBoxEntry("11D257", "7.1.2 (11D257)"));
+            iPad46.Add(new ComboBoxEntry("12A365", "8.0 (12A365)"));
         }
         private static void InitIPhone()
         {
@@ -729,6 +757,7 @@ namespace Hexware.Programs.iDecryptIt
             iPhone41.Add(new ComboBoxEntry("11D167", "7.1 (11D167)"));
             iPhone41.Add(new ComboBoxEntry("11D201", "7.1.1 (11D201)"));
             iPhone41.Add(new ComboBoxEntry("11D257", "7.1.2 (11D257)"));
+            iPhone41.Add(new ComboBoxEntry("12A365", "8.0 (12A365)"));
 
             iPhone51 = new List<ComboBoxEntry>();
             iPhone51.Add(new ComboBoxEntry("10A405", "6.0 (10A405)"));
@@ -745,6 +774,7 @@ namespace Hexware.Programs.iDecryptIt
             iPhone51.Add(new ComboBoxEntry("11D167", "7.1 (11D167)"));
             iPhone51.Add(new ComboBoxEntry("11D201", "7.1.1 (11D201)"));
             iPhone51.Add(new ComboBoxEntry("11D257", "7.1.2 (11D257)"));
+            iPhone51.Add(new ComboBoxEntry("12A365", "8.0 (12A365)"));
 
             iPhone52 = new List<ComboBoxEntry>();
             iPhone52.Add(new ComboBoxEntry("10A403", "6.0 (10A403)"));
@@ -761,6 +791,7 @@ namespace Hexware.Programs.iDecryptIt
             iPhone52.Add(new ComboBoxEntry("11D167", "7.1 (11D167)"));
             iPhone52.Add(new ComboBoxEntry("11D201", "7.1.1 (11D201)"));
             iPhone52.Add(new ComboBoxEntry("11D257", "7.1.2 (11D257)"));
+            iPhone52.Add(new ComboBoxEntry("12A365", "8.0 (12A365)"));
 
             iPhone53 = new List<ComboBoxEntry>();
             iPhone53.Add(new ComboBoxEntry("11A466", "7.0 (11A466)"));
@@ -773,6 +804,7 @@ namespace Hexware.Programs.iDecryptIt
             iPhone53.Add(new ComboBoxEntry("11D167", "7.1 (11D167)"));
             iPhone53.Add(new ComboBoxEntry("11D201", "7.1.1 (11D201)"));
             iPhone53.Add(new ComboBoxEntry("11D257", "7.1.2 (11D257)"));
+            iPhone53.Add(new ComboBoxEntry("12A365", "8.0 (12A365)"));
 
             iPhone54 = new List<ComboBoxEntry>();
             iPhone54.Add(new ComboBoxEntry("11A466", "7.0 (11A466)"));
@@ -784,6 +816,7 @@ namespace Hexware.Programs.iDecryptIt
             iPhone54.Add(new ComboBoxEntry("11D167", "7.1 (11D167)"));
             iPhone54.Add(new ComboBoxEntry("11D201", "7.1.1 (11D201)"));
             iPhone54.Add(new ComboBoxEntry("11D257", "7.1.2 (11D257)"));
+            iPhone54.Add(new ComboBoxEntry("12A365", "8.0 (12A365)"));
 
             iPhone61 = new List<ComboBoxEntry>();
             iPhone61.Add(new ComboBoxEntry("11A466", "7.0 (11A466)"));
@@ -796,6 +829,7 @@ namespace Hexware.Programs.iDecryptIt
             iPhone61.Add(new ComboBoxEntry("11D167", "7.1 (11D167)"));
             iPhone61.Add(new ComboBoxEntry("11D201", "7.1.1 (11D201)"));
             iPhone61.Add(new ComboBoxEntry("11D257", "7.1.2 (11D257)"));
+            iPhone61.Add(new ComboBoxEntry("12A365", "8.0 (12A365)"));
 
             iPhone62 = new List<ComboBoxEntry>();
             iPhone62.Add(new ComboBoxEntry("11A466", "7.0 (11A466)"));
@@ -807,6 +841,13 @@ namespace Hexware.Programs.iDecryptIt
             iPhone62.Add(new ComboBoxEntry("11D167", "7.1 (11D167)"));
             iPhone62.Add(new ComboBoxEntry("11D201", "7.1.1 (11D201)"));
             iPhone62.Add(new ComboBoxEntry("11D257", "7.1.2 (11D257)"));
+            iPhone62.Add(new ComboBoxEntry("12A365", "8.0 (12A365)"));
+
+            iPhone71 = new List<ComboBoxEntry>();
+            iPhone71.Add(new ComboBoxEntry("12A366", "8.0 (12A366)"));
+
+            iPhone72 = new List<ComboBoxEntry>();
+            iPhone72.Add(new ComboBoxEntry("12A365", "8.0 (12A365)"));
         }
         private static void InitIPodTouch()
         {
@@ -897,6 +938,7 @@ namespace Hexware.Programs.iDecryptIt
             iPod51.Add(new ComboBoxEntry("11D167", "7.1 (11D167)"));
             iPod51.Add(new ComboBoxEntry("11D201", "7.1.1 (11D201)"));
             iPod51.Add(new ComboBoxEntry("11D257", "7.1.2 (11D257)"));
+            iPod51.Add(new ComboBoxEntry("12A365", "8.0 (12A365)"));
         }
     }
 }
