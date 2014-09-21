@@ -1478,7 +1478,7 @@ namespace Hexware.Programs.iDecryptIt
             {
                 MessageBox.Show(
                     "The supplied IPSW File that was given is not in the following format:\r\n" +
-                        "{DEVICE}_{VERSION}_{BUILD}_Restore.ipsw",
+                        "\t{DEVICE}_{VERSION}_{BUILD}_Restore.ipsw",
                     "iDecryptIt",
                     MessageBoxButton.OK,
                     MessageBoxImage.Error);
@@ -1489,7 +1489,7 @@ namespace Hexware.Programs.iDecryptIt
             if (!GlobalVars.DeviceNames.TryGetValue(strArr[0], out device)) {
                 MessageBox.Show(
                     "The supplied device: '" + strArr[0] + "' does not follow the format:\r\n" +
-                        "\t{iPad/iPhone/iPad/AppleTV}{#},{#}" +
+                        "\t{iPad/iPhone/iPad/AppleTV}{#},{#} " +
                         "or is not supported at the moment.",
                     "iDecryptIt",
                     MessageBoxButton.OK,
