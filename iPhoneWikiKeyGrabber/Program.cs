@@ -175,21 +175,13 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                 lines[i] = lines[i].Substring(3);
 
             // Convert page to a dictionary
-            string key;
-            string value;
             string displayVersion = null;
             Dictionary<string, string> data = new Dictionary<string, string>();
             for (int i = 0; i < length; i++)
             {
-                key = lines[i].Split(' ')[0];
-                value = lines[i].Split('=')[1];
-                if (value[value.Length - 1] == ' ' || value[value.Length - 1] == '\t')
-                {
-                    // Some pages have keys ending in ' ' or '\t'
-                    // Halt because OCD
-                    throw new Exception();
-                }
-                else if (key == "DisplayVersion")
+                string key = lines[i].Split(' ')[0];
+                string value = lines[i].Split('=')[1];
+                if (key == "DisplayVersion")
                 {
                     displayVersion = value.Trim();
                     continue;
@@ -224,6 +216,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
             }
 
             // Handle usage of "DisplayVersion" on gold masters
+            // Will need to be updated to handle betas
             if (displayVersion != null && data["Device"].Contains("AppleTV"))
                 data["Version"] = displayVersion;
 
