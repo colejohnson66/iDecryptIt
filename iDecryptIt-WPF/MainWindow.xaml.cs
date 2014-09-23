@@ -348,10 +348,7 @@ namespace Hexware.Programs.iDecryptIt
             temp = plist.Get<PlistDict>("Root FS").Get<PlistString>("File Name").Value;
             fileRootFS.Text = (temp != "") ? temp : "XXX-XXXX-XXX.dmg";
             temp = plist.Get<PlistDict>("Root FS").Get<PlistString>((goldenMaster) ? "GM Key" : "Key").Value;
-            if (temp != "TODO")
-            {
-                keyRootFS.Text = temp;
-            }
+            keyRootFS.Text = temp;
             #endregion
             #region Ramdisks
             // Show everything
@@ -1514,7 +1511,6 @@ namespace Hexware.Programs.iDecryptIt
         }
         private string BuildToAppleTVVersion(string device, string build)
         {
-            string version = null;
             if (device != "AppleTV2,1" && device != "AppleTV3,1" && device != "AppleTV3,2")
                 return null;
 
@@ -1615,7 +1611,7 @@ namespace Hexware.Programs.iDecryptIt
                 case "12A365b":
                     return "7.0/8.0";
             }
-            return version;
+            return null;
         }
 
         private void cmbDeviceDropDown_SelectionChanged(object sender, SelectionChangedEventArgs e)

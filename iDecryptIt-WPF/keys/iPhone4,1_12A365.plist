@@ -28,9 +28,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>5d803a9f287630d0662389d000aba476</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>d7900d6fbeb2326f8f1fdfa7dbf0145213d738bb39163ac8a1a60791a04161c5</string>
 		</dict>
 		<key>Restore Ramdisk</key>
 		<dict>
@@ -39,9 +39,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>695e48bff1ea62df083b45a878b59a03</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>3051089db3a599aea9a4755f252ae0c595728b2f3354eac8e02810f526b9f253</string>
 		</dict>
 		<key>AppleLogo</key>
 		<dict>
