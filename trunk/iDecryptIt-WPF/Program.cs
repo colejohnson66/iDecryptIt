@@ -38,8 +38,8 @@ namespace Hexware.Programs.iDecryptIt
                 } else if (args[i] == "/debug") {
                     debug = true;
                 } else if (args[i] == "/version") {
-                    PrintLicense();
-                    return;
+                    //PrintLicense();
+                    //return;
                 } else if (args[i].Length > 4 && args[i].Substring(args[i].Length - 4) == ".dmg") {
                     if (GlobalVars.ExecutionArgs.ContainsKey("dmg"))
                         GlobalVars.ExecutionArgs["dmg"] = args[i];

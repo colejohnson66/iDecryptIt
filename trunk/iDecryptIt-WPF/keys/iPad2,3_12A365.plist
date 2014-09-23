@@ -19,7 +19,7 @@
 			<key>File Name</key>
 			<string>058-04780-035.dmg</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>ed0be4684a948d7f7f1fe3e82d46481e803f6183de7144ae363eb6cdc5e1428052ea21ea</string>
 		</dict>
 		<key>Update Ramdisk</key>
 		<dict>
@@ -28,9 +28,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>3d2e939d214f886de4f4044ad6a03b26</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>d471434c123f93b11a0c533efe42588c7af17cc1564d068e33601ed7c1eaa493</string>
 		</dict>
 		<key>Restore Ramdisk</key>
 		<dict>
@@ -39,9 +39,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>c9fa58c04ed6e524d378f854a3e50de2</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>43a79ceb5c08e4256ea4471a775363ea7bc1c5ff9864f5546b6ea1ce28d79104</string>
 		</dict>
 		<key>AppleLogo</key>
 		<dict>
