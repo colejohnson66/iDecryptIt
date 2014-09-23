@@ -28,8 +28,8 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>1342</ApplicationRevision>
-    <ApplicationVersion>7.04.0.%2a</ApplicationVersion>
+    <ApplicationRevision>1444</ApplicationRevision>
+    <ApplicationVersion>8.00.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
