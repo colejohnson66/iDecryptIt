@@ -119,7 +119,9 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 
                         // Check if baseband test failed. Does page exist?
                         if (add && url.Contains("redlink=1"))
+                        {
                             add = false;
+                        }
 
                         // It must contain AppleTV, iPad, iPhone, or iPod
                         if (!url.Contains("AppleTV") && !url.Contains("iPad") &&
@@ -129,7 +131,9 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                         }
 
                         if (add)
+                        {
                             links.Add(url.Replace("http://the", "http://www.the"));
+                        }
                     }
                 }
             }
