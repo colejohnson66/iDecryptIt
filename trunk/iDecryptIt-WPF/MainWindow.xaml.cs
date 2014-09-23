@@ -1606,7 +1606,7 @@ namespace Hexware.Programs.iDecryptIt
                     return "6.1.1/7.1.1";
                 case "11D257c":
                     return "6.2/7.1.2";
-                case "11D258":
+                case "11D258": // AppleTV2,1 exclusive
                     return "6.2.1/7.1.2";
                 case "12A4297e": // AppleTV2,1 dropped
                 case "12A4318c":

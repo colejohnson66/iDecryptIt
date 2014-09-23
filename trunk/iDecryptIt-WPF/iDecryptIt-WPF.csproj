@@ -251,6 +251,7 @@
     <EmbeddedResource Include="keys\AppleTV2,1_11D169b.plist" />
     <EmbeddedResource Include="keys\AppleTV2,1_11D201c.plist" />
     <EmbeddedResource Include="keys\AppleTV2,1_11D257c.plist" />
+    <EmbeddedResource Include="keys\AppleTV2,1_11D258.plist" />
     <EmbeddedResource Include="keys\iPad1,1_7B367.plist" />
     <EmbeddedResource Include="keys\iPad1,1_7B405.plist" />
     <EmbeddedResource Include="keys\iPad1,1_7B500.plist" />
@@ -287,6 +288,8 @@
     <EmbeddedResource Include="keys\iPad2,1_11B651.plist" />
     <EmbeddedResource Include="keys\iPad2,1_11D167.plist" />
     <EmbeddedResource Include="keys\iPad2,1_11D201.plist" />
+    <EmbeddedResource Include="keys\iPad2,1_11D257.plist" />
+    <EmbeddedResource Include="keys\iPad2,1_12A365.plist" />
     <EmbeddedResource Include="keys\iPad2,2_8F191.plist" />
     <EmbeddedResource Include="keys\iPad2,2_8G4.plist" />
     <EmbeddedResource Include="keys\iPad2,2_8H7.plist" />
@@ -309,6 +312,8 @@
     <EmbeddedResource Include="keys\iPad2,2_11B651.plist" />
     <EmbeddedResource Include="keys\iPad2,2_11D167.plist" />
     <EmbeddedResource Include="keys\iPad2,2_11D201.plist" />
+    <EmbeddedResource Include="keys\iPad2,2_11D257.plist" />
+    <EmbeddedResource Include="keys\iPad2,2_12A365.plist" />
     <EmbeddedResource Include="keys\iPad2,3_8F191.plist" />
     <EmbeddedResource Include="keys\iPad2,3_8G4.plist" />
     <EmbeddedResource Include="keys\iPad2,3_8H8.plist" />
@@ -331,6 +336,9 @@
     <EmbeddedResource Include="keys\iPad2,3_11B651.plist" />
     <EmbeddedResource Include="keys\iPad2,3_11D167.plist" />
     <EmbeddedResource Include="keys\iPad2,3_11D201.plist" />
+    <EmbeddedResource Include="keys\iPad2,3_11D257.plist" />
+    <EmbeddedResource Include="keys\iPad2,3_12A365.plist" />
+    <EmbeddedResource Include="keys\iPad3,1_12A365.plist" />
     <EmbeddedResource Include="keys\iPhone1,1_1A543a.plist" />
     <EmbeddedResource Include="keys\iPhone1,1_1C25.plist" />
     <EmbeddedResource Include="keys\iPhone1,1_1C28.plist" />
@@ -473,6 +481,8 @@
     <EmbeddedResource Include="keys\iPhone4,1_11B651.plist" />
     <EmbeddedResource Include="keys\iPhone4,1_11D167.plist" />
     <EmbeddedResource Include="keys\iPhone4,1_11D201.plist" />
+    <EmbeddedResource Include="keys\iPhone4,1_11D257.plist" />
+    <EmbeddedResource Include="keys\iPhone4,1_12A365.plist" />
     <EmbeddedResource Include="keys\iPod1,1_3A110a.plist" />
     <EmbeddedResource Include="keys\iPod1,1_3B48b.plist" />
     <EmbeddedResource Include="keys\iPod1,1_4A102.plist" />
