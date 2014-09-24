@@ -5,14 +5,14 @@
  * Copyright (c) 2014, Cole Johnson
  * 
  * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation, either version 3 of the License, or
+ *   (at your option) any later version.
  * 
  * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
@@ -67,6 +67,11 @@ namespace Xpwn.Dmg
         public const int kUdifFlagsFlattened = 1;
         public const int kUdifDeviceImageType = 1;
         public const int kUdifPartitionImageType = 2;
+
+        public const uint DDMDescriptor = 0xFFFFFFFF;
+        public const uint EntireDeviceDescriptor = 0xFFFFFFFE;
+
+        public const int Sha1DigestSize = 20;
     }
 
     public struct UdifChecksum
@@ -162,162 +167,124 @@ namespace Xpwn.Dmg
         public uint Type; // set to 0x2 for MKBlockChecksum
         public uint Checksum;
     }
+
+    public class NSizResource
+    {
+        public bool IsVolume;
+        public byte[] Sha1Digest;
+        public uint BlockChecksum2;
+        public uint Bytes;
+        public uint ModifyDate;
+        public uint PartitionNumber;
+        public uint Version;
+        public uint VolumeSignature;
+        public NSizResource next;
+    }
+
+    public class BlkxTable
+    {
+        public uint UdifBlocksSignature;
+        public uint InfoVersion;
+        public ulong FirstSectorNumber;
+        public ulong SectorCount;
+
+        public ulong DataStart;
+        public uint DecompressBufferRequested;
+        public uint BlocksDescriptor;
+
+        private uint _reserved1;
+        private uint _reserved2;
+        private uint _reserved3;
+        private uint _reserved4;
+        private uint _reserved5;
+        private uint _reserved6;
+
+        public UdifChecksum Checksum;
+
+        public uint BlocksRunCount;
+        public BlkxRun[] runs;
+    }
+
+    public struct DriverDescriptor
+    {
+        public uint Block;
+        public ushort Size;
+        public ushort Type;
+    }
+
+    public class Partition
+    {
+        public ushort Signature;
+        public ushort SignaturePadding;
+        public uint MapBlockCount;
+        public uint PartitionStart;
+        public uint PartitionBlockCount;
+        public char[] PartitionName; // size = 32
+        public char[] PartitionType; // size = 32
+        public uint DataStart;
+        public uint DataCount;
+        public uint PartitionStatus;
+        public uint BootStart;
+        public uint BootSize;
+        public uint BootAddress1;
+        public uint BootAddress2;
+        public uint BootEntry1;
+        public uint BootEntry2;
+        public uint BootChecksum;
+        public char[] Processor; // size = 16
+        public uint BootCode;
+        //public ushort[] Padding; // size = 186
+    }
+
+    public class DriverDescriptorRecord
+    {
+        public ushort Signature;
+        public ushort BlockSize;
+        public uint BlockCount;
+        public ushort DeviceType;
+        public ushort DeviceID;
+        public uint Data;
+        public ushort DriverCount;
+        public uint Block;
+        public ushort Size;
+        public ushort Type;
+        //public DriverDescriptor[] Padding; // size = 0
+    }
+
+    public class ResourceData
+    {
+        public uint Attributes;
+        public byte[] Data;
+        public uint DataLength; // type = size_t
+        public int ID;
+        public char[] Name; // type = char*
+        public ResourceData Next;
+    }
+
+    public class ResourceKey
+    {
+        public byte[] Key;
+        public ResourceData Data;
+        public ResourceKey Next;
+        public delegate void FlipData(byte[] data, byte outByte);
+    }
+
+    public class Sha1Ctx
+    {
+        public uint[] State; // size = 5
+        public uint[] Count; // size = 2
+        public byte[] Buffer; // size = 64
+    }
+
+    public class ChecksumToken
+    {
+        public uint Block;
+        public uint Crc;
+        public Sha1Ctx Sha1;
+    }
 }
 /*
-#include <hfs/hfsplus.h>
-#include "abstractfile.h"
-
-typedef struct NSizResource
-{
-    char isVolume;
-    unsigned char* sha1Digest;
-    uint32_t blockChecksum2;
-    uint32_t bytes;
-    uint32_t modifyDate;
-    uint32_t partitionNumber;
-    uint32_t version;
-    uint32_t volumeSignature;
-    struct NSizResource* next;
-}
-NSizResource;
-
-#define DDM_DESCRIPTOR 0xFFFFFFFF
-#define ENTIRE_DEVICE_DESCRIPTOR 0xFFFFFFFE
-
-typedef struct {
-    uint32_t fUDIFBlocksSignature;
-uint32_t infoVersion;
-uint64_t firstSectorNumber;
-uint64_t sectorCount;
-
-uint64_t dataStart;
-uint32_t decompressBufferRequested;
-uint32_t blocksDescriptor;
-
-uint32_t reserved1;
-uint32_t reserved2;
-uint32_t reserved3;
-uint32_t reserved4;
-uint32_t reserved5;
-uint32_t reserved6;
-
-UDIFChecksum checksum;
-
-uint32_t blocksRunCount;
-BLKXRun runs[0];
-} __attribute__((__packed__)) BLKXTable;
-
-typedef struct {
-    uint32_t ddBlock;
-uint16_t ddSize;
-uint16_t ddType;
-} __attribute__((__packed__)) DriverDescriptor;
-
-typedef struct {
-    uint16_t pmSig;
-uint16_t pmSigPad;
-uint32_t pmMapBlkCnt;
-uint32_t pmPyPartStart;
-uint32_t pmPartBlkCnt;
-unsigned char pmPartName[32];
-unsigned char pmParType[32];
-uint32_t pmLgDataStart;
-uint32_t pmDataCnt;
-uint32_t pmPartStatus;
-uint32_t pmLgBootStart;
-uint32_t pmBootSize;
-uint32_t pmBootAddr;
-uint32_t pmBootAddr2;
-uint32_t pmBootEntry;
-uint32_t pmBootEntry2;
-uint32_t pmBootCksum;
-unsigned char pmProcessor[16];
-uint32_t bootCode;
-uint16_t pmPad[186];
-} __attribute__((__packed__)) Partition;
-
-typedef struct {
-    uint16_t sbSig;
-uint16_t sbBlkSize;
-uint32_t sbBlkCount;
-uint16_t sbDevType;
-uint16_t sbDevId;
-uint32_t sbData;
-uint16_t sbDrvrCount;
-uint32_t ddBlock;
-uint16_t ddSize;
-uint16_t ddType;
-DriverDescriptor ddPad[0];
-} __attribute__((__packed__)) DriverDescriptorRecord;
-
-typedef struct ResourceData
-{
-    uint32_t attributes;
-    unsigned char* data;
-    size_t dataLength;
-    int id;
-    char* name;
-    struct ResourceData* next;
-}
-ResourceData;
-
-typedef void (* FlipDataFunc)(unsigned char* data, char out);
 typedef void (* ChecksumFunc)(void* ckSum, const unsigned char* data, size_t len);
-
-typedef struct ResourceKey
-{
-    unsigned char* key;
-    ResourceData* data;
-    struct ResourceKey* next;
-	FlipDataFunc flipData;
-}
-ResourceKey;
-
-#define SHA1_DIGEST_SIZE 20
-
-typedef struct {
-    uint32_t state[5];
-uint32_t count[2];
-uint8_t buffer[64];
-} SHA1_CTX;
-
-typedef struct {
-    uint32_t block;
-uint32_t crc;
-SHA1_CTX sha1;
-} ChecksumToken;
-
-static inline uint32_t readUInt32(AbstractFile* file)
-{
-    uint32_t data;
-
-    ASSERT(file->read(file, &data, sizeof(data)) == sizeof(data), "fread");
-    FLIPENDIAN(data);
-
-    return data;
-}
-
-static inline void writeUInt32(AbstractFile* file, uint32_t data)
-{
-    FLIPENDIAN(data);
-    ASSERT(file->write(file, &data, sizeof(data)) == sizeof(data), "fwrite");
-}
-
-static inline uint32_t readUInt64(AbstractFile* file)
-{
-    uint64_t data;
-
-    ASSERT(file->read(file, &data, sizeof(data)) == sizeof(data), "fread");
-    FLIPENDIAN(data);
-
-    return data;
-}
-
-static inline void writeUInt64(AbstractFile* file, uint64_t data)
-{
-    FLIPENDIAN(data);
-    ASSERT(file->write(file, &data, sizeof(data)) == sizeof(data), "fwrite");
-}
 
 #ifdef __cplusplus
 extern "C" {
