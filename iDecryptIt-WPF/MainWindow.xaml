@@ -8,6 +8,9 @@
         Background="{StaticResource Background}"
         Loaded="Window_Loaded"
         Closing="Window_Closing">
+    <Window.TaskbarItemInfo>
+        <TaskbarItemInfo />
+    </Window.TaskbarItemInfo>
     <Grid Margin="0,3">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
