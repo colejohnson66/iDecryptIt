@@ -8,7 +8,7 @@
         Background="{StaticResource Background}"
         Loaded="Window_Loaded"
         Closing="Window_Closing">
-    <Grid>
+    <Grid Margin="0,3">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -16,7 +16,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Margin="3,3,3,0">
+        <Grid Grid.Row="0" Margin="3,0">
             <Grid Margin="6" Background="{StaticResource GrayBorder}">
                 <Grid Margin="3" Background="White">
                     <ProgressBar Visibility="Hidden" x:Name="progDecrypt" />
@@ -236,18 +236,18 @@
                 </Grid>
             </Grid>
         </Grid>
-        <Grid Grid.Row="4" Margin="3,0,3,3">
+        <Grid Grid.Row="4" Margin="3,0">
             <Grid Margin="6" Background="{StaticResource GrayBorder}">
                 <Grid Margin="3" Background="White">
                     <ScrollViewer Margin="6">
-                        <!-- Stupid layout fix -->
+                        <!-- Pad away from the scrollbar -->
                         <Grid Margin="0,0,6,0" x:Name="gridKeys">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" /><!-- Type -->
                                 <ColumnDefinition Width="6" />
                                 <ColumnDefinition Width="*" /><!-- Key -->
                                 <ColumnDefinition Width="6" />
-                                <ColumnDefinition Width="175" /><!-- File Name -->
+                                <ColumnDefinition Width="150" /><!-- File Name -->
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" /><!-- 00: Device -->
