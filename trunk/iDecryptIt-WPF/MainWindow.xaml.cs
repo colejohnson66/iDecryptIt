@@ -323,7 +323,8 @@ namespace Hexware.Programs.iDecryptIt
                     keyUpdateIV.Visibility = Visibility.Visible;
                     keyUpdateKey.Visibility = Visibility.Visible;
                     fileUpdate.Visibility = Visibility.Visible;
-                    // Keys
+                    // File name and Keys
+                    fileUpdate.Text = plist.Get<PlistString>("File Name").Value;
                     keyUpdateIV.Text = plist.Get<PlistString>("IV").Value;
                     keyUpdateKey.Text = plist.Get<PlistString>("Key").Value;
                 } else {
@@ -337,6 +338,8 @@ namespace Hexware.Programs.iDecryptIt
                     lblUpdateNoEncrypt.Visibility = Visibility.Visible;
                     keyUpdateNoEncrypt.Visibility = Visibility.Visible;
                     fileUpdateNoEncrypt.Visibility = Visibility.Visible;
+                    // File name
+                    fileUpdateNoEncrypt.Text = plist.Get<PlistString>("File Name").Value;
                 }
                 plist = (PlistDict)plist.Parent;
             } else {
@@ -364,7 +367,8 @@ namespace Hexware.Programs.iDecryptIt
                     keyRestoreIV.Visibility = Visibility.Visible;
                     keyRestoreKey.Visibility = Visibility.Visible;
                     fileRestore.Visibility = Visibility.Visible;
-                    // Keys
+                    // File name and Keys
+                    fileRestore.Text = plist.Get<PlistString>("File Name").Value;
                     keyRestoreIV.Text = plist.Get<PlistString>("IV").Value;
                     keyRestoreKey.Text = plist.Get<PlistString>("Key").Value;
                 } else {
@@ -378,6 +382,8 @@ namespace Hexware.Programs.iDecryptIt
                     lblRestoreNoEncrypt.Visibility = Visibility.Visible;
                     keyRestoreNoEncrypt.Visibility = Visibility.Visible;
                     fileRestoreNoEncrypt.Visibility = Visibility.Visible;
+                    // File name
+                    fileRestoreNoEncrypt.Text = plist.Get<PlistString>("File Name").Value;
                 }
                 plist = (PlistDict)plist.Parent;
             } else {
@@ -405,7 +411,8 @@ namespace Hexware.Programs.iDecryptIt
                     keyAppleLogoIV.Visibility = Visibility.Visible;
                     keyAppleLogoKey.Visibility = Visibility.Visible;
                     fileAppleLogo.Visibility = Visibility.Visible;
-                    // Keys
+                    // File name and keys
+                    fileAppleLogo.Text = plist.Get<PlistString>("File Name").Value;
                     keyAppleLogoIV.Text = plist.Get<PlistString>("IV").Value;
                     keyAppleLogoKey.Text = plist.Get<PlistString>("Key").Value;
                 } else {
@@ -419,6 +426,8 @@ namespace Hexware.Programs.iDecryptIt
                     lblAppleLogoNoEncrypt.Visibility = Visibility.Visible;
                     keyAppleLogoNoEncrypt.Visibility = Visibility.Visible;
                     fileAppleLogoNoEncrypt.Visibility = Visibility.Visible;
+                    // File name
+                    fileAppleLogoNoEncrypt.Text = plist.Get<PlistString>("File Name").Value;
                 }
                 plist = (PlistDict)plist.Parent;
             } else {
@@ -446,7 +455,8 @@ namespace Hexware.Programs.iDecryptIt
                     keyBatteryCharging0IV.Visibility = Visibility.Visible;
                     keyBatteryCharging0Key.Visibility = Visibility.Visible;
                     fileBatteryCharging0.Visibility = Visibility.Visible;
-                    // Keys
+                    // File name and keys
+                    fileBatteryCharging0.Text = plist.Get<PlistString>("File Name").Value;
                     keyBatteryCharging0IV.Text = plist.Get<PlistString>("IV").Value;
                     keyBatteryCharging0Key.Text = plist.Get<PlistString>("Key").Value;
                 } else {
@@ -460,6 +470,8 @@ namespace Hexware.Programs.iDecryptIt
                     lblBatteryCharging0NoEncrypt.Visibility = Visibility.Visible;
                     keyBatteryCharging0NoEncrypt.Visibility = Visibility.Visible;
                     fileBatteryCharging0NoEncrypt.Visibility = Visibility.Visible;
+                    // File name
+                    fileBatteryCharging0.Text = plist.Get<PlistString>("File Name").Value;
                 }
                 plist = (PlistDict)plist.Parent;
             } else {
@@ -487,7 +499,8 @@ namespace Hexware.Programs.iDecryptIt
                     keyBatteryCharging1IV.Visibility = Visibility.Visible;
                     keyBatteryCharging1Key.Visibility = Visibility.Visible;
                     fileBatteryCharging1.Visibility = Visibility.Visible;
-                    // Keys
+                    // File name and keys
+                    fileBatteryCharging1.Text = plist.Get<PlistString>("File Name").Value;
                     keyBatteryCharging1IV.Text = plist.Get<PlistString>("IV").Value;
                     keyBatteryCharging1Key.Text = plist.Get<PlistString>("Key").Value;
                 } else {
@@ -501,6 +514,8 @@ namespace Hexware.Programs.iDecryptIt
                     lblBatteryCharging1NoEncrypt.Visibility = Visibility.Visible;
                     keyBatteryCharging1NoEncrypt.Visibility = Visibility.Visible;
                     fileBatteryCharging1NoEncrypt.Visibility = Visibility.Visible;
+                    // File name
+                    fileBatteryCharging1.Text = plist.Get<PlistString>("File Name").Value;
                 }
                 plist = (PlistDict)plist.Parent;
             } else {
@@ -528,7 +543,8 @@ namespace Hexware.Programs.iDecryptIt
                     keyBatteryFullIV.Visibility = Visibility.Visible;
                     keyBatteryFullKey.Visibility = Visibility.Visible;
                     fileBatteryFull.Visibility = Visibility.Visible;
-                    // Keys
+                    // File name and keys
+                    fileBatteryFull.Text = plist.Get<PlistString>("File Name").Value;
                     keyBatteryFullIV.Text = plist.Get<PlistString>("IV").Value;
                     keyBatteryFullKey.Text = plist.Get<PlistString>("Key").Value;
                 } else {
@@ -542,6 +558,8 @@ namespace Hexware.Programs.iDecryptIt
                     lblBatteryFullNoEncrypt.Visibility = Visibility.Visible;
                     keyBatteryFullNoEncrypt.Visibility = Visibility.Visible;
                     fileBatteryFullNoEncrypt.Visibility = Visibility.Visible;
+                    // File name
+                    fileBatteryFullNoEncrypt.Text = plist.Get<PlistString>("File Name").Value;
                 }
                 plist = (PlistDict)plist.Parent;
             } else {
@@ -569,7 +587,8 @@ namespace Hexware.Programs.iDecryptIt
                     keyBatteryLow0IV.Visibility = Visibility.Visible;
                     keyBatteryLow0Key.Visibility = Visibility.Visible;
                     fileBatteryLow0.Visibility = Visibility.Visible;
-                    // Keys
+                    // File name and keys
+                    fileBatteryLow0.Text = plist.Get<PlistString>("File Name").Value;
                     keyBatteryLow0IV.Text = plist.Get<PlistString>("IV").Value;
                     keyBatteryLow0Key.Text = plist.Get<PlistString>("Key").Value;
                 } else {
@@ -583,6 +602,8 @@ namespace Hexware.Programs.iDecryptIt
                     lblBatteryLow0NoEncrypt.Visibility = Visibility.Visible;
                     keyBatteryLow0NoEncrypt.Visibility = Visibility.Visible;
                     fileBatteryLow0NoEncrypt.Visibility = Visibility.Visible;
+                    // File name
+                    fileBatteryLow0.Text = plist.Get<PlistString>("File Name").Value;
                 }
                 plist = (PlistDict)plist.Parent;
             } else {
@@ -610,7 +631,8 @@ namespace Hexware.Programs.iDecryptIt
                     keyBatteryLow1IV.Visibility = Visibility.Visible;
                     keyBatteryLow1Key.Visibility = Visibility.Visible;
                     fileBatteryLow1.Visibility = Visibility.Visible;
-                    // Keys
+                    // File name and keys
+                    fileBatteryLow1.Text = plist.Get<PlistString>("File Name").Value;
                     keyBatteryLow1IV.Text = plist.Get<PlistString>("IV").Value;
                     keyBatteryLow1Key.Text = plist.Get<PlistString>("Key").Value;
                 } else {
@@ -624,6 +646,8 @@ namespace Hexware.Programs.iDecryptIt
                     lblBatteryLow1NoEncrypt.Visibility = Visibility.Visible;
                     keyBatteryLow1NoEncrypt.Visibility = Visibility.Visible;
                     fileBatteryLow1NoEncrypt.Visibility = Visibility.Visible;
+                    // File name
+                    fileBatteryLow1.Text = plist.Get<PlistString>("File Name").Value;
                 }
                 plist = (PlistDict)plist.Parent;
             } else {
@@ -651,7 +675,8 @@ namespace Hexware.Programs.iDecryptIt
                     keyDeviceTreeIV.Visibility = Visibility.Visible;
                     keyDeviceTreeKey.Visibility = Visibility.Visible;
                     fileDeviceTree.Visibility = Visibility.Visible;
-                    // Keys
+                    // File name and keys
+                    fileDeviceTree.Text = plist.Get<PlistString>("File Name").Value;
                     keyDeviceTreeIV.Text = plist.Get<PlistString>("IV").Value;
                     keyDeviceTreeKey.Text = plist.Get<PlistString>("Key").Value;
                 } else {
@@ -665,6 +690,8 @@ namespace Hexware.Programs.iDecryptIt
                     lblDeviceTreeNoEncrypt.Visibility = Visibility.Visible;
                     keyDeviceTreeNoEncrypt.Visibility = Visibility.Visible;
                     fileDeviceTreeNoEncrypt.Visibility = Visibility.Visible;
+                    // File name
+                    fileDeviceTreeNoEncrypt.Text = plist.Get<PlistString>("File Name").Value;
                 }
                 plist = (PlistDict)plist.Parent;
             } else {
@@ -692,7 +719,8 @@ namespace Hexware.Programs.iDecryptIt
                     keyGlyphChargingIV.Visibility = Visibility.Visible;
                     keyGlyphChargingKey.Visibility = Visibility.Visible;
                     fileGlyphCharging.Visibility = Visibility.Visible;
-                    // Keys
+                    // File name and keys
+                    fileGlyphCharging.Text = plist.Get<PlistString>("File Name").Value;
                     keyGlyphChargingIV.Text = plist.Get<PlistString>("IV").Value;
                     keyGlyphChargingKey.Text = plist.Get<PlistString>("Key").Value;
                 } else {
@@ -706,6 +734,8 @@ namespace Hexware.Programs.iDecryptIt
                     lblGlyphChargingNoEncrypt.Visibility = Visibility.Visible;
                     keyGlyphChargingNoEncrypt.Visibility = Visibility.Visible;
                     fileGlyphChargingNoEncrypt.Visibility = Visibility.Visible;
+                    // File name
+                    fileGlyphChargingNoEncrypt.Text = plist.Get<PlistString>("File Name").Value;
                 }
                 plist = (PlistDict)plist.Parent;
             } else {
@@ -733,7 +763,8 @@ namespace Hexware.Programs.iDecryptIt
                     keyGlyphPluginIV.Visibility = Visibility.Visible;
                     keyGlyphPluginKey.Visibility = Visibility.Visible;
                     fileGlyphPlugin.Visibility = Visibility.Visible;
-                    // Keys
+                    // File name and keys
+                    fileGlyphPlugin.Text = plist.Get<PlistString>("File Name").Value;
                     keyGlyphPluginIV.Text = plist.Get<PlistString>("IV").Value;
                     keyGlyphPluginKey.Text = plist.Get<PlistString>("Key").Value;
                 } else {
@@ -747,6 +778,8 @@ namespace Hexware.Programs.iDecryptIt
                     lblGlyphPluginNoEncrypt.Visibility = Visibility.Visible;
                     keyGlyphPluginNoEncrypt.Visibility = Visibility.Visible;
                     fileGlyphPluginNoEncrypt.Visibility = Visibility.Visible;
+                    // File name
+                    fileGlyphPluginNoEncrypt.Text = plist.Get<PlistString>("File Name").Value;
                 }
                 plist = (PlistDict)plist.Parent;
             } else {
@@ -774,7 +807,8 @@ namespace Hexware.Programs.iDecryptIt
                     keyiBECIV.Visibility = Visibility.Visible;
                     keyiBECKey.Visibility = Visibility.Visible;
                     fileiBEC.Visibility = Visibility.Visible;
-                    // Keys
+                    // File name and keys
+                    fileiBEC.Text = plist.Get<PlistString>("File Name").Value;
                     keyiBECIV.Text = plist.Get<PlistString>("IV").Value;
                     keyiBECKey.Text = plist.Get<PlistString>("Key").Value;
                 } else {
@@ -788,6 +822,8 @@ namespace Hexware.Programs.iDecryptIt
                     lbliBECNoEncrypt.Visibility = Visibility.Visible;
                     keyiBECNoEncrypt.Visibility = Visibility.Visible;
                     fileiBECNoEncrypt.Visibility = Visibility.Visible;
+                    // File name
+                    fileiBECNoEncrypt.Text = plist.Get<PlistString>("File Name").Value;
                 }
                 plist = (PlistDict)plist.Parent;
             } else {
@@ -815,7 +851,8 @@ namespace Hexware.Programs.iDecryptIt
                     keyiBootIV.Visibility = Visibility.Visible;
                     keyiBootKey.Visibility = Visibility.Visible;
                     fileiBoot.Visibility = Visibility.Visible;
-                    // Keys
+                    // File name and keys
+                    fileiBoot.Text = plist.Get<PlistString>("File Name").Value;
                     keyiBootIV.Text = plist.Get<PlistString>("IV").Value;
                     keyiBootKey.Text = plist.Get<PlistString>("Key").Value;
                 } else {
@@ -829,6 +866,8 @@ namespace Hexware.Programs.iDecryptIt
                     lbliBootNoEncrypt.Visibility = Visibility.Visible;
                     keyiBootNoEncrypt.Visibility = Visibility.Visible;
                     fileiBootNoEncrypt.Visibility = Visibility.Visible;
+                    // File name
+                    fileiBootNoEncrypt.Text = plist.Get<PlistString>("File Name").Value;
                 }
                 plist = (PlistDict)plist.Parent;
             } else {
@@ -856,7 +895,8 @@ namespace Hexware.Programs.iDecryptIt
                     keyiBSSIV.Visibility = Visibility.Visible;
                     keyiBSSKey.Visibility = Visibility.Visible;
                     fileiBSS.Visibility = Visibility.Visible;
-                    // Keys
+                    // File name and keys
+                    fileiBSS.Text = plist.Get<PlistString>("File Name").Value;
                     keyiBSSIV.Text = plist.Get<PlistString>("IV").Value;
                     keyiBSSKey.Text = plist.Get<PlistString>("Key").Value;
                 } else {
@@ -870,6 +910,8 @@ namespace Hexware.Programs.iDecryptIt
                     lbliBSSNoEncrypt.Visibility = Visibility.Visible;
                     keyiBSSNoEncrypt.Visibility = Visibility.Visible;
                     fileiBSSNoEncrypt.Visibility = Visibility.Visible;
+                    // File name
+                    fileiBSSNoEncrypt.Text = plist.Get<PlistString>("File Name").Value;
                 }
                 plist = (PlistDict)plist.Parent;
             } else {
@@ -897,7 +939,8 @@ namespace Hexware.Programs.iDecryptIt
                     keyKernelcacheIV.Visibility = Visibility.Visible;
                     keyKernelcacheKey.Visibility = Visibility.Visible;
                     fileKernelcache.Visibility = Visibility.Visible;
-                    // Keys
+                    // File name and keys
+                    fileKernelcache.Text = plist.Get<PlistString>("File Name").Value;
                     keyKernelcacheIV.Text = plist.Get<PlistString>("IV").Value;
                     keyKernelcacheKey.Text = plist.Get<PlistString>("Key").Value;
                 } else {
@@ -911,6 +954,8 @@ namespace Hexware.Programs.iDecryptIt
                     lblKernelcacheNoEncrypt.Visibility = Visibility.Visible;
                     keyKernelcacheNoEncrypt.Visibility = Visibility.Visible;
                     fileKernelcacheNoEncrypt.Visibility = Visibility.Visible;
+                    // File name
+                    fileKernelcacheNoEncrypt.Text = plist.Get<PlistString>("File Name").Value;
                 }
                 plist = (PlistDict)plist.Parent;
             } else {
@@ -938,7 +983,8 @@ namespace Hexware.Programs.iDecryptIt
                     keyLLBIV.Visibility = Visibility.Visible;
                     keyLLBKey.Visibility = Visibility.Visible;
                     fileLLB.Visibility = Visibility.Visible;
-                    // Keys
+                    // File name and keys
+                    fileLLB.Text = plist.Get<PlistString>("File Name").Value;
                     keyLLBIV.Text = plist.Get<PlistString>("IV").Value;
                     keyLLBKey.Text = plist.Get<PlistString>("Key").Value;
                 } else {
@@ -952,6 +998,8 @@ namespace Hexware.Programs.iDecryptIt
                     lblLLBNoEncrypt.Visibility = Visibility.Visible;
                     keyLLBNoEncrypt.Visibility = Visibility.Visible;
                     fileLLBNoEncrypt.Visibility = Visibility.Visible;
+                    // File name
+                    fileLLBNoEncrypt.Text = plist.Get<PlistString>("File Name").Value;
                 }
                 plist = (PlistDict)plist.Parent;
             } else {
@@ -979,7 +1027,8 @@ namespace Hexware.Programs.iDecryptIt
                     keyNeedServiceIV.Visibility = Visibility.Visible;
                     keyNeedServiceKey.Visibility = Visibility.Visible;
                     fileNeedService.Visibility = Visibility.Visible;
-                    // Keys
+                    // File name and keys
+                    fileNeedService.Text = plist.Get<PlistString>("File Name").Value;
                     keyNeedServiceIV.Text = plist.Get<PlistString>("IV").Value;
                     keyNeedServiceKey.Text = plist.Get<PlistString>("Key").Value;
                 } else {
@@ -993,6 +1042,8 @@ namespace Hexware.Programs.iDecryptIt
                     lblNeedServiceNoEncrypt.Visibility = Visibility.Visible;
                     keyNeedServiceNoEncrypt.Visibility = Visibility.Visible;
                     fileNeedServiceNoEncrypt.Visibility = Visibility.Visible;
+                    // File name
+                    fileNeedServiceNoEncrypt.Text = plist.Get<PlistString>("File Name").Value;
                 }
                 plist = (PlistDict)plist.Parent;
             } else {
@@ -1020,7 +1071,8 @@ namespace Hexware.Programs.iDecryptIt
                     keyRecoveryModeIV.Visibility = Visibility.Visible;
                     keyRecoveryModeKey.Visibility = Visibility.Visible;
                     fileRecoveryMode.Visibility = Visibility.Visible;
-                    // Keys
+                    // File name and keys
+                    fileRecoveryMode.Text = plist.Get<PlistString>("File Name").Value;
                     keyRecoveryModeIV.Text = plist.Get<PlistString>("IV").Value;
                     keyRecoveryModeKey.Text = plist.Get<PlistString>("Key").Value;
                 } else {
@@ -1034,6 +1086,8 @@ namespace Hexware.Programs.iDecryptIt
                     lblRecoveryModeNoEncrypt.Visibility = Visibility.Visible;
                     keyRecoveryModeNoEncrypt.Visibility = Visibility.Visible;
                     fileRecoveryModeNoEncrypt.Visibility = Visibility.Visible;
+                    // File name
+                    fileRecoveryModeNoEncrypt.Text = plist.Get<PlistString>("File Name").Value;
                 }
                 plist = (PlistDict)plist.Parent;
             } else {
@@ -1061,7 +1115,8 @@ namespace Hexware.Programs.iDecryptIt
                     keySEPFirmwareIV.Visibility = Visibility.Visible;
                     keySEPFirmwareKey.Visibility = Visibility.Visible;
                     fileSEPFirmware.Visibility = Visibility.Visible;
-                    // Keys
+                    // File name and keys
+                    fileSEPFirmware.Text = plist.Get<PlistString>("File Name").Value;
                     keySEPFirmwareIV.Text = plist.Get<PlistString>("IV").Value;
                     keySEPFirmwareKey.Text = plist.Get<PlistString>("Key").Value;
                 } else {
@@ -1075,6 +1130,8 @@ namespace Hexware.Programs.iDecryptIt
                     lblSEPFirmwareNoEncrypt.Visibility = Visibility.Visible;
                     keySEPFirmwareNoEncrypt.Visibility = Visibility.Visible;
                     fileSEPFirmwareNoEncrypt.Visibility = Visibility.Visible;
+                    // File name
+                    fileSEPFirmwareNoEncrypt.Text = plist.Get<PlistString>("File Name").Value;
                 }
                 plist = (PlistDict)plist.Parent;
             } else {
