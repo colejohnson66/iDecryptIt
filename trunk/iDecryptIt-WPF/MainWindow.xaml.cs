@@ -34,6 +34,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
+using System.Windows.Shell;
 
 namespace Hexware.Programs.iDecryptIt
 {
@@ -255,22 +256,17 @@ namespace Hexware.Programs.iDecryptIt
         internal Stream GetStream(string resourceName)
         {
             Debug("[GETSTREAM]", "Attempting read of stored resource, \"" + resourceName + "\".");
-            try
-            {
+            try {
                 Assembly assy = Assembly.GetExecutingAssembly();
                 string[] resources = assy.GetManifestResourceNames();
                 int length = resources.Length;
-                for (int i = 0; i < length; i++)
-                {
-                    if (resources[i].ToLower().IndexOf(resourceName.ToLower()) != -1)
-                    {
+                for (int i = 0; i < length; i++) {
+                    if (resources[i].ToLower().IndexOf(resourceName.ToLower()) != -1) {
                         // resource found
                         return assy.GetManifestResourceStream(resources[i]);
                     }
                 }
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 Error("Unable to retrieve keys.", ex);
             }
             return Stream.Null;
@@ -1171,12 +1167,10 @@ namespace Hexware.Programs.iDecryptIt
             #region Input Validation
             if (String.IsNullOrWhiteSpace(textInputFileName.Text) ||
                 String.IsNullOrWhiteSpace(textOutputFileName.Text) ||
-                String.IsNullOrWhiteSpace(textDecryptKey.Text))
-            {
+                String.IsNullOrWhiteSpace(textDecryptKey.Text)) {
                 return;
             }
-            if (!File.Exists(textInputFileName.Text))
-            {
+            if (!File.Exists(textInputFileName.Text)) {
                 MessageBox.Show(
                     "The input file does not exist.",
                     "iDecryptIt",
@@ -1184,14 +1178,12 @@ namespace Hexware.Programs.iDecryptIt
                     MessageBoxImage.Error);
                 return;
             }
-            if (File.Exists(textOutputFileName.Text))
-            {
+            if (File.Exists(textOutputFileName.Text)) {
                 if (MessageBox.Show(
                     "The output file already exists. Shall I delete it?",
                     "iDecryptIt",
                     MessageBoxButton.YesNo,
-                    MessageBoxImage.Question) == MessageBoxResult.No)
-                {
+                    MessageBoxImage.Question) == MessageBoxResult.No) {
                     return;
                 }
                 File.Delete(textOutputFileName.Text);
@@ -1223,10 +1215,10 @@ namespace Hexware.Programs.iDecryptIt
             // Screen mods
             gridDecrypt.IsEnabled = false;
             progDecrypt.Visibility = Visibility.Visible;
+            TaskbarItemInfo.ProgressState = TaskbarItemProgressState.Normal;
 
             // Wait for file to exist before starting worker (processes are asynchronous)
-            while (!File.Exists(decryptTo))
-            { }
+            while (!File.Exists(decryptTo)) { }
             Debug("[DECRYPT]", "Starting progress checker.");
             decryptWorker = new BackgroundWorker();
             decryptWorker.WorkerSupportsCancellation = true;
@@ -1273,12 +1265,24 @@ namespace Hexware.Programs.iDecryptIt
         {
             if (e.ProgressPercentage == 100 && !decryptWorker.CancellationPending) {
                 decryptWorker.CancelAsync();
-                progDecrypt.Value = 100.0;
                 gridDecrypt.IsEnabled = true;
+                // reset progress values
+                decryptProg = 0.0;
+                TaskbarItemInfo.ProgressValue = 0.0;
+                // hide progress indicators
                 progDecrypt.Visibility = Visibility.Hidden;
+                TaskbarItemInfo.ProgressState = TaskbarItemProgressState.None;
                 return;
             }
-            progDecrypt.Value = (decryptProg > 100.0) ? 100.0 : decryptProg;
+
+            double progress = decryptProg;
+            if (progress > 100.0) {
+                progDecrypt.Value = 100.0;
+                TaskbarItemInfo.ProgressValue = 100.0;
+            } else {
+                progDecrypt.Value = progress;
+                TaskbarItemInfo.ProgressValue = progress;
+            }
         }
 
         private void btnChangelog_Click(object sender, RoutedEventArgs e)
@@ -1352,8 +1356,7 @@ namespace Hexware.Programs.iDecryptIt
             what.CheckFileExists = true;
             what.ShowDialog();
             Debug("[SELECTWHAT]", "Closing file dialog.");
-            if (!String.IsNullOrWhiteSpace(what.SafeFileName))
-            {
+            if (!String.IsNullOrWhiteSpace(what.SafeFileName)) {
                 textWhatAmIFileName.Text = what.SafeFileName;
             }
         }
@@ -1368,8 +1371,7 @@ namespace Hexware.Programs.iDecryptIt
                 return;
 
             strArr = textWhatAmIFileName.Text.Split('_');
-            if (strArr.Length != 4 || strArr[3] != "Restore.ipsw")
-            {
+            if (strArr.Length != 4 || strArr[3] != "Restore.ipsw") {
                 MessageBox.Show(
                     "The supplied IPSW File that was given is not in the following format:\r\n" +
                         "\t{DEVICE}_{VERSION}_{BUILD}_Restore.ipsw",
@@ -1564,15 +1566,12 @@ namespace Hexware.Programs.iDecryptIt
             }
 
             Debug("[UPDATE]", "Checking for updates.");
-            try
-            {
+            try {
                 WebClient updateChecker = new WebClient();
                 updateChecker.DownloadStringCompleted += updateChecker_DownloadStringCompleted;
                 updateChecker.DownloadStringAsync(new Uri(
                     @"http://theiphonewiki.com/w/index.php?title=User:5urd/Latest_stable_software_release/iDecryptIt&action=raw"));
-            }
-            catch (Exception)
-            { }
+            } catch (Exception) { }
         }
         private void Window_Closing(object sender, CancelEventArgs e)
         {
