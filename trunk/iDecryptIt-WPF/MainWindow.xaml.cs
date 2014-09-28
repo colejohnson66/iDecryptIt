@@ -312,13 +312,12 @@ namespace Hexware.Programs.iDecryptIt
             #region Update Ramdisk
             if (plist.Exists("Update Ramdisk")) {
                 plist = plist.Get<PlistDict>("Update Ramdisk");
-                if (plist.Exists("Encryption") &&
-                    plist.Get<PlistBool>("Encryption").Value) {
-                    // Hide unencrypted Update Ramdisk
+                if (plist.Get<PlistBool>("Encryption").Value) {
+                    // Hide unencrypted
                     lblUpdateNoEncrypt.Visibility = Visibility.Collapsed;
                     keyUpdateNoEncrypt.Visibility = Visibility.Collapsed;
                     fileUpdateNoEncrypt.Visibility = Visibility.Collapsed;
-                    // Show encrypted Update Ramdisk
+                    // Show encrypted
                     lblUpdateIV.Visibility = Visibility.Visible;
                     lblUpdateKey.Visibility = Visibility.Visible;
                     keyUpdateIV.Visibility = Visibility.Visible;
@@ -328,13 +327,13 @@ namespace Hexware.Programs.iDecryptIt
                     keyUpdateIV.Text = plist.Get<PlistString>("IV").Value;
                     keyUpdateKey.Text = plist.Get<PlistString>("Key").Value;
                 } else {
-                    // Hide encrypted Update Ramdisk
+                    // Hide encrypted
                     lblUpdateIV.Visibility = Visibility.Collapsed;
                     lblUpdateKey.Visibility = Visibility.Collapsed;
                     keyUpdateIV.Visibility = Visibility.Collapsed;
                     keyUpdateKey.Visibility = Visibility.Collapsed;
                     fileUpdate.Visibility = Visibility.Collapsed;
-                    // Show unencrypted Update Ramdisk
+                    // Show unencrypted
                     lblUpdateNoEncrypt.Visibility = Visibility.Visible;
                     keyUpdateNoEncrypt.Visibility = Visibility.Visible;
                     fileUpdateNoEncrypt.Visibility = Visibility.Visible;
@@ -354,13 +353,12 @@ namespace Hexware.Programs.iDecryptIt
             #region Restore Ramdisk
             if (plist.Exists("Restore Ramdisk")) {
                 plist = plist.Get<PlistDict>("Restore Ramdisk");
-                if (plist.Exists("Encryption") &&
-                    plist.Get<PlistBool>("Encryption").Value) {
-                    // Hide unencrypted Restore Ramdisk
+                if (plist.Get<PlistBool>("Encryption").Value) {
+                    // Hide unencrypted
                     lblRestoreNoEncrypt.Visibility = Visibility.Collapsed;
                     keyRestoreNoEncrypt.Visibility = Visibility.Collapsed;
                     fileRestoreNoEncrypt.Visibility = Visibility.Collapsed;
-                    // Show encrypted Restore Ramdisk
+                    // Show encrypted
                     lblRestoreIV.Visibility = Visibility.Visible;
                     lblRestoreKey.Visibility = Visibility.Visible;
                     keyRestoreIV.Visibility = Visibility.Visible;
@@ -370,13 +368,13 @@ namespace Hexware.Programs.iDecryptIt
                     keyRestoreIV.Text = plist.Get<PlistString>("IV").Value;
                     keyRestoreKey.Text = plist.Get<PlistString>("Key").Value;
                 } else {
-                    // Hide encrypted Restore Ramdisk
+                    // Hide encrypted
                     lblRestoreIV.Visibility = Visibility.Collapsed;
                     lblRestoreKey.Visibility = Visibility.Collapsed;
                     keyRestoreIV.Visibility = Visibility.Collapsed;
                     keyRestoreKey.Visibility = Visibility.Collapsed;
                     fileRestore.Visibility = Visibility.Collapsed;
-                    // Show unencrypted Restore Ramdisk
+                    // Show unencrypted
                     lblRestoreNoEncrypt.Visibility = Visibility.Visible;
                     keyRestoreNoEncrypt.Visibility = Visibility.Visible;
                     fileRestoreNoEncrypt.Visibility = Visibility.Visible;
@@ -396,13 +394,12 @@ namespace Hexware.Programs.iDecryptIt
             #region AppleLogo
             if (plist.Exists("AppleLogo")) {
                 plist = plist.Get<PlistDict>("AppleLogo");
-                if (plist.Exists("Encryption") &&
-                    plist.Get<PlistBool>("Encryption").Value) {
-                    // Hide unencrypted AppleLogo
+                if (plist.Get<PlistBool>("Encryption").Value) {
+                    // Hide unencrypted
                     lblAppleLogoNoEncrypt.Visibility = Visibility.Collapsed;
                     keyAppleLogoNoEncrypt.Visibility = Visibility.Collapsed;
                     fileAppleLogoNoEncrypt.Visibility = Visibility.Collapsed;
-                    // Show encrypted AppleLogo
+                    // Show encrypted
                     lblAppleLogoIV.Visibility = Visibility.Visible;
                     lblAppleLogoKey.Visibility = Visibility.Visible;
                     keyAppleLogoIV.Visibility = Visibility.Visible;
@@ -412,13 +409,13 @@ namespace Hexware.Programs.iDecryptIt
                     keyAppleLogoIV.Text = plist.Get<PlistString>("IV").Value;
                     keyAppleLogoKey.Text = plist.Get<PlistString>("Key").Value;
                 } else {
-                    // Hide encrypted AppleLogo
+                    // Hide encrypted
                     lblAppleLogoIV.Visibility = Visibility.Collapsed;
                     lblAppleLogoKey.Visibility = Visibility.Collapsed;
                     keyAppleLogoIV.Visibility = Visibility.Collapsed;
                     keyAppleLogoKey.Visibility = Visibility.Collapsed;
                     fileAppleLogo.Visibility = Visibility.Collapsed;
-                    // Show unencrypted AppleLogo
+                    // Show unencrypted
                     lblAppleLogoNoEncrypt.Visibility = Visibility.Visible;
                     keyAppleLogoNoEncrypt.Visibility = Visibility.Visible;
                     fileAppleLogoNoEncrypt.Visibility = Visibility.Visible;
@@ -438,13 +435,12 @@ namespace Hexware.Programs.iDecryptIt
             #region BatteryCharging0
             if (plist.Exists("BatteryCharging0")) {
                 plist = plist.Get<PlistDict>("BatteryCharging0");
-                if (plist.Exists("Encryption") &&
-                    plist.Get<PlistBool>("Encryption").Value) {
-                    // Hide unencrypted BatteryCharging0
+                if (plist.Get<PlistBool>("Encryption").Value) {
+                    // Hide unencrypted
                     lblBatteryCharging0NoEncrypt.Visibility = Visibility.Collapsed;
                     keyBatteryCharging0NoEncrypt.Visibility = Visibility.Collapsed;
                     fileBatteryCharging0NoEncrypt.Visibility = Visibility.Collapsed;
-                    // Show encrypted BatteryCharging0
+                    // Show encrypted
                     lblBatteryCharging0IV.Visibility = Visibility.Visible;
                     lblBatteryCharging0Key.Visibility = Visibility.Visible;
                     keyBatteryCharging0IV.Visibility = Visibility.Visible;
@@ -454,13 +450,13 @@ namespace Hexware.Programs.iDecryptIt
                     keyBatteryCharging0IV.Text = plist.Get<PlistString>("IV").Value;
                     keyBatteryCharging0Key.Text = plist.Get<PlistString>("Key").Value;
                 } else {
-                    // Hide Encrypted BatteryCharging0
+                    // Hide Encrypted
                     lblBatteryCharging0IV.Visibility = Visibility.Collapsed;
                     lblBatteryCharging0Key.Visibility = Visibility.Collapsed;
                     keyBatteryCharging0IV.Visibility = Visibility.Collapsed;
                     keyBatteryCharging0Key.Visibility = Visibility.Collapsed;
                     fileBatteryCharging0.Visibility = Visibility.Collapsed;
-                    // Show unencrypted BatteryCharging0
+                    // Show unencrypted
                     lblBatteryCharging0NoEncrypt.Visibility = Visibility.Visible;
                     keyBatteryCharging0NoEncrypt.Visibility = Visibility.Visible;
                     fileBatteryCharging0NoEncrypt.Visibility = Visibility.Visible;
@@ -480,13 +476,12 @@ namespace Hexware.Programs.iDecryptIt
             #region BatteryCharging1
             if (plist.Exists("BatteryCharging1")) {
                 plist = plist.Get<PlistDict>("BatteryCharging1");
-                if (plist.Exists("Encryption") &&
-                    plist.Get<PlistBool>("Encryption").Value) {
-                    // Hide unencrypted BatteryCharging1
+                if (plist.Get<PlistBool>("Encryption").Value) {
+                    // Hide unencrypted
                     lblBatteryCharging1NoEncrypt.Visibility = Visibility.Collapsed;
                     keyBatteryCharging1NoEncrypt.Visibility = Visibility.Collapsed;
                     fileBatteryCharging1NoEncrypt.Visibility = Visibility.Collapsed;
-                    // Show encrypted BatteryCharging1
+                    // Show encrypted
                     lblBatteryCharging1IV.Visibility = Visibility.Visible;
                     lblBatteryCharging1Key.Visibility = Visibility.Visible;
                     keyBatteryCharging1IV.Visibility = Visibility.Visible;
@@ -496,13 +491,13 @@ namespace Hexware.Programs.iDecryptIt
                     keyBatteryCharging1IV.Text = plist.Get<PlistString>("IV").Value;
                     keyBatteryCharging1Key.Text = plist.Get<PlistString>("Key").Value;
                 } else {
-                    // Hide encrypted BatteryCharging1
+                    // Hide encrypted
                     lblBatteryCharging1IV.Visibility = Visibility.Collapsed;
                     lblBatteryCharging1Key.Visibility = Visibility.Collapsed;
                     keyBatteryCharging1IV.Visibility = Visibility.Collapsed;
                     keyBatteryCharging1Key.Visibility = Visibility.Collapsed;
                     fileBatteryCharging1.Visibility = Visibility.Collapsed;
-                    // Show unencrypted BatteryCharging1
+                    // Show unencrypted
                     lblBatteryCharging1NoEncrypt.Visibility = Visibility.Visible;
                     keyBatteryCharging1NoEncrypt.Visibility = Visibility.Visible;
                     fileBatteryCharging1NoEncrypt.Visibility = Visibility.Visible;
@@ -522,13 +517,12 @@ namespace Hexware.Programs.iDecryptIt
             #region BatteryFull
             if (plist.Exists("BatteryFull")) {
                 plist = plist.Get<PlistDict>("BatteryFull");
-                if (plist.Exists("Encryption") &&
-                    plist.Get<PlistBool>("Encryption").Value) {
-                    // Hide unencrypted BatteryFull
+                if (plist.Get<PlistBool>("Encryption").Value) {
+                    // Hide unencrypted
                     lblBatteryFullNoEncrypt.Visibility = Visibility.Collapsed;
                     keyBatteryFullNoEncrypt.Visibility = Visibility.Collapsed;
                     fileBatteryFullNoEncrypt.Visibility = Visibility.Collapsed;
-                    // Show encrypted BatteryFull
+                    // Show encrypted
                     lblBatteryFullIV.Visibility = Visibility.Visible;
                     lblBatteryFullKey.Visibility = Visibility.Visible;
                     keyBatteryFullIV.Visibility = Visibility.Visible;
@@ -538,13 +532,13 @@ namespace Hexware.Programs.iDecryptIt
                     keyBatteryFullIV.Text = plist.Get<PlistString>("IV").Value;
                     keyBatteryFullKey.Text = plist.Get<PlistString>("Key").Value;
                 } else {
-                    // Hide encrypted BatteryFull
+                    // Hide encrypted
                     lblBatteryFullIV.Visibility = Visibility.Collapsed;
                     lblBatteryFullKey.Visibility = Visibility.Collapsed;
                     keyBatteryFullIV.Visibility = Visibility.Collapsed;
                     keyBatteryFullKey.Visibility = Visibility.Collapsed;
                     fileBatteryFull.Visibility = Visibility.Collapsed;
-                    // Show unencrypted BatteryFull
+                    // Show unencrypted
                     lblBatteryFullNoEncrypt.Visibility = Visibility.Visible;
                     keyBatteryFullNoEncrypt.Visibility = Visibility.Visible;
                     fileBatteryFullNoEncrypt.Visibility = Visibility.Visible;
@@ -564,13 +558,12 @@ namespace Hexware.Programs.iDecryptIt
             #region BatteryLow0
             if (plist.Exists("BatteryLow0")) {
                 plist = plist.Get<PlistDict>("BatteryLow0");
-                if (plist.Exists("Encryption") &&
-                    plist.Get<PlistBool>("Encryption").Value) {
-                    // Hide unencrypted BatteryLow0
+                if (plist.Get<PlistBool>("Encryption").Value) {
+                    // Hide unencrypted
                     lblBatteryLow0NoEncrypt.Visibility = Visibility.Collapsed;
                     keyBatteryLow0NoEncrypt.Visibility = Visibility.Collapsed;
                     fileBatteryLow0NoEncrypt.Visibility = Visibility.Collapsed;
-                    // Show encrypted BatteryLow0
+                    // Show encrypted
                     lblBatteryLow0IV.Visibility = Visibility.Visible;
                     lblBatteryLow0Key.Visibility = Visibility.Visible;
                     keyBatteryLow0IV.Visibility = Visibility.Visible;
@@ -580,13 +573,13 @@ namespace Hexware.Programs.iDecryptIt
                     keyBatteryLow0IV.Text = plist.Get<PlistString>("IV").Value;
                     keyBatteryLow0Key.Text = plist.Get<PlistString>("Key").Value;
                 } else {
-                    // Hide encrypted BatteryLow0
+                    // Hide encrypted
                     lblBatteryLow0IV.Visibility = Visibility.Collapsed;
                     lblBatteryLow0Key.Visibility = Visibility.Collapsed;
                     keyBatteryLow0IV.Visibility = Visibility.Collapsed;
                     keyBatteryLow0Key.Visibility = Visibility.Collapsed;
                     fileBatteryLow0.Visibility = Visibility.Collapsed;
-                    // Show unencrypted BatteryLow0
+                    // Show unencrypted
                     lblBatteryLow0NoEncrypt.Visibility = Visibility.Visible;
                     keyBatteryLow0NoEncrypt.Visibility = Visibility.Visible;
                     fileBatteryLow0NoEncrypt.Visibility = Visibility.Visible;
@@ -606,13 +599,12 @@ namespace Hexware.Programs.iDecryptIt
             #region BatteryLow1
             if (plist.Exists("BatteryLow1")) {
                 plist = plist.Get<PlistDict>("BatteryLow1");
-                if (plist.Exists("Encryption") &&
-                    plist.Get<PlistBool>("Encryption").Value) {
-                    // Hide unencrypted BatteryLow1
+                if (plist.Get<PlistBool>("Encryption").Value) {
+                    // Hide unencrypted
                     lblBatteryLow1NoEncrypt.Visibility = Visibility.Collapsed;
                     keyBatteryLow1NoEncrypt.Visibility = Visibility.Collapsed;
                     fileBatteryLow1NoEncrypt.Visibility = Visibility.Collapsed;
-                    // Show encrypted BatteryLow1
+                    // Show encrypted
                     lblBatteryLow1IV.Visibility = Visibility.Visible;
                     lblBatteryLow1Key.Visibility = Visibility.Visible;
                     keyBatteryLow1IV.Visibility = Visibility.Visible;
@@ -622,13 +614,13 @@ namespace Hexware.Programs.iDecryptIt
                     keyBatteryLow1IV.Text = plist.Get<PlistString>("IV").Value;
                     keyBatteryLow1Key.Text = plist.Get<PlistString>("Key").Value;
                 } else {
-                    // Hide encrypted BatteryLow1
+                    // Hide encrypted
                     lblBatteryLow1IV.Visibility = Visibility.Collapsed;
                     lblBatteryLow1Key.Visibility = Visibility.Collapsed;
                     keyBatteryLow1IV.Visibility = Visibility.Collapsed;
                     keyBatteryLow1Key.Visibility = Visibility.Collapsed;
                     fileBatteryLow1.Visibility = Visibility.Collapsed;
-                    // Show unencrypted BatteryLow1
+                    // Show unencrypted
                     lblBatteryLow1NoEncrypt.Visibility = Visibility.Visible;
                     keyBatteryLow1NoEncrypt.Visibility = Visibility.Visible;
                     fileBatteryLow1NoEncrypt.Visibility = Visibility.Visible;
@@ -648,13 +640,12 @@ namespace Hexware.Programs.iDecryptIt
             #region DeviceTree
             if (plist.Exists("DeviceTree")) {
                 plist = plist.Get<PlistDict>("DeviceTree");
-                if (plist.Exists("Encryption") &&
-                    plist.Get<PlistBool>("Encryption").Value) {
-                    // Hide unencrypted DeviceTree
+                if (plist.Get<PlistBool>("Encryption").Value) {
+                    // Hide unencrypted
                     lblDeviceTreeNoEncrypt.Visibility = Visibility.Collapsed;
                     keyDeviceTreeNoEncrypt.Visibility = Visibility.Collapsed;
                     fileDeviceTreeNoEncrypt.Visibility = Visibility.Collapsed;
-                    // Show encrypted DeviceTree
+                    // Show encrypted
                     lblDeviceTreeIV.Visibility = Visibility.Visible;
                     lblDeviceTreeKey.Visibility = Visibility.Visible;
                     keyDeviceTreeIV.Visibility = Visibility.Visible;
@@ -664,13 +655,13 @@ namespace Hexware.Programs.iDecryptIt
                     keyDeviceTreeIV.Text = plist.Get<PlistString>("IV").Value;
                     keyDeviceTreeKey.Text = plist.Get<PlistString>("Key").Value;
                 } else {
-                    // Hide encrypted DeviceTree
+                    // Hide encrypted
                     lblDeviceTreeIV.Visibility = Visibility.Collapsed;
                     lblDeviceTreeKey.Visibility = Visibility.Collapsed;
                     keyDeviceTreeIV.Visibility = Visibility.Collapsed;
                     keyDeviceTreeKey.Visibility = Visibility.Collapsed;
                     fileDeviceTree.Visibility = Visibility.Collapsed;
-                    // Show unencrypted DeviceTree
+                    // Show unencrypted
                     lblDeviceTreeNoEncrypt.Visibility = Visibility.Visible;
                     keyDeviceTreeNoEncrypt.Visibility = Visibility.Visible;
                     fileDeviceTreeNoEncrypt.Visibility = Visibility.Visible;
@@ -690,13 +681,12 @@ namespace Hexware.Programs.iDecryptIt
             #region GlyphCharging
             if (plist.Exists("GlyphCharging")) {
                 plist = plist.Get<PlistDict>("GlyphCharging");
-                if (plist.Exists("Encryption") &&
-                    plist.Get<PlistBool>("Encryption").Value) {
-                    // Hide unencrypted GlyphCharging
+                if (plist.Get<PlistBool>("Encryption").Value) {
+                    // Hide unencrypted
                     lblGlyphChargingNoEncrypt.Visibility = Visibility.Collapsed;
                     keyGlyphChargingNoEncrypt.Visibility = Visibility.Collapsed;
                     fileGlyphChargingNoEncrypt.Visibility = Visibility.Collapsed;
-                    // Show encrypted GlyphCharging
+                    // Show encrypted
                     lblGlyphChargingIV.Visibility = Visibility.Visible;
                     lblGlyphChargingKey.Visibility = Visibility.Visible;
                     keyGlyphChargingIV.Visibility = Visibility.Visible;
@@ -706,13 +696,13 @@ namespace Hexware.Programs.iDecryptIt
                     keyGlyphChargingIV.Text = plist.Get<PlistString>("IV").Value;
                     keyGlyphChargingKey.Text = plist.Get<PlistString>("Key").Value;
                 } else {
-                    // Hide encrypted GlyphCharging
+                    // Hide encrypted
                     lblGlyphChargingIV.Visibility = Visibility.Collapsed;
                     lblGlyphChargingKey.Visibility = Visibility.Collapsed;
                     keyGlyphChargingIV.Visibility = Visibility.Collapsed;
                     keyGlyphChargingKey.Visibility = Visibility.Collapsed;
                     fileGlyphCharging.Visibility = Visibility.Collapsed;
-                    // Show unencrypted GlyphCharging
+                    // Show unencrypted
                     lblGlyphChargingNoEncrypt.Visibility = Visibility.Visible;
                     keyGlyphChargingNoEncrypt.Visibility = Visibility.Visible;
                     fileGlyphChargingNoEncrypt.Visibility = Visibility.Visible;
@@ -732,13 +722,12 @@ namespace Hexware.Programs.iDecryptIt
             #region GlyphPlugin
             if (plist.Exists("GlyphPlugin")) {
                 plist = plist.Get<PlistDict>("GlyphPlugin");
-                if (plist.Exists("Encryption") &&
-                    plist.Get<PlistBool>("Encryption").Value) {
-                    // Hide unencrypted GlyphPlugin
+                if (plist.Get<PlistBool>("Encryption").Value) {
+                    // Hide unencrypted
                     lblGlyphPluginNoEncrypt.Visibility = Visibility.Collapsed;
                     keyGlyphPluginNoEncrypt.Visibility = Visibility.Collapsed;
                     fileGlyphPluginNoEncrypt.Visibility = Visibility.Collapsed;
-                    // Show encrypted GlyphPlugin
+                    // Show encrypted
                     lblGlyphPluginIV.Visibility = Visibility.Visible;
                     lblGlyphPluginKey.Visibility = Visibility.Visible;
                     keyGlyphPluginIV.Visibility = Visibility.Visible;
@@ -748,13 +737,13 @@ namespace Hexware.Programs.iDecryptIt
                     keyGlyphPluginIV.Text = plist.Get<PlistString>("IV").Value;
                     keyGlyphPluginKey.Text = plist.Get<PlistString>("Key").Value;
                 } else {
-                    // Hide encrypted GlyphPlugin
+                    // Hide encrypted
                     lblGlyphPluginIV.Visibility = Visibility.Collapsed;
                     lblGlyphPluginKey.Visibility = Visibility.Collapsed;
                     keyGlyphPluginIV.Visibility = Visibility.Collapsed;
                     keyGlyphPluginKey.Visibility = Visibility.Collapsed;
                     fileGlyphPlugin.Visibility = Visibility.Collapsed;
-                    // Show unencrypted GlyphPlugin
+                    // Show unencrypted
                     lblGlyphPluginNoEncrypt.Visibility = Visibility.Visible;
                     keyGlyphPluginNoEncrypt.Visibility = Visibility.Visible;
                     fileGlyphPluginNoEncrypt.Visibility = Visibility.Visible;
@@ -774,13 +763,12 @@ namespace Hexware.Programs.iDecryptIt
             #region iBEC
             if (plist.Exists("iBEC")) {
                 plist = plist.Get<PlistDict>("iBEC");
-                if (plist.Exists("Encryption") &&
-                    plist.Get<PlistBool>("Encryption").Value) {
-                    // Hide unencrypted iBEC
+                if (plist.Get<PlistBool>("Encryption").Value) {
+                    // Hide unencrypted
                     lbliBECNoEncrypt.Visibility = Visibility.Collapsed;
                     keyiBECNoEncrypt.Visibility = Visibility.Collapsed;
                     fileiBECNoEncrypt.Visibility = Visibility.Collapsed;
-                    // Show encrypted iBEC
+                    // Show encrypted
                     lbliBECIV.Visibility = Visibility.Visible;
                     lbliBECKey.Visibility = Visibility.Visible;
                     keyiBECIV.Visibility = Visibility.Visible;
@@ -790,13 +778,13 @@ namespace Hexware.Programs.iDecryptIt
                     keyiBECIV.Text = plist.Get<PlistString>("IV").Value;
                     keyiBECKey.Text = plist.Get<PlistString>("Key").Value;
                 } else {
-                    // Hide encrypted iBEC
+                    // Hide encrypted
                     lbliBECIV.Visibility = Visibility.Collapsed;
                     lbliBECKey.Visibility = Visibility.Collapsed;
                     keyiBECIV.Visibility = Visibility.Collapsed;
                     keyiBECKey.Visibility = Visibility.Collapsed;
                     fileiBEC.Visibility = Visibility.Collapsed;
-                    // Show unencrypted iBEC
+                    // Show unencrypted
                     lbliBECNoEncrypt.Visibility = Visibility.Visible;
                     keyiBECNoEncrypt.Visibility = Visibility.Visible;
                     fileiBECNoEncrypt.Visibility = Visibility.Visible;
@@ -816,13 +804,12 @@ namespace Hexware.Programs.iDecryptIt
             #region iBoot
             if (plist.Exists("iBoot")) {
                 plist = plist.Get<PlistDict>("iBoot");
-                if (plist.Exists("Encryption") &&
-                    plist.Get<PlistBool>("Encryption").Value) {
-                    // Hide unencrypted iBoot
+                if (plist.Get<PlistBool>("Encryption").Value) {
+                    // Hide unencrypted
                     lbliBootNoEncrypt.Visibility = Visibility.Collapsed;
                     keyiBootNoEncrypt.Visibility = Visibility.Collapsed;
                     fileiBootNoEncrypt.Visibility = Visibility.Collapsed;
-                    // Show encrypted iBoot
+                    // Show encrypted
                     lbliBootIV.Visibility = Visibility.Visible;
                     lbliBootKey.Visibility = Visibility.Visible;
                     keyiBootIV.Visibility = Visibility.Visible;
@@ -832,13 +819,13 @@ namespace Hexware.Programs.iDecryptIt
                     keyiBootIV.Text = plist.Get<PlistString>("IV").Value;
                     keyiBootKey.Text = plist.Get<PlistString>("Key").Value;
                 } else {
-                    // Hide Encrypted iBoot
+                    // Hide Encrypted
                     lbliBootIV.Visibility = Visibility.Collapsed;
                     lbliBootKey.Visibility = Visibility.Collapsed;
                     keyiBootIV.Visibility = Visibility.Collapsed;
                     keyiBootKey.Visibility = Visibility.Collapsed;
                     fileiBoot.Visibility = Visibility.Collapsed;
-                    // Show unencrypted iBoot
+                    // Show unencrypted
                     lbliBootNoEncrypt.Visibility = Visibility.Visible;
                     keyiBootNoEncrypt.Visibility = Visibility.Visible;
                     fileiBootNoEncrypt.Visibility = Visibility.Visible;
@@ -858,13 +845,12 @@ namespace Hexware.Programs.iDecryptIt
             #region iBSS
             if (plist.Exists("iBSS")) {
                 plist = plist.Get<PlistDict>("iBSS");
-                if (plist.Exists("Encryption") &&
-                    plist.Get<PlistBool>("Encryption").Value) {
-                    // Hide unencrypted iBSS
+                if (plist.Get<PlistBool>("Encryption").Value) {
+                    // Hide unencrypted
                     lbliBSSNoEncrypt.Visibility = Visibility.Collapsed;
                     keyiBSSNoEncrypt.Visibility = Visibility.Collapsed;
                     fileiBSSNoEncrypt.Visibility = Visibility.Collapsed;
-                    // Show encrypted iBSS
+                    // Show encrypted
                     lbliBSSIV.Visibility = Visibility.Visible;
                     lbliBSSKey.Visibility = Visibility.Visible;
                     keyiBSSIV.Visibility = Visibility.Visible;
@@ -874,13 +860,13 @@ namespace Hexware.Programs.iDecryptIt
                     keyiBSSIV.Text = plist.Get<PlistString>("IV").Value;
                     keyiBSSKey.Text = plist.Get<PlistString>("Key").Value;
                 } else {
-                    // Hide encrypted iBSS
+                    // Hide encrypted
                     lbliBSSIV.Visibility = Visibility.Collapsed;
                     lbliBSSKey.Visibility = Visibility.Collapsed;
                     keyiBSSIV.Visibility = Visibility.Collapsed;
                     keyiBSSKey.Visibility = Visibility.Collapsed;
                     fileiBSS.Visibility = Visibility.Collapsed;
-                    // Show unencrypted iBSS
+                    // Show unencrypted
                     lbliBSSNoEncrypt.Visibility = Visibility.Visible;
                     keyiBSSNoEncrypt.Visibility = Visibility.Visible;
                     fileiBSSNoEncrypt.Visibility = Visibility.Visible;
@@ -900,13 +886,12 @@ namespace Hexware.Programs.iDecryptIt
             #region Kernelcache
             if (plist.Exists("Kernelcache")) {
                 plist = plist.Get<PlistDict>("Kernelcache");
-                if (plist.Exists("Encryption") &&
-                    plist.Get<PlistBool>("Encryption").Value) {
-                    // Hide unencrypted Kernelcache
+                if (plist.Get<PlistBool>("Encryption").Value) {
+                    // Hide unencrypted
                     lblKernelcacheNoEncrypt.Visibility = Visibility.Collapsed;
                     keyKernelcacheNoEncrypt.Visibility = Visibility.Collapsed;
                     fileKernelcacheNoEncrypt.Visibility = Visibility.Collapsed;
-                    // Show encrypted Kernelcache
+                    // Show encrypted
                     lblKernelcacheIV.Visibility = Visibility.Visible;
                     lblKernelcacheKey.Visibility = Visibility.Visible;
                     keyKernelcacheIV.Visibility = Visibility.Visible;
@@ -916,13 +901,13 @@ namespace Hexware.Programs.iDecryptIt
                     keyKernelcacheIV.Text = plist.Get<PlistString>("IV").Value;
                     keyKernelcacheKey.Text = plist.Get<PlistString>("Key").Value;
                 } else {
-                    // Hide encrypted Kernelcache
+                    // Hide encrypted
                     lblKernelcacheIV.Visibility = Visibility.Collapsed;
                     lblKernelcacheKey.Visibility = Visibility.Collapsed;
                     keyKernelcacheIV.Visibility = Visibility.Collapsed;
                     keyKernelcacheKey.Visibility = Visibility.Collapsed;
                     fileKernelcache.Visibility = Visibility.Collapsed;
-                    // Show unencrypted Kernelcache
+                    // Show unencrypted
                     lblKernelcacheNoEncrypt.Visibility = Visibility.Visible;
                     keyKernelcacheNoEncrypt.Visibility = Visibility.Visible;
                     fileKernelcacheNoEncrypt.Visibility = Visibility.Visible;
@@ -942,13 +927,12 @@ namespace Hexware.Programs.iDecryptIt
             #region LLB
             if (plist.Exists("LLB")) {
                 plist = plist.Get<PlistDict>("LLB");
-                if (plist.Exists("Encryption") &&
-                    plist.Get<PlistBool>("Encryption").Value) {
-                    // Hide unencrypted LLB
+                if (plist.Get<PlistBool>("Encryption").Value) {
+                    // Hide unencrypted
                     lblLLBNoEncrypt.Visibility = Visibility.Collapsed;
                     keyLLBNoEncrypt.Visibility = Visibility.Collapsed;
                     fileLLBNoEncrypt.Visibility = Visibility.Collapsed;
-                    // Show encrypted LLB
+                    // Show encrypted
                     lblLLBIV.Visibility = Visibility.Visible;
                     lblLLBKey.Visibility = Visibility.Visible;
                     keyLLBIV.Visibility = Visibility.Visible;
@@ -958,13 +942,13 @@ namespace Hexware.Programs.iDecryptIt
                     keyLLBIV.Text = plist.Get<PlistString>("IV").Value;
                     keyLLBKey.Text = plist.Get<PlistString>("Key").Value;
                 } else {
-                    // Hide encrypted LLB
+                    // Hide encrypted
                     lblLLBIV.Visibility = Visibility.Collapsed;
                     lblLLBKey.Visibility = Visibility.Collapsed;
                     keyLLBIV.Visibility = Visibility.Collapsed;
                     keyLLBKey.Visibility = Visibility.Collapsed;
                     fileLLB.Visibility = Visibility.Collapsed;
-                    // Show unencrypted LLB
+                    // Show unencrypted
                     lblLLBNoEncrypt.Visibility = Visibility.Visible;
                     keyLLBNoEncrypt.Visibility = Visibility.Visible;
                     fileLLBNoEncrypt.Visibility = Visibility.Visible;
@@ -984,13 +968,12 @@ namespace Hexware.Programs.iDecryptIt
             #region NeedService
             if (plist.Exists("NeedService")) {
                 plist = plist.Get<PlistDict>("NeedService");
-                if (plist.Exists("Encryption") &&
-                    plist.Get<PlistBool>("Encryption").Value) {
-                    // Hide unencrypted NeedService
+                if (plist.Get<PlistBool>("Encryption").Value) {
+                    // Hide unencrypted
                     lblNeedServiceNoEncrypt.Visibility = Visibility.Collapsed;
                     keyNeedServiceNoEncrypt.Visibility = Visibility.Collapsed;
                     fileNeedServiceNoEncrypt.Visibility = Visibility.Collapsed;
-                    // Show encrypted NeedService
+                    // Show encrypted
                     lblNeedServiceIV.Visibility = Visibility.Visible;
                     lblNeedServiceKey.Visibility = Visibility.Visible;
                     keyNeedServiceIV.Visibility = Visibility.Visible;
@@ -1000,13 +983,13 @@ namespace Hexware.Programs.iDecryptIt
                     keyNeedServiceIV.Text = plist.Get<PlistString>("IV").Value;
                     keyNeedServiceKey.Text = plist.Get<PlistString>("Key").Value;
                 } else {
-                    // Hide encrypted NeedService
+                    // Hide encrypted
                     lblNeedServiceIV.Visibility = Visibility.Collapsed;
                     lblNeedServiceKey.Visibility = Visibility.Collapsed;
                     keyNeedServiceIV.Visibility = Visibility.Collapsed;
                     keyNeedServiceKey.Visibility = Visibility.Collapsed;
                     fileNeedService.Visibility = Visibility.Collapsed;
-                    // Show unencrypted NeedService
+                    // Show unencrypted
                     lblNeedServiceNoEncrypt.Visibility = Visibility.Visible;
                     keyNeedServiceNoEncrypt.Visibility = Visibility.Visible;
                     fileNeedServiceNoEncrypt.Visibility = Visibility.Visible;
@@ -1026,13 +1009,12 @@ namespace Hexware.Programs.iDecryptIt
             #region RecoveryMode
             if (plist.Exists("RecoveryMode")) {
                 plist = plist.Get<PlistDict>("RecoveryMode");
-                if (plist.Exists("Encryption") &&
-                    plist.Get<PlistBool>("Encryption").Value) {
-                    // Hide unencrypted RecoveryMode
+                if (plist.Get<PlistBool>("Encryption").Value) {
+                    // Hide unencrypted
                     lblRecoveryModeNoEncrypt.Visibility = Visibility.Collapsed;
                     keyRecoveryModeNoEncrypt.Visibility = Visibility.Collapsed;
                     fileRecoveryModeNoEncrypt.Visibility = Visibility.Collapsed;
-                    // Show encrypted RecoveryMode
+                    // Show encrypted
                     lblRecoveryModeIV.Visibility = Visibility.Visible;
                     lblRecoveryModeKey.Visibility = Visibility.Visible;
                     keyRecoveryModeIV.Visibility = Visibility.Visible;
@@ -1042,13 +1024,13 @@ namespace Hexware.Programs.iDecryptIt
                     keyRecoveryModeIV.Text = plist.Get<PlistString>("IV").Value;
                     keyRecoveryModeKey.Text = plist.Get<PlistString>("Key").Value;
                 } else {
-                    // Hide encrypted RecoveryMode
+                    // Hide encrypted
                     lblRecoveryModeIV.Visibility = Visibility.Collapsed;
                     lblRecoveryModeKey.Visibility = Visibility.Collapsed;
                     keyRecoveryModeIV.Visibility = Visibility.Collapsed;
                     keyRecoveryModeKey.Visibility = Visibility.Collapsed;
                     fileRecoveryMode.Visibility = Visibility.Collapsed;
-                    // Show unencrypted RecoveryMode
+                    // Show unencrypted
                     lblRecoveryModeNoEncrypt.Visibility = Visibility.Visible;
                     keyRecoveryModeNoEncrypt.Visibility = Visibility.Visible;
                     fileRecoveryModeNoEncrypt.Visibility = Visibility.Visible;
@@ -1068,13 +1050,12 @@ namespace Hexware.Programs.iDecryptIt
             #region SEP-Firmware
             if (plist.Exists("SEP-Firmware")) {
                 plist = plist.Get<PlistDict>("SEP-Firmware");
-                if (plist.Exists("Encryption") &&
-                    plist.Get<PlistBool>("Encryption").Value) {
-                    // Hide unencrypted SEP-Firmware
+                if (plist.Get<PlistBool>("Encryption").Value) {
+                    // Hide unencrypted
                     lblSEPFirmwareNoEncrypt.Visibility = Visibility.Collapsed;
                     keySEPFirmwareNoEncrypt.Visibility = Visibility.Collapsed;
                     fileSEPFirmwareNoEncrypt.Visibility = Visibility.Collapsed;
-                    // Show encrypted SEP-Firmware
+                    // Show encrypted
                     lblSEPFirmwareIV.Visibility = Visibility.Visible;
                     lblSEPFirmwareKey.Visibility = Visibility.Visible;
                     keySEPFirmwareIV.Visibility = Visibility.Visible;
@@ -1084,13 +1065,13 @@ namespace Hexware.Programs.iDecryptIt
                     keySEPFirmwareIV.Text = plist.Get<PlistString>("IV").Value;
                     keySEPFirmwareKey.Text = plist.Get<PlistString>("Key").Value;
                 } else {
-                    // Hide encrypted SEP-Firmware
+                    // Hide encrypted
                     lblSEPFirmwareIV.Visibility = Visibility.Collapsed;
                     lblSEPFirmwareKey.Visibility = Visibility.Collapsed;
                     keySEPFirmwareIV.Visibility = Visibility.Collapsed;
                     keySEPFirmwareKey.Visibility = Visibility.Collapsed;
                     fileSEPFirmware.Visibility = Visibility.Collapsed;
-                    // Show unencrypted SEP-Firmware
+                    // Show unencrypted
                     lblSEPFirmwareNoEncrypt.Visibility = Visibility.Visible;
                     keySEPFirmwareNoEncrypt.Visibility = Visibility.Visible;
                     fileSEPFirmwareNoEncrypt.Visibility = Visibility.Visible;
