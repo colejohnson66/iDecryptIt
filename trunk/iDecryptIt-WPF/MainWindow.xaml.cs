@@ -293,53 +293,21 @@ namespace Hexware.Programs.iDecryptIt
 
             // Magic. Don't touch.
             PlistDict plist = doc.Document.Value;
-            string temp;
             #region Device
             Debug("[LOADKEYS]", "Device.");
             txtDevice.Text = plist.Get<PlistString>("Device").Value;
             #endregion
             #region Version
             StringBuilder sb = new StringBuilder(64);
-            temp = plist.Get<PlistString>("Build").Value;
             sb.Append(plist.Get<PlistString>("Version").Value);
-            sb.Append(" (Build " + temp + ")");
-            if (goldenMaster) {
-                switch (temp) {
-                    case "5A345":
-                        // 2.0
-                        if (plist.Get<PlistString>("Device").Value != "iPhone1,2") {
-                            sb.Append(" [GM]");
-                        }
-                        break;
-                    case "7A341":
-                        // 3.0
-                        if (plist.Get<PlistString>("Device").Value != "iPhone2,1") {
-                            sb.Append(" [GM]");
-                        }
-                        break;
-                    case "8A293":
-                        // 4.0
-                        if (plist.Get<PlistString>("Device").Value != "iPhone3,1") {
-                            sb.Append(" [GM]");
-                        }
-                        break;
-                    case "9A334":
-                        // 5.0
-                        if (plist.Get<PlistString>("Device").Value != "iPhone4,1") {
-                            sb.Append(" [GM]");
-                        }
-                        break;
-                        // 6.0 not needed as iPhone 5 was 10A405 and iPod touch 5G was 10A406
-                }
-            }
+            sb.Append(" (Build " + plist.Get<PlistString>("Build").Value + ")");
+            if (goldenMaster)
+                sb.Append(" [GM]");
             txtVersion.Text = sb.ToString();
-            sb.Clear();
             #endregion
             #region Root FS
-            temp = plist.Get<PlistDict>("Root FS").Get<PlistString>("File Name").Value;
-            fileRootFS.Text = (temp != ".dmg") ? temp : "XXX-XXXX-XXX.dmg";
-            temp = plist.Get<PlistDict>("Root FS").Get<PlistString>((goldenMaster) ? "GM Key" : "Key").Value;
-            keyRootFS.Text = temp;
+            fileRootFS.Text = plist.Get<PlistDict>("Root FS").Get<PlistString>("File Name").Value;
+            keyRootFS.Text = plist.Get<PlistDict>("Root FS").Get<PlistString>((goldenMaster) ? "GM Key" : "Key").Value;
             #endregion
             #region Update Ramdisk
             if (plist.Exists("Update Ramdisk")) {
