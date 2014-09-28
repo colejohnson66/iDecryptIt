@@ -350,82 +350,88 @@ namespace Hexware.Programs.iDecryptIt
             temp = plist.Get<PlistDict>("Root FS").Get<PlistString>((goldenMaster) ? "GM Key" : "Key").Value;
             keyRootFS.Text = temp;
             #endregion
-            #region Ramdisks
-            // Show everything
-            lblUpdateIV.Visibility = Visibility.Visible;
-            lblUpdateKey.Visibility = Visibility.Visible;
-            lblUpdateNoEncrypt.Visibility = Visibility.Visible;
-            keyUpdateIV.Visibility = Visibility.Visible;
-            keyUpdateKey.Visibility = Visibility.Visible;
-            keyUpdateNoEncrypt.Visibility = Visibility.Visible;
-            fileUpdate.Visibility = Visibility.Visible;
-            fileUpdateNoEncrypt.Visibility = Visibility.Visible;
-            lblRestoreIV.Visibility = Visibility.Visible;
-            lblRestoreKey.Visibility = Visibility.Visible;
-            lblRestoreNoEncrypt.Visibility = Visibility.Visible;
-            keyRestoreIV.Visibility = Visibility.Visible;
-            keyRestoreKey.Visibility = Visibility.Visible;
-            keyRestoreNoEncrypt.Visibility = Visibility.Visible;
-            fileRestore.Visibility = Visibility.Visible;
-            fileRestoreNoEncrypt.Visibility = Visibility.Visible;
-
-            if (!plist.Exists("Update Ramdisk"))
-            {
-                // Hide Update Ramdisk
+            #region Update Ramdisk
+            if (plist.Exists("Update Ramdisk")) {
+                plist = plist.Get<PlistDict>("Update Ramdisk");
+                if (plist.Exists("Encryption") &&
+                    plist.Get<PlistBool>("Encryption").Value) {
+                    // Hide unencrypted Update Ramdisk
+                    lblUpdateNoEncrypt.Visibility = Visibility.Collapsed;
+                    keyUpdateNoEncrypt.Visibility = Visibility.Collapsed;
+                    fileUpdateNoEncrypt.Visibility = Visibility.Collapsed;
+                    // Show encrypted Update Ramdisk
+                    lblUpdateIV.Visibility = Visibility.Visible;
+                    lblUpdateKey.Visibility = Visibility.Visible;
+                    keyUpdateIV.Visibility = Visibility.Visible;
+                    keyUpdateKey.Visibility = Visibility.Visible;
+                    fileUpdate.Visibility = Visibility.Visible;
+                    // Keys
+                    keyUpdateIV.Text = plist.Get<PlistString>("IV").Value;
+                    keyUpdateKey.Text = plist.Get<PlistString>("Key").Value;
+                } else {
+                    // Hide encrypted Update Ramdisk
+                    lblUpdateIV.Visibility = Visibility.Collapsed;
+                    lblUpdateKey.Visibility = Visibility.Collapsed;
+                    keyUpdateIV.Visibility = Visibility.Collapsed;
+                    keyUpdateKey.Visibility = Visibility.Collapsed;
+                    fileUpdate.Visibility = Visibility.Collapsed;
+                    // Show unencrypted Update Ramdisk
+                    lblUpdateNoEncrypt.Visibility = Visibility.Visible;
+                    keyUpdateNoEncrypt.Visibility = Visibility.Visible;
+                    fileUpdateNoEncrypt.Visibility = Visibility.Visible;
+                }
+                plist = (PlistDict)plist.Parent;
+            } else {
                 lblUpdateIV.Visibility = Visibility.Collapsed;
                 lblUpdateKey.Visibility = Visibility.Collapsed;
-                lblUpdateNoEncrypt.Visibility = Visibility.Collapsed;
                 keyUpdateIV.Visibility = Visibility.Collapsed;
                 keyUpdateKey.Visibility = Visibility.Collapsed;
-                keyUpdateNoEncrypt.Visibility = Visibility.Collapsed;
                 fileUpdate.Visibility = Visibility.Collapsed;
+                lblUpdateNoEncrypt.Visibility = Visibility.Collapsed;
+                keyUpdateNoEncrypt.Visibility = Visibility.Collapsed;
                 fileUpdateNoEncrypt.Visibility = Visibility.Collapsed;
             }
-            else
-            {
-                fileUpdate.Text = plist.Get<PlistDict>("Update Ramdisk").Get<PlistString>("File Name").Value;
-                fileUpdateNoEncrypt.Text = fileUpdate.Text;
-            }
-
-            fileRestore.Visibility = Visibility.Visible;
-            fileRestoreNoEncrypt.Visibility = Visibility.Visible;
-            fileRestore.Text = plist.Get<PlistDict>("Restore Ramdisk").Get<PlistString>("File Name").Value;
-            fileRestoreNoEncrypt.Text = fileRestore.Text;
-            // (ramdisk not encrypted) || (ramdisk encrypted and no IV/key)
-            if ((plist.Exists("Ramdisk Not Encrypted") && plist.Get<PlistBool>("Ramdisk Not Encrypted").Value) ||
-                (!plist.Exists("Ramdisk Not Encrypted") && !plist.Get<PlistDict>("Restore Ramdisk").Exists("IV")))
-            {
-                // Hide encrypted Ramdisks
-                lblUpdateIV.Visibility = Visibility.Collapsed;
-                lblUpdateKey.Visibility = Visibility.Collapsed;
-                keyUpdateIV.Visibility = Visibility.Collapsed;
-                keyUpdateKey.Visibility = Visibility.Collapsed;
-                fileUpdate.Visibility = Visibility.Collapsed;
+            #endregion
+            #region Restore Ramdisk
+            if (plist.Exists("Restore Ramdisk")) {
+                plist = plist.Get<PlistDict>("Restore Ramdisk");
+                if (plist.Exists("Encryption") &&
+                    plist.Get<PlistBool>("Encryption").Value) {
+                    // Hide unencrypted Restore Ramdisk
+                    lblRestoreNoEncrypt.Visibility = Visibility.Collapsed;
+                    keyRestoreNoEncrypt.Visibility = Visibility.Collapsed;
+                    fileRestoreNoEncrypt.Visibility = Visibility.Collapsed;
+                    // Show encrypted Restore Ramdisk
+                    lblRestoreIV.Visibility = Visibility.Visible;
+                    lblRestoreKey.Visibility = Visibility.Visible;
+                    keyRestoreIV.Visibility = Visibility.Visible;
+                    keyRestoreKey.Visibility = Visibility.Visible;
+                    fileRestore.Visibility = Visibility.Visible;
+                    // Keys
+                    keyRestoreIV.Text = plist.Get<PlistString>("IV").Value;
+                    keyRestoreKey.Text = plist.Get<PlistString>("Key").Value;
+                } else {
+                    // Hide encrypted Restore Ramdisk
+                    lblRestoreIV.Visibility = Visibility.Collapsed;
+                    lblRestoreKey.Visibility = Visibility.Collapsed;
+                    keyRestoreIV.Visibility = Visibility.Collapsed;
+                    keyRestoreKey.Visibility = Visibility.Collapsed;
+                    fileRestore.Visibility = Visibility.Collapsed;
+                    // Show unencrypted Restore Ramdisk
+                    lblRestoreNoEncrypt.Visibility = Visibility.Visible;
+                    keyRestoreNoEncrypt.Visibility = Visibility.Visible;
+                    fileRestoreNoEncrypt.Visibility = Visibility.Visible;
+                }
+                plist = (PlistDict)plist.Parent;
+            } else {
                 lblRestoreIV.Visibility = Visibility.Collapsed;
                 lblRestoreKey.Visibility = Visibility.Collapsed;
                 keyRestoreIV.Visibility = Visibility.Collapsed;
                 keyRestoreKey.Visibility = Visibility.Collapsed;
                 fileRestore.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                // Hide unencrypted Ramdisks
-                lblUpdateNoEncrypt.Visibility = Visibility.Collapsed;
-                keyUpdateNoEncrypt.Visibility = Visibility.Collapsed;
-                fileUpdateNoEncrypt.Visibility = Visibility.Collapsed;
                 lblRestoreNoEncrypt.Visibility = Visibility.Collapsed;
                 keyRestoreNoEncrypt.Visibility = Visibility.Collapsed;
                 fileRestoreNoEncrypt.Visibility = Visibility.Collapsed;
-                // Keys
-                if (plist.Exists("Update Ramdisk"))
-                {
-                    keyUpdateIV.Visibility = Visibility.Visible;
-                    keyUpdateKey.Visibility = Visibility.Visible;
-                    keyUpdateIV.Text = plist.Get<PlistDict>("Update Ramdisk").Get<PlistString>("IV").Value;
-                    keyUpdateKey.Text = plist.Get<PlistDict>("Update Ramdisk").Get<PlistString>("Key").Value;
-                }
-                keyRestoreIV.Text = plist.Get<PlistDict>("Restore Ramdisk").Get<PlistString>("IV").Value;
-                keyRestoreKey.Text = plist.Get<PlistDict>("Restore Ramdisk").Get<PlistString>("Key").Value;
             }
             #endregion
             #region AppleLogo
@@ -457,7 +463,7 @@ namespace Hexware.Programs.iDecryptIt
                     keyAppleLogoIV.Visibility = Visibility.Collapsed;
                     keyAppleLogoKey.Visibility = Visibility.Collapsed;
                     fileAppleLogo.Visibility = Visibility.Collapsed;
-                    // Show unencrypted BatteryCharging0
+                    // Show unencrypted AppleLogo
                     lblAppleLogoNoEncrypt.Visibility = Visibility.Visible;
                     keyAppleLogoNoEncrypt.Visibility = Visibility.Visible;
                     fileAppleLogoNoEncrypt.Visibility = Visibility.Visible;
