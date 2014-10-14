@@ -134,7 +134,7 @@
 		<key>iBEC</key>
 		<dict>
 			<key>File Name</key>
-			<string>iBEC.n94ap.RELEASE.dfu</string>
+			<string>iBEC.n94.RELEASE.dfu</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -145,7 +145,7 @@
 		<key>iBoot</key>
 		<dict>
 			<key>File Name</key>
-			<string>iBoot.n94ap.RELEASE.img3</string>
+			<string>iBoot.n94.RELEASE.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -156,7 +156,7 @@
 		<key>iBSS</key>
 		<dict>
 			<key>File Name</key>
-			<string>iBSS.n94ap.RELEASE.dfu</string>
+			<string>iBSS.n94.RELEASE.dfu</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -178,7 +178,7 @@
 		<key>LLB</key>
 		<dict>
 			<key>File Name</key>
-			<string>LLB.n94ap.RELEASE.img3</string>
+			<string>LLB.n94.RELEASE.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
