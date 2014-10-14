@@ -132,7 +132,7 @@
 		<key>iBEC</key>
 		<dict>
 			<key>File Name</key>
-			<string>iBEC.j1ap.RELEASE.dfu</string>
+			<string>iBEC.j1.RELEASE.dfu</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -143,7 +143,7 @@
 		<key>iBoot</key>
 		<dict>
 			<key>File Name</key>
-			<string>iBoot.j1ap.RELEASE.img3</string>
+			<string>iBoot.j1.RELEASE.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -154,7 +154,7 @@
 		<key>iBSS</key>
 		<dict>
 			<key>File Name</key>
-			<string>iBSS.j1ap.RELEASE.dfu</string>
+			<string>iBSS.j1.RELEASE.dfu</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -176,7 +176,7 @@
 		<key>LLB</key>
 		<dict>
 			<key>File Name</key>
-			<string>LLB.j1ap.RELEASE.img3</string>
+			<string>LLB.j1.RELEASE.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
