@@ -109,12 +109,20 @@ namespace Hexware.Programs.iDecryptIt
             Products.Add(new ComboBoxEntry("iPodTouch", "iPod touch"));
 
             InitModels();
+
             InitAppleTV();
             InitIPad();
             InitIPadMini();
             InitIPhone();
             InitIPodTouch();
-            InitHelpers(); // THIS MUST BE LAST
+
+            InitDeprecatedAppleTV();
+            InitDeprecatedIPad();
+            InitDeprecatedIPhone();
+            InitDeprecatedIPodTouch();
+
+            // MUST BE LAST
+            InitHelpers();
         }
         private static void InitHelpers()
         {
@@ -237,36 +245,6 @@ namespace Hexware.Programs.iDecryptIt
         }
         private static void InitAppleTV()
         {
-            AppleTV21 = new List<ComboBoxEntry>();
-            AppleTV21.Add(new ComboBoxEntry("8M89", "4.0/4.1 (8M89)"));
-            AppleTV21.Add(new ComboBoxEntry("8C150", "4.1/4.2 (8C150)"));
-            AppleTV21.Add(new ComboBoxEntry("8C154", "4.1.1/4.2.1 (8C154)"));
-            AppleTV21.Add(new ComboBoxEntry("8F191m", "4.2/4.3 (8F191m)"));
-            AppleTV21.Add(new ComboBoxEntry("8F202", "4.2.1/4.3 (8F202)"));
-            AppleTV21.Add(new ComboBoxEntry("8F305", "4.2.2/4.3 (8F305)"));
-            AppleTV21.Add(new ComboBoxEntry("8F455", "4.3 (8F455)"));
-            AppleTV21.Add(new ComboBoxEntry("9A334v", "4.4/5.0 (9A334v)"));
-            AppleTV21.Add(new ComboBoxEntry("9A335a", "4.4.1/5.0 (9A335a)"));
-            AppleTV21.Add(new ComboBoxEntry("9A336a", "4.4.2/5.0 (9A336a)"));
-            AppleTV21.Add(new ComboBoxEntry("9A405l", "4.4.3/5.0.1 (9A405l)"));
-            AppleTV21.Add(new ComboBoxEntry("9A406a", "4.4.4/5.0.1 (9A406a)"));
-            AppleTV21.Add(new ComboBoxEntry("9B179b", "5.0/5.1 (9B179b)"));
-            AppleTV21.Add(new ComboBoxEntry("9B206f", "5.0.1/5.1 (9B206f)"));
-            AppleTV21.Add(new ComboBoxEntry("9B830", "5.0.2/5.1 (9B830)"));
-            AppleTV21.Add(new ComboBoxEntry("10A406e", "5.1/6.0 (10A406e)"));
-            AppleTV21.Add(new ComboBoxEntry("10B144b", "5.2/6.1 (10B144b)"));
-            AppleTV21.Add(new ComboBoxEntry("10B329a", "5.2.1/6.1.3 (10B329a)"));
-            AppleTV21.Add(new ComboBoxEntry("10B809", "5.3/6.1.4 (10B809)"));
-            AppleTV21.Add(new ComboBoxEntry("11A470e", "6.0/7.0.1 (11A470e)"));
-            AppleTV21.Add(new ComboBoxEntry("11A502", "6.0/7.0.2 (11A502)"));
-            AppleTV21.Add(new ComboBoxEntry("11B511d", "6.0.1/7.0.3 (11B511d)"));
-            AppleTV21.Add(new ComboBoxEntry("11B554a", "6.0.2/7.0.4 (11B554a)"));
-            AppleTV21.Add(new ComboBoxEntry("11B651", "6.0.2/7.0.6 (11B651)"));
-            AppleTV21.Add(new ComboBoxEntry("11D169b", "6.1/7.1 (11D169b)"));
-            AppleTV21.Add(new ComboBoxEntry("11D201c", "6.1.1/7.1.1 (11D201c)"));
-            AppleTV21.Add(new ComboBoxEntry("11D257c", "6.2/7.1.2 (11D257c)"));
-            AppleTV21.Add(new ComboBoxEntry("11D258", "6.2.1/7.1.2 (11D258)"));
-
             AppleTV31 = new List<ComboBoxEntry>();
             AppleTV31.Add(new ComboBoxEntry("9B179b", "5.0/5.1 (9B179b)"));
             AppleTV31.Add(new ComboBoxEntry("9B206f", "5.0.1/5.1.1 (9B206f)"));
@@ -301,22 +279,6 @@ namespace Hexware.Programs.iDecryptIt
         }
         private static void InitIPad()
         {
-            iPad11 = new List<ComboBoxEntry>();
-            iPad11.Add(new ComboBoxEntry("7B367", "3.2 (7B367)"));
-            iPad11.Add(new ComboBoxEntry("7B405", "3.2.1 (7B405)"));
-            iPad11.Add(new ComboBoxEntry("7B500", "3.2.2 (7B500)"));
-            iPad11.Add(new ComboBoxEntry("8C148", "4.2.1 (8C148)"));
-            iPad11.Add(new ComboBoxEntry("8F190", "4.3 (8F190)"));
-            iPad11.Add(new ComboBoxEntry("8G4", "4.3.1 (8G4)"));
-            iPad11.Add(new ComboBoxEntry("8H7", "4.3.2 (8H7)"));
-            iPad11.Add(new ComboBoxEntry("8J3", "4.3.3 (8J3)"));
-            iPad11.Add(new ComboBoxEntry("8K2", "4.3.4 (8K2)"));
-            iPad11.Add(new ComboBoxEntry("8L1", "4.3.5 (8L1)"));
-            iPad11.Add(new ComboBoxEntry("9A334", "5.0 (9A334)"));
-            iPad11.Add(new ComboBoxEntry("9A405", "5.0.1 (9A405)"));
-            iPad11.Add(new ComboBoxEntry("9B176", "5.1 (9B176)"));
-            iPad11.Add(new ComboBoxEntry("9B206", "5.1.1 (9B206)"));
-
             iPad21 = new List<ComboBoxEntry>();
             iPad21.Add(new ComboBoxEntry("8F191", "4.3 (8F191)"));
             iPad21.Add(new ComboBoxEntry("8G4", "4.3.1 (8G4)"));
@@ -686,144 +648,6 @@ namespace Hexware.Programs.iDecryptIt
         }
         private static void InitIPhone()
         {
-            iPhone11 = new List<ComboBoxEntry>();
-            iPhone11.Add(new ComboBoxEntry("1A420", "1.0 proto (1A420)"));
-            iPhone11.Add(new ComboBoxEntry("1A543a", "1.0 (1A543a)"));
-            iPhone11.Add(new ComboBoxEntry("1C25", "1.0.1 (1C25)"));
-            iPhone11.Add(new ComboBoxEntry("1C28", "1.0.2 (1C28)"));
-            iPhone11.Add(new ComboBoxEntry("3A109a", "1.1.1 (3A109a)"));
-            iPhone11.Add(new ComboBoxEntry("3B48b", "1.1.2 (3B48b)"));
-            iPhone11.Add(new ComboBoxEntry("4A93", "1.1.3 (4A93)"));
-            iPhone11.Add(new ComboBoxEntry("4A102", "1.1.4 (4A102)"));
-            iPhone11.Add(new ComboBoxEntry("5A347", "2.0 (5A347)"));
-            iPhone11.Add(new ComboBoxEntry("5B108", "2.0.1 (5B108)"));
-            iPhone11.Add(new ComboBoxEntry("5C1", "2.0.2 (5C1)"));
-            iPhone11.Add(new ComboBoxEntry("5F136", "2.1 (5F136)"));
-            iPhone11.Add(new ComboBoxEntry("5G77", "2.2 (5G77)"));
-            iPhone11.Add(new ComboBoxEntry("5H11", "2.2.1 (5H11)"));
-            iPhone11.Add(new ComboBoxEntry("7A341", "3.0 (7A341)"));
-            iPhone11.Add(new ComboBoxEntry("7A400", "3.0.1 (7A400)"));
-            iPhone11.Add(new ComboBoxEntry("7C144", "3.1 (7C144)"));
-            iPhone11.Add(new ComboBoxEntry("7D11", "3.1.2 (7D11)"));
-            iPhone11.Add(new ComboBoxEntry("7E18", "3.1.3 (7E18)"));
-
-            iPhone12 = new List<ComboBoxEntry>();
-            iPhone12.Add(new ComboBoxEntry("5A345", "2.0 (5A345)"));
-            iPhone12.Add(new ComboBoxEntry("5A347", "2.0 (5A347)"));
-            iPhone12.Add(new ComboBoxEntry("5B108", "2.0.1 (5B108)"));
-            iPhone12.Add(new ComboBoxEntry("5C1", "2.0.2 (5C1)"));
-            iPhone12.Add(new ComboBoxEntry("5F136", "2.1 (5F136)"));
-            iPhone12.Add(new ComboBoxEntry("5G77", "2.2 (5G77)"));
-            iPhone12.Add(new ComboBoxEntry("5H11", "2.2.1 (5H11)"));
-            iPhone12.Add(new ComboBoxEntry("7A341", "3.0 (7A341)"));
-            iPhone12.Add(new ComboBoxEntry("7A400", "3.0.1 (7A400)"));
-            iPhone12.Add(new ComboBoxEntry("7C144", "3.1 (7C144)"));
-            iPhone12.Add(new ComboBoxEntry("7D11", "3.1.2 (7D11)"));
-            iPhone12.Add(new ComboBoxEntry("7E18", "3.1.3 (7E18)"));
-            iPhone12.Add(new ComboBoxEntry("8A293", "4.0 (8A293)"));
-            iPhone12.Add(new ComboBoxEntry("8A306", "4.0.1 (8A306)"));
-            iPhone12.Add(new ComboBoxEntry("8A400", "4.0.2 (8A400)"));
-            iPhone12.Add(new ComboBoxEntry("8B117", "4.1 (8B117)"));
-            iPhone12.Add(new ComboBoxEntry("8C148", "4.2.1 (8C148)"));
-
-            iPhone21 = new List<ComboBoxEntry>();
-            iPhone21.Add(new ComboBoxEntry("7A341", "3.0 (7A341)"));
-            iPhone21.Add(new ComboBoxEntry("7A400", "3.0.1 (7A400)"));
-            iPhone21.Add(new ComboBoxEntry("7C144", "3.1 (7C144)"));
-            iPhone21.Add(new ComboBoxEntry("7D11", "3.1.2 (7D11)"));
-            iPhone21.Add(new ComboBoxEntry("7E18", "3.1.3 (7E18)"));
-            iPhone21.Add(new ComboBoxEntry("8A293", "4.0 (8A293)"));
-            iPhone21.Add(new ComboBoxEntry("8A306", "4.0.1 (8A306)"));
-            iPhone21.Add(new ComboBoxEntry("8A400", "4.0.2 (8A400)"));
-            iPhone21.Add(new ComboBoxEntry("8B117", "4.1 (8B117)"));
-            iPhone21.Add(new ComboBoxEntry("8C148a", "4.2.1 (8C148a)"));
-            iPhone21.Add(new ComboBoxEntry("8F190", "4.3 (8F190)"));
-            iPhone21.Add(new ComboBoxEntry("8G4", "4.3.1 (8G4)"));
-            iPhone21.Add(new ComboBoxEntry("8H7", "4.3.2 (8H7)"));
-            iPhone21.Add(new ComboBoxEntry("8J2", "4.3.3 (8J2)"));
-            iPhone21.Add(new ComboBoxEntry("8K2", "4.3.4 (8K2)"));
-            iPhone21.Add(new ComboBoxEntry("8L1", "4.3.5 (8L1)"));
-            iPhone21.Add(new ComboBoxEntry("9A334", "5.0 (9A334)"));
-            iPhone21.Add(new ComboBoxEntry("9A405", "5.0.1 (9A405)"));
-            iPhone21.Add(new ComboBoxEntry("9B176", "5.1 (9B176)"));
-            iPhone21.Add(new ComboBoxEntry("9B206", "5.1.1 (9B206)"));
-            iPhone21.Add(new ComboBoxEntry("10A403", "6.0 (10A403)"));
-            iPhone21.Add(new ComboBoxEntry("10A523", "6.0.1 (10A523)"));
-            iPhone21.Add(new ComboBoxEntry("10B141", "6.1 (10B141)"));
-            iPhone21.Add(new ComboBoxEntry("10B146", "6.1.2 (10B146)"));
-            iPhone21.Add(new ComboBoxEntry("10B329", "6.1.3 (10B329)"));
-
-            iPhone31 = new List<ComboBoxEntry>();
-            iPhone31.Add(new ComboBoxEntry("8A293", "4.0 (8A293)"));
-            iPhone31.Add(new ComboBoxEntry("8A306", "4.0.1 (8A306)"));
-            iPhone31.Add(new ComboBoxEntry("8A400", "4.0.2 (8A400)"));
-            iPhone31.Add(new ComboBoxEntry("8B117", "4.1 (8B117)"));
-            iPhone31.Add(new ComboBoxEntry("8C148", "4.2.1 (8C148)"));
-            iPhone31.Add(new ComboBoxEntry("8F190", "4.3 (8F190)"));
-            iPhone31.Add(new ComboBoxEntry("8G4", "4.3.1 (8G4)"));
-            iPhone31.Add(new ComboBoxEntry("8H7", "4.3.2 (8H7)"));
-            iPhone31.Add(new ComboBoxEntry("8J2", "4.3.3 (8J2)"));
-            iPhone31.Add(new ComboBoxEntry("8K2", "4.3.4 (8K2)"));
-            iPhone31.Add(new ComboBoxEntry("8L1", "4.3.5 (8L1)"));
-            iPhone31.Add(new ComboBoxEntry("9A334", "5.0 (9A334)"));
-            iPhone31.Add(new ComboBoxEntry("9A405", "5.0.1 (9A405)"));
-            iPhone31.Add(new ComboBoxEntry("9B176", "5.1 (9B176)"));
-            iPhone31.Add(new ComboBoxEntry("9B206", "5.1.1 (9B206)"));
-            iPhone31.Add(new ComboBoxEntry("9B208", "5.1.1 (9B208)"));
-            iPhone31.Add(new ComboBoxEntry("10A403", "6.0 (10A403)"));
-            iPhone31.Add(new ComboBoxEntry("10A523", "6.0.1 (10A523)"));
-            iPhone31.Add(new ComboBoxEntry("10B144", "6.1 (10B144)"));
-            iPhone31.Add(new ComboBoxEntry("10B146", "6.1.2 (10B146)"));
-            iPhone31.Add(new ComboBoxEntry("10B329", "6.1.3 (10B329)"));
-            iPhone31.Add(new ComboBoxEntry("11A465", "7.0 (11A465)"));
-            iPhone31.Add(new ComboBoxEntry("11A501", "7.0.2 (11A501)"));
-            iPhone31.Add(new ComboBoxEntry("11B511", "7.0.3 (11B511)"));
-            iPhone31.Add(new ComboBoxEntry("11B554a", "7.0.4 (11B554a)"));
-            iPhone31.Add(new ComboBoxEntry("11B651", "7.0.6 (11B651)"));
-            iPhone31.Add(new ComboBoxEntry("11D169", "7.1 (11D169)"));
-            iPhone31.Add(new ComboBoxEntry("11D201", "7.1.1 (11D201)"));
-            iPhone31.Add(new ComboBoxEntry("11D257", "7.1.2 (11D257)"));
-
-            iPhone32 = new List<ComboBoxEntry>();
-            iPhone32.Add(new ComboBoxEntry("10A403", "6.0 (10A403)"));
-            iPhone32.Add(new ComboBoxEntry("10A523", "6.0.1 (10A523)"));
-            iPhone32.Add(new ComboBoxEntry("10B144", "6.1 (10B144)"));
-            iPhone32.Add(new ComboBoxEntry("10B146", "6.1.2 (10B146)"));
-            iPhone32.Add(new ComboBoxEntry("10B329", "6.1.3 (10B329)"));
-            iPhone32.Add(new ComboBoxEntry("11A465", "7.0 (11A465)"));
-            iPhone32.Add(new ComboBoxEntry("11A501", "7.0.2 (11A501)"));
-            iPhone32.Add(new ComboBoxEntry("11B511", "7.0.3 (11B511)"));
-            iPhone32.Add(new ComboBoxEntry("11B554a", "7.0.4 (11B554a)"));
-            iPhone32.Add(new ComboBoxEntry("11B651", "7.0.6 (11B651)"));
-            iPhone32.Add(new ComboBoxEntry("11D169", "7.1 (11D169)"));
-            iPhone32.Add(new ComboBoxEntry("11D201", "7.1.1 (11D201)"));
-            iPhone32.Add(new ComboBoxEntry("11D257", "7.1.2 (11D257)"));
-
-            iPhone33 = new List<ComboBoxEntry>();
-            iPhone33.Add(new ComboBoxEntry("8E218", "4.2.5 (8E218)"));
-            iPhone33.Add(new ComboBoxEntry("8E200", "4.2.6 (8E200)"));
-            iPhone33.Add(new ComboBoxEntry("8E303", "4.2.7 (8E303)"));
-            iPhone33.Add(new ComboBoxEntry("8E401", "4.2.8 (8E401)"));
-            iPhone33.Add(new ComboBoxEntry("8E501", "4.2.9 (8E501)"));
-            iPhone33.Add(new ComboBoxEntry("8E600", "4.2.10 (8E600)"));
-            iPhone33.Add(new ComboBoxEntry("9A334", "5.0 (9A334)"));
-            iPhone33.Add(new ComboBoxEntry("9A405", "5.0.1 (9A405)"));
-            iPhone33.Add(new ComboBoxEntry("9B176", "5.1 (9B176)"));
-            iPhone33.Add(new ComboBoxEntry("9B206", "5.1.1 (9B206)"));
-            iPhone33.Add(new ComboBoxEntry("10A403", "6.0 (10A403)"));
-            iPhone33.Add(new ComboBoxEntry("10A523", "6.0.1 (10A523)"));
-            iPhone33.Add(new ComboBoxEntry("10B141", "6.1 (10B141)"));
-            iPhone33.Add(new ComboBoxEntry("10B146", "6.1.2 (10B146)"));
-            iPhone33.Add(new ComboBoxEntry("10B329", "6.1.3 (10B329)"));
-            iPhone33.Add(new ComboBoxEntry("11A465", "7.0 (11A465)"));
-            iPhone33.Add(new ComboBoxEntry("11A501", "7.0.2 (11A501)"));
-            iPhone33.Add(new ComboBoxEntry("11B511", "7.0.3 (11B511)"));
-            iPhone33.Add(new ComboBoxEntry("11B554a", "7.0.4 (11B554a)"));
-            iPhone33.Add(new ComboBoxEntry("11B651", "7.0.6 (11B651)"));
-            iPhone33.Add(new ComboBoxEntry("11D167", "7.1 (11D167)"));
-            iPhone33.Add(new ComboBoxEntry("11D201", "7.1.1 (11D201)"));
-            iPhone33.Add(new ComboBoxEntry("11D257", "7.1.2 (11D257)"));
-
             iPhone41 = new List<ComboBoxEntry>();
             iPhone41.Add(new ComboBoxEntry("9A334", "5.0 (9A334)"));
             iPhone41.Add(new ComboBoxEntry("9A405", "5.0.1 (9A405)"));
@@ -965,6 +789,217 @@ namespace Hexware.Programs.iDecryptIt
         }
         private static void InitIPodTouch()
         {
+            iPod51 = new List<ComboBoxEntry>();
+            iPod51.Add(new ComboBoxEntry("10A406", "6.0 (10A406)"));
+            iPod51.Add(new ComboBoxEntry("10A523", "6.0.1 (10A523)"));
+            iPod51.Add(new ComboBoxEntry("10B141", "6.1 (10B141)"));
+            iPod51.Add(new ComboBoxEntry("10B146", "6.1.2 (10B146)"));
+            iPod51.Add(new ComboBoxEntry("10B329", "6.1.3 (10B329)"));
+            iPod51.Add(new ComboBoxEntry("11A465", "7.0 (11A465)"));
+            iPod51.Add(new ComboBoxEntry("11A501", "7.0.2 (11A501)"));
+            iPod51.Add(new ComboBoxEntry("11B511", "7.0.3 (11B511)"));
+            iPod51.Add(new ComboBoxEntry("11B554a", "7.0.4 (11B554a)"));
+            iPod51.Add(new ComboBoxEntry("11B651", "7.0.6 (11B651)"));
+            iPod51.Add(new ComboBoxEntry("11D167", "7.1 (11D167)"));
+            iPod51.Add(new ComboBoxEntry("11D201", "7.1.1 (11D201)"));
+            iPod51.Add(new ComboBoxEntry("11D257", "7.1.2 (11D257)"));
+            iPod51.Add(new ComboBoxEntry("12A365", "8.0 (12A365)"));
+            iPod51.Add(new ComboBoxEntry("12A402", "8.0.1 (12A402)"));
+            iPod51.Add(new ComboBoxEntry("12A405", "8.0.2 (12A405)"));
+            iPod51.Add(new ComboBoxEntry("12B411", "8.1 (12B411)"));
+        }
+        private static void InitDeprecatedAppleTV()
+        {
+            AppleTV21 = new List<ComboBoxEntry>();
+            AppleTV21.Add(new ComboBoxEntry("8M89", "4.0/4.1 (8M89)"));
+            AppleTV21.Add(new ComboBoxEntry("8C150", "4.1/4.2 (8C150)"));
+            AppleTV21.Add(new ComboBoxEntry("8C154", "4.1.1/4.2.1 (8C154)"));
+            AppleTV21.Add(new ComboBoxEntry("8F191m", "4.2/4.3 (8F191m)"));
+            AppleTV21.Add(new ComboBoxEntry("8F202", "4.2.1/4.3 (8F202)"));
+            AppleTV21.Add(new ComboBoxEntry("8F305", "4.2.2/4.3 (8F305)"));
+            AppleTV21.Add(new ComboBoxEntry("8F455", "4.3 (8F455)"));
+            AppleTV21.Add(new ComboBoxEntry("9A334v", "4.4/5.0 (9A334v)"));
+            AppleTV21.Add(new ComboBoxEntry("9A335a", "4.4.1/5.0 (9A335a)"));
+            AppleTV21.Add(new ComboBoxEntry("9A336a", "4.4.2/5.0 (9A336a)"));
+            AppleTV21.Add(new ComboBoxEntry("9A405l", "4.4.3/5.0.1 (9A405l)"));
+            AppleTV21.Add(new ComboBoxEntry("9A406a", "4.4.4/5.0.1 (9A406a)"));
+            AppleTV21.Add(new ComboBoxEntry("9B179b", "5.0/5.1 (9B179b)"));
+            AppleTV21.Add(new ComboBoxEntry("9B206f", "5.0.1/5.1 (9B206f)"));
+            AppleTV21.Add(new ComboBoxEntry("9B830", "5.0.2/5.1 (9B830)"));
+            AppleTV21.Add(new ComboBoxEntry("10A406e", "5.1/6.0 (10A406e)"));
+            AppleTV21.Add(new ComboBoxEntry("10B144b", "5.2/6.1 (10B144b)"));
+            AppleTV21.Add(new ComboBoxEntry("10B329a", "5.2.1/6.1.3 (10B329a)"));
+            AppleTV21.Add(new ComboBoxEntry("10B809", "5.3/6.1.4 (10B809)"));
+            AppleTV21.Add(new ComboBoxEntry("11A470e", "6.0/7.0.1 (11A470e)"));
+            AppleTV21.Add(new ComboBoxEntry("11A502", "6.0/7.0.2 (11A502)"));
+            AppleTV21.Add(new ComboBoxEntry("11B511d", "6.0.1/7.0.3 (11B511d)"));
+            AppleTV21.Add(new ComboBoxEntry("11B554a", "6.0.2/7.0.4 (11B554a)"));
+            AppleTV21.Add(new ComboBoxEntry("11B651", "6.0.2/7.0.6 (11B651)"));
+            AppleTV21.Add(new ComboBoxEntry("11D169b", "6.1/7.1 (11D169b)"));
+            AppleTV21.Add(new ComboBoxEntry("11D201c", "6.1.1/7.1.1 (11D201c)"));
+            AppleTV21.Add(new ComboBoxEntry("11D257c", "6.2/7.1.2 (11D257c)"));
+            AppleTV21.Add(new ComboBoxEntry("11D258", "6.2.1/7.1.2 (11D258)"));
+        }
+        private static void InitDeprecatedIPad()
+        {
+            iPad11 = new List<ComboBoxEntry>();
+            iPad11.Add(new ComboBoxEntry("7B367", "3.2 (7B367)"));
+            iPad11.Add(new ComboBoxEntry("7B405", "3.2.1 (7B405)"));
+            iPad11.Add(new ComboBoxEntry("7B500", "3.2.2 (7B500)"));
+            iPad11.Add(new ComboBoxEntry("8C148", "4.2.1 (8C148)"));
+            iPad11.Add(new ComboBoxEntry("8F190", "4.3 (8F190)"));
+            iPad11.Add(new ComboBoxEntry("8G4", "4.3.1 (8G4)"));
+            iPad11.Add(new ComboBoxEntry("8H7", "4.3.2 (8H7)"));
+            iPad11.Add(new ComboBoxEntry("8J3", "4.3.3 (8J3)"));
+            iPad11.Add(new ComboBoxEntry("8K2", "4.3.4 (8K2)"));
+            iPad11.Add(new ComboBoxEntry("8L1", "4.3.5 (8L1)"));
+            iPad11.Add(new ComboBoxEntry("9A334", "5.0 (9A334)"));
+            iPad11.Add(new ComboBoxEntry("9A405", "5.0.1 (9A405)"));
+            iPad11.Add(new ComboBoxEntry("9B176", "5.1 (9B176)"));
+            iPad11.Add(new ComboBoxEntry("9B206", "5.1.1 (9B206)"));
+        }
+        private static void InitDeprecatedIPhone()
+        {
+            iPhone11 = new List<ComboBoxEntry>();
+            iPhone11.Add(new ComboBoxEntry("1A420", "1.0 proto (1A420)"));
+            iPhone11.Add(new ComboBoxEntry("1A543a", "1.0 (1A543a)"));
+            iPhone11.Add(new ComboBoxEntry("1C25", "1.0.1 (1C25)"));
+            iPhone11.Add(new ComboBoxEntry("1C28", "1.0.2 (1C28)"));
+            iPhone11.Add(new ComboBoxEntry("3A109a", "1.1.1 (3A109a)"));
+            iPhone11.Add(new ComboBoxEntry("3B48b", "1.1.2 (3B48b)"));
+            iPhone11.Add(new ComboBoxEntry("4A93", "1.1.3 (4A93)"));
+            iPhone11.Add(new ComboBoxEntry("4A102", "1.1.4 (4A102)"));
+            iPhone11.Add(new ComboBoxEntry("5A347", "2.0 (5A347)"));
+            iPhone11.Add(new ComboBoxEntry("5B108", "2.0.1 (5B108)"));
+            iPhone11.Add(new ComboBoxEntry("5C1", "2.0.2 (5C1)"));
+            iPhone11.Add(new ComboBoxEntry("5F136", "2.1 (5F136)"));
+            iPhone11.Add(new ComboBoxEntry("5G77", "2.2 (5G77)"));
+            iPhone11.Add(new ComboBoxEntry("5H11", "2.2.1 (5H11)"));
+            iPhone11.Add(new ComboBoxEntry("7A341", "3.0 (7A341)"));
+            iPhone11.Add(new ComboBoxEntry("7A400", "3.0.1 (7A400)"));
+            iPhone11.Add(new ComboBoxEntry("7C144", "3.1 (7C144)"));
+            iPhone11.Add(new ComboBoxEntry("7D11", "3.1.2 (7D11)"));
+            iPhone11.Add(new ComboBoxEntry("7E18", "3.1.3 (7E18)"));
+
+            iPhone12 = new List<ComboBoxEntry>();
+            iPhone12.Add(new ComboBoxEntry("5A345", "2.0 (5A345)"));
+            iPhone12.Add(new ComboBoxEntry("5A347", "2.0 (5A347)"));
+            iPhone12.Add(new ComboBoxEntry("5B108", "2.0.1 (5B108)"));
+            iPhone12.Add(new ComboBoxEntry("5C1", "2.0.2 (5C1)"));
+            iPhone12.Add(new ComboBoxEntry("5F136", "2.1 (5F136)"));
+            iPhone12.Add(new ComboBoxEntry("5G77", "2.2 (5G77)"));
+            iPhone12.Add(new ComboBoxEntry("5H11", "2.2.1 (5H11)"));
+            iPhone12.Add(new ComboBoxEntry("7A341", "3.0 (7A341)"));
+            iPhone12.Add(new ComboBoxEntry("7A400", "3.0.1 (7A400)"));
+            iPhone12.Add(new ComboBoxEntry("7C144", "3.1 (7C144)"));
+            iPhone12.Add(new ComboBoxEntry("7D11", "3.1.2 (7D11)"));
+            iPhone12.Add(new ComboBoxEntry("7E18", "3.1.3 (7E18)"));
+            iPhone12.Add(new ComboBoxEntry("8A293", "4.0 (8A293)"));
+            iPhone12.Add(new ComboBoxEntry("8A306", "4.0.1 (8A306)"));
+            iPhone12.Add(new ComboBoxEntry("8A400", "4.0.2 (8A400)"));
+            iPhone12.Add(new ComboBoxEntry("8B117", "4.1 (8B117)"));
+            iPhone12.Add(new ComboBoxEntry("8C148", "4.2.1 (8C148)"));
+
+            iPhone21 = new List<ComboBoxEntry>();
+            iPhone21.Add(new ComboBoxEntry("7A341", "3.0 (7A341)"));
+            iPhone21.Add(new ComboBoxEntry("7A400", "3.0.1 (7A400)"));
+            iPhone21.Add(new ComboBoxEntry("7C144", "3.1 (7C144)"));
+            iPhone21.Add(new ComboBoxEntry("7D11", "3.1.2 (7D11)"));
+            iPhone21.Add(new ComboBoxEntry("7E18", "3.1.3 (7E18)"));
+            iPhone21.Add(new ComboBoxEntry("8A293", "4.0 (8A293)"));
+            iPhone21.Add(new ComboBoxEntry("8A306", "4.0.1 (8A306)"));
+            iPhone21.Add(new ComboBoxEntry("8A400", "4.0.2 (8A400)"));
+            iPhone21.Add(new ComboBoxEntry("8B117", "4.1 (8B117)"));
+            iPhone21.Add(new ComboBoxEntry("8C148a", "4.2.1 (8C148a)"));
+            iPhone21.Add(new ComboBoxEntry("8F190", "4.3 (8F190)"));
+            iPhone21.Add(new ComboBoxEntry("8G4", "4.3.1 (8G4)"));
+            iPhone21.Add(new ComboBoxEntry("8H7", "4.3.2 (8H7)"));
+            iPhone21.Add(new ComboBoxEntry("8J2", "4.3.3 (8J2)"));
+            iPhone21.Add(new ComboBoxEntry("8K2", "4.3.4 (8K2)"));
+            iPhone21.Add(new ComboBoxEntry("8L1", "4.3.5 (8L1)"));
+            iPhone21.Add(new ComboBoxEntry("9A334", "5.0 (9A334)"));
+            iPhone21.Add(new ComboBoxEntry("9A405", "5.0.1 (9A405)"));
+            iPhone21.Add(new ComboBoxEntry("9B176", "5.1 (9B176)"));
+            iPhone21.Add(new ComboBoxEntry("9B206", "5.1.1 (9B206)"));
+            iPhone21.Add(new ComboBoxEntry("10A403", "6.0 (10A403)"));
+            iPhone21.Add(new ComboBoxEntry("10A523", "6.0.1 (10A523)"));
+            iPhone21.Add(new ComboBoxEntry("10B141", "6.1 (10B141)"));
+            iPhone21.Add(new ComboBoxEntry("10B146", "6.1.2 (10B146)"));
+            iPhone21.Add(new ComboBoxEntry("10B329", "6.1.3 (10B329)"));
+
+            iPhone31 = new List<ComboBoxEntry>();
+            iPhone31.Add(new ComboBoxEntry("8A293", "4.0 (8A293)"));
+            iPhone31.Add(new ComboBoxEntry("8A306", "4.0.1 (8A306)"));
+            iPhone31.Add(new ComboBoxEntry("8A400", "4.0.2 (8A400)"));
+            iPhone31.Add(new ComboBoxEntry("8B117", "4.1 (8B117)"));
+            iPhone31.Add(new ComboBoxEntry("8C148", "4.2.1 (8C148)"));
+            iPhone31.Add(new ComboBoxEntry("8F190", "4.3 (8F190)"));
+            iPhone31.Add(new ComboBoxEntry("8G4", "4.3.1 (8G4)"));
+            iPhone31.Add(new ComboBoxEntry("8H7", "4.3.2 (8H7)"));
+            iPhone31.Add(new ComboBoxEntry("8J2", "4.3.3 (8J2)"));
+            iPhone31.Add(new ComboBoxEntry("8K2", "4.3.4 (8K2)"));
+            iPhone31.Add(new ComboBoxEntry("8L1", "4.3.5 (8L1)"));
+            iPhone31.Add(new ComboBoxEntry("9A334", "5.0 (9A334)"));
+            iPhone31.Add(new ComboBoxEntry("9A405", "5.0.1 (9A405)"));
+            iPhone31.Add(new ComboBoxEntry("9B176", "5.1 (9B176)"));
+            iPhone31.Add(new ComboBoxEntry("9B206", "5.1.1 (9B206)"));
+            iPhone31.Add(new ComboBoxEntry("9B208", "5.1.1 (9B208)"));
+            iPhone31.Add(new ComboBoxEntry("10A403", "6.0 (10A403)"));
+            iPhone31.Add(new ComboBoxEntry("10A523", "6.0.1 (10A523)"));
+            iPhone31.Add(new ComboBoxEntry("10B144", "6.1 (10B144)"));
+            iPhone31.Add(new ComboBoxEntry("10B146", "6.1.2 (10B146)"));
+            iPhone31.Add(new ComboBoxEntry("10B329", "6.1.3 (10B329)"));
+            iPhone31.Add(new ComboBoxEntry("11A465", "7.0 (11A465)"));
+            iPhone31.Add(new ComboBoxEntry("11A501", "7.0.2 (11A501)"));
+            iPhone31.Add(new ComboBoxEntry("11B511", "7.0.3 (11B511)"));
+            iPhone31.Add(new ComboBoxEntry("11B554a", "7.0.4 (11B554a)"));
+            iPhone31.Add(new ComboBoxEntry("11B651", "7.0.6 (11B651)"));
+            iPhone31.Add(new ComboBoxEntry("11D169", "7.1 (11D169)"));
+            iPhone31.Add(new ComboBoxEntry("11D201", "7.1.1 (11D201)"));
+            iPhone31.Add(new ComboBoxEntry("11D257", "7.1.2 (11D257)"));
+
+            iPhone32 = new List<ComboBoxEntry>();
+            iPhone32.Add(new ComboBoxEntry("10A403", "6.0 (10A403)"));
+            iPhone32.Add(new ComboBoxEntry("10A523", "6.0.1 (10A523)"));
+            iPhone32.Add(new ComboBoxEntry("10B144", "6.1 (10B144)"));
+            iPhone32.Add(new ComboBoxEntry("10B146", "6.1.2 (10B146)"));
+            iPhone32.Add(new ComboBoxEntry("10B329", "6.1.3 (10B329)"));
+            iPhone32.Add(new ComboBoxEntry("11A465", "7.0 (11A465)"));
+            iPhone32.Add(new ComboBoxEntry("11A501", "7.0.2 (11A501)"));
+            iPhone32.Add(new ComboBoxEntry("11B511", "7.0.3 (11B511)"));
+            iPhone32.Add(new ComboBoxEntry("11B554a", "7.0.4 (11B554a)"));
+            iPhone32.Add(new ComboBoxEntry("11B651", "7.0.6 (11B651)"));
+            iPhone32.Add(new ComboBoxEntry("11D169", "7.1 (11D169)"));
+            iPhone32.Add(new ComboBoxEntry("11D201", "7.1.1 (11D201)"));
+            iPhone32.Add(new ComboBoxEntry("11D257", "7.1.2 (11D257)"));
+
+            iPhone33 = new List<ComboBoxEntry>();
+            iPhone33.Add(new ComboBoxEntry("8E218", "4.2.5 (8E218)"));
+            iPhone33.Add(new ComboBoxEntry("8E200", "4.2.6 (8E200)"));
+            iPhone33.Add(new ComboBoxEntry("8E303", "4.2.7 (8E303)"));
+            iPhone33.Add(new ComboBoxEntry("8E401", "4.2.8 (8E401)"));
+            iPhone33.Add(new ComboBoxEntry("8E501", "4.2.9 (8E501)"));
+            iPhone33.Add(new ComboBoxEntry("8E600", "4.2.10 (8E600)"));
+            iPhone33.Add(new ComboBoxEntry("9A334", "5.0 (9A334)"));
+            iPhone33.Add(new ComboBoxEntry("9A405", "5.0.1 (9A405)"));
+            iPhone33.Add(new ComboBoxEntry("9B176", "5.1 (9B176)"));
+            iPhone33.Add(new ComboBoxEntry("9B206", "5.1.1 (9B206)"));
+            iPhone33.Add(new ComboBoxEntry("10A403", "6.0 (10A403)"));
+            iPhone33.Add(new ComboBoxEntry("10A523", "6.0.1 (10A523)"));
+            iPhone33.Add(new ComboBoxEntry("10B141", "6.1 (10B141)"));
+            iPhone33.Add(new ComboBoxEntry("10B146", "6.1.2 (10B146)"));
+            iPhone33.Add(new ComboBoxEntry("10B329", "6.1.3 (10B329)"));
+            iPhone33.Add(new ComboBoxEntry("11A465", "7.0 (11A465)"));
+            iPhone33.Add(new ComboBoxEntry("11A501", "7.0.2 (11A501)"));
+            iPhone33.Add(new ComboBoxEntry("11B511", "7.0.3 (11B511)"));
+            iPhone33.Add(new ComboBoxEntry("11B554a", "7.0.4 (11B554a)"));
+            iPhone33.Add(new ComboBoxEntry("11B651", "7.0.6 (11B651)"));
+            iPhone33.Add(new ComboBoxEntry("11D167", "7.1 (11D167)"));
+            iPhone33.Add(new ComboBoxEntry("11D201", "7.1.1 (11D201)"));
+            iPhone33.Add(new ComboBoxEntry("11D257", "7.1.2 (11D257)"));
+        }
+        private static void InitDeprecatedIPodTouch()
+        {
             iPod11 = new List<ComboBoxEntry>();
             iPod11.Add(new ComboBoxEntry("3A100a", "1.1 (3A100a)"));
             iPod11.Add(new ComboBoxEntry("3A101a", "1.1 (3A101a)"));
@@ -1037,25 +1072,6 @@ namespace Hexware.Programs.iDecryptIt
             iPod41.Add(new ComboBoxEntry("10B146", "6.1.2 (10B146)"));
             iPod41.Add(new ComboBoxEntry("10B329", "6.1.3 (10B329)"));
             iPod41.Add(new ComboBoxEntry("10B400", "6.1.4 (10B400)"));
-
-            iPod51 = new List<ComboBoxEntry>();
-            iPod51.Add(new ComboBoxEntry("10A406", "6.0 (10A406)"));
-            iPod51.Add(new ComboBoxEntry("10A523", "6.0.1 (10A523)"));
-            iPod51.Add(new ComboBoxEntry("10B141", "6.1 (10B141)"));
-            iPod51.Add(new ComboBoxEntry("10B146", "6.1.2 (10B146)"));
-            iPod51.Add(new ComboBoxEntry("10B329", "6.1.3 (10B329)"));
-            iPod51.Add(new ComboBoxEntry("11A465", "7.0 (11A465)"));
-            iPod51.Add(new ComboBoxEntry("11A501", "7.0.2 (11A501)"));
-            iPod51.Add(new ComboBoxEntry("11B511", "7.0.3 (11B511)"));
-            iPod51.Add(new ComboBoxEntry("11B554a", "7.0.4 (11B554a)"));
-            iPod51.Add(new ComboBoxEntry("11B651", "7.0.6 (11B651)"));
-            iPod51.Add(new ComboBoxEntry("11D167", "7.1 (11D167)"));
-            iPod51.Add(new ComboBoxEntry("11D201", "7.1.1 (11D201)"));
-            iPod51.Add(new ComboBoxEntry("11D257", "7.1.2 (11D257)"));
-            iPod51.Add(new ComboBoxEntry("12A365", "8.0 (12A365)"));
-            iPod51.Add(new ComboBoxEntry("12A402", "8.0.1 (12A402)"));
-            iPod51.Add(new ComboBoxEntry("12A405", "8.0.2 (12A405)"));
-            iPod51.Add(new ComboBoxEntry("12B411", "8.1 (12B411)"));
         }
     }
 }
