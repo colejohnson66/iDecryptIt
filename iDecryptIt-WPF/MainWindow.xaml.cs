@@ -77,7 +77,7 @@ namespace Hexware.Programs.iDecryptIt
 
             this.DataContext = this;
             KeySelectionLists.Init();
-            cmbDeviceDropDown.ItemsSource = KeySelectionLists.Devices;
+            cmbDeviceDropDown.ItemsSource = KeySelectionLists.Products;
 
             this.Dispatcher.UnhandledException += Dispatcher_UnhandledException;
         }
@@ -1525,7 +1525,7 @@ namespace Hexware.Programs.iDecryptIt
 
             selectedModel = null;
             cmbModelDropDown.IsEnabled = true;
-            cmbModelDropDown.ItemsSource = KeySelectionLists.DevicesHelper[entry.ID];
+            cmbModelDropDown.ItemsSource = KeySelectionLists.ProductsHelper[entry.ID];
 
             selectedVersion = null;
             cmbVersionDropDown.IsEnabled = false;
