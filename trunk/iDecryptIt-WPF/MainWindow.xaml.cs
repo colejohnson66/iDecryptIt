@@ -1509,6 +1509,10 @@ namespace Hexware.Programs.iDecryptIt
                 case "12A4345d":
                 case "12A365b":
                     return "7.0/8.0";
+                case "12B401":
+                case "12B407":
+                case "12B410a":
+                    return "7.0.1/8.1";
             }
             return null;
         }
