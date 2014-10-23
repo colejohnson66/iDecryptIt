@@ -272,9 +272,6 @@ namespace Hexware.Programs.iDecryptIt
         }
         private void LoadFirmwareKeys(Stream document, bool goldMaster)
         {
-            // This code is hideous. I'm not proud of it, but it works.
-            // The "hide everything, then show what we need" could be fixed by seperating,
-            //   say, the AppleLogo area into two grids, one for encrypted, one for not.
             PlistDocument doc = null;
 
             // Open stream
