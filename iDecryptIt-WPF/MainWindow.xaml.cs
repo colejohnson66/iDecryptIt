@@ -270,7 +270,7 @@ namespace Hexware.Programs.iDecryptIt
             }
             return Stream.Null;
         }
-        private void LoadFirmwareKeys(Stream document, bool goldenMaster)
+        private void LoadFirmwareKeys(Stream document, bool goldMaster)
         {
             // This code is hideous. I'm not proud of it, but it works.
             // The "hide everything, then show what we need" could be fixed by seperating,
@@ -293,16 +293,14 @@ namespace Hexware.Programs.iDecryptIt
             txtDevice.Text = GlobalVars.DeviceNames[plist.Get<PlistString>("Device").Value];
             #endregion
             #region Version
-            StringBuilder sb = new StringBuilder(64);
-            sb.Append(plist.Get<PlistString>("Version").Value);
-            sb.Append(" (Build " + plist.Get<PlistString>("Build").Value + ")");
-            if (goldenMaster)
-                sb.Append(" [GM]");
-            txtVersion.Text = sb.ToString();
+            txtVersion.Text = plist.Get<PlistString>("Version").Value +
+                " (Build " + plist.Get<PlistString>("Build").Value + ")";
+            //if (goldMaster)
+            //    txtVersion.Text = txtVersion.Text + " [GM]";
             #endregion
             #region Root FS
             fileRootFS.Text = plist.Get<PlistDict>("Root FS").Get<PlistString>("File Name").Value;
-            keyRootFS.Text = plist.Get<PlistDict>("Root FS").Get<PlistString>((goldenMaster) ? "GM Key" : "Key").Value;
+            keyRootFS.Text = plist.Get<PlistDict>("Root FS").Get<PlistString>((goldMaster) ? "GM Key" : "Key").Value;
             #endregion
             #region Update Ramdisk
             /*if (plist.Exists("Update Ramdisk")) {
