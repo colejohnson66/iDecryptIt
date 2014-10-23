@@ -290,7 +290,7 @@ namespace Hexware.Programs.iDecryptIt
             PlistDict plist = doc.Document.Value;
             #region Device
             Debug("[LOADKEYS]", "Device.");
-            txtDevice.Text = plist.Get<PlistString>("Device").Value;
+            txtDevice.Text = GlobalVars.DeviceNames[plist.Get<PlistString>("Device").Value];
             #endregion
             #region Version
             StringBuilder sb = new StringBuilder(64);
@@ -304,8 +304,8 @@ namespace Hexware.Programs.iDecryptIt
             fileRootFS.Text = plist.Get<PlistDict>("Root FS").Get<PlistString>("File Name").Value;
             keyRootFS.Text = plist.Get<PlistDict>("Root FS").Get<PlistString>((goldenMaster) ? "GM Key" : "Key").Value;
             #endregion
-            /*#region Update Ramdisk
-            if (plist.Exists("Update Ramdisk")) {
+            #region Update Ramdisk
+            /*if (plist.Exists("Update Ramdisk")) {
                 plist = plist.Get<PlistDict>("Update Ramdisk");
                 if (plist.Get<PlistBool>("Encryption").Value) {
                     // Hide unencrypted
@@ -1138,8 +1138,8 @@ namespace Hexware.Programs.iDecryptIt
                 lblSEPFirmwareNoEncrypt.Visibility = Visibility.Collapsed;
                 keySEPFirmwareNoEncrypt.Visibility = Visibility.Collapsed;
                 fileSEPFirmwareNoEncrypt.Visibility = Visibility.Collapsed;
-            }
-            #endregion*/
+            }*/
+            #endregion
 
             // Cleanup
             try {
