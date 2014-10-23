@@ -44,7 +44,6 @@ namespace Hexware.Programs.iDecryptIt
         private static extern bool FreeConsole();
 
         static string execDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-        //string tempDir;
         string execHash = new Random().Next().ToString("X");
         static string helpDir = Path.Combine(execDir, "help");
 
@@ -305,7 +304,7 @@ namespace Hexware.Programs.iDecryptIt
             fileRootFS.Text = plist.Get<PlistDict>("Root FS").Get<PlistString>("File Name").Value;
             keyRootFS.Text = plist.Get<PlistDict>("Root FS").Get<PlistString>((goldenMaster) ? "GM Key" : "Key").Value;
             #endregion
-            #region Update Ramdisk
+            /*#region Update Ramdisk
             if (plist.Exists("Update Ramdisk")) {
                 plist = plist.Get<PlistDict>("Update Ramdisk");
                 if (plist.Get<PlistBool>("Encryption").Value) {
@@ -1140,7 +1139,7 @@ namespace Hexware.Programs.iDecryptIt
                 keySEPFirmwareNoEncrypt.Visibility = Visibility.Collapsed;
                 fileSEPFirmwareNoEncrypt.Visibility = Visibility.Collapsed;
             }
-            #endregion
+            #endregion*/
 
             // Cleanup
             try {
