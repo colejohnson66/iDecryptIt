@@ -228,7 +228,7 @@ namespace Hexware.Programs.iDecryptIt
             iPhone.Add(new ComboBoxEntry("iPhone3,3", "4 GSM Rev A (iPhone3,3)"));
             iPhone.Add(new ComboBoxEntry("iPhone4,1", "4S (iPhone4,1)"));
             iPhone.Add(new ComboBoxEntry("iPhone5,1", "5 GSM (iPhone5,1)"));
-            iPhone.Add(new ComboBoxEntry("iPhone5,2", "5 Global (iPhone5,2)"));
+            iPhone.Add(new ComboBoxEntry("iPhone5,2", "5 CDMA (iPhone5,2)"));
             iPhone.Add(new ComboBoxEntry("iPhone5,3", "5c GSM (iPhone5,3)"));
             iPhone.Add(new ComboBoxEntry("iPhone5,4", "5c Global (iPhone5,4)"));
             iPhone.Add(new ComboBoxEntry("iPhone6,1", "5s GSM (iPhone6,1)"));
