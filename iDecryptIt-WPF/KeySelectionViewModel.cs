@@ -35,11 +35,11 @@ namespace Hexware.Programs.iDecryptIt
 
         public string ID
         {
-            get { return _id; }
+            get
+            { return _id; }
             set
             {
-                if (_id != value)
-                {
+                if (_id != value) {
                     _id = value;
                     NotifyPropertyChanged("ID");
                 }
@@ -48,11 +48,11 @@ namespace Hexware.Programs.iDecryptIt
 
         public string Value
         {
-            get { return _value; }
+            get
+            { return _value; }
             set
             {
-                if (_value != value)
-                {
+                if (_value != value) {
                     _value = value;
                     NotifyPropertyChanged("Value");
                 }
@@ -66,8 +66,7 @@ namespace Hexware.Programs.iDecryptIt
 
         private void NotifyPropertyChanged(string propertyName)
         {
-            if (PropertyChanged != null)
-            {
+            if (PropertyChanged != null) {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }

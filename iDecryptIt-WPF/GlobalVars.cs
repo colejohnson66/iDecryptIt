@@ -69,7 +69,7 @@ namespace Hexware.Programs.iDecryptIt
             { "iPhone3,3", "iPhone 4 (CDMA)" },
             { "iPhone4,1", "iPhone 4S" },
             { "iPhone5,1", "iPhone 5 (GSM)" },
-            { "iPhone5,2", "iPhone 5 (Global)" },
+            { "iPhone5,2", "iPhone 5 (CDMA)" },
             { "iPhone5,3", "iPhone 5c (GSM)" },
             { "iPhone5,4", "iPhone 5c (Global)" },
             { "iPhone6,1", "iPhone 5s (GSM)" },
