@@ -212,7 +212,7 @@
     <Content Include="help\iDecryptIt icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="help\README.html">
+    <Content Include="help\readme.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <EmbeddedResource Include="keys\AppleTV2,1_8C150.plist" />
