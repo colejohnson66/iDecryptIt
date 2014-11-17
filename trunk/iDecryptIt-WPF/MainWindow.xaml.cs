@@ -1286,8 +1286,8 @@ namespace Hexware.Programs.iDecryptIt
         }
         private void btnReadme_Click(object sender, RoutedEventArgs e)
         {
-            Debug("[README]", "Loading README.");
-            Process.Start("file://" + helpDir + "README.html");
+            Debug("[README]", "Loading Readme.");
+            Process.Start("file://" + helpDir + "readme.html");
         }
 
         private void btnExtract_Click(object sender, RoutedEventArgs e)
