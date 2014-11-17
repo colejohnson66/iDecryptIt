@@ -2,7 +2,7 @@
  * File:   Program.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2013-2014, Cole Johnson
+ * Copyright (c) 2012-2014, Cole Johnson
  * 
  * This file is part of iDecryptIt
  * 
@@ -297,10 +297,9 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                 }
                 else if (thiskey == "NoUpdateRamdisk")
                 {
-                    // Don't put anything for the update ramdisk if there isn't one
+                    throw new Exception();
                 }
-                else if (thiskey == "UpdateRamdisk" || thiskey == "RestoreRamdisk")
-                {
+                else if (thiskey == "UpdateRamdisk" || thiskey == "RestoreRamdisk") {
                     plist.AppendChild(xml.CreateElement("key"));
                     plist.ChildNodes.Item(num).InnerText = thiskey.Replace("Ramdisk", " Ramdisk");
                     num++;
@@ -312,11 +311,12 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                     plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("key"));
                     plist.ChildNodes.Item(num).ChildNodes.Item(2).InnerText = "Encryption";
                     string build = data["Build"];
-                    if (data.ContainsKey("RamdiskNotEncrypted") ||
-                        build == "1A543a" || build == "1C25" || build == "1C28" ||
+                    if (build == "1A543a" || build == "1C25" || build == "1C28" ||
                         build[0] == '3' || build[0] == '4' ||
-                        build == "5A147p" || build == "5A225c" || build == "5A240d")
+                        build == "5A147p" || build == "5A225c" || build == "5A240d" ||
+                        data[thiskey + "IV"] == "Not Encrypted")
                     {
+                        // Keep the "Not Encrypted" check last - an exception is thrown on those builds
                         plist.ChildNodes.Item(num).AppendChild(xml.CreateElement("false"));
                     }
                     else
@@ -371,7 +371,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                     }
                     num++;
                 }
-                else if (thiskey.EndsWith("IV") || thiskey.EndsWith("Key") || thiskey == "RamdiskNotEncrypted")
+                else if (thiskey.EndsWith("IV") || thiskey.EndsWith("Key"))
                 {
                 }
                 else // Just something else
