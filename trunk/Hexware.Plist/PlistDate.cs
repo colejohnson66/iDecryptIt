@@ -2,7 +2,7 @@
  * File:   PlistDate.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2012 Cole Johnson
+ * Copyright (c) 2012, 2014 Cole Johnson
  * 
  * This file is part of Hexware.Plist
  * 
@@ -41,10 +41,6 @@ namespace Hexware.Plist
         /// <exception cref="System.ArgumentNullException">A parameter is null</exception>
         public PlistDate(DateTime value, string path, IPlistElement parent)
         {
-            if (value == null)
-            {
-                throw new ArgumentNullException("value");
-            }
             if (path == null)
             {
                 throw new ArgumentNullException("path");
@@ -211,7 +207,6 @@ namespace Hexware.Plist
         /// <summary>
         /// Gets or sets the value of this element
         /// </summary>
-        /// <exception cref="System.ArgumentNullException"><paramref name="value"/> is null</exception>
         public DateTime Value
         {
             get
@@ -220,11 +215,6 @@ namespace Hexware.Plist
             }
             set
             {
-                if (value == null)
-                {
-                    throw new ArgumentNullException("value");
-                }
-
                 _value = value;
             }
         }

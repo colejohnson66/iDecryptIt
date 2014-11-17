@@ -2,7 +2,7 @@
  * File:   PlistDocument.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2012 Cole Johnson
+ * Copyright (c) 2012, 2014 Cole Johnson
  * 
  * This file is part of Hexware.Plist
  * 
@@ -195,7 +195,7 @@ namespace Hexware.Plist
                 XmlReaderSettings settings = new XmlReaderSettings();
                 XmlDocument xml = new XmlDocument();
                 settings.XmlResolver = null;
-                settings.ProhibitDtd = false;
+                settings.DtdProcessing = DtdProcessing.Ignore;
                 settings.ValidationType = ValidationType.None;
                 xml.Load(XmlReader.Create(Encoding.ASCII.GetString(plistData), settings));
                 ReadXml(xml);
@@ -255,7 +255,7 @@ namespace Hexware.Plist
                 XmlReaderSettings settings = new XmlReaderSettings();
                 XmlDocument xml = new XmlDocument();
                 settings.XmlResolver = null;
-                settings.ProhibitDtd = false;
+                settings.DtdProcessing = DtdProcessing.Ignore;
                 settings.ValidationType = ValidationType.None;
                 xml.Load(XmlReader.Create(plistStream, settings));
                 ReadXml(xml);

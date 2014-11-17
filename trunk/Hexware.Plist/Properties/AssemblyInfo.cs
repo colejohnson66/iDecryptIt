@@ -2,7 +2,7 @@
  * File:   AssemblyInfo.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2012 Cole Johnson
+ * Copyright (c) 2012, 2014 Cole Johnson
  * 
  * This file is part of Hexware.Plist
  * 
@@ -28,7 +28,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("Hexware.Plist")]
 [assembly: AssemblyCompany("Cole Johnson")]
 [assembly: AssemblyProduct("Hexware.Plist")]
-[assembly: AssemblyCopyright("Copyright (C) 2012")]
+[assembly: AssemblyCopyright("Copyright (C) 2012, 2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
