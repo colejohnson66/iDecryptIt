@@ -1,0 +1,201 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist>
+	<dict>
+		<key>Version</key>
+		<string>8.1</string>
+		<key>Build</key>
+		<string>12B411</string>
+		<key>Device</key>
+		<string>iPhone4,1</string>
+		<key>Codename</key>
+		<string>OkemoTaos</string>
+		<key>Baseband</key>
+		<string>5.4.00</string>
+		<key>Download URL</key>
+		<string>http://appldnld.apple.com/iOS8.1/031-09535.20141020.XaY73/iPhone4,1_8.1_12B411_Restore.ipsw</string>
+		<key>Root FS</key>
+		<dict>
+			<key>File Name</key>
+			<string>058-05148-079.dmg</string>
+			<key>Key</key>
+			<string>434111775fddcf2b23db797a436e6f329d8d36f59244a5787bb9c60527946b69d8b58add</string>
+		</dict>
+		<key>Update Ramdisk</key>
+		<dict>
+			<key>File Name</key>
+			<string>058-05198-079.dmg</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>TODO</string>
+			<key>Key</key>
+			<string>TODO</string>
+		</dict>
+		<key>Restore Ramdisk</key>
+		<dict>
+			<key>File Name</key>
+			<string>058-05061-079.dmg</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>TODO</string>
+			<key>Key</key>
+			<string>TODO</string>
+		</dict>
+		<key>AppleLogo</key>
+		<dict>
+			<key>File Name</key>
+			<string>applelogo@2x~iphone.s5l8940x.img3</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>TODO</string>
+			<key>Key</key>
+			<string>TODO</string>
+		</dict>
+		<key>BatteryCharging0</key>
+		<dict>
+			<key>File Name</key>
+			<string>batterycharging0@2x~iphone.s5l8940x.img3</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>TODO</string>
+			<key>Key</key>
+			<string>TODO</string>
+		</dict>
+		<key>BatteryCharging1</key>
+		<dict>
+			<key>File Name</key>
+			<string>batterycharging1@2x~iphone.s5l8940x.img3</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>TODO</string>
+			<key>Key</key>
+			<string>TODO</string>
+		</dict>
+		<key>BatteryFull</key>
+		<dict>
+			<key>File Name</key>
+			<string>batteryfull@2x~iphone.s5l8940x.img3</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>TODO</string>
+			<key>Key</key>
+			<string>TODO</string>
+		</dict>
+		<key>BatteryLow0</key>
+		<dict>
+			<key>File Name</key>
+			<string>batterylow0@2x~iphone.s5l8940x.img3</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>TODO</string>
+			<key>Key</key>
+			<string>TODO</string>
+		</dict>
+		<key>BatteryLow1</key>
+		<dict>
+			<key>File Name</key>
+			<string>batterylow1@2x~iphone.s5l8940x.img3</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>TODO</string>
+			<key>Key</key>
+			<string>TODO</string>
+		</dict>
+		<key>DeviceTree</key>
+		<dict>
+			<key>File Name</key>
+			<string>DeviceTree.n94ap.img3</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>TODO</string>
+			<key>Key</key>
+			<string>TODO</string>
+		</dict>
+		<key>GlyphPlugin</key>
+		<dict>
+			<key>File Name</key>
+			<string>glyphplugin@2x~iphone-30pin.s5l8940x.img3</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>TODO</string>
+			<key>Key</key>
+			<string>TODO</string>
+		</dict>
+		<key>iBEC</key>
+		<dict>
+			<key>File Name</key>
+			<string>iBEC.n94.RELEASE.dfu</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>TODO</string>
+			<key>Key</key>
+			<string>TODO</string>
+		</dict>
+		<key>iBoot</key>
+		<dict>
+			<key>File Name</key>
+			<string>iBoot.n94.RELEASE.img3</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>TODO</string>
+			<key>Key</key>
+			<string>TODO</string>
+		</dict>
+		<key>iBSS</key>
+		<dict>
+			<key>File Name</key>
+			<string>iBSS.n94.RELEASE.dfu</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>TODO</string>
+			<key>Key</key>
+			<string>TODO</string>
+		</dict>
+		<key>Kernelcache</key>
+		<dict>
+			<key>File Name</key>
+			<string>kernelcache.release.n94</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>TODO</string>
+			<key>Key</key>
+			<string>TODO</string>
+		</dict>
+		<key>LLB</key>
+		<dict>
+			<key>File Name</key>
+			<string>LLB.n94.RELEASE.img3</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>TODO</string>
+			<key>Key</key>
+			<string>TODO</string>
+		</dict>
+		<key>RecoveryMode</key>
+		<dict>
+			<key>File Name</key>
+			<string>recoverymode@2x~iphone-30pin.s5l8940x.img3</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>TODO</string>
+			<key>Key</key>
+			<string>TODO</string>
+		</dict>
+	</dict>
+</plist>
