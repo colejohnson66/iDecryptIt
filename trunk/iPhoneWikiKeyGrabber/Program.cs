@@ -31,7 +31,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 {
     public class Program
     {
-        // TODO: Replace with OpenCF#
+        // TODO: Replace with OpenCF# for binary (smaller) files
         static List<string> links = new List<string>();
         static string keyPath = Path.Combine(Directory.GetCurrentDirectory(), "keys");
         static XmlWriterSettings settings = new XmlWriterSettings();
