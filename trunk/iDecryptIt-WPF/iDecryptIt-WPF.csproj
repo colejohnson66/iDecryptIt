@@ -114,9 +114,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Hexware.Plist">
-      <HintPath>Resources\Hexware.Plist.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -540,6 +537,13 @@
     <EmbeddedResource Include="keys\iPod4,1_10B329.plist" />
     <EmbeddedResource Include="keys\iPod4,1_10B400.plist" />
     <EmbeddedResource Include="keys\iPod4,1_10B500.plist" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Hexware.Plist\Hexware.Plist.csproj">
+      <Project>{c7d0639f-8a98-441b-b1a6-420df6122573}</Project>
+      <Name>Hexware.Plist</Name>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

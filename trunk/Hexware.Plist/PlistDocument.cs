@@ -297,7 +297,7 @@ namespace Hexware.Plist
         /// <summary>
         /// Get a <see cref="Hexware.Plist.PlistRoot"/> representation of the Plist data
         /// </summary>
-        public PlistRoot Value
+        public PlistRoot Document
         {
             get
             {

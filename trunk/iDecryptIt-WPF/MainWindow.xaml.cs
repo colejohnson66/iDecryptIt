@@ -185,7 +185,7 @@ namespace Hexware.Programs.iDecryptIt
             stream.WriteLine("Compile time: " + GlobalVars.CompileTimestamp.ToString() + " UTC");
             stream.WriteLine("Log time: " + DateTime.UtcNow + " UTC");
             stream.WriteLine("Execution string: " + Environment.CommandLine);
-            WriteSystemConfig(stream);
+            WriteSystemConfigToStream(stream);
             stream.WriteLine("Error message: " + message);
             if (except == null) {
                 stream.WriteLine("Exception type:    null");
@@ -205,7 +205,7 @@ namespace Hexware.Programs.iDecryptIt
 
             return fileName;
         }
-        internal void WriteSystemConfig(StreamWriter stream)
+        internal void WriteSystemConfigToStream(StreamWriter stream)
         {
             stream.WriteLine("System config:");
             stream.WriteLine("  Current dir:  " + Environment.CurrentDirectory);
@@ -283,7 +283,6 @@ namespace Hexware.Programs.iDecryptIt
                 return;
             }
 
-            // Magic. Don't touch.
             PlistDict plist = doc.Document.Value;
             PlistDict temp;
             #region Device
