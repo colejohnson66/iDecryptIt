@@ -175,7 +175,7 @@
                             <Image Source="Images/Help-browser_32.png" />
                         </Button>
                         <Button x:Name="btnChangelog" Grid.Column="2" ToolTip="Changelog" Click="btnChangelog_Click">
-                            <Image Source="Images/Gnome-logviewer_32.png" />
+                            <Image Source="Images/logviewer_32.png" />
                         </Button>
                     </Grid>
                 </Grid>
