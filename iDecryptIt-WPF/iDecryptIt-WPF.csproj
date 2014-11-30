@@ -174,7 +174,6 @@
     <Resource Include="Images\changes-allow_32.png" />
     <Resource Include="Images\dialog-password_32.png" />
     <Resource Include="Images\Help-browser_32.png" />
-    <Resource Include="Images\icon.ico" />
     <Resource Include="Images\icon_16.png" />
     <Resource Include="Images\icon_32.png" />
     <Resource Include="Images\icon_48.png" />
