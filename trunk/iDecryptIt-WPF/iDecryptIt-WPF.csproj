@@ -16,7 +16,7 @@
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <ApplicationIcon>app.ico</ApplicationIcon>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
     <StartupObject>Hexware.Programs.iDecryptIt.Program</StartupObject>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
@@ -114,6 +114,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="icon.ico" />
+    <Resource Include="Images\logviewer_32.png" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -171,14 +173,12 @@
     </None>
     <Resource Include="Images\changes-allow_32.png" />
     <Resource Include="Images\dialog-password_32.png" />
-    <Resource Include="Images\Gnome-logviewer_32.png" />
     <Resource Include="Images\Help-browser_32.png" />
     <Resource Include="Images\icon.ico" />
     <Resource Include="Images\icon_16.png" />
     <Resource Include="Images\icon_32.png" />
     <Resource Include="Images\icon_48.png" />
     <Resource Include="Images\icon_256.png" />
-    <Resource Include="app.ico" />
     <None Include="7z.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
