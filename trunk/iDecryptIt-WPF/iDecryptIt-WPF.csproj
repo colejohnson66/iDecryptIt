@@ -171,8 +171,6 @@
     </None>
     <Resource Include="Images\changes-allow_32.png" />
     <Resource Include="Images\dialog-password_32.png" />
-    <Resource Include="Images\dmg.png" />
-    <Resource Include="Images\Gnome-logviewer_16.png" />
     <Resource Include="Images\Gnome-logviewer_32.png" />
     <Resource Include="Images\Help-browser_32.png" />
     <Resource Include="Images\icon.ico" />
@@ -180,7 +178,6 @@
     <Resource Include="Images\icon_32.png" />
     <Resource Include="Images\icon_48.png" />
     <Resource Include="Images\icon_256.png" />
-    <Resource Include="Images\Unlocked_32.png" />
     <Resource Include="app.ico" />
     <None Include="7z.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

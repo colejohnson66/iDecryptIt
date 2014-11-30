@@ -47,7 +47,7 @@
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="6" />
                                 </Grid.ColumnDefinitions>
-                                <Image Source="Images/Unlocked_32.png" />
+                                <Image Source="Images/changes-allow_32.png" />
                                 <TextBlock Grid.Column="2" Text="Decrypt" VerticalAlignment="Center" x:Name="btnDecryptText" />
                             </Grid>
                         </Button>
