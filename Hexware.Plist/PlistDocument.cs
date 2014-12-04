@@ -23,24 +23,22 @@
 using System;
 using System.IO;
 using System.Text;
-using System.Net;
 using System.Xml;
 
 namespace Hexware.Plist
 {
     /// <summary>
-    /// Represents a Plist Document
+    /// Represents a Plist document
     /// </summary>
     public partial class PlistDocument
     {
-        private string _path;
-        private PlistRoot _value;
-        private PlistFormat _plisttype;
+        private IPlistElement _value;
 
         /// <summary>
         /// Hexware.Plist.PlistDocument Constructor from a file
         /// </summary>
-        /// <param name="plistPath">The File path</param>
+        /// <param name="plistPath">The file path</param>
+        /// <exception cref="Hexware.Plist.PlistFormatException">An invalid Xml Plist was given</exception>
         /// <exception cref="Hexware.Plist.PlistFormatException">Binary and Json Plists have not been implemented yet</exception>
         /// <exception cref="System.ArgumentNullException"><paramref name="plistPath"/> is null</exception>
         /// <exception cref="System.IO.FileNotFoundException"><paramref name="plistPath"/> does not exist</exception>
@@ -49,26 +47,15 @@ namespace Hexware.Plist
         /// <exception cref="System.Xml.XmlException"><paramref name="plistPath"/> is not an Xml Plist</exception>
         public PlistDocument(string plistPath)
         {
-            if (plistPath == null || plistPath == "")
-            {
+            if (String.IsNullOrEmpty(plistPath))
                 throw new ArgumentNullException("plistPath", "The specified path is null or empty");
-            }
 
             if (!plistPath.Contains(":"))
-            {
-                // Relative
-                plistPath = Path.Combine(Directory.GetCurrentDirectory(), plistPath);
-            }
+                plistPath = Path.Combine(Directory.GetCurrentDirectory(), plistPath); // Relative
             if (!File.Exists(plistPath))
-            {
-                Dispose();
                 throw new FileNotFoundException("The specified file does not exist", plistPath);
-            }
             if (Directory.Exists(plistPath))
-            {
-                Dispose();
                 throw new ArgumentException("The specified file is a directory", "plistPath");
-            }
 
             // Read file
             FileStream fileStream = null;
@@ -78,28 +65,18 @@ namespace Hexware.Plist
                 fileStream = new FileStream(plistPath, FileMode.Open, FileAccess.Read);
                 long length = fileStream.Length;
                 if (length < 8)
-                {
                     throw new FileLoadException("The specified file is not bigger than 8 bytes", plistPath);
-                }
                 bin = new byte[length];
                 int count;
                 int sum = 0;
 
                 // read until Read method returns 0 (end of the stream has been reached)
                 while ((count = fileStream.Read(bin, sum, (int)(length - sum))) > 0)
-                {
                     sum += count;
-                }
             }
-            catch (FileLoadException ex)
+            catch (Exception)
             {
-                Dispose();
-                throw ex;
-            }
-            catch (IOException ex)
-            {
-                Dispose();
-                throw ex;
+                throw;
             }
             finally
             {
@@ -115,64 +92,57 @@ namespace Hexware.Plist
                 bin[5] == 't' &&
                 bin[6] == '0')
             {
-                Dispose();
                 throw new PlistFormatException("Binary Plists have not been implemented yet");
-                //_plisttype = PlistFormat.Binary;
             }
             else
             {
-                _plisttype = PlistFormat.Xml;
                 StreamReader stream = null;
                 try
                 {
                     stream = new StreamReader(plistPath);
-                    //XmlReaderSettings settings = new XmlReaderSettings();
+                    XmlReaderSettings settings = new XmlReaderSettings();
                     XmlDocument xml = new XmlDocument();
-                    //settings.XmlResolver = null;
-                    //settings.IgnoreComments = true;
-                    //settings.ProhibitDtd = true;
-                    //settings.ValidationType = ValidationType.None;
-                    string streamtext = stream.ReadToEnd();
-                    //xml.Load(XmlReader.Create(streamtext, settings));
-                    xml.LoadXml(streamtext);
-                    streamtext = null;
+                    settings.XmlResolver = null;
+                    settings.DtdProcessing = DtdProcessing.Ignore;
+                    settings.ValidationType = ValidationType.None;
+                    xml.Load(XmlReader.Create(stream, settings));
                     ReadXml(xml);
                 }
-                catch (IOException ex)
+                catch (Exception)
                 {
-                    Dispose();
-                    throw new IOException("Unable to read Plist.", ex);
-                }
-                catch (PlistFormatException ex)
-                {
-                    Dispose();
-                    throw ex;
-                }
-                catch (XmlException ex)
-                {
-                    Dispose();
-                    throw new XmlException("Failed to extract Xml from document. Possible Json.", ex, ex.LineNumber, ex.LinePosition);
+                    throw;
                 }
                 finally
                 {
                     stream.Close();
                 }
             }
-
-            _path = plistPath;
         }
 
         /// <summary>
         /// Hexware.Plist.PlistDocument constructor from a one-dimensional <see cref="System.Byte"/> array of ASCII characters (slow)
         /// </summary>
         /// <param name="plistData">A one-dimensional <see cref="System.Byte"/> array of the Plist data</param>
-        /// <exception cref="Hexware.Plist.PlistFormatException">Binary Plists have not been implemented yet</exception>
-        /// <exception cref="System.ArgumentNullException"><paramref name="plistData"/> is null</exception>
+        /// <exception cref="Hexware.Plist.PlistFormatException">An invalid Xml Plist was given</exception>
+        /// <exception cref="Hexware.Plist.PlistFormatException">Binary and Json Plists have not been implemented yet</exception>
+        /// <exception cref="System.ArgumentNullException"><paramref name="plistData"/> is null or empty</exception>
         /// <exception cref="System.Xml.XmlException"><paramref name="plistData"/> is not an ASCII Xml Plist</exception>
-        public PlistDocument(byte[] plistData)
+        public PlistDocument(byte[] plistData) : this(plistData, Encoding.ASCII)
         {
-            if (plistData == null || plistData.Length == 0)
-            {
+        }
+
+        /// <summary>
+        /// Hexware.Plist.PlistDocument constructor from a one-dimensional <see cref="System.Byte"/> array of bytes
+        /// </summary>
+        /// <param name="plistData">A one-dimensional <see cref="System.Byte"/> array of the Plist data</param>
+        /// <param name="encoding">The encoding of <paramref name="plistData"/> if it is an Xml Plist; use null for binary Plists</param>
+        /// <exception cref="Hexware.Plist.PlistFormatException">An invalid Xml Plist was given</exception>
+        /// <exception cref="Hexware.Plist.PlistFormatException">Binary and Json Plists have not been implemented yet</exception>
+        /// <exception cref="System.ArgumentNullException"><paramref name="plistData"/> is null or empty</exception>
+        /// <exception cref="System.Xml.XmlException"><paramref name="plistData"/> is not an Xml Plist</exception>
+        public PlistDocument(byte[] plistData, Encoding encoding)
+        {
+            if (plistData == null || plistData.Length == 0) {
                 throw new ArgumentNullException("plistData");
             }
 
@@ -182,33 +152,20 @@ namespace Hexware.Plist
                 plistData[3] == 'i' &&
                 plistData[4] == 's' &&
                 plistData[5] == 't' &&
-                plistData[6] == '0')
-            {
-                Dispose();
+                plistData[6] == '0') {
                 throw new PlistFormatException("Binary Plists have not been implemented yet");
-                //_plisttype = PlistFormat.Binary;
             }
 
-            try
-            {
-                _plisttype = PlistFormat.Xml;
+            try {
                 XmlReaderSettings settings = new XmlReaderSettings();
                 XmlDocument xml = new XmlDocument();
                 settings.XmlResolver = null;
                 settings.DtdProcessing = DtdProcessing.Ignore;
                 settings.ValidationType = ValidationType.None;
-                xml.Load(XmlReader.Create(Encoding.ASCII.GetString(plistData), settings));
+                xml.Load(XmlReader.Create(encoding.GetString(plistData), settings));
                 ReadXml(xml);
-            }
-            catch (PlistFormatException ex)
-            {
-                Dispose();
-                throw ex;
-            }
-            catch (XmlException ex)
-            {
-                Dispose();
-                throw new XmlException("Failed to extract Xml from array. Possible Json.", ex, ex.LineNumber, ex.LinePosition);
+            } catch (Exception) {
+                throw;
             }
         }
 
@@ -216,15 +173,14 @@ namespace Hexware.Plist
         /// Hexware.Plist.PlistDocument constructor from a <see cref="System.IO.Stream"/>
         /// </summary>
         /// <param name="plistStream"></param>
-        /// <exception cref="Hexware.Plist.PlistFormatException">Binary Plists have not been implemented yet</exception>
+        /// <exception cref="Hexware.Plist.PlistFormatException">An invalid Xml Plist was given</exception>
+        /// <exception cref="Hexware.Plist.PlistFormatException">Binary and Json Plists have not been implemented yet</exception>
         /// <exception cref="System.ArgumentNullException"><paramref name="plistStream"/> is null</exception>
         /// <exception cref="System.Xml.XmlException"><paramref name="plistStream"/> is not an Xml Plist</exception>
         public PlistDocument(Stream plistStream)
         {
             if (plistStream == null || plistStream == Stream.Null || plistStream.Length == 0)
-            {
                 throw new ArgumentNullException("plistStream");
-            }
 
             // Reset stream
             plistStream.Position = 0;
@@ -240,9 +196,7 @@ namespace Hexware.Plist
                 buf[5] == 't' &&
                 buf[6] == '0')
             {
-                Dispose();
                 throw new PlistFormatException("Binary Plists have not been implemented yet");
-                //_plisttype = PlistFormat.Binary;
             }
 
             // Reset stream
@@ -251,7 +205,6 @@ namespace Hexware.Plist
             // Begin read
             try
             {
-                _plisttype = PlistFormat.Xml;
                 XmlReaderSettings settings = new XmlReaderSettings();
                 XmlDocument xml = new XmlDocument();
                 settings.XmlResolver = null;
@@ -260,44 +213,16 @@ namespace Hexware.Plist
                 xml.Load(XmlReader.Create(plistStream, settings));
                 ReadXml(xml);
             }
-            catch (PlistFormatException ex)
+            catch (Exception)
             {
-                Dispose();
-                throw ex;
-            }
-            catch (XmlException ex)
-            {
-                Dispose();
-                throw new XmlException("Failed to extract Xml from array. Possible Json.", ex, ex.LineNumber, ex.LinePosition);
+                throw;
             }
         }
 
         /// <summary>
-        /// Get the type of Plist the file is (Xml, Binary, or Json)
+        /// Get the root node of the Plist data
         /// </summary>
-        public PlistFormat Type
-        {
-            get
-            {
-                return _plisttype;
-            }
-        }
-
-        /// <summary>
-        /// Get the path of the Plist file. Returns null if (<see cref="System.Byte"/>[]) constructor used used
-        /// </summary>
-        public string PlistPath
-        {
-            get
-            {
-                return _path;
-            }
-        }
-
-        /// <summary>
-        /// Get a <see cref="Hexware.Plist.PlistRoot"/> representation of the Plist data
-        /// </summary>
-        public PlistRoot Document
+        public IPlistElement RootNode
         {
             get
             {
@@ -319,31 +244,41 @@ namespace Hexware.Plist
 
         internal void ReadXml(XmlDocument reader)
         {
-            int length = reader.ChildNodes.Count;
-            for (int i = 0; i < length; i++)
+            for (int i = 0; i < reader.ChildNodes.Count; i++)
             {
-                // Find the content node
-                if (reader.ChildNodes[i].NodeType == XmlNodeType.Element)
+                XmlNode current = reader.ChildNodes[i];
+                if (current.Name == "plist")
                 {
-                    if (reader.ChildNodes[i].ChildNodes.Count == 1 &&
-                        reader.ChildNodes[i].ChildNodes.Item(0).Name == "dict")
-                    {
-                        // Most should have a <dict> tag at the root under the <plist> tag
-                        _value = new PlistRoot(
-                            new PlistDict(
-                                reader.ChildNodes[i]["dict"].ChildNodes,
-                                "(Root)/",
-                                null));
-                    }
+                    if (current.ChildNodes.Count != 1)
+                        throw new PlistFormatException("Plist is not valid");
+
+                    XmlNode root = current.ChildNodes.Item(0);
+                    if (root.Name == "array")
+                        _value = new PlistArray(root.ChildNodes);
+                    else if (root.Name == "true")
+                        _value = new PlistBool(true);
+                    else if (root.Name == "false")
+                        _value = new PlistBool(false);
+                    else if (root.Name == "data")
+                        _value = new PlistData(root.InnerText);
+                    else if (root.Name == "date")
+                        _value = new PlistDate(root.InnerText);
+                    else if (root.Name == "dict")
+                        _value = new PlistDict(root.ChildNodes);
+                    else if (root.Name == "fill")
+                        _value = new PlistFill();
+                    else if (root.Name == "integer")
+                        _value = new PlistInteger(root.InnerText);
+                    else if (root.Name == "null")
+                        _value = new PlistNull();
+                    else if (root.Name == "real")
+                        _value = new PlistReal(Convert.ToDouble(root.InnerText));
+                    else if (root.Name == "string" || root.Name == "ustring")
+                        _value = new PlistString(root.InnerText);
+                    else if (root.Name == "uid")
+                        _value = new PlistUid(Encoding.ASCII.GetBytes(root.InnerText));
                     else
-                    {
-                        // But if it doesn't
-                        _value = new PlistRoot(
-                            new PlistDict(
-                                reader.ChildNodes[i].ChildNodes,
-                                "(Root)/",
-                                null));
-                    }
+                        throw new PlistFormatException("Plist is not valid");
                     return;
                 }
             }
@@ -352,50 +287,7 @@ namespace Hexware.Plist
 
         internal void WriteXml(XmlNode tree, XmlDocument writer)
         {
-            _value.WriteXml(tree, writer);
-        }
-    }
-    public partial class PlistDocument : IDisposable
-    {
-        private bool _disposed;
-
-        /// <summary>
-        /// Free up resources used on the system for garbage collector
-        /// </summary>
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        /// <summary>
-        /// Free up resources used on the system for garbage collector
-        /// </summary>
-        /// <param name="disposing"><c>true</c> if called from .Dispose() or else <c>false</c></param>
-        protected virtual void Dispose(bool disposing)
-        {
-            if (_disposed)
-            {
-                return;
-            }
-
-            // dispose all managed resources
-            if (disposing)
-            {
-                _value.Dispose();
-            }
-
-            _path = null;
-
-            _disposed = true;
-        }
-
-        /// <summary>
-        /// Free up resources used on the system for garbage collector
-        /// </summary>
-        ~PlistDocument()
-        {
-            Dispose(false);
+            throw new NotImplementedException();
         }
     }
 }

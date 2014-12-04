@@ -2,7 +2,7 @@
  * File:   Primitive.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2012 Cole Johnson
+ * Copyright (c) 2012, 2014 Cole Johnson
  * 
  * This file is part of Hexware.Plist
  * 
@@ -25,7 +25,7 @@ namespace Hexware.Plist
     /// <summary>
     /// Enumeration of Primitives
     /// </summary>
-    public enum Primitive : byte
+    public enum Primitive
     {
         /// <summary>
         /// &lt;true /&gt; or &lt;false /&gt; represents a <see cref="System.Boolean"/> value

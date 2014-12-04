@@ -28,7 +28,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("Hexware.Plist")]
 [assembly: AssemblyCompany("Cole Johnson")]
 [assembly: AssemblyProduct("Hexware.Plist")]
-[assembly: AssemblyCopyright("Copyright (C) 2012, 2014")]
+[assembly: AssemblyCopyright("Copyright (c) 2012, 2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -41,6 +41,6 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(true)]
 [assembly: Guid("8d367e2e-1afe-48d0-b2aa-4bb0cc65bbd3")]
 
-[assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("2.0.*")]
+[assembly: AssemblyFileVersion("2.0.0.0")]
 [assembly: NeutralResourcesLanguage("en-US")]

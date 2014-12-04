@@ -2,7 +2,7 @@
  * File:   PlistException.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2012 Cole Johnson
+ * Copyright (c) 2012, 2014 Cole Johnson
  * 
  * This file is part of Hexware.Plist
  * 
@@ -32,7 +32,7 @@ namespace Hexware.Plist
     public class PlistException : ApplicationException
     {
         /// <summary>
-        /// Initializes a new instance of the Hexware.Audio.AudioFormatException class with default parameters.
+        /// Initializes a new instance of the Hexware.Plist.PlistException class with default parameters.
         /// </summary>
         public PlistException()
             : base()
@@ -40,7 +40,7 @@ namespace Hexware.Plist
         }
 
         /// <summary>
-        /// Initializes a new instance of the Hexware.Audio.AudioFormatException class with a specified error message.
+        /// Initializes a new instance of the Hexware.Plist.PlistException class with a specified error message.
         /// </summary>
         /// <param name="message">The error message that explains the reason for the exception.</param>
         public PlistException(string message)
@@ -49,7 +49,7 @@ namespace Hexware.Plist
         }
 
         /// <summary>
-        /// Initializes a new instance of the Hexware.Audio.AudioFormatException class with a specified error message and a reference to the inner exception that is the cause of this exception.
+        /// Initializes a new instance of the Hexware.Plist.PlistException class with a specified error message and a reference to the inner exception that is the cause of this exception.
         /// </summary>
         /// <param name="message">The error message that explains the reason for the exception.</param>
         /// <param name="innerException">The exception that is the cause of the current exception. If the inner parameter is not null, the current exception is raised in a catch block that handles the inner exception.</param>
@@ -59,7 +59,7 @@ namespace Hexware.Plist
         }
 
         /// <summary>
-        /// Initializes a new instance of the Hexware.Audio.AudioFormatException class with serialized data.
+        /// Initializes a new instance of the Hexware.Plist.PlistException class with serialized data.
         /// </summary>
         /// <param name="info">The <see cref="System.Runtime.Serialization.SerializationInfo"/> that holds the serialized object data about the exception being thrown.</param>
         /// <param name="context">The <see cref="System.Runtime.Serialization.StreamingContext"/> that contains contextual information about the source or destination.</param>

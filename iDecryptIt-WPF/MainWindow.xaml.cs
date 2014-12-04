@@ -283,7 +283,7 @@ namespace Hexware.Programs.iDecryptIt
                 return;
             }
 
-            PlistDict plist = doc.Document.Value;
+            PlistDict plist = (PlistDict)doc.RootNode;
             PlistDict temp;
             #region Device
             Debug("[LOADKEYS]", "Device.");
@@ -641,8 +641,6 @@ namespace Hexware.Programs.iDecryptIt
                 grdSEPFirmwareNoEncrypt.Visibility = Visibility.Collapsed;
             }
             #endregion
-
-            doc.Dispose();
         }
 
         private void btnSelectRootFSInputFile_Click(object sender, RoutedEventArgs e)

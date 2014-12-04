@@ -2,7 +2,7 @@
  * File:   IPlistElement.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2012 Cole Johnson
+ * Copyright (c) 2012, 2014 Cole Johnson
  * 
  * This file is part of Hexware.Plist
  * 
@@ -20,8 +20,6 @@
  *   along with Hexware.Plist. If not, see <http://www.gnu.org/licenses/>.
  * =============================================================================
  */
-using System;
-
 namespace Hexware.Plist
 {
     /// <summary>
@@ -32,23 +30,7 @@ namespace Hexware.Plist
         /// <summary>
         /// Gets the Xml tag for this element
         /// </summary>
-        string Tag
-        {
-            get;
-        }
-
-        /// <summary>
-        /// Gets or sets the path of this element
-        /// </summary>
-        string Path
-        {
-            get;
-        }
-
-        /// <summary>
-        /// Gets the parent of this element
-        /// </summary>
-        IPlistElement Parent
+        string XmlTag
         {
             get;
         }
@@ -58,13 +40,6 @@ namespace Hexware.Plist
         /// </summary>
         /// <returns>Containers return the amount inside while Primitives return the binary length</returns>
         int GetPlistElementBinaryLength();
-    }
-    public partial interface IPlistElement : IDisposable
-    {
-        /// <summary>
-        /// Free up resources used on the system for garbage collector
-        /// </summary>
-        new void Dispose();
     }
 
     /// <summary>
@@ -77,7 +52,7 @@ namespace Hexware.Plist
         /// <summary>
         /// Gets the Xml tag for this element
         /// </summary>
-        new string Tag
+        new string XmlTag
         {
             get;
         }
@@ -89,22 +64,6 @@ namespace Hexware.Plist
         {
             get;
             set;
-        }
-
-        /// <summary>
-        /// Gets or sets the path of this element
-        /// </summary>
-        new string Path
-        {
-            get;
-        }
-
-        /// <summary>
-        /// Gets the parent of this element
-        /// </summary>
-        new IPlistElement Parent
-        {
-            get;
         }
 
         /// <summary>
@@ -120,12 +79,5 @@ namespace Hexware.Plist
         /// </summary>
         /// <returns>Containers return the amount inside while Primitives return the binary length</returns>
         new int GetPlistElementBinaryLength();
-    }
-    public partial interface IPlistElement<TDotNetEquiv, TElemType> : IDisposable
-    {
-        /// <summary>
-        /// Free up resources used on the system for garbage collector
-        /// </summary>
-        new void Dispose();
     }
 }

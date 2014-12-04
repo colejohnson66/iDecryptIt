@@ -2,7 +2,7 @@
  * File:   PlistArray.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2012 Cole Johnson
+ * Copyright (c) 2012, 2014 Cole Johnson
  * 
  * This file is part of Hexware.Plist
  * 
@@ -33,67 +33,30 @@ namespace Hexware.Plist
     public partial class PlistArray
     {
         /// <summary>
-        /// Hexware.Plist.PlistArray constructor using a one dimensional <see cref="Hexware.Plist.IPlistElement"/> array and a path
+        /// Hexware.Plist.PlistArray constructor using a one dimensional <see cref="Hexware.Plist.IPlistElement"/> array
         /// </summary>
         /// <param name="value">The value of this node containing <see cref="Hexware.Plist.IPlistElement"/>-based objects</param>
-        /// <param name="path">The path of this node in the hierarchy</param>
-        /// <param name="parent">A reference to the parent element of this element</param>
-        /// <exception cref="System.ArgumentNullException">A parameter is null</exception>
-        public PlistArray(IPlistElement[] value, string path, IPlistElement parent)
+        /// <exception cref="System.ArgumentNullException"><paramref name="value"/> is null</exception>
+        public PlistArray(IPlistElement[] value)
         {
             if (value == null)
-            {
                 throw new ArgumentNullException("value");
-            }
-            if (path == null)
-            {
-                throw new ArgumentNullException("path");
-            }
-            if (parent == null)
-            {
-                throw new ArgumentNullException("parent");
-            }
 
             _value = value;
-            _path = path;
-            _parent = parent;
         }
 
         /// <summary>
-        /// Hexware.Plist.PlistArray constructor using a <see cref="System.Xml.XmlNodeList"/> and a path
+        /// Hexware.Plist.PlistArray constructor using a <see cref="System.Xml.XmlNodeList"/>
         /// </summary>
         /// <param name="value">A <see cref="System.Xml.XmlNodeList"/> containing the current array</param>
-        /// <param name="path">The current path in the hierarchy</param>
-        /// <param name="parent">A reference to the parent element of this element</param>
         /// <exception cref="Hexware.Plist.PlistFormatException">A node not a valid Plist Element</exception>
-        /// <exception cref="System.ArgumentNullException">A parameter is null</exception>
-        public PlistArray(XmlNodeList value, string path, IPlistElement parent)
+        /// <exception cref="System.ArgumentNullException"><paramref name="value"/> is null</exception>
+        public PlistArray(XmlNodeList value)
         {
             if (value == null)
-            {
                 throw new ArgumentNullException("value");
-            }
-            if (path == null)
-            {
-                throw new ArgumentNullException("path");
-            }
-            if (parent == null)
-            {
-                throw new ArgumentNullException("parent");
-            }
 
-            _path = path;
-            _parent = parent;
-
-            try
-            {
-                Parse(value);
-            }
-            catch (PlistFormatException ex)
-            {
-                Dispose();
-                throw ex;
-            }
+            Parse(value);
         }
 
         /// <summary>
@@ -106,25 +69,11 @@ namespace Hexware.Plist
         public void Add(IPlistElement value)
         {
             if (value == null)
-            {
                 throw new ArgumentNullException("value", "The provided value is null");
-            }
 
-            try
-            {
-                // Resize
-                int length = _value.GetLength(0);
-                Array.Resize<IPlistElement>(ref _value, length);
-                _value[length] = value;
-            }
-            catch (OverflowException ex)
-            {
-                throw new OverflowException("The array is too big", ex);
-            }
-            catch (StackOverflowException ex)
-            {
-                throw new StackOverflowException("The stack is too small", ex);
-            }
+            int length = _value.GetLength(0);
+            Array.Resize(ref _value, length);
+            _value[length] = value;
         }
 
         /// <summary>
@@ -135,22 +84,20 @@ namespace Hexware.Plist
         /// <exception cref="System.IndexOutOfRangeException"><paramref name="index"/> is out of bounds of the array</exception>
         public void Delete(int index)
         {
-            if (index < 0)
-            {
-                throw new ArgumentNullException("index", "The specified index is negative");
-            }
             int length = _value.GetLength(0);
+            if (index < 0)
+                throw new ArgumentNullException("index", "The specified index is negative");
             if (length < index)
-            {
                 throw new IndexOutOfRangeException("Index is outside of bounds of the array");
-            }
 
             if (length == index)
             {
-                // Its the last index
-                Array.Resize<IPlistElement>(ref _value, length - 1);
+                // It's the last index
+                Array.Resize(ref _value, length - 1);
                 return;
             }
+
+            // TODO: Instead, pack down array ignoring _value[index], then resize
 
             // Resize
             bool reached = false;
@@ -187,14 +134,9 @@ namespace Hexware.Plist
         public IPlistElement Get(int index)
         {
             if (index < 0)
-            {
                 throw new ArgumentNullException("key", "The specified index is negative");
-            }
-
             if (_value.GetLength(0) < index)
-            {
                 throw new IndexOutOfRangeException("The specified index is out of the bounds of the array");
-            }
 
             return _value[index];
         }
@@ -209,18 +151,7 @@ namespace Hexware.Plist
         /// <returns>The value from the array after casting</returns>
         public T Get<T>(int index) where T : IPlistElement
         {
-            try
-            {
-                return (T)Get(index);
-            }
-            catch (IndexOutOfRangeException ex)
-            {
-                throw ex;
-            }
-            catch (InvalidCastException ex)
-            {
-                throw ex;
-            }
+            return (T)Get(index);
         }
 
         /// <summary>
@@ -233,14 +164,9 @@ namespace Hexware.Plist
         public void Set(int index, IPlistElement value)
         {
             if (index < 0)
-            {
                 throw new ArgumentNullException("key", "The specified index is negative");
-            }
-
             if (_value.GetLength(0) <= index)
-            {
                 throw new IndexOutOfRangeException("The specified index is out of the bounds of the array");
-            }
 
             _value[index] = value;
         }
@@ -255,131 +181,48 @@ namespace Hexware.Plist
         {
             get
             {
-                try
-                {
-                    return Get(index);
-                }
-                catch (IndexOutOfRangeException ex)
-                {
-                    throw ex;
-                }
+                return Get(index);
             }
         }
 
-        /// <summary>
-        /// Parses a <see cref="System.Xml.XmlNodeList"/> into an array
-        /// </summary>
-        /// <param name="list">A list of nodes underneath this current node</param>
         internal void Parse(XmlNodeList list)
         {
-            int length = list.Count;
-            for (int i = 0; i < length; i++)
+            for (int i = 0; i < list.Count; i++)
             {
                 if (list[i].NodeType != XmlNodeType.Element)
-                {
                     list[i].RemoveChild(list[i]);
-                }
             }
 
-            length = list.Count;
-            _value = new IPlistElement[length];
+            _value = new IPlistElement[list.Count];
 
-            for (int i = 0; i < length; i++)
+            for (int i = 0; i < list.Count; i++)
             {
-                if (list[i].Name == "dict")
-                {
-                    _value[i] = new PlistDict(
-                        list[i].ChildNodes,
-                        _path + "/{ITEM_" + i + "}",
-                        this);
-                }
-                else if (list[i].Name == "array")
-                {
-                    _value[i] = new PlistArray(
-                        list[i].ChildNodes,
-                        _path + "/{ITEM_" + i + "}",
-                        this);
-                }
+                if (list[i].Name == "array")
+                    _value[i] = new PlistArray(list[i].ChildNodes);
                 else if (list[i].Name == "true")
-                {
-                    _value[i] = new PlistBool(
-                        true,
-                        _path + "/{ITEM_" + i + "}",
-                        this);
-                }
+                    _value[i] = new PlistBool(true);
                 else if (list[i].Name == "false")
-                {
-                    _value[i] = new PlistBool(
-                        false,
-                        _path + "/{ITEM_" + i + "}",
-                        this);
-                }
+                    _value[i] = new PlistBool(false);
                 else if (list[i].Name == "data")
-                {
-                    _value[i] = new PlistData(
-                        list[i].InnerText,
-                        _path + "/{ITEM_" + i + "}",
-                        this);
-                }
+                    _value[i] = new PlistData(list[i].InnerText);
                 else if (list[i].Name == "date")
-                {
-                    _value[i] = new PlistDate(
-                        list[i].InnerText,
-                        _path + "/{ITEM_" + i + "}",
-                        this);
-                }
+                    _value[i] = new PlistDate(list[i].InnerText);
+                else if (list[i].Name == "dict")
+                    _value[i] = new PlistDict(list[i].ChildNodes);
                 else if (list[i].Name == "fill")
-                {
-                    _value[i] = new PlistFill(
-                        _path + "/{ITEM_" + i + "}",
-                        this);
-                }
+                    _value[i] = new PlistFill();
                 else if (list[i].Name == "integer")
-                {
-                    _value[i] = new PlistInteger(
-                        Convert.ToInt64(list[i].InnerText),
-                        _path + "/{ITEM_" + i + "}",
-                        this);
-                }
+                    _value[i] = new PlistInteger(list[i].InnerText);
                 else if (list[i].Name == "null")
-                {
-                    _value[i] = new PlistNull(
-                        _path + "/{ITEM_" + i + "}",
-                        this);
-                }
+                    _value[i] = new PlistNull();
                 else if (list[i].Name == "real")
-                {
-                    _value[i] = new PlistReal(
-                        Convert.ToDouble(list[i].InnerText),
-                        _path + "/{ITEM_" + i + "}",
-                        this);
-                }
-                else if (list[i].Name == "string")
-                {
-                    _value[i] = new PlistString(
-                        list[i].InnerText,
-                        _path + "/{ITEM_" + i + "}",
-                        this);
-                }
+                    _value[i] = new PlistReal(list[i].InnerText);
+                else if (list[i].Name == "string" || list[i].Name == "ustring")
+                    _value[i] = new PlistString(list[i].InnerText);
                 else if (list[i].Name == "uid")
-                {
-                    _value[i] = new PlistUid(
-                        Encoding.ASCII.GetBytes(list[i].InnerText),
-                        _path + "/{ITEM_" + i + "}",
-                        this);
-                }
-                else if (list[i].Name == "ustring")
-                {
-                    _value[i] = new PlistString(
-                        list[i].InnerText,
-                        _path + "/{ITEM_" + i + "}",
-                        this);
-                }
+                    _value[i] = new PlistUid(Encoding.ASCII.GetBytes(list[i].InnerText));
                 else
-                {
-                    Dispose();
-                    throw new PlistFormatException("Plist element at \"" + _path + "/{ITEM_" + i + "}\" is not a valid element");
-                }
+                    throw new PlistFormatException("Plist element is not a valid element");
             }
         }
 
@@ -394,7 +237,7 @@ namespace Hexware.Plist
     }
     public partial class PlistArray
     {
-        internal static PlistArray ReadBinary(BinaryReader reader, byte firstbyte, string path, IPlistElement parent)
+        internal static PlistArray ReadBinary(BinaryReader reader, byte firstbyte)
         {
             throw new NotImplementedException();
         }
@@ -404,7 +247,7 @@ namespace Hexware.Plist
             throw new NotImplementedException();
         }
 
-        internal static PlistArray ReadXml(XmlDocument reader, int index, string path, IPlistElement parent)
+        internal static PlistArray ReadXml(XmlDocument reader, int index)
         {
             throw new NotImplementedException();
         }
@@ -416,14 +259,12 @@ namespace Hexware.Plist
     }
     public partial class PlistArray : IPlistElement<IPlistElement[], Container>
     {
-        private IPlistElement _parent;
         private IPlistElement[] _value;
-        private string _path;
 
         /// <summary>
         /// Gets the Xml tag for this element
         /// </summary>
-        public string Tag
+        public string XmlTag
         {
             get
             {
@@ -444,22 +285,9 @@ namespace Hexware.Plist
             set
             {
                 if (value == null)
-                {
                     throw new ArgumentNullException("value");
-                }
 
                 _value = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets the path of this element
-        /// </summary>
-        public string Path
-        {
-            get
-            {
-                return _path;
             }
         }
 
@@ -475,69 +303,12 @@ namespace Hexware.Plist
         }
 
         /// <summary>
-        /// Gets the parent of this element
-        /// </summary>
-        public IPlistElement Parent
-        {
-            get
-            {
-                return _parent;
-            }
-        }
-
-        /// <summary>
         /// Gets the length of this element when written in binary mode
         /// </summary>
         /// <returns>Containers return the amount inside while Primitives return the binary length</returns>
         public int GetPlistElementBinaryLength()
         {
             throw new NotImplementedException();
-        }
-    }
-    public partial class PlistArray : IDisposable
-    {
-        private bool _disposed;
-
-        /// <summary>
-        /// Free up resources used on the system for garbage collector
-        /// </summary>
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        /// <summary>
-        /// Free up resources used on the system for garbage collector
-        /// </summary>
-        /// <param name="disposing"><c>true</c> if called from .Dispose() or else <c>false</c></param>
-        protected virtual void Dispose(bool disposing)
-        {
-            if (_disposed)
-            {
-                return;
-            }
-
-            // dispose all managed resources
-            if (disposing)
-            {
-                foreach (IPlistElement item in _value)
-                {
-                    item.Dispose();
-                }
-            }
-
-            _path = null;
-
-            _disposed = true;
-        }
-
-        /// <summary>
-        /// Free up resources used on the system for garbage collector
-        /// </summary>
-        ~PlistArray()
-        {
-            Dispose(false);
         }
     }
 }
