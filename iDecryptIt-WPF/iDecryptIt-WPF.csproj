@@ -89,7 +89,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>iDecryptIt.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>Hexware.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
@@ -163,7 +163,7 @@
     </Compile>
     <None Include="app.config" />
     <AppDesigner Include="Properties\" />
-    <None Include="iDecryptIt.snk" />
+    <None Include="Hexware.pfx" />
     <None Include="LICENSE">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
