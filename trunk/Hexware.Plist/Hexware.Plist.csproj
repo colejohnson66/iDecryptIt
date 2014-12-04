@@ -46,9 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Container.cs" />
     <Compile Include="IPlistElement.cs" />
-    <Compile Include="IPlistWriter.cs" />
+    <Compile Include="IPlistElementInternal.cs" />
     <Compile Include="PlistArray.cs" />
     <Compile Include="PlistBool.cs" />
     <Compile Include="PlistData.cs" />
@@ -59,13 +58,11 @@
     <Compile Include="PlistFill.cs" />
     <Compile Include="PlistFormatException.cs" />
     <Compile Include="PlistInteger.cs" />
-    <Compile Include="PlistInternal.cs" />
-    <Compile Include="PlistNodeType.cs" />
+    <Compile Include="PlistElementType.cs" />
     <Compile Include="PlistNull.cs" />
     <Compile Include="PlistReal.cs" />
     <Compile Include="PlistString.cs" />
     <Compile Include="PlistUid.cs" />
-    <Compile Include="Primitive.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

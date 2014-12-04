@@ -1,8 +1,8 @@
 ﻿/* =============================================================================
- * File:   IPlistWriter.cs
+ * File:   PlistNodeType.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2012 Cole Johnson
+ * Copyright (c) 2014 Cole Johnson
  * 
  * This file is part of Hexware.Plist
  * 
@@ -20,14 +20,27 @@
  *   along with Hexware.Plist. If not, see <http://www.gnu.org/licenses/>.
  * =============================================================================
  */
-using System.IO;
-using System.Xml;
-
 namespace Hexware.Plist
 {
-    internal interface IPlistWriter
+    /// <summary>
+    /// Enumeration of Plist element types
+    /// </summary>
+    public enum PlistElementType
     {
-        void WriteBinary(BinaryWriter writer);
-        void WriteXml(XmlNode tree, XmlDocument writer);
+        Array,
+        Boolean,
+        Data,
+        Date,
+        Dictionary,
+        Fill,
+        Integer,
+        Null,
+        OrderedSet, // TODO: Implement
+        Real,
+        Set, // TODO: Implement
+        String,
+        Uid,
+        Url, // TODO: Implement
+        Uuid // TODO: Implement
     }
 }

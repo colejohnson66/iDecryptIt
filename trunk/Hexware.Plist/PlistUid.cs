@@ -49,62 +49,54 @@ namespace Hexware.Plist
         }
 
         /// <summary>
-        /// Gets the length of this element
+        /// Gets the amount of bytes contained in the Uid
         /// </summary>
-        /// <returns>Amount of characters in decoded string</returns>
-        public int GetPlistElementLength()
+        public int Length
         {
-            return _value.Length;
+            get
+            {
+                return _value.Length;
+            }
         }
     }
-    public partial class PlistUid
+    public partial class PlistUid : IPlistElementInternal
     {
         internal static PlistUid ReadBinary(BinaryReader reader, byte firstbyte)
         {
-            byte lowernibble = (byte)(firstbyte & 0x0F); // Get lower nibble
-            int numofbytes = lowernibble + 1;
-            byte[] buf = reader.ReadBytes(numofbytes);
-            return new PlistUid(buf);
+            int numofbytes = (firstbyte & 0x0F) + 1;
+            return new PlistUid(reader.ReadBytes(numofbytes));
         }
 
-        internal byte[] WriteBinary()
+        void IPlistElementInternal.WriteBinary(BinaryWriter writer)
         {
-            byte[] tag = new byte[]
-            {
-                (byte)(0xF0 | (_value.Length - 1))
-            };
-            byte[] buf = _value;
-            PlistInternal.Merge(ref tag, ref buf);
-            return tag;
+            writer.Write((byte)(0xF0 | (_value.Length - 1)));
+            writer.Write(_value);
         }
 
-        internal static PlistUid ReadXml(XmlDocument reader, int index)
+        internal static PlistUid ReadXml(XmlNode node)
         {
-            string val = reader.ChildNodes[index].InnerText.Substring(2); // trim off "0x" 
+            string val = node.InnerText.Substring(2); // trim off "0x" 
             int length = val.Length / 2;
             byte[] buf = new byte[length];
             for (int i = 0; i < length; i++)
-            {
                 buf[i] = Convert.ToByte(val.Substring(i * 2, 2), 16);
-            }
+
             return new PlistUid(buf);
         }
 
-        internal void WriteXml(XmlNode tree, XmlDocument writer)
+        void IPlistElementInternal.WriteXml(XmlNode tree, XmlDocument writer)
         {
             XmlElement element = writer.CreateElement("string");
-            int length = _value.Length;
-            StringBuilder sb = new StringBuilder(length * 2 + 2);
-            sb.Append("0x");
-            for (int i = 0; i < length; i++)
-            {
+
+            StringBuilder sb = new StringBuilder("0x");
+            for (int i = 0; i < _value.Length; i++)
                 sb.Append(String.Format("{0:X}", _value[i]));
-            }
+
             element.InnerText = sb.ToString();
             tree.AppendChild(element);
         }
     }
-    public partial class PlistUid : IPlistElement<byte[], Primitive>
+    public partial class PlistUid : IPlistElement<byte[]>
     {
         internal byte[] _value;
 
@@ -138,24 +130,14 @@ namespace Hexware.Plist
         }
 
         /// <summary>
-        /// Gets the type of this element as one of <see cref="Hexware.Plist.Container"/> or <see cref="Hexware.Plist.Primitive"/>
+        /// Gets the type of this element
         /// </summary>
-        public Primitive ElementType
+        public PlistElementType ElementType
         {
             get
             {
-                return Primitive.Uid;
+                return PlistElementType.Uid;
             }
-        }
-
-        /// <summary>
-        /// Gets the length of this element when written in binary mode
-        /// </summary>
-        /// <returns>Containers return the amount inside while Primitives return the binary length</returns>
-        public int GetPlistElementBinaryLength()
-        {
-            // (tag length (1)) + (_value.Length - 1)
-            return _value.Length;
         }
     }
 }

@@ -39,36 +39,30 @@ namespace Hexware.Plist
             _value = value;
         }
     }
-    public partial class PlistBool
+    public partial class PlistBool : IPlistElementInternal
     {
         internal static PlistBool ReadBinary(BinaryReader reader, byte firstbyte)
         {
             return new PlistBool(firstbyte == 0x09);
         }
 
-        internal byte[] WriteBinary()
+        void IPlistElementInternal.WriteBinary(BinaryWriter writer)
         {
-            return new byte[]
-            {
-                (byte)(_value ? 0x09 : 0x08)
-            };
+            writer.Write((byte)(_value ? 0x09 : 0x08));
         }
 
-        internal static PlistBool ReadXml(XmlDocument reader, int index)
+        internal static PlistBool ReadXml(XmlNode node)
         {
-            if (reader.ChildNodes[index].Name == "true")
-                return new PlistBool(true);
-            return new PlistBool(false);
+            return new PlistBool(node.Name == "true");
         }
 
-        internal void WriteXml(XmlNode tree, XmlDocument writer)
+        void IPlistElementInternal.WriteXml(XmlNode tree, XmlDocument writer)
         {
-            XmlElement element;
-            element = writer.CreateElement(_value ? "true" : "false");
+            XmlElement element = writer.CreateElement(_value ? "true" : "false");
             tree.AppendChild(element);
         }
     }
-    public partial class PlistBool : IPlistElement<bool, Primitive>
+    public partial class PlistBool : IPlistElement<bool>
     {
         internal bool _value;
 
@@ -99,23 +93,14 @@ namespace Hexware.Plist
         }
 
         /// <summary>
-        /// Gets the type of this element as one of <see cref="Hexware.Plist.Container"/> or <see cref="Hexware.Plist.Primitive"/>
+        /// Gets the type of this element
         /// </summary>
-        public Primitive ElementType
+        public PlistElementType ElementType
         {
             get
             {
-                return Primitive.Bool;
+                return PlistElementType.Boolean;
             }
-        }
-
-        /// <summary>
-        /// Gets the length of this element when written in binary mode
-        /// </summary>
-        /// <returns>Containers return the amount inside while Primitives return the binary length</returns>
-        public int GetPlistElementBinaryLength()
-        {
-            return 1;
         }
     }
 }

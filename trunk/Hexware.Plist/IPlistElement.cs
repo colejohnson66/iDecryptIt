@@ -25,7 +25,7 @@ namespace Hexware.Plist
     /// <summary>
     /// Base interface for manipulating Plist elements
     /// </summary>
-    public partial interface IPlistElement
+    public interface IPlistElement
     {
         /// <summary>
         /// Gets the Xml tag for this element
@@ -34,20 +34,13 @@ namespace Hexware.Plist
         {
             get;
         }
-
-        /// <summary>
-        /// Gets the length of this element when written in binary mode
-        /// </summary>
-        /// <returns>Containers return the amount inside while Primitives return the binary length</returns>
-        int GetPlistElementBinaryLength();
     }
 
     /// <summary>
     /// Interface for manipulating Plist elements
     /// </summary>
     /// <typeparam name="TDotNetEquiv">The .NET equivalent of this Plist element</typeparam>
-    /// <typeparam name="TElemType"><see cref="Hexware.Plist.Container"/> or <see cref="Hexware.Plist.Primitive"/></typeparam>
-    public partial interface IPlistElement<TDotNetEquiv, TElemType> : IPlistElement
+    public interface IPlistElement<TDotNetEquiv> : IPlistElement
     {
         /// <summary>
         /// Gets the Xml tag for this element
@@ -67,17 +60,11 @@ namespace Hexware.Plist
         }
 
         /// <summary>
-        /// Gets the type of this element as one of <see cref="Hexware.Plist.Container"/> or <see cref="Hexware.Plist.Primitive"/>
+        /// Gets the type of this element
         /// </summary>
-        TElemType ElementType
+        PlistElementType ElementType
         {
             get;
         }
-
-        /// <summary>
-        /// Gets the length of this element when written in binary mode
-        /// </summary>
-        /// <returns>Containers return the amount inside while Primitives return the binary length</returns>
-        new int GetPlistElementBinaryLength();
     }
 }
