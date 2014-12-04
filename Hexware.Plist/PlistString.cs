@@ -30,11 +30,8 @@ namespace Hexware.Plist
     /// <summary>
     /// Represents a &lt;string /&gt; tag using a <see cref="System.String"/>
     /// </summary>
-    /// <remarks>&lt;ustring /&gt; doesn't exist in Xml Plists, only binary; the encoding of the Xml value is the same as the file</remarks>
     public partial class PlistString
     {
-        internal bool _UTF16;
-
         /// <summary>
         /// Hexware.Plist.PlistString constructor using a <see cref="System.String"/>
         /// </summary>
@@ -46,110 +43,54 @@ namespace Hexware.Plist
                 throw new ArgumentNullException("value");
 
             _value = value;
-
-            // UTF-16?
-            int length = value.Length;
-            for (int i = 0; i < length; i++)
-            {
-                if (value[i] > 0x7F)
-                {
-                    _UTF16 = true;
-                    return;
-                }
-            }
-            //_UTF16 = false; // default(bool) == false
-        }
-
-        /// <summary>
-        /// Gets a <see cref="System.Boolean"/> indicating if the string contains UTF-16 characters
-        /// </summary>
-        public bool UTF16
-        {
-            get
-            {
-                return _UTF16;
-            }
-        }
-
-        /// <summary>
-        /// Gets the length of this element
-        /// </summary>
-        /// <returns>Amount of characters in the string</returns>
-        public int GetPlistElementLength()
-        {
-            return _value.Length;
         }
     }
-    public partial class PlistString
+    public partial class PlistString : IPlistElementInternal
     {
         internal static PlistString ReadBinary(BinaryReader reader, byte firstbyte)
         {
-            bool ustring = ((firstbyte & 0xF0) >> 4 == 0x06);
+            int type = firstbyte & 0xF0;
             int length = firstbyte & 0x0F;
             if (length == 0x0F)
-            {
                 length = (int)PlistInteger.ReadBinary(reader, reader.ReadByte()).Value;
-            }
-            if (ustring)
-            {
-                // UTF-16 uses two bytes per character
-                length = length * 2;
-            }
+            byte[] buf = reader.ReadBytes(length);
 
-            byte[] buf;
-            if (reader.BaseStream.Length < (reader.BaseStream.Position + length))
-                throw new PlistFormatException("Length of element passes end of stream");
-
-            buf = reader.ReadBytes(length);
-            if (ustring)
-                return new PlistString(Encoding.BigEndianUnicode.GetString(buf));
-            return new PlistString(Encoding.ASCII.GetString(buf));
+            Encoding encoding;
+            if (type == 0x50)
+                encoding = Encoding.ASCII;
+            else if (type == 0x60)
+                encoding = Encoding.BigEndianUnicode;
+            else // type == 0x70
+                encoding = Encoding.UTF8; // NOTE: version "bplist1?"+
+            return new PlistString(encoding.GetString(buf));
         }
 
-        internal byte[] WriteBinary()
+        void IPlistElementInternal.WriteBinary(BinaryWriter writer)
         {
-            byte[] tag;
-            byte[] buf;            
-            if (GetPlistElementLength() > 0x0D)
-            {
-                tag = new PlistInteger(GetPlistElementLength()).WriteBinary();
-            }
+            int length = _value.Length;
+            if (length < 0x0F)
+                writer.Write((byte)(0x70 | _value.Length));
             else
-            {
-                if (_UTF16)
-                {
-                    tag = new byte[1]
-                    {
-                        (byte)(0x60 | _value.Length)
-                    };
-                }
-                else
-                {
-                    tag = new byte[1]
-                    {
-                        (byte)(0x50 | _value.Length)
-                    };
-                }
-            }
-            Encoding enc = (_UTF16) ? Encoding.BigEndianUnicode : Encoding.ASCII;
-            buf = enc.GetBytes(_value);
-            PlistInternal.Merge(ref tag, ref buf);
-            return tag;
+                ((IPlistElementInternal)new PlistInteger(_value.Length)).WriteBinary(writer);
+
+            // Always save as UTF-8. It's the same size as ASCII and
+            // doesn't waste bytes if one character was not ASCII.
+            writer.Write(Encoding.UTF8.GetBytes(_value));
         }
 
-        internal static PlistString ReadXml(XmlDocument reader, int index)
+        internal static PlistString ReadXml(XmlNode node)
         {
-            return new PlistString(reader.ChildNodes[index].InnerText);
+            return new PlistString(node.InnerText);
         }
 
-        internal void WriteXml(XmlNode tree, XmlDocument writer)
+        void IPlistElementInternal.WriteXml(XmlNode tree, XmlDocument writer)
         {
             XmlElement element = writer.CreateElement(XmlTag);
             element.InnerText = _value;
             tree.AppendChild(element);
         }
     }
-    public partial class PlistString : IPlistElement<string, Primitive>
+    public partial class PlistString : IPlistElement<string>
     {
         internal string _value;
 
@@ -161,7 +102,6 @@ namespace Hexware.Plist
             get
             {
                 return "string";
-                //return (_UTF16 ? "ustring" : "string");
             }
         }
 
@@ -181,39 +121,18 @@ namespace Hexware.Plist
                     throw new ArgumentNullException("value");
 
                 _value = value;
-
-                // UTF-16?
-                int length = value.Length;
-                for (int i = 0; i < length; i++)
-                {
-                    if (value[i] > 0x7F)
-                    {
-                        _UTF16 = true;
-                        return;
-                    }
-                }
-                _UTF16 = false;
             }
         }
 
         /// <summary>
-        /// Gets the type of this element as one of <see cref="Hexware.Plist.Container"/> or <see cref="Hexware.Plist.Primitive"/>
+        /// Gets the type of this element
         /// </summary>
-        public Primitive ElementType
+        public PlistElementType ElementType
         {
             get
             {
-                return (_UTF16 ? Primitive.UString : Primitive.String);
+                return PlistElementType.String;
             }
-        }
-
-        /// <summary>
-        /// Gets the length of this element when written in binary mode
-        /// </summary>
-        /// <returns>Containers return the amount inside while Primitives return the binary length</returns>
-        public int GetPlistElementBinaryLength()
-        {
-            return WriteBinary().Length;
         }
     }
 }

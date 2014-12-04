@@ -32,6 +32,8 @@ namespace Hexware.Plist
     /// </summary>
     public partial class PlistDate
     {
+        internal static DateTime AppleEpoch = new DateTime(2001, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+
         /// <summary>
         /// Hexware.Plist.PlistDate constructor using a <see cref="System.DateTime"/>
         /// </summary>
@@ -62,54 +64,40 @@ namespace Hexware.Plist
             }
         }
     }
-    public partial class PlistDate
+    public partial class PlistDate : IPlistElementInternal
     {
         internal static PlistDate ReadBinary(BinaryReader reader, byte firstbyte)
         {
-            firstbyte = (byte)(firstbyte & 0x0F); // get lower nibble
-            int numofbytes = (1 << firstbyte); // how many bytes are contained in this date
-            if (reader.BaseStream.Length < (reader.BaseStream.Position + numofbytes))
-                throw new PlistFormatException("Length of element passes end of stream");
-
-            byte[] buf = reader.ReadBytes(numofbytes);
-            Array.Reverse(buf);
-            DateTime epoch = new DateTime(2011, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-            if (firstbyte == 0x02)
-                return new PlistDate(epoch.AddTicks((long)BitConverter.ToSingle(buf, 0)));
-            if (firstbyte == 0x03)
-                return new PlistDate(epoch.AddTicks((long)BitConverter.ToDouble(buf, 0)));
-
-            throw new PlistFormatException("Node is not a single (float) or double");
+            byte[] buf = reader.ReadBytes(8);
+            if (BitConverter.IsLittleEndian)
+                Array.Reverse(buf);
+            return new PlistDate(AppleEpoch.AddTicks((long)BitConverter.ToDouble(buf, 0)));
         }
 
-        internal byte[] WriteBinary()
+        void IPlistElementInternal.WriteBinary(BinaryWriter writer)
         {
-            DateTime start = new DateTime(2001, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-            TimeSpan ts = _value - start;
-            
-            byte[] tag = new byte[1]
-            {
-                0x33
-            };
-            byte[] buf = BitConverter.GetBytes(ts.TotalSeconds);
+            writer.Write((byte)0x33);
+
+            // could be optimized by writing the array backwards instead of reversing first
+            TimeSpan val = _value - AppleEpoch;
+            byte[] buf = BitConverter.GetBytes(val.TotalSeconds);
             Array.Reverse(buf);
-            PlistInternal.Merge(ref tag, ref buf);
-            return tag;
+            writer.Write(buf);
         }
 
-        internal static PlistDate ReadXml(XmlDocument reader, int index)
+        internal static PlistDate ReadXml(XmlNode node)
         {
-            return new PlistDate(reader.ChildNodes[index].InnerText);
+            return new PlistDate(node.InnerText);
         }
 
-        internal void WriteXml(XmlNode tree, XmlDocument writer)
+        void IPlistElementInternal.WriteXml(XmlNode tree, XmlDocument writer)
         {
             XmlElement element = writer.CreateElement("date");
             element.InnerText = _value.ToString("s") + "Z";
             tree.AppendChild(element);
         }
     }
-    public partial class PlistDate : IPlistElement<DateTime, Primitive>
+    public partial class PlistDate : IPlistElement<DateTime>
     {
         internal DateTime _value;
 
@@ -140,23 +128,14 @@ namespace Hexware.Plist
         }
 
         /// <summary>
-        /// Gets the type of this element as one of <see cref="Hexware.Plist.Container"/> or <see cref="Hexware.Plist.Primitive"/>
+        /// Gets the type of this element
         /// </summary>
-        public Primitive ElementType
+        public PlistElementType ElementType
         {
             get
             {
-                return Primitive.Date;
+                return PlistElementType.Date;
             }
-        }
-
-        /// <summary>
-        /// Gets the length of this element when written in binary mode
-        /// </summary>
-        /// <returns>Containers return the amount inside while Primitives return the binary length</returns>
-        public int GetPlistElementBinaryLength()
-        {
-            return WriteBinary().Length;
         }
     }
 }

@@ -20,7 +20,6 @@
  *   along with Hexware.Plist. If not, see <http://www.gnu.org/licenses/>.
  * =============================================================================
  */
-using System;
 using System.IO;
 using System.Xml;
 
@@ -38,27 +37,24 @@ namespace Hexware.Plist
         {
         }
     }
-    public partial class PlistFill
+    public partial class PlistFill : IPlistElementInternal
     {
         internal static PlistFill ReadBinary(BinaryReader reader, byte firstbyte)
         {
             return new PlistFill();
         }
 
-        internal byte[] WriteBinary()
+        void IPlistElementInternal.WriteBinary(BinaryWriter writer)
         {
-            return new byte[]
-            {
-                0x0F
-            };
+            writer.Write((byte)0x0F);
         }
 
-        internal static PlistFill ReadXml(XmlDocument reader, int index)
+        internal static PlistFill ReadXml(XmlNode node)
         {
             return new PlistFill();
         }
 
-        internal void WriteXml(XmlNode tree, XmlDocument writer)
+        void IPlistElementInternal.WriteXml(XmlNode tree, XmlDocument writer)
         {
             XmlElement element = writer.CreateElement("fill");
             tree.AppendChild(element);
@@ -78,23 +74,14 @@ namespace Hexware.Plist
         }
 
         /// <summary>
-        /// Gets the type of this element as one of <see cref="Hexware.Plist.Container"/> or <see cref="Hexware.Plist.Primitive"/>
+        /// Gets the type of this element
         /// </summary>
-        public Primitive ElementType
+        public PlistElementType ElementType
         {
             get
             {
-                return Primitive.Fill;
+                return PlistElementType.Fill;
             }
-        }
-
-        /// <summary>
-        /// Gets the length of this element when written in binary mode
-        /// </summary>
-        /// <returns>Containers return the amount inside while Primitives return the binary length</returns>
-        public int GetPlistElementBinaryLength()
-        {
-            return 1;
         }
     }
 }

@@ -237,7 +237,7 @@ namespace Hexware.Plist
             throw new NotImplementedException();
         }
 
-        internal byte[] WriteBinary()
+        internal void WriteBinary(BinaryWriter writer)
         {
             throw new NotImplementedException();
         }
@@ -249,7 +249,7 @@ namespace Hexware.Plist
                 XmlNode current = reader.ChildNodes[i];
                 if (current.Name == "plist")
                 {
-                    if (current.ChildNodes.Count != 1)
+                    if (!current.HasChildNodes)
                         throw new PlistFormatException("Plist is not valid");
 
                     XmlNode root = current.ChildNodes.Item(0);

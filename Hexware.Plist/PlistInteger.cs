@@ -23,7 +23,6 @@
 using System;
 using System.IO;
 using System.Xml;
-using System.Net;
 
 namespace Hexware.Plist
 {
@@ -167,88 +166,71 @@ namespace Hexware.Plist
             }
         }
     }
-    public partial class PlistInteger
+    public partial class PlistInteger : IPlistElementInternal
     {
         internal static PlistInteger ReadBinary(BinaryReader reader, byte firstbyte)
         {
-            firstbyte = (byte)(firstbyte & 0x0F); // Get lower nibble
-            int numofbytes = (1 << firstbyte); // how many bytes are contained in this integer
-            if (reader.BaseStream.Length < (reader.BaseStream.Position + numofbytes))
-                throw new PlistFormatException("Length of element passes end of stream");
-
+            int numofbytes = 1 << (firstbyte & 0x08);
             byte[] buf = reader.ReadBytes(numofbytes);
+            if (BitConverter.IsLittleEndian)
+                Array.Reverse(buf);
 
-            // "cast" big-endian to native-endian if necessary, then return
-            if (numofbytes == 1)
+            // TODO: Add support for 128 bit integers
+            if (numofbytes == 1) // 000
                 return new PlistInteger(buf[0]);
-            if (numofbytes == 2)
-                return new PlistInteger(IPAddress.NetworkToHostOrder(BitConverter.ToInt16(buf, 0)));
-            if (numofbytes == 4)
-                return new PlistInteger(IPAddress.NetworkToHostOrder(BitConverter.ToInt32(buf, 0)));
-            if (numofbytes == 8)
-                return new PlistInteger(IPAddress.NetworkToHostOrder(BitConverter.ToInt64(buf, 0)));
+            if (numofbytes == 2) // 001
+                return new PlistInteger(BitConverter.ToInt16(buf, 0));
+            if (numofbytes == 4) // 010
+                return new PlistInteger(BitConverter.ToInt32(buf, 0));
+            if (numofbytes == 8) // 011
+                return new PlistInteger(BitConverter.ToInt64(buf, 0));
+            //if (numofbytes == 16) // 100
+            //    return new PlistInteger(...)
 
-            throw new PlistFormatException("The received value from the stream is bigger than long");
+            // The specification uses the 3 bits to store the size,
+            // allowing for integers up to 512 bits long. However,
+            // CoreFoundation only implements support up to 128 bits.
+            throw new PlistFormatException("Support does not exist for integers greater than 64 bits");
         }
 
-        internal byte[] WriteBinary()
+        void IPlistElementInternal.WriteBinary(BinaryWriter writer)
         {
-            byte[] tag;
+            if (_value >= Byte.MinValue && _value <= Byte.MaxValue) {
+                writer.Write((byte)0x10);
+                writer.Write((byte)_value);
+                return;
+            }
+
             byte[] buf;
-            int length = GetPlistElementBinaryLength();
-            if (length == 2)
-            {
-                tag = new byte[1]
-                {
-                    0x10
-                };
-                buf = new byte[1]
-                {
-                    (byte)_value
-                };
-            }
-            else if (length == 3)
-            {
-                tag = new byte[1]
-                {
-                    0x11
-                };
+            if (_value >= Int16.MinValue && _value <= Int16.MaxValue) {
+                writer.Write((byte)0x11);
                 buf = BitConverter.GetBytes((short)_value);
-            }
-            else if (length == 5)
-            {
-                tag = new byte[1]
-                {
-                    0x12
-                };
+            } else if (_value >= Int32.MinValue && _value <= Int32.MaxValue) {
+                writer.Write((byte)0x12);
                 buf = BitConverter.GetBytes((int)_value);
-            }
-            else /*if (length == 9) */
-            {
-                tag = new byte[1]
-                {
-                    0x13
-                };
+            } else {
+                writer.Write((byte)0x13);
                 buf = BitConverter.GetBytes(_value);
             }
-            Array.Reverse(buf);
-            PlistInternal.Merge(ref tag, ref buf);
-            return tag;
+
+            if (BitConverter.IsLittleEndian)
+                Array.Reverse(buf);
+            writer.Write(buf);
         }
 
-        internal static PlistInteger ReadXml(XmlDocument reader, int index)
+        internal static PlistInteger ReadXml(XmlNode node)
         {
-            return new PlistInteger(reader.ChildNodes[index].InnerText);
+            return new PlistInteger(node.InnerText);
         }
 
-        internal void WriteXml(XmlNode tree, XmlDocument writer)
+        void IPlistElementInternal.WriteXml(XmlNode tree, XmlDocument writer)
         {
             XmlElement element = writer.CreateElement("integer");
             element.InnerText = _value.ToString();
             tree.AppendChild(element);
         }
     }
-    public partial class PlistInteger : IPlistElement<long, Primitive>
+    public partial class PlistInteger : IPlistElement<long>
     {
         internal long _value;
 
@@ -279,29 +261,14 @@ namespace Hexware.Plist
         }
 
         /// <summary>
-        /// Gets the type of this element as one of <see cref="Hexware.Plist.Container"/> or <see cref="Hexware.Plist.Primitive"/>
+        /// Gets the type of this element
         /// </summary>
-        public Primitive ElementType
+        public PlistElementType ElementType
         {
             get
             {
-                return Primitive.Integer;
+                return PlistElementType.Integer;
             }
-        }
-
-        /// <summary>
-        /// Gets the length of this element when written in binary mode
-        /// </summary>
-        /// <returns>Containers return the amount inside while Primitives return the binary length</returns>
-        public int GetPlistElementBinaryLength()
-        {
-            if (_value >= Byte.MinValue && _value <= Byte.MaxValue)
-                return 2;
-            if (_value >= Int16.MinValue && _value <= Int16.MaxValue)
-                return 3;
-            if (_value >= Int32.MinValue && _value <= Int32.MaxValue)
-                return 5;
-            return 9;
         }
     }
 }

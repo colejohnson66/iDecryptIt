@@ -56,6 +56,7 @@ namespace Hexware.Plist
             if (value == null)
                 throw new ArgumentNullException("value");
 
+            // FIXME: Proper decoding
             value = value
                 .Replace("\n", "")
                 .Replace("\r", "")
@@ -73,62 +74,47 @@ namespace Hexware.Plist
         }
 
         /// <summary>
-        /// Gets the length of this element
+        /// Gets the length of the data
         /// </summary>
-        /// <returns>Amount of characters in decoded string</returns>
-        public int GetPlistElementLength()
+        public int Length
         {
-            return _value.Length;
+            get
+            {
+                return _value.Length;
+            }
         }
     }
-    public partial class PlistData
+    public partial class PlistData : IPlistElementInternal
     {
         internal static PlistData ReadBinary(BinaryReader reader, byte firstbyte)
         {
-            int length = (byte)(firstbyte & 0x0F);
+            int length = firstbyte & 0x0F;
             if (length == 0x0F)
                 length = (int)PlistInteger.ReadBinary(reader, reader.ReadByte()).Value;
-
-            if (reader.BaseStream.Length < (reader.BaseStream.Position + length))
-                throw new PlistFormatException("Length of element passes end of stream");
 
             return new PlistData(reader.ReadBytes(length));
         }
 
-        internal byte[] WriteBinary()
+        void IPlistElementInternal.WriteBinary(BinaryWriter writer)
         {
-            byte[] tag;
-            byte[] buf = _value;
-            if (_value.Length < 0x0F)
-            {
-                tag = new byte[2]
-                {
-                    0x0F,
-                    (byte)buf.Length
-                };
+            if (_value.Length < 0x0F) {
+                writer.Write((byte)(0x40 | _value.Length));
+                return;
             }
-            else
-            {
-                tag = new byte[1]
-                {
-                    0x0F
-                };
-                byte[] temp = new PlistInteger(buf.Length).WriteBinary();
-                PlistInternal.Merge(ref tag, ref temp);
-            }
-            PlistInternal.Merge(ref tag, ref buf);
-            return tag;
+            writer.Write((byte)0x4F);
+            ((IPlistElementInternal)new PlistInteger(_value.Length)).WriteBinary(writer);
         }
 
-        internal static PlistData ReadXml(XmlDocument reader, int index)
+        internal static PlistData ReadXml(XmlNode node)
         {
-            return new PlistData(reader.ChildNodes[index].InnerText);
+            return new PlistData(node.InnerText);
         }
 
-        internal void WriteXml(XmlNode tree, XmlDocument writer)
+        void IPlistElementInternal.WriteXml(XmlNode tree, XmlDocument writer)
         {
+            // Build indentations
             int depth = 0;
-            XmlNode clone = writer.Clone();
+            XmlNode clone = tree.Clone();
             while (clone.ParentNode != null)
             {
                 clone = clone.ParentNode;
@@ -144,27 +130,22 @@ namespace Hexware.Plist
 
             XmlElement element = writer.CreateElement("data");
             string buf = Convert.ToBase64String(_value);
-            int length = buf.Length;
             sb = new StringBuilder();
             sb.AppendLine();
-            for (int i = 0; i < length; i++)
+            for (int i = 0; i < buf.Length; i++)
             {
                 sb.Append(buf[i]);
                 if (i % 64 == 0)
-                {
                     sb.AppendLine();
-                }
                 else if (i % 65 == 1)
-                {
                     sb.Append(indent);
-                }
             }
             sb.AppendLine();
             element.InnerText = sb.ToString();
             tree.AppendChild(element);
         }
     }
-    public partial class PlistData : IPlistElement<byte[], Primitive>
+    public partial class PlistData : IPlistElement<byte[]>
     {
         internal byte[] _value;
 
@@ -198,23 +179,14 @@ namespace Hexware.Plist
         }
 
         /// <summary>
-        /// Gets the type of this element as one of <see cref="Hexware.Plist.Container"/> or <see cref="Hexware.Plist.Primitive"/>
+        /// Gets the type of this element
         /// </summary>
-        public Primitive ElementType
+        public PlistElementType ElementType
         {
             get
             {
-                return Primitive.Data;
+                return PlistElementType.Data;
             }
-        }
-
-        /// <summary>
-        /// Gets the length of this element when written in binary mode
-        /// </summary>
-        /// <returns>Containers return the amount inside while Primitives return the binary length</returns>
-        public int GetPlistElementBinaryLength()
-        {
-            return WriteBinary().Length;
         }
     }
 }

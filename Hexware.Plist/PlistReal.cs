@@ -142,51 +142,77 @@ namespace Hexware.Plist
             _value = value;
         }
     }
-    public partial class PlistReal
+    public partial class PlistReal : IPlistElementInternal
     {
         internal static PlistReal ReadBinary(BinaryReader reader, byte firstbyte)
         {
-            firstbyte = (byte)(firstbyte & 0x0F); // Get lower nibble
-            int numofbytes = (1 << firstbyte); // how many bytes are contained in this integer
-            if (reader.BaseStream.Length < (reader.BaseStream.Position + numofbytes))
-            {
-                throw new PlistFormatException("Length of element passes end of stream");
-            }
+            int numofbytes = 1 << (firstbyte & 0x08);
             byte[] buf = reader.ReadBytes(numofbytes);
-            Array.Reverse(buf);
+            if (BitConverter.IsLittleEndian)
+                Array.Reverse(buf);
 
-            if (numofbytes == 4)
+            // The specification uses 3 bits to store the size,
+            // but CoreFoundation only supports 32 and 64 bit reals.
+            if (numofbytes == 4) // 010
                 return new PlistReal(BitConverter.ToSingle(buf, 0));
-            if (numofbytes == 8)
+            if (numofbytes == 8) // 011
                 return new PlistReal(BitConverter.ToDouble(buf, 0));
-            throw new PlistFormatException("Node is not a single (float) or double");
+
+            throw new PlistFormatException("Support does not exist for reals that aren't 32 or 64 bits long");
         }
 
-        internal byte[] WriteBinary()
+        void IPlistElementInternal.WriteBinary(BinaryWriter writer)
         {
-            byte[] tag = new byte[1]
-            {
-                0x23
-            };
+            // To avoid unintentional loss of precision, save as
+            // a 64 bit real. CoreFoundation uses some function
+            // called CFNumberGetByteSize to determine what format
+            // to use.
+            writer.Write((byte)0x23);
+
             byte[] buf = BitConverter.GetBytes(_value);
-            Array.Reverse(buf);
-            PlistInternal.Merge(ref tag, ref buf);
-            return tag;
+            if (BitConverter.IsLittleEndian)
+                Array.Reverse(buf);
+            writer.Write(buf);
         }
 
-        internal static PlistReal ReadXml(XmlDocument reader, int index)
+        internal static PlistReal ReadXml(XmlNode node)
         {
-            return new PlistReal(reader.ChildNodes[index].InnerText);
+            string val = node.InnerText;
+            if (String.Compare(val, "nan", true) == 0)
+                return new PlistReal(Double.NaN);
+            else if (String.Compare(val, "infinity", true) == 0)
+                return new PlistReal(Double.PositiveInfinity);
+            else if (String.Compare(val, "+infinity", true) == 0)
+                return new PlistReal(Double.PositiveInfinity);
+            else if (String.Compare(val, "-infinity", true) == 0)
+                return new PlistReal(Double.NegativeInfinity);
+            else if (String.Compare(val, "inf", true) == 0)
+                return new PlistReal(Double.PositiveInfinity);
+            else if (String.Compare(val, "+inf", true) == 0)
+                return new PlistReal(Double.PositiveInfinity);
+            else if (String.Compare(val, "-inf", true) == 0)
+                return new PlistReal(Double.NegativeInfinity);
+
+            return new PlistReal(node.InnerText);
         }
 
-        internal void WriteXml(XmlNode tree, XmlDocument writer)
+        void IPlistElementInternal.WriteXml(XmlNode tree, XmlDocument writer)
         {
             XmlElement element = writer.CreateElement("real");
-            writer.InnerText = _value.ToString();
+
+            if (Double.IsNaN(_value))
+                writer.InnerText = "nan";
+            else if (Double.IsPositiveInfinity(_value))
+                writer.InnerText = "+infinity";
+            else if (Double.IsNegativeInfinity(_value))
+                writer.InnerText = "-infinity";
+            else
+                writer.InnerText = _value.ToString();
+
             tree.AppendChild(element);
         }
     }
-    public partial class PlistReal : IPlistElement<double, Primitive>
+    public partial class PlistReal : IPlistElement<double>
     {
         internal double _value;
 
@@ -217,23 +243,14 @@ namespace Hexware.Plist
         }
 
         /// <summary>
-        /// Gets the type of this element as one of <see cref="Hexware.Plist.Container"/> or <see cref="Hexware.Plist.Primitive"/>
+        /// Gets the type of this element
         /// </summary>
-        public Primitive ElementType
+        public PlistElementType ElementType
         {
             get
             {
-                return Primitive.Real;
+                return PlistElementType.Real;
             }
-        }
-
-        /// <summary>
-        /// Gets the length of this element when written in binary mode
-        /// </summary>
-        /// <returns>Containers return the amount inside while Primitives return the binary length</returns>
-        public int GetPlistElementBinaryLength()
-        {
-            return 9;
         }
     }
 }

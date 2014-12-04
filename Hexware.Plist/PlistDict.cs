@@ -56,8 +56,47 @@ namespace Hexware.Plist
         {
             if (value == null)
                 throw new ArgumentNullException("value");
+            if (value.Count % 2 == 1)
+                throw new PlistFormatException("Plist dictionary is not valid");
 
-            Parse(value);
+            _value = new Dictionary<string, IPlistElement>(value.Count);
+            for (int i = 0; i < value.Count; i = i + 2) {
+                string key = value[i].InnerText;
+                string valueType = value[i + 1].Name;
+
+                if (value[i].Name != "key" ||
+                    key.Contains("<") ||
+                    key.Contains(">")) {
+                    throw new PlistFormatException("\"" + value[i].InnerXml + "\" is not a valid Plist key");
+                }
+
+                if (valueType == "array")
+                    _value.Add(key, new PlistArray(value[i + 1].ChildNodes));
+                else if (valueType == "true" || valueType == "false")
+                    _value.Add(key, new PlistBool(true));
+                else if (valueType == "false")
+                    _value.Add(key, new PlistBool(false));
+                else if (valueType == "data")
+                    _value.Add(key, new PlistData(value[i + 1].InnerText));
+                else if (valueType == "date")
+                    _value.Add(key, new PlistDate(value[i + 1].InnerText));
+                else if (valueType == "dict")
+                    _value.Add(key, new PlistDict(value[i + 1].ChildNodes));
+                else if (valueType == "fill")
+                    _value.Add(key, new PlistFill());
+                else if (valueType == "integer")
+                    _value.Add(key, new PlistInteger(value[i + 1].InnerText));
+                else if (valueType == "null")
+                    _value.Add(key, new PlistNull());
+                else if (valueType == "real")
+                    _value.Add(key, new PlistReal(value[i + 1].InnerText));
+                else if (valueType == "string")
+                    _value.Add(key, new PlistString(value[i + 1].InnerText));
+                else if (valueType == "uid")
+                    _value.Add(key, new PlistUid(Encoding.ASCII.GetBytes(value[i + 1].InnerText)));
+                else
+                    throw new PlistFormatException("Plist element is not a valid element");
+            }
         }
 
         /// <summary>
@@ -149,56 +188,6 @@ namespace Hexware.Plist
         {
             return (T)Get(key);
         }
-        
-        internal void Parse(XmlNodeList list)
-        {
-            if (list.Count % 2 == 1)
-                throw new PlistFormatException("Plist dictionary is not valid");
-
-            _value = new Dictionary<string, IPlistElement>(list.Count);
-
-            for (int i = 0; i < list.Count; i = i + 2)
-            {
-                string key = list[i].InnerText;
-                string valueType = list[i + 1].Name;
-
-                if (list[i].Name != "key" ||
-                    key.Contains("<") ||
-                    key.Contains(">"))
-                {
-                    throw new PlistFormatException("\"" + list[i].InnerXml + "\" is not a valid Plist key");
-                }
-
-                if (valueType == "array")
-                    _value.Add(key, new PlistArray(list[i + 1].ChildNodes));
-                else if (valueType == "true")
-                    _value.Add(key, new PlistBool(true));
-                else if (valueType == "false")
-                    _value.Add(key, new PlistBool(false));
-                else if (valueType == "data")
-                    _value.Add(key, new PlistData(list[i + 1].InnerText));
-                else if (valueType == "date")
-                    _value.Add(key, new PlistDate(list[i + 1].InnerText));
-                else if (valueType == "dict")
-                    _value.Add(key, new PlistDict(list[i + 1].ChildNodes));
-                else if (valueType == "fill")
-                    _value.Add(key, new PlistFill());
-                else if (valueType == "integer")
-                    _value.Add(key, new PlistInteger(list[i + 1].InnerText));
-                else if (valueType == "null")
-                    _value.Add(key, new PlistNull());
-                else if (valueType == "real")
-                    _value.Add(key, new PlistReal(list[i + 1].InnerText));
-                else if (valueType == "string" || valueType == "ustring")
-                    _value.Add(key, new PlistString(list[i + 1].InnerText));
-                else if (valueType == "uid")
-                    _value.Add(key, new PlistUid(Encoding.ASCII.GetBytes(list[i + 1].InnerText)));
-                else if (valueType == "ustring")
-                    _value.Add(key, new PlistString(list[i + 1].InnerText));
-                else
-                    throw new PlistFormatException("Plist element is not a valid element");
-            }
-        }
 
         /// <summary>
         /// Gets a <see cref="System.Collections.Generic.ICollection&lt;T&gt;"/>&lt;<see cref="System.String"/>&gt; collection of the keys
@@ -242,37 +231,59 @@ namespace Hexware.Plist
         }
 
         /// <summary>
-        /// Gets the number of nodes underneath this element
+        /// Gets the number of key-value pairs contained in this dictionary
         /// </summary>
-        /// <returns>Amount of elements inside</returns>
-        public int GetPlistElementLength()
+        public int Length
         {
-            return _value.Count;
+            get
+            {
+                return _value.Count;
+            }
         }
     }
-    public partial class PlistDict
+    public partial class PlistDict : IPlistElementInternal
     {
+        // TODO
         internal static PlistDict ReadBinary(BinaryReader reader, byte firstbyte)
         {
             throw new NotImplementedException();
         }
 
-        internal byte[] WriteBinary()
+        // TODO
+        void IPlistElementInternal.WriteBinary(BinaryWriter writer)
         {
+            if (_value.Count < 0x0F) {
+                writer.Write((byte)(0xD0 | _value.Count));
+            } else {
+                writer.Write((byte)0xDF);
+                ((IPlistElementInternal)new PlistInteger(_value.Count)).WriteBinary(writer);
+            }
+            // TODO: keyref*
+            // TODO: objref*
             throw new NotImplementedException();
         }
 
-        internal static PlistDict ReadXml(XmlDocument reader, int index)
+        internal static PlistDict ReadXml(XmlNode node)
         {
-            throw new NotImplementedException();
+            return new PlistDict(node.ChildNodes);
         }
 
-        internal void WriteXml(XmlNode tree, XmlDocument writer)
+        void IPlistElementInternal.WriteXml(XmlNode tree, XmlDocument writer)
         {
-            throw new NotImplementedException();
+            XmlElement element;
+            element = writer.CreateElement("dict");
+
+            foreach (KeyValuePair<string, IPlistElement> elem in _value) {
+                XmlElement key = writer.CreateElement("key");
+                key.InnerText = elem.Key;
+                element.AppendChild(key);
+                ((IPlistElementInternal)elem.Value).WriteXml(element, writer);
+            }
+
+            tree.AppendChild(element);
         }
     }
-    public partial class PlistDict : IPlistElement<Dictionary<string, IPlistElement>, Container>
+    public partial class PlistDict : IPlistElement<Dictionary<string, IPlistElement>>
     {
         internal Dictionary<string, IPlistElement> _value;
 
@@ -308,23 +319,14 @@ namespace Hexware.Plist
         }
 
         /// <summary>
-        /// Gets the type of this element as one of <see cref="Hexware.Plist.Container"/> or <see cref="Hexware.Plist.Primitive"/>
+        /// Gets the type of this element
         /// </summary>
-        public Container ElementType
+        public PlistElementType ElementType
         {
             get
             {
-                return Container.Dict;
+                return PlistElementType.Dictionary;
             }
-        }
-
-        /// <summary>
-        /// Gets the length of this element when written in binary mode
-        /// </summary>
-        /// <returns>Containers return the amount inside while Primitives return the binary length</returns>
-        public int GetPlistElementBinaryLength()
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -1,8 +1,8 @@
 ﻿/* =============================================================================
- * File:   Container.cs
+ * File:   IPlistElementInternal.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2012 Cole Johnson
+ * Copyright (c) 2014 Cole Johnson
  * 
  * This file is part of Hexware.Plist
  * 
@@ -20,26 +20,14 @@
  *   along with Hexware.Plist. If not, see <http://www.gnu.org/licenses/>.
  * =============================================================================
  */
+using System.IO;
+using System.Xml;
+
 namespace Hexware.Plist
 {
-    /// <summary>
-    /// Enumeration of Containers
-    /// </summary>
-    public enum Container
+    internal interface IPlistElementInternal : IPlistElement
     {
-        /// <summary>
-        /// &lt;array /&gt; represents a <see cref="System.Object"/> array
-        /// </summary>
-        Array = 1,
-
-        /// <summary>
-        /// &lt;dict /&gt; represents a <see cref="System.Object"/> array
-        /// </summary>
-        Dict,
-
-        /// <summary>
-        /// &lt;Plist /&gt; represents a <see cref="Hexware.Plist.PlistDocument"/> document
-        /// </summary>
-        Plist
+        void WriteBinary(BinaryWriter writer);
+        void WriteXml(XmlNode tree, XmlDocument writer);
     }
 }
