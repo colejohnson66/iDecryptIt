@@ -23,7 +23,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Xml;
 
 namespace Hexware.Plist
@@ -71,29 +70,27 @@ namespace Hexware.Plist
                 }
 
                 if (valueType == "array")
-                    _value.Add(key, new PlistArray(value[i + 1].ChildNodes));
+                    _value.Add(key, PlistArray.ReadXml(value[i + 1]));
                 else if (valueType == "true" || valueType == "false")
-                    _value.Add(key, new PlistBool(true));
-                else if (valueType == "false")
-                    _value.Add(key, new PlistBool(false));
+                    _value.Add(key, PlistBool.ReadXml(value[i + 1]));
                 else if (valueType == "data")
-                    _value.Add(key, new PlistData(value[i + 1].InnerText));
+                    _value.Add(key, PlistData.ReadXml(value[i + 1]));
                 else if (valueType == "date")
-                    _value.Add(key, new PlistDate(value[i + 1].InnerText));
+                    _value.Add(key, PlistDate.ReadXml(value[i + 1]));
                 else if (valueType == "dict")
-                    _value.Add(key, new PlistDict(value[i + 1].ChildNodes));
+                    _value.Add(key, PlistDict.ReadXml(value[i + 1]));
                 else if (valueType == "fill")
-                    _value.Add(key, new PlistFill());
+                    _value.Add(key, PlistFill.ReadXml(value[i + 1]));
                 else if (valueType == "integer")
-                    _value.Add(key, new PlistInteger(value[i + 1].InnerText));
+                    _value.Add(key, PlistInteger.ReadXml(value[i + 1]));
                 else if (valueType == "null")
-                    _value.Add(key, new PlistNull());
+                    _value.Add(key, PlistNull.ReadXml(value[i + 1]));
                 else if (valueType == "real")
-                    _value.Add(key, new PlistReal(value[i + 1].InnerText));
+                    _value.Add(key, PlistReal.ReadXml(value[i + 1]));
                 else if (valueType == "string")
-                    _value.Add(key, new PlistString(value[i + 1].InnerText));
+                    _value.Add(key, PlistString.ReadXml(value[i + 1]));
                 else if (valueType == "uid")
-                    _value.Add(key, new PlistUid(Encoding.ASCII.GetBytes(value[i + 1].InnerText)));
+                    _value.Add(key, PlistUid.ReadXml(value[i + 1]));
                 else
                     throw new PlistFormatException("Plist element is not a valid element");
             }
@@ -246,6 +243,12 @@ namespace Hexware.Plist
         // TODO
         internal static PlistDict ReadBinary(BinaryReader reader, byte firstbyte)
         {
+            int length = firstbyte & 0x0F;
+            if (length == 0x0F) {
+                length = (int)PlistInteger.ReadBinary(reader, reader.ReadByte()).Value;
+            }
+            // TODO: keyref*
+            // TODO: objref*
             throw new NotImplementedException();
         }
 

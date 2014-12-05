@@ -179,9 +179,9 @@ namespace Hexware.Plist
             if (numofbytes == 1) // 000
                 return new PlistInteger(buf[0]);
             if (numofbytes == 2) // 001
-                return new PlistInteger(BitConverter.ToInt16(buf, 0));
+                return new PlistInteger(BitConverter.ToUInt16(buf, 0));
             if (numofbytes == 4) // 010
-                return new PlistInteger(BitConverter.ToInt32(buf, 0));
+                return new PlistInteger(BitConverter.ToUInt32(buf, 0));
             if (numofbytes == 8) // 011
                 return new PlistInteger(BitConverter.ToInt64(buf, 0));
             //if (numofbytes == 16) // 100
@@ -195,19 +195,33 @@ namespace Hexware.Plist
 
         void IPlistElementInternal.WriteBinary(BinaryWriter writer)
         {
-            if (_value >= Byte.MinValue && _value <= Byte.MaxValue) {
-                writer.Write((byte)0x10);
-                writer.Write((byte)_value);
-                return;
-            }
-
             byte[] buf;
-            if (_value >= Int16.MinValue && _value <= Int16.MaxValue) {
-                writer.Write((byte)0x11);
-                buf = BitConverter.GetBytes((short)_value);
-            } else if (_value >= Int32.MinValue && _value <= Int32.MaxValue) {
-                writer.Write((byte)0x12);
-                buf = BitConverter.GetBytes((int)_value);
+
+            // 8, 16, and 32 bit integers have to be interpreted as unsigned,
+            // whereas 64 bit integers are signed (and 16-byte when available).
+            // Negative 8, 16, and 32 bit integers are always emitted as 8 bytes.
+            // Integers are not required to be in the most compact possible
+            // representation, but only the last 64 bits are significant.
+            // integers are not required to be in the most compact possible representation, but only the last 64 bits are significant currently
+            // Negative values are written as 8 bytes. The 1, 2,
+            // and 4 byte size options are unsigned values.
+            if (_value > 0) {
+                if (_value <= Byte.MaxValue) {
+                    writer.Write((byte)0x10);
+                    writer.Write((byte)_value);
+                    return;
+                }
+
+                if (_value <= UInt16.MaxValue) {
+                    writer.Write((byte)0x11);
+                    buf = BitConverter.GetBytes((ushort)_value);
+                } else if (_value <= UInt32.MaxValue) {
+                    writer.Write((byte)0x12);
+                    buf = BitConverter.GetBytes((uint)_value);
+                } else {
+                    writer.Write((byte)0x13);
+                    buf = BitConverter.GetBytes(_value);
+                }
             } else {
                 writer.Write((byte)0x13);
                 buf = BitConverter.GetBytes(_value);

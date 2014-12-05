@@ -22,6 +22,7 @@
  */
 using System;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Xml;
 
@@ -32,6 +33,9 @@ namespace Hexware.Plist
     /// </summary>
     public partial class PlistDocument
     {
+        //private static byte[] binaryHeader = Encoding.ASCII.GetBytes("bplist0");
+        private static byte[] binaryHeader = { 98, 112, 108, 105, 115, 116, 48 };
+
         private IPlistElement _value;
 
         /// <summary>
@@ -106,7 +110,7 @@ namespace Hexware.Plist
                     settings.DtdProcessing = DtdProcessing.Ignore;
                     settings.ValidationType = ValidationType.None;
                     xml.Load(XmlReader.Create(stream, settings));
-                    ReadXml(xml);
+                    ReadXml(xml.ChildNodes);
                 }
                 catch (Exception)
                 {
@@ -126,8 +130,8 @@ namespace Hexware.Plist
         /// <exception cref="Hexware.Plist.PlistFormatException">An invalid Xml Plist was given</exception>
         /// <exception cref="Hexware.Plist.PlistFormatException">Binary and Json Plists have not been implemented yet</exception>
         /// <exception cref="System.ArgumentNullException"><paramref name="plistData"/> is null or empty</exception>
-        /// <exception cref="System.Xml.XmlException"><paramref name="plistData"/> is not an ASCII Xml Plist</exception>
-        public PlistDocument(byte[] plistData) : this(plistData, Encoding.ASCII)
+        /// <exception cref="System.Xml.XmlException"><paramref name="plistData"/> is not a UTF-8 Xml Plist</exception>
+        public PlistDocument(byte[] plistData) : this(plistData, Encoding.UTF8)
         {
         }
 
@@ -163,7 +167,7 @@ namespace Hexware.Plist
                 settings.DtdProcessing = DtdProcessing.Ignore;
                 settings.ValidationType = ValidationType.None;
                 xml.Load(XmlReader.Create(encoding.GetString(plistData), settings));
-                ReadXml(xml);
+                ReadXml(xml.ChildNodes);
             } catch (Exception) {
                 throw;
             }
@@ -211,7 +215,7 @@ namespace Hexware.Plist
                 settings.DtdProcessing = DtdProcessing.Ignore;
                 settings.ValidationType = ValidationType.None;
                 xml.Load(XmlReader.Create(plistStream, settings));
-                ReadXml(xml);
+                ReadXml(xml.ChildNodes);
             }
             catch (Exception)
             {
@@ -232,21 +236,29 @@ namespace Hexware.Plist
     }
     public partial class PlistDocument
     {
-        internal void ReadBinary()
+        internal void ReadBinary(BinaryReader reader)
         {
+            byte[] buf = reader.ReadBytes(7);
+            if (!Enumerable.SequenceEqual(buf, binaryHeader))
+                throw new PlistFormatException("Not a valid binary Plist");
+            reader.ReadByte(); // discard version
             throw new NotImplementedException();
         }
 
         internal void WriteBinary(BinaryWriter writer)
         {
+            writer.Write(binaryHeader);
+            writer.Write((byte)'0');
             throw new NotImplementedException();
         }
 
-        internal void ReadXml(XmlDocument reader)
+        internal void ReadXml(XmlNodeList reader)
         {
-            for (int i = 0; i < reader.ChildNodes.Count; i++)
+            // Don't ensure there's only one element under <plist>
+            // as CoreFoundation ignores it.
+            for (int i = 0; i < reader.Count; i++)
             {
-                XmlNode current = reader.ChildNodes[i];
+                XmlNode current = reader[i];
                 if (current.Name == "plist")
                 {
                     if (!current.HasChildNodes)

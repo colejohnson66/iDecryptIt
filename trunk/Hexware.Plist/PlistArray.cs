@@ -23,7 +23,6 @@
 using System;
 using System.IO;
 using System.Xml;
-using System.Text;
 
 namespace Hexware.Plist
 {
@@ -232,6 +231,11 @@ namespace Hexware.Plist
         // TODO
         internal static PlistArray ReadBinary(BinaryReader reader, byte firstbyte)
         {
+            int length = firstbyte & 0x0F;
+            if (length == 0x0F) {
+                length = (int)PlistInteger.ReadBinary(reader, reader.ReadByte()).Value;
+            }
+            // TODO: objref*
             throw new NotImplementedException();
         }
 
