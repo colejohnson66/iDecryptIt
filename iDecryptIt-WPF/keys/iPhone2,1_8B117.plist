@@ -7,26 +7,24 @@
 		<key>Build</key>
 		<string>8B117</string>
 		<key>Device</key>
-		<string>iPhone2,1</string>
+		<string>iPhone 3GS</string>
 		<key>Codename</key>
 		<string>Baker</string>
 		<key>Baseband</key>
 		<string>05.14.02</string>
-		<key>Download URL</key>
+		<key>Download</key>
 		<string>http://appldnld.apple.com/iPhone4/061-7938.20100908.F3rCk/iPhone2,1_4.1_8B117_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>
-			<string>018-7061-122.dmg</string>
+			<string>018-7061-122</string>
 			<key>Key</key>
 			<string>01155a88dc41d6bdb6ba368719853e7e68fb0076dbfaafe8e0801256c724b103f2e271ca</string>
 		</dict>
 		<key>Update Ramdisk</key>
 		<dict>
 			<key>File Name</key>
-			<string>018-7073-079.dmg</string>
-			<key>Encryption</key>
-			<true />
+			<string>018-7073-079</string>
 			<key>IV</key>
 			<string>f2169e17ca185c29d5e3f06898a51692</string>
 			<key>Key</key>
@@ -35,9 +33,7 @@
 		<key>Restore Ramdisk</key>
 		<dict>
 			<key>File Name</key>
-			<string>018-7080-079.dmg</string>
-			<key>Encryption</key>
-			<true />
+			<string>018-7080-079</string>
 			<key>IV</key>
 			<string>214388b7e0589464bf59966524ae2ea4</string>
 			<key>Key</key>
@@ -45,8 +41,6 @@
 		</dict>
 		<key>AppleLogo</key>
 		<dict>
-			<key>File Name</key>
-			<string>applelogo.s5l8920x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -56,8 +50,6 @@
 		</dict>
 		<key>BatteryCharging0</key>
 		<dict>
-			<key>File Name</key>
-			<string>batterycharging0.s5l8920x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -67,8 +59,6 @@
 		</dict>
 		<key>BatteryCharging1</key>
 		<dict>
-			<key>File Name</key>
-			<string>batterycharging1.s5l8920x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -78,8 +68,6 @@
 		</dict>
 		<key>BatteryFull</key>
 		<dict>
-			<key>File Name</key>
-			<string>batteryfull.s5l8920x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -89,8 +77,6 @@
 		</dict>
 		<key>BatteryLow0</key>
 		<dict>
-			<key>File Name</key>
-			<string>batterylow0.s5l8920x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -100,8 +86,6 @@
 		</dict>
 		<key>BatteryLow1</key>
 		<dict>
-			<key>File Name</key>
-			<string>batterylow1.s5l8920x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -111,8 +95,6 @@
 		</dict>
 		<key>DeviceTree</key>
 		<dict>
-			<key>File Name</key>
-			<string>DeviceTree.n88ap.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -122,8 +104,6 @@
 		</dict>
 		<key>GlyphCharging</key>
 		<dict>
-			<key>File Name</key>
-			<string>glyphcharging.s5l8920x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -133,8 +113,6 @@
 		</dict>
 		<key>GlyphPlugin</key>
 		<dict>
-			<key>File Name</key>
-			<string>glyphplugin.s5l8920x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -144,8 +122,6 @@
 		</dict>
 		<key>iBEC</key>
 		<dict>
-			<key>File Name</key>
-			<string>iBEC.n88ap.RELEASE.dfu</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -155,8 +131,6 @@
 		</dict>
 		<key>iBoot</key>
 		<dict>
-			<key>File Name</key>
-			<string>iBoot.n88ap.RELEASE.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -166,8 +140,6 @@
 		</dict>
 		<key>iBSS</key>
 		<dict>
-			<key>File Name</key>
-			<string>iBSS.n88ap.RELEASE.dfu</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -177,8 +149,6 @@
 		</dict>
 		<key>Kernelcache</key>
 		<dict>
-			<key>File Name</key>
-			<string>kernelcache.release.n88</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -188,8 +158,6 @@
 		</dict>
 		<key>LLB</key>
 		<dict>
-			<key>File Name</key>
-			<string>LLB.n88ap.RELEASE.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -199,8 +167,6 @@
 		</dict>
 		<key>RecoveryMode</key>
 		<dict>
-			<key>File Name</key>
-			<string>recoverymode.s5l8920x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>

@@ -7,26 +7,24 @@
 		<key>Build</key>
 		<string>7A341</string>
 		<key>Device</key>
-		<string>iPhone1,2</string>
+		<string>iPhone 3G</string>
 		<key>Codename</key>
 		<string>Kirkwood</string>
 		<key>Baseband</key>
 		<string>04.26.08</string>
-		<key>Download URL</key>
+		<key>Download</key>
 		<string>http://appldnld.apple.com.edgesuite.net/content.info.apple.com/iPhone/061-6578.20090617.VfgtU/iPhone1,2_3.0_7A341_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>
-			<string>018-5301-002.dmg</string>
+			<string>018-5301-002</string>
 			<key>Key</key>
 			<string>8d5d1fea02d627c9e9b0d994c3cfdeaab9780c86ac908db15461efe44eddd19f8924b6b2</string>
 		</dict>
 		<key>Update Ramdisk</key>
 		<dict>
 			<key>File Name</key>
-			<string>018-5303-002.dmg</string>
-			<key>Encryption</key>
-			<true />
+			<string>018-5303-002</string>
 			<key>IV</key>
 			<string>0dc67d4f50ac62ee142b99baa569d0f4</string>
 			<key>Key</key>
@@ -35,9 +33,7 @@
 		<key>Restore Ramdisk</key>
 		<dict>
 			<key>File Name</key>
-			<string>018-5305-002.dmg</string>
-			<key>Encryption</key>
-			<true />
+			<string>018-5305-002</string>
 			<key>IV</key>
 			<string>caca33f1aca029320d60873a4deed68d</string>
 			<key>Key</key>
@@ -45,8 +41,6 @@
 		</dict>
 		<key>AppleLogo</key>
 		<dict>
-			<key>File Name</key>
-			<string>applelogo.s5l8900x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -56,8 +50,6 @@
 		</dict>
 		<key>BatteryCharging0</key>
 		<dict>
-			<key>File Name</key>
-			<string>batterycharging0.s5l8900x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -67,8 +59,6 @@
 		</dict>
 		<key>BatteryCharging1</key>
 		<dict>
-			<key>File Name</key>
-			<string>batterycharging1.s5l8900x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -78,8 +68,6 @@
 		</dict>
 		<key>BatteryFull</key>
 		<dict>
-			<key>File Name</key>
-			<string>batteryfull.s5l8900x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -89,8 +77,6 @@
 		</dict>
 		<key>BatteryLow0</key>
 		<dict>
-			<key>File Name</key>
-			<string>batterylow0.s5l8900x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -100,8 +86,6 @@
 		</dict>
 		<key>BatteryLow1</key>
 		<dict>
-			<key>File Name</key>
-			<string>batterylow1.s5l8900x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -111,8 +95,6 @@
 		</dict>
 		<key>DeviceTree</key>
 		<dict>
-			<key>File Name</key>
-			<string>DeviceTree.n82ap.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -122,8 +104,6 @@
 		</dict>
 		<key>GlyphCharging</key>
 		<dict>
-			<key>File Name</key>
-			<string>glyphcharging.s5l8900x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -133,8 +113,6 @@
 		</dict>
 		<key>GlyphPlugin</key>
 		<dict>
-			<key>File Name</key>
-			<string>glyphplugin.s5l8900x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -144,15 +122,15 @@
 		</dict>
 		<key>iBEC</key>
 		<dict>
-			<key>File Name</key>
-			<string>iBEC.n82ap.RELEASE.dfu</string>
 			<key>Encryption</key>
-			<false />
+			<true />
+			<key>IV</key>
+			<string>TODO</string>
+			<key>Key</key>
+			<string>TODO</string>
 		</dict>
 		<key>iBoot</key>
 		<dict>
-			<key>File Name</key>
-			<string>iBoot.n82ap.RELEASE.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -162,15 +140,15 @@
 		</dict>
 		<key>iBSS</key>
 		<dict>
-			<key>File Name</key>
-			<string>iBSS.n82ap.RELEASE.dfu</string>
 			<key>Encryption</key>
-			<false />
+			<true />
+			<key>IV</key>
+			<string>TODO</string>
+			<key>Key</key>
+			<string>TODO</string>
 		</dict>
 		<key>Kernelcache</key>
 		<dict>
-			<key>File Name</key>
-			<string>kernelcache.release.s5l8900x</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -180,15 +158,15 @@
 		</dict>
 		<key>LLB</key>
 		<dict>
-			<key>File Name</key>
-			<string>LLB.n82ap.RELEASE.img3</string>
 			<key>Encryption</key>
-			<false />
+			<true />
+			<key>IV</key>
+			<string>TODO</string>
+			<key>Key</key>
+			<string>TODO</string>
 		</dict>
 		<key>NeedService</key>
 		<dict>
-			<key>File Name</key>
-			<string>needservice.s5l8900x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -198,8 +176,6 @@
 		</dict>
 		<key>RecoveryMode</key>
 		<dict>
-			<key>File Name</key>
-			<string>recoverymode.s5l8900x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>

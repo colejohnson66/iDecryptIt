@@ -3,30 +3,28 @@
 <plist>
 	<dict>
 		<key>Version</key>
-		<string>6.1</string>
+		<string>6.1b5 and 6.1</string>
 		<key>Build</key>
 		<string>10B144</string>
 		<key>Device</key>
-		<string>iPhone3,2</string>
+		<string>iPhone 4 (GSM) [Rev A]</string>
 		<key>Codename</key>
 		<string>Brighton</string>
 		<key>Baseband</key>
 		<string>04.12.05</string>
-		<key>Download URL</key>
+		<key>Download</key>
 		<string>http://appldnld.apple.com/iOS6.1/091-0692.20130128.R3lr4/iPhone3,2_6.1_10B144_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>
-			<string>048-0801-001.dmg</string>
+			<string>048-0801-001</string>
 			<key>Key</key>
 			<string>d408ec0ee309f3e574e85e71765b71f49a5830bebf5e5b45b28d8804461200e1bb20902f</string>
 		</dict>
 		<key>Update Ramdisk</key>
 		<dict>
 			<key>File Name</key>
-			<string>048-0785-001.dmg</string>
-			<key>Encryption</key>
-			<true />
+			<string>048-0785-001</string>
 			<key>IV</key>
 			<string>bed0649ba11be0246cb1f36ef3bb8850</string>
 			<key>Key</key>
@@ -35,9 +33,7 @@
 		<key>Restore Ramdisk</key>
 		<dict>
 			<key>File Name</key>
-			<string>048-0804-001.dmg</string>
-			<key>Encryption</key>
-			<true />
+			<string>048-0804-001</string>
 			<key>IV</key>
 			<string>e8f36b03abe76a7b67113b81a03bc815</string>
 			<key>Key</key>
@@ -45,8 +41,6 @@
 		</dict>
 		<key>AppleLogo</key>
 		<dict>
-			<key>File Name</key>
-			<string>applelogo@2x.s5l8930x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -56,8 +50,6 @@
 		</dict>
 		<key>BatteryCharging0</key>
 		<dict>
-			<key>File Name</key>
-			<string>batterycharging0@2x.s5l8930x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -67,8 +59,6 @@
 		</dict>
 		<key>BatteryCharging1</key>
 		<dict>
-			<key>File Name</key>
-			<string>batterycharging1@2x.s5l8930x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -78,8 +68,6 @@
 		</dict>
 		<key>BatteryFull</key>
 		<dict>
-			<key>File Name</key>
-			<string>batteryfull@2x.s5l8930x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -89,8 +77,6 @@
 		</dict>
 		<key>BatteryLow0</key>
 		<dict>
-			<key>File Name</key>
-			<string>batterylow0@2x.s5l8930x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -100,8 +86,6 @@
 		</dict>
 		<key>BatteryLow1</key>
 		<dict>
-			<key>File Name</key>
-			<string>batterylow1@2x.s5l8930x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -111,8 +95,6 @@
 		</dict>
 		<key>DeviceTree</key>
 		<dict>
-			<key>File Name</key>
-			<string>DeviceTree.n90bap.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -122,8 +104,6 @@
 		</dict>
 		<key>GlyphCharging</key>
 		<dict>
-			<key>File Name</key>
-			<string>glyphcharging@2x.s5l8930x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -133,8 +113,6 @@
 		</dict>
 		<key>GlyphPlugin</key>
 		<dict>
-			<key>File Name</key>
-			<string>glyphplugin@2x.s5l8930x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -144,8 +122,6 @@
 		</dict>
 		<key>iBEC</key>
 		<dict>
-			<key>File Name</key>
-			<string>iBEC.n90bap.RELEASE.dfu</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -155,8 +131,6 @@
 		</dict>
 		<key>iBoot</key>
 		<dict>
-			<key>File Name</key>
-			<string>iBoot.n90bap.RELEASE.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -166,8 +140,6 @@
 		</dict>
 		<key>iBSS</key>
 		<dict>
-			<key>File Name</key>
-			<string>iBSS.n90bap.RELEASE.dfu</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -177,8 +149,6 @@
 		</dict>
 		<key>Kernelcache</key>
 		<dict>
-			<key>File Name</key>
-			<string>kernelcache.release.n90b</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -188,8 +158,6 @@
 		</dict>
 		<key>LLB</key>
 		<dict>
-			<key>File Name</key>
-			<string>LLB.n90bap.RELEASE.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -199,8 +167,6 @@
 		</dict>
 		<key>RecoveryMode</key>
 		<dict>
-			<key>File Name</key>
-			<string>recoverymode@2x~iphone.s5l8930x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>

@@ -2,7 +2,7 @@
  * File:   App.xaml.cs
  * Author: Hexware
  * =============================================================================
- * Copyright (c) 2011-2014, Hexware
+ * Copyright (c) 2011-2013, Hexware
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,6 +23,9 @@ using System.Windows;
 
 namespace Hexware.Programs.iDecryptIt
 {
+    /// <summary>
+    /// Interaction logic for App.xaml
+    /// </summary>
     public partial class App : Application
     {
     }

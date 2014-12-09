@@ -3,28 +3,28 @@
 <plist>
 	<dict>
 		<key>Version</key>
-		<string>6.0 (7.0.2)</string>
+		<string>6.0</string>
 		<key>Build</key>
 		<string>11A502</string>
 		<key>Device</key>
-		<string>AppleTV2,1</string>
+		<string>Apple TV 2G</string>
 		<key>Codename</key>
 		<string>Innsbruck</string>
-		<key>Download URL</key>
+		<key>Download</key>
 		<string>http://appldnld.apple.com/AppleTV/031-0449.20130923.xlzdm/AppleTV2,1_6.0_11A502_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>
-			<string>048-9409-003.dmg</string>
+			<string>048-9409-003</string>
 			<key>Key</key>
 			<string>f2d94f348dc22f1cff37373c1e773695ae7b0903910504bdaa028276096b450e50856861</string>
 		</dict>
+		<key>No Update Ramdisk</key>
+		<true />
 		<key>Restore Ramdisk</key>
 		<dict>
 			<key>File Name</key>
-			<string>048-9508-001.dmg</string>
-			<key>Encryption</key>
-			<true />
+			<string>048-9508-001</string>
 			<key>IV</key>
 			<string>5c215526a4f75a81286e4f72fe7392b5</string>
 			<key>Key</key>
@@ -32,8 +32,6 @@
 		</dict>
 		<key>AppleLogo</key>
 		<dict>
-			<key>File Name</key>
-			<string>applelogo~appletv.s5l8930x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -43,8 +41,6 @@
 		</dict>
 		<key>DeviceTree</key>
 		<dict>
-			<key>File Name</key>
-			<string>DeviceTree.k66ap.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -54,8 +50,6 @@
 		</dict>
 		<key>iBEC</key>
 		<dict>
-			<key>File Name</key>
-			<string>iBEC.k66ap.RELEASE.dfu</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -65,8 +59,6 @@
 		</dict>
 		<key>iBoot</key>
 		<dict>
-			<key>File Name</key>
-			<string>iBoot.k66ap.RELEASE.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -76,8 +68,6 @@
 		</dict>
 		<key>iBSS</key>
 		<dict>
-			<key>File Name</key>
-			<string>iBSS.k66ap.RELEASE.dfu</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -87,8 +77,6 @@
 		</dict>
 		<key>Kernelcache</key>
 		<dict>
-			<key>File Name</key>
-			<string>kernelcache.release.k66</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -98,8 +86,6 @@
 		</dict>
 		<key>LLB</key>
 		<dict>
-			<key>File Name</key>
-			<string>LLB.k66ap.RELEASE.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -109,8 +95,6 @@
 		</dict>
 		<key>RecoveryMode</key>
 		<dict>
-			<key>File Name</key>
-			<string>recoverymode~appletv.s5l8930x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>

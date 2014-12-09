@@ -1,23 +1,21 @@
 /* =============================================================================
  * File:   MainWindow.xaml.cs
- * Author: Cole Johnson
+ * Author: Hexware
  * =============================================================================
- * Copyright (c) 2010-2014, Cole Johnson
+ * Copyright (c) 2011-2013, Hexware
  * 
- * This file is part of iDecryptIt
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  * 
- * iDecryptIt is free software: you can redistribute it and/or modify it under
- *   the terms of the GNU General Public License as published by the Free
- *   Software Foundation, either version 3 of the License, or (at your option)
- *   any later version.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  * 
- * iDecryptIt is distributed in the hope that it will be useful, but WITHOUT
- *   ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- *   FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
- *   more details.
- * 
- * You should have received a copy of the GNU General Public License along with
- *   iDecryptIt. If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License
+ *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  * =============================================================================
  */
 using Hexware.Plist;
@@ -25,6 +23,7 @@ using Microsoft.Win32;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -33,8 +32,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Threading;
-using System.Windows.Shell;
+using System.Windows.Controls.Primitives;
 
 namespace Hexware.Programs.iDecryptIt
 {
@@ -43,628 +41,1146 @@ namespace Hexware.Programs.iDecryptIt
         [DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
         private static extern bool FreeConsole();
 
-        static string execDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-        string execHash = new Random().Next().ToString("X");
-        static string helpDir = Path.Combine(execDir, "help");
+        static string rundir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "\\";
+        string tempdir;
+        static string helpdir = rundir + "help\\";
 
         internal static bool debug;
 
-        public KeySelectionViewModel DevicesViewModel;
-        private string selectedDevice;
-        public KeySelectionViewModel ModelsViewModel;
-        private string selectedModel;
-        public KeySelectionViewModel VersionsViewModel;
-        private string selectedVersion;
-
-        BackgroundWorker decryptWorker;
+        BackgroundWorker decryptworker;
         Process decryptProc;
-        long decryptFromLength;
+        FileInfo decryptFromFile;
         string decryptFrom;
         string decryptTo;
         double decryptProg;
 
+        /// <summary>
+        /// herp derp
+        /// </summary>
         public MainWindow()
         {
-            if (!debug)
-                FreeConsole();
-
-            DevicesViewModel = new KeySelectionViewModel();
-            ModelsViewModel = new KeySelectionViewModel();
-            VersionsViewModel = new KeySelectionViewModel();
-
             InitializeComponent();
 
-            this.DataContext = this;
-            KeySelectionLists.Init();
-            cmbDeviceDropDown.ItemsSource = KeySelectionLists.Products;
-
-            this.Dispatcher.UnhandledException += Dispatcher_UnhandledException;
+            if (!debug)
+            {
+                FreeConsole();
+            }
         }
 
+        private void decryptworker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            while (!decryptworker.CancellationPending)
+            {
+                if (decryptProc.HasExited)
+                {
+                    decryptworker.ReportProgress(100);
+                }
+                else
+                {
+                    decryptProg = ((new FileInfo(decryptTo).Length) * 100.0) / decryptFromFile.Length;
+                    decryptworker.ReportProgress(0);
+                    Thread.Sleep(100); // don't hog the CPU
+                }
+            }
+        }
+        private void decryptworker_ProgressReported(object sender, ProgressChangedEventArgs e)
+        {
+            if (e.ProgressPercentage == 100)
+            {
+                decryptworker.CancelAsync();
+                progDecrypt.Value = 100.0;
+                gridDecrypt.IsEnabled = true;
+                progDecrypt.Visibility = Visibility.Hidden;
+                return;
+            }
+            progDecrypt.Value = decryptProg;
+        }
+
+        private void Cleanup()
+        {
+            Debug("DEINIT", "Clearing temp directory.");
+            try
+            {
+                if (Directory.Exists(tempdir))
+                {
+                    Directory.Delete(tempdir, true);
+                }
+
+                string temp = Path.Combine(Path.GetTempPath(), "Hexware", "iDecryptIt-Setup");
+                if (Directory.Exists(temp))
+                {
+                    Directory.Delete(temp, true);
+                }
+            }
+            catch (Exception)
+            {
+                // don't error here. it's just a temp directory
+            }
+        }
         internal void Debug(string component, string message)
         {
-            if (!debug)
-                return;
-
-            Console.WriteLine("{0} {1}", component.PadRight(12), message);
-        }
-        internal void Error(string message, Exception except)
-        {
-            Debug("[ERROR]", message);
-            if (except == null) {
-                Debug("[ERROR]", "Exception type: null");
-                Debug("[ERROR]", "Exception message: null");
-            } else {
-                Debug("[ERROR]", "Exception type: " + except.GetType().Name);
-                Debug("[ERROR]", "Exception message: " + except.Message);
-            }
-
-            MessageBoxResult res = MessageBox.Show(
-                message + "\r\n\r\n" +
-                    "Do you want iDecryptIt to save an error log for bug reporting?" +
-                    "(no personally identifiable information will be included)",
-                "iDecryptIt",
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Error);
-
-            if (res != MessageBoxResult.Yes)
-                return;
-
-            string fileName = null;
-            try {
-                fileName = SaveErrorLog(message, except);
-            } catch (Exception ex) {
-                string exName = ex.GetType().Name;
-                Debug("[ERRLOG]", exName + " thrown while saving log.");
-                MessageBox.Show(
-                    "A(n) " + exName + " error occured while saving the error log.",
-                    "iDecryptIt",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Information);
-                return;
-            }
-
-            MessageBox.Show(
-                "The error log was saved to your desktop as \"" + fileName + "\".\r\n" +
-                "Please file a bug report.",
-                "iDecryptIt",
-                MessageBoxButton.OK,
-                MessageBoxImage.Information);
-        }
-        internal void FatalError(string message, Exception except)
-        {
-            Debug("[ERROR]", message);
-            if (except == null) {
-                Debug("[ERROR]", "Exception type: null");
-                Debug("[ERROR]", "Exception message: null");
-            } else {
-                Debug("[ERROR]", "Exception type: " + except.GetType().Name);
-                Debug("[ERROR]", "Exception message: " + except.Message);
-            }
-
-            MessageBox.Show(
-                "iDecryptIt has encoundered a fatal error and must close.\r\n" + message,
-                "iDecryptIt",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error);
-
-            string fileName = null;
-            try {
-                fileName = SaveErrorLog(message, except);
-            } catch (Exception ex) {
-                string exName = ex.GetType().Name;
-                Debug("[ERRLOG]", exName + " thrown while saving log.");
-                MessageBox.Show(
-                    "A(n) " + exName + " error occured while saving the error log.",
-                    "iDecryptIt",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Information);
-                Close();
-                return;
-            }
-
-            MessageBox.Show(
-                "An error log was saved to your desktop as \"" + fileName + "\".\r\n" +
-                "Please file a bug report. (no personally identifiable information was included)",
-                "iDecryptIt",
-                MessageBoxButton.OK,
-                MessageBoxImage.Information);
-            Close();
-        }
-        internal string SaveErrorLog(string message, Exception except)
-        {
-            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            string fileName = "iDecryptIt_" + execHash + ".log";
-            string fullPath = Path.Combine(desktopPath, fileName);
-            Debug("[ERRLOG]", "Saving to \"" + fullPath + "\".");
-
-            StreamWriter stream = new StreamWriter(fullPath, true, Encoding.UTF8);
-            Debug("[ERRLOG]", "Saving log.");
-
-            stream.WriteLine("iDecryptIt " + GlobalVars.Version + GlobalVars.Version64);
-            stream.WriteLine("Compile time: " + GlobalVars.CompileTimestamp.ToString() + " UTC");
-            stream.WriteLine("Log time: " + DateTime.UtcNow + " UTC");
-            stream.WriteLine("Execution string: " + Environment.CommandLine);
-            WriteSystemConfigToStream(stream);
-            stream.WriteLine("Error message: " + message);
-            if (except == null) {
-                stream.WriteLine("Exception type:    null");
-                stream.WriteLine("Exception message: null");
-            } else {
-                stream.WriteLine("Exception type:    " + except.GetType().Name);
-                stream.WriteLine("Exception message: " + except.Message);
-            }
-            stream.WriteLine("Stack trace: ");
-            stream.WriteLine(Environment.StackTrace);
-            stream.WriteLine();
-            stream.WriteLine();
-
-            Debug("[ERRLOG]", "Closing log.");
-            stream.Close();
-            stream.Dispose();
-
-            return fileName;
-        }
-        internal void WriteSystemConfigToStream(StreamWriter stream)
-        {
-            stream.WriteLine("System config:");
-            stream.WriteLine("  Current dir:  " + Environment.CurrentDirectory);
-            stream.WriteLine("  Is 64-bit OS: " + Environment.Is64BitOperatingSystem.ToString());
-            stream.WriteLine("  OS version:   " + Environment.OSVersion.ToString());
-            stream.WriteLine("  Processors:   " + Environment.ProcessorCount);
-            stream.WriteLine("  .NET version: " + Environment.Version);
-            stream.WriteLine("  Working set:  " + Environment.WorkingSet);
-
-            Process me = Process.GetCurrentProcess();
-            stream.WriteLine("Process info:");
-            stream.WriteLine("  Processor time:   " + me.PrivilegedProcessorTime);
-            stream.WriteLine("  Process affinity: " + me.ProcessorAffinity);
-            stream.WriteLine("  Execution time:   " + me.StartTime.ToUniversalTime() + " UTC");
-        }
-
-        private void btnGetKeys_Click(object sender, RoutedEventArgs e)
-        {
-            Debug("[KEYSELECT]", "Validating input.");
-            if (selectedModel == null || selectedVersion == null)
-                return;
-
-            Debug("[KEYSELECT]", "Opening keys for " + selectedModel + " " + selectedVersion + ".");
-
-            // Oh, you want the prototype beta, huh?
-            if (selectedModel == "iPhone1,1" && selectedVersion == "1A420") {
-                try {
-                    Process.Start("https://mega.co.nz/#!Ml8hyCQI!d2ihbCEvtkFcFSgldAPqIQ1_OpRIWAeJZl_HODWjC7s");
-                } catch (Exception ex) {
-                    Error("Unable to open prototype beta webpage", ex);
+            if (debug)
+            {
+                if (component.Length > 10)
+                {
+                    Console.WriteLine("[{0}] {1}", component, message);
                 }
-                return;
+                else
+                {
+                    Console.WriteLine("[{0}]{1} {2}", component, new String(' ', 10 - component.Length), message);
+                }
             }
-
-            Stream stream = GetStream(selectedModel + "_" + selectedVersion + ".plist");
-            if (stream == Stream.Null) {
-                Debug("[KEYSELECT]", "Key file doesn't exist. No keys available.");
-                MessageBox.Show(
-                    "Sorry, but that version doesn't have any published keys.",
-                    "iDecryptIt",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Information);
-                return;
-            }
-            LoadFirmwareKeys(stream, false);
+        }
+        internal void Error(string message, Exception ex)
+        {
+            MessageBox.Show(
+                message + "\r\n\r\n" +
+                "Please file a bug report with the following data and an" +
+                "explanation of what was happening:\r\n\r\n" +
+                (ex == null ? "" : "Exception: " + ex.Message + "\r\n") +
+                "Version: " + GlobalVars.Version + "\r\n",
+                "iDecryptIt",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error);
+        }
+        internal void FatalError(string message, Exception ex)
+        {
+            MessageBox.Show(
+                "iDecryptIt has encountered a fatal error and must close.\r\n\r\n" +
+                message + "\r\n\r\n" +
+                "Please file a bug report with the following data and an" +
+                "explanation of what was happening:\r\n\r\n" +
+                (ex == null ? "" : "Exception: " + ex.Message + "\r\n") +
+                "Version: " + GlobalVars.Version + "\r\n",
+                "iDecryptIt",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error);
+            Close();
         }
         internal Stream GetStream(string resourceName)
         {
-            Debug("[GETSTREAM]", "Attempting read of stored resource, \"" + resourceName + "\".");
-            try {
+            try
+            {
                 Assembly assy = Assembly.GetExecutingAssembly();
                 string[] resources = assy.GetManifestResourceNames();
                 int length = resources.Length;
-                for (int i = 0; i < length; i++) {
-                    if (resources[i].ToLower().IndexOf(resourceName.ToLower()) != -1) {
+                for (int i = 0; i < length; i++)
+                {
+                    if (resources[i].ToLower().IndexOf(resourceName.ToLower()) != -1)
+                    {
                         // resource found
                         return assy.GetManifestResourceStream(resources[i]);
                     }
                 }
-            } catch (Exception ex) {
-                Error("Unable to retrieve keys.", ex);
+            }
+            catch (Exception ex)
+            {
+                Error("Unable to open key page.", ex);
             }
             return Stream.Null;
         }
-        private void LoadFirmwareKeys(Stream document, bool goldMaster)
+        private void LoadKey(Stream document, bool goldenMaster)
         {
+            // This REALLY needs to be redone
             PlistDocument doc = null;
 
             // Open stream
-            Debug("[LOADKEYS]", "Opening key stream.");
-            try {
+            try
+            {
                 doc = new PlistDocument(document);
-            } catch (Exception ex) {
+            }
+            catch (Exception ex)
+            {
                 Error("Error loading key file.", ex);
+                try
+                {
+                    // Wrap it in case the constructor has disposed of it already.
+                    doc.Dispose();
+                }
+                catch (Exception)
+                {
+                }
+                doc = null;
+                this.Close();
                 return;
             }
 
-            PlistDict plist = (PlistDict)doc.RootNode;
-            PlistDict temp;
+            // Magic. Do not touch.
+            PlistDict plist = doc.Document.Value;
+            string temp;
             #region Device
-            Debug("[LOADKEYS]", "Device.");
-            txtDevice.Text = GlobalVars.DeviceNames[plist.Get<PlistString>("Device").Value];
+            txtDevice.Text = plist.Get<PlistString>("Device").Value;
             #endregion
             #region Version
-            txtVersion.Text = plist.Get<PlistString>("Version").Value +
-                " (Build " + plist.Get<PlistString>("Build").Value + ")";
-            //if (goldMaster)
-            //    txtVersion.Text = txtVersion.Text + " [GM]";
-            #endregion
-            #region Root FS
-            fileRootFS.Text = plist.Get<PlistDict>("Root FS").Get<PlistString>("File Name").Value;
-            keyRootFS.Text = plist.Get<PlistDict>("Root FS").Get<PlistString>((goldMaster) ? "GM Key" : "Key").Value;
-            #endregion
-            #region Restore Ramdisk
-            if (plist.Exists("Restore Ramdisk")) {
-                temp = plist.Get<PlistDict>("Restore Ramdisk");
-                if (temp.Get<PlistBool>("Encryption").Value) {
-                    grdRestore.Visibility = Visibility.Visible;
-                    grdRestoreNoEncrypt.Visibility = Visibility.Collapsed;
-                    keyRestoreIV.Text = temp.Get<PlistString>("IV").Value;
-                    keyRestoreKey.Text = temp.Get<PlistString>("Key").Value;
-                    fileRestore.Text = temp.Get<PlistString>("File Name").Value;
-                } else {
-                    grdRestore.Visibility = Visibility.Collapsed;
-                    grdRestoreNoEncrypt.Visibility = Visibility.Visible;
-                    fileRestoreNoEncrypt.Text = temp.Get<PlistString>("File Name").Value;
+            StringBuilder sb = new StringBuilder(64);
+            temp = plist.Get<PlistString>("Build").Value;
+            sb.Append(plist.Get<PlistString>("Version").Value);
+            sb.Append(" (Build " + temp + ")");
+            if (goldenMaster)
+            {
+                switch (temp)
+                {
+                    case "5A345":
+                        // 2.0
+                        if (plist.Get<PlistString>("Device").Value != "iPhone 3G")
+                        {
+                            sb.Append(" [GM]");
+                        }
+                        break;
+                    case "7A341":
+                        // 3.0
+                        if (plist.Get<PlistString>("Device").Value != "iPhone 3GS")
+                        {
+                            sb.Append(" [GM]");
+                        }
+                        break;
+                    case "8A293":
+                        // 4.0
+                        if (plist.Get<PlistString>("Device").Value != "iPhone 4 (GSM)")
+                        {
+                            sb.Append(" [GM]");
+                        }
+                        break;
+                    case "9A334":
+                        // 5.0
+                        if (plist.Get<PlistString>("Device").Value != "iPhone 4S")
+                        {
+                            sb.Append(" [GM]");
+                        }
+                        break;
+                    // 6.0 not needed as iPhone 5 was 10A405 and iPod touch 5G was 10A406
                 }
-            } else {
-                grdRestore.Visibility = Visibility.Collapsed;
-                grdRestoreNoEncrypt.Visibility = Visibility.Collapsed;
+            }
+            txtVersion.Text = sb.ToString();
+            sb.Clear();
+            #endregion
+            #region Root FS Key
+            temp = plist.Get<PlistDict>("Root FS").Get<PlistString>("File Name").Value;
+            fileRootFS.Text = (temp != "XXX-XXXX-XXX" && temp != "") ? temp + ".dmg" : "XXX-XXXX-XXX.dmg";
+            temp = plist.Get<PlistDict>("Root FS").Get<PlistString>((goldenMaster) ? "GM Key" : "Key").Value;
+            if (temp != "TODO")
+            {
+                keyRootFS.Text = temp;
             }
             #endregion
-            #region Update Ramdisk
-            if (plist.Exists("Update Ramdisk")) {
-                temp = plist.Get<PlistDict>("Update Ramdisk");
-                if (temp.Get<PlistBool>("Encryption").Value) {
-                    grdUpdate.Visibility = Visibility.Visible;
-                    grdUpdateNoEncrypt.Visibility = Visibility.Collapsed;
-                    keyUpdateIV.Text = temp.Get<PlistString>("IV").Value;
-                    keyUpdateKey.Text = temp.Get<PlistString>("Key").Value;
-                    fileUpdate.Text = temp.Get<PlistString>("File Name").Value;
-                } else {
-                    grdUpdate.Visibility = Visibility.Collapsed;
-                    grdUpdateNoEncrypt.Visibility = Visibility.Visible;
-                    fileUpdateNoEncrypt.Text = temp.Get<PlistString>("File Name").Value;
+            #region Ramdisks
+            // Show everything
+            lblUpdateIV.Visibility = Visibility.Visible;
+            lblUpdateKey.Visibility = Visibility.Visible;
+            lblUpdateNoEncrypt.Visibility = Visibility.Visible;
+            keyUpdateIV.Visibility = Visibility.Visible;
+            keyUpdateKey.Visibility = Visibility.Visible;
+            keyUpdateNoEncrypt.Visibility = Visibility.Visible;
+            fileUpdate.Visibility = Visibility.Visible;
+            fileUpdateNoEncrypt.Visibility = Visibility.Visible;
+            lblRestoreIV.Visibility = Visibility.Visible;
+            lblRestoreKey.Visibility = Visibility.Visible;
+            lblRestoreNoEncrypt.Visibility = Visibility.Visible;
+            keyRestoreIV.Visibility = Visibility.Visible;
+            keyRestoreKey.Visibility = Visibility.Visible;
+            keyRestoreNoEncrypt.Visibility = Visibility.Visible;
+            fileRestore.Visibility = Visibility.Visible;
+            fileRestoreNoEncrypt.Visibility = Visibility.Visible;
+
+            if (plist.Exists("No Update Ramdisk") && plist.Get<PlistBool>("No Update Ramdisk").Value)
+            {
+                // Hide Update Ramdisk
+                lblUpdateIV.Visibility = Visibility.Collapsed;
+                lblUpdateKey.Visibility = Visibility.Collapsed;
+                lblUpdateNoEncrypt.Visibility = Visibility.Collapsed;
+                keyUpdateIV.Visibility = Visibility.Collapsed;
+                keyUpdateKey.Visibility = Visibility.Collapsed;
+                keyUpdateNoEncrypt.Visibility = Visibility.Collapsed;
+                fileUpdate.Visibility = Visibility.Collapsed;
+                fileUpdateNoEncrypt.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                fileUpdate.Text = plist.Get<PlistDict>("Update Ramdisk").Get<PlistString>("File Name").Value + ".dmg";
+                fileUpdateNoEncrypt.Text = fileUpdate.Text;
+            }
+
+            fileRestore.Visibility = Visibility.Visible;
+            fileRestoreNoEncrypt.Visibility = Visibility.Visible;
+            fileRestore.Text = plist.Get<PlistDict>("Restore Ramdisk").Get<PlistString>("File Name").Value + ".dmg";
+            fileRestoreNoEncrypt.Text = fileRestore.Text;
+            // (ramdisk not encrypted) || (ramdisk encrypted and no IV/key)
+            if ((plist.Exists("Ramdisk Not Encrypted") && plist.Get<PlistBool>("Ramdisk Not Encrypted").Value) ||
+                (!plist.Exists("Ramdisk Not Encrypted") && !plist.Get<PlistDict>("Restore Ramdisk").Exists("IV")))
+            {
+                // Hide encrypted Ramdisks
+                lblUpdateIV.Visibility = Visibility.Collapsed;
+                lblUpdateKey.Visibility = Visibility.Collapsed;
+                keyUpdateIV.Visibility = Visibility.Collapsed;
+                keyUpdateKey.Visibility = Visibility.Collapsed;
+                fileUpdate.Visibility = Visibility.Collapsed;
+                lblRestoreIV.Visibility = Visibility.Collapsed;
+                lblRestoreKey.Visibility = Visibility.Collapsed;
+                keyRestoreIV.Visibility = Visibility.Collapsed;
+                keyRestoreKey.Visibility = Visibility.Collapsed;
+                fileRestore.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                // Hide unencrypted Ramdisks
+                lblUpdateNoEncrypt.Visibility = Visibility.Collapsed;
+                keyUpdateNoEncrypt.Visibility = Visibility.Collapsed;
+                fileUpdateNoEncrypt.Visibility = Visibility.Collapsed;
+                lblRestoreNoEncrypt.Visibility = Visibility.Collapsed;
+                keyRestoreNoEncrypt.Visibility = Visibility.Collapsed;
+                fileRestoreNoEncrypt.Visibility = Visibility.Collapsed;
+                // Keys
+                if (!plist.Exists("No Update Ramdisk") || !plist.Get<PlistBool>("No Update Ramdisk").Value)
+                {
+                    keyUpdateIV.Visibility = Visibility.Visible;
+                    keyUpdateKey.Visibility = Visibility.Visible;
+                    keyUpdateIV.Text = plist.Get<PlistDict>("Update Ramdisk").Get<PlistString>("IV").Value;
+                    keyUpdateKey.Text = plist.Get<PlistDict>("Update Ramdisk").Get<PlistString>("Key").Value;
                 }
-            } else {
-                grdUpdate.Visibility = Visibility.Collapsed;
-                grdUpdateNoEncrypt.Visibility = Visibility.Collapsed;
+                keyRestoreIV.Text = plist.Get<PlistDict>("Restore Ramdisk").Get<PlistString>("IV").Value;
+                keyRestoreKey.Text = plist.Get<PlistDict>("Restore Ramdisk").Get<PlistString>("Key").Value;
             }
             #endregion
             #region AppleLogo
-            if (plist.Exists("AppleLogo")) {
-                temp = plist.Get<PlistDict>("AppleLogo");
-                if (temp.Get<PlistBool>("Encryption").Value) {
-                    grdAppleLogo.Visibility = Visibility.Visible;
-                    grdAppleLogoNoEncrypt.Visibility = Visibility.Collapsed;
-                    keyAppleLogoIV.Text = temp.Get<PlistString>("IV").Value;
-                    keyAppleLogoKey.Text = temp.Get<PlistString>("Key").Value;
-                    fileAppleLogo.Text = temp.Get<PlistString>("File Name").Value;
-                } else {
-                    grdAppleLogo.Visibility = Visibility.Collapsed;
-                    grdAppleLogoNoEncrypt.Visibility = Visibility.Visible;
-                    fileAppleLogoNoEncrypt.Text = temp.Get<PlistString>("File Name").Value;
+            if (plist.Exists("AppleLogo"))
+            {
+                plist = plist.Get<PlistDict>("AppleLogo");
+                if (plist.Exists("Encryption") &&
+                    plist.Get<PlistBool>("Encryption").Value)
+                {
+                    // Hide unencrypted AppleLogo
+                    lblAppleLogoNoEncrypt.Visibility = Visibility.Collapsed;
+                    keyAppleLogoNoEncrypt.Visibility = Visibility.Collapsed;
+                    fileAppleLogoNoEncrypt.Visibility = Visibility.Collapsed;
+                    // Show encrypted AppleLogo
+                    lblAppleLogoIV.Visibility = Visibility.Visible;
+                    lblAppleLogoKey.Visibility = Visibility.Visible;
+                    keyAppleLogoIV.Visibility = Visibility.Visible;
+                    keyAppleLogoKey.Visibility = Visibility.Visible;
+                    fileAppleLogo.Visibility = Visibility.Visible;
+                    // Keys
+                    keyAppleLogoIV.Text = plist.Get<PlistString>("IV").Value;
+                    keyAppleLogoKey.Text = plist.Get<PlistString>("Key").Value;
                 }
-            } else {
-                grdAppleLogo.Visibility = Visibility.Collapsed;
-                grdAppleLogoNoEncrypt.Visibility = Visibility.Collapsed;
+                else
+                {
+                    // Hide encrypted AppleLogo
+                    lblAppleLogoIV.Visibility = Visibility.Collapsed;
+                    lblAppleLogoKey.Visibility = Visibility.Collapsed;
+                    keyAppleLogoIV.Visibility = Visibility.Collapsed;
+                    keyAppleLogoKey.Visibility = Visibility.Collapsed;
+                    fileAppleLogo.Visibility = Visibility.Collapsed;
+                    // Show unencrypted BatteryCharging0
+                    lblAppleLogoNoEncrypt.Visibility = Visibility.Visible;
+                    keyAppleLogoNoEncrypt.Visibility = Visibility.Visible;
+                    fileAppleLogoNoEncrypt.Visibility = Visibility.Visible;
+                }
+                plist = (PlistDict)plist.Parent;
+            }
+            else
+            {
+                lblAppleLogoIV.Visibility = Visibility.Collapsed;
+                lblAppleLogoKey.Visibility = Visibility.Collapsed;
+                keyAppleLogoIV.Visibility = Visibility.Collapsed;
+                keyAppleLogoKey.Visibility = Visibility.Collapsed;
+                fileAppleLogo.Visibility = Visibility.Collapsed;
+                lblAppleLogoNoEncrypt.Visibility = Visibility.Collapsed;
+                keyAppleLogoNoEncrypt.Visibility = Visibility.Collapsed;
+                fileAppleLogoNoEncrypt.Visibility = Visibility.Collapsed;
             }
             #endregion
             #region BatteryCharging0
-            if (plist.Exists("BatteryCharging0")) {
-                temp = plist.Get<PlistDict>("BatteryCharging0");
-                if (temp.Get<PlistBool>("Encryption").Value) {
-                    grdBatteryCharging0.Visibility = Visibility.Visible;
-                    grdBatteryCharging0NoEncrypt.Visibility = Visibility.Collapsed;
-                    keyBatteryCharging0IV.Text = temp.Get<PlistString>("IV").Value;
-                    keyBatteryCharging0Key.Text = temp.Get<PlistString>("Key").Value;
-                    fileBatteryCharging0.Text = temp.Get<PlistString>("File Name").Value;
-                } else {
-                    grdBatteryCharging0.Visibility = Visibility.Collapsed;
-                    grdBatteryCharging0NoEncrypt.Visibility = Visibility.Visible;
-                    fileBatteryCharging0NoEncrypt.Text = temp.Get<PlistString>("File Name").Value;
+            if (plist.Exists("BatteryCharging0"))
+            {
+                plist = plist.Get<PlistDict>("BatteryCharging0");
+                if (plist.Exists("Encryption") &&
+                    plist.Get<PlistBool>("Encryption").Value)
+                {
+                    // Hide unencrypted BatteryCharging0
+                    lblBatteryCharging0NoEncrypt.Visibility = Visibility.Collapsed;
+                    keyBatteryCharging0NoEncrypt.Visibility = Visibility.Collapsed;
+                    fileBatteryCharging0NoEncrypt.Visibility = Visibility.Collapsed;
+                    // Show encrypted BatteryCharging0
+                    lblBatteryCharging0IV.Visibility = Visibility.Visible;
+                    lblBatteryCharging0Key.Visibility = Visibility.Visible;
+                    keyBatteryCharging0IV.Visibility = Visibility.Visible;
+                    keyBatteryCharging0Key.Visibility = Visibility.Visible;
+                    fileBatteryCharging0.Visibility = Visibility.Visible;
+                    // Keys
+                    keyBatteryCharging0IV.Text = plist.Get<PlistString>("IV").Value;
+                    keyBatteryCharging0Key.Text = plist.Get<PlistString>("Key").Value;
                 }
-            } else {
-                grdBatteryCharging0.Visibility = Visibility.Collapsed;
-                grdBatteryCharging0NoEncrypt.Visibility = Visibility.Collapsed;
+                else
+                {
+                    // Hide Encrypted BatteryCharging0
+                    lblBatteryCharging0IV.Visibility = Visibility.Collapsed;
+                    lblBatteryCharging0Key.Visibility = Visibility.Collapsed;
+                    keyBatteryCharging0IV.Visibility = Visibility.Collapsed;
+                    keyBatteryCharging0Key.Visibility = Visibility.Collapsed;
+                    fileBatteryCharging0.Visibility = Visibility.Collapsed;
+                    // Show unencrypted BatteryCharging0
+                    lblBatteryCharging0NoEncrypt.Visibility = Visibility.Visible;
+                    keyBatteryCharging0NoEncrypt.Visibility = Visibility.Visible;
+                    fileBatteryCharging0NoEncrypt.Visibility = Visibility.Visible;
+                }
+                plist = (PlistDict)plist.Parent;
+            }
+            else
+            {
+                lblBatteryCharging0IV.Visibility = Visibility.Collapsed;
+                lblBatteryCharging0Key.Visibility = Visibility.Collapsed;
+                keyBatteryCharging0IV.Visibility = Visibility.Collapsed;
+                keyBatteryCharging0Key.Visibility = Visibility.Collapsed;
+                fileBatteryCharging0.Visibility = Visibility.Collapsed;
+                lblBatteryCharging0NoEncrypt.Visibility = Visibility.Collapsed;
+                keyBatteryCharging0NoEncrypt.Visibility = Visibility.Collapsed;
+                fileBatteryCharging0NoEncrypt.Visibility = Visibility.Collapsed;
             }
             #endregion
             #region BatteryCharging1
-            if (plist.Exists("BatteryCharging1")) {
-                temp = plist.Get<PlistDict>("BatteryCharging1");
-                if (temp.Get<PlistBool>("Encryption").Value) {
-                    grdBatteryCharging1.Visibility = Visibility.Visible;
-                    grdBatteryCharging1NoEncrypt.Visibility = Visibility.Collapsed;
-                    keyBatteryCharging1IV.Text = temp.Get<PlistString>("IV").Value;
-                    keyBatteryCharging1Key.Text = temp.Get<PlistString>("Key").Value;
-                    fileBatteryCharging1.Text = temp.Get<PlistString>("File Name").Value;
-                } else {
-                    grdBatteryCharging1.Visibility = Visibility.Collapsed;
-                    grdBatteryCharging1NoEncrypt.Visibility = Visibility.Visible;
-                    fileBatteryCharging1NoEncrypt.Text = temp.Get<PlistString>("File Name").Value;
+            if (plist.Exists("BatteryCharging1"))
+            {
+                plist = plist.Get<PlistDict>("BatteryCharging1");
+                if (plist.Exists("Encryption") &&
+                    plist.Get<PlistBool>("Encryption").Value)
+                {
+                    // Hide unencrypted BatteryCharging1
+                    lblBatteryCharging1NoEncrypt.Visibility = Visibility.Collapsed;
+                    keyBatteryCharging1NoEncrypt.Visibility = Visibility.Collapsed;
+                    fileBatteryCharging1NoEncrypt.Visibility = Visibility.Collapsed;
+                    // Show encrypted BatteryCharging1
+                    lblBatteryCharging1IV.Visibility = Visibility.Visible;
+                    lblBatteryCharging1Key.Visibility = Visibility.Visible;
+                    keyBatteryCharging1IV.Visibility = Visibility.Visible;
+                    keyBatteryCharging1Key.Visibility = Visibility.Visible;
+                    fileBatteryCharging1.Visibility = Visibility.Visible;
+                    // Keys
+                    keyBatteryCharging1IV.Text = plist.Get<PlistString>("IV").Value;
+                    keyBatteryCharging1Key.Text = plist.Get<PlistString>("Key").Value;
                 }
-            } else {
-                grdBatteryCharging1.Visibility = Visibility.Collapsed;
-                grdBatteryCharging1NoEncrypt.Visibility = Visibility.Collapsed;
+                else
+                {
+                    // Hide encrypted BatteryCharging1
+                    lblBatteryCharging1IV.Visibility = Visibility.Collapsed;
+                    lblBatteryCharging1Key.Visibility = Visibility.Collapsed;
+                    keyBatteryCharging1IV.Visibility = Visibility.Collapsed;
+                    keyBatteryCharging1Key.Visibility = Visibility.Collapsed;
+                    fileBatteryCharging1.Visibility = Visibility.Collapsed;
+                    // Show unencrypted BatteryCharging1
+                    lblBatteryCharging1NoEncrypt.Visibility = Visibility.Visible;
+                    keyBatteryCharging1NoEncrypt.Visibility = Visibility.Visible;
+                    fileBatteryCharging1NoEncrypt.Visibility = Visibility.Visible;
+                }
+                plist = (PlistDict)plist.Parent;
+            }
+            else
+            {
+                lblBatteryCharging1IV.Visibility = Visibility.Collapsed;
+                lblBatteryCharging1Key.Visibility = Visibility.Collapsed;
+                keyBatteryCharging1IV.Visibility = Visibility.Collapsed;
+                keyBatteryCharging1Key.Visibility = Visibility.Collapsed;
+                fileBatteryCharging1.Visibility = Visibility.Collapsed;
+                lblBatteryCharging1NoEncrypt.Visibility = Visibility.Collapsed;
+                keyBatteryCharging1NoEncrypt.Visibility = Visibility.Collapsed;
+                fileBatteryCharging1NoEncrypt.Visibility = Visibility.Collapsed;
             }
             #endregion
             #region BatteryFull
-            if (plist.Exists("BatteryFull")) {
-                temp = plist.Get<PlistDict>("BatteryFull");
-                if (temp.Get<PlistBool>("Encryption").Value) {
-                    grdBatteryFull.Visibility = Visibility.Visible;
-                    grdBatteryFullNoEncrypt.Visibility = Visibility.Collapsed;
-                    keyBatteryFullIV.Text = temp.Get<PlistString>("IV").Value;
-                    keyBatteryFullKey.Text = temp.Get<PlistString>("Key").Value;
-                    fileBatteryFull.Text = temp.Get<PlistString>("File Name").Value;
-                } else {
-                    grdBatteryFull.Visibility = Visibility.Collapsed;
-                    grdBatteryFullNoEncrypt.Visibility = Visibility.Visible;
-                    fileBatteryFullNoEncrypt.Text = temp.Get<PlistString>("File Name").Value;
+            if (plist.Exists("BatteryFull"))
+            {
+                plist = plist.Get<PlistDict>("BatteryFull");
+                if (plist.Exists("Encryption") &&
+                    plist.Get<PlistBool>("Encryption").Value)
+                {
+                    // Hide unencrypted BatteryFull
+                    lblBatteryFullNoEncrypt.Visibility = Visibility.Collapsed;
+                    keyBatteryFullNoEncrypt.Visibility = Visibility.Collapsed;
+                    fileBatteryFullNoEncrypt.Visibility = Visibility.Collapsed;
+                    // Show encrypted BatteryFull
+                    lblBatteryFullIV.Visibility = Visibility.Visible;
+                    lblBatteryFullKey.Visibility = Visibility.Visible;
+                    keyBatteryFullIV.Visibility = Visibility.Visible;
+                    keyBatteryFullKey.Visibility = Visibility.Visible;
+                    fileBatteryFull.Visibility = Visibility.Visible;
+                    // Keys
+                    keyBatteryFullIV.Text = plist.Get<PlistString>("IV").Value;
+                    keyBatteryFullKey.Text = plist.Get<PlistString>("Key").Value;
                 }
-            } else {
-                grdBatteryFull.Visibility = Visibility.Collapsed;
-                grdBatteryFullNoEncrypt.Visibility = Visibility.Collapsed;
+                else
+                {
+                    // Hide encrypted BatteryFull
+                    lblBatteryFullIV.Visibility = Visibility.Collapsed;
+                    lblBatteryFullKey.Visibility = Visibility.Collapsed;
+                    keyBatteryFullIV.Visibility = Visibility.Collapsed;
+                    keyBatteryFullKey.Visibility = Visibility.Collapsed;
+                    fileBatteryFull.Visibility = Visibility.Collapsed;
+                    // Show unencrypted BatteryFull
+                    lblBatteryFullNoEncrypt.Visibility = Visibility.Visible;
+                    keyBatteryFullNoEncrypt.Visibility = Visibility.Visible;
+                    fileBatteryFullNoEncrypt.Visibility = Visibility.Visible;
+                }
+                plist = (PlistDict)plist.Parent;
+            }
+            else
+            {
+                lblBatteryFullIV.Visibility = Visibility.Collapsed;
+                lblBatteryFullKey.Visibility = Visibility.Collapsed;
+                keyBatteryFullIV.Visibility = Visibility.Collapsed;
+                keyBatteryFullKey.Visibility = Visibility.Collapsed;
+                fileBatteryFull.Visibility = Visibility.Collapsed;
+                lblBatteryFullNoEncrypt.Visibility = Visibility.Collapsed;
+                keyBatteryFullNoEncrypt.Visibility = Visibility.Collapsed;
+                fileBatteryFullNoEncrypt.Visibility = Visibility.Collapsed;
             }
             #endregion
             #region BatteryLow0
-            if (plist.Exists("BatteryLow0")) {
-                temp = plist.Get<PlistDict>("BatteryLow0");
-                if (temp.Get<PlistBool>("Encryption").Value) {
-                    grdBatteryLow0.Visibility = Visibility.Visible;
-                    grdBatteryLow0NoEncrypt.Visibility = Visibility.Collapsed;
-                    keyBatteryLow0IV.Text = temp.Get<PlistString>("IV").Value;
-                    keyBatteryLow0Key.Text = temp.Get<PlistString>("Key").Value;
-                    fileBatteryLow0.Text = temp.Get<PlistString>("File Name").Value;
-                } else {
-                    grdBatteryLow0.Visibility = Visibility.Collapsed;
-                    grdBatteryLow0NoEncrypt.Visibility = Visibility.Visible;
-                    fileBatteryLow0NoEncrypt.Text = temp.Get<PlistString>("File Name").Value;
+            if (plist.Exists("BatteryLow0"))
+            {
+                plist = plist.Get<PlistDict>("BatteryLow0");
+                if (plist.Exists("Encryption") &&
+                    plist.Get<PlistBool>("Encryption").Value)
+                {
+                    // Hide unencrypted BatteryLow0
+                    lblBatteryLow0NoEncrypt.Visibility = Visibility.Collapsed;
+                    keyBatteryLow0NoEncrypt.Visibility = Visibility.Collapsed;
+                    fileBatteryLow0NoEncrypt.Visibility = Visibility.Collapsed;
+                    // Show encrypted BatteryLow0
+                    lblBatteryLow0IV.Visibility = Visibility.Visible;
+                    lblBatteryLow0Key.Visibility = Visibility.Visible;
+                    keyBatteryLow0IV.Visibility = Visibility.Visible;
+                    keyBatteryLow0Key.Visibility = Visibility.Visible;
+                    fileBatteryLow0.Visibility = Visibility.Visible;
+                    // Keys
+                    keyBatteryLow0IV.Text = plist.Get<PlistString>("IV").Value;
+                    keyBatteryLow0Key.Text = plist.Get<PlistString>("Key").Value;
                 }
-            } else {
-                grdBatteryLow0.Visibility = Visibility.Collapsed;
-                grdBatteryLow0NoEncrypt.Visibility = Visibility.Collapsed;
+                else
+                {
+                    // Hide encrypted BatteryLow0
+                    lblBatteryLow0IV.Visibility = Visibility.Collapsed;
+                    lblBatteryLow0Key.Visibility = Visibility.Collapsed;
+                    keyBatteryLow0IV.Visibility = Visibility.Collapsed;
+                    keyBatteryLow0Key.Visibility = Visibility.Collapsed;
+                    fileBatteryLow0.Visibility = Visibility.Collapsed;
+                    // Show unencrypted BatteryLow0
+                    lblBatteryLow0NoEncrypt.Visibility = Visibility.Visible;
+                    keyBatteryLow0NoEncrypt.Visibility = Visibility.Visible;
+                    fileBatteryLow0NoEncrypt.Visibility = Visibility.Visible;
+                }
+                plist = (PlistDict)plist.Parent;
+            }
+            else
+            {
+                lblBatteryLow0IV.Visibility = Visibility.Collapsed;
+                lblBatteryLow0Key.Visibility = Visibility.Collapsed;
+                keyBatteryLow0IV.Visibility = Visibility.Collapsed;
+                keyBatteryLow0Key.Visibility = Visibility.Collapsed;
+                fileBatteryLow0.Visibility = Visibility.Collapsed;
+                lblBatteryLow0NoEncrypt.Visibility = Visibility.Collapsed;
+                keyBatteryLow0NoEncrypt.Visibility = Visibility.Collapsed;
+                fileBatteryLow0NoEncrypt.Visibility = Visibility.Collapsed;
             }
             #endregion
             #region BatteryLow1
-            if (plist.Exists("BatteryLow1")) {
-                temp = plist.Get<PlistDict>("BatteryLow1");
-                if (temp.Get<PlistBool>("Encryption").Value) {
-                    grdBatteryLow1.Visibility = Visibility.Visible;
-                    grdBatteryLow1NoEncrypt.Visibility = Visibility.Collapsed;
-                    keyBatteryLow1IV.Text = temp.Get<PlistString>("IV").Value;
-                    keyBatteryLow1Key.Text = temp.Get<PlistString>("Key").Value;
-                    fileBatteryLow1.Text = temp.Get<PlistString>("File Name").Value;
-                } else {
-                    grdBatteryLow1.Visibility = Visibility.Collapsed;
-                    grdBatteryLow1NoEncrypt.Visibility = Visibility.Visible;
-                    fileBatteryLow1NoEncrypt.Text = temp.Get<PlistString>("File Name").Value;
+            if (plist.Exists("BatteryLow1"))
+            {
+                plist = plist.Get<PlistDict>("BatteryLow1");
+                if (plist.Exists("Encryption") &&
+                    plist.Get<PlistBool>("Encryption").Value)
+                {
+                    // Hide unencrypted BatteryLow1
+                    lblBatteryLow1NoEncrypt.Visibility = Visibility.Collapsed;
+                    keyBatteryLow1NoEncrypt.Visibility = Visibility.Collapsed;
+                    fileBatteryLow1NoEncrypt.Visibility = Visibility.Collapsed;
+                    // Show encrypted BatteryLow1
+                    lblBatteryLow1IV.Visibility = Visibility.Visible;
+                    lblBatteryLow1Key.Visibility = Visibility.Visible;
+                    keyBatteryLow1IV.Visibility = Visibility.Visible;
+                    keyBatteryLow1Key.Visibility = Visibility.Visible;
+                    fileBatteryLow1.Visibility = Visibility.Visible;
+                    // Keys
+                    keyBatteryLow1IV.Text = plist.Get<PlistString>("IV").Value;
+                    keyBatteryLow1Key.Text = plist.Get<PlistString>("Key").Value;
                 }
-            } else {
-                grdBatteryLow1.Visibility = Visibility.Collapsed;
-                grdBatteryLow1NoEncrypt.Visibility = Visibility.Collapsed;
+                else
+                {
+                    // Hide encrypted BatteryLow1
+                    lblBatteryLow1IV.Visibility = Visibility.Collapsed;
+                    lblBatteryLow1Key.Visibility = Visibility.Collapsed;
+                    keyBatteryLow1IV.Visibility = Visibility.Collapsed;
+                    keyBatteryLow1Key.Visibility = Visibility.Collapsed;
+                    fileBatteryLow1.Visibility = Visibility.Collapsed;
+                    // Show unencrypted BatteryLow1
+                    lblBatteryLow1NoEncrypt.Visibility = Visibility.Visible;
+                    keyBatteryLow1NoEncrypt.Visibility = Visibility.Visible;
+                    fileBatteryLow1NoEncrypt.Visibility = Visibility.Visible;
+                }
+                plist = (PlistDict)plist.Parent;
+            }
+            else
+            {
+                lblBatteryLow1IV.Visibility = Visibility.Collapsed;
+                lblBatteryLow1Key.Visibility = Visibility.Collapsed;
+                keyBatteryLow1IV.Visibility = Visibility.Collapsed;
+                keyBatteryLow1Key.Visibility = Visibility.Collapsed;
+                fileBatteryLow1.Visibility = Visibility.Collapsed;
+                lblBatteryLow1NoEncrypt.Visibility = Visibility.Collapsed;
+                keyBatteryLow1NoEncrypt.Visibility = Visibility.Collapsed;
+                fileBatteryLow1NoEncrypt.Visibility = Visibility.Collapsed;
             }
             #endregion
             #region DeviceTree
-            if (plist.Exists("DeviceTree")) {
-                temp = plist.Get<PlistDict>("DeviceTree");
-                if (temp.Get<PlistBool>("Encryption").Value) {
-                    grdDeviceTree.Visibility = Visibility.Visible;
-                    grdDeviceTreeNoEncrypt.Visibility = Visibility.Collapsed;
-                    keyDeviceTreeIV.Text = temp.Get<PlistString>("IV").Value;
-                    keyDeviceTreeKey.Text = temp.Get<PlistString>("Key").Value;
-                    fileDeviceTree.Text = temp.Get<PlistString>("File Name").Value;
-                } else {
-                    grdDeviceTree.Visibility = Visibility.Collapsed;
-                    grdDeviceTreeNoEncrypt.Visibility = Visibility.Visible;
-                    fileDeviceTreeNoEncrypt.Text = temp.Get<PlistString>("File Name").Value;
+            if (plist.Exists("DeviceTree"))
+            {
+                plist = plist.Get<PlistDict>("DeviceTree");
+                if (plist.Exists("Encryption") &&
+                    plist.Get<PlistBool>("Encryption").Value)
+                {
+                    // Hide unencrypted DeviceTree
+                    lblDeviceTreeNoEncrypt.Visibility = Visibility.Collapsed;
+                    keyDeviceTreeNoEncrypt.Visibility = Visibility.Collapsed;
+                    fileDeviceTreeNoEncrypt.Visibility = Visibility.Collapsed;
+                    // Show encrypted DeviceTree
+                    lblDeviceTreeIV.Visibility = Visibility.Visible;
+                    lblDeviceTreeKey.Visibility = Visibility.Visible;
+                    keyDeviceTreeIV.Visibility = Visibility.Visible;
+                    keyDeviceTreeKey.Visibility = Visibility.Visible;
+                    fileDeviceTree.Visibility = Visibility.Visible;
+                    // Keys
+                    keyDeviceTreeIV.Text = plist.Get<PlistString>("IV").Value;
+                    keyDeviceTreeKey.Text = plist.Get<PlistString>("Key").Value;
                 }
-            } else {
-                grdDeviceTree.Visibility = Visibility.Collapsed;
-                grdDeviceTreeNoEncrypt.Visibility = Visibility.Collapsed;
+                else
+                {
+                    // Hide encrypted DeviceTree
+                    lblDeviceTreeIV.Visibility = Visibility.Collapsed;
+                    lblDeviceTreeKey.Visibility = Visibility.Collapsed;
+                    keyDeviceTreeIV.Visibility = Visibility.Collapsed;
+                    keyDeviceTreeKey.Visibility = Visibility.Collapsed;
+                    fileDeviceTree.Visibility = Visibility.Collapsed;
+                    // Show unencrypted DeviceTree
+                    lblDeviceTreeNoEncrypt.Visibility = Visibility.Visible;
+                    keyDeviceTreeNoEncrypt.Visibility = Visibility.Visible;
+                    fileDeviceTreeNoEncrypt.Visibility = Visibility.Visible;
+                }
+                plist = (PlistDict)plist.Parent;
+            }
+            else
+            {
+                lblDeviceTreeIV.Visibility = Visibility.Collapsed;
+                lblDeviceTreeKey.Visibility = Visibility.Collapsed;
+                keyDeviceTreeIV.Visibility = Visibility.Collapsed;
+                keyDeviceTreeKey.Visibility = Visibility.Collapsed;
+                fileDeviceTree.Visibility = Visibility.Collapsed;
+                lblDeviceTreeNoEncrypt.Visibility = Visibility.Collapsed;
+                keyDeviceTreeNoEncrypt.Visibility = Visibility.Collapsed;
+                fileDeviceTreeNoEncrypt.Visibility = Visibility.Collapsed;
             }
             #endregion
             #region GlyphCharging
-            if (plist.Exists("GlyphCharging")) {
-                temp = plist.Get<PlistDict>("GlyphCharging");
-                if (temp.Get<PlistBool>("Encryption").Value) {
-                    grdGlyphCharging.Visibility = Visibility.Visible;
-                    grdGlyphChargingNoEncrypt.Visibility = Visibility.Collapsed;
-                    keyGlyphChargingIV.Text = temp.Get<PlistString>("IV").Value;
-                    keyGlyphChargingKey.Text = temp.Get<PlistString>("Key").Value;
-                    fileGlyphCharging.Text = temp.Get<PlistString>("File Name").Value;
-                } else {
-                    grdGlyphCharging.Visibility = Visibility.Collapsed;
-                    grdGlyphChargingNoEncrypt.Visibility = Visibility.Visible;
-                    fileGlyphChargingNoEncrypt.Text = temp.Get<PlistString>("File Name").Value;
+            if (plist.Exists("GlyphCharging"))
+            {
+                plist = plist.Get<PlistDict>("GlyphCharging");
+                if (plist.Exists("Encryption") &&
+                    plist.Get<PlistBool>("Encryption").Value)
+                {
+                    // Hide unencrypted GlyphCharging
+                    lblGlyphChargingNoEncrypt.Visibility = Visibility.Collapsed;
+                    keyGlyphChargingNoEncrypt.Visibility = Visibility.Collapsed;
+                    fileGlyphChargingNoEncrypt.Visibility = Visibility.Collapsed;
+                    // Show encrypted GlyphCharging
+                    lblGlyphChargingIV.Visibility = Visibility.Visible;
+                    lblGlyphChargingKey.Visibility = Visibility.Visible;
+                    keyGlyphChargingIV.Visibility = Visibility.Visible;
+                    keyGlyphChargingKey.Visibility = Visibility.Visible;
+                    fileGlyphCharging.Visibility = Visibility.Visible;
+                    // Keys
+                    keyGlyphChargingIV.Text = plist.Get<PlistString>("IV").Value;
+                    keyGlyphChargingKey.Text = plist.Get<PlistString>("Key").Value;
                 }
-            } else {
-                grdGlyphCharging.Visibility = Visibility.Collapsed;
-                grdGlyphChargingNoEncrypt.Visibility = Visibility.Collapsed;
+                else
+                {
+                    // Hide encrypted GlyphCharging
+                    lblGlyphChargingIV.Visibility = Visibility.Collapsed;
+                    lblGlyphChargingKey.Visibility = Visibility.Collapsed;
+                    keyGlyphChargingIV.Visibility = Visibility.Collapsed;
+                    keyGlyphChargingKey.Visibility = Visibility.Collapsed;
+                    fileGlyphCharging.Visibility = Visibility.Collapsed;
+                    // Show unencrypted GlyphCharging
+                    lblGlyphChargingNoEncrypt.Visibility = Visibility.Visible;
+                    keyGlyphChargingNoEncrypt.Visibility = Visibility.Visible;
+                    fileGlyphChargingNoEncrypt.Visibility = Visibility.Visible;
+                }
+                plist = (PlistDict)plist.Parent;
+            }
+            else
+            {
+                lblGlyphChargingIV.Visibility = Visibility.Collapsed;
+                lblGlyphChargingKey.Visibility = Visibility.Collapsed;
+                keyGlyphChargingIV.Visibility = Visibility.Collapsed;
+                keyGlyphChargingKey.Visibility = Visibility.Collapsed;
+                fileGlyphCharging.Visibility = Visibility.Collapsed;
+                lblGlyphChargingNoEncrypt.Visibility = Visibility.Collapsed;
+                keyGlyphChargingNoEncrypt.Visibility = Visibility.Collapsed;
+                fileGlyphChargingNoEncrypt.Visibility = Visibility.Collapsed;
             }
             #endregion
             #region GlyphPlugin
-            if (plist.Exists("GlyphPlugin")) {
-                temp = plist.Get<PlistDict>("GlyphPlugin");
-                if (temp.Get<PlistBool>("Encryption").Value) {
-                    grdGlyphPlugin.Visibility = Visibility.Visible;
-                    grdGlyphPluginNoEncrypt.Visibility = Visibility.Collapsed;
-                    keyGlyphPluginIV.Text = temp.Get<PlistString>("IV").Value;
-                    keyGlyphPluginKey.Text = temp.Get<PlistString>("Key").Value;
-                    fileGlyphPlugin.Text = temp.Get<PlistString>("File Name").Value;
-                } else {
-                    grdGlyphPlugin.Visibility = Visibility.Collapsed;
-                    grdGlyphPluginNoEncrypt.Visibility = Visibility.Visible;
-                    fileGlyphPluginNoEncrypt.Text = temp.Get<PlistString>("File Name").Value;
+            if (plist.Exists("GlyphPlugin"))
+            {
+                plist = plist.Get<PlistDict>("GlyphPlugin");
+                if (plist.Exists("Encryption") &&
+                    plist.Get<PlistBool>("Encryption").Value)
+                {
+                    // Hide unencrypted GlyphPlugin
+                    lblGlyphPluginNoEncrypt.Visibility = Visibility.Collapsed;
+                    keyGlyphPluginNoEncrypt.Visibility = Visibility.Collapsed;
+                    fileGlyphPluginNoEncrypt.Visibility = Visibility.Collapsed;
+                    // Show encrypted GlyphPlugin
+                    lblGlyphPluginIV.Visibility = Visibility.Visible;
+                    lblGlyphPluginKey.Visibility = Visibility.Visible;
+                    keyGlyphPluginIV.Visibility = Visibility.Visible;
+                    keyGlyphPluginKey.Visibility = Visibility.Visible;
+                    fileGlyphPlugin.Visibility = Visibility.Visible;
+                    // Keys
+                    keyGlyphPluginIV.Text = plist.Get<PlistString>("IV").Value;
+                    keyGlyphPluginKey.Text = plist.Get<PlistString>("Key").Value;
                 }
-            } else {
-                grdGlyphPlugin.Visibility = Visibility.Collapsed;
-                grdGlyphPluginNoEncrypt.Visibility = Visibility.Collapsed;
+                else
+                {
+                    // Hide encrypted GlyphPlugin
+                    lblGlyphPluginIV.Visibility = Visibility.Collapsed;
+                    lblGlyphPluginKey.Visibility = Visibility.Collapsed;
+                    keyGlyphPluginIV.Visibility = Visibility.Collapsed;
+                    keyGlyphPluginKey.Visibility = Visibility.Collapsed;
+                    fileGlyphPlugin.Visibility = Visibility.Collapsed;
+                    // Show unencrypted GlyphPlugin
+                    lblGlyphPluginNoEncrypt.Visibility = Visibility.Visible;
+                    keyGlyphPluginNoEncrypt.Visibility = Visibility.Visible;
+                    fileGlyphPluginNoEncrypt.Visibility = Visibility.Visible;
+                }
+                plist = (PlistDict)plist.Parent;
+            }
+            else
+            {
+                lblGlyphPluginIV.Visibility = Visibility.Collapsed;
+                lblGlyphPluginKey.Visibility = Visibility.Collapsed;
+                keyGlyphPluginIV.Visibility = Visibility.Collapsed;
+                keyGlyphPluginKey.Visibility = Visibility.Collapsed;
+                fileGlyphPlugin.Visibility = Visibility.Collapsed;
+                lblGlyphPluginNoEncrypt.Visibility = Visibility.Collapsed;
+                keyGlyphPluginNoEncrypt.Visibility = Visibility.Collapsed;
+                fileGlyphPluginNoEncrypt.Visibility = Visibility.Collapsed;
             }
             #endregion
             #region iBEC
-            if (plist.Exists("iBEC")) {
-                temp = plist.Get<PlistDict>("iBEC");
-                if (temp.Get<PlistBool>("Encryption").Value) {
-                    grdiBEC.Visibility = Visibility.Visible;
-                    grdiBECNoEncrypt.Visibility = Visibility.Collapsed;
-                    keyiBECIV.Text = temp.Get<PlistString>("IV").Value;
-                    keyiBECKey.Text = temp.Get<PlistString>("Key").Value;
-                    fileiBEC.Text = temp.Get<PlistString>("File Name").Value;
-                } else {
-                    grdiBEC.Visibility = Visibility.Collapsed;
-                    grdiBECNoEncrypt.Visibility = Visibility.Visible;
-                    fileiBECNoEncrypt.Text = temp.Get<PlistString>("File Name").Value;
+            if (plist.Exists("iBEC"))
+            {
+                plist = plist.Get<PlistDict>("iBEC");
+                if (plist.Exists("Encryption") &&
+                    plist.Get<PlistBool>("Encryption").Value)
+                {
+                    // Hide unencrypted iBEC
+                    lbliBECNoEncrypt.Visibility = Visibility.Collapsed;
+                    keyiBECNoEncrypt.Visibility = Visibility.Collapsed;
+                    fileiBECNoEncrypt.Visibility = Visibility.Collapsed;
+                    // Show encrypted iBEC
+                    lbliBECIV.Visibility = Visibility.Visible;
+                    lbliBECKey.Visibility = Visibility.Visible;
+                    keyiBECIV.Visibility = Visibility.Visible;
+                    keyiBECKey.Visibility = Visibility.Visible;
+                    fileiBEC.Visibility = Visibility.Visible;
+                    // Keys
+                    keyiBECIV.Text = plist.Get<PlistString>("IV").Value;
+                    keyiBECKey.Text = plist.Get<PlistString>("Key").Value;
                 }
-            } else {
-                grdiBEC.Visibility = Visibility.Collapsed;
-                grdiBECNoEncrypt.Visibility = Visibility.Collapsed;
+                else
+                {
+                    // Hide encrypted iBEC
+                    lbliBECIV.Visibility = Visibility.Collapsed;
+                    lbliBECKey.Visibility = Visibility.Collapsed;
+                    keyiBECIV.Visibility = Visibility.Collapsed;
+                    keyiBECKey.Visibility = Visibility.Collapsed;
+                    fileiBEC.Visibility = Visibility.Collapsed;
+                    // Show unencrypted iBEC
+                    lbliBECNoEncrypt.Visibility = Visibility.Visible;
+                    keyiBECNoEncrypt.Visibility = Visibility.Visible;
+                    fileiBECNoEncrypt.Visibility = Visibility.Visible;
+                }
+                plist = (PlistDict)plist.Parent;
+            }
+            else
+            {
+                lbliBECIV.Visibility = Visibility.Collapsed;
+                lbliBECKey.Visibility = Visibility.Collapsed;
+                keyiBECIV.Visibility = Visibility.Collapsed;
+                keyiBECKey.Visibility = Visibility.Collapsed;
+                fileiBEC.Visibility = Visibility.Collapsed;
+                lbliBECNoEncrypt.Visibility = Visibility.Collapsed;
+                keyiBECNoEncrypt.Visibility = Visibility.Collapsed;
+                fileiBECNoEncrypt.Visibility = Visibility.Collapsed;
             }
             #endregion
             #region iBoot
-            if (plist.Exists("iBoot")) {
-                temp = plist.Get<PlistDict>("iBoot");
-                if (temp.Get<PlistBool>("Encryption").Value) {
-                    grdiBoot.Visibility = Visibility.Visible;
-                    grdiBootNoEncrypt.Visibility = Visibility.Collapsed;
-                    keyiBootIV.Text = temp.Get<PlistString>("IV").Value;
-                    keyiBootKey.Text = temp.Get<PlistString>("Key").Value;
-                    fileiBoot.Text = temp.Get<PlistString>("File Name").Value;
-                } else {
-                    grdiBoot.Visibility = Visibility.Collapsed;
-                    grdiBootNoEncrypt.Visibility = Visibility.Visible;
-                    fileiBootNoEncrypt.Text = temp.Get<PlistString>("File Name").Value;
+            if (plist.Exists("iBoot"))
+            {
+                plist = plist.Get<PlistDict>("iBoot");
+                if (plist.Exists("Encryption") &&
+                    plist.Get<PlistBool>("Encryption").Value)
+                {
+                    // Hide unencrypted iBoot
+                    lbliBootNoEncrypt.Visibility = Visibility.Collapsed;
+                    keyiBootNoEncrypt.Visibility = Visibility.Collapsed;
+                    fileiBootNoEncrypt.Visibility = Visibility.Collapsed;
+                    // Show encrypted iBoot
+                    lbliBootIV.Visibility = Visibility.Visible;
+                    lbliBootKey.Visibility = Visibility.Visible;
+                    keyiBootIV.Visibility = Visibility.Visible;
+                    keyiBootKey.Visibility = Visibility.Visible;
+                    fileiBoot.Visibility = Visibility.Visible;
+                    // Keys
+                    keyiBootIV.Text = plist.Get<PlistString>("IV").Value;
+                    keyiBootKey.Text = plist.Get<PlistString>("Key").Value;
                 }
-            } else {
-                grdiBoot.Visibility = Visibility.Collapsed;
-                grdiBootNoEncrypt.Visibility = Visibility.Collapsed;
+                else
+                {
+                    // Hide Encrypted iBoot
+                    lbliBootIV.Visibility = Visibility.Collapsed;
+                    lbliBootKey.Visibility = Visibility.Collapsed;
+                    keyiBootIV.Visibility = Visibility.Collapsed;
+                    keyiBootKey.Visibility = Visibility.Collapsed;
+                    fileiBoot.Visibility = Visibility.Collapsed;
+                    // Show unencrypted iBoot
+                    lbliBootNoEncrypt.Visibility = Visibility.Visible;
+                    keyiBootNoEncrypt.Visibility = Visibility.Visible;
+                    fileiBootNoEncrypt.Visibility = Visibility.Visible;
+                }
+                plist = (PlistDict)plist.Parent;
+            }
+            else
+            {
+                lbliBootIV.Visibility = Visibility.Collapsed;
+                lbliBootKey.Visibility = Visibility.Collapsed;
+                keyiBootIV.Visibility = Visibility.Collapsed;
+                keyiBootKey.Visibility = Visibility.Collapsed;
+                fileiBoot.Visibility = Visibility.Collapsed;
+                lbliBootNoEncrypt.Visibility = Visibility.Collapsed;
+                keyiBootNoEncrypt.Visibility = Visibility.Collapsed;
+                fileiBootNoEncrypt.Visibility = Visibility.Collapsed;
             }
             #endregion
             #region iBSS
-            if (plist.Exists("iBSS")) {
-                temp = plist.Get<PlistDict>("iBSS");
-                if (temp.Get<PlistBool>("Encryption").Value) {
-                    grdiBSS.Visibility = Visibility.Visible;
-                    grdiBSSNoEncrypt.Visibility = Visibility.Collapsed;
-                    keyiBSSIV.Text = temp.Get<PlistString>("IV").Value;
-                    keyiBSSKey.Text = temp.Get<PlistString>("Key").Value;
-                    fileiBSS.Text = temp.Get<PlistString>("File Name").Value;
-                } else {
-                    grdiBSS.Visibility = Visibility.Collapsed;
-                    grdiBSSNoEncrypt.Visibility = Visibility.Visible;
-                    fileiBSSNoEncrypt.Text = temp.Get<PlistString>("File Name").Value;
+            if (plist.Exists("iBSS"))
+            {
+                plist = plist.Get<PlistDict>("iBSS");
+                if (plist.Exists("Encryption") &&
+                    plist.Get<PlistBool>("Encryption").Value)
+                {
+                    // Hide unencrypted iBSS
+                    lbliBSSNoEncrypt.Visibility = Visibility.Collapsed;
+                    keyiBSSNoEncrypt.Visibility = Visibility.Collapsed;
+                    fileiBSSNoEncrypt.Visibility = Visibility.Collapsed;
+                    // Show encrypted iBSS
+                    lbliBSSIV.Visibility = Visibility.Visible;
+                    lbliBSSKey.Visibility = Visibility.Visible;
+                    keyiBSSIV.Visibility = Visibility.Visible;
+                    keyiBSSKey.Visibility = Visibility.Visible;
+                    fileiBSS.Visibility = Visibility.Visible;
+                    // Keys
+                    keyiBSSIV.Text = plist.Get<PlistString>("IV").Value;
+                    keyiBSSKey.Text = plist.Get<PlistString>("Key").Value;
                 }
-            } else {
-                grdiBSS.Visibility = Visibility.Collapsed;
-                grdiBSSNoEncrypt.Visibility = Visibility.Collapsed;
+                else
+                {
+                    // Hide encrypted iBSS
+                    lbliBSSIV.Visibility = Visibility.Collapsed;
+                    lbliBSSKey.Visibility = Visibility.Collapsed;
+                    keyiBSSIV.Visibility = Visibility.Collapsed;
+                    keyiBSSKey.Visibility = Visibility.Collapsed;
+                    fileiBSS.Visibility = Visibility.Collapsed;
+                    // Show unencrypted iBSS
+                    lbliBSSNoEncrypt.Visibility = Visibility.Visible;
+                    keyiBSSNoEncrypt.Visibility = Visibility.Visible;
+                    fileiBSSNoEncrypt.Visibility = Visibility.Visible;
+                }
+                plist = (PlistDict)plist.Parent;
+            }
+            else
+            {
+                lbliBSSIV.Visibility = Visibility.Collapsed;
+                lbliBSSKey.Visibility = Visibility.Collapsed;
+                keyiBSSIV.Visibility = Visibility.Collapsed;
+                keyiBSSKey.Visibility = Visibility.Collapsed;
+                fileiBSS.Visibility = Visibility.Collapsed;
+                lbliBSSNoEncrypt.Visibility = Visibility.Collapsed;
+                keyiBSSNoEncrypt.Visibility = Visibility.Collapsed;
+                fileiBSSNoEncrypt.Visibility = Visibility.Collapsed;
             }
             #endregion
             #region Kernelcache
-            if (plist.Exists("Kernelcache")) {
-                temp = plist.Get<PlistDict>("Kernelcache");
-                if (temp.Get<PlistBool>("Encryption").Value) {
-                    grdKernelcache.Visibility = Visibility.Visible;
-                    grdKernelcacheNoEncrypt.Visibility = Visibility.Collapsed;
-                    keyKernelcacheIV.Text = temp.Get<PlistString>("IV").Value;
-                    keyKernelcacheKey.Text = temp.Get<PlistString>("Key").Value;
-                    fileKernelcache.Text = temp.Get<PlistString>("File Name").Value;
-                } else {
-                    grdKernelcache.Visibility = Visibility.Collapsed;
-                    grdKernelcacheNoEncrypt.Visibility = Visibility.Visible;
-                    fileKernelcacheNoEncrypt.Text = temp.Get<PlistString>("File Name").Value;
+            if (plist.Exists("Kernelcache"))
+            {
+                plist = plist.Get<PlistDict>("Kernelcache");
+                if (plist.Exists("Encryption") &&
+                    plist.Get<PlistBool>("Encryption").Value)
+                {
+                    // Hide unencrypted Kernelcache
+                    lblKernelcacheNoEncrypt.Visibility = Visibility.Collapsed;
+                    keyKernelcacheNoEncrypt.Visibility = Visibility.Collapsed;
+                    fileKernelcacheNoEncrypt.Visibility = Visibility.Collapsed;
+                    // Show encrypted Kernelcache
+                    lblKernelcacheIV.Visibility = Visibility.Visible;
+                    lblKernelcacheKey.Visibility = Visibility.Visible;
+                    keyKernelcacheIV.Visibility = Visibility.Visible;
+                    keyKernelcacheKey.Visibility = Visibility.Visible;
+                    fileKernelcache.Visibility = Visibility.Visible;
+                    // Keys
+                    keyKernelcacheIV.Text = plist.Get<PlistString>("IV").Value;
+                    keyKernelcacheKey.Text = plist.Get<PlistString>("Key").Value;
                 }
-            } else {
-                grdKernelcache.Visibility = Visibility.Collapsed;
-                grdKernelcacheNoEncrypt.Visibility = Visibility.Collapsed;
+                else
+                {
+                    // Hide encrypted Kernelcache
+                    lblKernelcacheIV.Visibility = Visibility.Collapsed;
+                    lblKernelcacheKey.Visibility = Visibility.Collapsed;
+                    keyKernelcacheIV.Visibility = Visibility.Collapsed;
+                    keyKernelcacheKey.Visibility = Visibility.Collapsed;
+                    fileKernelcache.Visibility = Visibility.Collapsed;
+                    // Show unencrypted Kernelcache
+                    lblKernelcacheNoEncrypt.Visibility = Visibility.Visible;
+                    keyKernelcacheNoEncrypt.Visibility = Visibility.Visible;
+                    fileKernelcacheNoEncrypt.Visibility = Visibility.Visible;
+                }
+                plist = (PlistDict)plist.Parent;
+            }
+            else
+            {
+                lblKernelcacheIV.Visibility = Visibility.Collapsed;
+                lblKernelcacheKey.Visibility = Visibility.Collapsed;
+                keyKernelcacheIV.Visibility = Visibility.Collapsed;
+                keyKernelcacheKey.Visibility = Visibility.Collapsed;
+                fileKernelcache.Visibility = Visibility.Collapsed;
+                lblKernelcacheNoEncrypt.Visibility = Visibility.Collapsed;
+                keyKernelcacheNoEncrypt.Visibility = Visibility.Collapsed;
+                fileKernelcacheNoEncrypt.Visibility = Visibility.Collapsed;
+            }
+            #endregion
+            #region LLB
+            if (plist.Exists("LLB"))
+            {
+                plist = plist.Get<PlistDict>("LLB");
+                if (plist.Exists("Encryption") &&
+                    plist.Get<PlistBool>("Encryption").Value)
+                {
+                    // Hide unencrypted LLB
+                    lblLLBNoEncrypt.Visibility = Visibility.Collapsed;
+                    keyLLBNoEncrypt.Visibility = Visibility.Collapsed;
+                    fileLLBNoEncrypt.Visibility = Visibility.Collapsed;
+                    // Show encrypted LLB
+                    lblLLBIV.Visibility = Visibility.Visible;
+                    lblLLBKey.Visibility = Visibility.Visible;
+                    keyLLBIV.Visibility = Visibility.Visible;
+                    keyLLBKey.Visibility = Visibility.Visible;
+                    fileLLB.Visibility = Visibility.Visible;
+                    // Keys
+                    keyLLBIV.Text = plist.Get<PlistString>("IV").Value;
+                    keyLLBKey.Text = plist.Get<PlistString>("Key").Value;
+                }
+                else
+                {
+                    // Hide encrypted LLB
+                    lblLLBIV.Visibility = Visibility.Collapsed;
+                    lblLLBKey.Visibility = Visibility.Collapsed;
+                    keyLLBIV.Visibility = Visibility.Collapsed;
+                    keyLLBKey.Visibility = Visibility.Collapsed;
+                    fileLLB.Visibility = Visibility.Collapsed;
+                    // Show unencrypted LLB
+                    lblLLBNoEncrypt.Visibility = Visibility.Visible;
+                    keyLLBNoEncrypt.Visibility = Visibility.Visible;
+                    fileLLBNoEncrypt.Visibility = Visibility.Visible;
+                }
+                plist = (PlistDict)plist.Parent;
+            }
+            else
+            {
+                lblLLBIV.Visibility = Visibility.Collapsed;
+                lblLLBKey.Visibility = Visibility.Collapsed;
+                keyLLBIV.Visibility = Visibility.Collapsed;
+                keyLLBKey.Visibility = Visibility.Collapsed;
+                fileLLB.Visibility = Visibility.Collapsed;
+                lblLLBNoEncrypt.Visibility = Visibility.Collapsed;
+                keyLLBNoEncrypt.Visibility = Visibility.Collapsed;
+                fileLLBNoEncrypt.Visibility = Visibility.Collapsed;
             }
             #endregion
             #region NeedService
-            if (plist.Exists("NeedService")) {
-                temp = plist.Get<PlistDict>("NeedService");
-                if (temp.Get<PlistBool>("Encryption").Value) {
-                    grdNeedService.Visibility = Visibility.Visible;
-                    grdNeedServiceNoEncrypt.Visibility = Visibility.Collapsed;
-                    keyNeedServiceIV.Text = temp.Get<PlistString>("IV").Value;
-                    keyNeedServiceKey.Text = temp.Get<PlistString>("Key").Value;
-                    fileNeedService.Text = temp.Get<PlistString>("File Name").Value;
-                } else {
-                    grdNeedService.Visibility = Visibility.Collapsed;
-                    grdNeedServiceNoEncrypt.Visibility = Visibility.Visible;
-                    fileNeedServiceNoEncrypt.Text = temp.Get<PlistString>("File Name").Value;
+            if (plist.Exists("NeedService"))
+            {
+                plist = plist.Get<PlistDict>("NeedService");
+                if (plist.Exists("Encryption") &&
+                    plist.Get<PlistBool>("Encryption").Value)
+                {
+                    // Hide unencrypted NeedService
+                    lblNeedServiceNoEncrypt.Visibility = Visibility.Collapsed;
+                    keyNeedServiceNoEncrypt.Visibility = Visibility.Collapsed;
+                    fileNeedServiceNoEncrypt.Visibility = Visibility.Collapsed;
+                    // Show encrypted NeedService
+                    lblNeedServiceIV.Visibility = Visibility.Visible;
+                    lblNeedServiceKey.Visibility = Visibility.Visible;
+                    keyNeedServiceIV.Visibility = Visibility.Visible;
+                    keyNeedServiceKey.Visibility = Visibility.Visible;
+                    fileNeedService.Visibility = Visibility.Visible;
+                    // Keys
+                    keyNeedServiceIV.Text = plist.Get<PlistString>("IV").Value;
+                    keyNeedServiceKey.Text = plist.Get<PlistString>("Key").Value;
                 }
-            } else {
-                grdNeedService.Visibility = Visibility.Collapsed;
-                grdNeedServiceNoEncrypt.Visibility = Visibility.Collapsed;
+                else
+                {
+                    // Hide encrypted NeedService
+                    lblNeedServiceIV.Visibility = Visibility.Collapsed;
+                    lblNeedServiceKey.Visibility = Visibility.Collapsed;
+                    keyNeedServiceIV.Visibility = Visibility.Collapsed;
+                    keyNeedServiceKey.Visibility = Visibility.Collapsed;
+                    fileNeedService.Visibility = Visibility.Collapsed;
+                    // Show unencrypted NeedService
+                    lblNeedServiceNoEncrypt.Visibility = Visibility.Visible;
+                    keyNeedServiceNoEncrypt.Visibility = Visibility.Visible;
+                    fileNeedServiceNoEncrypt.Visibility = Visibility.Visible;
+                }
+                plist = (PlistDict)plist.Parent;
+            }
+            else
+            {
+                lblNeedServiceIV.Visibility = Visibility.Collapsed;
+                lblNeedServiceKey.Visibility = Visibility.Collapsed;
+                keyNeedServiceIV.Visibility = Visibility.Collapsed;
+                keyNeedServiceKey.Visibility = Visibility.Collapsed;
+                fileNeedService.Visibility = Visibility.Collapsed;
+                lblNeedServiceNoEncrypt.Visibility = Visibility.Collapsed;
+                keyNeedServiceNoEncrypt.Visibility = Visibility.Collapsed;
+                fileNeedServiceNoEncrypt.Visibility = Visibility.Collapsed;
             }
             #endregion
             #region RecoveryMode
-            if (plist.Exists("RecoveryMode")) {
-                temp = plist.Get<PlistDict>("RecoveryMode");
-                if (temp.Get<PlistBool>("Encryption").Value) {
-                    grdRecoveryMode.Visibility = Visibility.Visible;
-                    grdRecoveryModeNoEncrypt.Visibility = Visibility.Collapsed;
-                    keyRecoveryModeIV.Text = temp.Get<PlistString>("IV").Value;
-                    keyRecoveryModeKey.Text = temp.Get<PlistString>("Key").Value;
-                    fileRecoveryMode.Text = temp.Get<PlistString>("File Name").Value;
-                } else {
-                    grdRecoveryMode.Visibility = Visibility.Collapsed;
-                    grdRecoveryModeNoEncrypt.Visibility = Visibility.Visible;
-                    fileRecoveryModeNoEncrypt.Text = temp.Get<PlistString>("File Name").Value;
+            if (plist.Exists("RecoveryMode"))
+            {
+                plist = plist.Get<PlistDict>("RecoveryMode");
+                if (plist.Exists("Encryption") &&
+                    plist.Get<PlistBool>("Encryption").Value)
+                {
+                    // Hide unencrypted RecoveryMode
+                    lblRecoveryModeNoEncrypt.Visibility = Visibility.Collapsed;
+                    keyRecoveryModeNoEncrypt.Visibility = Visibility.Collapsed;
+                    fileRecoveryModeNoEncrypt.Visibility = Visibility.Collapsed;
+                    // Show encrypted RecoveryMode
+                    lblRecoveryModeIV.Visibility = Visibility.Visible;
+                    lblRecoveryModeKey.Visibility = Visibility.Visible;
+                    keyRecoveryModeIV.Visibility = Visibility.Visible;
+                    keyRecoveryModeKey.Visibility = Visibility.Visible;
+                    fileRecoveryMode.Visibility = Visibility.Visible;
+                    // Keys
+                    keyRecoveryModeIV.Text = plist.Get<PlistString>("IV").Value;
+                    keyRecoveryModeKey.Text = plist.Get<PlistString>("Key").Value;
                 }
-            } else {
-                grdRecoveryMode.Visibility = Visibility.Collapsed;
-                grdRecoveryModeNoEncrypt.Visibility = Visibility.Collapsed;
+                else
+                {
+                    // Hide encrypted RecoveryMode
+                    lblRecoveryModeIV.Visibility = Visibility.Collapsed;
+                    lblRecoveryModeKey.Visibility = Visibility.Collapsed;
+                    keyRecoveryModeIV.Visibility = Visibility.Collapsed;
+                    keyRecoveryModeKey.Visibility = Visibility.Collapsed;
+                    fileRecoveryMode.Visibility = Visibility.Collapsed;
+                    // Show unencrypted RecoveryMode
+                    lblRecoveryModeNoEncrypt.Visibility = Visibility.Visible;
+                    keyRecoveryModeNoEncrypt.Visibility = Visibility.Visible;
+                    fileRecoveryModeNoEncrypt.Visibility = Visibility.Visible;
+                }
+                plist = (PlistDict)plist.Parent;
+            }
+            else
+            {
+                lblRecoveryModeIV.Visibility = Visibility.Collapsed;
+                lblRecoveryModeKey.Visibility = Visibility.Collapsed;
+                keyRecoveryModeIV.Visibility = Visibility.Collapsed;
+                keyRecoveryModeKey.Visibility = Visibility.Collapsed;
+                fileRecoveryMode.Visibility = Visibility.Collapsed;
+                lblRecoveryModeNoEncrypt.Visibility = Visibility.Collapsed;
+                keyRecoveryModeNoEncrypt.Visibility = Visibility.Collapsed;
+                fileRecoveryModeNoEncrypt.Visibility = Visibility.Collapsed;
             }
             #endregion
             #region SEP-Firmware
-            if (plist.Exists("SEP-Firmware")) {
-                temp = plist.Get<PlistDict>("SEP-Firmware");
-                if (temp.Get<PlistBool>("Encryption").Value) {
-                    grdSEPFirmware.Visibility = Visibility.Visible;
-                    grdSEPFirmwareNoEncrypt.Visibility = Visibility.Collapsed;
-                    keySEPFirmwareIV.Text = temp.Get<PlistString>("IV").Value;
-                    keySEPFirmwareKey.Text = temp.Get<PlistString>("Key").Value;
-                    fileSEPFirmware.Text = temp.Get<PlistString>("File Name").Value;
-                } else {
-                    grdSEPFirmware.Visibility = Visibility.Collapsed;
-                    grdSEPFirmwareNoEncrypt.Visibility = Visibility.Visible;
-                    fileSEPFirmwareNoEncrypt.Text = temp.Get<PlistString>("File Name").Value;
+            if (plist.Exists("SEP-Firmware"))
+            {
+                plist = plist.Get<PlistDict>("SEP-Firmware");
+                if (plist.Exists("Encryption") &&
+                    plist.Get<PlistBool>("Encryption").Value)
+                {
+                    // Hide unencrypted SEP-Firmware
+                    lblSEPFirmwareNoEncrypt.Visibility = Visibility.Collapsed;
+                    keySEPFirmwareNoEncrypt.Visibility = Visibility.Collapsed;
+                    fileSEPFirmwareNoEncrypt.Visibility = Visibility.Collapsed;
+                    // Show encrypted SEP-Firmware
+                    lblSEPFirmwareIV.Visibility = Visibility.Visible;
+                    lblSEPFirmwareKey.Visibility = Visibility.Visible;
+                    keySEPFirmwareIV.Visibility = Visibility.Visible;
+                    keySEPFirmwareKey.Visibility = Visibility.Visible;
+                    fileSEPFirmware.Visibility = Visibility.Visible;
+                    // Keys
+                    keySEPFirmwareIV.Text = plist.Get<PlistString>("IV").Value;
+                    keySEPFirmwareKey.Text = plist.Get<PlistString>("Key").Value;
                 }
-            } else {
-                grdSEPFirmware.Visibility = Visibility.Collapsed;
-                grdSEPFirmwareNoEncrypt.Visibility = Visibility.Collapsed;
+                else
+                {
+                    // Hide encrypted SEP-Firmware
+                    lblSEPFirmwareIV.Visibility = Visibility.Collapsed;
+                    lblSEPFirmwareKey.Visibility = Visibility.Collapsed;
+                    keySEPFirmwareIV.Visibility = Visibility.Collapsed;
+                    keySEPFirmwareKey.Visibility = Visibility.Collapsed;
+                    fileSEPFirmware.Visibility = Visibility.Collapsed;
+                    // Show unencrypted SEP-Firmware
+                    lblSEPFirmwareNoEncrypt.Visibility = Visibility.Visible;
+                    keySEPFirmwareNoEncrypt.Visibility = Visibility.Visible;
+                    fileSEPFirmwareNoEncrypt.Visibility = Visibility.Visible;
+                }
+                plist = (PlistDict)plist.Parent;
+            }
+            else
+            {
+                lblSEPFirmwareIV.Visibility = Visibility.Collapsed;
+                lblSEPFirmwareKey.Visibility = Visibility.Collapsed;
+                keySEPFirmwareIV.Visibility = Visibility.Collapsed;
+                keySEPFirmwareKey.Visibility = Visibility.Collapsed;
+                fileSEPFirmware.Visibility = Visibility.Collapsed;
+                lblSEPFirmwareNoEncrypt.Visibility = Visibility.Collapsed;
+                keySEPFirmwareNoEncrypt.Visibility = Visibility.Collapsed;
+                fileSEPFirmwareNoEncrypt.Visibility = Visibility.Collapsed;
             }
             #endregion
+
+            // Cleanup
+            try
+            {
+                doc.Dispose();
+            }
+            catch (Exception)
+            {
+            }
+            doc = null;
         }
 
-        private void btnSelectRootFSInputFile_Click(object sender, RoutedEventArgs e)
-        {
-            Debug("[SELECTFS]", "Loading file dialog.");
-            OpenFileDialog decrypt = new OpenFileDialog();
-            decrypt.Filter = "Apple Disk Images|*.dmg";
-            decrypt.CheckFileExists = true;
-            decrypt.ShowDialog();
-            Debug("[SELECTFS]", "File dialog closed.");
-            if (!String.IsNullOrWhiteSpace(decrypt.SafeFileName)) {
-                textInputFileName.Text = decrypt.FileName;
-            }
-        }
         private void btnDecrypt_Click(object sender, RoutedEventArgs e)
         {
-            Debug("[DECRYPT]", "Validating input.");
+            Debug("DECRYPT", "Validating input.");
             #region Input Validation
             if (String.IsNullOrWhiteSpace(textInputFileName.Text) ||
                 String.IsNullOrWhiteSpace(textOutputFileName.Text) ||
-                String.IsNullOrWhiteSpace(textDecryptKey.Text)) {
+                String.IsNullOrWhiteSpace(textDecryptKey.Text))
+            {
                 return;
             }
-            if (!File.Exists(textInputFileName.Text)) {
+            if (!File.Exists(textInputFileName.Text))
+            {
                 MessageBox.Show(
                     "The input file does not exist.",
                     "iDecryptIt",
@@ -672,12 +1188,14 @@ namespace Hexware.Programs.iDecryptIt
                     MessageBoxImage.Error);
                 return;
             }
-            if (File.Exists(textOutputFileName.Text)) {
+            if (File.Exists(textOutputFileName.Text))
+            {
                 if (MessageBox.Show(
                     "The output file already exists. Shall I delete it?",
                     "iDecryptIt",
                     MessageBoxButton.YesNo,
-                    MessageBoxImage.Question) == MessageBoxResult.No) {
+                    MessageBoxImage.Question) == MessageBoxResult.No)
+                {
                     return;
                 }
                 File.Delete(textOutputFileName.Text);
@@ -686,119 +1204,46 @@ namespace Hexware.Programs.iDecryptIt
 
             decryptFrom = textInputFileName.Text;
             decryptTo = textOutputFileName.Text;
-            decryptFromLength = new FileInfo(decryptFrom).Length;
+            decryptFromFile = new FileInfo(decryptFrom);
 
-            Debug("[DECRYPT]", "Launching dmg.");
+            Debug("DECRYPT", "Launching dmg.");
             ProcessStartInfo x = new ProcessStartInfo();
             x.RedirectStandardError = true;
             x.RedirectStandardOutput = true;
             x.UseShellExecute = false;
-            x.FileName = Path.Combine(execDir, "dmg.exe");
-            x.Arguments = String.Format("extract \"{0}\" \"{1}\" -k {2}", textInputFileName.Text, textOutputFileName.Text, textDecryptKey.Text);
-            x.ErrorDialog = true;
-
-            decryptProc = new Process();
-            decryptProc.EnableRaisingEvents = true;
-            decryptProc.OutputDataReceived += decryptProc_OutputDataReceived;
-            decryptProc.StartInfo = x;
-            decryptProc.ErrorDataReceived += decryptProc_ErrorDataReceived;
-            decryptProc.Start();
-            decryptProc.BeginOutputReadLine(); // Execution halts if the buffer is full
+            x.FileName = rundir + "dmg.exe";
+            x.Arguments = "extract \"" + textInputFileName.Text + "\" \"" + textOutputFileName.Text + "\" -k " + textDecryptKey.Text;
+            decryptProc = Process.Start(x);
+            decryptProc.BeginOutputReadLine(); // The program pauses if the buffer is full
             decryptProc.BeginErrorReadLine();
 
             // Screen mods
             gridDecrypt.IsEnabled = false;
             progDecrypt.Visibility = Visibility.Visible;
-            TaskbarItemInfo.ProgressState = TaskbarItemProgressState.Normal;
 
             // Wait for file to exist before starting worker (processes are asynchronous)
-            while (!File.Exists(decryptTo)) { }
-            Debug("[DECRYPT]", "Starting progress checker.");
-            decryptWorker = new BackgroundWorker();
-            decryptWorker.WorkerSupportsCancellation = true;
-            decryptWorker.WorkerReportsProgress = true;
-            decryptWorker.DoWork += decryptWorker_DoWork;
-            decryptWorker.ProgressChanged += decryptWorker_ProgressReported;
-            decryptWorker.RunWorkerAsync();
-        }
-        private void textInputFileName_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            try {
-                string folder = Path.GetDirectoryName(textInputFileName.Text);
-                string file = Path.GetFileName(textInputFileName.Text);
-                if (file.Substring(file.Length - 4, 4) != ".dmg") {
-                    return;
-                }
-                file = file.Substring(0, file.Length - 4) + "_decrypted.dmg";
-                textOutputFileName.Text = Path.Combine(folder, file);
-            } catch (Exception) { }
-        }
-        private void decryptProc_OutputDataReceived(object sender, DataReceivedEventArgs e)
-        {
-            if (debug)
-                Console.WriteLine(e.Data);
-        }
-        private void decryptProc_ErrorDataReceived(object sender, DataReceivedEventArgs e)
-        {
-            if (debug)
-                Console.WriteLine(e.Data);
-        }
-        private void decryptWorker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            while (!decryptWorker.CancellationPending) {
-                if (decryptProc.HasExited) {
-                    decryptWorker.ReportProgress(100);
-                } else {
-                    decryptProg = ((new FileInfo(decryptTo).Length) * 100.0) / decryptFromLength;
-                    decryptWorker.ReportProgress(0);
-                    Thread.Sleep(100); // don't hog the CPU
-                }
+            while (!File.Exists(decryptTo))
+            {
             }
+            Debug("DECRYPT", "Starting progress checker.");
+            decryptworker = new BackgroundWorker();
+            decryptworker.WorkerSupportsCancellation = true;
+            decryptworker.WorkerReportsProgress = true;
+            decryptworker.DoWork += decryptworker_DoWork;
+            decryptworker.ProgressChanged += decryptworker_ProgressReported;
+            decryptworker.RunWorkerAsync();
         }
-        private void decryptWorker_ProgressReported(object sender, ProgressChangedEventArgs e)
-        {
-            if (e.ProgressPercentage == 100 && !decryptWorker.CancellationPending) {
-                decryptWorker.CancelAsync();
-                gridDecrypt.IsEnabled = true;
-                // reset progress values
-                decryptProg = 0.0;
-                TaskbarItemInfo.ProgressValue = 0.0;
-                // hide progress indicators
-                progDecrypt.Visibility = Visibility.Hidden;
-                TaskbarItemInfo.ProgressState = TaskbarItemProgressState.None;
-                return;
-            }
-
-            double progress = decryptProg;
-            if (progress > 100.0) {
-                progDecrypt.Value = 100.0;
-                TaskbarItemInfo.ProgressValue = 100.0;
-            } else {
-                progDecrypt.Value = progress;
-                TaskbarItemInfo.ProgressValue = progress;
-            }
-        }
-
-        private void btnChangelog_Click(object sender, RoutedEventArgs e)
-        {
-            Debug("[CHANGE]", "Loading Changelog.");
-            Process.Start("file://" + helpDir + "changelog.html");
-        }
-        private void btnReadme_Click(object sender, RoutedEventArgs e)
-        {
-            Debug("[README]", "Loading Readme.");
-            Process.Start("file://" + helpDir + "readme.html");
-        }
-
         private void btnExtract_Click(object sender, RoutedEventArgs e)
         {
-            Debug("[EXTRACT]", "Validating input.");
+            Debug("EXTRACT", "Validating input.");
             #region Input validation
             if (String.IsNullOrWhiteSpace(text7ZInputFileName.Text) ||
-                String.IsNullOrWhiteSpace(text7ZOuputFolder.Text)) {
+                String.IsNullOrWhiteSpace(text7ZOuputFolder.Text))
+            {
                 return;
             }
-            if (!File.Exists(text7ZInputFileName.Text)) {
+            if (!File.Exists(text7ZInputFileName.Text))
+            {
                 MessageBox.Show(
                     "The input file does not exist.",
                     "iDecryptIt",
@@ -806,7 +1251,8 @@ namespace Hexware.Programs.iDecryptIt
                     MessageBoxImage.Error);
                 return;
             }
-            if (Directory.Exists(text7ZInputFileName.Text)) {
+            if (Directory.Exists(text7ZInputFileName.Text))
+            {
                 MessageBox.Show(
                     "The specified location is actually a directory.",
                     "iDecryptIt",
@@ -814,7 +1260,8 @@ namespace Hexware.Programs.iDecryptIt
                     MessageBoxImage.Error);
                 return;
             }
-            if (File.Exists(text7ZOuputFolder.Text)) {
+            if (File.Exists(text7ZOuputFolder.Text))
+            {
                 MessageBox.Show(
                     "The output folder is actually a file.",
                     "iDecryptIt",
@@ -824,267 +1271,580 @@ namespace Hexware.Programs.iDecryptIt
             }
             #endregion
 
-            Debug("[EXTRACT]", "Launching 7zip.");
+            Debug("EXTRACT", "Launching 7zip.");
             Process.Start(
-                Path.Combine(execDir, "7z.exe"),
-                " x \"" + text7ZInputFileName.Text + "\" \"-o" + text7ZOuputFolder.Text + "\"");
+                rundir + "7z.exe",
+                " x \"" + text7ZInputFileName.Text + "\" \"" + "-o" + text7ZOuputFolder.Text + "\"");
+
+            // Prepare to extract HFS
+            /*string[] files = Directory.GetFiles(tempdir, "*.hfs*", SearchOption.AllDirectories);
+            string file;
+
+            if (files.Length == 1)
+            {
+                file = files[0];
+            }
+            else
+            {
+                MessageBox.Show(
+                    "Please select the biggest file.",
+                    "iDecryptIt",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+
+                OpenFileDialog extract = new OpenFileDialog();
+                extract.FileName = "";
+                extract.Multiselect = false;
+                extract.Filter = "All Files (*.*)|*.*";
+                extract.InitialDirectory = tempdir;
+                extract.ShowDialog();
+                if (String.IsNullOrWhiteSpace(extract.SafeFileName) || !File.Exists(extract.FileName))
+                {
+                    return;
+                }
+                file = extract.FileName;
+            }
+
+            Process.Start(
+                rundir + "7z.exe",
+                " x \"" + file + "\" \"" + "-o" + text7ZOuputFolder.Text + "\"");*/
+        }
+        private void btnChangelog_Click(object sender, RoutedEventArgs e)
+        {
+            Debug("CHANGE", "Loading Changelog.");
+            Process.Start("file://" + helpdir + "changelog.html");
+        }
+        private void btnREADME_Click(object sender, RoutedEventArgs e)
+        {
+            Debug("README", "Loading README.");
+            Process.Start("file://" + helpdir + "README.html");
+        }
+        /*private void btn1a420_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("http://rapidshare.com/files/207764160/iphoneproto.zip");
+        }*/
+        private void btnSelectRootFSInputFile_Click(object sender, RoutedEventArgs e)
+        {
+            Debug("SELECTFS", "Loading file dialog.");
+            OpenFileDialog decrypt = new OpenFileDialog();
+            decrypt.FileName = "";
+            decrypt.RestoreDirectory = true;
+            decrypt.DefaultExt = ".dmg";
+            decrypt.Filter = "Apple Disk Images|*.dmg";
+            decrypt.ShowDialog();
+            Debug("SELECTFS", "Closing file dialog.");
+            if (!String.IsNullOrWhiteSpace(decrypt.SafeFileName))
+            {
+                textInputFileName.Text = decrypt.FileName;
+            }
         }
         private void btnSelect7ZInputFile_Click(object sender, RoutedEventArgs e)
         {
-            Debug("[SELECT7Z]", "Loading file dialog.");
+            Debug("SELECT7Z", "Loading file dialog.");
             OpenFileDialog extract = new OpenFileDialog();
-            extract.Filter = "Apple Disk Images|*.dmg";
-            extract.CheckFileExists = true;
+            extract.FileName = "";
+            extract.RestoreDirectory = true;
+            extract.Multiselect = false;
+            extract.DefaultExt = ".dmg";
+            extract.Filter = "Apple Disk Images|*.dmg";//|Apple Firmware Files|*.ipsw";
             extract.ShowDialog();
-            Debug("[SELECT7Z]", "File dialog closed.");
-            if (!String.IsNullOrWhiteSpace(extract.SafeFileName)) {
+            Debug("SELECT7Z", "Closing file dialog.");
+            if (!String.IsNullOrWhiteSpace(extract.SafeFileName))
+            {
+                /*
+                int length = extract.SafeFileName.Length - 1;
+                if (extract.SafeFileName[length - 4] == '.' &&
+                    extract.SafeFileName[length - 3] == 'd' &&
+                    extract.SafeFileName[length - 2] == 'm' &&
+                    extract.SafeFileName[length - 1] == 'g')
+                {*/
+                    string[] split = extract.FileName.Split('\\');
+                    string returntext;
+                    int lastindexnum = split.Length - 1;
+                    returntext = split[0];
+                    for (int i = 1; i < split.Length; i++)
+                    {
+                        if (i != lastindexnum)
+                        {
+                            returntext = returntext + '\\' + split[i];
+                        }
+                    }
+                    text7ZOuputFolder.Text = returntext + '\\';
+                /*}
+                else if (extract.SafeFileName[length - 5] == '.' &&
+                         extract.SafeFileName[length - 4] == 'i' &&
+                         extract.SafeFileName[length - 3] == 'p' &&
+                         extract.SafeFileName[length - 2] == 's' &&
+                         extract.SafeFileName[length - 1] == 'w')
+                {
+                    string[] split = extract.FileName.Split('\\');
+                    string returntext;
+                    int lastindexnum = split.Length - 1;
+                    returntext = split[0];
+                    for (int i = 1; i < split.Length; i++)
+                    {
+                        if (i != lastindexnum)
+                        {
+                            returntext = returntext + '\\' + split[i];
+                        }
+                        else
+                        {
+                            // Put file name minus ".ipsw" in output
+                        }
+                    }
+                    text7ZOuputFolder.Text = returntext + '\\';
+                }
+                else
+                {
+                    // Dunno how, but it happened
+                    return;
+                }*/
+
                 text7ZInputFileName.Text = extract.FileName;
-                text7ZOuputFolder.Text = Path.GetDirectoryName(extract.FileName);
             }
         }
         private void btnSelectWhatAmIFile_Click(object sender, RoutedEventArgs e)
         {
-            Debug("[SELECTWHAT]", "Opening file dialog.");
+            Debug("SELECTWHAT", "Opening file dialog.");
             OpenFileDialog what = new OpenFileDialog();
+            what.FileName = "";
+            what.RestoreDirectory = true;
+            what.Multiselect = false;
+            what.DefaultExt = ".ipsw";
             what.Filter = "Apple Firmware Files|*.ipsw";
-            what.CheckFileExists = true;
             what.ShowDialog();
-            Debug("[SELECTWHAT]", "Closing file dialog.");
-            if (!String.IsNullOrWhiteSpace(what.SafeFileName)) {
+            Debug("SELECTWHAT", "Closing file dialog.");
+            if (!String.IsNullOrWhiteSpace(what.SafeFileName))
+            {
                 textWhatAmIFileName.Text = what.SafeFileName;
             }
         }
-
         private void btnWhatAmI_Click(object sender, RoutedEventArgs e)
         {
-            // TODO: Open the archive and parse the Restore.plist file
-            //   If it doesn't exist, use the filename
+            // What we should do is open the archive and parse the Restore.plist file
             string[] strArr;
+            string device;
+            string version;
+            string build;
 
             if (String.IsNullOrWhiteSpace(textWhatAmIFileName.Text))
+            {
                 return;
+            }
 
             strArr = textWhatAmIFileName.Text.Split('_');
-            if (strArr.Length != 4 || strArr[3] != "Restore.ipsw") {
+            if (strArr.Length != 4)
+            {
                 MessageBox.Show(
                     "The supplied IPSW File that was given is not in the following format:\r\n" +
-                        "\t{DEVICE}_{VERSION}_{BUILD}_Restore.ipsw",
+                        "{DEVICE}_{VERSION}_{BUILD}_Restore.ipsw",
                     "iDecryptIt",
                     MessageBoxButton.OK,
                     MessageBoxImage.Error);
                 return;
             }
-
-            string device;
-            if (!GlobalVars.DeviceNames.TryGetValue(strArr[0], out device)) {
+            if (strArr[3] != "Restore.ipsw")
+            {
                 MessageBox.Show(
-                    "The supplied device: '" + strArr[0] + "' does not follow the format:\r\n" +
-                        "\t{iPad/iPhone/iPad/AppleTV}{#},{#} " +
-                        "or is not supported at the moment.",
+                    "The supplied IPSW File that was given is not in the following format:\r\n" +
+                        "{DEVICE}_{VERSION}_{BUILD}_Restore.ipsw",
                     "iDecryptIt",
                     MessageBoxButton.OK,
                     MessageBoxImage.Error);
                 return;
             }
 
-            string version = strArr[1];
-            if (strArr[0][0] == 'A') {
-                string temp = BuildToAppleTVVersion(strArr[0], strArr[2]);
-                if (temp != null)
-                    version = temp;
+            device = strArr[0];
+            version = strArr[1];
+            build = strArr[2];
+            // TODO: Replace this with a dictionary
+            #region Device Switch
+            switch (device)
+            {
+                case "iPad1,1":
+                    device = "iPad 1G";
+                    break;
+                case "iPad2,1":
+                    device = "iPad 2 Wi-Fi";
+                    break;
+                case "iPad2,2":
+                    device = "iPad 2 GSM";
+                    break;
+                case "iPad2,3":
+                    device = "iPad 2 CDMA";
+                    break;
+                case "iPad2,4":
+                    device = "iPad 2 Wi-Fi (Rev A)";
+                    break;
+                case "iPad2,5":
+                    device = "iPad mini 1G Wi-Fi";
+                    break;
+                case "iPad2,6":
+                    device = "iPad mini 1G GSM";
+                    break;
+                case "iPad2,7":
+                    device = "iPad mini 1G Global";
+                    break;
+                case "iPad3,1":
+                    device = "iPad 3 Wi-Fi";
+                    break;
+                case "iPad3,2":
+                    device = "iPad 3 CDMA";
+                    break;
+                case "iPad3,3":
+                    device = "iPad 3 Global";
+                    break;
+                case "iPad3,4":
+                    device = "iPad 4 Wi-Fi";
+                    break;
+                case "iPad3,5":
+                    device = "iPad 4 GSM";
+                    break;
+                case "iPad3,6":
+                    device = "iPad 4 Global";
+                    break;
+                case "iPhone1,1":
+                    device = "iPhone 2G";
+                    break;
+                case "iPhone1,2":
+                    device = "iPhone 3G";
+                    break;
+                case "iPhone2,1":
+                    device = "iPhone 3GS";
+                    break;
+                case "iPhone3,1":
+                    device = "iPhone 4 GSM";
+                    break;
+                case "iPhone3,2":
+                    device = "iPhone 4 GSM (Rev A)";
+                    break;
+                case "iPhone3,3":
+                    device = "iPhone 4 CDMA";
+                    break;
+                case "iPhone4,1":
+                    device = "iPhone 4S";
+                    break;
+                case "iPhone5,1":
+                    device = "iPhone 5 GSM";
+                    break;
+                case "iPhone5,2":
+                    device = "iPhone 5 Global";
+                    break;
+                case "iPhone5,3":
+                    device = "iPhone 5c GSM";
+                    break;
+                case "iPhone5,4":
+                    device = "iPhone 5c Global";
+                    break;
+                case "iPhone6,1":
+                    device = "iPhone 5s GSM";
+                    break;
+                case "iPhone6,2":
+                    device = "iPhone 5s Global";
+                    break;
+                case "iPod1,1":
+                    device = "iPod touch 1G";
+                    break;
+                case "iPod2,1":
+                    device = "iPod touch 2G";
+                    break;
+                case "iPod3,1":
+                    device = "iPod touch 3G";
+                    break;
+                case "iPod4,1":
+                    device = "iPod touch 4G";
+                    break;
+                case "iPod5,1":
+                    device = "iPod touch 5G";
+                    break;
+                case "AppleTV2,1":
+                    device = "Apple TV 2G";
+                    #region Apple TV 2G
+                    switch (build)
+                    {
+                        case "8M89":
+                            version = "4.0/4.1";
+                            break;
+                        case "8C150":
+                            version = "4.1/4.2";
+                            break;
+                        case "8C154":
+                            version = "4.1.1/4.2.1";
+                            break;
+                        case "8F5148c":
+                        case "8F5153d":
+                        case "8F5166b":
+                        case "8F191m":
+                            version = "4.2/4.3";
+                            break;
+                        case "8F202":
+                            version = "4.2.1/4.3";
+                            break;
+                        case "8F305":
+                            version = "4.2.2/4.3";
+                            break;
+                        case "8F455":
+                            version = "4.3";
+                            break;
+                        case "9A5220p":
+                        case "9A5248d":
+                        case "9A5259f":
+                        case "9A5288d":
+                        case "9A5302b":
+                        case "9A5313e":
+                        case "9A334v":
+                            version = "4.4/5.0";
+                            break;
+                        case "9A335a":
+                            version = "4.4.1/5.0";
+                            break;
+                        case "9A336a":
+                            version = "4.4.2/5.0";
+                            break;
+                        case "9A405l":
+                            version = "4.4.3/5.0.1";
+                            break;
+                        case "9A406a":
+                            version = "4.4.4/5.0.1";
+                            break;
+                        case "9B5127c":
+                        case "9B5141a":
+                        case "9B179b":
+                            version = "5.0/5.1";
+                            break;
+                        case "9B206f":
+                            version = "5.0.1/5.1";
+                            break;
+                        case "9B830":
+                            version = "5.0.2/5.1";
+                            break;
+                        case "10A5316k":
+                        case "10A5338d":
+                        case "10A5355d":
+                        case "10A5376e":
+                        case "10A406e":
+                            version = "5.1/6.0";
+                            break;
+                        case "10B5105c":
+                        case "10B5117b":
+                        case "10B5126b":
+                        case "10B144b":
+                            version = "5.2/6.1";
+                            break;
+                        case "10B329a":
+                            version = "5.2.1/6.1.3";
+                            break;
+                        case "10B809":
+                            version = "5.3/6.1.4";
+                            break;
+                        case "11A4372q":
+                        case "11A4400f":
+                            version = "5.4/6.0";
+                            break;
+                        case "11A4435d":
+                        case "11A4449a":
+                            version = "6.0/7.0";
+                            break;
+                        case "11A470e":
+                            version = "6.0/7.0.1";
+                            break;
+                        case "11A502":
+                            version = "6.0/7.0.2";
+                            break;
+                    }
+                    #endregion
+                    break;
+                case "AppleTV3,1":
+                    device = "Apple TV 3G";
+                    #region Apple TV 3G
+                    switch (build)
+                    {
+                        case "9B179b":
+                            version = "5.0/5.1";
+                            break;
+                        case "9B206f":
+                            version = "5.0.1/5.1";
+                            break;
+                        case "9B830":
+                            version = "5.0.2/5.1";
+                            break;
+                        case "10A5316k":
+                        case "10A5338d":
+                        case "10A5355d":
+                        case "10A5376e":
+                        case "10A406e":
+                            version = "5.1/6.0";
+                            break;
+                        case "10B5105c":
+                        case "10B5117b":
+                        case "10B5126b":
+                        case "10B144b":
+                            version = "5.2/6.1";
+                            break;
+                        case "10B329a":
+                            version = "5.2.1/6.1.3";
+                            break;
+                        case "10B809":
+                            version = "5.3/6.1.4";
+                            break;
+                        case "11A4372q":
+                        case "11A4400f":
+                            version = "5.4/6.0";
+                            break;
+                        case "11A4435d":
+                        case "11A4449a":
+                            version = "6.0/7.0";
+                            break;
+                        case "11A470e":
+                            version = "6.0/7.0.1";
+                            break;
+                        case "11A502":
+                            version = "6.0/7.0.2";
+                            break;
+                    }
+                    #endregion
+                    break;
+                case "AppleTV3,2":
+                    device = "Apple TV 3G (Rev A)";
+                    #region Apple TV 3G Rev A
+                    switch (build)
+                    {
+                        case "10B144b":
+                            version = "5.2/6.1";
+                            break;
+                        case "10B329a":
+                            version = "5.2.1/6.1.3";
+                            break;
+                        case "10B809":
+                            version = "5.3/6.1.4";
+                            break;
+                        case "11A4372q":
+                        case "11A4400f":
+                            version = "5.4/6.0";
+                            break;
+                        case "11A4435d":
+                        case "11A4449a":
+                            version = "6.0/7.0";
+                            break;
+                        case "11A470e":
+                            version = "6.0/7.0.1";
+                            break;
+                        case "11A502":
+                            version = "6.0/7.0.2";
+                            break;
+                    }
+                    #endregion
+                    break;
+                default:
+                    MessageBox.Show(
+                        "The supplied device: '" + device + "' does not follow the format:\r\n" +
+                            "\t{iPad/iPhone/iPad/AppleTV}{#},{#}" +
+                            "or is not supported at the moment.",
+                        "iDecryptIt",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error);
+                    return;
             }
-
+            #endregion
             MessageBox.Show(
                 "Device: " + device + "\r\n" +
                     "Version: " + version + "\r\n" +
-                    "Build: " + strArr[2],
+                    "Build: " + build,
                 "iDecryptIt",
                 MessageBoxButton.OK,
                 MessageBoxImage.Information);
         }
-        private string BuildToAppleTVVersion(string device, string build)
+        private void textInputFileName_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (device != "AppleTV2,1" && device != "AppleTV3,1" && device != "AppleTV3,2")
-                return null;
-
-            switch (build) {
-                case "8M89":
-                    return "4.0/4.1";
-                case "8C150":
-                    return "4.1/4.2";
-                case "8C154":
-                    return "4.1.1/4.2.1";
-                case "8F5148c":
-                case "8F5153d":
-                case "8F5166b":
-                case "8F191m":
-                    return "4.2/4.3";
-                case "8F202":
-                    return "4.2.1/4.3";
-                case "8F305":
-                    return "4.2.2/4.3";
-                case "8F455":
-                    return "4.3";
-                case "9A5220p":
-                case "9A5248d":
-                case "9A5259f":
-                case "9A5288d":
-                case "9A5302b":
-                case "9A5313e":
-                case "9A334v":
-                    return "4.4/5.0";
-                case "9A335a":
-                    return "4.4.1/5.0";
-                case "9A336a":
-                    return "4.4.2/5.0";
-                case "9A405l":
-                    return "4.4.3/5.0.1";
-                case "9A406a":
-                    return "4.4.4/5.0.1";
-                case "9B5127c":
-                case "9B5141a":
-                    return "5.0/5.1";
-                case "9B179b": // AppleTV3,1 introduced
-                    return "5.0/5.1";
-                case "9B206f":
-                    return "5.0.1/5.1";
-                case "9B830":
-                    return "5.0.2/5.1";
-                case "10A5316k":
-                case "10A5338d":
-                case "10A5355d":
-                case "10A5376e":
-                case "10A406e":
-                    return "5.1/6.0";
-                case "10A831":
-                    return "5.1.1/6.0.1";
-                case "10B5105c":
-                case "10B5117b":
-                case "10B5126b":
-                    return "5.2/6.1";
-                case "10B144b": // AppleTV3,2 introduced
-                    return "5.2/6.1";
-                case "10B329a":
-                    return "5.2.1/6.1.3";
-                case "10B809":
-                    return "5.3/6.1.4";
-                case "11A4372q":
-                case "11A4400f":
-                    return "5.4/6.0";
-                case "11A4435d":
-                case "11A4449a":
-                    return "6.0/7.0";
-                case "11A470e":
-                    return "6.0/7.0.1";
-                case "11A502":
-                    return "6.0/7.0.2";
-                case "11B511d":
-                    return "6.0.1/7.0.3";
-                case "11B554a":
-                    return "6.0.2/7.0.4";
-                case "11B651":
-                    return "6.0.2/7.0.6";
-                case "11D5099e":
-                case "11D5115d":
-                case "11D5127c":
-                case "11D5134c":
-                case "11D5145e":
-                case "11D169b":
-                    return "6.1/7.1";
-                case "11D201c":
-                    return "6.1.1/7.1.1";
-                case "11D257c":
-                    return "6.2/7.1.2";
-                case "11D258": // AppleTV2,1 exclusive
-                    return "6.2.1/7.1.2";
-                case "12A4297e": // AppleTV2,1 dropped
-                case "12A4318c":
-                case "12A4331d":
-                case "12A4345d":
-                case "12A365b":
-                    return "7.0/8.0";
-                case "12B401":
-                case "12B407":
-                case "12B410a":
-                    return "7.0.1/8.1";
+            string[] split = textInputFileName.Text.Split('\\');
+            int length = split.Length;
+            string lastIndex = split[length - 1];
+            string returntext = null;
+            for (int i = 0; i < length; i++)
+            {
+                if (i == 0)
+                {
+                    returntext = split[0];
+                }
+                else if (i == length - 1)
+                {
+                    returntext = Path.Combine(
+                        returntext,
+                        lastIndex.Substring(0, lastIndex.Length - 4) + "_decrypted.dmg");
+                }
+                else
+                {
+                    returntext = Path.Combine(returntext, split[i]);
+                }
             }
-            return null;
+            textOutputFileName.Text = returntext;
         }
-
-        private void cmbDeviceDropDown_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void key_Click(object sender, RoutedEventArgs e)
         {
-            if (e.AddedItems.Count == 0)
+            // Remove "btn", then split
+            string[] value = ((MenuItem)sender).Name.Substring(3).Split('_');
+            /*bool gm = value[1].Contains("GM");
+            if (gm)
+            {
+                // remove GM
+                value[1] = value[1].Substring(0, value[1].Length - 2);
+            }*/
+
+            // Add ',' between the two digits
+            int length = value[0].Length - 1; // -1 for last digit (char)
+            value[0] = value[0].Substring(0, length) + "," + value[0][length];
+
+            // Load key page
+            Stream stream = GetStream(value[0] + "_" + value[1] + ".plist");
+            if (stream == Stream.Null)
+            {
+                MessageBox.Show(
+                    "Sorry, but that version doesn't have any published keys.",
+                    "iDecryptIt",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
                 return;
-
-            ComboBoxEntry entry = (ComboBoxEntry)e.AddedItems[0];
-            Debug("[KEYSELECT]", "Selected device changed: \"" + entry.ID + "\".");
-
-            selectedDevice = entry.ID;
-
-            selectedModel = null;
-            cmbModelDropDown.IsEnabled = true;
-            cmbModelDropDown.ItemsSource = KeySelectionLists.ProductsHelper[entry.ID];
-
-            selectedVersion = null;
-            cmbVersionDropDown.IsEnabled = false;
-            cmbVersionDropDown.ItemsSource = null;
+            }
+            LoadKey(stream, false); // gm);
         }
-        private void cmbModelDropDown_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void keySelect_Click(object sender, RoutedEventArgs e)
         {
-            if (e.AddedItems.Count == 0)
-                return;
-
-            ComboBoxEntry entry = (ComboBoxEntry)e.AddedItems[0];
-            Debug("[KEYSELECT]", "Selected model changed: \"" + entry.ID + "\".");
-
-            selectedModel = entry.ID;
-
-            selectedVersion = null;
-            cmbVersionDropDown.IsEnabled = true;
-            cmbVersionDropDown.ItemsSource = KeySelectionLists.ModelsHelper[entry.ID];
-        }
-        private void cmbVersionDropDown_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (e.AddedItems.Count == 0)
-                return;
-
-            ComboBoxEntry entry = (ComboBoxEntry)e.AddedItems[0];
-
-            Debug("[KEYSELECT]", "Selected version changed: \"" + entry.ID + "\".");
-
-            selectedVersion = entry.ID;
+            Button button = (Button)sender;
+            ContextMenu menu = button.ContextMenu;
+            menu.IsEnabled = true;
+            menu.Placement = PlacementMode.Bottom;
+            menu.PlacementTarget = button;
+            menu.IsOpen = true;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            if (GlobalVars.ExecutionArgs.ContainsKey("dmg")) {
-                string fileName = GlobalVars.ExecutionArgs["dmg"];
-                Debug("[INIT]", "File argument supplied: \"" + fileName + "\".");
-                textInputFileName.Text = fileName;
+            // Find a temp directory
+            Debug("INIT", "Finding a temp directory.");
+            tempdir = Path.Combine(
+                Path.GetTempPath(),
+                "Hexware",
+                "iDecryptIt_" + new Random().Next(0, Int32.MaxValue).ToString("X")) + "\\";
+
+            if (!Directory.Exists(tempdir))
+            {
+                Directory.CreateDirectory(tempdir);
             }
 
-            Debug("[UPDATE]", "Checking for updates.");
-            try {
-                WebClient updateChecker = new WebClient();
-                updateChecker.DownloadStringCompleted += updateChecker_DownloadStringCompleted;
-                updateChecker.DownloadStringAsync(new Uri(
-                    @"http://theiphonewiki.com/w/index.php?title=User:5urd/Latest_stable_software_release/iDecryptIt&action=raw"));
-            } catch (Exception) { }
-        }
-        private void Window_Closing(object sender, CancelEventArgs e)
-        {
-            Debug("[DEINIT]", "Closing.");
-            Thread.Sleep(500);
-            Application.Current.Shutdown();
-        }
-        private void updateChecker_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
-        {
-            if (e.Result != null) {
-                Debug("[UPDATE]", "Installed version: " + GlobalVars.Version);
-                Debug("[UPDATE]", "Latest version: " + e.Result);
+            // Check for updates
+            Debug("INIT", "Checking for updates.");
+            try
+            {
+                WebClient webClient = new WebClient();
+                webClient.DownloadFile(
+                    @"http://theiphonewiki.com/w/index.php?title=User:5urd/Latest_stable_software_release/iDecryptIt&action=raw",
+                    tempdir + "update.txt");
+                webClient.Dispose();
 
-#if !DEBUG
-                if (e.Result != GlobalVars.Version)
+                string version = File.ReadAllText(tempdir + "update.txt");
+                Debug("INIT", "Installed version: " + GlobalVars.Version);
+                Debug("INIT", "Latest version: " + version);
+                if (version != GlobalVars.Version)
                 {
                     MessageBox.Show(
                         "Update Available.",
@@ -1092,13 +1852,24 @@ namespace Hexware.Programs.iDecryptIt
                         MessageBoxButton.OK,
                         MessageBoxImage.Information);
                 }
-#endif
+            }
+            catch (Exception)
+            {
+            }
+
+            // Passed argument (see console portion)
+            Debug("INIT", "Checking for program argument.");
+            if (GlobalVars.ExecutionArgs.ContainsKey("dmg"))
+            {
+                textInputFileName.Text = (string)GlobalVars.ExecutionArgs["dmg"];
             }
         }
-
-        private void Dispatcher_UnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        private void Window_Closing(object sender, CancelEventArgs e)
         {
-            FatalError("An unknown error has occured.", e.Exception);
+            Debug("DEINIT", "Closing.");
+            Cleanup();
+            Thread.Sleep(500);
+            Application.Current.Shutdown();
         }
     }
 }

@@ -7,31 +7,27 @@
 		<key>Build</key>
 		<string>4A102</string>
 		<key>Device</key>
-		<string>iPod1,1</string>
+		<string>iPod touch 1G</string>
 		<key>Codename</key>
 		<string>Little Bear</string>
-		<key>Download URL</key>
+		<key>Download</key>
 		<string>http://appldnld.apple.com.edgesuite.net/content.info.apple.com/iPod/SBML/osx/bundles/061-4312.20080226.Btu45/iPod1,1_1.1.4_4A102_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>
-			<string>022-3893-4.dmg</string>
+			<string>022-3893-4</string>
 			<key>Key</key>
 			<string>d0a0c0977bd4b6350b256d6650ec9eca419b6f961f593e74b7e5b93e010b698ca6cca1fe</string>
 		</dict>
 		<key>Update Ramdisk</key>
 		<dict>
 			<key>File Name</key>
-			<string>022-3896-4.dmg</string>
-			<key>Encryption</key>
-			<false />
+			<string>022-3896-4</string>
 		</dict>
 		<key>Restore Ramdisk</key>
 		<dict>
 			<key>File Name</key>
-			<string>022-3900-4.dmg</string>
-			<key>Encryption</key>
-			<false />
+			<string>022-3900-4</string>
 		</dict>
 	</dict>
 </plist>

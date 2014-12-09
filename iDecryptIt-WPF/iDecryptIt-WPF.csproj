@@ -16,7 +16,7 @@
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <ApplicationIcon>icon.ico</ApplicationIcon>
+    <ApplicationIcon>app.ico</ApplicationIcon>
     <StartupObject>Hexware.Programs.iDecryptIt.Program</StartupObject>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
@@ -28,8 +28,8 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>1464</ApplicationRevision>
-    <ApplicationVersion>8.11.0.1464</ApplicationVersion>
+    <ApplicationRevision>1230</ApplicationRevision>
+    <ApplicationVersion>7.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -44,7 +44,6 @@
     <DebugSymbols>true</DebugSymbols>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -57,7 +56,6 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <PlatformTarget>x64</PlatformTarget>
@@ -70,7 +68,6 @@
     <DebugSymbols>true</DebugSymbols>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <PlatformTarget>x64</PlatformTarget>
@@ -83,13 +80,12 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>Hexware.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>iDecryptIt.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
@@ -114,8 +110,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="icon.ico" />
-    <Resource Include="Images\logviewer_32.png" />
+    <Reference Include="Hexware.Plist">
+      <HintPath>Resources\Hexware.Plist.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Windows.Shell, Version=3.5.41019.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -137,17 +135,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ComboBoxEntry.cs" />
     <Compile Include="GlobalVars.cs" />
-    <Compile Include="KeySelectionLists.cs" />
-    <Compile Include="KeySelectionViewModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="SubmitKey.xaml.cs">
+      <DependentUpon>SubmitKey.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -161,23 +164,42 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="SubmitKey.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <None Include="app.config" />
     <AppDesigner Include="Properties\" />
-    <None Include="Hexware.pfx" />
+    <None Include="iDecryptIt.snk" />
     <None Include="LICENSE">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Licenses\7z\license.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Licenses\Hexware.Plist\COPYING">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Licenses\xpwn\LICENSE">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Resource Include="Images\changes-allow_32.png" />
-    <Resource Include="Images\dialog-password_32.png" />
+    <Resource Include="Images\appicon.ico" />
+    <Resource Include="Images\dmg.png" />
+    <Resource Include="Images\Gnome-logviewer_16.png" />
+    <Resource Include="Images\Gnome-logviewer_32.png" />
     <Resource Include="Images\Help-browser_32.png" />
-    <Resource Include="Images\icon_16.png" />
-    <Resource Include="Images\icon_32.png" />
-    <Resource Include="Images\icon_48.png" />
-    <Resource Include="Images\icon_256.png" />
+    <Resource Include="Images\idecryptit_16.png" />
+    <Resource Include="Images\idecryptit_256.png" />
+    <Resource Include="Images\idecryptit_32.png" />
+    <Resource Include="Images\idecryptit_48.png" />
+    <Resource Include="Images\System-users_32.png" />
+    <Resource Include="Images\Unlocked_32.png" />
+    <Resource Include="app.ico" />
     <None Include="7z.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -190,15 +212,20 @@
     <Content Include="help\changelog.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="help\GNU GPL v3 logo.png">
+    <Content Include="help\images\GNU GPL 3 Logo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="help\iDecryptIt icon.png">
+    <Content Include="help\images\icon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="help\readme.html">
+    <Content Include="help\images\icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="help\README.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Include="keys\AppleTV2,1_8C150.plist" />
     <EmbeddedResource Include="keys\AppleTV2,1_8C154.plist" />
     <EmbeddedResource Include="keys\AppleTV2,1_8F191m.plist" />
@@ -221,13 +248,6 @@
     <EmbeddedResource Include="keys\AppleTV2,1_10B809.plist" />
     <EmbeddedResource Include="keys\AppleTV2,1_11A470e.plist" />
     <EmbeddedResource Include="keys\AppleTV2,1_11A502.plist" />
-    <EmbeddedResource Include="keys\AppleTV2,1_11B511d.plist" />
-    <EmbeddedResource Include="keys\AppleTV2,1_11B554a.plist" />
-    <EmbeddedResource Include="keys\AppleTV2,1_11B651.plist" />
-    <EmbeddedResource Include="keys\AppleTV2,1_11D169b.plist" />
-    <EmbeddedResource Include="keys\AppleTV2,1_11D201c.plist" />
-    <EmbeddedResource Include="keys\AppleTV2,1_11D257c.plist" />
-    <EmbeddedResource Include="keys\AppleTV2,1_11D258.plist" />
     <EmbeddedResource Include="keys\iPad1,1_7B367.plist" />
     <EmbeddedResource Include="keys\iPad1,1_7B405.plist" />
     <EmbeddedResource Include="keys\iPad1,1_7B500.plist" />
@@ -242,79 +262,22 @@
     <EmbeddedResource Include="keys\iPad1,1_9A405.plist" />
     <EmbeddedResource Include="keys\iPad1,1_9B176.plist" />
     <EmbeddedResource Include="keys\iPad1,1_9B206.plist" />
-    <EmbeddedResource Include="keys\iPad2,1_8F191.plist" />
     <EmbeddedResource Include="keys\iPad2,1_8G4.plist" />
     <EmbeddedResource Include="keys\iPad2,1_8H7.plist" />
     <EmbeddedResource Include="keys\iPad2,1_8J2.plist" />
     <EmbeddedResource Include="keys\iPad2,1_8K2.plist" />
     <EmbeddedResource Include="keys\iPad2,1_8L1.plist" />
-    <EmbeddedResource Include="keys\iPad2,1_9A334.plist" />
-    <EmbeddedResource Include="keys\iPad2,1_9A405.plist" />
-    <EmbeddedResource Include="keys\iPad2,1_9B176.plist" />
-    <EmbeddedResource Include="keys\iPad2,1_9B206.plist" />
-    <EmbeddedResource Include="keys\iPad2,1_10A403.plist" />
-    <EmbeddedResource Include="keys\iPad2,1_10A523.plist" />
-    <EmbeddedResource Include="keys\iPad2,1_10B141.plist" />
-    <EmbeddedResource Include="keys\iPad2,1_10B146.plist" />
-    <EmbeddedResource Include="keys\iPad2,1_10B329.plist" />
-    <EmbeddedResource Include="keys\iPad2,1_11A465.plist" />
-    <EmbeddedResource Include="keys\iPad2,1_11A501.plist" />
-    <EmbeddedResource Include="keys\iPad2,1_11B511.plist" />
-    <EmbeddedResource Include="keys\iPad2,1_11B554a.plist" />
-    <EmbeddedResource Include="keys\iPad2,1_11B651.plist" />
-    <EmbeddedResource Include="keys\iPad2,1_11D167.plist" />
-    <EmbeddedResource Include="keys\iPad2,1_11D201.plist" />
-    <EmbeddedResource Include="keys\iPad2,1_11D257.plist" />
-    <EmbeddedResource Include="keys\iPad2,1_12A365.plist" />
-    <EmbeddedResource Include="keys\iPad2,2_8F191.plist" />
     <EmbeddedResource Include="keys\iPad2,2_8G4.plist" />
     <EmbeddedResource Include="keys\iPad2,2_8H7.plist" />
     <EmbeddedResource Include="keys\iPad2,2_8J2.plist" />
     <EmbeddedResource Include="keys\iPad2,2_8K2.plist" />
     <EmbeddedResource Include="keys\iPad2,2_8L1.plist" />
-    <EmbeddedResource Include="keys\iPad2,2_9A334.plist" />
-    <EmbeddedResource Include="keys\iPad2,2_9A405.plist" />
-    <EmbeddedResource Include="keys\iPad2,2_9B176.plist" />
-    <EmbeddedResource Include="keys\iPad2,2_9B206.plist" />
-    <EmbeddedResource Include="keys\iPad2,2_10A403.plist" />
-    <EmbeddedResource Include="keys\iPad2,2_10A523.plist" />
-    <EmbeddedResource Include="keys\iPad2,2_10B141.plist" />
-    <EmbeddedResource Include="keys\iPad2,2_10B146.plist" />
-    <EmbeddedResource Include="keys\iPad2,2_10B329.plist" />
-    <EmbeddedResource Include="keys\iPad2,2_11A465.plist" />
-    <EmbeddedResource Include="keys\iPad2,2_11A501.plist" />
-    <EmbeddedResource Include="keys\iPad2,2_11B511.plist" />
-    <EmbeddedResource Include="keys\iPad2,2_11B554a.plist" />
-    <EmbeddedResource Include="keys\iPad2,2_11B651.plist" />
-    <EmbeddedResource Include="keys\iPad2,2_11D167.plist" />
-    <EmbeddedResource Include="keys\iPad2,2_11D201.plist" />
-    <EmbeddedResource Include="keys\iPad2,2_11D257.plist" />
-    <EmbeddedResource Include="keys\iPad2,2_12A365.plist" />
-    <EmbeddedResource Include="keys\iPad2,3_8F191.plist" />
     <EmbeddedResource Include="keys\iPad2,3_8G4.plist" />
+    <EmbeddedResource Include="keys\iPad2,3_8H7.plist" />
     <EmbeddedResource Include="keys\iPad2,3_8H8.plist" />
     <EmbeddedResource Include="keys\iPad2,3_8J2.plist" />
     <EmbeddedResource Include="keys\iPad2,3_8K2.plist" />
     <EmbeddedResource Include="keys\iPad2,3_8L1.plist" />
-    <EmbeddedResource Include="keys\iPad2,3_9A334.plist" />
-    <EmbeddedResource Include="keys\iPad2,3_9A405.plist" />
-    <EmbeddedResource Include="keys\iPad2,3_9B176.plist" />
-    <EmbeddedResource Include="keys\iPad2,3_9B206.plist" />
-    <EmbeddedResource Include="keys\iPad2,3_10A403.plist" />
-    <EmbeddedResource Include="keys\iPad2,3_10A523.plist" />
-    <EmbeddedResource Include="keys\iPad2,3_10B141.plist" />
-    <EmbeddedResource Include="keys\iPad2,3_10B146.plist" />
-    <EmbeddedResource Include="keys\iPad2,3_10B329.plist" />
-    <EmbeddedResource Include="keys\iPad2,3_11A465.plist" />
-    <EmbeddedResource Include="keys\iPad2,3_11A501.plist" />
-    <EmbeddedResource Include="keys\iPad2,3_11B511.plist" />
-    <EmbeddedResource Include="keys\iPad2,3_11B554a.plist" />
-    <EmbeddedResource Include="keys\iPad2,3_11B651.plist" />
-    <EmbeddedResource Include="keys\iPad2,3_11D167.plist" />
-    <EmbeddedResource Include="keys\iPad2,3_11D201.plist" />
-    <EmbeddedResource Include="keys\iPad2,3_11D257.plist" />
-    <EmbeddedResource Include="keys\iPad2,3_12A365.plist" />
-    <EmbeddedResource Include="keys\iPad3,1_12A365.plist" />
     <EmbeddedResource Include="keys\iPhone1,1_1A543a.plist" />
     <EmbeddedResource Include="keys\iPhone1,1_1C25.plist" />
     <EmbeddedResource Include="keys\iPhone1,1_1C28.plist" />
@@ -374,7 +337,6 @@
     <EmbeddedResource Include="keys\iPhone2,1_10B141.plist" />
     <EmbeddedResource Include="keys\iPhone2,1_10B146.plist" />
     <EmbeddedResource Include="keys\iPhone2,1_10B329.plist" />
-    <EmbeddedResource Include="keys\iPhone2,1_10B500.plist" />
     <EmbeddedResource Include="keys\iPhone3,1_8A293.plist" />
     <EmbeddedResource Include="keys\iPhone3,1_8A306.plist" />
     <EmbeddedResource Include="keys\iPhone3,1_8A400.plist" />
@@ -398,12 +360,6 @@
     <EmbeddedResource Include="keys\iPhone3,1_10B329.plist" />
     <EmbeddedResource Include="keys\iPhone3,1_11A465.plist" />
     <EmbeddedResource Include="keys\iPhone3,1_11A501.plist" />
-    <EmbeddedResource Include="keys\iPhone3,1_11B511.plist" />
-    <EmbeddedResource Include="keys\iPhone3,1_11B554a.plist" />
-    <EmbeddedResource Include="keys\iPhone3,1_11B651.plist" />
-    <EmbeddedResource Include="keys\iPhone3,1_11D169.plist" />
-    <EmbeddedResource Include="keys\iPhone3,1_11D201.plist" />
-    <EmbeddedResource Include="keys\iPhone3,1_11D257.plist" />
     <EmbeddedResource Include="keys\iPhone3,2_10A403.plist" />
     <EmbeddedResource Include="keys\iPhone3,2_10A523.plist" />
     <EmbeddedResource Include="keys\iPhone3,2_10B144.plist" />
@@ -411,12 +367,6 @@
     <EmbeddedResource Include="keys\iPhone3,2_10B329.plist" />
     <EmbeddedResource Include="keys\iPhone3,2_11A465.plist" />
     <EmbeddedResource Include="keys\iPhone3,2_11A501.plist" />
-    <EmbeddedResource Include="keys\iPhone3,2_11B511.plist" />
-    <EmbeddedResource Include="keys\iPhone3,2_11B554a.plist" />
-    <EmbeddedResource Include="keys\iPhone3,2_11B651.plist" />
-    <EmbeddedResource Include="keys\iPhone3,2_11D169.plist" />
-    <EmbeddedResource Include="keys\iPhone3,2_11D201.plist" />
-    <EmbeddedResource Include="keys\iPhone3,2_11D257.plist" />
     <EmbeddedResource Include="keys\iPhone3,3_8E200.plist" />
     <EmbeddedResource Include="keys\iPhone3,3_8E303.plist" />
     <EmbeddedResource Include="keys\iPhone3,3_8E401.plist" />
@@ -433,33 +383,7 @@
     <EmbeddedResource Include="keys\iPhone3,3_10B329.plist" />
     <EmbeddedResource Include="keys\iPhone3,3_11A465.plist" />
     <EmbeddedResource Include="keys\iPhone3,3_11A501.plist" />
-    <EmbeddedResource Include="keys\iPhone3,3_11B511.plist" />
-    <EmbeddedResource Include="keys\iPhone3,3_11B554a.plist" />
-    <EmbeddedResource Include="keys\iPhone3,3_11B651.plist" />
-    <EmbeddedResource Include="keys\iPhone3,3_11D167.plist" />
-    <EmbeddedResource Include="keys\iPhone3,3_11D201.plist" />
-    <EmbeddedResource Include="keys\iPhone3,3_11D257.plist" />
-    <EmbeddedResource Include="keys\iPhone4,1_9A334.plist" />
-    <EmbeddedResource Include="keys\iPhone4,1_9A405.plist" />
     <EmbeddedResource Include="keys\iPhone4,1_9A406.plist" />
-    <EmbeddedResource Include="keys\iPhone4,1_9B179.plist" />
-    <EmbeddedResource Include="keys\iPhone4,1_9B206.plist" />
-    <EmbeddedResource Include="keys\iPhone4,1_10A403.plist" />
-    <EmbeddedResource Include="keys\iPhone4,1_10A523.plist" />
-    <EmbeddedResource Include="keys\iPhone4,1_10B142.plist" />
-    <EmbeddedResource Include="keys\iPhone4,1_10B145.plist" />
-    <EmbeddedResource Include="keys\iPhone4,1_10B146.plist" />
-    <EmbeddedResource Include="keys\iPhone4,1_10B329.plist" />
-    <EmbeddedResource Include="keys\iPhone4,1_11A465.plist" />
-    <EmbeddedResource Include="keys\iPhone4,1_11A501.plist" />
-    <EmbeddedResource Include="keys\iPhone4,1_11B511.plist" />
-    <EmbeddedResource Include="keys\iPhone4,1_11B554a.plist" />
-    <EmbeddedResource Include="keys\iPhone4,1_11B651.plist" />
-    <EmbeddedResource Include="keys\iPhone4,1_11D167.plist" />
-    <EmbeddedResource Include="keys\iPhone4,1_11D201.plist" />
-    <EmbeddedResource Include="keys\iPhone4,1_11D257.plist" />
-    <EmbeddedResource Include="keys\iPhone4,1_12A365.plist" />
-    <EmbeddedResource Include="keys\iPhone4,1_12B411.plist" />
     <EmbeddedResource Include="keys\iPod1,1_3A110a.plist" />
     <EmbeddedResource Include="keys\iPod1,1_3B48b.plist" />
     <EmbeddedResource Include="keys\iPod1,1_4A102.plist" />
@@ -522,15 +446,15 @@
     <EmbeddedResource Include="keys\iPod4,1_10B144.plist" />
     <EmbeddedResource Include="keys\iPod4,1_10B146.plist" />
     <EmbeddedResource Include="keys\iPod4,1_10B329.plist" />
-    <EmbeddedResource Include="keys\iPod4,1_10B400.plist" />
-    <EmbeddedResource Include="keys\iPod4,1_10B500.plist" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Hexware.Plist\Hexware.Plist.csproj">
-      <Project>{c7d0639f-8a98-441b-b1a6-420df6122573}</Project>
-      <Name>Hexware.Plist</Name>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-    </ProjectReference>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.None.Increment" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

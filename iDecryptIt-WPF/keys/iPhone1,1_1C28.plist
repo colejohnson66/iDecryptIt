@@ -7,26 +7,26 @@
 		<key>Build</key>
 		<string>1C28</string>
 		<key>Device</key>
-		<string>iPhone1,1</string>
+		<string>iPhone 2G</string>
 		<key>Codename</key>
 		<string>SUHeavenlyJuly</string>
 		<key>Baseband</key>
 		<string>03.14.08_G</string>
-		<key>Download URL</key>
+		<key>Download</key>
 		<string>http://appldnld.apple.com.edgesuite.net/content.info.apple.com/iPhone/061-3823.20070821.vormd/iPhone1,1_1.0.2_1C28_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>
-			<string>694-5298-5.dmg</string>
+			<string>694-5298-5</string>
 			<key>Key</key>
 			<string>7d5962d0b582ec2557c2cade50de90f4353a1c1de07b74212513fef9cc71fb890574bfe5</string>
 		</dict>
+		<key>No Update Ramdisk</key>
+		<true />
 		<key>Restore Ramdisk</key>
 		<dict>
 			<key>File Name</key>
-			<string>009-7698-4.dmg</string>
-			<key>Encryption</key>
-			<false />
+			<string>009-7698-4</string>
 		</dict>
 	</dict>
 </plist>

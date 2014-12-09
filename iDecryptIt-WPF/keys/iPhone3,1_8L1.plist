@@ -7,38 +7,34 @@
 		<key>Build</key>
 		<string>8L1</string>
 		<key>Device</key>
-		<string>iPhone3,1</string>
+		<string>iPhone 4 (GSM)</string>
 		<key>Codename</key>
 		<string>Durango</string>
 		<key>Baseband</key>
 		<string>04.10.01</string>
-		<key>Download URL</key>
+		<key>Download</key>
 		<string>http://appldnld.apple.com/iPhone4/041-1966.20110721.V3Ufe/iPhone3,1_4.3.5_8L1_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>
-			<string>038-2288-002.dmg</string>
+			<string>038-2288-002</string>
 			<key>Key</key>
 			<string>e5e061077217c4937e14d9c4ae1eeb8d69827aa4838168033dd5f1806ab485306a8aa3cf</string>
 		</dict>
+		<key>Ramdisk Not Encrypted</key>
+		<true />
 		<key>Update Ramdisk</key>
 		<dict>
 			<key>File Name</key>
-			<string>038-2268-002.dmg</string>
-			<key>Encryption</key>
-			<false />
+			<string>038-2268-002</string>
 		</dict>
 		<key>Restore Ramdisk</key>
 		<dict>
 			<key>File Name</key>
-			<string>038-2265-002.dmg</string>
-			<key>Encryption</key>
-			<false />
+			<string>038-2265-002</string>
 		</dict>
 		<key>AppleLogo</key>
 		<dict>
-			<key>File Name</key>
-			<string>applelogo-640x960.s5l8930x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -46,43 +42,8 @@
 			<key>Key</key>
 			<string>195a152a260fae31fb5085e8736132be44f15973c47330aebcaea3f121713e83</string>
 		</dict>
-		<key>BatteryCharging0</key>
-		<dict>
-			<key>File Name</key>
-			<string>batterycharging0-640x960.s5l8930x.img3</string>
-			<key>Encryption</key>
-			<true />
-			<key>IV</key>
-			<string>e0eca88fc90626854af89ccf158cc01b</string>
-			<key>Key</key>
-			<string>e4591354c42f78141e565c6fd19793a2cd13fc12c037e03263c1f1c75ee23b72</string>
-		</dict>
-		<key>BatteryCharging1</key>
-		<dict>
-			<key>File Name</key>
-			<string>batterycharging1-640x960.s5l8930x.img3</string>
-			<key>Encryption</key>
-			<true />
-			<key>IV</key>
-			<string>17a4af22fd7a3dac1728e1ddc950b1ec</string>
-			<key>Key</key>
-			<string>034ed55fa7d59d08ef5a9e300ea086a10cd5be7f03064a2cfce8e4c256feb23e</string>
-		</dict>
-		<key>BatteryFull</key>
-		<dict>
-			<key>File Name</key>
-			<string>batteryfull-640x960.s5l8930x.img3</string>
-			<key>Encryption</key>
-			<true />
-			<key>IV</key>
-			<string>2f3ab8f159813bf236528a28b5acb151</string>
-			<key>Key</key>
-			<string>4db22a039c6ee7310279faafb41bc9d98a9af5b5dd1420ce00fb2139762eef34</string>
-		</dict>
 		<key>BatteryLow0</key>
 		<dict>
-			<key>File Name</key>
-			<string>batterylow0-640x960.s5l8930x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -92,8 +53,6 @@
 		</dict>
 		<key>BatteryLow1</key>
 		<dict>
-			<key>File Name</key>
-			<string>batterylow1-640x960.s5l8930x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -101,10 +60,35 @@
 			<key>Key</key>
 			<string>caef72aa0ea0d1463017ec04113bb156ef88b7e7a3c48c20543cae6e7115f27d</string>
 		</dict>
+		<key>BatteryCharging0</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>e0eca88fc90626854af89ccf158cc01b</string>
+			<key>Key</key>
+			<string>e4591354c42f78141e565c6fd19793a2cd13fc12c037e03263c1f1c75ee23b72</string>
+		</dict>
+		<key>BatteryCharging1</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>17a4af22fd7a3dac1728e1ddc950b1ec</string>
+			<key>Key</key>
+			<string>034ed55fa7d59d08ef5a9e300ea086a10cd5be7f03064a2cfce8e4c256feb23e</string>
+		</dict>
+		<key>BatteryFull</key>
+		<dict>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>2f3ab8f159813bf236528a28b5acb151</string>
+			<key>Key</key>
+			<string>4db22a039c6ee7310279faafb41bc9d98a9af5b5dd1420ce00fb2139762eef34</string>
+		</dict>
 		<key>DeviceTree</key>
 		<dict>
-			<key>File Name</key>
-			<string>DeviceTree.n90ap.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -114,8 +98,6 @@
 		</dict>
 		<key>GlyphCharging</key>
 		<dict>
-			<key>File Name</key>
-			<string>glyphcharging-640x960.s5l8930x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -125,8 +107,6 @@
 		</dict>
 		<key>GlyphPlugin</key>
 		<dict>
-			<key>File Name</key>
-			<string>glyphplugin-640x960.s5l8930x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -136,8 +116,6 @@
 		</dict>
 		<key>iBEC</key>
 		<dict>
-			<key>File Name</key>
-			<string>iBEC.n90ap.RELEASE.dfu</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -147,8 +125,6 @@
 		</dict>
 		<key>iBoot</key>
 		<dict>
-			<key>File Name</key>
-			<string>iBoot.n90ap.RELEASE.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -158,8 +134,6 @@
 		</dict>
 		<key>iBSS</key>
 		<dict>
-			<key>File Name</key>
-			<string>iBSS.n90ap.RELEASE.dfu</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -169,8 +143,6 @@
 		</dict>
 		<key>Kernelcache</key>
 		<dict>
-			<key>File Name</key>
-			<string>kernelcache.release.n90</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -180,8 +152,6 @@
 		</dict>
 		<key>LLB</key>
 		<dict>
-			<key>File Name</key>
-			<string>LLB.n90ap.RELEASE.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -191,8 +161,6 @@
 		</dict>
 		<key>RecoveryMode</key>
 		<dict>
-			<key>File Name</key>
-			<string>recoverymode-640x960.s5l8930x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
