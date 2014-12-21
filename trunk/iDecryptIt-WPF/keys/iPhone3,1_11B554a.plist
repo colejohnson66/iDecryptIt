@@ -52,7 +52,7 @@
 			<key>IV</key>
 			<string>99c8021b5921fa42dcdc05493b2aac2a</string>
 			<key>Key</key>
-			<string>4f5f0d0ae5d1f776ef26afc8d155ef781683d5155aeb607f1dab350cb279ae1</string>
+			<string>4f5f04d0ae5d1f776ef26afc8d155ef781683d5155aeb607f1dab350cb279ae1</string>
 		</dict>
 		<key>BatteryCharging0</key>
 		<dict>
@@ -85,7 +85,7 @@
 			<key>IV</key>
 			<string>f3f6e70bc213711de25e56ed21b4597f</string>
 			<key>Key</key>
-			<string>1e0c71bcfd26725c4084ce9f5a475c050b9da59585e4b720a4fa7e31896ade2</string>
+			<string>1e0c71bcfd26725c4084ce9f5a475c0505b9da59585e4b720a4fa7e31896ade2</string>
 		</dict>
 		<key>BatteryLow0</key>
 		<dict>
@@ -118,7 +118,7 @@
 			<key>IV</key>
 			<string>a368fc9dfa9256b8f24afe973dff124c</string>
 			<key>Key</key>
-			<string>c187bdb0eb78c09761a83fbda30ceb342a1e1ea30193205e2714db458b70df7</string>
+			<string>c187bdb0eb78c09761a83fbda30ceb342a1e1ea30193205e2714db458b70d1f7</string>
 		</dict>
 		<key>GlyphPlugin</key>
 		<dict>
@@ -195,7 +195,7 @@
 			<key>IV</key>
 			<string>68b5ae23aaf433446f887e48a3847425</string>
 			<key>Key</key>
-			<string>f81c480dd065e410075c91eedc2051cc48e071caa49c55b8f447367905ba485</string>
+			<string>f81c480dd0653e410075c91eedc2051cc48e071caa49c55b8f447367905ba485</string>
 		</dict>
 	</dict>
 </plist>
