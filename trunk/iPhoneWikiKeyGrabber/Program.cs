@@ -36,6 +36,8 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
         static string keyDir = Path.Combine(Directory.GetCurrentDirectory(), "keys");
         static XmlWriterSettings xmlWriterSettings;
 
+        // If we switch to using an HTML DOM parser, we could parse the key pages a
+        //   whole lot easier consiedering everything needed has an "id" attribute.
         public static void Main(string[] args)
         {
             // For some reason, CreateDirectory(...) sometimes fails unless we wait (race condition?)
@@ -92,38 +94,33 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
         }
         private static void ParseTableDataNode(XmlNodeList nodes)
         {
-            string url;
+            string href;
             int length = nodes.Count;
             for (int i = 0; i < length; i++) {
                 if (nodes.Item(i).Name == "a") {
-                    bool add = true; // Assume URL is good
-                    url = nodes.Item(i).Attributes.Item(0).Value;
+                    href = nodes.Item(i).Attributes.Item(0).Value;
 
-                    // Ignore download URLs
-                    if (url.Contains("theiphonewiki.com")) {
-                        // Is this a baseband link
-                        for (int ii = 0; ii < 10; ii++) {
-                            if (url.Contains("theiphonewiki.com/w/index.php?title=" + ii)) {
-                                add = false;
-                                break;
-                            }
-                        }
+                    // Ensure we only grab key pages that exist
+                    if (href.Contains("theiphonewiki.com")) {
+                        if (IsUrlABasebandUrl(href) || href.Contains("redlink=1"))
+                            continue;
 
-                        // Check if baseband test failed. Does page exist?
-                        if (add && url.Contains("redlink=1"))
-                            add = false;
+                        if (!href.Contains("AppleTV") && !href.Contains("iPad") &&
+                            !href.Contains("iPhone") && !href.Contains("iPod"))
+                            continue;
 
-                        // It must contain AppleTV, iPad, iPhone, or iPod
-                        if (!url.Contains("AppleTV") && !url.Contains("iPad") &&
-                            !url.Contains("iPhone") && !url.Contains("iPod")) {
-                            add = false;
-                        }
-
-                        if (add)
-                            urls.Add(url.Replace("http://the", "http://www.the"));
+                        urls.Add(href.Replace("http://the", "http://www.the"));
                     }
                 }
             }
+        }
+        private static bool IsUrlABasebandUrl(string url)
+        {
+            for (int i = 0; i < 10; i++) {
+                if (url.Contains("index.php?title=" + i))
+                    return true;
+            }
+            return false;
         }
         private static void ParseAndSaveKeyPage(string contents)
         {
@@ -131,13 +128,11 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
             if (contents.Length > 2 && contents[0] == '[' && contents[1] == '[')
                 return;
 
-            // Split by lines
             string[] lines = contents
                 .Replace("{{keys", "")
                 .Replace("}}", "")
                 .Split(new char[] { '\n', '\r' }, 100, StringSplitOptions.RemoveEmptyEntries);
 
-            // Convert page to a dictionary
             string displayVersion = null;
             Dictionary<string, string> data = new Dictionary<string, string>();
             for (int i = 0; i < lines.Length; i++) {
@@ -170,141 +165,165 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 
                 data.Add(key, value.Trim());
             }
-
-            // Handle usage of "DisplayVersion" on gold masters
-            // Will need to be updated to handle betas
             if (displayVersion != null && data["Device"].StartsWith("AppleTV"))
-                data["Version"] = displayVersion;
+                data["Version"] = displayVersion; // Will need to be updated to handle betas
 
+            string filename = Path.Combine(keyDir, data["Device"] + "_" + data["Build"] + ".plist");
+            XmlWriter writer = XmlWriter.Create(filename, xmlWriterSettings);
+            BuildXml(data).Save(writer);
+            writer.Flush();
+            writer.Close();
+        }
+        private static XmlDocument BuildXml(Dictionary<string, string> data)
+        {
             // Set up XML
             XmlDocument xml = new XmlDocument();
             xml.AppendChild(xml.CreateDocumentType("plist", "-//Apple Computer//DTD PLIST 1.0//EN", "http://www.apple.com/DTDs/PropertyList-1.0.dtd", null));
             XmlElement plist = xml.CreateElement("plist");
             XmlElement dict = xml.CreateElement("dict");
-            BuildXml(dict, data, xml);
-            plist.AppendChild(dict);
-            xml.AppendChild(plist);
 
-            string filename = Path.Combine(keyDir, data["Device"] + "_" + data["Build"] + ".plist");
-            if (File.Exists(filename))
-                throw new Exception();
-            XmlWriter writer = XmlWriter.Create(filename, xmlWriterSettings);
-            xml.Save(writer);
-            writer.Flush();
-            writer.Close();
-        }
-
-        private static void BuildXml(XmlNode plist, Dictionary<string, string> data, XmlDocument xml)
-        {
             string build = data["Build"];
 
             // We could save some space by saving the IVs and keys in Base64 (len*4/3)
             //   instead of a hex string (len*2)
             foreach (string key in data.Keys) {
                 XmlElement temp;
-                if (key == "Version") {
-                    temp = xml.CreateElement("key");
-                    temp.InnerText = key;
-                    plist.AppendChild(temp);
-                    temp = xml.CreateElement("string");
-                    // Remove everything past the "[[Golden Master|GM]]" on GM pages
-                    // Both options work for public firmwares, but the first may not on betas
-                    temp.InnerText = data[key].Split('[', 'b')[0];
-                    //string[] split = data[key].Split(new string[] { " and " }, StringSplitOptions.None)[1];
-                    plist.AppendChild(temp);
-                } else if (key == "Build" || key == "Device" || key == "Codename" ||
-                           key == "Download URL" || key == "Baseband") {
-                    temp = xml.CreateElement("key");
-                    temp.InnerText = key;
-                    plist.AppendChild(temp);
-                    temp = xml.CreateElement("string");
-                    temp.InnerText = data[key];
-                    plist.AppendChild(temp);
-                } else if (key == "RootFS") {
-                    temp = xml.CreateElement("key");
-                    temp.InnerText = "Root FS";
-                    plist.AppendChild(temp);
-                    temp = xml.CreateElement("dict");
-                    temp.AppendChild(xml.CreateElement("key"));
-                    temp.ChildNodes.Item(0).InnerText = "File Name";
-                    temp.AppendChild(xml.CreateElement("string"));
-                    temp.ChildNodes.Item(1).InnerText = data["RootFS"] + ".dmg";
-                    temp.AppendChild(xml.CreateElement("key"));
-                    temp.ChildNodes.Item(2).InnerText = "Key";
-                    temp.AppendChild(xml.CreateElement("string"));
-                    temp.ChildNodes.Item(3).InnerText = data["RootFSKey"];
-                    if (data.ContainsKey("GMRootFSKey")) {
-                        // Only applicable to 4.0GM/4.0 8A293 (excluding iPhone3,1)
+                switch (key) {
+                    case "Version":
+                        temp = xml.CreateElement("key");
+                        temp.InnerText = key;
+                        dict.AppendChild(temp);
+                        temp = xml.CreateElement("string");
+                        // Remove everything past the "[[Golden Master|GM]]" on GM pages
+                        // Both options work for public firmwares, but the first may not on betas
+                        temp.InnerText = data[key].Split('[', 'b')[0];
+                        //string[] split = data[key].Split(new string[] { " and " }, StringSplitOptions.None)[1];
+                        dict.AppendChild(temp);
+                        break;
+                    case "Build":
+                    case "Device":
+                    case "Codename":
+                    case "Download URL":
+                    case "Baseband":
+                        temp = xml.CreateElement("key");
+                        temp.InnerText = key;
+                        dict.AppendChild(temp);
+                        temp = xml.CreateElement("string");
+                        temp.InnerText = data[key];
+                        dict.AppendChild(temp);
+                        break;
+                    case "RootFS":
+                        temp = xml.CreateElement("key");
+                        temp.InnerText = "Root FS";
+                        dict.AppendChild(temp);
+                        temp = xml.CreateElement("dict");
                         temp.AppendChild(xml.CreateElement("key"));
-                        temp.ChildNodes.Item(4).InnerText = "GM Key";
+                        temp.ChildNodes.Item(0).InnerText = "File Name";
                         temp.AppendChild(xml.CreateElement("string"));
-                        temp.ChildNodes.Item(5).InnerText = data["GMRootFSKey"];
-                    }
-                    plist.AppendChild(temp);
-                } else if (key == "UpdateRamdisk" || key == "RestoreRamdisk") {
-                    temp = xml.CreateElement("key");
-                    temp.InnerText = key.Replace("Ramdisk", " Ramdisk");
-                    plist.AppendChild(temp);
-                    temp = xml.CreateElement("dict");
-                    temp.AppendChild(xml.CreateElement("key"));
-                    temp.ChildNodes.Item(0).InnerText = "File Name";
-                    temp.AppendChild(xml.CreateElement("string"));
-                    temp.ChildNodes.Item(1).InnerText = data[key] + ".dmg";
-                    temp.AppendChild(xml.CreateElement("key"));
-                    temp.ChildNodes.Item(2).InnerText = "Encryption";
-                    if (build == "1A543a" || build == "1C25" || build == "1C28" ||
-                        build[0] == '3' || build[0] == '4' ||
-                        build == "5A147p" || build == "5A225c" || build == "5A240d" ||
-                        data[key + "IV"] == "Not Encrypted") {
-                        // Keep the "Not Encrypted" check last - an exception would be thrown on those builds
-                        temp.AppendChild(xml.CreateElement("false"));
-                    } else {
-                        temp.AppendChild(xml.CreateElement("true"));
+                        temp.ChildNodes.Item(1).InnerText = data["RootFS"] + ".dmg";
                         temp.AppendChild(xml.CreateElement("key"));
-                        temp.ChildNodes.Item(4).InnerText = "IV";
+                        temp.ChildNodes.Item(2).InnerText = "Key";
                         temp.AppendChild(xml.CreateElement("string"));
-                        temp.ChildNodes.Item(5).InnerText = data[key + "IV"];
+                        temp.ChildNodes.Item(3).InnerText = data["RootFSKey"];
+                        if (data.ContainsKey("GMRootFSKey")) {
+                            // Only applicable to 4.0GM/4.0 8A293 (excluding iPhone3,1)
+                            temp.AppendChild(xml.CreateElement("key"));
+                            temp.ChildNodes.Item(4).InnerText = "GM Key";
+                            temp.AppendChild(xml.CreateElement("string"));
+                            temp.ChildNodes.Item(5).InnerText = data["GMRootFSKey"];
+                        }
+                        dict.AppendChild(temp);
+                        break;
+                    case "UpdateRamdisk":
+                    case "RestoreRamdisk":
+                        temp = xml.CreateElement("key");
+                        temp.InnerText = key.Replace("Ramdisk", " Ramdisk");
+                        dict.AppendChild(temp);
+                        temp = xml.CreateElement("dict");
                         temp.AppendChild(xml.CreateElement("key"));
-                        temp.ChildNodes.Item(6).InnerText = "Key";
+                        temp.ChildNodes.Item(0).InnerText = "File Name";
                         temp.AppendChild(xml.CreateElement("string"));
-                        temp.ChildNodes.Item(7).InnerText = data[key + "Key"];
-                    }
-                    plist.AppendChild(temp);
-                } else if (key == "AppleLogo" || key == "BatteryCharging0" || key == "BatteryCharging1" ||
-                           key == "BatteryFull" || key == "BatteryLow0" || key == "BatteryLow1" ||
-                           key == "DeviceTree" || key == "GlyphCharging" || key == "GlyphPlugin" ||
-                           key == "iBEC" || key == "iBoot" || key == "iBSS" ||
-                           key == "Kernelcache" || key == "LLB" || key == "NeedService" ||
-                           key == "RecoveryMode" || key == "SEP-Firmware") {
-                    temp = xml.CreateElement("key");
-                    temp.InnerText = key;
-                    plist.AppendChild(temp);
-                    temp = xml.CreateElement("dict");
-                    temp.AppendChild(xml.CreateElement("key"));
-                    temp.ChildNodes.Item(0).InnerText = "File Name";
-                    temp.AppendChild(xml.CreateElement("string"));
-                    temp.ChildNodes.Item(1).InnerText = data[key];
-                    temp.AppendChild(xml.CreateElement("key"));
-                    temp.ChildNodes.Item(2).InnerText = "Encryption";
-                    if (data[key + "IV"] == "Not Encrypted") {
-                        temp.AppendChild(xml.CreateElement("false"));
-                    } else {
-                        temp.AppendChild(xml.CreateElement("true"));
+                        temp.ChildNodes.Item(1).InnerText = data[key] + ".dmg";
                         temp.AppendChild(xml.CreateElement("key"));
-                        temp.ChildNodes.Item(4).InnerText = "IV";
-                        temp.AppendChild(xml.CreateElement("string"));
-                        temp.ChildNodes.Item(5).InnerText = data[key + "IV"];
+                        temp.ChildNodes.Item(2).InnerText = "Encryption";
+                        if (build == "1A543a" || build == "1C25" || build == "1C28" ||
+                            build[0] == '3' || build[0] == '4' ||
+                            build == "5A147p" || build == "5A225c" || build == "5A240d" ||
+                            data[key + "IV"] == "Not Encrypted") {
+                            // Keep the "Not Encrypted" check last - an exception would be thrown on those builds
+                            temp.AppendChild(xml.CreateElement("false"));
+                        } else {
+                            temp.AppendChild(xml.CreateElement("true"));
+                            temp.AppendChild(xml.CreateElement("key"));
+                            temp.ChildNodes.Item(4).InnerText = "IV";
+                            temp.AppendChild(xml.CreateElement("string"));
+                            temp.ChildNodes.Item(5).InnerText = data[key + "IV"];
+                            temp.AppendChild(xml.CreateElement("key"));
+                            temp.ChildNodes.Item(6).InnerText = "Key";
+                            temp.AppendChild(xml.CreateElement("string"));
+                            temp.ChildNodes.Item(7).InnerText = data[key + "Key"];
+                        }
+                        dict.AppendChild(temp);
+                        break;
+                    case "AppleLogo":
+                    case "BatteryCharging0":
+                    case "BatteryCharging1":
+                    case "BatteryFull":
+                    case "BatteryLow0":
+                    case "BatteryLow1":
+                    case "DeviceTree":
+                    case "GlyphCharging":
+                    case "GlyphPlugin":
+                    case "iBEC":
+                    case "iBoot":
+                    case "iBSS":
+                    case "Kernelcache":
+                    case "LLB":
+                    case "NeedService":
+                    case "RecoveryMode":
+                    case "SEP-Firmware":
+                        temp = xml.CreateElement("key");
+                        temp.InnerText = key;
+                        dict.AppendChild(temp);
+                        temp = xml.CreateElement("dict");
                         temp.AppendChild(xml.CreateElement("key"));
-                        temp.ChildNodes.Item(6).InnerText = "Key";
+                        temp.ChildNodes.Item(0).InnerText = "File Name";
                         temp.AppendChild(xml.CreateElement("string"));
-                        temp.ChildNodes.Item(7).InnerText = data[key + "Key"];
-                    }
-                    plist.AppendChild(temp);
-                } else if (key.EndsWith("IV") || key.EndsWith("Key")) {
-                } else {
-                    throw new Exception();
+                        temp.ChildNodes.Item(1).InnerText = data[key];
+                        temp.AppendChild(xml.CreateElement("key"));
+                        temp.ChildNodes.Item(2).InnerText = "Encryption";
+                        if (data[key + "IV"] == "Not Encrypted") {
+                            temp.AppendChild(xml.CreateElement("false"));
+                        } else {
+                            temp.AppendChild(xml.CreateElement("true"));
+                            temp.AppendChild(xml.CreateElement("key"));
+                            temp.ChildNodes.Item(4).InnerText = "IV";
+                            temp.AppendChild(xml.CreateElement("string"));
+                            temp.ChildNodes.Item(5).InnerText = data[key + "IV"];
+                            temp.AppendChild(xml.CreateElement("key"));
+                            temp.ChildNodes.Item(6).InnerText = "Key";
+                            temp.AppendChild(xml.CreateElement("string"));
+                            temp.ChildNodes.Item(7).InnerText = data[key + "Key"];
+                        }
+                        dict.AppendChild(temp);
+                        break;
+                    default:
+                        if (!key.EndsWith("IV") && !key.EndsWith("Key"))
+                            throw new Exception();
+                        break;
                 }
             }
+
+            plist.AppendChild(dict);
+            xml.AppendChild(plist);
+            return xml;
+        }
+        private static string HexStringToBase64(string hex)
+        {
+            byte[] bytes = new byte[hex.Length / 2];
+            for (int i = 0; i < hex.Length; i += 2)
+                bytes[i / 2] = Convert.ToByte(hex.Substring(i, 2), 16);
+            return Convert.ToBase64String(bytes, Base64FormattingOptions.InsertLineBreaks);
         }
     }
 }
