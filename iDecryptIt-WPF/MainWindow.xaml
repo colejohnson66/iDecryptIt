@@ -846,8 +846,8 @@
                                     <RowDefinition Height="6" />
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
-                                <TextBlock Text="SEPFirmware (IV)" x:Name="lblSEPFirmwareIV" VerticalAlignment="Center" />
-                                <TextBlock Text="SEPFirmware (Key)" x:Name="lblSEPFirmwareKey" VerticalAlignment="Center" Grid.Row="2" />
+                                <TextBlock Text="SEP-Firmware (IV)" x:Name="lblSEPFirmwareIV" VerticalAlignment="Center" />
+                                <TextBlock Text="SEP-Firmware (Key)" x:Name="lblSEPFirmwareKey" VerticalAlignment="Center" Grid.Row="2" />
                                 <TextBox Grid.Column="2" x:Name="keySEPFirmwareIV" />
                                 <TextBox Grid.Column="2" x:Name="keySEPFirmwareKey" Grid.Row="2" />
                                 <TextBox Grid.Column="4" x:Name="fileSEPFirmware" Grid.RowSpan="3" VerticalAlignment="Center" />
@@ -860,7 +860,7 @@
                                     <ColumnDefinition Width="6" />
                                     <ColumnDefinition Width="{DynamicResource keyFilenameWidth}" />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Text="SEPFirmware" x:Name="lblSEPFirmwareNoEncrypt" VerticalAlignment="Center" />
+                                <TextBlock Text="SEP-Firmware" x:Name="lblSEPFirmwareNoEncrypt" VerticalAlignment="Center" />
                                 <TextBlock Grid.Column="2" Text="Not Encrypted" x:Name="keySEPFirmwareNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                 <TextBox Grid.Column="4" x:Name="fileSEPFirmwareNoEncrypt" />
                             </Grid>
