@@ -22,6 +22,7 @@
  */
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -76,7 +77,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
             //   using an async download in ParseTableDataNode
             Console.WriteLine("Parsing individual pages");
             foreach (string link in urls) {
-                Console.WriteLine("    {0}", link.Substring(28));
+                Console.WriteLine("    {0}", link.Substring(24));
                 download = client.DownloadString(link.Replace("/wiki/", "/w/index.php?title=") + "&action=raw");
                 ParseAndSaveKeyPage(download);
             }
@@ -109,7 +110,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                             !href.Contains("iPhone") && !href.Contains("iPod"))
                             continue;
 
-                        urls.Add(href.Replace("http://the", "http://www.the"));
+                        urls.Add(href.Replace("http://www.the", "http://the"));
                     }
                 }
             }
@@ -169,6 +170,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                 data["Version"] = displayVersion; // Will need to be updated to handle betas
 
             string filename = Path.Combine(keyDir, data["Device"] + "_" + data["Build"] + ".plist");
+            Debug.Assert(!File.Exists(filename), filename);
             XmlWriter writer = XmlWriter.Create(filename, xmlWriterSettings);
             BuildXml(data).Save(writer);
             writer.Flush();
@@ -182,10 +184,10 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
             XmlElement plist = xml.CreateElement("plist");
             XmlElement dict = xml.CreateElement("dict");
 
-            string build = data["Build"];
-
             // We could save some space by saving the IVs and keys in Base64 (len*4/3)
             //   instead of a hex string (len*2)
+            int length;
+            string debug = data["Codename"] + " " + data["Build"] + " (" + data["Device"] + "): ";
             foreach (string key in data.Keys) {
                 XmlElement temp;
                 switch (key) {
@@ -232,6 +234,8 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                             temp.AppendChild(xml.CreateElement("string"));
                             temp.ChildNodes.Item(5).InnerText = data["GMRootFSKey"];
                         }
+                        length = data["RootFSKey"].Length;
+                        Debug.Assert(length == 72 || length == 4, debug + "data[\"RootFSKey\"].Length (" + length + ") != 72");
                         dict.AppendChild(temp);
                         break;
                     case "UpdateRamdisk":
@@ -246,11 +250,13 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                         temp.ChildNodes.Item(1).InnerText = data[key] + ".dmg";
                         temp.AppendChild(xml.CreateElement("key"));
                         temp.ChildNodes.Item(2).InnerText = "Encryption";
+                        string build = data["Build"];
                         if (build == "1A543a" || build == "1C25" || build == "1C28" ||
-                            build[0] == '3' || build[0] == '4' ||
-                            build == "5A147p" || build == "5A225c" || build == "5A240d" ||
-                            data[key + "IV"] == "Not Encrypted") {
-                            // Keep the "Not Encrypted" check last - an exception would be thrown on those builds
+                            build[0] == '3' ||
+                            build[0] == '4' ||
+                            build == "5A147p" || build == "5A225c" || build == "5A240d") {
+                            temp.AppendChild(xml.CreateElement("false"));
+                        } else if (data[key + "IV"] == "Not Encrypted") {
                             temp.AppendChild(xml.CreateElement("false"));
                         } else {
                             temp.AppendChild(xml.CreateElement("true"));
@@ -262,6 +268,10 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                             temp.ChildNodes.Item(6).InnerText = "Key";
                             temp.AppendChild(xml.CreateElement("string"));
                             temp.ChildNodes.Item(7).InnerText = data[key + "Key"];
+                            length = data[key + "IV"].Length;
+                            Debug.Assert(length == 32 || length == 4, debug + "data[\"" + key + "IV\"].Length (" + length + ") != 32");
+                            length = data[key + "Key"].Length;
+                            Debug.Assert(length == 32 || length == 64 || length == 4, debug + "data[\"" + key + "Key\"].Length (" + length + ") != (32 || 64)");
                         }
                         dict.AppendChild(temp);
                         break;
@@ -304,12 +314,15 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                             temp.ChildNodes.Item(6).InnerText = "Key";
                             temp.AppendChild(xml.CreateElement("string"));
                             temp.ChildNodes.Item(7).InnerText = data[key + "Key"];
+                            length = data[key + "IV"].Length;
+                            Debug.Assert(length == 32 || length == 4, debug + "data[\"" + key + "IV\"].Length (" + length + ") != 32");
+                            length = data[key + "Key"].Length;
+                            Debug.Assert(length == 32 || length == 64 || length == 4, debug + "data[\"" + key + "Key\"].Length (" + length + ") != (32 || 64)");
                         }
                         dict.AppendChild(temp);
                         break;
                     default:
-                        if (!key.EndsWith("IV") && !key.EndsWith("Key"))
-                            throw new Exception();
+                        Debug.Assert(key.EndsWith("IV") || key.EndsWith("Key"), key);
                         break;
                 }
             }
