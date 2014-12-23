@@ -77,9 +77,10 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
             //   using an async download in ParseTableDataNode
             Console.WriteLine("Parsing individual pages");
             foreach (string link in urls) {
-                Console.WriteLine("    {0}", link.Substring(24));
+                Console.Write("    {0}", link.Substring(30).Replace('_', ' '));
                 download = client.DownloadString(link.Replace("/wiki/", "/w/index.php?title=") + "&action=raw");
                 ParseAndSaveKeyPage(download);
+                Console.WriteLine();
             }
 
             Console.WriteLine("Done");
@@ -333,6 +334,8 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
         }
         private static string HexStringToBase64(string hex)
         {
+            if (hex == "TODO")
+                return "";
             byte[] bytes = new byte[hex.Length / 2];
             for (int i = 0; i < hex.Length; i += 2)
                 bytes[i / 2] = Convert.ToByte(hex.Substring(i, 2), 16);
