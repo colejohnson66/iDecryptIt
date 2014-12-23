@@ -50,7 +50,7 @@
 			<key>IV</key>
 			<string>4070df5cdaba5b0cec11767d0dc62b41</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>8d9f7126748e6912b60b74bd0d669614e23d1adf523bfa2f6af00c276891412e</string>
 		</dict>
 		<key>BatteryCharging0</key>
 		<dict>
@@ -83,7 +83,7 @@
 			<key>IV</key>
 			<string>69aa30e471d42c458b69030c8284b698</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>8d0d1903915237569048d50af1364d525e5dba47c2c5126acda27cff5c5f93de</string>
 		</dict>
 		<key>BatteryLow0</key>
 		<dict>
@@ -116,7 +116,7 @@
 			<key>IV</key>
 			<string>830c518baddc2e82ad27de186a56e451</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>fd12079909ae24b2f8140720854608d12c066def4dc07b66f142259d2970426c</string>
 		</dict>
 		<key>GlyphCharging</key>
 		<dict>
@@ -158,7 +158,7 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>cebc2a5cce8d03563522b084efa0cf33</string>
 			<key>Key</key>
 			<string>d18f5cc97f6d8c2a4e1b5d580bea70c9fb4c071039fbae3e5c77895f63702c2c</string>
 		</dict>
