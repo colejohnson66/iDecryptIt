@@ -66,7 +66,7 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>aaa7a4e1aaf9195eedb86affccb5b57e</string>
 			<key>Key</key>
 			<string>41370a7c754932cc192d9d273916c7de59a08c0e2b9ad8ab2ef76a79aa007c43</string>
 		</dict>
