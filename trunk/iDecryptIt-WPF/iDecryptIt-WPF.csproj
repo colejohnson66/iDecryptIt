@@ -28,8 +28,8 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>1464</ApplicationRevision>
-    <ApplicationVersion>8.11.0.1464</ApplicationVersion>
+    <ApplicationRevision>1514</ApplicationRevision>
+    <ApplicationVersion>8.11.0.1514</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -115,7 +115,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="icon.ico" />
-    <Resource Include="Images\logviewer_32.png" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -171,13 +170,14 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Resource Include="Images\changes-allow_32.png" />
-    <Resource Include="Images\dialog-password_32.png" />
-    <Resource Include="Images\Help-browser_32.png" />
-    <Resource Include="Images\icon_16.png" />
-    <Resource Include="Images\icon_32.png" />
-    <Resource Include="Images\icon_48.png" />
-    <Resource Include="Images\icon_256.png" />
+    <Resource Include="img\changes-allow_32.png" />
+    <Resource Include="img\dialog-password_32.png" />
+    <Resource Include="img\Help-browser_32.png" />
+    <Resource Include="img\icon_16.png" />
+    <Resource Include="img\icon_32.png" />
+    <Resource Include="img\icon_48.png" />
+    <Resource Include="img\icon_256.png" />
+    <Resource Include="img\logviewer_32.png" />
     <None Include="7z.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
