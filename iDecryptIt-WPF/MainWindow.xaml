@@ -47,7 +47,7 @@
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="6" />
                                 </Grid.ColumnDefinitions>
-                                <Image Source="img/changes-allow_32.png" />
+                                <Image Source="img/changes-allow@32.png" />
                                 <TextBlock Grid.Column="2" Text="Decrypt" VerticalAlignment="Center" x:Name="btnDecryptText" />
                             </Grid>
                         </Button>
@@ -101,7 +101,7 @@
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="6" />
                                 </Grid.ColumnDefinitions>
-                                <!--<Image Source="img/7zip_32.png" />-->
+                                <!--<Image Source="img/7zip@32.png" />-->
                                 <TextBlock Grid.Column="2" Text="Extract" VerticalAlignment="Center" x:Name="btnExtractText" />
                             </Grid>
                         </Button>
@@ -149,7 +149,7 @@
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="6" />
                                 </Grid.ColumnDefinitions>
-                                <Image Source="img/Help-browser_32.png" />
+                                <Image Source="img/Help-browser@32.png" />
                                 <TextBlock Grid.Column="2" Text="Identify Version" VerticalAlignment="Center" />
                             </Grid>
                         </Button>
@@ -172,10 +172,10 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <Button x:Name="btnREADME" Grid.Column="0" ToolTip="Readme" Click="btnReadme_Click">
-                            <Image Source="img/Help-browser_32.png" />
+                            <Image Source="img/Help-browser@32.png" />
                         </Button>
                         <Button x:Name="btnChangelog" Grid.Column="2" ToolTip="Changelog" Click="btnChangelog_Click">
-                            <Image Source="img/logviewer_32.png" />
+                            <Image Source="img/logviewer@32.png" />
                         </Button>
                     </Grid>
                 </Grid>
@@ -202,7 +202,7 @@
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="6" />
                                 </Grid.ColumnDefinitions>
-                                <Image Source="img/dialog-password_32.png" />
+                                <Image Source="img/dialog-password@32.png" />
                                 <TextBlock Grid.Column="2" Text="Get Keys" VerticalAlignment="Center" x:Name="btnGetKeysText" />
                             </Grid>
                         </Button>
