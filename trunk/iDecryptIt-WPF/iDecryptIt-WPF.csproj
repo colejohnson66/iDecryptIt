@@ -191,9 +191,6 @@
     <Content Include="help\changelog.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="help\GNU GPL v3 logo.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="help\iDecryptIt icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
