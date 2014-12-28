@@ -248,11 +248,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                         temp.ChildNodes.Item(1).InnerText = data[key] + ".dmg";
                         temp.AppendChild(xml.CreateElement("key"));
                         temp.ChildNodes.Item(2).InnerText = "Encryption";
-                        string build = data["Build"];
-                        if (build == "1A543a" || build == "1C25" || build == "1C28" ||
-                            build[0] == '3' ||
-                            build[0] == '4' ||
-                            build == "5A147p" || build == "5A225c" || build == "5A240d") {
+                        if (IsImg2Firmware(data["Build"])) {
                             temp.AppendChild(xml.CreateElement("false"));
                         } else if (data[key + "IV"] == "Not Encrypted") {
                             temp.AppendChild(xml.CreateElement("false"));
@@ -338,5 +334,15 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                 bytes[i / 2] = Convert.ToByte(hex.Substring(i, 2), 16);
             return Convert.ToBase64String(bytes, Base64FormattingOptions.InsertLineBreaks);
         }
-    }
+        private static bool IsImg2Firmware(string build)
+        {
+            if (build == "1A543a" || build == "1C25" || build == "1C28")
+                return true;
+            if (build[0] == '3' || build[0] == '4')
+                return true;
+            if (build == "5A147p" || build == "5A225c" || build == "5A240d")
+                return true;
+
+            return false;
+        }
 }
