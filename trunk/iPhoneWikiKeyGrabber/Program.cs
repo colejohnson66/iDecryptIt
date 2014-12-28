@@ -82,9 +82,6 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                 ParseAndSaveKeyPage(download);
                 Console.WriteLine();
             }
-
-            Console.WriteLine("Done");
-            Console.ReadLine();
         }
         private static void ParseTableNode(XmlNodeList table)
         {
