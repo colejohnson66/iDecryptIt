@@ -114,6 +114,14 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="img\changes-allow%4032.png" />
+    <Resource Include="img\dialog-password%4032.png" />
+    <Resource Include="img\help-browser%4032.png" />
+    <Resource Include="img\icon%4016.png" />
+    <Resource Include="img\icon%40256.png" />
+    <Resource Include="img\icon%4032.png" />
+    <Resource Include="img\icon%4048.png" />
+    <Resource Include="img\logviewer%4032.png" />
     <Resource Include="icon.ico" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -163,6 +171,7 @@
     <None Include="app.config" />
     <AppDesigner Include="Properties\" />
     <None Include="Hexware.pfx" />
+    <None Include="keys\iPhone4,1_12B440.plist" />
     <None Include="LICENSE">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -170,14 +179,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Resource Include="img\changes-allow_32.png" />
-    <Resource Include="img\dialog-password_32.png" />
-    <Resource Include="img\Help-browser_32.png" />
-    <Resource Include="img\icon_16.png" />
-    <Resource Include="img\icon_32.png" />
-    <Resource Include="img\icon_48.png" />
-    <Resource Include="img\icon_256.png" />
-    <Resource Include="img\logviewer_32.png" />
     <None Include="7z.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
