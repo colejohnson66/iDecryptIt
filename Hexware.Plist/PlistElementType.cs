@@ -1,5 +1,5 @@
 ﻿/* =============================================================================
- * File:   PlistNodeType.cs
+ * File:   PlistElementType.cs
  * Author: Cole Johnson
  * =============================================================================
  * Copyright (c) 2014 Cole Johnson
@@ -22,9 +22,6 @@
  */
 namespace Hexware.Plist
 {
-    /// <summary>
-    /// Enumeration of Plist element types
-    /// </summary>
     public enum PlistElementType
     {
         Array,
@@ -32,9 +29,9 @@ namespace Hexware.Plist
         Data,
         Date,
         Dictionary,
-        Fill,
+        Fill, // No XML representation
         Integer,
-        Null,
+        Null, // According to Plist DTD, no XML representation, but NSKeyedArchiver writes it
         OrderedSet, // TODO: Implement
         Real,
         Set, // TODO: Implement

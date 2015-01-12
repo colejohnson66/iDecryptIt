@@ -25,16 +25,20 @@ using System.Xml;
 
 namespace Hexware.Plist
 {
-    /// <summary>
-    /// Represents a &lt;null /&gt; tag
-    /// </summary>
     public partial class PlistNull
     {
-        /// <summary>
-        /// Hexware.Plist.PlistNull constructor
-        /// </summary>
         public PlistNull()
         {
+        }
+    }
+    public partial class PlistNull : IPlistElement
+    {
+        public PlistElementType ElementType
+        {
+            get
+            {
+                return PlistElementType.Null;
+            }
         }
     }
     public partial class PlistNull : IPlistElementInternal
@@ -43,45 +47,18 @@ namespace Hexware.Plist
         {
             return new PlistNull();
         }
-
         void IPlistElementInternal.WriteBinary(BinaryWriter writer)
         {
             writer.Write((byte)0x00);
         }
-
         internal static PlistNull ReadXml(XmlNode node)
         {
             return new PlistNull();
         }
-
         void IPlistElementInternal.WriteXml(XmlNode tree, XmlDocument writer)
         {
             XmlElement element = writer.CreateElement("null");
             tree.AppendChild(element);
-        }
-    }
-    public partial class PlistNull : IPlistElement
-    {
-        /// <summary>
-        /// Gets the Xml tag for this element
-        /// </summary>
-        public string XmlTag
-        {
-            get
-            {
-                return "null";
-            }
-        }
-
-        /// <summary>
-        /// Gets the type of this element
-        /// </summary>
-        public PlistElementType ElementType
-        {
-            get
-            {
-                return PlistElementType.Null;
-            }
         }
     }
 }

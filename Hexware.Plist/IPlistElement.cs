@@ -22,47 +22,28 @@
  */
 namespace Hexware.Plist
 {
-    /// <summary>
-    /// Base interface for manipulating Plist elements
-    /// </summary>
     public interface IPlistElement
     {
-        /// <summary>
-        /// Gets the Xml tag for this element
-        /// </summary>
-        string XmlTag
+        PlistElementType ElementType
         {
             get;
         }
+
+        //bool IsSerializableInXml
+        //{
+        //    get;
+        //}
     }
 
-    /// <summary>
-    /// Interface for manipulating Plist elements
-    /// </summary>
-    /// <typeparam name="TDotNetEquiv">The .NET equivalent of this Plist element</typeparam>
     public interface IPlistElement<TDotNetEquiv> : IPlistElement
     {
-        /// <summary>
-        /// Gets the Xml tag for this element
-        /// </summary>
-        new string XmlTag
-        {
-            get;
-        }
-
-        /// <summary>
-        /// Gets or sets the value of this element
-        /// </summary>
         TDotNetEquiv Value
         {
             get;
             set;
         }
 
-        /// <summary>
-        /// Gets the type of this element
-        /// </summary>
-        PlistElementType ElementType
+        new PlistElementType ElementType
         {
             get;
         }

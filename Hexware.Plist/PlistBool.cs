@@ -2,7 +2,7 @@
  * File:   PlistBool.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2012, 2014 Cole Johnson
+ * Copyright (c) 2012, 2014-2015 Cole Johnson
  * 
  * This file is part of Hexware.Plist
  * 
@@ -25,61 +25,17 @@ using System.Xml;
 
 namespace Hexware.Plist
 {
-    /// <summary>
-    /// Represents a &lt;true /&gt; or &lt;false /&gt; tag using a <see cref="System.Boolean"/>
-    /// </summary>
     public partial class PlistBool
     {
-        /// <summary>
-        /// Hexware.Plist.PlistBool constructor using a <see cref="System.Boolean"/>
-        /// </summary>
-        /// <param name="value">The value of this node</param>
         public PlistBool(bool value)
         {
             _value = value;
-        }
-    }
-    public partial class PlistBool : IPlistElementInternal
-    {
-        internal static PlistBool ReadBinary(BinaryReader reader, byte firstbyte)
-        {
-            return new PlistBool(firstbyte == 0x09);
-        }
-
-        void IPlistElementInternal.WriteBinary(BinaryWriter writer)
-        {
-            writer.Write((byte)(_value ? 0x09 : 0x08));
-        }
-
-        internal static PlistBool ReadXml(XmlNode node)
-        {
-            return new PlistBool(node.Name == "true");
-        }
-
-        void IPlistElementInternal.WriteXml(XmlNode tree, XmlDocument writer)
-        {
-            XmlElement element = writer.CreateElement(_value ? "true" : "false");
-            tree.AppendChild(element);
         }
     }
     public partial class PlistBool : IPlistElement<bool>
     {
         internal bool _value;
 
-        /// <summary>
-        /// Gets the Xml tag for this element
-        /// </summary>
-        public string XmlTag
-        {
-            get
-            {
-                return (_value) ? "true" : "false";
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the value of this element
-        /// </summary>
         public bool Value
         {
             get
@@ -91,16 +47,32 @@ namespace Hexware.Plist
                 _value = value;
             }
         }
-
-        /// <summary>
-        /// Gets the type of this element
-        /// </summary>
         public PlistElementType ElementType
         {
             get
             {
                 return PlistElementType.Boolean;
             }
+        }
+    }
+    public partial class PlistBool : IPlistElementInternal
+    {
+        internal static PlistBool ReadBinary(BinaryPlistReader reader, byte firstbyte)
+        {
+            return new PlistBool(firstbyte == 0x09);
+        }
+        void IPlistElementInternal.WriteBinary(BinaryWriter writer)
+        {
+            writer.Write((byte)(_value ? 0x09 : 0x08));
+        }
+        internal static PlistBool ReadXml(XmlNode node)
+        {
+            return new PlistBool(node.Name == "true");
+        }
+        void IPlistElementInternal.WriteXml(XmlNode tree, XmlDocument writer)
+        {
+            XmlElement element = writer.CreateElement(_value ? "true" : "false");
+            tree.AppendChild(element);
         }
     }
 }

@@ -27,16 +27,8 @@ using System.Xml;
 
 namespace Hexware.Plist
 {
-    /// <summary>
-    /// Represents a &lt;data /&gt; tag using a one-dimensional <see cref="System.Byte"/> array
-    /// </summary>
     public partial class PlistData
     {
-        /// <summary>
-        /// Hexware.Plist.PlistData constructor using a one dimensional <see cref="System.Byte"/> array
-        /// </summary>
-        /// <param name="value">The value of this node</param>
-        /// <exception cref="System.ArgumentNullException"><paramref name="value"/> is null</exception>
         public PlistData(byte[] value)
         {
             if (value == null)
@@ -44,13 +36,6 @@ namespace Hexware.Plist
 
             _value = value;
         }
-
-        /// <summary>
-        /// Hexware.Plist.PlistData constructor using a base64 encoded <see cref="System.String"/>
-        /// </summary>
-        /// <param name="value">The value of this node</param>
-        /// <exception cref="System.ArgumentNullException"><paramref name="value"/> is null</exception>
-        /// <exception cref="System.FormatException"><paramref name="value"/> is not a valid base64 encoded string</exception>
         public PlistData(string value)
         {
             if (value == null)
@@ -73,14 +58,36 @@ namespace Hexware.Plist
             }
         }
 
-        /// <summary>
-        /// Gets the length of the data
-        /// </summary>
         public int Length
         {
             get
             {
                 return _value.Length;
+            }
+        }
+    }
+    public partial class PlistData : IPlistElement<byte[]>
+    {
+        internal byte[] _value;
+
+        public byte[] Value
+        {
+            get
+            {
+                return _value;
+            }
+            set
+            {
+                if (value == null)
+                    throw new ArgumentNullException("value");
+                _value = value;
+            }
+        }
+        public PlistElementType ElementType
+        {
+            get
+            {
+                return PlistElementType.Data;
             }
         }
     }
@@ -94,7 +101,6 @@ namespace Hexware.Plist
 
             return new PlistData(reader.ReadBytes(length));
         }
-
         void IPlistElementInternal.WriteBinary(BinaryWriter writer)
         {
             if (_value.Length < 0x0F) {
@@ -104,12 +110,10 @@ namespace Hexware.Plist
             writer.Write((byte)0x4F);
             ((IPlistElementInternal)new PlistInteger(_value.Length)).WriteBinary(writer);
         }
-
         internal static PlistData ReadXml(XmlNode node)
         {
             return new PlistData(node.InnerText);
         }
-
         void IPlistElementInternal.WriteXml(XmlNode tree, XmlDocument writer)
         {
             // Build indentations
@@ -143,50 +147,6 @@ namespace Hexware.Plist
             sb.AppendLine();
             element.InnerText = sb.ToString();
             tree.AppendChild(element);
-        }
-    }
-    public partial class PlistData : IPlistElement<byte[]>
-    {
-        internal byte[] _value;
-
-        /// <summary>
-        /// Gets the Xml tag for this element
-        /// </summary>
-        public string XmlTag
-        {
-            get
-            {
-                return "data";
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the value of this element
-        /// </summary>
-        /// <exception cref="System.ArgumentNullException"><paramref name="value"/> is null</exception>
-        public byte[] Value
-        {
-            get
-            {
-                return _value;
-            }
-            set
-            {
-                if (value == null)
-                    throw new ArgumentNullException("value");
-                _value = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets the type of this element
-        /// </summary>
-        public PlistElementType ElementType
-        {
-            get
-            {
-                return PlistElementType.Data;
-            }
         }
     }
 }

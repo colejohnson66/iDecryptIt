@@ -2,7 +2,7 @@
  * File:   IPlistElementInternal.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2014 Cole Johnson
+ * Copyright (c) 2014-2015 Cole Johnson
  * 
  * This file is part of Hexware.Plist
  * 
@@ -25,7 +25,7 @@ using System.Xml;
 
 namespace Hexware.Plist
 {
-    internal interface IPlistElementInternal : IPlistElement
+    internal interface IPlistElementInternal
     {
         void WriteBinary(BinaryWriter writer);
         void WriteXml(XmlNode tree, XmlDocument writer);

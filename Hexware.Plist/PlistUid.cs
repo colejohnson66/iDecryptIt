@@ -22,100 +22,23 @@
  */
 using System;
 using System.IO;
-using System.Text;
 using System.Xml;
 
 namespace Hexware.Plist
 {
-    /// <summary>
-    /// Represents a &lt;uid&gt; using a one-dimensional <see cref="System.Byte"/> array
-    /// </summary>
+    // http://www.cclgroupltd.com/geek-post-nskeyedarchiver-files-what-are-they-and-how-can-i-use-them/
     public partial class PlistUid
     {
-        /// <summary>
-        /// Hexware.Plist.PlistUid constructor using a one dimensional <see cref="System.Byte"/> array and a path
-        /// </summary>
-        /// <param name="value">The value of this node</param>
-        /// <exception cref="System.ArgumentNullException"><paramref name="value"/> is null or empty</exception>
-        /// <exception cref="Hexware.Plist.PlistFormatException"><paramref name="value"/> is bigger than the allowed 16 byte length</exception>
-        public PlistUid(byte[] value)
+        public PlistUid(ulong value)
         {
-            if (value == null || value.Length == 0)
-                throw new ArgumentNullException("value");
-            if (value.Length > 16)
-                throw new PlistFormatException("value array is bigger than the allowed 16 byte length");
-
             _value = value;
         }
-
-        /// <summary>
-        /// Gets the amount of bytes contained in the Uid
-        /// </summary>
-        public int Length
-        {
-            get
-            {
-                return _value.Length;
-            }
-        }
     }
-    public partial class PlistUid : IPlistElementInternal
+    public partial class PlistUid : IPlistElement<ulong>
     {
-        internal static PlistUid ReadBinary(BinaryReader reader, byte firstbyte)
-        {
-            int numofbytes = (firstbyte & 0x0F) + 1;
-            return new PlistUid(reader.ReadBytes(numofbytes));
-        }
+        internal ulong _value;
 
-        void IPlistElementInternal.WriteBinary(BinaryWriter writer)
-        {
-            writer.Write((byte)(0xF0 | (_value.Length - 1)));
-            writer.Write(_value);
-        }
-
-        internal static PlistUid ReadXml(XmlNode node)
-        {
-            string val = node.InnerText.Substring(2); // trim off "0x" 
-            int length = val.Length / 2;
-            byte[] buf = new byte[length];
-            for (int i = 0; i < length; i++)
-                buf[i] = Convert.ToByte(val.Substring(i * 2, 2), 16);
-
-            return new PlistUid(buf);
-        }
-
-        void IPlistElementInternal.WriteXml(XmlNode tree, XmlDocument writer)
-        {
-            XmlElement element = writer.CreateElement("string");
-
-            StringBuilder sb = new StringBuilder("0x");
-            for (int i = 0; i < _value.Length; i++)
-                sb.Append(String.Format("{0:X}", _value[i]));
-
-            element.InnerText = sb.ToString();
-            tree.AppendChild(element);
-        }
-    }
-    public partial class PlistUid : IPlistElement<byte[]>
-    {
-        internal byte[] _value;
-
-        /// <summary>
-        /// Gets the Xml tag for this element
-        /// </summary>
-        public string XmlTag
-        {
-            get
-            {
-                return "uid";
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the value of this element
-        /// </summary>
-        /// <exception cref="System.ArgumentNullException"><paramref name="value"/> is null</exception>
-        public byte[] Value
+        public ulong Value
         {
             get
             {
@@ -123,21 +46,65 @@ namespace Hexware.Plist
             }
             set
             {
-                if (value == null)
-                    throw new ArgumentNullException("value");
                 _value = value;
             }
         }
-
-        /// <summary>
-        /// Gets the type of this element
-        /// </summary>
         public PlistElementType ElementType
         {
             get
             {
                 return PlistElementType.Uid;
             }
+        }
+    }
+    public partial class PlistUid : IPlistElementInternal
+    {
+        internal static PlistUid ReadBinary(BinaryReader reader, byte firstbyte)
+        {
+            int count = firstbyte & 0x0f + 1;
+
+            ulong ret = 0;
+            for (int i = 0; i < count; i++)
+                ret = (ret << 8) + reader.ReadByte();
+
+            return new PlistUid(ret);
+        }
+        void IPlistElementInternal.WriteBinary(BinaryWriter writer)
+        {
+            byte[] buf;
+            if (_value <= Byte.MaxValue) {
+                writer.Write((byte)0x80);
+                writer.Write((byte)_value);
+                return;
+            } else if (_value <= UInt16.MaxValue) {
+                writer.Write((byte)0x81);
+                buf = BitConverter.GetBytes((ushort)_value);
+            } else if (_value <= UInt32.MaxValue) {
+                writer.Write((byte)0x83);
+                buf = BitConverter.GetBytes((uint)_value);
+            } else {
+                writer.Write((byte)0x87);
+                buf = BitConverter.GetBytes(_value);
+            }
+
+            if (BitConverter.IsLittleEndian)
+                Array.Reverse(buf);
+
+            writer.Write(buf);
+        }
+        void IPlistElementInternal.WriteXml(XmlNode tree, XmlDocument writer)
+        {
+            XmlNode element = writer.CreateElement("dict");
+
+            XmlNode subElement = writer.CreateElement("key");
+            subElement.InnerText = "CF$UID";
+            element.AppendChild(subElement);
+
+            subElement = writer.CreateElement("integer");
+            subElement.InnerText = _value.ToString();
+            element.AppendChild(subElement);
+
+            tree.AppendChild(element);
         }
     }
 }
