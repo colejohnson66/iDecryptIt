@@ -31,8 +31,6 @@ namespace Hexware.Programs.iDecryptIt
         [STAThread]
         internal static void Main(string[] args)
         {
-            PlistDocument doc = new PlistDocument("C:\\users\\cole\\desktop\\binary.plist");
-
             bool console = false;
             bool debug = false;
             for (int i = 0; i < args.Length; i++) {

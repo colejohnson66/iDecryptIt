@@ -39,7 +39,7 @@ namespace Hexware.Plist
         }
         internal PlistDict(Dictionary<string, IPlistElement> value, bool unused)
         {
-            // Used by PlistDict.ReadXml to avoid the shallow copy
+            // Used by PlistDict.ReadBinary and PlistDict.ReadXml to avoid the shallow copy
             _value = value;
         }
 
@@ -163,26 +163,30 @@ namespace Hexware.Plist
             if (length == 0x0F)
                 length = (int)PlistInteger.ReadBinary(reader, reader.ReadByte()).Value;
 
-            Dictionary<string, IPlistElement> ret = new Dictionary<string, IPlistElement>();
-            for (int i = 0; i < length; i++) {
-                int keyref = (int)BinaryPlistReader.ParseUnsignedBigEndianNumber(
+            int[] keyrefs = new int[length];
+            int[] objrefs = new int[length];
+            for (int i = 0; i < length; i++)
+                keyrefs[i] = (int)BinaryPlistReader.ParseUnsignedBigEndianNumber(
                     reader.ReadBytes(reader.Trailer.ReferenceOffsetSize));
-                int objref = (int)BinaryPlistReader.ParseUnsignedBigEndianNumber(
+            for (int i = 0; i < length; i++)
+                objrefs[i] = (int)BinaryPlistReader.ParseUnsignedBigEndianNumber(
                     reader.ReadBytes(reader.Trailer.ReferenceOffsetSize));
 
-                IPlistElement key = reader.ParseObject(keyref);
-                IPlistElement val = reader.ParseObject(objref);
+            Dictionary<string, IPlistElement> ret = new Dictionary<string, IPlistElement>();
+            for (int i = 0; i < length; i++) {
+                IPlistElement key = reader.ParseObject(keyrefs[i]);
+                IPlistElement val = reader.ParseObject(objrefs[i]);
                 if (key == null) {
                     if (val == null)
                         continue;
                     throw new PlistException(string.Format(
                         "Unknown Plist dictionary key type encountered at object {0}.",
-                        keyref));
+                        keyrefs[i]));
                 }
                 if (key.ElementType != PlistElementType.String)
                     throw new PlistException(String.Format(
                         "Unknown Plist dictionary key type encountered at object {0}. Expected string, encountered {1}.",
-                        keyref, key.ElementType));
+                        keyrefs[i], key.ElementType));
                 ret.Add(((PlistString)key).Value, val);
             }
             return new PlistDict(ret, false);

@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BinaryPlistTrailer.cs" />
+    <Compile Include="BinaryPlistWriter.cs" />
     <Compile Include="IPlistElement.cs" />
     <Compile Include="IPlistElementInternal.cs" />
     <Compile Include="PlistArray.cs" />
@@ -57,7 +58,6 @@
     <Compile Include="PlistDocument.cs" />
     <Compile Include="PlistDocumentType.cs" />
     <Compile Include="PlistException.cs" />
-    <Compile Include="PlistFill.cs" />
     <Compile Include="PlistFormatException.cs" />
     <Compile Include="PlistInteger.cs" />
     <Compile Include="PlistElementType.cs" />
