@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BinaryPlistTrailer.cs" />
     <Compile Include="IPlistElement.cs" />
     <Compile Include="IPlistElementInternal.cs" />
     <Compile Include="PlistArray.cs" />
@@ -60,6 +61,7 @@
     <Compile Include="PlistInteger.cs" />
     <Compile Include="PlistElementType.cs" />
     <Compile Include="PlistNull.cs" />
+    <Compile Include="BinaryPlistReader.cs" />
     <Compile Include="PlistReal.cs" />
     <Compile Include="PlistString.cs" />
     <Compile Include="PlistUid.cs" />
@@ -70,6 +72,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Hexware.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="structure.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

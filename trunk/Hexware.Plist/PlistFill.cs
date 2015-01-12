@@ -20,21 +20,33 @@
  *   along with Hexware.Plist. If not, see <http://www.gnu.org/licenses/>.
  * =============================================================================
  */
+using System;
 using System.IO;
 using System.Xml;
 
 namespace Hexware.Plist
 {
-    /// <summary>
-    /// Represents a &lt;fill /&gt; tag
-    /// </summary>
     public partial class PlistFill
     {
-        /// <summary>
-        /// Hexware.Plist.PlistFill constructor
-        /// </summary>
         public PlistFill()
         {
+        }
+    }
+    public partial class PlistFill : IPlistElement
+    {
+        public string XmlTag
+        {
+            get
+            {
+                return "fill";
+            }
+        }
+        public PlistElementType ElementType
+        {
+            get
+            {
+                return PlistElementType.Fill;
+            }
         }
     }
     public partial class PlistFill : IPlistElementInternal
@@ -43,45 +55,14 @@ namespace Hexware.Plist
         {
             return new PlistFill();
         }
-
         void IPlistElementInternal.WriteBinary(BinaryWriter writer)
         {
             writer.Write((byte)0x0F);
         }
-
-        internal static PlistFill ReadXml(XmlNode node)
-        {
-            return new PlistFill();
-        }
-
         void IPlistElementInternal.WriteXml(XmlNode tree, XmlDocument writer)
         {
-            XmlElement element = writer.CreateElement("fill");
-            tree.AppendChild(element);
-        }
-    }
-    public partial class PlistFill : IPlistElement
-    {
-        /// <summary>
-        /// Gets the Xml tag for this element
-        /// </summary>
-        public string XmlTag
-        {
-            get
-            {
-                return "fill";
-            }
-        }
-
-        /// <summary>
-        /// Gets the type of this element
-        /// </summary>
-        public PlistElementType ElementType
-        {
-            get
-            {
-                return PlistElementType.Fill;
-            }
+            // TODO: Is this even a Plist element? Or is it just filler bytes for padding?
+            throw new NotImplementedException("Internal error");
         }
     }
 }

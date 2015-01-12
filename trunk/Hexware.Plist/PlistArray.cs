@@ -26,72 +26,21 @@ using System.Xml;
 
 namespace Hexware.Plist
 {
-    /// <summary>
-    /// Represents a &lt;array /&gt; tag using a one dimensional <see cref="Hexware.Plist.IPlistElement"/> array
-    /// </summary>
     public partial class PlistArray
     {
-        /// <summary>
-        /// Hexware.Plist.PlistArray constructor using a one dimensional <see cref="Hexware.Plist.IPlistElement"/> array
-        /// </summary>
-        /// <param name="value">The value of this node containing <see cref="Hexware.Plist.IPlistElement"/>-based objects</param>
-        /// <exception cref="System.ArgumentNullException"><paramref name="value"/> is null</exception>
         public PlistArray(IPlistElement[] value)
         {
             if (value == null)
                 throw new ArgumentNullException("value");
 
+            _value = (IPlistElement[])value.Clone();
+        }
+        internal PlistArray(IPlistElement[] value, bool unused)
+        {
+            // Used by PlistArray.ReadXml to avoid shallow copy
             _value = value;
         }
 
-        /// <summary>
-        /// Hexware.Plist.PlistArray constructor using a <see cref="System.Xml.XmlNodeList"/>
-        /// </summary>
-        /// <param name="value">A <see cref="System.Xml.XmlNodeList"/> containing the current array</param>
-        /// <exception cref="Hexware.Plist.PlistFormatException">A node not a valid Plist Element</exception>
-        /// <exception cref="System.ArgumentNullException"><paramref name="value"/> is null</exception>
-        public PlistArray(XmlNodeList value)
-        {
-            if (value == null)
-                throw new ArgumentNullException("value");
-
-            _value = new IPlistElement[value.Count];
-
-            for (int i = 0; i < value.Count; i++) {
-                if (value[i].Name == "array")
-                    _value[i] = PlistArray.ReadXml(value[i]);
-                else if (value[i].Name == "true" || value[i].Name == "false")
-                    _value[i] = PlistBool.ReadXml(value[i]);
-                else if (value[i].Name == "data")
-                    _value[i] = PlistData.ReadXml(value[i]);
-                else if (value[i].Name == "date")
-                    _value[i] = PlistDate.ReadXml(value[i]);
-                else if (value[i].Name == "dict")
-                    _value[i] = PlistDict.ReadXml(value[i]);
-                else if (value[i].Name == "fill")
-                    _value[i] = PlistFill.ReadXml(value[i]);
-                else if (value[i].Name == "integer")
-                    _value[i] = PlistInteger.ReadXml(value[i]);
-                else if (value[i].Name == "null")
-                    _value[i] = PlistNull.ReadXml(value[i]);
-                else if (value[i].Name == "real")
-                    _value[i] = PlistReal.ReadXml(value[i]);
-                else if (value[i].Name == "string")
-                    _value[i] = PlistString.ReadXml(value[i]);
-                else if (value[i].Name == "uid")
-                    _value[i] = PlistUid.ReadXml(value[i]);
-                else
-                    throw new PlistFormatException("Plist element is not a valid element");
-            }
-        }
-
-        /// <summary>
-        /// Adds an element to the array
-        /// </summary>
-        /// <param name="value">The value to add</param>
-        /// <exception cref="System.ArgumentNullException">The provided value is null</exception>
-        /// <exception cref="System.OverflowException">The array is too big</exception>
-        /// <exception cref="System.StackOverflowException">The stack is too small</exception>
         public void Add(IPlistElement value)
         {
             if (value == null)
@@ -101,13 +50,6 @@ namespace Hexware.Plist
             Array.Resize(ref _value, length);
             _value[length] = value;
         }
-
-        /// <summary>
-        /// Deletes an element from the array based on the index
-        /// </summary>
-        /// <param name="index">A zero-based index of the element to delete</param>
-        /// <exception cref="System.ArgumentNullException"><paramref name="index"/> is negative</exception>
-        /// <exception cref="System.IndexOutOfRangeException"><paramref name="index"/> is out of bounds of the array</exception>
         public void Delete(int index)
         {
             int length = _value.GetLength(0);
@@ -149,14 +91,6 @@ namespace Hexware.Plist
 
             _value = resize;
         }
-
-        /// <summary>
-        /// Retrieves an element from the array based on the index
-        /// </summary>
-        /// <param name="index">A zero-based index of the element to retrieve</param>
-        /// <exception cref="System.IndexOutOfRangeException"><paramref name="index"/> is negative</exception>
-        /// <exception cref="System.IndexOutOfRangeException"><paramref name="index"/> is out of bounds of the array</exception>
-        /// <returns>The value from the array</returns>
         public IPlistElement Get(int index)
         {
             if (index < 0)
@@ -166,28 +100,10 @@ namespace Hexware.Plist
 
             return _value[index];
         }
-
-        /// <summary>
-        /// Retrieves an element from the array based on the index
-        /// </summary>
-        /// <typeparam name="T">The type to return of <see cref="Hexware.Plist.IPlistElement"/></typeparam>
-        /// <param name="index">A zero-based index of the element to retrieve</param>
-        /// <exception cref="System.IndexOutOfRangeException"><paramref name="index"/> is negative</exception>
-        /// <exception cref="System.IndexOutOfRangeException"><paramref name="index"/> is out of bounds of the array</exception>
-        /// <returns>The value from the array after casting</returns>
         public T Get<T>(int index) where T : IPlistElement
         {
             return (T)Get(index);
         }
-
-        /// <summary>
-        /// Sets an existing element in the array with a new value
-        /// </summary>
-        /// <param name="index">A zero-based index of the element to change</param>
-        /// <param name="value">The value to add</param>
-        /// <exception cref="System.ArgumentNullException"><paramref name="value"/> is null</exception>
-        /// <exception cref="System.IndexOutOfRangeException"><paramref name="index"/> is negative</exception>
-        /// <exception cref="System.IndexOutOfRangeException"><paramref name="index"/> is out of bounds of the array</exception>
         public void Set(int index, IPlistElement value)
         {
             if (value == null)
@@ -199,13 +115,6 @@ namespace Hexware.Plist
 
             _value[index] = value;
         }
-
-        /// <summary>
-        /// Gets a value in the array
-        /// </summary>
-        /// <param name="index">A zero-based index of the element to change</param>
-        /// <exception cref="System.IndexOutOfRangeException"><paramref name="index"/> is out of bounds of the array</exception>
-        /// <returns>The array element at <paramref name="index"/></returns>
         public IPlistElement this[int index]
         {
             get
@@ -213,10 +122,6 @@ namespace Hexware.Plist
                 return Get(index);
             }
         }
-
-        /// <summary>
-        /// Gets the number of elements contained in the array
-        /// </summary>
         public int Length
         {
             get
@@ -224,70 +129,11 @@ namespace Hexware.Plist
                 return _value.Length;
             }
         }
-
-    }
-    public partial class PlistArray : IPlistElementInternal
-    {
-        // TODO
-        internal static PlistArray ReadBinary(BinaryReader reader, byte firstbyte)
-        {
-            int length = firstbyte & 0x0F;
-            if (length == 0x0F) {
-                length = (int)PlistInteger.ReadBinary(reader, reader.ReadByte()).Value;
-            }
-            // TODO: objref*
-            throw new NotImplementedException();
-        }
-
-        // TODO
-        public void WriteBinary(BinaryWriter writer)
-        {
-            if (_value.Length < 0x0F) {
-                writer.Write((byte)(0xA0 | _value.Length));
-            } else {
-                writer.Write((byte)0xAF);
-                ((IPlistElementInternal)new PlistInteger(_value.Length)).WriteBinary(writer);
-            }
-            // TODO: objref*
-            throw new NotImplementedException();
-        }
-
-        internal static PlistArray ReadXml(XmlNode node)
-        {
-            return new PlistArray(node.ChildNodes);
-        }
-
-        void IPlistElementInternal.WriteXml(XmlNode tree, XmlDocument writer)
-        {
-            XmlElement element;
-            element = writer.CreateElement("array");
-
-            for (int i = 0; i < _value.Length; i++) {
-                ((IPlistElementInternal)_value[i]).WriteXml(element, writer);
-            }
-
-            tree.AppendChild(element);
-        }
     }
     public partial class PlistArray : IPlistElement<IPlistElement[]>
     {
         private IPlistElement[] _value;
 
-        /// <summary>
-        /// Gets the Xml tag for this element
-        /// </summary>
-        public string XmlTag
-        {
-            get
-            {
-                return "array";
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the value of this element
-        /// </summary>
-        /// <exception cref="System.ArgumentNullException"><paramref name="value"/> is null</exception>
         public IPlistElement[] Value
         {
             get
@@ -302,16 +148,78 @@ namespace Hexware.Plist
                 _value = value;
             }
         }
-
-        /// <summary>
-        /// Gets the type of this element
-        /// </summary>
         public PlistElementType ElementType
         {
             get
             {
                 return PlistElementType.Dictionary;
             }
+        }
+    }
+    public partial class PlistArray : IPlistElementInternal
+    {
+        // TODO
+        internal static PlistArray ReadBinary(BinaryReader reader, byte firstbyte)
+        {
+            int length = firstbyte & 0x0F;
+            if (length == 0x0F) {
+                length = (int)PlistInteger.ReadBinary(reader, reader.ReadByte()).Value;
+            }
+            // TODO: objref*
+            throw new NotImplementedException();
+        }
+        // TODO
+        public void WriteBinary(BinaryWriter writer)
+        {
+            if (_value.Length < 0x0F) {
+                writer.Write((byte)(0xA0 | _value.Length));
+            } else {
+                writer.Write((byte)0xAF);
+                ((IPlistElementInternal)new PlistInteger(_value.Length)).WriteBinary(writer);
+            }
+            // TODO: objref*
+            throw new NotImplementedException();
+        }
+        internal static PlistArray ReadXml(XmlNode node)
+        {
+            XmlNodeList children = node.ChildNodes;
+            IPlistElement[] ret = new IPlistElement[children.Count];
+
+            for (int i = 0; i < children.Count; i++) {
+                XmlNode value = children[i];
+                if (value.Name == "array")
+                    ret[i] = PlistArray.ReadXml(value);
+                else if (value.Name == "true" || value.Name == "false")
+                    ret[i] = PlistBool.ReadXml(value);
+                else if (value.Name == "data")
+                    ret[i] = PlistData.ReadXml(value);
+                else if (value.Name == "date")
+                    ret[i] = PlistDate.ReadXml(value);
+                else if (value.Name == "dict")
+                    ret[i] = PlistDict.ReadXml(value);
+                else if (value.Name == "integer")
+                    ret[i] = PlistInteger.ReadXml(value);
+                else if (value.Name == "null")
+                    ret[i] = PlistNull.ReadXml(value);
+                else if (value.Name == "real")
+                    ret[i] = PlistReal.ReadXml(value);
+                else if (value.Name == "string")
+                    ret[i] = PlistString.ReadXml(value);
+                else
+                    throw new PlistFormatException("Plist element is not a valid element");
+            }
+            return new PlistArray(ret, false);
+        }
+        void IPlistElementInternal.WriteXml(XmlNode tree, XmlDocument writer)
+        {
+            XmlElement element;
+            element = writer.CreateElement("array");
+
+            for (int i = 0; i < _value.Length; i++) {
+                ((IPlistElementInternal)_value[i]).WriteXml(element, writer);
+            }
+
+            tree.AppendChild(element);
         }
     }
 }

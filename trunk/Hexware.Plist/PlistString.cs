@@ -27,22 +27,40 @@ using System.Xml;
 
 namespace Hexware.Plist
 {
-    /// <summary>
-    /// Represents a &lt;string /&gt; tag using a <see cref="System.String"/>
-    /// </summary>
     public partial class PlistString
     {
-        /// <summary>
-        /// Hexware.Plist.PlistString constructor using a <see cref="System.String"/>
-        /// </summary>
-        /// <param name="value">The value of this node</param>
-        /// <exception cref="System.ArgumentNullException"><paramref name="value"/> is null</exception>
         public PlistString(string value)
         {
             if (value == null)
                 throw new ArgumentNullException("value");
 
             _value = value;
+        }
+    }
+    public partial class PlistString : IPlistElement<string>
+    {
+        internal string _value;
+
+        public string Value
+        {
+            get
+            {
+                return _value;
+            }
+            set
+            {
+                if (value == null)
+                    throw new ArgumentNullException("value");
+
+                _value = value;
+            }
+        }
+        public PlistElementType ElementType
+        {
+            get
+            {
+                return PlistElementType.String;
+            }
         }
     }
     public partial class PlistString : IPlistElementInternal
@@ -64,7 +82,6 @@ namespace Hexware.Plist
                 encoding = Encoding.UTF8; // NOTE: version "bplist1?"+
             return new PlistString(encoding.GetString(buf));
         }
-
         void IPlistElementInternal.WriteBinary(BinaryWriter writer)
         {
             int length = _value.Length;
@@ -77,62 +94,15 @@ namespace Hexware.Plist
             // doesn't waste bytes if one character was not ASCII.
             writer.Write(Encoding.UTF8.GetBytes(_value));
         }
-
         internal static PlistString ReadXml(XmlNode node)
         {
             return new PlistString(node.InnerText);
         }
-
         void IPlistElementInternal.WriteXml(XmlNode tree, XmlDocument writer)
         {
-            XmlElement element = writer.CreateElement(XmlTag);
+            XmlElement element = writer.CreateElement("string");
             element.InnerText = _value;
             tree.AppendChild(element);
-        }
-    }
-    public partial class PlistString : IPlistElement<string>
-    {
-        internal string _value;
-
-        /// <summary>
-        /// Gets the Xml tag for this element
-        /// </summary>
-        public string XmlTag
-        {
-            get
-            {
-                return "string";
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the value of this element
-        /// </summary>
-        /// <exception cref="System.ArgumentNullException"><paramref name="value"/> is null</exception>
-        public string Value
-        {
-            get
-            {
-                return _value;
-            }
-            set
-            {
-                if (value == null)
-                    throw new ArgumentNullException("value");
-
-                _value = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets the type of this element
-        /// </summary>
-        public PlistElementType ElementType
-        {
-            get
-            {
-                return PlistElementType.String;
-            }
         }
     }
 }

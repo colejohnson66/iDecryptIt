@@ -27,28 +27,14 @@ using System.Xml;
 
 namespace Hexware.Plist
 {
-    /// <summary>
-    /// Represents a &lt;date /&gt; tag using a <see cref="System.DateTime"/>
-    /// </summary>
     public partial class PlistDate
     {
         internal static DateTime AppleEpoch = new DateTime(2001, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
-        /// <summary>
-        /// Hexware.Plist.PlistDate constructor using a <see cref="System.DateTime"/>
-        /// </summary>
-        /// <param name="value">The value of this node</param>
         public PlistDate(DateTime value)
         {
             _value = value;
         }
-
-        /// <summary>
-        /// Hexware.Plist.PlistDate constructor using a <see cref="System.String"/>
-        /// </summary>
-        /// <param name="value">The value of this node</param>
-        /// <exception cref="System.ArgumentNullException"><paramref name="value"/> is null</exception>
-        /// <exception cref="System.FormatException">Provided date is not in valid ISO 8601 standard</exception>
         public PlistDate(string value)
         {
             if (value == null)
@@ -64,57 +50,10 @@ namespace Hexware.Plist
             }
         }
     }
-    public partial class PlistDate : IPlistElementInternal
-    {
-        internal static PlistDate ReadBinary(BinaryReader reader, byte firstbyte)
-        {
-            byte[] buf = reader.ReadBytes(8);
-            if (BitConverter.IsLittleEndian)
-                Array.Reverse(buf);
-            return new PlistDate(AppleEpoch.AddTicks((long)BitConverter.ToDouble(buf, 0)));
-        }
-
-        void IPlistElementInternal.WriteBinary(BinaryWriter writer)
-        {
-            writer.Write((byte)0x33);
-
-            // could be optimized by writing the array backwards instead of reversing first
-            TimeSpan val = _value - AppleEpoch;
-            byte[] buf = BitConverter.GetBytes(val.TotalSeconds);
-            Array.Reverse(buf);
-            writer.Write(buf);
-        }
-
-        internal static PlistDate ReadXml(XmlNode node)
-        {
-            return new PlistDate(node.InnerText);
-        }
-
-        void IPlistElementInternal.WriteXml(XmlNode tree, XmlDocument writer)
-        {
-            XmlElement element = writer.CreateElement("date");
-            element.InnerText = _value.ToString("s") + "Z";
-            tree.AppendChild(element);
-        }
-    }
     public partial class PlistDate : IPlistElement<DateTime>
     {
         internal DateTime _value;
 
-        /// <summary>
-        /// Gets the Xml tag for this element
-        /// </summary>
-        public string XmlTag
-        {
-            get
-            {
-                return "date";
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the value of this element
-        /// </summary>
         public DateTime Value
         {
             get
@@ -126,16 +65,42 @@ namespace Hexware.Plist
                 _value = value;
             }
         }
-
-        /// <summary>
-        /// Gets the type of this element
-        /// </summary>
         public PlistElementType ElementType
         {
             get
             {
                 return PlistElementType.Date;
             }
+        }
+    }
+    public partial class PlistDate : IPlistElementInternal
+    {
+        internal static PlistDate ReadBinary(BinaryReader reader, byte firstbyte)
+        {
+            byte[] buf = reader.ReadBytes(8);
+            if (BitConverter.IsLittleEndian)
+                Array.Reverse(buf);
+            return new PlistDate(AppleEpoch.AddTicks((long)BitConverter.ToDouble(buf, 0)));
+        }
+        void IPlistElementInternal.WriteBinary(BinaryWriter writer)
+        {
+            writer.Write((byte)0x33);
+
+            // could be optimized by writing the array backwards instead of reversing first
+            TimeSpan val = _value - AppleEpoch;
+            byte[] buf = BitConverter.GetBytes(val.TotalSeconds);
+            Array.Reverse(buf);
+            writer.Write(buf);
+        }
+        internal static PlistDate ReadXml(XmlNode node)
+        {
+            return new PlistDate(node.InnerText);
+        }
+        void IPlistElementInternal.WriteXml(XmlNode tree, XmlDocument writer)
+        {
+            XmlElement element = writer.CreateElement("date");
+            element.InnerText = _value.ToString("s") + "Z";
+            tree.AppendChild(element);
         }
     }
 }

@@ -26,17 +26,8 @@ using System.Xml;
 
 namespace Hexware.Plist
 {
-    /// <summary>
-    /// Represents a &lt;real /&gt; tag using a <see cref="System.Double"/>
-    /// </summary>
     public partial class PlistReal
     {
-        /// <summary>
-        /// Hexware.Plist.PlistReal constructor from an <see cref="System.String"/>
-        /// </summary>
-        /// <param name="value">The value of this node</param>
-        /// <exception cref="System.ArgumentNullException"><paramref name="value"/> is null or empty</exception>
-        /// <exception cref="System.FormatException"><paramref name="value"/> is not a real (<see cref="System.Double"/>)</exception>
         public PlistReal(string value)
         {
             if (String.IsNullOrEmpty(value))
@@ -51,95 +42,68 @@ namespace Hexware.Plist
                 throw new FormatException("\"" + value + "\" is not an real (double)");
             }
         }
-
-        /// <summary>
-        /// Hexware.Plist.PlistReal constructor from an <see cref="System.Single"/>
-        /// </summary>
-        /// <param name="value">The value of this node</param>
         public PlistReal(float value)
         {
             _value = value;
         }
-
-        /// <summary>
-        /// Hexware.Plist.PlistReal constructor from an <see cref="System.Double"/>
-        /// </summary>
-        /// <param name="value">The value of this node</param>
         public PlistReal(double value)
         {
             _value = value;
         }
-
-        /// <summary>
-        /// Hexware.Plist.PlistReal constructor from an <see cref="System.SByte"/>
-        /// </summary>
-        /// <param name="value">The value of this node</param>
         public PlistReal(sbyte value)
         {
             _value = value;
         }
-
-        /// <summary>
-        /// Hexware.Plist.PlistReal constructor from an <see cref="System.Byte"/>
-        /// </summary>
-        /// <param name="value">The value of this node</param>
         public PlistReal(byte value)
         {
             _value = value;
         }
-
-        /// <summary>
-        /// Hexware.Plist.PlistReal constructor from an <see cref="System.Int16"/>
-        /// </summary>
-        /// <param name="value">The value of this node</param>
         public PlistReal(short value)
         {
             _value = value;
         }
-
-        /// <summary>
-        /// Hexware.Plist.PlistReal constructor from an <see cref="System.UInt16"/>
-        /// </summary>
-        /// <param name="value">The value of this node</param>
         public PlistReal(ushort value)
         {
             _value = value;
         }
-
-        /// <summary>
-        /// Hexware.Plist.PlistReal constructor from an <see cref="System.Int32"/>
-        /// </summary>
-        /// <param name="value">The value of this node</param>
         public PlistReal(int value)
         {
             _value = value;
         }
-
-        /// <summary>
-        /// Hexware.Plist.PlistReal constructor from an <see cref="System.UInt32"/>
-        /// </summary>
-        /// <param name="value">The value of this node</param>
         public PlistReal(uint value)
         {
             _value = value;
         }
-
-        /// <summary>
-        /// Hexware.Plist.PlistReal constructor from an <see cref="System.Int64"/>
-        /// </summary>
-        /// <param name="value">The value of this node</param>
         public PlistReal(long value)
         {
             _value = value;
         }
-
-        /// <summary>
-        /// Hexware.Plist.PlistReal constructor from an <see cref="System.UInt64"/>
-        /// </summary>
-        /// <param name="value">The value of this node</param>
         public PlistReal(ulong value)
         {
             _value = value;
+        }
+    }
+    public partial class PlistReal : IPlistElement<double>
+    {
+        internal double _value;
+
+        public double Value
+        {
+            get
+            {
+                return _value;
+            }
+            set
+            {
+                _value = value;
+            }
+        }
+        public PlistElementType ElementType
+        {
+            get
+            {
+                return PlistElementType.Real;
+            }
         }
     }
     public partial class PlistReal : IPlistElementInternal
@@ -160,7 +124,6 @@ namespace Hexware.Plist
 
             throw new PlistFormatException("Support does not exist for reals that aren't 32 or 64 bits long");
         }
-
         void IPlistElementInternal.WriteBinary(BinaryWriter writer)
         {
             // To avoid unintentional loss of precision, save as
@@ -174,7 +137,6 @@ namespace Hexware.Plist
                 Array.Reverse(buf);
             writer.Write(buf);
         }
-
         internal static PlistReal ReadXml(XmlNode node)
         {
             string val = node.InnerText;
@@ -195,7 +157,6 @@ namespace Hexware.Plist
 
             return new PlistReal(node.InnerText);
         }
-
         void IPlistElementInternal.WriteXml(XmlNode tree, XmlDocument writer)
         {
             XmlElement element = writer.CreateElement("real");
@@ -210,47 +171,6 @@ namespace Hexware.Plist
                 writer.InnerText = _value.ToString();
 
             tree.AppendChild(element);
-        }
-    }
-    public partial class PlistReal : IPlistElement<double>
-    {
-        internal double _value;
-
-        /// <summary>
-        /// Gets the Xml tag for this element
-        /// </summary>
-        public string XmlTag
-        {
-            get
-            {
-                return "real";
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the value of this element
-        /// </summary>
-        public double Value
-        {
-            get
-            {
-                return _value;
-            }
-            set
-            {
-                _value = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets the type of this element
-        /// </summary>
-        public PlistElementType ElementType
-        {
-            get
-            {
-                return PlistElementType.Real;
-            }
         }
     }
 }
