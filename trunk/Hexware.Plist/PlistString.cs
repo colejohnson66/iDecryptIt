@@ -2,7 +2,7 @@
  * File:   PlistString.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2012, 2014 Cole Johnson
+ * Copyright (c) 2012, 2014-2015 Cole Johnson
  * 
  * This file is part of Hexware.Plist
  * 
@@ -21,14 +21,15 @@
  * =============================================================================
  */
 using System;
-using System.IO;
 using System.Text;
 using System.Xml;
 
 namespace Hexware.Plist
 {
-    public partial class PlistString
+    public partial class PlistString : IPlistElement
     {
+        internal string _value;
+
         public PlistString(string value)
         {
             if (value == null)
@@ -36,10 +37,6 @@ namespace Hexware.Plist
 
             _value = value;
         }
-    }
-    public partial class PlistString : IPlistElement<string>
-    {
-        internal string _value;
 
         public string Value
         {
@@ -55,6 +52,18 @@ namespace Hexware.Plist
                 _value = value;
             }
         }
+        public int Length
+        {
+            get
+            {
+                return _value.Length;
+            }
+        }
+
+        public bool CanSerialize(PlistDocumentType type)
+        {
+            return true;
+        }
         public PlistElementType ElementType
         {
             get
@@ -65,33 +74,34 @@ namespace Hexware.Plist
     }
     public partial class PlistString : IPlistElementInternal
     {
-        internal static PlistString ReadBinary(BinaryReader reader, byte firstbyte)
+        internal static PlistString ReadBinary(BinaryPlistReader reader, byte firstbyte)
         {
+            // length is number of characters, so we can't just read them right off
             int type = firstbyte & 0xF0;
             int length = firstbyte & 0x0F;
             if (length == 0x0F)
                 length = (int)PlistInteger.ReadBinary(reader, reader.ReadByte()).Value;
-            byte[] buf = reader.ReadBytes(length);
 
-            Encoding encoding;
             if (type == 0x50)
-                encoding = Encoding.ASCII;
-            else if (type == 0x60)
-                encoding = Encoding.BigEndianUnicode;
-            else // type == 0x70
-                encoding = Encoding.UTF8; // NOTE: version "bplist1?"+
-            return new PlistString(encoding.GetString(buf));
-        }
-        void IPlistElementInternal.WriteBinary(BinaryWriter writer)
-        {
-            int length = _value.Length;
-            if (length < 0x0F)
-                writer.Write((byte)(0x70 | _value.Length));
-            else
-                ((IPlistElementInternal)new PlistInteger(_value.Length)).WriteBinary(writer);
+                return new PlistString(
+                    Encoding.ASCII.GetString(reader.ReadBytes(length)));
+            if (type == 0x60)
+                return new PlistString(
+                    Encoding.BigEndianUnicode.GetString(reader.ReadBytes(length)));
 
-            // Always save as UTF-8. It's the same size as ASCII and
-            // doesn't waste bytes if one character was not ASCII.
+            // UTF-8; the binary reader should've been created with UTF-8 decoder
+            return new PlistString(new String(reader.ReadChars(length)));
+        }
+        void IPlistElementInternal.WriteBinary(BinaryPlistWriter writer)
+        {
+            // Always save as UTF-8
+            int length = _value.Length;
+            if (length < 0x0F) {
+                writer.Write((byte)(0x70 | _value.Length));
+            } else {
+                writer.Write((byte)0x7F);
+                writer.WriteTypedInteger(_value.Length);
+            }
             writer.Write(Encoding.UTF8.GetBytes(_value));
         }
         internal static PlistString ReadXml(XmlNode node)

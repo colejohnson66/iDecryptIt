@@ -2,7 +2,7 @@
  * File:   PlistInteger.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2012, 2014 Cole Johnson
+ * Copyright (c) 2012, 2014-2015 Cole Johnson
  * 
  * This file is part of Hexware.Plist
  * 
@@ -21,13 +21,14 @@
  * =============================================================================
  */
 using System;
-using System.IO;
 using System.Xml;
 
 namespace Hexware.Plist
 {
-    public partial class PlistInteger
+    public partial class PlistInteger : IPlistElement
     {
+        internal long _value;
+
         public PlistInteger(string value)
         {
             if (String.IsNullOrEmpty(value))
@@ -103,10 +104,6 @@ namespace Hexware.Plist
                 throw new FormatException("\"" + value + "\" cannot be converted to an long");
             }
         }
-    }
-    public partial class PlistInteger : IPlistElement<long>
-    {
-        internal long _value;
 
         public long Value
         {
@@ -119,6 +116,11 @@ namespace Hexware.Plist
                 _value = value;
             }
         }
+
+        public bool CanSerialize(PlistDocumentType type)
+        {
+            return true;
+        }
         public PlistElementType ElementType
         {
             get
@@ -129,7 +131,7 @@ namespace Hexware.Plist
     }
     public partial class PlistInteger : IPlistElementInternal
     {
-        internal static PlistInteger ReadBinary(BinaryReader reader, byte firstbyte)
+        internal static PlistInteger ReadBinary(BinaryPlistReader reader, byte firstbyte)
         {
             int numofbytes = 1 << (firstbyte & 0x08);
             byte[] buf = reader.ReadBytes(numofbytes);
@@ -150,13 +152,13 @@ namespace Hexware.Plist
             // CoreFoundation only implements support up to 128 bits.
             throw new PlistFormatException("Support does not exist for integers greater than 64 bits");
         }
-        void IPlistElementInternal.WriteBinary(BinaryWriter writer)
+        void IPlistElementInternal.WriteBinary(BinaryPlistWriter writer)
         {
             byte[] buf;
 
             // 8, 16, and 32 bit integers have to be interpreted as unsigned,
             // whereas 64 bit integers are signed (and 16-byte when available).
-            // Negative 8, 16, and 32 bit integers are always emitted as 8 bytes.
+            // Negative 8, 16, and 32 bit integers are always emitted as 64 bits.
             // Integers are not required to be in the most compact possible
             // representation, but only the last 64 bits are significant.
             if (_value > UInt32.MaxValue || _value < 0) {

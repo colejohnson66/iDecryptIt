@@ -2,7 +2,7 @@
  * File:   PlistDate.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2012, 2014 Cole Johnson
+ * Copyright (c) 2012, 2014-2015 Cole Johnson
  * 
  * This file is part of Hexware.Plist
  * 
@@ -22,14 +22,14 @@
  */
 using System;
 using System.Globalization;
-using System.IO;
 using System.Xml;
 
 namespace Hexware.Plist
 {
-    public partial class PlistDate
+    public partial class PlistDate : IPlistElement
     {
         internal static DateTime AppleEpoch = new DateTime(2001, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+        internal DateTime _value;
 
         public PlistDate(DateTime value)
         {
@@ -49,10 +49,6 @@ namespace Hexware.Plist
                 throw new FormatException("Provided date is not in valid ISO 8601 standard");
             }
         }
-    }
-    public partial class PlistDate : IPlistElement<DateTime>
-    {
-        internal DateTime _value;
 
         public DateTime Value
         {
@@ -65,6 +61,11 @@ namespace Hexware.Plist
                 _value = value;
             }
         }
+
+        public bool CanSerialize(PlistDocumentType type)
+        {
+            return true;
+        }
         public PlistElementType ElementType
         {
             get
@@ -75,21 +76,22 @@ namespace Hexware.Plist
     }
     public partial class PlistDate : IPlistElementInternal
     {
-        internal static PlistDate ReadBinary(BinaryReader reader, byte firstbyte)
+        internal static PlistDate ReadBinary(BinaryPlistReader reader, byte firstbyte)
         {
             byte[] buf = reader.ReadBytes(8);
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(buf);
             return new PlistDate(AppleEpoch.AddTicks((long)BitConverter.ToDouble(buf, 0)));
         }
-        void IPlistElementInternal.WriteBinary(BinaryWriter writer)
+        void IPlistElementInternal.WriteBinary(BinaryPlistWriter writer)
         {
             writer.Write((byte)0x33);
 
             // could be optimized by writing the array backwards instead of reversing first
             TimeSpan val = _value - AppleEpoch;
             byte[] buf = BitConverter.GetBytes(val.TotalSeconds);
-            Array.Reverse(buf);
+            if (BitConverter.IsLittleEndian)
+                Array.Reverse(buf);
             writer.Write(buf);
         }
         internal static PlistDate ReadXml(XmlNode node)

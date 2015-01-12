@@ -70,6 +70,7 @@ namespace Hexware.Plist
     }
     public partial class PlistDocument
     {
+        // TODO: https://github.com/songkick/plist/blob/master/src/com/dd/plist/BinaryPropertyListParser.java
         internal void ReadBinary(BinaryPlistReader reader)
         {
             // Magic already parsed
@@ -83,12 +84,11 @@ namespace Hexware.Plist
             reader.BaseStream.Seek(reader.Trailer.OffsetTableOffset, SeekOrigin.Begin);
             reader.ObjectOffsets = new int[reader.Trailer.NumberOfObjects];
             for (int i = 0; i < reader.Trailer.NumberOfObjects; i++) {
-                byte[] buf = reader.ReadBytes(reader.Trailer.OffsetSize);
+                byte[] buf = reader.ReadBytes(reader.Trailer.OffsetTableOffsetSize);
                 reader.ObjectOffsets[i] = (int)BinaryPlistReader.ParseUnsignedBigEndianNumber(buf);
             }
 
-            reader.BaseStream.Seek(reader.ObjectOffsets[reader.Trailer.RootObject], SeekOrigin.Begin);
-            // parse root object (`_value')
+            IPlistElement temp = reader.ParseObject(reader.Trailer.RootObjectNumber);
 
             throw new NotImplementedException();
         }
@@ -124,8 +124,6 @@ namespace Hexware.Plist
                         _value = PlistDict.ReadXml(root);
                     else if (root.Name == "integer")
                         _value = PlistInteger.ReadXml(root);
-                    else if (root.Name == "null")
-                        _value = PlistNull.ReadXml(root);
                     else if (root.Name == "real")
                         _value = PlistReal.ReadXml(root);
                     else if (root.Name == "string")

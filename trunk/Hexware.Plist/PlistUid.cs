@@ -2,7 +2,7 @@
  * File:   PlistUid.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2012, 2014 Cole Johnson
+ * Copyright (c) 2012, 2014-2015 Cole Johnson
  * 
  * This file is part of Hexware.Plist
  * 
@@ -21,22 +21,19 @@
  * =============================================================================
  */
 using System;
-using System.IO;
 using System.Xml;
 
 namespace Hexware.Plist
 {
     // http://www.cclgroupltd.com/geek-post-nskeyedarchiver-files-what-are-they-and-how-can-i-use-them/
-    public partial class PlistUid
+    public partial class PlistUid : IPlistElement
     {
+        internal ulong _value;
+
         public PlistUid(ulong value)
         {
             _value = value;
         }
-    }
-    public partial class PlistUid : IPlistElement<ulong>
-    {
-        internal ulong _value;
 
         public ulong Value
         {
@@ -49,6 +46,13 @@ namespace Hexware.Plist
                 _value = value;
             }
         }
+
+        public bool CanSerialize(PlistDocumentType type)
+        {
+            if (type == PlistDocumentType.Binary)
+                return true;
+            return false;
+        }
         public PlistElementType ElementType
         {
             get
@@ -59,7 +63,7 @@ namespace Hexware.Plist
     }
     public partial class PlistUid : IPlistElementInternal
     {
-        internal static PlistUid ReadBinary(BinaryReader reader, byte firstbyte)
+        internal static PlistUid ReadBinary(BinaryPlistReader reader, byte firstbyte)
         {
             int count = firstbyte & 0x0f + 1;
 
@@ -69,7 +73,7 @@ namespace Hexware.Plist
 
             return new PlistUid(ret);
         }
-        void IPlistElementInternal.WriteBinary(BinaryWriter writer)
+        void IPlistElementInternal.WriteBinary(BinaryPlistWriter writer)
         {
             byte[] buf;
             if (_value <= Byte.MaxValue) {
@@ -94,17 +98,7 @@ namespace Hexware.Plist
         }
         void IPlistElementInternal.WriteXml(XmlNode tree, XmlDocument writer)
         {
-            XmlNode element = writer.CreateElement("dict");
-
-            XmlNode subElement = writer.CreateElement("key");
-            subElement.InnerText = "CF$UID";
-            element.AppendChild(subElement);
-
-            subElement = writer.CreateElement("integer");
-            subElement.InnerText = _value.ToString();
-            element.AppendChild(subElement);
-
-            tree.AppendChild(element);
+            throw new PlistException("UIDs can only be serialized in binary");
         }
     }
 }
