@@ -2,7 +2,7 @@
  * File:   PlistNull.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2012, 2014 Cole Johnson
+ * Copyright (c) 2012, 2014-2015 Cole Johnson
  * 
  * This file is part of Hexware.Plist
  * 
@@ -20,19 +20,20 @@
  *   along with Hexware.Plist. If not, see <http://www.gnu.org/licenses/>.
  * =============================================================================
  */
-using System.IO;
 using System.Xml;
 
 namespace Hexware.Plist
 {
-    public partial class PlistNull
+    public partial class PlistNull : IPlistElement
     {
         public PlistNull()
         {
         }
-    }
-    public partial class PlistNull : IPlistElement
-    {
+
+        public bool CanSerialize(PlistDocumentType type)
+        {
+            return true;
+        }
         public PlistElementType ElementType
         {
             get
@@ -43,21 +44,14 @@ namespace Hexware.Plist
     }
     public partial class PlistNull : IPlistElementInternal
     {
-        internal static PlistNull ReadBinary(BinaryReader reader, byte firstbyte)
-        {
-            return new PlistNull();
-        }
-        void IPlistElementInternal.WriteBinary(BinaryWriter writer)
+        void IPlistElementInternal.WriteBinary(BinaryPlistWriter writer)
         {
             writer.Write((byte)0x00);
         }
-        internal static PlistNull ReadXml(XmlNode node)
-        {
-            return new PlistNull();
-        }
         void IPlistElementInternal.WriteXml(XmlNode tree, XmlDocument writer)
         {
-            XmlElement element = writer.CreateElement("null");
+            XmlElement element = writer.CreateElement("string");
+            element.InnerText = "CF$null";
             tree.AppendChild(element);
         }
     }

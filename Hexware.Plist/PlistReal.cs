@@ -21,13 +21,14 @@
  * =============================================================================
  */
 using System;
-using System.IO;
 using System.Xml;
 
 namespace Hexware.Plist
 {
-    public partial class PlistReal
+    public partial class PlistReal : IPlistElement
     {
+        internal double _value;
+
         public PlistReal(string value)
         {
             if (String.IsNullOrEmpty(value))
@@ -82,10 +83,6 @@ namespace Hexware.Plist
         {
             _value = value;
         }
-    }
-    public partial class PlistReal : IPlistElement<double>
-    {
-        internal double _value;
 
         public double Value
         {
@@ -98,6 +95,11 @@ namespace Hexware.Plist
                 _value = value;
             }
         }
+
+        public bool CanSerialize(PlistDocumentType type)
+        {
+            return true;
+        }
         public PlistElementType ElementType
         {
             get
@@ -108,9 +110,9 @@ namespace Hexware.Plist
     }
     public partial class PlistReal : IPlistElementInternal
     {
-        internal static PlistReal ReadBinary(BinaryReader reader, byte firstbyte)
+        internal static PlistReal ReadBinary(BinaryPlistReader reader, byte firstbyte)
         {
-            int numofbytes = 1 << (firstbyte & 0x08);
+            int numofbytes = 1 << (firstbyte & 0x0F);
             byte[] buf = reader.ReadBytes(numofbytes);
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(buf);
@@ -124,7 +126,7 @@ namespace Hexware.Plist
 
             throw new PlistFormatException("Support does not exist for reals that aren't 32 or 64 bits long");
         }
-        void IPlistElementInternal.WriteBinary(BinaryWriter writer)
+        void IPlistElementInternal.WriteBinary(BinaryPlistWriter writer)
         {
             // To avoid unintentional loss of precision, save as
             // a 64 bit real. CoreFoundation uses some function

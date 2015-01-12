@@ -55,6 +55,7 @@
     <Compile Include="PlistDate.cs" />
     <Compile Include="PlistDict.cs" />
     <Compile Include="PlistDocument.cs" />
+    <Compile Include="PlistDocumentType.cs" />
     <Compile Include="PlistException.cs" />
     <Compile Include="PlistFill.cs" />
     <Compile Include="PlistFormatException.cs" />

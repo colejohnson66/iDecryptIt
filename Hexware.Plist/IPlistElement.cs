@@ -2,7 +2,7 @@
  * File:   IPlistElement.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2012, 2014 Cole Johnson
+ * Copyright (c) 2012, 2014-2015 Cole Johnson
  * 
  * This file is part of Hexware.Plist
  * 
@@ -24,26 +24,9 @@ namespace Hexware.Plist
 {
     public interface IPlistElement
     {
+        bool CanSerialize(PlistDocumentType type);
+
         PlistElementType ElementType
-        {
-            get;
-        }
-
-        //bool IsSerializableInXml
-        //{
-        //    get;
-        //}
-    }
-
-    public interface IPlistElement<TDotNetEquiv> : IPlistElement
-    {
-        TDotNetEquiv Value
-        {
-            get;
-            set;
-        }
-
-        new PlistElementType ElementType
         {
             get;
         }

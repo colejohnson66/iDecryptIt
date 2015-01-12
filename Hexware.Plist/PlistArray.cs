@@ -2,7 +2,7 @@
  * File:   PlistArray.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2012, 2014 Cole Johnson
+ * Copyright (c) 2012, 2014-2015 Cole Johnson
  * 
  * This file is part of Hexware.Plist
  * 
@@ -21,13 +21,14 @@
  * =============================================================================
  */
 using System;
-using System.IO;
 using System.Xml;
 
 namespace Hexware.Plist
 {
-    public partial class PlistArray
+    public partial class PlistArray : IPlistElement
     {
+        private IPlistElement[] _value;
+
         public PlistArray(IPlistElement[] value)
         {
             if (value == null)
@@ -41,6 +42,20 @@ namespace Hexware.Plist
             _value = value;
         }
 
+        public IPlistElement[] Value
+        {
+            get
+            {
+                return _value;
+            }
+            set
+            {
+                if (value == null)
+                    throw new ArgumentNullException("value");
+
+                _value = value;
+            }
+        }
         public void Add(IPlistElement value)
         {
             if (value == null)
@@ -129,53 +144,57 @@ namespace Hexware.Plist
                 return _value.Length;
             }
         }
-    }
-    public partial class PlistArray : IPlistElement<IPlistElement[]>
-    {
-        private IPlistElement[] _value;
 
-        public IPlistElement[] Value
+        public bool CanSerialize(PlistDocumentType type)
         {
-            get
-            {
-                return _value;
+            for (int i = 0; i < _value.Length; i++) {
+                if (!_value[i].CanSerialize(type))
+                    return false;
             }
-            set
-            {
-                if (value == null)
-                    throw new ArgumentNullException("value");
-
-                _value = value;
-            }
+            return true;
         }
         public PlistElementType ElementType
         {
             get
             {
-                return PlistElementType.Dictionary;
+                return PlistElementType.Array;
             }
         }
     }
     public partial class PlistArray : IPlistElementInternal
     {
-        // TODO
-        internal static PlistArray ReadBinary(BinaryReader reader, byte firstbyte)
+        internal static PlistArray ReadBinary(BinaryPlistReader reader, byte firstbyte)
         {
             int length = firstbyte & 0x0F;
-            if (length == 0x0F) {
+            if (length == 0x0F)
                 length = (int)PlistInteger.ReadBinary(reader, reader.ReadByte()).Value;
+
+            IPlistElement[] ret = new IPlistElement[length];
+            int currentOffset = 0;
+            int newLength = length;
+            for (int i = 0; i < length; i++) {
+                int objref = (int)BinaryPlistReader.ParseUnsignedBigEndianNumber(
+                    reader.ReadBytes(reader.Trailer.ReferenceOffsetSize));
+                IPlistElement temp = reader.ParseObject(objref);
+                if (temp == null) {
+                    newLength--;
+                    continue;
+                }
+                ret[currentOffset] = temp;
+                currentOffset++;
             }
-            // TODO: objref*
-            throw new NotImplementedException();
+            Array.Resize(ref ret, newLength);
+
+            return new PlistArray(ret, false);
         }
         // TODO
-        public void WriteBinary(BinaryWriter writer)
+        void IPlistElementInternal.WriteBinary(BinaryPlistWriter writer)
         {
             if (_value.Length < 0x0F) {
                 writer.Write((byte)(0xA0 | _value.Length));
             } else {
                 writer.Write((byte)0xAF);
-                ((IPlistElementInternal)new PlistInteger(_value.Length)).WriteBinary(writer);
+                writer.WriteTypedInteger(_value.Length);
             }
             // TODO: objref*
             throw new NotImplementedException();
@@ -189,8 +208,10 @@ namespace Hexware.Plist
                 XmlNode value = children[i];
                 if (value.Name == "array")
                     ret[i] = PlistArray.ReadXml(value);
-                else if (value.Name == "true" || value.Name == "false")
-                    ret[i] = PlistBool.ReadXml(value);
+                else if (value.Name == "true")
+                    ret[i] = new PlistBool(true);
+                else if (value.Name == "false")
+                    ret[i] = new PlistBool(false);
                 else if (value.Name == "data")
                     ret[i] = PlistData.ReadXml(value);
                 else if (value.Name == "date")
@@ -199,8 +220,6 @@ namespace Hexware.Plist
                     ret[i] = PlistDict.ReadXml(value);
                 else if (value.Name == "integer")
                     ret[i] = PlistInteger.ReadXml(value);
-                else if (value.Name == "null")
-                    ret[i] = PlistNull.ReadXml(value);
                 else if (value.Name == "real")
                     ret[i] = PlistReal.ReadXml(value);
                 else if (value.Name == "string")
@@ -212,12 +231,10 @@ namespace Hexware.Plist
         }
         void IPlistElementInternal.WriteXml(XmlNode tree, XmlDocument writer)
         {
-            XmlElement element;
-            element = writer.CreateElement("array");
+            XmlElement element = writer.CreateElement("array");
 
-            for (int i = 0; i < _value.Length; i++) {
+            for (int i = 0; i < _value.Length; i++)
                 ((IPlistElementInternal)_value[i]).WriteXml(element, writer);
-            }
 
             tree.AppendChild(element);
         }

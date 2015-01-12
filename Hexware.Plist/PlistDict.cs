@@ -2,7 +2,7 @@
  * File:   PlistDict.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2012, 2014 Cole Johnson
+ * Copyright (c) 2012, 2014-2015 Cole Johnson
  * 
  * This file is part of Hexware.Plist
  * 
@@ -22,13 +22,14 @@
  */
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Xml;
 
 namespace Hexware.Plist
 {
-    public partial class PlistDict
+    public partial class PlistDict : IPlistElement
     {
+        internal Dictionary<string, IPlistElement> _value;
+
         public PlistDict(Dictionary<string, IPlistElement> value)
         {
             if (value == null)
@@ -42,6 +43,20 @@ namespace Hexware.Plist
             _value = value;
         }
 
+        public Dictionary<string, IPlistElement> Value
+        {
+            get
+            {
+                return _value;
+            }
+            set
+            {
+                if (value == null)
+                    throw new ArgumentNullException("value");
+
+                _value = value;
+            }
+        }
         public PlistDict Add(string key, IPlistElement value)
         {
             if (String.IsNullOrEmpty(key))
@@ -123,24 +138,14 @@ namespace Hexware.Plist
                 return _value.Count;
             }
         }
-    }
-    public partial class PlistDict : IPlistElement<Dictionary<string, IPlistElement>>
-    {
-        internal Dictionary<string, IPlistElement> _value;
 
-        public Dictionary<string, IPlistElement> Value
+        public bool CanSerialize(PlistDocumentType type)
         {
-            get
-            {
-                return _value;
+            foreach (KeyValuePair<string, IPlistElement> val in _value) {
+                if (!val.Value.CanSerialize(type))
+                    return false;
             }
-            set
-            {
-                if (value == null)
-                    throw new ArgumentNullException("value");
-
-                _value = value;
-            }
+            return true;
         }
         public PlistElementType ElementType
         {
@@ -152,26 +157,46 @@ namespace Hexware.Plist
     }
     public partial class PlistDict : IPlistElementInternal
     {
-        // TODO
-        internal static PlistDict ReadBinary(BinaryReader reader, byte firstbyte)
+        internal static PlistDict ReadBinary(BinaryPlistReader reader, byte firstbyte)
         {
             int length = firstbyte & 0x0F;
-            if (length == 0x0F) {
+            if (length == 0x0F)
                 length = (int)PlistInteger.ReadBinary(reader, reader.ReadByte()).Value;
+
+            Dictionary<string, IPlistElement> ret = new Dictionary<string, IPlistElement>();
+            for (int i = 0; i < length; i++) {
+                int keyref = (int)BinaryPlistReader.ParseUnsignedBigEndianNumber(
+                    reader.ReadBytes(reader.Trailer.ReferenceOffsetSize));
+                int objref = (int)BinaryPlistReader.ParseUnsignedBigEndianNumber(
+                    reader.ReadBytes(reader.Trailer.ReferenceOffsetSize));
+
+                IPlistElement key = reader.ParseObject(keyref);
+                IPlistElement val = reader.ParseObject(objref);
+                if (key == null) {
+                    if (val == null)
+                        continue;
+                    throw new PlistException(string.Format(
+                        "Unknown Plist dictionary key type encountered at object {0}.",
+                        keyref));
+                }
+                if (key.ElementType != PlistElementType.String)
+                    throw new PlistException(String.Format(
+                        "Unknown Plist dictionary key type encountered at object {0}. Expected string, encountered {1}.",
+                        keyref, key.ElementType));
+                ret.Add(((PlistString)key).Value, val);
             }
-            // TODO: keyref*
-            // TODO: objref*
-            throw new NotImplementedException();
+            return new PlistDict(ret, false);
         }
         // TODO
-        void IPlistElementInternal.WriteBinary(BinaryWriter writer)
+        void IPlistElementInternal.WriteBinary(BinaryPlistWriter writer)
         {
             if (_value.Count < 0x0F) {
                 writer.Write((byte)(0xD0 | _value.Count));
             } else {
                 writer.Write((byte)0xDF);
-                ((IPlistElementInternal)new PlistInteger(_value.Count)).WriteBinary(writer);
+                writer.WriteTypedInteger(_value.Count);
             }
+
             // TODO: keyref*
             // TODO: objref*
             throw new NotImplementedException();
@@ -194,8 +219,10 @@ namespace Hexware.Plist
 
                 if (valueType == "array")
                     ret.Add(key, PlistArray.ReadXml(value));
-                else if (valueType == "true" || valueType == "false")
-                    ret.Add(key, PlistBool.ReadXml(value));
+                else if (value.Name == "true")
+                    ret.Add(key, new PlistBool(true));
+                else if (value.Name == "false")
+                    ret.Add(key, new PlistBool(false));
                 else if (valueType == "data")
                     ret.Add(key, PlistData.ReadXml(value));
                 else if (valueType == "date")
@@ -204,8 +231,6 @@ namespace Hexware.Plist
                     ret.Add(key, PlistDict.ReadXml(value));
                 else if (valueType == "integer")
                     ret.Add(key, PlistInteger.ReadXml(value));
-                else if (valueType == "null")
-                    ret.Add(key, PlistNull.ReadXml(value));
                 else if (valueType == "real")
                     ret.Add(key, PlistReal.ReadXml(value));
                 else if (valueType == "string")

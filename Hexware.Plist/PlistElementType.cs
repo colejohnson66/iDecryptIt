@@ -29,9 +29,8 @@ namespace Hexware.Plist
         Data,
         Date,
         Dictionary,
-        Fill, // No XML representation
         Integer,
-        Null, // According to Plist DTD, no XML representation, but NSKeyedArchiver writes it
+        Null,
         OrderedSet, // TODO: Implement
         Real,
         Set, // TODO: Implement

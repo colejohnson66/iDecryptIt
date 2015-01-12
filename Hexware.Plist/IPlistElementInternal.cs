@@ -20,14 +20,13 @@
  *   along with Hexware.Plist. If not, see <http://www.gnu.org/licenses/>.
  * =============================================================================
  */
-using System.IO;
 using System.Xml;
 
 namespace Hexware.Plist
 {
     internal interface IPlistElementInternal
     {
-        void WriteBinary(BinaryWriter writer);
+        void WriteBinary(BinaryPlistWriter writer);
         void WriteXml(XmlNode tree, XmlDocument writer);
     }
 }

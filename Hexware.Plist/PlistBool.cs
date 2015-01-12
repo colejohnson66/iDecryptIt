@@ -20,21 +20,18 @@
  *   along with Hexware.Plist. If not, see <http://www.gnu.org/licenses/>.
  * =============================================================================
  */
-using System.IO;
 using System.Xml;
 
 namespace Hexware.Plist
 {
-    public partial class PlistBool
+    public partial class PlistBool : IPlistElement
     {
+        internal bool _value;
+
         public PlistBool(bool value)
         {
             _value = value;
         }
-    }
-    public partial class PlistBool : IPlistElement<bool>
-    {
-        internal bool _value;
 
         public bool Value
         {
@@ -47,6 +44,11 @@ namespace Hexware.Plist
                 _value = value;
             }
         }
+
+        public bool CanSerialize(PlistDocumentType type)
+        {
+            return true;
+        }
         public PlistElementType ElementType
         {
             get
@@ -57,17 +59,9 @@ namespace Hexware.Plist
     }
     public partial class PlistBool : IPlistElementInternal
     {
-        internal static PlistBool ReadBinary(BinaryPlistReader reader, byte firstbyte)
-        {
-            return new PlistBool(firstbyte == 0x09);
-        }
-        void IPlistElementInternal.WriteBinary(BinaryWriter writer)
+        void IPlistElementInternal.WriteBinary(BinaryPlistWriter writer)
         {
             writer.Write((byte)(_value ? 0x09 : 0x08));
-        }
-        internal static PlistBool ReadXml(XmlNode node)
-        {
-            return new PlistBool(node.Name == "true");
         }
         void IPlistElementInternal.WriteXml(XmlNode tree, XmlDocument writer)
         {

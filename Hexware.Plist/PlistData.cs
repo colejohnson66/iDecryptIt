@@ -2,7 +2,7 @@
  * File:   PlistData.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2012, 2014 Cole Johnson
+ * Copyright (c) 2012, 2014-2015 Cole Johnson
  * 
  * This file is part of Hexware.Plist
  * 
@@ -21,14 +21,15 @@
  * =============================================================================
  */
 using System;
-using System.IO;
 using System.Text;
 using System.Xml;
 
 namespace Hexware.Plist
 {
-    public partial class PlistData
+    public partial class PlistData : IPlistElement
     {
+        internal byte[] _value;
+
         public PlistData(byte[] value)
         {
             if (value == null)
@@ -36,13 +37,13 @@ namespace Hexware.Plist
 
             _value = value;
         }
-        public PlistData(string value)
+        public PlistData(string base64)
         {
-            if (value == null)
+            if (base64 == null)
                 throw new ArgumentNullException("value");
 
             // FIXME: Proper decoding
-            value = value
+            base64 = base64
                 .Replace("\n", "")
                 .Replace("\r", "")
                 .Replace("\t", "")
@@ -50,25 +51,13 @@ namespace Hexware.Plist
 
             try
             {
-                _value = Convert.FromBase64String(value);
+                _value = Convert.FromBase64String(base64);
             }
             catch (FormatException)
             {
                 throw new FormatException("Not a valid base64 encoded string");
             }
         }
-
-        public int Length
-        {
-            get
-            {
-                return _value.Length;
-            }
-        }
-    }
-    public partial class PlistData : IPlistElement<byte[]>
-    {
-        internal byte[] _value;
 
         public byte[] Value
         {
@@ -83,6 +72,18 @@ namespace Hexware.Plist
                 _value = value;
             }
         }
+        public int Length
+        {
+            get
+            {
+                return _value.Length;
+            }
+        }
+
+        public bool CanSerialize(PlistDocumentType type)
+        {
+            return true;
+        }
         public PlistElementType ElementType
         {
             get
@@ -93,7 +94,7 @@ namespace Hexware.Plist
     }
     public partial class PlistData : IPlistElementInternal
     {
-        internal static PlistData ReadBinary(BinaryReader reader, byte firstbyte)
+        internal static PlistData ReadBinary(BinaryPlistReader reader, byte firstbyte)
         {
             int length = firstbyte & 0x0F;
             if (length == 0x0F)
@@ -101,14 +102,15 @@ namespace Hexware.Plist
 
             return new PlistData(reader.ReadBytes(length));
         }
-        void IPlistElementInternal.WriteBinary(BinaryWriter writer)
+        void IPlistElementInternal.WriteBinary(BinaryPlistWriter writer)
         {
             if (_value.Length < 0x0F) {
                 writer.Write((byte)(0x40 | _value.Length));
-                return;
+            } else {
+                writer.Write((byte)0x4F);
+                writer.WriteTypedInteger(_value.Length);
             }
-            writer.Write((byte)0x4F);
-            ((IPlistElementInternal)new PlistInteger(_value.Length)).WriteBinary(writer);
+            writer.Write(_value);
         }
         internal static PlistData ReadXml(XmlNode node)
         {
