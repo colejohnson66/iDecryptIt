@@ -23,7 +23,6 @@
 using System;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Xml;
 
 namespace Hexware.Plist
@@ -36,19 +35,28 @@ namespace Hexware.Plist
         private IPlistElement _value;
 
         public PlistDocument(string filePath)
-            : this(new FileStream(filePath, FileMode.Open, FileAccess.Read))
         {
+            Stream stream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+            Init(stream, true);
+            stream.Close();
         }
         public PlistDocument(Stream stream)
         {
+            Init(stream, false);
+        }
+
+        private void Init(Stream stream, bool fromFile)
+        {
             if (stream == null || stream == Stream.Null || stream.Length == 0)
-                throw new ArgumentNullException("stream");
+                throw new ArgumentNullException(fromFile ? "filePath" : "stream");
 
             byte[] buf = new byte[6];
             stream.Seek(0, SeekOrigin.Begin);
             stream.Read(buf, 0, 6);
-            if (Enumerable.SequenceEqual(buf, magic))
+            if (Enumerable.SequenceEqual(buf, magic)) {
                 ReadBinary(new BinaryPlistReader(stream));
+                return;
+            }
 
             stream.Seek(0, SeekOrigin.Begin);
             XmlReaderSettings settings = new XmlReaderSettings();
@@ -70,7 +78,6 @@ namespace Hexware.Plist
     }
     public partial class PlistDocument
     {
-        // TODO: https://github.com/songkick/plist/blob/master/src/com/dd/plist/BinaryPropertyListParser.java
         internal void ReadBinary(BinaryPlistReader reader)
         {
             // Magic already parsed
@@ -88,14 +95,14 @@ namespace Hexware.Plist
                 reader.ObjectOffsets[i] = (int)BinaryPlistReader.ParseUnsignedBigEndianNumber(buf);
             }
 
-            IPlistElement temp = reader.ParseObject(reader.Trailer.RootObjectNumber);
-
-            throw new NotImplementedException();
+            _value = reader.ParseObject(reader.Trailer.RootObjectNumber);
         }
         // TODO
-        internal void WriteBinary(BinaryWriter writer)
+        internal void WriteBinary(BinaryPlistWriter writer)
         {
+            // HELP: https://github.com/songkick/plist/blob/master/src/com/dd/plist/BinaryPropertyListParser.java
             writer.Write(magic);
+            writer.Write((byte)'0');
             writer.Write((byte)'0');
             throw new NotImplementedException();
         }

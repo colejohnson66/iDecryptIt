@@ -38,7 +38,7 @@ namespace Hexware.Plist
         }
         internal PlistArray(IPlistElement[] value, bool unused)
         {
-            // Used by PlistArray.ReadXml to avoid shallow copy
+            // Used by PlistArray.ReadBinary and PlistArray.ReadXml to avoid shallow copy
             _value = value;
         }
 
@@ -169,13 +169,16 @@ namespace Hexware.Plist
             if (length == 0x0F)
                 length = (int)PlistInteger.ReadBinary(reader, reader.ReadByte()).Value;
 
+            int[] objrefs = new int[length];
+            for (int i = 0; i < length; i++)
+                objrefs[i] = (int)BinaryPlistReader.ParseUnsignedBigEndianNumber(
+                    reader.ReadBytes(reader.Trailer.ReferenceOffsetSize));
+
             IPlistElement[] ret = new IPlistElement[length];
             int currentOffset = 0;
             int newLength = length;
             for (int i = 0; i < length; i++) {
-                int objref = (int)BinaryPlistReader.ParseUnsignedBigEndianNumber(
-                    reader.ReadBytes(reader.Trailer.ReferenceOffsetSize));
-                IPlistElement temp = reader.ParseObject(objref);
+                IPlistElement temp = reader.ParseObject(objrefs[i]);
                 if (temp == null) {
                     newLength--;
                     continue;
