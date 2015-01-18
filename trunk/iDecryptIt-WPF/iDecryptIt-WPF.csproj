@@ -28,8 +28,8 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>1514</ApplicationRevision>
-    <ApplicationVersion>8.11.0.1514</ApplicationVersion>
+    <ApplicationRevision>1520</ApplicationRevision>
+    <ApplicationVersion>8.12.0.1520</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -61,7 +61,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <PlatformTarget>x64</PlatformTarget>
-    <OutputPath>bin\Debug %28x64%29\</OutputPath>
+    <OutputPath>bin\Debug x64\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <Optimize>false</Optimize>
     <DebugType>full</DebugType>
@@ -74,7 +74,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <PlatformTarget>x64</PlatformTarget>
-    <OutputPath>bin\Release %28x64%29\</OutputPath>
+    <OutputPath>bin\Release x64\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>none</DebugType>
@@ -114,21 +114,11 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="img\changes-allow%4032.png" />
-    <Resource Include="img\dialog-password%4032.png" />
-    <Resource Include="img\help-browser%4032.png" />
-    <Resource Include="img\icon%4016.png" />
-    <Resource Include="img\icon%40256.png" />
-    <Resource Include="img\icon%4032.png" />
-    <Resource Include="img\icon%4048.png" />
-    <Resource Include="img\logviewer%4032.png" />
-    <Resource Include="icon.ico" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -171,7 +161,6 @@
     <None Include="app.config" />
     <AppDesigner Include="Properties\" />
     <None Include="Hexware.pfx" />
-    <None Include="keys\iPhone4,1_12B440.plist" />
     <None Include="LICENSE">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -197,6 +186,15 @@
     <Content Include="help\readme.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="icon.ico" />
+    <Resource Include="img\changes-allow%4032.png" />
+    <Resource Include="img\dialog-password%4032.png" />
+    <Resource Include="img\help-browser%4032.png" />
+    <Resource Include="img\icon%4016.png" />
+    <Resource Include="img\icon%40256.png" />
+    <Resource Include="img\icon%4032.png" />
+    <Resource Include="img\icon%4048.png" />
+    <Resource Include="img\logviewer%4032.png" />
     <EmbeddedResource Include="keys\AppleTV2,1_8C150.plist" />
     <EmbeddedResource Include="keys\AppleTV2,1_8C154.plist" />
     <EmbeddedResource Include="keys\AppleTV2,1_8F191m.plist" />
@@ -458,6 +456,7 @@
     <EmbeddedResource Include="keys\iPhone4,1_11D257.plist" />
     <EmbeddedResource Include="keys\iPhone4,1_12A365.plist" />
     <EmbeddedResource Include="keys\iPhone4,1_12B411.plist" />
+    <EmbeddedResource Include="keys\iPhone4,1_12B440.plist" />
     <EmbeddedResource Include="keys\iPod1,1_3A110a.plist" />
     <EmbeddedResource Include="keys\iPod1,1_3B48b.plist" />
     <EmbeddedResource Include="keys\iPod1,1_4A102.plist" />
