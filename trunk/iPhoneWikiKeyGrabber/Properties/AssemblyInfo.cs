@@ -2,7 +2,7 @@
  * File:   AssemblyInfo.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2012-2014, Cole Johnson
+ * Copyright (c) 2012-2015, Cole Johnson
  * 
  * This file is part of iDecryptIt
  * 
@@ -28,7 +28,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("Grab decryption keys from The iPhone Wiki")]
 [assembly: AssemblyCompany("Hexware")]
 [assembly: AssemblyProduct("iPhoneWikiKeyGrabber")]
-[assembly: AssemblyCopyright("Copyright (C) 2012-2014")]
+[assembly: AssemblyCopyright("Copyright (C) 2012-2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
