@@ -87,5 +87,11 @@
   <ItemGroup>
     <None Include="app.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Hexware.Plist\Hexware.Plist.csproj">
+      <Project>{c7d0639f-8a98-441b-b1a6-420df6122573}</Project>
+      <Name>Hexware.Plist</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

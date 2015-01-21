@@ -2,7 +2,7 @@
  * File:   Program.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2012-2014, Cole Johnson
+ * Copyright (c) 2012-2015, Cole Johnson
  * 
  * This file is part of iDecryptIt
  * 
@@ -20,13 +20,13 @@
  *   iDecryptIt. If not, see <http://www.gnu.org/licenses/>.
  * =============================================================================
  */
+using Hexware.Plist;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Text;
-using System.Threading;
 using System.Xml;
 
 namespace Hexware.Programs.iDecryptIt.KeyGrabber
@@ -36,6 +36,8 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
         static List<string> urls = new List<string>();
         static string keyDir = Path.Combine(Directory.GetCurrentDirectory(), "keys");
         static XmlWriterSettings xmlWriterSettings;
+        static string plutil = "C:\\Program Files (x86)\\Common Files\\Apple\\Apple Application Support\\plutil.exe";
+        static bool plutilExists;
 
         // If we switch to using an HTML DOM parser, we could parse the key pages a
         //   whole lot easier consiedering everything needed has an "id" attribute.
@@ -47,12 +49,6 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
             Thread.Sleep(100);
             Directory.CreateDirectory(keyDir);
 
-            Console.WriteLine("Grabbing list of key pages");
-            WebClient client = new WebClient();
-            string download = "<xml>" +
-                client.DownloadString("http://theiphonewiki.com/w/index.php?title=Firmware&action=render") +
-                "</xml>";
-
             // TODO: Replace with OpenCF#
             xmlWriterSettings = new XmlWriterSettings();
             xmlWriterSettings.Indent = true;
@@ -60,6 +56,16 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
             xmlWriterSettings.NewLineChars = "\n";
             xmlWriterSettings.CloseOutput = true;
             xmlWriterSettings.Encoding = Encoding.UTF8;
+
+            plutilExists = File.Exists(plutil);
+            if (!plutilExists)
+                Console.WriteLine("WARNING: plutil not found! Binary plists will NOT be generated.");
+
+            Console.WriteLine("Grabbing list of key pages");
+            WebClient client = new WebClient();
+            string download = "<xml>" +
+                client.DownloadString("http://theiphonewiki.com/w/index.php?title=Firmware&action=render") +
+                "</xml>";
 
             // MediaWiki outputs valid XHTML
             Console.WriteLine("Parsing page");
@@ -83,6 +89,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                 Console.WriteLine();
             }
         }
+
         private static void ParseTableNode(XmlNodeList table)
         {
             for (int tr = 1; tr < table.Count; tr++) {
@@ -173,6 +180,20 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
             BuildXml(data).Save(writer);
             writer.Flush();
             writer.Close();
+
+            if (plutilExists) {
+                Process proc = new Process();
+                proc.StartInfo.FileName = plutil;
+                proc.StartInfo.Arguments = "-convert binary1 \"" + filename + "\"";
+                proc.StartInfo.UseShellExecute = false;
+                proc.StartInfo.RedirectStandardOutput = true;
+                proc.StartInfo.RedirectStandardError = true;
+                proc.OutputDataReceived += proc_OutputDataRecieved;
+                proc.ErrorDataReceived += proc_OutputDataRecieved;
+                proc.Start();
+                proc.WaitForExit();
+                PlistDocument doc = new PlistDocument(filename);
+            }
         }
         private static XmlDocument BuildXml(Dictionary<string, string> data)
         {
@@ -345,4 +366,10 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 
             return false;
         }
+
+        private static void proc_OutputDataRecieved(object sender, DataReceivedEventArgs e)
+        {
+            Console.WriteLine(e.Data);
+        }
+    }
 }

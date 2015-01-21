@@ -26,6 +26,9 @@ namespace Hexware.Plist
 {
     internal class BinaryPlistWriter : BinaryWriter
     {
+        internal int objectCount;
+        internal int[] objectOffsets;
+
         internal void WriteTypedInteger(long value)
         {
             ((IPlistElementInternal)new PlistInteger(value)).WriteBinary(this);
