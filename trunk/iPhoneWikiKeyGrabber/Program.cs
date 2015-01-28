@@ -27,6 +27,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Xml;
 
 namespace Hexware.Programs.iDecryptIt.KeyGrabber
@@ -43,13 +44,13 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
         //   whole lot easier consiedering everything needed has an "id" attribute.
         public static void Main(string[] args)
         {
-            // For some reason, CreateDirectory(...) sometimes fails unless we wait (race condition?)
+            // CreateDirectory(...) sometimes fails unless we wait (race condition?)
             if (Directory.Exists(keyDir))
                 Directory.Delete(keyDir, true);
             Thread.Sleep(100);
             Directory.CreateDirectory(keyDir);
 
-            // TODO: Replace with OpenCF#
+            // TODO: Replace with Hexware.Plist
             xmlWriterSettings = new XmlWriterSettings();
             xmlWriterSettings.Indent = true;
             xmlWriterSettings.IndentChars = "\t";
@@ -192,7 +193,10 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                 proc.ErrorDataReceived += proc_OutputDataRecieved;
                 proc.Start();
                 proc.WaitForExit();
+                // verify file converted correctly and can be loaded
+                // (assertion prevents optimization out)
                 PlistDocument doc = new PlistDocument(filename);
+                Debug.Assert(doc.ToString() != null);
             }
         }
         private static XmlDocument BuildXml(Dictionary<string, string> data)
