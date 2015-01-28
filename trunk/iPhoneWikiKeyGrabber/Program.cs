@@ -39,6 +39,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
         static XmlWriterSettings xmlWriterSettings;
         static string plutil = "C:\\Program Files (x86)\\Common Files\\Apple\\Apple Application Support\\plutil.exe";
         static bool plutilExists;
+        static bool makeBinaryPlists = false;
 
         // If we switch to using an HTML DOM parser, we could parse the key pages a
         //   whole lot easier consiedering everything needed has an "id" attribute.
@@ -58,9 +59,11 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
             xmlWriterSettings.CloseOutput = true;
             xmlWriterSettings.Encoding = Encoding.UTF8;
 
-            plutilExists = File.Exists(plutil);
-            if (!plutilExists)
-                Console.WriteLine("WARNING: plutil not found! Binary plists will NOT be generated.");
+            if (makeBinaryPlists) {
+                plutilExists = File.Exists(plutil);
+                if (!plutilExists)
+                    Console.WriteLine("WARNING: plutil not found! Binary plists will NOT be generated.");
+            }
 
             Console.WriteLine("Grabbing list of key pages");
             WebClient client = new WebClient();
