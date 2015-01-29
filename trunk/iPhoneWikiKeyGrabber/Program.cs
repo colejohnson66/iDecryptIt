@@ -65,6 +65,10 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                     Console.WriteLine("WARNING: plutil not found! Binary plists will NOT be generated.");
             }
 
+            // https://theiphonewiki.com/w/api.php?action=query&prop=links&titles=Firmware
+            // followed by
+            // https://theiphonewiki.com/w/api.php?action=query&prop=links&titles=Firmware&plcontinue=50|0|03.11.02_G
+            // and so on
             Console.WriteLine("Grabbing list of key pages");
             WebClient client = new WebClient();
             string download = "<xml>" +

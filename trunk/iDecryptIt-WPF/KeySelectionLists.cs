@@ -265,7 +265,7 @@ namespace Hexware.Programs.iDecryptIt
             AppleTV31.Add(new ComboBoxEntry("12A365b", "7.0/8.0 (12A365b)"));
             AppleTV31.Add(new ComboBoxEntry("12B410a", "7.0.1/8.1 (12B410a)"));
             AppleTV31.Add(new ComboBoxEntry("12B435", "7.0.2/8.1.1 (12B435)"));
-            AppleTV31.Add(new ComboBoxEntry("12B466", "7.0.2/8.1.3 (12B466)"));
+            AppleTV31.Add(new ComboBoxEntry("12B466", "7.0.3/8.1.3 (12B466)"));
 
             AppleTV32 = new List<ComboBoxEntry>();
             AppleTV32.Add(new ComboBoxEntry("10B144b", "5.2/6.1 (10B144b)"));
@@ -282,7 +282,7 @@ namespace Hexware.Programs.iDecryptIt
             AppleTV32.Add(new ComboBoxEntry("12A365b", "7.0/8.0 (12A365b)"));
             AppleTV32.Add(new ComboBoxEntry("12B410a", "7.0.1/8.1 (12B410a)"));
             AppleTV32.Add(new ComboBoxEntry("12B435", "7.0.2/8.1.1 (12B435)"));
-            AppleTV32.Add(new ComboBoxEntry("12B466", "7.0.2/8.1.3 (12B466)"));
+            AppleTV32.Add(new ComboBoxEntry("12B466", "7.0.3/8.1.3 (12B466)"));
         }
         private static void InitIPad()
         {
