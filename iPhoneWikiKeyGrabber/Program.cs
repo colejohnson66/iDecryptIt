@@ -27,6 +27,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Xml;
 
@@ -34,15 +35,14 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 {
     public class Program
     {
-        static List<string> urls = new List<string>();
+        static WebClient client = new WebClient();
+        static List<string> pages = new List<string>();
         static string keyDir = Path.Combine(Directory.GetCurrentDirectory(), "keys");
         static XmlWriterSettings xmlWriterSettings;
         static string plutil = "C:\\Program Files (x86)\\Common Files\\Apple\\Apple Application Support\\plutil.exe";
         static bool plutilExists;
         static bool makeBinaryPlists = false;
 
-        // If we switch to using an HTML DOM parser, we could parse the key pages a
-        //   whole lot easier consiedering everything needed has an "id" attribute.
         public static void Main(string[] args)
         {
             // CreateDirectory(...) sometimes fails unless we wait (race condition?)
@@ -65,83 +65,66 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                     Console.WriteLine("WARNING: plutil not found! Binary plists will NOT be generated.");
             }
 
-            // https://theiphonewiki.com/w/api.php?action=query&prop=links&titles=Firmware
-            // followed by
-            // https://theiphonewiki.com/w/api.php?action=query&prop=links&titles=Firmware&plcontinue=50|0|03.11.02_G
-            // and so on
-            Console.WriteLine("Grabbing list of key pages");
-            WebClient client = new WebClient();
-            string download = "<xml>" +
-                client.DownloadString("http://theiphonewiki.com/w/index.php?title=Firmware&action=render") +
-                "</xml>";
-
-            // MediaWiki outputs valid XHTML
-            Console.WriteLine("Parsing page");
-            XmlDocument document = new XmlDocument();
-            document.InnerXml = download;
-            XmlNodeList list = document.ChildNodes.Item(0).ChildNodes;
-            int length = list.Count;
-            for (int i = 1; i < length; i++) {
-                if (list.Item(i).Name == "table")
-                    ParseTableNode(list.Item(i).ChildNodes);
-            }
-
-            // Parse individual pages
-            // TODO: We probably could make this go faster by
-            //   using an async download in ParseTableDataNode
-            Console.WriteLine("Parsing individual pages");
-            foreach (string link in urls) {
-                Console.Write("    {0}", link.Substring(30).Replace('_', ' '));
-                download = client.DownloadString(link.Replace("/wiki/", "/w/index.php?title=") + "&action=raw");
-                ParseAndSaveKeyPage(download);
-                Console.WriteLine();
+            IEnumerable<string> pages = GetKeyPages();
+            foreach (string title in pages) {
+                if (!DoesPageExist(title))
+                    continue;
+                Console.WriteLine(title);
+                // TODO: Maybe make this go faster by using client.DownloadStringAsync
+                // TODO: Parse the page using XPath (action=render)
+                ParseAndSaveKeyPage(client.DownloadString(
+                    "http://theiphonewiki.com/w/index.php?title=" + title + "&action=raw"));
             }
         }
 
-        private static void ParseTableNode(XmlNodeList table)
+        private static IEnumerable<string> GetKeyPages()
         {
-            for (int tr = 1; tr < table.Count; tr++) {
-                XmlNodeList thisRow = table.Item(tr).ChildNodes;
-                for (int td = 0; td < thisRow.Count; td++)
-                    ParseTableDataNode(thisRow.Item(td).ChildNodes);
-            }
-        }
-        private static void ParseTableDataNode(XmlNodeList nodes)
-        {
-            string href;
-            int length = nodes.Count;
-            for (int i = 0; i < length; i++) {
-                if (nodes.Item(i).Name == "a") {
-                    href = nodes.Item(i).Attributes.Item(0).Value;
-
-                    // Ensure we only grab key pages that exist
-                    if (href.Contains("theiphonewiki.com")) {
-                        if (IsUrlABasebandUrl(href) || href.Contains("redlink=1"))
-                            continue;
-
-                        if (!href.Contains("AppleTV") && !href.Contains("iPad") &&
-                            !href.Contains("iPhone") && !href.Contains("iPod"))
-                            continue;
-
-                        urls.Add(href.Replace("http://www.the", "http://the"));
-                    }
+            Regex regex = new Regex(@"(?:\w+ )+\d\w+ \(\D+\d,\d\)", RegexOptions.Compiled);
+            XmlDocument doc = new XmlDocument();
+            string plcontinue = null;
+            while (true) {
+                if (plcontinue == null) {
+                    doc.InnerXml = client.DownloadString(
+                        "https://theiphonewiki.com/w/api.php?format=xml&action=query&prop=links&titles=Firmware&pllimit=500");
+                } else {
+                    doc.InnerXml = client.DownloadString(
+                        "https://theiphonewiki.com/w/api.php?format=xml&action=query&prop=links&titles=Firmware&pllimit=500&plcontinue=" + plcontinue);
                 }
+                Debug.Assert(doc.SelectNodes("//error").Count == 0);
+
+                // get links
+                XmlNodeList list = doc.SelectNodes("//pl[@ns='0']");
+                foreach (XmlNode node in list) {
+                    string title = node.Attributes.GetNamedItem("title").Value;
+                    if (title == "Alpine 1A420 (iPhone1,1)")
+                        continue;
+                    if (regex.IsMatch(title))
+                        yield return title;
+                }
+
+                // Are there more links to grab?
+                list = doc.SelectNodes("//@plcontinue");
+                if (list.Count == 0)
+                    break;
+                if (list.Count != 1)
+                    throw new Exception();
+                plcontinue = list[0].Value;
             }
         }
-        private static bool IsUrlABasebandUrl(string url)
+        private static bool DoesPageExist(string pageTitle)
         {
-            for (int i = 0; i < 10; i++) {
-                if (url.Contains("index.php?title=" + i))
-                    return true;
-            }
-            return false;
+            XmlDocument doc = new XmlDocument();
+            doc.InnerXml = client.DownloadString(
+                "http://theiphonewiki.com/w/api.php?format=xml&action=query&prop=pageprops&titles=" + pageTitle.Replace(' ', '_'));
+            Debug.Assert(doc.SelectNodes("//error").Count == 0);
+
+            XmlNodeList list = doc.SelectNodes("//@pageid");
+            if (list.Count == 0)
+                return false;
+            return true;
         }
         private static void ParseAndSaveKeyPage(string contents)
         {
-            // Alpine 1A420 (iPhone)
-            if (contents.Length > 2 && contents[0] == '[' && contents[1] == '[')
-                return;
-
             string[] lines = contents
                 .Replace("{{keys", "")
                 .Replace("}}", "")
@@ -203,7 +186,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                 // verify file converted correctly and can be loaded
                 // (assertion prevents optimization out)
                 PlistDocument doc = new PlistDocument(filename);
-                Debug.Assert(doc.ToString() != null);
+                Debug.Assert(doc.RootNode != null);
             }
         }
         private static XmlDocument BuildXml(Dictionary<string, string> data)
