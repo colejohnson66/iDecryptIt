@@ -180,7 +180,7 @@
     <Content Include="help\changelog.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="help\iDecryptIt icon.png">
+    <Content Include="help\icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="help\readme.html">
