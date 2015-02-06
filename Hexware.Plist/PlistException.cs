@@ -2,7 +2,7 @@
  * File:   PlistException.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2012, 2014 Cole Johnson
+ * Copyright (c) 2012, 2014-2015 Cole Johnson
  * 
  * This file is part of Hexware.Plist
  * 
@@ -26,6 +26,7 @@ using System.Security;
 
 namespace Hexware.Plist
 {
+    [Serializable]
     public class PlistException : ApplicationException
     {
         public PlistException() : base()

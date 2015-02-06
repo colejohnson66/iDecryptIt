@@ -29,7 +29,6 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -40,9 +39,6 @@ namespace Hexware.Programs.iDecryptIt
 {
     public partial class MainWindow : Window
     {
-        [DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
-        private static extern bool FreeConsole();
-
         static string execDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         string execHash = new Random().Next().ToString("X");
 
@@ -63,7 +59,7 @@ namespace Hexware.Programs.iDecryptIt
         public MainWindow()
         {
             if (!GlobalVars.Debug)
-                FreeConsole();
+                NativeMethods.FreeConsole();
 
             DevicesViewModel = new KeySelectionViewModel();
             ModelsViewModel = new KeySelectionViewModel();
@@ -197,7 +193,7 @@ namespace Hexware.Programs.iDecryptIt
             stream.WriteLine();
 
             Debug("[ERRLOG]", "Closing log.");
-            stream.Close();
+            //stream.Close();
             stream.Dispose();
 
             return fileName;
