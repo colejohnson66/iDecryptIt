@@ -31,10 +31,9 @@ namespace Hexware.Programs.iDecryptIt
         internal static void Main(string[] args)
         {
             // TODO: GNU Getopt .NET <http://getopt.codeplex.com/>
-            bool debug = false;
             for (int i = 0; i < args.Length; i++) {
                 if (args[i] == "/d" || args[i] == "/debug") {
-                    debug = true;
+                    GlobalVars.Debug = true;
                 } else if (args[i] == "/v" || args[i] == "/version") {
                     PrintLicense();
                     return;
@@ -50,7 +49,6 @@ namespace Hexware.Programs.iDecryptIt
 
             Console.WriteLine("iDecryptIt " + GlobalVars.Version + GlobalVars.Version64);
             Console.WriteLine("Loading...");
-            MainWindow.debug = debug;
             Thread.Sleep(500);
             App.Main();
         }

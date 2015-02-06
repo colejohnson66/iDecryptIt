@@ -2,7 +2,7 @@
  * File:   GlobalVars.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2012-2014, Cole Johnson
+ * Copyright (c) 2012-2015, Cole Johnson
  * 
  * iDecryptIt is free software: you can redistribute it and/or modify it under
  *   the terms of the GNU General Public License as published by the Free
@@ -31,6 +31,7 @@ namespace Hexware.Programs.iDecryptIt
         internal static string Version64;
         internal static DateTime CompileTimestamp;
         internal static Dictionary<string, string> ExecutionArgs = new Dictionary<string, string>();
+        internal static bool Debug;
 
         internal static Dictionary<string, string> DeviceNames = new Dictionary<string, string>() {
             { "AppleTV2,1", "Apple TV 2G" },
@@ -114,7 +115,7 @@ namespace Hexware.Programs.iDecryptIt
                 s = new FileStream(assembly.Location, FileMode.Open, FileAccess.Read);
                 s.Read(b, 0, 2048);
             } catch (Exception) {
-                return new DateTime();
+                return DateTime.MinValue;
             } finally {
                 if (s != null)
                     s.Close();
