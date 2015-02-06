@@ -2,7 +2,7 @@
  * File:   MainWindow.xaml.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2010-2014, Cole Johnson
+ * Copyright (c) 2010-2015, Cole Johnson
  * 
  * This file is part of iDecryptIt
  * 
@@ -47,8 +47,6 @@ namespace Hexware.Programs.iDecryptIt
         string execHash = new Random().Next().ToString("X");
         static string helpDir = Path.Combine(execDir, "help");
 
-        internal static bool debug;
-
         public KeySelectionViewModel DevicesViewModel;
         private string selectedDevice;
         public KeySelectionViewModel ModelsViewModel;
@@ -65,7 +63,7 @@ namespace Hexware.Programs.iDecryptIt
 
         public MainWindow()
         {
-            if (!debug)
+            if (!GlobalVars.Debug)
                 FreeConsole();
 
             DevicesViewModel = new KeySelectionViewModel();
@@ -83,7 +81,7 @@ namespace Hexware.Programs.iDecryptIt
 
         internal void Debug(string component, string message)
         {
-            if (!debug)
+            if (!GlobalVars.Debug)
                 return;
 
             Console.WriteLine("{0} {1}", component.PadRight(12), message);
@@ -735,12 +733,12 @@ namespace Hexware.Programs.iDecryptIt
         }
         private void decryptProc_OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
-            if (debug)
+            if (GlobalVars.Debug)
                 Console.WriteLine(e.Data);
         }
         private void decryptProc_ErrorDataReceived(object sender, DataReceivedEventArgs e)
         {
-            if (debug)
+            if (GlobalVars.Debug)
                 Console.WriteLine(e.Data);
         }
         private void decryptWorker_DoWork(object sender, DoWorkEventArgs e)
