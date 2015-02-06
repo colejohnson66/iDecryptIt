@@ -45,7 +45,6 @@ namespace Hexware.Programs.iDecryptIt
 
         static string execDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         string execHash = new Random().Next().ToString("X");
-        static string helpDir = Path.Combine(execDir, "help");
 
         public KeySelectionViewModel DevicesViewModel;
         private string selectedDevice;
@@ -780,12 +779,12 @@ namespace Hexware.Programs.iDecryptIt
         private void btnChangelog_Click(object sender, RoutedEventArgs e)
         {
             Debug("[CHANGE]", "Loading Changelog.");
-            Process.Start("file://" + helpDir + "changelog.html");
+            Process.Start("file://" + Path.Combine(execDir, "help", "changelog.html"));
         }
         private void btnReadme_Click(object sender, RoutedEventArgs e)
         {
             Debug("[README]", "Loading Readme.");
-            Process.Start("file://" + helpDir + "readme.html");
+            Process.Start("file://" + Path.Combine(execDir, "help", "readme.html"));
         }
 
         private void btnExtract_Click(object sender, RoutedEventArgs e)
