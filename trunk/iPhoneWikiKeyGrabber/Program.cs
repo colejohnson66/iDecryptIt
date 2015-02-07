@@ -41,7 +41,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
         static XmlWriterSettings xmlWriterSettings;
         static string plutil = "C:\\Program Files (x86)\\Common Files\\Apple\\Apple Application Support\\plutil.exe";
         static bool plutilExists;
-        static bool makeBinaryPlists = false;
+        static bool makeBinaryPlists;
 
         public static void Main(string[] args)
         {
@@ -58,6 +58,10 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
             xmlWriterSettings.NewLineChars = "\n";
             xmlWriterSettings.CloseOutput = true;
             xmlWriterSettings.Encoding = Encoding.UTF8;
+
+#if !DEBUG
+            makeBinaryPlists = true;
+#endif
 
             if (makeBinaryPlists) {
                 plutilExists = File.Exists(plutil);
