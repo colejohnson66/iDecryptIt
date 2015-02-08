@@ -2,7 +2,7 @@
  * File:   KeySelectionViewModel.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2014, Cole Johnson
+ * Copyright (c) 2014 Cole Johnson
  * 
  * This file is part of iDecryptIt
  * 
@@ -66,9 +66,8 @@ namespace Hexware.Programs.iDecryptIt
 
         private void NotifyPropertyChanged(string propertyName)
         {
-            if (PropertyChanged != null) {
+            if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
         }
     }
 }

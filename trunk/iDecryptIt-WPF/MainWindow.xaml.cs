@@ -152,7 +152,6 @@ namespace Hexware.Programs.iDecryptIt
                     "iDecryptIt",
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
-                Close();
                 return;
             }
 
@@ -162,7 +161,6 @@ namespace Hexware.Programs.iDecryptIt
                 "iDecryptIt",
                 MessageBoxButton.OK,
                 MessageBoxImage.Information);
-            Close();
         }
         internal string SaveErrorLog(string message, Exception except)
         {
@@ -215,7 +213,7 @@ namespace Hexware.Programs.iDecryptIt
             stream.WriteLine("  Execution time:   " + me.StartTime.ToUniversalTime() + " UTC");
         }
 
-        private void btnGetKeys_Click(object sender, RoutedEventArgs e)
+        private void btnViewKeys_Click(object sender, RoutedEventArgs e)
         {
             Debug("[KEYSELECT]", "Validating input.");
             if (selectedModel == null || selectedVersion == null)
@@ -1000,6 +998,11 @@ namespace Hexware.Programs.iDecryptIt
                 case "12B407":
                 case "12B410a":
                     return "7.0.1/8.1";
+                case "12B432":
+                case "12B435":
+                    return "7.0.2/8.1.1";
+                case "12B466":
+                    return "7.0.3/8.1.3";
             }
             return null;
         }
@@ -1092,6 +1095,8 @@ namespace Hexware.Programs.iDecryptIt
         private void Dispatcher_UnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
             FatalError("An unknown error has occured.", e.Exception);
+            Close();
+            e.Handled = true;
         }
     }
 }

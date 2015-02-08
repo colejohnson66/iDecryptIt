@@ -15,7 +15,7 @@
     <Window.TaskbarItemInfo>
         <TaskbarItemInfo />
     </Window.TaskbarItemInfo>
-    <Grid Margin="0,3">
+    <Grid Margin="3">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -23,7 +23,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Margin="3,0">
+        <Grid Grid.Row="0">
             <Grid Margin="6" Background="{StaticResource GrayBorder}">
                 <Grid Margin="3" Background="White">
                     <ProgressBar Visibility="Hidden" x:Name="progDecrypt" />
@@ -80,7 +80,7 @@
                 </Grid>
             </Grid>
         </Grid>
-        <Grid Grid.Row="1" Margin="3,0">
+        <Grid Grid.Row="1">
             <Grid Margin="6" Background="{StaticResource GrayBorder}">
                 <Grid Margin="3" Background="White">
                     <Grid Margin="6" x:Name="gridExtract">
@@ -126,7 +126,7 @@
                 </Grid>
             </Grid>
         </Grid>
-        <Grid Grid.Row="2" Margin="3,0">
+        <Grid Grid.Row="2">
             <Grid Margin="6" Background="{StaticResource GrayBorder}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -181,7 +181,7 @@
                 </Grid>
             </Grid>
         </Grid>
-        <Grid Grid.Row="3" Margin="3,0">
+        <Grid Grid.Row="3">
             <Grid Margin="6" Background="{StaticResource GrayBorder}">
                 <Grid Margin="3" Background="White">
                     <Grid Margin="6" x:Name="gridVersion">
@@ -194,7 +194,7 @@
                             <ColumnDefinition Width="6" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Button x:Name="btnGetKeys" Click="btnGetKeys_Click">
+                        <Button x:Name="btnViewKeys" Click="btnViewKeys_Click">
                             <Grid Height="32">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="32" />
@@ -203,7 +203,7 @@
                                     <ColumnDefinition Width="6" />
                                 </Grid.ColumnDefinitions>
                                 <Image Source="img/dialog-password@32.png" />
-                                <TextBlock Grid.Column="2" Text="Get Keys" VerticalAlignment="Center" x:Name="btnGetKeysText" />
+                                <TextBlock Grid.Column="2" Text="View Keys" VerticalAlignment="Center" x:Name="btnViewKeysText" />
                             </Grid>
                         </Button>
                         <Grid Grid.Column="2" Height="24">
@@ -243,7 +243,7 @@
                 </Grid>
             </Grid>
         </Grid>
-        <Grid Grid.Row="4" Margin="3,0">
+        <Grid Grid.Row="4">
             <Grid Margin="6" Background="{StaticResource GrayBorder}">
                 <Grid Margin="3" Background="White">
                     <ScrollViewer Margin="6">
