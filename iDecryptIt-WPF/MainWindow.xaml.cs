@@ -2,7 +2,7 @@
  * File:   MainWindow.xaml.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2010-2015, Cole Johnson
+ * Copyright (c) 2010-2015 Cole Johnson
  * 
  * This file is part of iDecryptIt
  * 
@@ -23,6 +23,7 @@
 using Hexware.Plist;
 using Microsoft.Win32;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
@@ -49,6 +50,8 @@ namespace Hexware.Programs.iDecryptIt
         public KeySelectionViewModel VersionsViewModel;
         private string selectedVersion;
 
+        Dictionary<string, KeyGridItem> keyGrid;
+
         BackgroundWorker decryptWorker;
         Process decryptProc;
         long decryptFromLength;
@@ -72,6 +75,8 @@ namespace Hexware.Programs.iDecryptIt
             cmbDeviceDropDown.ItemsSource = KeySelectionLists.Products;
 
             this.Dispatcher.UnhandledException += Dispatcher_UnhandledException;
+
+            InitKeyGridDictionary();
         }
 
         internal void Debug(string component, string message)
@@ -213,6 +218,64 @@ namespace Hexware.Programs.iDecryptIt
             stream.WriteLine("  Execution time:   " + me.StartTime.ToUniversalTime() + " UTC");
         }
 
+        private void InitKeyGridDictionary()
+        {
+            keyGrid = new Dictionary<string, KeyGridItem>();
+            keyGrid.Add("Restore Ramdisk", new KeyGridItem(
+                grdRestore, keyRestoreIV, keyRestoreKey, fileRestore,
+                grdRestoreNoEncrypt, fileRestoreNoEncrypt));
+            keyGrid.Add("Update Ramdisk", new KeyGridItem(
+                grdUpdate, keyUpdateIV, keyUpdateKey, fileUpdate,
+                grdUpdateNoEncrypt, fileUpdateNoEncrypt));
+            keyGrid.Add("AppleLogo", new KeyGridItem(
+                grdAppleLogo, keyAppleLogoIV, keyAppleLogoKey, fileAppleLogo,
+                grdAppleLogoNoEncrypt, fileAppleLogoNoEncrypt));
+            keyGrid.Add("BatteryCharging0", new KeyGridItem(
+                grdBatteryCharging0, keyBatteryCharging0IV, keyBatteryCharging0Key, fileBatteryCharging0,
+                grdBatteryCharging0NoEncrypt, fileBatteryCharging0NoEncrypt));
+            keyGrid.Add("BatteryCharging1", new KeyGridItem(
+                grdBatteryCharging1, keyBatteryCharging1IV, keyBatteryCharging1Key, fileBatteryCharging1,
+                grdBatteryCharging1NoEncrypt, fileBatteryCharging1NoEncrypt));
+            keyGrid.Add("BatteryFull", new KeyGridItem(
+                grdBatteryFull, keyBatteryFullIV, keyBatteryFullKey, fileBatteryFull,
+                grdBatteryFullNoEncrypt, fileBatteryFullNoEncrypt));
+            keyGrid.Add("BatteryLow0", new KeyGridItem(
+                grdBatteryLow0, keyBatteryLow0IV, keyBatteryLow0Key, fileBatteryLow0,
+                grdBatteryLow0NoEncrypt, fileBatteryLow0NoEncrypt));
+            keyGrid.Add("BatteryLow1", new KeyGridItem(
+                grdBatteryLow1, keyBatteryLow1IV, keyBatteryLow1Key, fileBatteryLow1,
+                grdBatteryLow1NoEncrypt, fileBatteryLow1NoEncrypt));
+            keyGrid.Add("DeviceTree", new KeyGridItem(
+                grdDeviceTree, keyDeviceTreeIV, keyDeviceTreeKey, fileDeviceTree,
+                grdDeviceTreeNoEncrypt, fileDeviceTreeNoEncrypt));
+            keyGrid.Add("GlyphCharging", new KeyGridItem(
+                grdGlyphCharging, keyGlyphChargingIV, keyGlyphChargingKey, fileGlyphCharging,
+                grdGlyphChargingNoEncrypt, fileGlyphChargingNoEncrypt));
+            keyGrid.Add("GlyphPlugin", new KeyGridItem(
+                grdGlyphPlugin, keyGlyphPluginIV, keyGlyphPluginKey, fileGlyphPlugin,
+                grdGlyphPluginNoEncrypt, fileGlyphPluginNoEncrypt));
+            keyGrid.Add("iBEC", new KeyGridItem(
+                grdiBEC, keyiBECIV, keyiBECKey, fileiBEC,
+                grdiBECNoEncrypt, fileiBECNoEncrypt));
+            keyGrid.Add("iBoot", new KeyGridItem(
+                grdiBoot, keyiBootIV, keyiBootKey, fileiBoot,
+                grdiBootNoEncrypt, fileiBootNoEncrypt));
+            keyGrid.Add("iBSS", new KeyGridItem(
+                grdiBSS, keyiBSSIV, keyiBSSKey, fileiBSS,
+                grdiBSSNoEncrypt, fileiBSSNoEncrypt));
+            keyGrid.Add("Kernelcache", new KeyGridItem(
+                grdKernelcache, keyKernelcacheIV, keyKernelcacheKey, fileKernelcache,
+                grdKernelcacheNoEncrypt, fileKernelcacheNoEncrypt));
+            keyGrid.Add("NeedService", new KeyGridItem(
+                grdNeedService, keyNeedServiceIV, keyNeedServiceKey, fileNeedService,
+                grdNeedServiceNoEncrypt, fileNeedServiceNoEncrypt));
+            keyGrid.Add("RecoveryMode", new KeyGridItem(
+                grdRecoveryMode, keyRecoveryModeIV, keyRecoveryModeKey, fileRecoveryMode,
+                grdRecoveryModeNoEncrypt, fileRecoveryModeNoEncrypt));
+            keyGrid.Add("SEP-Firmware", new KeyGridItem(
+                grdSEPFirmware, keySEPFirmwareIV, keySEPFirmwareKey, fileSEPFirmware,
+                grdSEPFirmwareNoEncrypt, fileSEPFirmwareNoEncrypt));
+        }
         private void btnViewKeys_Click(object sender, RoutedEventArgs e)
         {
             Debug("[KEYSELECT]", "Validating input.");
@@ -263,375 +326,75 @@ namespace Hexware.Programs.iDecryptIt
         }
         private void LoadFirmwareKeys(Stream document, bool goldMaster)
         {
-            PlistDocument doc = null;
+            PlistDict plist;
 
-            // Open stream
             Debug("[LOADKEYS]", "Opening key stream.");
             try {
-                doc = new PlistDocument(document);
+                PlistDocument doc = new PlistDocument(document);
+                plist = (PlistDict)doc.RootNode;
             } catch (Exception ex) {
                 Error("Error loading key file.", ex);
                 return;
             }
 
-            PlistDict plist = (PlistDict)doc.RootNode;
-            PlistDict temp;
-            #region Device
-            Debug("[LOADKEYS]", "Device.");
             txtDevice.Text = GlobalVars.DeviceNames[plist.Get<PlistString>("Device").Value];
-            #endregion
-            #region Version
+
             txtVersion.Text = plist.Get<PlistString>("Version").Value +
                 " (Build " + plist.Get<PlistString>("Build").Value + ")";
             //if (goldMaster)
             //    txtVersion.Text = txtVersion.Text + " [GM]";
-            #endregion
-            #region Root FS
+
             fileRootFS.Text = plist.Get<PlistDict>("Root FS").Get<PlistString>("File Name").Value;
             keyRootFS.Text = plist.Get<PlistDict>("Root FS").Get<PlistString>((goldMaster) ? "GM Key" : "Key").Value;
-            #endregion
-            #region Restore Ramdisk
-            if (plist.Exists("Restore Ramdisk")) {
-                temp = plist.Get<PlistDict>("Restore Ramdisk");
-                if (temp.Get<PlistBool>("Encryption").Value) {
-                    grdRestore.Visibility = Visibility.Visible;
-                    grdRestoreNoEncrypt.Visibility = Visibility.Collapsed;
-                    keyRestoreIV.Text = temp.Get<PlistString>("IV").Value;
-                    keyRestoreKey.Text = temp.Get<PlistString>("Key").Value;
-                    fileRestore.Text = temp.Get<PlistString>("File Name").Value;
+
+            ProcessFirmwareItem(plist, "Restore Ramdisk");
+            ProcessFirmwareItem(plist, "Update Ramdisk");
+            ProcessFirmwareItem(plist, "AppleLogo");
+            ProcessFirmwareItem(plist, "BatteryCharging0");
+            ProcessFirmwareItem(plist, "BatteryCharging1");
+            ProcessFirmwareItem(plist, "BatteryFull");
+            ProcessFirmwareItem(plist, "BatteryLow0");
+            ProcessFirmwareItem(plist, "BatteryLow1");
+            ProcessFirmwareItem(plist, "DeviceTree");
+            ProcessFirmwareItem(plist, "GlyphCharging");
+            ProcessFirmwareItem(plist, "GlyphPlugin");
+            ProcessFirmwareItem(plist, "iBEC");
+            ProcessFirmwareItem(plist, "iBoot");
+            ProcessFirmwareItem(plist, "iBSS");
+            ProcessFirmwareItem(plist, "Kernelcache");
+            ProcessFirmwareItem(plist, "NeedService");
+            ProcessFirmwareItem(plist, "RecoveryMode");
+            ProcessFirmwareItem(plist, "SEP-Firmware");
+        }
+        private void ProcessFirmwareItem(PlistDict rootNode, string key)
+        {
+            KeyGridItem controls = keyGrid[key];
+
+            if (rootNode.Exists(key)) {
+                PlistDict node = rootNode.Get<PlistDict>(key);
+                if (node.Get<PlistBool>("Encryption").Value) {
+                    controls.EncryptedGrid.Visibility = Visibility.Visible;
+                    controls.EncryptedIV.Text = node.Get<PlistString>("IV").Value;
+                    controls.EncryptedKey.Text = node.Get<PlistString>("Key").Value;
+                    controls.EncryptedFileName.Text = node.Get<PlistString>("File Name").Value;
+                    controls.NotEncryptedGrid.Visibility = Visibility.Collapsed;
+                    controls.NotEncryptedFileName.Text = "";
                 } else {
-                    grdRestore.Visibility = Visibility.Collapsed;
-                    grdRestoreNoEncrypt.Visibility = Visibility.Visible;
-                    fileRestoreNoEncrypt.Text = temp.Get<PlistString>("File Name").Value;
+                    controls.EncryptedGrid.Visibility = Visibility.Collapsed;
+                    controls.EncryptedIV.Text = "";
+                    controls.EncryptedKey.Text = "";
+                    controls.EncryptedFileName.Text = "";
+                    controls.NotEncryptedGrid.Visibility = Visibility.Visible;
+                    controls.NotEncryptedFileName.Text = node.Get<PlistString>("File Name").Value;
                 }
             } else {
-                grdRestore.Visibility = Visibility.Collapsed;
-                grdRestoreNoEncrypt.Visibility = Visibility.Collapsed;
+                controls.EncryptedGrid.Visibility = Visibility.Collapsed;
+                controls.EncryptedIV.Text = "";
+                controls.EncryptedKey.Text = "";
+                controls.EncryptedFileName.Text = "";
+                controls.NotEncryptedGrid.Visibility = Visibility.Collapsed;
+                controls.NotEncryptedFileName.Text = "";
             }
-            #endregion
-            #region Update Ramdisk
-            if (plist.Exists("Update Ramdisk")) {
-                temp = plist.Get<PlistDict>("Update Ramdisk");
-                if (temp.Get<PlistBool>("Encryption").Value) {
-                    grdUpdate.Visibility = Visibility.Visible;
-                    grdUpdateNoEncrypt.Visibility = Visibility.Collapsed;
-                    keyUpdateIV.Text = temp.Get<PlistString>("IV").Value;
-                    keyUpdateKey.Text = temp.Get<PlistString>("Key").Value;
-                    fileUpdate.Text = temp.Get<PlistString>("File Name").Value;
-                } else {
-                    grdUpdate.Visibility = Visibility.Collapsed;
-                    grdUpdateNoEncrypt.Visibility = Visibility.Visible;
-                    fileUpdateNoEncrypt.Text = temp.Get<PlistString>("File Name").Value;
-                }
-            } else {
-                grdUpdate.Visibility = Visibility.Collapsed;
-                grdUpdateNoEncrypt.Visibility = Visibility.Collapsed;
-            }
-            #endregion
-            #region AppleLogo
-            if (plist.Exists("AppleLogo")) {
-                temp = plist.Get<PlistDict>("AppleLogo");
-                if (temp.Get<PlistBool>("Encryption").Value) {
-                    grdAppleLogo.Visibility = Visibility.Visible;
-                    grdAppleLogoNoEncrypt.Visibility = Visibility.Collapsed;
-                    keyAppleLogoIV.Text = temp.Get<PlistString>("IV").Value;
-                    keyAppleLogoKey.Text = temp.Get<PlistString>("Key").Value;
-                    fileAppleLogo.Text = temp.Get<PlistString>("File Name").Value;
-                } else {
-                    grdAppleLogo.Visibility = Visibility.Collapsed;
-                    grdAppleLogoNoEncrypt.Visibility = Visibility.Visible;
-                    fileAppleLogoNoEncrypt.Text = temp.Get<PlistString>("File Name").Value;
-                }
-            } else {
-                grdAppleLogo.Visibility = Visibility.Collapsed;
-                grdAppleLogoNoEncrypt.Visibility = Visibility.Collapsed;
-            }
-            #endregion
-            #region BatteryCharging0
-            if (plist.Exists("BatteryCharging0")) {
-                temp = plist.Get<PlistDict>("BatteryCharging0");
-                if (temp.Get<PlistBool>("Encryption").Value) {
-                    grdBatteryCharging0.Visibility = Visibility.Visible;
-                    grdBatteryCharging0NoEncrypt.Visibility = Visibility.Collapsed;
-                    keyBatteryCharging0IV.Text = temp.Get<PlistString>("IV").Value;
-                    keyBatteryCharging0Key.Text = temp.Get<PlistString>("Key").Value;
-                    fileBatteryCharging0.Text = temp.Get<PlistString>("File Name").Value;
-                } else {
-                    grdBatteryCharging0.Visibility = Visibility.Collapsed;
-                    grdBatteryCharging0NoEncrypt.Visibility = Visibility.Visible;
-                    fileBatteryCharging0NoEncrypt.Text = temp.Get<PlistString>("File Name").Value;
-                }
-            } else {
-                grdBatteryCharging0.Visibility = Visibility.Collapsed;
-                grdBatteryCharging0NoEncrypt.Visibility = Visibility.Collapsed;
-            }
-            #endregion
-            #region BatteryCharging1
-            if (plist.Exists("BatteryCharging1")) {
-                temp = plist.Get<PlistDict>("BatteryCharging1");
-                if (temp.Get<PlistBool>("Encryption").Value) {
-                    grdBatteryCharging1.Visibility = Visibility.Visible;
-                    grdBatteryCharging1NoEncrypt.Visibility = Visibility.Collapsed;
-                    keyBatteryCharging1IV.Text = temp.Get<PlistString>("IV").Value;
-                    keyBatteryCharging1Key.Text = temp.Get<PlistString>("Key").Value;
-                    fileBatteryCharging1.Text = temp.Get<PlistString>("File Name").Value;
-                } else {
-                    grdBatteryCharging1.Visibility = Visibility.Collapsed;
-                    grdBatteryCharging1NoEncrypt.Visibility = Visibility.Visible;
-                    fileBatteryCharging1NoEncrypt.Text = temp.Get<PlistString>("File Name").Value;
-                }
-            } else {
-                grdBatteryCharging1.Visibility = Visibility.Collapsed;
-                grdBatteryCharging1NoEncrypt.Visibility = Visibility.Collapsed;
-            }
-            #endregion
-            #region BatteryFull
-            if (plist.Exists("BatteryFull")) {
-                temp = plist.Get<PlistDict>("BatteryFull");
-                if (temp.Get<PlistBool>("Encryption").Value) {
-                    grdBatteryFull.Visibility = Visibility.Visible;
-                    grdBatteryFullNoEncrypt.Visibility = Visibility.Collapsed;
-                    keyBatteryFullIV.Text = temp.Get<PlistString>("IV").Value;
-                    keyBatteryFullKey.Text = temp.Get<PlistString>("Key").Value;
-                    fileBatteryFull.Text = temp.Get<PlistString>("File Name").Value;
-                } else {
-                    grdBatteryFull.Visibility = Visibility.Collapsed;
-                    grdBatteryFullNoEncrypt.Visibility = Visibility.Visible;
-                    fileBatteryFullNoEncrypt.Text = temp.Get<PlistString>("File Name").Value;
-                }
-            } else {
-                grdBatteryFull.Visibility = Visibility.Collapsed;
-                grdBatteryFullNoEncrypt.Visibility = Visibility.Collapsed;
-            }
-            #endregion
-            #region BatteryLow0
-            if (plist.Exists("BatteryLow0")) {
-                temp = plist.Get<PlistDict>("BatteryLow0");
-                if (temp.Get<PlistBool>("Encryption").Value) {
-                    grdBatteryLow0.Visibility = Visibility.Visible;
-                    grdBatteryLow0NoEncrypt.Visibility = Visibility.Collapsed;
-                    keyBatteryLow0IV.Text = temp.Get<PlistString>("IV").Value;
-                    keyBatteryLow0Key.Text = temp.Get<PlistString>("Key").Value;
-                    fileBatteryLow0.Text = temp.Get<PlistString>("File Name").Value;
-                } else {
-                    grdBatteryLow0.Visibility = Visibility.Collapsed;
-                    grdBatteryLow0NoEncrypt.Visibility = Visibility.Visible;
-                    fileBatteryLow0NoEncrypt.Text = temp.Get<PlistString>("File Name").Value;
-                }
-            } else {
-                grdBatteryLow0.Visibility = Visibility.Collapsed;
-                grdBatteryLow0NoEncrypt.Visibility = Visibility.Collapsed;
-            }
-            #endregion
-            #region BatteryLow1
-            if (plist.Exists("BatteryLow1")) {
-                temp = plist.Get<PlistDict>("BatteryLow1");
-                if (temp.Get<PlistBool>("Encryption").Value) {
-                    grdBatteryLow1.Visibility = Visibility.Visible;
-                    grdBatteryLow1NoEncrypt.Visibility = Visibility.Collapsed;
-                    keyBatteryLow1IV.Text = temp.Get<PlistString>("IV").Value;
-                    keyBatteryLow1Key.Text = temp.Get<PlistString>("Key").Value;
-                    fileBatteryLow1.Text = temp.Get<PlistString>("File Name").Value;
-                } else {
-                    grdBatteryLow1.Visibility = Visibility.Collapsed;
-                    grdBatteryLow1NoEncrypt.Visibility = Visibility.Visible;
-                    fileBatteryLow1NoEncrypt.Text = temp.Get<PlistString>("File Name").Value;
-                }
-            } else {
-                grdBatteryLow1.Visibility = Visibility.Collapsed;
-                grdBatteryLow1NoEncrypt.Visibility = Visibility.Collapsed;
-            }
-            #endregion
-            #region DeviceTree
-            if (plist.Exists("DeviceTree")) {
-                temp = plist.Get<PlistDict>("DeviceTree");
-                if (temp.Get<PlistBool>("Encryption").Value) {
-                    grdDeviceTree.Visibility = Visibility.Visible;
-                    grdDeviceTreeNoEncrypt.Visibility = Visibility.Collapsed;
-                    keyDeviceTreeIV.Text = temp.Get<PlistString>("IV").Value;
-                    keyDeviceTreeKey.Text = temp.Get<PlistString>("Key").Value;
-                    fileDeviceTree.Text = temp.Get<PlistString>("File Name").Value;
-                } else {
-                    grdDeviceTree.Visibility = Visibility.Collapsed;
-                    grdDeviceTreeNoEncrypt.Visibility = Visibility.Visible;
-                    fileDeviceTreeNoEncrypt.Text = temp.Get<PlistString>("File Name").Value;
-                }
-            } else {
-                grdDeviceTree.Visibility = Visibility.Collapsed;
-                grdDeviceTreeNoEncrypt.Visibility = Visibility.Collapsed;
-            }
-            #endregion
-            #region GlyphCharging
-            if (plist.Exists("GlyphCharging")) {
-                temp = plist.Get<PlistDict>("GlyphCharging");
-                if (temp.Get<PlistBool>("Encryption").Value) {
-                    grdGlyphCharging.Visibility = Visibility.Visible;
-                    grdGlyphChargingNoEncrypt.Visibility = Visibility.Collapsed;
-                    keyGlyphChargingIV.Text = temp.Get<PlistString>("IV").Value;
-                    keyGlyphChargingKey.Text = temp.Get<PlistString>("Key").Value;
-                    fileGlyphCharging.Text = temp.Get<PlistString>("File Name").Value;
-                } else {
-                    grdGlyphCharging.Visibility = Visibility.Collapsed;
-                    grdGlyphChargingNoEncrypt.Visibility = Visibility.Visible;
-                    fileGlyphChargingNoEncrypt.Text = temp.Get<PlistString>("File Name").Value;
-                }
-            } else {
-                grdGlyphCharging.Visibility = Visibility.Collapsed;
-                grdGlyphChargingNoEncrypt.Visibility = Visibility.Collapsed;
-            }
-            #endregion
-            #region GlyphPlugin
-            if (plist.Exists("GlyphPlugin")) {
-                temp = plist.Get<PlistDict>("GlyphPlugin");
-                if (temp.Get<PlistBool>("Encryption").Value) {
-                    grdGlyphPlugin.Visibility = Visibility.Visible;
-                    grdGlyphPluginNoEncrypt.Visibility = Visibility.Collapsed;
-                    keyGlyphPluginIV.Text = temp.Get<PlistString>("IV").Value;
-                    keyGlyphPluginKey.Text = temp.Get<PlistString>("Key").Value;
-                    fileGlyphPlugin.Text = temp.Get<PlistString>("File Name").Value;
-                } else {
-                    grdGlyphPlugin.Visibility = Visibility.Collapsed;
-                    grdGlyphPluginNoEncrypt.Visibility = Visibility.Visible;
-                    fileGlyphPluginNoEncrypt.Text = temp.Get<PlistString>("File Name").Value;
-                }
-            } else {
-                grdGlyphPlugin.Visibility = Visibility.Collapsed;
-                grdGlyphPluginNoEncrypt.Visibility = Visibility.Collapsed;
-            }
-            #endregion
-            #region iBEC
-            if (plist.Exists("iBEC")) {
-                temp = plist.Get<PlistDict>("iBEC");
-                if (temp.Get<PlistBool>("Encryption").Value) {
-                    grdiBEC.Visibility = Visibility.Visible;
-                    grdiBECNoEncrypt.Visibility = Visibility.Collapsed;
-                    keyiBECIV.Text = temp.Get<PlistString>("IV").Value;
-                    keyiBECKey.Text = temp.Get<PlistString>("Key").Value;
-                    fileiBEC.Text = temp.Get<PlistString>("File Name").Value;
-                } else {
-                    grdiBEC.Visibility = Visibility.Collapsed;
-                    grdiBECNoEncrypt.Visibility = Visibility.Visible;
-                    fileiBECNoEncrypt.Text = temp.Get<PlistString>("File Name").Value;
-                }
-            } else {
-                grdiBEC.Visibility = Visibility.Collapsed;
-                grdiBECNoEncrypt.Visibility = Visibility.Collapsed;
-            }
-            #endregion
-            #region iBoot
-            if (plist.Exists("iBoot")) {
-                temp = plist.Get<PlistDict>("iBoot");
-                if (temp.Get<PlistBool>("Encryption").Value) {
-                    grdiBoot.Visibility = Visibility.Visible;
-                    grdiBootNoEncrypt.Visibility = Visibility.Collapsed;
-                    keyiBootIV.Text = temp.Get<PlistString>("IV").Value;
-                    keyiBootKey.Text = temp.Get<PlistString>("Key").Value;
-                    fileiBoot.Text = temp.Get<PlistString>("File Name").Value;
-                } else {
-                    grdiBoot.Visibility = Visibility.Collapsed;
-                    grdiBootNoEncrypt.Visibility = Visibility.Visible;
-                    fileiBootNoEncrypt.Text = temp.Get<PlistString>("File Name").Value;
-                }
-            } else {
-                grdiBoot.Visibility = Visibility.Collapsed;
-                grdiBootNoEncrypt.Visibility = Visibility.Collapsed;
-            }
-            #endregion
-            #region iBSS
-            if (plist.Exists("iBSS")) {
-                temp = plist.Get<PlistDict>("iBSS");
-                if (temp.Get<PlistBool>("Encryption").Value) {
-                    grdiBSS.Visibility = Visibility.Visible;
-                    grdiBSSNoEncrypt.Visibility = Visibility.Collapsed;
-                    keyiBSSIV.Text = temp.Get<PlistString>("IV").Value;
-                    keyiBSSKey.Text = temp.Get<PlistString>("Key").Value;
-                    fileiBSS.Text = temp.Get<PlistString>("File Name").Value;
-                } else {
-                    grdiBSS.Visibility = Visibility.Collapsed;
-                    grdiBSSNoEncrypt.Visibility = Visibility.Visible;
-                    fileiBSSNoEncrypt.Text = temp.Get<PlistString>("File Name").Value;
-                }
-            } else {
-                grdiBSS.Visibility = Visibility.Collapsed;
-                grdiBSSNoEncrypt.Visibility = Visibility.Collapsed;
-            }
-            #endregion
-            #region Kernelcache
-            if (plist.Exists("Kernelcache")) {
-                temp = plist.Get<PlistDict>("Kernelcache");
-                if (temp.Get<PlistBool>("Encryption").Value) {
-                    grdKernelcache.Visibility = Visibility.Visible;
-                    grdKernelcacheNoEncrypt.Visibility = Visibility.Collapsed;
-                    keyKernelcacheIV.Text = temp.Get<PlistString>("IV").Value;
-                    keyKernelcacheKey.Text = temp.Get<PlistString>("Key").Value;
-                    fileKernelcache.Text = temp.Get<PlistString>("File Name").Value;
-                } else {
-                    grdKernelcache.Visibility = Visibility.Collapsed;
-                    grdKernelcacheNoEncrypt.Visibility = Visibility.Visible;
-                    fileKernelcacheNoEncrypt.Text = temp.Get<PlistString>("File Name").Value;
-                }
-            } else {
-                grdKernelcache.Visibility = Visibility.Collapsed;
-                grdKernelcacheNoEncrypt.Visibility = Visibility.Collapsed;
-            }
-            #endregion
-            #region NeedService
-            if (plist.Exists("NeedService")) {
-                temp = plist.Get<PlistDict>("NeedService");
-                if (temp.Get<PlistBool>("Encryption").Value) {
-                    grdNeedService.Visibility = Visibility.Visible;
-                    grdNeedServiceNoEncrypt.Visibility = Visibility.Collapsed;
-                    keyNeedServiceIV.Text = temp.Get<PlistString>("IV").Value;
-                    keyNeedServiceKey.Text = temp.Get<PlistString>("Key").Value;
-                    fileNeedService.Text = temp.Get<PlistString>("File Name").Value;
-                } else {
-                    grdNeedService.Visibility = Visibility.Collapsed;
-                    grdNeedServiceNoEncrypt.Visibility = Visibility.Visible;
-                    fileNeedServiceNoEncrypt.Text = temp.Get<PlistString>("File Name").Value;
-                }
-            } else {
-                grdNeedService.Visibility = Visibility.Collapsed;
-                grdNeedServiceNoEncrypt.Visibility = Visibility.Collapsed;
-            }
-            #endregion
-            #region RecoveryMode
-            if (plist.Exists("RecoveryMode")) {
-                temp = plist.Get<PlistDict>("RecoveryMode");
-                if (temp.Get<PlistBool>("Encryption").Value) {
-                    grdRecoveryMode.Visibility = Visibility.Visible;
-                    grdRecoveryModeNoEncrypt.Visibility = Visibility.Collapsed;
-                    keyRecoveryModeIV.Text = temp.Get<PlistString>("IV").Value;
-                    keyRecoveryModeKey.Text = temp.Get<PlistString>("Key").Value;
-                    fileRecoveryMode.Text = temp.Get<PlistString>("File Name").Value;
-                } else {
-                    grdRecoveryMode.Visibility = Visibility.Collapsed;
-                    grdRecoveryModeNoEncrypt.Visibility = Visibility.Visible;
-                    fileRecoveryModeNoEncrypt.Text = temp.Get<PlistString>("File Name").Value;
-                }
-            } else {
-                grdRecoveryMode.Visibility = Visibility.Collapsed;
-                grdRecoveryModeNoEncrypt.Visibility = Visibility.Collapsed;
-            }
-            #endregion
-            #region SEP-Firmware
-            if (plist.Exists("SEP-Firmware")) {
-                temp = plist.Get<PlistDict>("SEP-Firmware");
-                if (temp.Get<PlistBool>("Encryption").Value) {
-                    grdSEPFirmware.Visibility = Visibility.Visible;
-                    grdSEPFirmwareNoEncrypt.Visibility = Visibility.Collapsed;
-                    keySEPFirmwareIV.Text = temp.Get<PlistString>("IV").Value;
-                    keySEPFirmwareKey.Text = temp.Get<PlistString>("Key").Value;
-                    fileSEPFirmware.Text = temp.Get<PlistString>("File Name").Value;
-                } else {
-                    grdSEPFirmware.Visibility = Visibility.Collapsed;
-                    grdSEPFirmwareNoEncrypt.Visibility = Visibility.Visible;
-                    fileSEPFirmwareNoEncrypt.Text = temp.Get<PlistString>("File Name").Value;
-                }
-            } else {
-                grdSEPFirmware.Visibility = Visibility.Collapsed;
-                grdSEPFirmwareNoEncrypt.Visibility = Visibility.Collapsed;
-            }
-            #endregion
         }
 
         private void btnSelectRootFSInputFile_Click(object sender, RoutedEventArgs e)
