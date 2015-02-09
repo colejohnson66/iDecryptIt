@@ -2,7 +2,7 @@
  * File:   Program.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2012-2015, Cole Johnson
+ * Copyright (c) 2012-2015 Cole Johnson
  * 
  * This file is part of iDecryptIt
  * 
@@ -56,7 +56,7 @@ namespace Hexware.Programs.iDecryptIt
         private static void PrintLicense()
         {
             Console.WriteLine("iDecryptIt " + GlobalVars.Version + GlobalVars.Version64);
-            Console.WriteLine("Copyright (c) 2010-2015, Cole Johnson");
+            Console.WriteLine("Copyright (c) 2010-2015 Cole Johnson");
             Console.WriteLine();
             Console.WriteLine("iDecryptIt is free software: you can redistribute it and/or modify it under");
             Console.WriteLine("  the terms of the GNU General Public License as published by the Free");

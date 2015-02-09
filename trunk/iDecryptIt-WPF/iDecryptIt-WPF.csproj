@@ -140,6 +140,7 @@
     <Compile Include="ComboBoxEntry.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="GlobalVars.cs" />
+    <Compile Include="KeyGridItem.cs" />
     <Compile Include="KeySelectionLists.cs" />
     <Compile Include="KeySelectionViewModel.cs" />
     <Compile Include="NativeMethods.cs" />

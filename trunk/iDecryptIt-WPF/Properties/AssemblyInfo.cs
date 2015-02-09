@@ -2,7 +2,7 @@
  * File:   AssemblyInfo.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2010-2015, Cole Johnson
+ * Copyright (c) 2010-2015 Cole Johnson
  * 
  * This file is part of iDecryptIt
  * 
@@ -40,5 +40,5 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 [assembly: Guid("ba12c942-94e7-4c25-b4b9-29c3e37dbf14")]
 
-[assembly: AssemblyVersion("8.13.1.1547")]
-[assembly: AssemblyFileVersion("8.13.1.1547")]
+[assembly: AssemblyVersion("8.13.1.1558")]
+[assembly: AssemblyFileVersion("8.13.1.1558")]

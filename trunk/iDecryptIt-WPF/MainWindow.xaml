@@ -247,13 +247,10 @@
             <Grid Margin="6" Background="{StaticResource GrayBorder}">
                 <Grid Margin="3" Background="White">
                     <ScrollViewer Margin="6">
-                        <!-- Pad away from the scrollbar -->
                         <Grid Margin="0,0,6,0" x:Name="gridKeys">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
-                                <RowDefinition Height="6" />
                                 <RowDefinition Height="Auto" />
-                                <RowDefinition Height="6" />
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
@@ -293,8 +290,8 @@
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
                             <TextBlock Grid.Row="0" Text="Device" x:Name="txtDevice" FontSize="32" />
-                            <TextBlock Grid.Row="2" Text="Version (Build)" x:Name="txtVersion" FontSize="16" Margin="12,0,0,0" />
-                            <Grid Grid.Row="4" x:Name="grdRootFS" Margin="0,3">
+                            <TextBlock Grid.Row="1" Text="Version (Build)" x:Name="txtVersion" FontSize="16" Margin="12,6,0,6" />
+                            <Grid Grid.Row="2" x:Name="grdRootFS" Margin="0,3">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="{DynamicResource keyTitleWidth}" />
                                     <ColumnDefinition Width="6" />
@@ -306,7 +303,7 @@
                                 <TextBox Grid.Column="2" x:Name="keyRootFS" />
                                 <TextBox Grid.Column="4" x:Name="fileRootFS" />
                             </Grid>
-                            <Grid Grid.Row="5" x:Name="grdRestore" Margin="0,3">
+                            <Grid Grid.Row="3" x:Name="grdRestore" Margin="0,3">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="{DynamicResource keyTitleWidth}" />
                                     <ColumnDefinition Width="6" />
@@ -325,7 +322,7 @@
                                 <TextBox Grid.Column="2" x:Name="keyRestoreKey" Grid.Row="2" />
                                 <TextBox Grid.Column="4" x:Name="fileRestore" Grid.RowSpan="3" VerticalAlignment="Center" />
                             </Grid>
-                            <Grid Grid.Row="6" x:Name="grdRestoreNoEncrypt" Margin="0,3">
+                            <Grid Grid.Row="4" x:Name="grdRestoreNoEncrypt" Margin="0,3">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="{DynamicResource keyTitleWidth}" />
                                     <ColumnDefinition Width="6" />
@@ -337,7 +334,7 @@
                                 <TextBlock Grid.Column="2" Text="Not Encrypted" x:Name="keyRestoreNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                 <TextBox Grid.Column="4" x:Name="fileRestoreNoEncrypt" />
                             </Grid>
-                            <Grid Grid.Row="7" x:Name="grdUpdate" Margin="0,3">
+                            <Grid Grid.Row="5" x:Name="grdUpdate" Margin="0,3">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="{DynamicResource keyTitleWidth}" />
                                     <ColumnDefinition Width="6" />
@@ -356,7 +353,7 @@
                                 <TextBox Grid.Column="2" x:Name="keyUpdateKey" Grid.Row="2" />
                                 <TextBox Grid.Column="4" x:Name="fileUpdate" Grid.RowSpan="3" VerticalAlignment="Center" />
                             </Grid>
-                            <Grid Grid.Row="8" x:Name="grdUpdateNoEncrypt" Margin="0,3">
+                            <Grid Grid.Row="6" x:Name="grdUpdateNoEncrypt" Margin="0,3">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="{DynamicResource keyTitleWidth}" />
                                     <ColumnDefinition Width="6" />
@@ -368,7 +365,7 @@
                                 <TextBlock Grid.Column="2" Text="Not Encrypted" x:Name="keyUpdateNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                 <TextBox Grid.Column="4" x:Name="fileUpdateNoEncrypt" />
                             </Grid>
-                            <Grid Grid.Row="9" x:Name="grdAppleLogo" Margin="0,3">
+                            <Grid Grid.Row="7" x:Name="grdAppleLogo" Margin="0,3">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="{DynamicResource keyTitleWidth}" />
                                     <ColumnDefinition Width="6" />
@@ -387,7 +384,7 @@
                                 <TextBox Grid.Column="2" x:Name="keyAppleLogoKey" Grid.Row="2" />
                                 <TextBox Grid.Column="4" x:Name="fileAppleLogo" Grid.RowSpan="3" VerticalAlignment="Center" />
                             </Grid>
-                            <Grid Grid.Row="10" x:Name="grdAppleLogoNoEncrypt" Margin="0,3">
+                            <Grid Grid.Row="8" x:Name="grdAppleLogoNoEncrypt" Margin="0,3">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="{DynamicResource keyTitleWidth}" />
                                     <ColumnDefinition Width="6" />
@@ -399,7 +396,7 @@
                                 <TextBlock Grid.Column="2" Text="Not Encrypted" x:Name="keyAppleLogoNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                 <TextBox Grid.Column="4" x:Name="fileAppleLogoNoEncrypt" />
                             </Grid>
-                            <Grid Grid.Row="11" x:Name="grdBatteryCharging0" Margin="0,3">
+                            <Grid Grid.Row="9" x:Name="grdBatteryCharging0" Margin="0,3">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="{DynamicResource keyTitleWidth}" />
                                     <ColumnDefinition Width="6" />
@@ -418,7 +415,7 @@
                                 <TextBox Grid.Column="2" x:Name="keyBatteryCharging0Key" Grid.Row="2" />
                                 <TextBox Grid.Column="4" x:Name="fileBatteryCharging0" Grid.RowSpan="3" VerticalAlignment="Center" />
                             </Grid>
-                            <Grid Grid.Row="12" x:Name="grdBatteryCharging0NoEncrypt" Margin="0,3">
+                            <Grid Grid.Row="10" x:Name="grdBatteryCharging0NoEncrypt" Margin="0,3">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="{DynamicResource keyTitleWidth}" />
                                     <ColumnDefinition Width="6" />
@@ -430,7 +427,7 @@
                                 <TextBlock Grid.Column="2" Text="Not Encrypted" x:Name="keyBatteryCharging0NoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                 <TextBox Grid.Column="4" x:Name="fileBatteryCharging0NoEncrypt" />
                             </Grid>
-                            <Grid Grid.Row="13" x:Name="grdBatteryCharging1" Margin="0,3">
+                            <Grid Grid.Row="11" x:Name="grdBatteryCharging1" Margin="0,3">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="{DynamicResource keyTitleWidth}" />
                                     <ColumnDefinition Width="6" />
@@ -449,7 +446,7 @@
                                 <TextBox Grid.Column="2" x:Name="keyBatteryCharging1Key" Grid.Row="2" />
                                 <TextBox Grid.Column="4" x:Name="fileBatteryCharging1" Grid.RowSpan="3" VerticalAlignment="Center" />
                             </Grid>
-                            <Grid Grid.Row="14" x:Name="grdBatteryCharging1NoEncrypt" Margin="0,3">
+                            <Grid Grid.Row="12" x:Name="grdBatteryCharging1NoEncrypt" Margin="0,3">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="{DynamicResource keyTitleWidth}" />
                                     <ColumnDefinition Width="6" />
@@ -461,7 +458,7 @@
                                 <TextBlock Grid.Column="2" Text="Not Encrypted" x:Name="keyBatteryCharging1NoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                 <TextBox Grid.Column="4" x:Name="fileBatteryCharging1NoEncrypt" />
                             </Grid>
-                            <Grid Grid.Row="15" x:Name="grdBatteryFull" Margin="0,3">
+                            <Grid Grid.Row="13" x:Name="grdBatteryFull" Margin="0,3">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="{DynamicResource keyTitleWidth}" />
                                     <ColumnDefinition Width="6" />
@@ -480,7 +477,7 @@
                                 <TextBox Grid.Column="2" x:Name="keyBatteryFullKey" Grid.Row="2" />
                                 <TextBox Grid.Column="4" x:Name="fileBatteryFull" Grid.RowSpan="3" VerticalAlignment="Center" />
                             </Grid>
-                            <Grid Grid.Row="16" x:Name="grdBatteryFullNoEncrypt" Margin="0,3">
+                            <Grid Grid.Row="14" x:Name="grdBatteryFullNoEncrypt" Margin="0,3">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="{DynamicResource keyTitleWidth}" />
                                     <ColumnDefinition Width="6" />
@@ -492,7 +489,7 @@
                                 <TextBlock Grid.Column="2" Text="Not Encrypted" x:Name="keyBatteryFullNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                 <TextBox Grid.Column="4" x:Name="fileBatteryFullNoEncrypt" />
                             </Grid>
-                            <Grid Grid.Row="17" x:Name="grdBatteryLow0" Margin="0,3">
+                            <Grid Grid.Row="15" x:Name="grdBatteryLow0" Margin="0,3">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="{DynamicResource keyTitleWidth}" />
                                     <ColumnDefinition Width="6" />
@@ -511,7 +508,7 @@
                                 <TextBox Grid.Column="2" x:Name="keyBatteryLow0Key" Grid.Row="2" />
                                 <TextBox Grid.Column="4" x:Name="fileBatteryLow0" Grid.RowSpan="3" VerticalAlignment="Center" />
                             </Grid>
-                            <Grid Grid.Row="18" x:Name="grdBatteryLow0NoEncrypt" Margin="0,3">
+                            <Grid Grid.Row="16" x:Name="grdBatteryLow0NoEncrypt" Margin="0,3">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="{DynamicResource keyTitleWidth}" />
                                     <ColumnDefinition Width="6" />
@@ -523,7 +520,7 @@
                                 <TextBlock Grid.Column="2" Text="Not Encrypted" x:Name="keyBatteryLow0NoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                 <TextBox Grid.Column="4" x:Name="fileBatteryLow0NoEncrypt" />
                             </Grid>
-                            <Grid Grid.Row="19" x:Name="grdBatteryLow1" Margin="0,3">
+                            <Grid Grid.Row="17" x:Name="grdBatteryLow1" Margin="0,3">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="{DynamicResource keyTitleWidth}" />
                                     <ColumnDefinition Width="6" />
@@ -542,7 +539,7 @@
                                 <TextBox Grid.Column="2" x:Name="keyBatteryLow1Key" Grid.Row="2" />
                                 <TextBox Grid.Column="4" x:Name="fileBatteryLow1" Grid.RowSpan="3" VerticalAlignment="Center" />
                             </Grid>
-                            <Grid Grid.Row="20" x:Name="grdBatteryLow1NoEncrypt" Margin="0,3">
+                            <Grid Grid.Row="18" x:Name="grdBatteryLow1NoEncrypt" Margin="0,3">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="{DynamicResource keyTitleWidth}" />
                                     <ColumnDefinition Width="6" />
@@ -554,7 +551,7 @@
                                 <TextBlock Grid.Column="2" Text="Not Encrypted" x:Name="keyBatteryLow1NoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                 <TextBox Grid.Column="4" x:Name="fileBatteryLow1NoEncrypt" />
                             </Grid>
-                            <Grid Grid.Row="21" x:Name="grdDeviceTree" Margin="0,3">
+                            <Grid Grid.Row="19" x:Name="grdDeviceTree" Margin="0,3">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="{DynamicResource keyTitleWidth}" />
                                     <ColumnDefinition Width="6" />
@@ -573,7 +570,7 @@
                                 <TextBox Grid.Column="2" x:Name="keyDeviceTreeKey" Grid.Row="2" />
                                 <TextBox Grid.Column="4" x:Name="fileDeviceTree" Grid.RowSpan="3" VerticalAlignment="Center" />
                             </Grid>
-                            <Grid Grid.Row="22" x:Name="grdDeviceTreeNoEncrypt" Margin="0,3">
+                            <Grid Grid.Row="20" x:Name="grdDeviceTreeNoEncrypt" Margin="0,3">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="{DynamicResource keyTitleWidth}" />
                                     <ColumnDefinition Width="6" />
@@ -585,7 +582,7 @@
                                 <TextBlock Grid.Column="2" Text="Not Encrypted" x:Name="keyDeviceTreeNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                 <TextBox Grid.Column="4" x:Name="fileDeviceTreeNoEncrypt" />
                             </Grid>
-                            <Grid Grid.Row="23" x:Name="grdGlyphCharging" Margin="0,3">
+                            <Grid Grid.Row="21" x:Name="grdGlyphCharging" Margin="0,3">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="{DynamicResource keyTitleWidth}" />
                                     <ColumnDefinition Width="6" />
@@ -604,7 +601,7 @@
                                 <TextBox Grid.Column="2" x:Name="keyGlyphChargingKey" Grid.Row="2" />
                                 <TextBox Grid.Column="4" x:Name="fileGlyphCharging" Grid.RowSpan="3" VerticalAlignment="Center" />
                             </Grid>
-                            <Grid Grid.Row="24" x:Name="grdGlyphChargingNoEncrypt" Margin="0,3">
+                            <Grid Grid.Row="22" x:Name="grdGlyphChargingNoEncrypt" Margin="0,3">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="{DynamicResource keyTitleWidth}" />
                                     <ColumnDefinition Width="6" />
@@ -616,7 +613,7 @@
                                 <TextBlock Grid.Column="2" Text="Not Encrypted" x:Name="keyGlyphChargingNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                 <TextBox Grid.Column="4" x:Name="fileGlyphChargingNoEncrypt" />
                             </Grid>
-                            <Grid Grid.Row="25" x:Name="grdGlyphPlugin" Margin="0,3">
+                            <Grid Grid.Row="23" x:Name="grdGlyphPlugin" Margin="0,3">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="{DynamicResource keyTitleWidth}" />
                                     <ColumnDefinition Width="6" />
@@ -635,7 +632,7 @@
                                 <TextBox Grid.Column="2" x:Name="keyGlyphPluginKey" Grid.Row="2" />
                                 <TextBox Grid.Column="4" x:Name="fileGlyphPlugin" Grid.RowSpan="3" VerticalAlignment="Center" />
                             </Grid>
-                            <Grid Grid.Row="26" x:Name="grdGlyphPluginNoEncrypt" Margin="0,3">
+                            <Grid Grid.Row="24" x:Name="grdGlyphPluginNoEncrypt" Margin="0,3">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="{DynamicResource keyTitleWidth}" />
                                     <ColumnDefinition Width="6" />
@@ -647,7 +644,7 @@
                                 <TextBlock Grid.Column="2" Text="Not Encrypted" x:Name="keyGlyphPluginNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                 <TextBox Grid.Column="4" x:Name="fileGlyphPluginNoEncrypt" />
                             </Grid>
-                            <Grid Grid.Row="27" x:Name="grdiBEC" Margin="0,3">
+                            <Grid Grid.Row="25" x:Name="grdiBEC" Margin="0,3">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="{DynamicResource keyTitleWidth}" />
                                     <ColumnDefinition Width="6" />
@@ -666,7 +663,7 @@
                                 <TextBox Grid.Column="2" x:Name="keyiBECKey" Grid.Row="2" />
                                 <TextBox Grid.Column="4" x:Name="fileiBEC" Grid.RowSpan="3" VerticalAlignment="Center" />
                             </Grid>
-                            <Grid Grid.Row="28" x:Name="grdiBECNoEncrypt" Margin="0,3">
+                            <Grid Grid.Row="26" x:Name="grdiBECNoEncrypt" Margin="0,3">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="{DynamicResource keyTitleWidth}" />
                                     <ColumnDefinition Width="6" />
@@ -678,7 +675,7 @@
                                 <TextBlock Grid.Column="2" Text="Not Encrypted" x:Name="keyiBECNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                 <TextBox Grid.Column="4" x:Name="fileiBECNoEncrypt" />
                             </Grid>
-                            <Grid Grid.Row="29" x:Name="grdiBoot" Margin="0,3">
+                            <Grid Grid.Row="27" x:Name="grdiBoot" Margin="0,3">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="{DynamicResource keyTitleWidth}" />
                                     <ColumnDefinition Width="6" />
@@ -697,7 +694,7 @@
                                 <TextBox Grid.Column="2" x:Name="keyiBootKey" Grid.Row="2" />
                                 <TextBox Grid.Column="4" x:Name="fileiBoot" Grid.RowSpan="3" VerticalAlignment="Center" />
                             </Grid>
-                            <Grid Grid.Row="30" x:Name="grdiBootNoEncrypt" Margin="0,3">
+                            <Grid Grid.Row="28" x:Name="grdiBootNoEncrypt" Margin="0,3">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="{DynamicResource keyTitleWidth}" />
                                     <ColumnDefinition Width="6" />
@@ -709,7 +706,7 @@
                                 <TextBlock Grid.Column="2" Text="Not Encrypted" x:Name="keyiBootNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                 <TextBox Grid.Column="4" x:Name="fileiBootNoEncrypt" />
                             </Grid>
-                            <Grid Grid.Row="31" x:Name="grdiBSS" Margin="0,3">
+                            <Grid Grid.Row="29" x:Name="grdiBSS" Margin="0,3">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="{DynamicResource keyTitleWidth}" />
                                     <ColumnDefinition Width="6" />
@@ -728,7 +725,7 @@
                                 <TextBox Grid.Column="2" x:Name="keyiBSSKey" Grid.Row="2" />
                                 <TextBox Grid.Column="4" x:Name="fileiBSS" Grid.RowSpan="3" VerticalAlignment="Center" />
                             </Grid>
-                            <Grid Grid.Row="32" x:Name="grdiBSSNoEncrypt" Margin="0,3">
+                            <Grid Grid.Row="30" x:Name="grdiBSSNoEncrypt" Margin="0,3">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="{DynamicResource keyTitleWidth}" />
                                     <ColumnDefinition Width="6" />
@@ -740,7 +737,7 @@
                                 <TextBlock Grid.Column="2" Text="Not Encrypted" x:Name="keyiBSSNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                 <TextBox Grid.Column="4" x:Name="fileiBSSNoEncrypt" />
                             </Grid>
-                            <Grid Grid.Row="33" x:Name="grdKernelcache" Margin="0,3">
+                            <Grid Grid.Row="31" x:Name="grdKernelcache" Margin="0,3">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="{DynamicResource keyTitleWidth}" />
                                     <ColumnDefinition Width="6" />
@@ -759,7 +756,7 @@
                                 <TextBox Grid.Column="2" x:Name="keyKernelcacheKey" Grid.Row="2" />
                                 <TextBox Grid.Column="4" x:Name="fileKernelcache" Grid.RowSpan="3" VerticalAlignment="Center" />
                             </Grid>
-                            <Grid Grid.Row="34" x:Name="grdKernelcacheNoEncrypt" Margin="0,3">
+                            <Grid Grid.Row="32" x:Name="grdKernelcacheNoEncrypt" Margin="0,3">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="{DynamicResource keyTitleWidth}" />
                                     <ColumnDefinition Width="6" />
@@ -771,7 +768,7 @@
                                 <TextBlock Grid.Column="2" Text="Not Encrypted" x:Name="keyKernelcacheNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                 <TextBox Grid.Column="4" x:Name="fileKernelcacheNoEncrypt" />
                             </Grid>
-                            <Grid Grid.Row="35" x:Name="grdNeedService" Margin="0,3">
+                            <Grid Grid.Row="33" x:Name="grdNeedService" Margin="0,3">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="{DynamicResource keyTitleWidth}" />
                                     <ColumnDefinition Width="6" />
@@ -790,7 +787,7 @@
                                 <TextBox Grid.Column="2" x:Name="keyNeedServiceKey" Grid.Row="2" />
                                 <TextBox Grid.Column="4" x:Name="fileNeedService" Grid.RowSpan="3" VerticalAlignment="Center" />
                             </Grid>
-                            <Grid Grid.Row="36" x:Name="grdNeedServiceNoEncrypt" Margin="0,3">
+                            <Grid Grid.Row="34" x:Name="grdNeedServiceNoEncrypt" Margin="0,3">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="{DynamicResource keyTitleWidth}" />
                                     <ColumnDefinition Width="6" />
@@ -802,7 +799,7 @@
                                 <TextBlock Grid.Column="2" Text="Not Encrypted" x:Name="keyNeedServiceNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                 <TextBox Grid.Column="4" x:Name="fileNeedServiceNoEncrypt" />
                             </Grid>
-                            <Grid Grid.Row="37" x:Name="grdRecoveryMode" Margin="0,3">
+                            <Grid Grid.Row="35" x:Name="grdRecoveryMode" Margin="0,3">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="{DynamicResource keyTitleWidth}" />
                                     <ColumnDefinition Width="6" />
@@ -821,7 +818,7 @@
                                 <TextBox Grid.Column="2" x:Name="keyRecoveryModeKey" Grid.Row="2" />
                                 <TextBox Grid.Column="4" x:Name="fileRecoveryMode" Grid.RowSpan="3" VerticalAlignment="Center" />
                             </Grid>
-                            <Grid Grid.Row="38" x:Name="grdRecoveryModeNoEncrypt" Margin="0,3">
+                            <Grid Grid.Row="36" x:Name="grdRecoveryModeNoEncrypt" Margin="0,3">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="{DynamicResource keyTitleWidth}" />
                                     <ColumnDefinition Width="6" />
@@ -833,7 +830,7 @@
                                 <TextBlock Grid.Column="2" Text="Not Encrypted" x:Name="keyRecoveryModeNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                 <TextBox Grid.Column="4" x:Name="fileRecoveryModeNoEncrypt" />
                             </Grid>
-                            <Grid Grid.Row="39" x:Name="grdSEPFirmware" Margin="0,3">
+                            <Grid Grid.Row="37" x:Name="grdSEPFirmware" Margin="0,3">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="{DynamicResource keyTitleWidth}" />
                                     <ColumnDefinition Width="6" />
@@ -852,7 +849,7 @@
                                 <TextBox Grid.Column="2" x:Name="keySEPFirmwareKey" Grid.Row="2" />
                                 <TextBox Grid.Column="4" x:Name="fileSEPFirmware" Grid.RowSpan="3" VerticalAlignment="Center" />
                             </Grid>
-                            <Grid Grid.Row="40" x:Name="grdSEPFirmwareNoEncrypt" Margin="0,3">
+                            <Grid Grid.Row="38" x:Name="grdSEPFirmwareNoEncrypt" Margin="0,3">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="{DynamicResource keyTitleWidth}" />
                                     <ColumnDefinition Width="6" />
