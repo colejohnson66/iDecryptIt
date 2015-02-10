@@ -43,12 +43,12 @@ namespace Hexware.Programs.iDecryptIt
         static string execDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         string execHash = new Random().Next().ToString("X");
 
-        public KeySelectionViewModel DevicesViewModel;
-        private string selectedDevice;
-        public KeySelectionViewModel ModelsViewModel;
-        private string selectedModel;
-        public KeySelectionViewModel VersionsViewModel;
-        private string selectedVersion;
+        KeySelectionViewModel DevicesViewModel;
+        string selectedDevice;
+        KeySelectionViewModel ModelsViewModel;
+        string selectedModel;
+        KeySelectionViewModel VersionsViewModel;
+        string selectedVersion;
 
         Dictionary<string, KeyGridItem> keyGrid;
 
@@ -79,7 +79,7 @@ namespace Hexware.Programs.iDecryptIt
             InitKeyGridDictionary();
         }
 
-        internal void Debug(string component, string message)
+        internal static void Debug(string component, string message)
         {
             if (!GlobalVars.Debug)
                 return;
@@ -201,7 +201,7 @@ namespace Hexware.Programs.iDecryptIt
 
             return fileName;
         }
-        internal void WriteSystemConfigToStream(StreamWriter stream)
+        internal static void WriteSystemConfigToStream(StreamWriter stream)
         {
             stream.WriteLine("System config:");
             stream.WriteLine("  Current dir:  " + Environment.CurrentDirectory);
@@ -314,7 +314,7 @@ namespace Hexware.Programs.iDecryptIt
                 string[] resources = assy.GetManifestResourceNames();
                 int length = resources.Length;
                 for (int i = 0; i < length; i++) {
-                    if (resources[i].ToLower().IndexOf(resourceName.ToLower()) != -1) {
+                    if (resources[i].ToLower().Contains(resourceName.ToLower())) {
                         // resource found
                         return assy.GetManifestResourceStream(resources[i]);
                     }
@@ -596,6 +596,7 @@ namespace Hexware.Programs.iDecryptIt
                 text7ZOuputFolder.Text = Path.GetDirectoryName(extract.FileName);
             }
         }
+
         private void btnSelectWhatAmIFile_Click(object sender, RoutedEventArgs e)
         {
             Debug("[SELECTWHAT]", "Opening file dialog.");
@@ -608,7 +609,6 @@ namespace Hexware.Programs.iDecryptIt
                 textWhatAmIFileName.Text = what.SafeFileName;
             }
         }
-
         private void btnWhatAmI_Click(object sender, RoutedEventArgs e)
         {
             // TODO: Open the archive and parse the Restore.plist file
@@ -656,7 +656,7 @@ namespace Hexware.Programs.iDecryptIt
                 MessageBoxButton.OK,
                 MessageBoxImage.Information);
         }
-        private string BuildToAppleTVVersion(string device, string build)
+        private static string BuildToAppleTVVersion(string device, string build)
         {
             if (device != "AppleTV2,1" && device != "AppleTV3,1" && device != "AppleTV3,2")
                 return null;
@@ -776,13 +776,12 @@ namespace Hexware.Programs.iDecryptIt
                 return;
 
             ComboBoxEntry entry = (ComboBoxEntry)e.AddedItems[0];
-            Debug("[KEYSELECT]", "Selected device changed: \"" + entry.ID + "\".");
-
             selectedDevice = entry.ID;
+            Debug("[KEYSELECT]", "Selected device changed: \"" + selectedDevice + "\".");
 
             selectedModel = null;
             cmbModelDropDown.IsEnabled = true;
-            cmbModelDropDown.ItemsSource = KeySelectionLists.ProductsHelper[entry.ID];
+            cmbModelDropDown.ItemsSource = KeySelectionLists.ProductsHelper[selectedDevice];
 
             selectedVersion = null;
             cmbVersionDropDown.IsEnabled = false;
@@ -794,13 +793,12 @@ namespace Hexware.Programs.iDecryptIt
                 return;
 
             ComboBoxEntry entry = (ComboBoxEntry)e.AddedItems[0];
-            Debug("[KEYSELECT]", "Selected model changed: \"" + entry.ID + "\".");
-
             selectedModel = entry.ID;
+            Debug("[KEYSELECT]", "Selected model changed: \"" + selectedModel + "\".");
 
             selectedVersion = null;
             cmbVersionDropDown.IsEnabled = true;
-            cmbVersionDropDown.ItemsSource = KeySelectionLists.ModelsHelper[entry.ID];
+            cmbVersionDropDown.ItemsSource = KeySelectionLists.ModelsHelper[selectedModel];
         }
         private void cmbVersionDropDown_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -808,10 +806,8 @@ namespace Hexware.Programs.iDecryptIt
                 return;
 
             ComboBoxEntry entry = (ComboBoxEntry)e.AddedItems[0];
-
-            Debug("[KEYSELECT]", "Selected version changed: \"" + entry.ID + "\".");
-
             selectedVersion = entry.ID;
+            Debug("[KEYSELECT]", "Selected version changed: \"" + selectedVersion + "\".");
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

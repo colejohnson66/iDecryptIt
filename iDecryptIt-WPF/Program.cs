@@ -30,6 +30,9 @@ namespace Hexware.Programs.iDecryptIt
         [STAThread]
         internal static void Main(string[] args)
         {
+            GlobalVars.Init();
+            Console.WriteLine("iDecryptIt " + GlobalVars.Version + GlobalVars.Version64);
+
             // TODO: GNU Getopt .NET <http://getopt.codeplex.com/>
             for (int i = 0; i < args.Length; i++) {
                 if (args[i] == "/d" || args[i] == "/debug") {
@@ -45,9 +48,6 @@ namespace Hexware.Programs.iDecryptIt
                 }
             }
 
-            GlobalVars.Init(args);
-
-            Console.WriteLine("iDecryptIt " + GlobalVars.Version + GlobalVars.Version64);
             Console.WriteLine("Loading...");
             Thread.Sleep(500);
             App.Main();
@@ -55,7 +55,6 @@ namespace Hexware.Programs.iDecryptIt
 
         private static void PrintLicense()
         {
-            Console.WriteLine("iDecryptIt " + GlobalVars.Version + GlobalVars.Version64);
             Console.WriteLine("Copyright (c) 2010-2015 Cole Johnson");
             Console.WriteLine();
             Console.WriteLine("iDecryptIt is free software: you can redistribute it and/or modify it under");

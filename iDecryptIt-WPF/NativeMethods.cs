@@ -2,7 +2,7 @@
  * File:   NativeMethods.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2015, Cole Johnson
+ * Copyright (c) 2015 Cole Johnson
  * 
  * This file is part of iDecryptIt
  * 
@@ -27,6 +27,7 @@ namespace Hexware.Programs.iDecryptIt
     internal static class NativeMethods
     {
         [DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
         internal static extern bool FreeConsole();
     }
 }

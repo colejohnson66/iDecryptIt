@@ -21,6 +21,7 @@
  * =============================================================================
  */
 using System.Reflection;
+using System.Resources;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("iDecryptIt")]
@@ -40,5 +41,6 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 [assembly: Guid("ba12c942-94e7-4c25-b4b9-29c3e37dbf14")]
 
-[assembly: AssemblyVersion("8.13.1.1558")]
-[assembly: AssemblyFileVersion("8.13.1.1558")]
+[assembly: AssemblyVersion("8.13.1.1563")]
+[assembly: AssemblyFileVersion("8.13.1.1563")]
+[assembly: NeutralResourcesLanguageAttribute("en-us")]
