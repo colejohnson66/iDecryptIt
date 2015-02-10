@@ -2,7 +2,7 @@
  * File:   GlobalVars.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2012-2015, Cole Johnson
+ * Copyright (c) 2012-2015 Cole Johnson
  * 
  * iDecryptIt is free software: you can redistribute it and/or modify it under
  *   the terms of the GNU General Public License as published by the Free
@@ -84,7 +84,7 @@ namespace Hexware.Programs.iDecryptIt
             { "iPod5,1", "iPod touch 5G" }
         };
 
-        internal static void Init(string[] args)
+        internal static void Init()
         {
             Assembly thisAssembly = Assembly.GetExecutingAssembly();
 

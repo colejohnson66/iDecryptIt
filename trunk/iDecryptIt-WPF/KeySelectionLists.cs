@@ -2,7 +2,7 @@
  * File:   KeySelectionLists.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2014-2015, Cole Johnson
+ * Copyright (c) 2014-2015 Cole Johnson
  * 
  * This file is part of iDecryptIt
  * 
