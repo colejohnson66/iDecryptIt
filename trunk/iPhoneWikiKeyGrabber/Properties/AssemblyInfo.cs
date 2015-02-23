@@ -21,11 +21,10 @@
  * =============================================================================
  */
 using System.Reflection;
-using System.Resources;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("iPhoneWikiKeyGrabber")]
-[assembly: AssemblyDescription("Grab decryption keys from The iPhone Wiki")]
+[assembly: AssemblyDescription("Grab iDecryptIt keys from The iPhone Wiki")]
 [assembly: AssemblyCompany("Hexware")]
 [assembly: AssemblyProduct("iPhoneWikiKeyGrabber")]
 [assembly: AssemblyCopyright("Copyright (C) 2012-2015")]

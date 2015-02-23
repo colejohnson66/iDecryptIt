@@ -26,7 +26,7 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("iDecryptIt")]
 [assembly: AssemblyDescription("iOS firmware tools")]
-[assembly: AssemblyCompany("Cole Johnson")]
+[assembly: AssemblyCompany("Hexware")]
 [assembly: AssemblyProduct("iDecryptIt")]
 [assembly: AssemblyCopyright("Copyright (c) 2010-2015")]
 [assembly: AssemblyTrademark("")]
@@ -41,6 +41,6 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 [assembly: Guid("ba12c942-94e7-4c25-b4b9-29c3e37dbf14")]
 
-[assembly: AssemblyVersion("8.13.1.1563")]
-[assembly: AssemblyFileVersion("8.13.1.1563")]
-[assembly: NeutralResourcesLanguageAttribute("en-us")]
+[assembly: AssemblyVersion("8.13.1.1564")]
+[assembly: AssemblyFileVersion("8.13.1.1564")]
+[assembly: NeutralResourcesLanguage("en-us")]
