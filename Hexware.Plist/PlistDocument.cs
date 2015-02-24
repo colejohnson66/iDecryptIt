@@ -23,6 +23,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Xml;
 
 namespace Hexware.Plist
@@ -31,24 +32,32 @@ namespace Hexware.Plist
     {
         // 'bplist' in ASCII
         private static byte[] magic = { 98, 112, 108, 105, 115, 116 };
+        private static XmlWriterSettings xmlSettings = XmlSettings();
 
         private IPlistElement _value;
 
+        public PlistDocument(IPlistElement rootNode)
+        {
+            if (rootNode == null)
+                throw new ArgumentNullException("rootNode");
+
+            _value = rootNode;
+        }
         public PlistDocument(string filePath)
         {
-            Stream stream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
-            Init(stream, true);
+            FileStream stream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+            Init(stream);
             stream.Close();
         }
         public PlistDocument(Stream stream)
         {
-            Init(stream, false);
+            Init(stream);
         }
 
-        private void Init(Stream stream, bool fromFile)
+        private void Init(Stream stream)
         {
             if (stream == null || stream == Stream.Null || stream.Length == 0)
-                throw new ArgumentNullException(fromFile ? "filePath" : "stream");
+                throw new ArgumentNullException("stream");
 
             byte[] buf = new byte[6];
             stream.Seek(0, SeekOrigin.Begin);
@@ -68,11 +77,61 @@ namespace Hexware.Plist
             ReadXml(xml.ChildNodes);
         }
 
+        private static XmlWriterSettings XmlSettings()
+        {
+            XmlWriterSettings ret = new XmlWriterSettings();
+            ret.Indent = true;
+            ret.IndentChars = "\t";
+            ret.NewLineChars = "\n";
+            ret.CloseOutput = true;
+            ret.Encoding = Encoding.UTF8;
+            return ret;
+        }
+
+        public void Save(string filePath, PlistDocumentType format)
+        {
+            FileStream stream = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write);
+            Save(stream, format);
+            stream.Close();
+        }
+        public void Save(Stream stream, PlistDocumentType format)
+        {
+            if (format == PlistDocumentType.Binary)
+                SaveBinary(stream);
+            else if (format == PlistDocumentType.Xml)
+                SaveXml(stream);
+        }
+        // TODO
+        private void SaveBinary(Stream stream)
+        {
+            throw new NotImplementedException();
+        }
+        private void SaveXml(Stream stream)
+        {
+            XmlWriter writer = XmlWriter.Create(stream, xmlSettings);
+            XmlDocument document = new XmlDocument();
+
+            document.AppendChild(document.CreateDocumentType("plist", "-//Apple Computer//DTD PLIST 1.0//EN", "http://www.apple.com/DTDs/PropertyList-1.0.dtd", null));
+
+            XmlElement plist = document.CreateElement("plist");
+            ((IPlistElementInternal)_value).WriteXml(plist, document);
+            document.AppendChild(plist);
+
+            document.Save(writer);
+        }
+
         public IPlistElement RootNode
         {
             get
             {
                 return _value;
+            }
+            set
+            {
+                if (value == null)
+                    throw new ArgumentNullException("value");
+
+                _value = value;
             }
         }
     }
@@ -80,11 +139,6 @@ namespace Hexware.Plist
     {
         internal void ReadBinary(BinaryPlistReader reader)
         {
-            // Magic already parsed
-            //reader.BaseStream.Seek(0, SeekOrigin.Begin);
-            //if (!Enumerable.SequenceEqual(reader.ReadBytes(6), magic))
-            //    throw new PlistFormatException("Not a valid binary Plist");
-
             reader.BaseStream.Seek(-32, SeekOrigin.End);
             reader.Trailer = new BinaryPlistTrailer(reader.ReadBytes(32));
 
@@ -100,7 +154,7 @@ namespace Hexware.Plist
         // TODO
         internal void WriteBinary(BinaryPlistWriter writer)
         {
-            // HELP: https://github.com/songkick/plist/blob/master/src/com/dd/plist/BinaryPropertyListParser.java
+            // https://github.com/songkick/plist/blob/master/src/com/dd/plist/BinaryPropertyListParser.java
             writer.Write(magic);
             writer.Write((byte)'0');
             writer.Write((byte)'0');
@@ -116,7 +170,7 @@ namespace Hexware.Plist
                 if (current.Name == "plist")
                 {
                     if (!current.HasChildNodes)
-                        throw new PlistFormatException("Plist is not valid");
+                        throw new PlistException("Plist is not valid.");
 
                     XmlNode root = current.ChildNodes.Item(0);
                     if (root.Name == "array")
@@ -136,17 +190,11 @@ namespace Hexware.Plist
                     else if (root.Name == "string")
                         _value = PlistString.ReadXml(root);
                     else
-                        throw new PlistFormatException("Plist is not valid");
+                        throw new PlistException("Plist is not valid.");
                     return;
                 }
             }
-            throw new PlistFormatException("Plist not in correct format!");
-        }
-        internal void WriteXml(XmlNode tree, XmlDocument writer)
-        {
-            XmlNode element = writer.CreateElement("plist");
-            ((IPlistElementInternal)_value).WriteXml(element, writer);
-            tree.AppendChild(element);
+            throw new PlistException("Plist not in correct format.");
         }
     }
 }
