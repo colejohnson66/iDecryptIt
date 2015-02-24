@@ -59,7 +59,6 @@
     <Compile Include="PlistDocument.cs" />
     <Compile Include="PlistDocumentType.cs" />
     <Compile Include="PlistException.cs" />
-    <Compile Include="PlistFormatException.cs" />
     <Compile Include="PlistInteger.cs" />
     <Compile Include="PlistElementType.cs" />
     <Compile Include="PlistNull.cs" />

@@ -228,7 +228,7 @@ namespace Hexware.Plist
                 else if (value.Name == "string")
                     ret[i] = PlistString.ReadXml(value);
                 else
-                    throw new PlistFormatException("Plist element is not a valid element");
+                    throw new PlistException("Plist element is not a valid element");
             }
             return new PlistArray(ret, false);
         }

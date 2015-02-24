@@ -150,7 +150,7 @@ namespace Hexware.Plist
             // The specification uses the 3 bits to store the size,
             // allowing for integers up to 512 bits long. However,
             // CoreFoundation only implements support up to 128 bits.
-            throw new PlistFormatException("Support does not exist for integers greater than 64 bits");
+            throw new PlistException("Support does not exist for integers greater than 64 bits");
         }
         void IPlistElementInternal.WriteBinary(BinaryPlistWriter writer)
         {

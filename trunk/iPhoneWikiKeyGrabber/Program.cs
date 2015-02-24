@@ -173,7 +173,6 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
             Debug.Assert(!File.Exists(filename), filename);
             XmlWriter writer = XmlWriter.Create(filename, xmlWriterSettings);
             BuildXml(data).Save(writer);
-            writer.Flush();
             writer.Close();
 
             if (plutilExists) {

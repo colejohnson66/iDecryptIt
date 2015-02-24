@@ -218,7 +218,7 @@ namespace Hexware.Plist
                 if (children[i].Name != "key" ||
                     key.Contains("<") ||
                     key.Contains(">")) {
-                    throw new PlistFormatException("\"" + children[i].InnerXml + "\" is not a valid Plist key");
+                    throw new PlistException("\"" + children[i].InnerXml + "\" is not a valid Plist key");
                 }
 
                 if (valueType == "array")
@@ -240,7 +240,7 @@ namespace Hexware.Plist
                 else if (valueType == "string")
                     ret.Add(key, PlistString.ReadXml(value));
                 else
-                    throw new PlistFormatException("Plist element is not a valid element");
+                    throw new PlistException("Plist element is not a valid element");
             }
             return new PlistDict(ret, false);
         }

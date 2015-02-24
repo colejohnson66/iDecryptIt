@@ -124,7 +124,7 @@ namespace Hexware.Plist
             if (numofbytes == 8) // 011
                 return new PlistReal(BitConverter.ToDouble(buf, 0));
 
-            throw new PlistFormatException("Support does not exist for reals that aren't 32 or 64 bits long");
+            throw new PlistException("Support does not exist for reals that aren't 32 or 64 bits long");
         }
         void IPlistElementInternal.WriteBinary(BinaryPlistWriter writer)
         {
