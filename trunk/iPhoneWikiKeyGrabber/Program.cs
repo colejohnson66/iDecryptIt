@@ -26,7 +26,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Xml;
@@ -38,7 +37,6 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
         static WebClient client = new WebClient();
         static List<string> pages = new List<string>();
         static string keyDir = Path.Combine(Directory.GetCurrentDirectory(), "keys");
-        static XmlWriterSettings xmlWriterSettings;
         static string plutil = "C:\\Program Files (x86)\\Common Files\\Apple\\Apple Application Support\\plutil.exe";
         static bool plutilExists;
         static bool makeBinaryPlists;
@@ -50,14 +48,6 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                 Directory.Delete(keyDir, true);
             Thread.Sleep(100);
             Directory.CreateDirectory(keyDir);
-
-            // TODO: Replace with Hexware.Plist
-            xmlWriterSettings = new XmlWriterSettings();
-            xmlWriterSettings.Indent = true;
-            xmlWriterSettings.IndentChars = "\t";
-            xmlWriterSettings.NewLineChars = "\n";
-            xmlWriterSettings.CloseOutput = true;
-            xmlWriterSettings.Encoding = Encoding.UTF8;
 
 #if !DEBUG
             makeBinaryPlists = true;
@@ -171,9 +161,8 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 
             string filename = Path.Combine(keyDir, data["Device"] + "_" + data["Build"] + ".plist");
             Debug.Assert(!File.Exists(filename), filename);
-            XmlWriter writer = XmlWriter.Create(filename, xmlWriterSettings);
-            BuildXml(data).Save(writer);
-            writer.Close();
+            PlistDocument doc = new PlistDocument(BuildPlist(data));
+            doc.Save(filename, PlistDocumentType.Xml);
 
             if (plutilExists) {
                 Process proc = new Process();
@@ -188,105 +177,73 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                 proc.WaitForExit();
                 // verify file converted correctly and can be loaded
                 // (assertion prevents optimization out)
-                PlistDocument doc = new PlistDocument(filename);
-                Debug.Assert(doc.RootNode != null);
+                PlistDocument doc2 = new PlistDocument(filename);
+                Debug.Assert(doc2.RootNode != null);
             }
         }
-        private static XmlDocument BuildXml(Dictionary<string, string> data)
+        private static PlistDict BuildPlist(Dictionary<string, string> data)
         {
-            // Set up XML
-            XmlDocument xml = new XmlDocument();
-            xml.AppendChild(xml.CreateDocumentType("plist", "-//Apple Computer//DTD PLIST 1.0//EN", "http://www.apple.com/DTDs/PropertyList-1.0.dtd", null));
-            XmlElement plist = xml.CreateElement("plist");
-            XmlElement dict = xml.CreateElement("dict");
+            PlistDict dict = new PlistDict(new Dictionary<string, IPlistElement>());
 
-            // We could save some space by saving the IVs and keys in Base64 (len*4/3)
-            //   instead of a hex string (len*2)
             int length;
             string debug = data["Codename"] + " " + data["Build"] + " (" + data["Device"] + "): ";
+            PlistDict elem;
+
+            // We could save some space by saving the IVs and keys in Base64 (len*4/3)
+            //   instead of a hex string (len*2) (use PlistData)
             foreach (string key in data.Keys) {
-                XmlElement temp;
                 switch (key) {
                     case "Version":
-                        temp = xml.CreateElement("key");
-                        temp.InnerText = key;
-                        dict.AppendChild(temp);
-                        temp = xml.CreateElement("string");
                         // Remove everything past the "[[Golden Master|GM]]" on GM pages
                         // Both options work for public firmwares, but the first may not on betas
-                        temp.InnerText = data[key].Split('[', 'b')[0];
-                        //string[] split = data[key].Split(new string[] { " and " }, StringSplitOptions.None)[1];
-                        dict.AppendChild(temp);
+                        string temp = data[key].Split('[', 'b')[0];
+                        //string[] temp = data[key].Split(new string[] { " and " }, StringSplitOptions.None)[1];
+                        dict.Add("Version", new PlistString(temp));
                         break;
+
                     case "Build":
                     case "Device":
                     case "Codename":
                     case "Download URL":
                     case "Baseband":
-                        temp = xml.CreateElement("key");
-                        temp.InnerText = key;
-                        dict.AppendChild(temp);
-                        temp = xml.CreateElement("string");
-                        temp.InnerText = data[key];
-                        dict.AppendChild(temp);
+                        dict.Add(key, new PlistString(data[key]));
                         break;
+
                     case "RootFS":
-                        temp = xml.CreateElement("key");
-                        temp.InnerText = "Root FS";
-                        dict.AppendChild(temp);
-                        temp = xml.CreateElement("dict");
-                        temp.AppendChild(xml.CreateElement("key"));
-                        temp.ChildNodes.Item(0).InnerText = "File Name";
-                        temp.AppendChild(xml.CreateElement("string"));
-                        temp.ChildNodes.Item(1).InnerText = data["RootFS"] + ".dmg";
-                        temp.AppendChild(xml.CreateElement("key"));
-                        temp.ChildNodes.Item(2).InnerText = "Key";
-                        temp.AppendChild(xml.CreateElement("string"));
-                        temp.ChildNodes.Item(3).InnerText = data["RootFSKey"];
+                        elem = new PlistDict(new Dictionary<string, IPlistElement>());
+                        elem.Add("File Name", new PlistString(data["RootFS"] + ".dmg"));
+                        elem.Add("Key", new PlistString(data["RootFSKey"]));
                         if (data.ContainsKey("GMRootFSKey")) {
                             // Only applicable to 4.0GM/4.0 8A293 (excluding iPhone3,1)
-                            temp.AppendChild(xml.CreateElement("key"));
-                            temp.ChildNodes.Item(4).InnerText = "GM Key";
-                            temp.AppendChild(xml.CreateElement("string"));
-                            temp.ChildNodes.Item(5).InnerText = data["GMRootFSKey"];
+                            elem.Add("GM Key", new PlistString(data["GMRootFSKey"]));
+                            length = data["GMRootFSKey"].Length;
+                            Debug.Assert(length == 72 || length == 4, debug + "data[\"GMRootFSKey\"].Length (" + length + ") != 72");
                         }
                         length = data["RootFSKey"].Length;
                         Debug.Assert(length == 72 || length == 4, debug + "data[\"RootFSKey\"].Length (" + length + ") != 72");
-                        dict.AppendChild(temp);
+                        dict.Add("Root FS", elem);
                         break;
+
                     case "UpdateRamdisk":
                     case "RestoreRamdisk":
-                        temp = xml.CreateElement("key");
-                        temp.InnerText = key.Replace("Ramdisk", " Ramdisk");
-                        dict.AppendChild(temp);
-                        temp = xml.CreateElement("dict");
-                        temp.AppendChild(xml.CreateElement("key"));
-                        temp.ChildNodes.Item(0).InnerText = "File Name";
-                        temp.AppendChild(xml.CreateElement("string"));
-                        temp.ChildNodes.Item(1).InnerText = data[key] + ".dmg";
-                        temp.AppendChild(xml.CreateElement("key"));
-                        temp.ChildNodes.Item(2).InnerText = "Encryption";
+                        elem = new PlistDict(new Dictionary<string, IPlistElement>());
+                        elem.Add("File Name", new PlistString(data[key] + ".dmg"));
                         if (IsImg2Firmware(data["Build"])) {
-                            temp.AppendChild(xml.CreateElement("false"));
+                            elem.Add("Encryption", new PlistBool(false));
                         } else if (data[key + "IV"] == "Not Encrypted") {
-                            temp.AppendChild(xml.CreateElement("false"));
+                            elem.Add("Encryption", new PlistBool(false));
                         } else {
-                            temp.AppendChild(xml.CreateElement("true"));
-                            temp.AppendChild(xml.CreateElement("key"));
-                            temp.ChildNodes.Item(4).InnerText = "IV";
-                            temp.AppendChild(xml.CreateElement("string"));
-                            temp.ChildNodes.Item(5).InnerText = data[key + "IV"];
-                            temp.AppendChild(xml.CreateElement("key"));
-                            temp.ChildNodes.Item(6).InnerText = "Key";
-                            temp.AppendChild(xml.CreateElement("string"));
-                            temp.ChildNodes.Item(7).InnerText = data[key + "Key"];
+                            elem.Add("Encryption", new PlistBool(true));
+                            elem.Add("IV", new PlistString(data[key + "IV"]));
+                            elem.Add("Key", new PlistString(data[key + "Key"]));
                             length = data[key + "IV"].Length;
                             Debug.Assert(length == 32 || length == 4, debug + "data[\"" + key + "IV\"].Length (" + length + ") != 32");
                             length = data[key + "Key"].Length;
                             Debug.Assert(length == 32 || length == 64 || length == 4, debug + "data[\"" + key + "Key\"].Length (" + length + ") != (32 || 64)");
                         }
-                        dict.AppendChild(temp);
+                        dict.Add(key.Replace("Ramdisk", " Ramdisk"), elem);
                         break;
+
                     case "AppleLogo":
                     case "BatteryCharging0":
                     case "BatteryCharging1":
@@ -304,44 +261,28 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                     case "NeedService":
                     case "RecoveryMode":
                     case "SEP-Firmware":
-                        temp = xml.CreateElement("key");
-                        temp.InnerText = key;
-                        dict.AppendChild(temp);
-                        temp = xml.CreateElement("dict");
-                        temp.AppendChild(xml.CreateElement("key"));
-                        temp.ChildNodes.Item(0).InnerText = "File Name";
-                        temp.AppendChild(xml.CreateElement("string"));
-                        temp.ChildNodes.Item(1).InnerText = data[key];
-                        temp.AppendChild(xml.CreateElement("key"));
-                        temp.ChildNodes.Item(2).InnerText = "Encryption";
+                        elem = new PlistDict(new Dictionary<string, IPlistElement>());
+                        elem.Add("File Name", new PlistString(data[key]));
                         if (data[key + "IV"] == "Not Encrypted") {
-                            temp.AppendChild(xml.CreateElement("false"));
+                            elem.Add("Encryption", new PlistBool(false));
                         } else {
-                            temp.AppendChild(xml.CreateElement("true"));
-                            temp.AppendChild(xml.CreateElement("key"));
-                            temp.ChildNodes.Item(4).InnerText = "IV";
-                            temp.AppendChild(xml.CreateElement("string"));
-                            temp.ChildNodes.Item(5).InnerText = data[key + "IV"];
-                            temp.AppendChild(xml.CreateElement("key"));
-                            temp.ChildNodes.Item(6).InnerText = "Key";
-                            temp.AppendChild(xml.CreateElement("string"));
-                            temp.ChildNodes.Item(7).InnerText = data[key + "Key"];
+                            elem.Add("Encryption", new PlistBool(true));
+                            elem.Add("IV", new PlistString(data[key + "IV"]));
+                            elem.Add("Key", new PlistString(data[key + "Key"]));
                             length = data[key + "IV"].Length;
                             Debug.Assert(length == 32 || length == 4, debug + "data[\"" + key + "IV\"].Length (" + length + ") != 32");
                             length = data[key + "Key"].Length;
                             Debug.Assert(length == 32 || length == 64 || length == 4, debug + "data[\"" + key + "Key\"].Length (" + length + ") != (32 || 64)");
                         }
-                        dict.AppendChild(temp);
+                        dict.Add(key, elem);
                         break;
+
                     default:
                         Debug.Assert(key.EndsWith("IV") || key.EndsWith("Key"), key);
                         break;
                 }
             }
-
-            plist.AppendChild(dict);
-            xml.AppendChild(plist);
-            return xml;
+            return dict;
         }
         private static string HexStringToBase64(string hex)
         {
