@@ -59,7 +59,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                     Console.WriteLine("WARNING: plutil not found! Binary plists will NOT be generated.");
             }
 
-            IEnumerable<string> pages = GetKeyPages();
+            IEnumerable<string> pages = GetKeyPages("Firmware");
             foreach (string title in pages) {
                 if (!DoesPageExist(title))
                     continue;
@@ -71,19 +71,17 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
             }
         }
 
-        private static IEnumerable<string> GetKeyPages()
+        private static IEnumerable<string> GetKeyPages(string page)
         {
+            string baseUrl = "https://theiphonewiki.com/w/api.php?format=xml&action=query&prop=links&titles=" + page + "&pllimit=500";
             Regex regex = new Regex(@"(?:\w+ )+\d\w+ \(\D+\d,\d\)", RegexOptions.Compiled);
             XmlDocument doc = new XmlDocument();
             string plcontinue = null;
             while (true) {
-                if (plcontinue == null) {
-                    doc.InnerXml = client.DownloadString(
-                        "https://theiphonewiki.com/w/api.php?format=xml&action=query&prop=links&titles=Firmware&pllimit=500");
-                } else {
-                    doc.InnerXml = client.DownloadString(
-                        "https://theiphonewiki.com/w/api.php?format=xml&action=query&prop=links&titles=Firmware&pllimit=500&plcontinue=" + plcontinue);
-                }
+                if (plcontinue == null)
+                    doc.InnerXml = client.DownloadString(baseUrl);
+                else
+                    doc.InnerXml = client.DownloadString(baseUrl + "&plcontinue=" + plcontinue);
                 Debug.Assert(doc.SelectNodes("//error").Count == 0);
 
                 // get links
