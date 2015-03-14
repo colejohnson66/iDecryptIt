@@ -309,6 +309,7 @@
     <EmbeddedResource Include="keys\iPad2,3_11D201.plist" />
     <EmbeddedResource Include="keys\iPad2,3_11D257.plist" />
     <EmbeddedResource Include="keys\iPad2,3_12A365.plist" />
+    <EmbeddedResource Include="keys\iPad3,1_11D257.plist" />
     <EmbeddedResource Include="keys\iPad3,1_12A365.plist" />
     <EmbeddedResource Include="keys\iPhone1,1_1A543a.plist" />
     <EmbeddedResource Include="keys\iPhone1,1_1C25.plist" />
@@ -457,6 +458,8 @@
     <EmbeddedResource Include="keys\iPhone4,1_12B411.plist" />
     <EmbeddedResource Include="keys\iPhone4,1_12B440.plist" />
     <EmbeddedResource Include="keys\iPhone4,1_12B466.plist" />
+    <EmbeddedResource Include="keys\iPhone5,1_12D508.plist" />
+    <EmbeddedResource Include="keys\iPhone5,3_12B435.plist" />
     <EmbeddedResource Include="keys\iPod1,1_3A110a.plist" />
     <EmbeddedResource Include="keys\iPod1,1_3B48b.plist" />
     <EmbeddedResource Include="keys\iPod1,1_4A102.plist" />

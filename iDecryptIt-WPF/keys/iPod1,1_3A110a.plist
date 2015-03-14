@@ -33,5 +33,82 @@
 			<key>Encryption</key>
 			<false />
 		</dict>
+		<key>AppleLogo</key>
+		<dict>
+			<key>File Name</key>
+			<string>applelogo.img2</string>
+			<key>Encryption</key>
+			<false />
+		</dict>
+		<key>BatteryLow0</key>
+		<dict>
+			<key>File Name</key>
+			<string>batterylow0.img2</string>
+			<key>Encryption</key>
+			<false />
+		</dict>
+		<key>BatteryLow1</key>
+		<dict>
+			<key>File Name</key>
+			<string>batterylow1.img2</string>
+			<key>Encryption</key>
+			<false />
+		</dict>
+		<key>DeviceTree</key>
+		<dict>
+			<key>File Name</key>
+			<string>DeviceTree.n45ap.img2</string>
+			<key>Encryption</key>
+			<false />
+		</dict>
+		<key>iBEC</key>
+		<dict>
+			<key>File Name</key>
+			<string>iBEC.n45ap.RELEASE.dfu</string>
+			<key>Encryption</key>
+			<false />
+		</dict>
+		<key>iBoot</key>
+		<dict>
+			<key>File Name</key>
+			<string>iBoot.n45ap.RELEASE.img2</string>
+			<key>Encryption</key>
+			<false />
+		</dict>
+		<key>iBSS</key>
+		<dict>
+			<key>File Name</key>
+			<string>iBSS.n45ap.RELEASE.dfu</string>
+			<key>Encryption</key>
+			<false />
+		</dict>
+		<key>Kernelcache</key>
+		<dict>
+			<key>File Name</key>
+			<string>kernelcache.release.s5l8900xrb</string>
+			<key>Encryption</key>
+			<false />
+		</dict>
+		<key>LLB</key>
+		<dict>
+			<key>File Name</key>
+			<string>LLB.n45ap.RELEASE.img2</string>
+			<key>Encryption</key>
+			<false />
+		</dict>
+		<key>NeedService</key>
+		<dict>
+			<key>File Name</key>
+			<string>needservice.img2</string>
+			<key>Encryption</key>
+			<false />
+		</dict>
+		<key>RecoveryMode</key>
+		<dict>
+			<key>File Name</key>
+			<string>recoverymode.img2</string>
+			<key>Encryption</key>
+			<false />
+		</dict>
 	</dict>
 </plist>
