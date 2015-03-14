@@ -3,26 +3,28 @@
 <plist>
 	<dict>
 		<key>Version</key>
-		<string>8.0</string>
+		<string>8.1.1</string>
 		<key>Build</key>
-		<string>12A365</string>
+		<string>12B435</string>
 		<key>Device</key>
-		<string>iPad3,1</string>
+		<string>iPhone5,3</string>
 		<key>Codename</key>
-		<string>Okemo</string>
+		<string>SUOkemoTaos</string>
+		<key>Baseband</key>
+		<string>3.11.00</string>
 		<key>Download URL</key>
-		<string>http://appldnld.apple.com/iOS8/031-05574.20140917.Ws8pf/iPad3,1_8.0_12A365_Restore.ipsw</string>
+		<string>http://appldnld.apple.com/iOS8.1.1/031-10014.20141117.L18bL/iPhone5,3_8.1.1_12B435_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>
-			<string>058-04876-035.dmg</string>
+			<string>058-09570-016.dmg</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>ced3a7e8f9fd0617d5791e8c5e3293f6d1ef2541f597f3f5f3206866e94e4d02fa4099a9</string>
 		</dict>
 		<key>Update Ramdisk</key>
 		<dict>
 			<key>File Name</key>
-			<string>058-04601-035.dmg</string>
+			<string>058-09774-016.dmg</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -33,7 +35,7 @@
 		<key>Restore Ramdisk</key>
 		<dict>
 			<key>File Name</key>
-			<string>058-04638-035.dmg</string>
+			<string>058-09687-016.dmg</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -44,7 +46,7 @@
 		<key>AppleLogo</key>
 		<dict>
 			<key>File Name</key>
-			<string>applelogo.s5l8945x.img3</string>
+			<string>applelogo@2x~iphone.s5l8950x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -55,7 +57,7 @@
 		<key>BatteryCharging0</key>
 		<dict>
 			<key>File Name</key>
-			<string>batterycharging0.s5l8945x.img3</string>
+			<string>batterycharging0@2x~iphone.s5l8950x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -66,7 +68,7 @@
 		<key>BatteryCharging1</key>
 		<dict>
 			<key>File Name</key>
-			<string>batterycharging1.s5l8945x.img3</string>
+			<string>batterycharging1@2x~iphone.s5l8950x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -77,7 +79,7 @@
 		<key>BatteryFull</key>
 		<dict>
 			<key>File Name</key>
-			<string>batteryfull~ipad.s5l8945x.img3</string>
+			<string>batteryfull@2x~iphone.s5l8950x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -88,7 +90,7 @@
 		<key>BatteryLow0</key>
 		<dict>
 			<key>File Name</key>
-			<string>batterylow0~ipad.s5l8950x.img3</string>
+			<string>batterylow0@2x~iphone.s5l8950x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -99,7 +101,7 @@
 		<key>BatteryLow1</key>
 		<dict>
 			<key>File Name</key>
-			<string>batterylow1~ipad.s5l8945x.img3</string>
+			<string>batterylow1@2x~iphone.s5l8950x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -110,7 +112,7 @@
 		<key>DeviceTree</key>
 		<dict>
 			<key>File Name</key>
-			<string>DeviceTree.j1ap.img3</string>
+			<string>DeviceTree.n48ap.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -121,7 +123,7 @@
 		<key>GlyphPlugin</key>
 		<dict>
 			<key>File Name</key>
-			<string>glyphplugin~ipad-30pin.s5l8945x.img3</string>
+			<string>glyphplugin@1136~iphone-lightning.s5l8950x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -132,7 +134,7 @@
 		<key>iBEC</key>
 		<dict>
 			<key>File Name</key>
-			<string>iBEC.j1.RELEASE.dfu</string>
+			<string>iBEC.n48.RELEASE.dfu</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -143,7 +145,7 @@
 		<key>iBoot</key>
 		<dict>
 			<key>File Name</key>
-			<string>iBoot.j1.RELEASE.img3</string>
+			<string>iBoot.n48.RELEASE.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -154,29 +156,29 @@
 		<key>iBSS</key>
 		<dict>
 			<key>File Name</key>
-			<string>iBSS.j1.RELEASE.dfu</string>
+			<string>iBSS.n48.RELEASE.dfu</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>405fe0e95e1b5617865aea6d465e2905</string>
+			<string>TODO</string>
 			<key>Key</key>
-			<string>d952e9dc47f708cb60e031aed8b1a3e71441794e4af61f3b5cba3b6562c74a5c</string>
+			<string>TODO</string>
 		</dict>
 		<key>Kernelcache</key>
 		<dict>
 			<key>File Name</key>
-			<string>kernelcache.release.j1</string>
+			<string>kernelcache.release.n48</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>dd8ff9f82dbb193c9718cdc850ab62ef</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>98849ade4c4acf2b795f5bb7ad0336671fd9c7d4fb34a5869f2450d471628e79</string>
 		</dict>
 		<key>LLB</key>
 		<dict>
 			<key>File Name</key>
-			<string>LLB.j1.RELEASE.img3</string>
+			<string>LLB.n48.RELEASE.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -187,7 +189,7 @@
 		<key>RecoveryMode</key>
 		<dict>
 			<key>File Name</key>
-			<string>recoverymode~ipad-30pin.s5l8945x.img3</string>
+			<string>recoverymode@1136~iphone-lightning.s5l8950x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>

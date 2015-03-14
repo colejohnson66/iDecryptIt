@@ -3,26 +3,26 @@
 <plist>
 	<dict>
 		<key>Version</key>
-		<string>8.0</string>
+		<string>7.1.2</string>
 		<key>Build</key>
-		<string>12A365</string>
+		<string>11D257</string>
 		<key>Device</key>
 		<string>iPad3,1</string>
 		<key>Codename</key>
-		<string>Okemo</string>
+		<string>Sochi</string>
 		<key>Download URL</key>
-		<string>http://appldnld.apple.com/iOS8/031-05574.20140917.Ws8pf/iPad3,1_8.0_12A365_Restore.ipsw</string>
+		<string>http://appldnld.apple.com/iOS7.1/031-4805.20140627.zW4AC/iPad3,1_7.1.2_11D257_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>
-			<string>058-04876-035.dmg</string>
+			<string>058-4505-009.dmg</string>
 			<key>Key</key>
 			<string>TODO</string>
 		</dict>
 		<key>Update Ramdisk</key>
 		<dict>
 			<key>File Name</key>
-			<string>058-04601-035.dmg</string>
+			<string>058-4242-009.dmg</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -33,7 +33,7 @@
 		<key>Restore Ramdisk</key>
 		<dict>
 			<key>File Name</key>
-			<string>058-04638-035.dmg</string>
+			<string>058-4289-009.dmg</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -158,9 +158,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>405fe0e95e1b5617865aea6d465e2905</string>
+			<string>fa457818157d83dfbbf400a79d5b6c59</string>
 			<key>Key</key>
-			<string>d952e9dc47f708cb60e031aed8b1a3e71441794e4af61f3b5cba3b6562c74a5c</string>
+			<string>4cac9c6507032f7eb54349216e3648142aa79b39ae2fefb60a69ac4bb8794ebf</string>
 		</dict>
 		<key>Kernelcache</key>
 		<dict>

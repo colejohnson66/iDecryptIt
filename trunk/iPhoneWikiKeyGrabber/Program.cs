@@ -276,7 +276,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                         break;
 
                     default:
-                        Debug.Assert(key.EndsWith("IV") || key.EndsWith("Key"), key);
+                        Debug.Assert(key.EndsWith("IV") || key.EndsWith("Key") || key.EndsWith("KBAG"), "Unknown key: " + key);
                         break;
                 }
             }
