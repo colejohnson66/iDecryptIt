@@ -36,7 +36,7 @@ namespace Hexware.Programs.iDecryptIt
         internal static Dictionary<string, string> DeviceNames = new Dictionary<string, string>() {
             { "AppleTV2,1", "Apple TV 2G" },
             { "AppleTV3,1", "Apple TV 3G" },
-            { "AppleTV3,2", "Apple TV 3G (Rev A)" },
+            { "AppleTV3,2", "Apple TV 3G [Rev A]" },
             { "iPad1,1", "iPad 1G" },
             { "iPad2,1", "iPad 2 (Wi-Fi)" },
             { "iPad2,2", "iPad 2 (GSM)" },
@@ -108,17 +108,19 @@ namespace Hexware.Programs.iDecryptIt
         {
             const int c_PeHeaderOffset = 60;
             const int c_LinkerTimestampOffset = 8;
-            byte[] b = new byte[2048];
+            byte[] b = new byte[512];
             Stream s = null;
 
             try {
                 s = new FileStream(assembly.Location, FileMode.Open, FileAccess.Read);
-                s.Read(b, 0, 2048);
+                s.Read(b, 0, 512);
             } catch (Exception) {
                 return DateTime.MinValue;
             } finally {
-                if (s != null)
+                if (s != null) {
                     s.Close();
+                    s.Dispose();
+                }
             }
 
             int i = BitConverter.ToInt32(b, c_PeHeaderOffset);

@@ -769,8 +769,11 @@ namespace Hexware.Programs.iDecryptIt
                 case "12D5480a":
                 case "12D508":
                     return "7.1/8.2";
-                case "12F5037c":
+                case "12F5037c": // should these be "7.2/8.3"?
+                case "12F61":
                     return "7.1/8.3";
+                case "12F69":
+                    return "7.2/8.3";
             }
             return null;
         }
