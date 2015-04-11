@@ -132,6 +132,12 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                     displayVersion = value.Trim();
                     continue;
                 } else if (key == "Device") {
+                    if (value.Contains(","))
+                    {
+                        data.Add(key, value.Trim());
+                        continue;
+                    }
+
                     // TODO: Regex
                     value = value.Replace("appletv", "AppleTV");
                     value = value.Replace("ipad", "iPad");
