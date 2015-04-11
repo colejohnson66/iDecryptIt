@@ -459,6 +459,7 @@
     <EmbeddedResource Include="keys\iPhone4,1_12B440.plist" />
     <EmbeddedResource Include="keys\iPhone4,1_12B466.plist" />
     <EmbeddedResource Include="keys\iPhone5,1_12D508.plist" />
+    <EmbeddedResource Include="keys\iPhone5,2_10B350.plist" />
     <EmbeddedResource Include="keys\iPhone5,3_12B435.plist" />
     <EmbeddedResource Include="keys\iPod1,1_3A110a.plist" />
     <EmbeddedResource Include="keys\iPod1,1_3B48b.plist" />
