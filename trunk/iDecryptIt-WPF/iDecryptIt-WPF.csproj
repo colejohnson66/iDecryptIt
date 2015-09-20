@@ -29,7 +29,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>1567</ApplicationRevision>
-    <ApplicationVersion>8.20.0.1567</ApplicationVersion>
+    <ApplicationVersion>9.00.0.1567</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -194,6 +194,15 @@
     <Resource Include="img\icon%4032.png" />
     <Resource Include="img\icon%4048.png" />
     <Resource Include="img\logviewer%4032.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Hexware.Plist\Hexware.Plist.csproj">
+      <Project>{c7d0639f-8a98-441b-b1a6-420df6122573}</Project>
+      <Name>Hexware.Plist</Name>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Include="keys\AppleTV2,1_8C150.plist" />
     <EmbeddedResource Include="keys\AppleTV2,1_8C154.plist" />
     <EmbeddedResource Include="keys\AppleTV2,1_8F191m.plist" />
@@ -459,7 +468,6 @@
     <EmbeddedResource Include="keys\iPhone4,1_12B440.plist" />
     <EmbeddedResource Include="keys\iPhone4,1_12B466.plist" />
     <EmbeddedResource Include="keys\iPhone5,1_12D508.plist" />
-    <EmbeddedResource Include="keys\iPhone5,2_10B350.plist" />
     <EmbeddedResource Include="keys\iPhone5,3_12B435.plist" />
     <EmbeddedResource Include="keys\iPod1,1_3A110a.plist" />
     <EmbeddedResource Include="keys\iPod1,1_3B48b.plist" />
@@ -525,13 +533,6 @@
     <EmbeddedResource Include="keys\iPod4,1_10B329.plist" />
     <EmbeddedResource Include="keys\iPod4,1_10B400.plist" />
     <EmbeddedResource Include="keys\iPod4,1_10B500.plist" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Hexware.Plist\Hexware.Plist.csproj">
-      <Project>{c7d0639f-8a98-441b-b1a6-420df6122573}</Project>
-      <Name>Hexware.Plist</Name>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
