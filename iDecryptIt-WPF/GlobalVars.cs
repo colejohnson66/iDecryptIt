@@ -60,6 +60,8 @@ namespace Hexware.Programs.iDecryptIt
             { "iPad4,7", "iPad mini 3 (Wi-Fi)" },
             { "iPad4,8", "iPad mini 3 (Cellular)" },
             { "iPad4,9", "iPad mini 3 (China)" },
+            { "iPad5,1", "iPad mini 4 (Wi-Fi)" },
+            { "iPad5,2", "iPad mini 4 (Cellular)" },
             { "iPad5,3", "iPad Air 2 (Wi-Fi)" },
             { "iPad5,4", "iPad Air 2 (Cellular)" },
             { "iPhone1,1", "iPhone 2G" },
@@ -77,11 +79,14 @@ namespace Hexware.Programs.iDecryptIt
             { "iPhone6,2", "iPhone 5s (Global)" },
             { "iPhone7,1", "iPhone 6 Plus" },
             { "iPhone7,2", "iPhone 6" },
+            { "iPhone8,1", "iPhone 6s" },
+            { "iPhone8,2", "iPhone 6s Plus" },
             { "iPod1,1", "iPod touch 1G" },
             { "iPod2,1", "iPod touch 2G" },
             { "iPod3,1", "iPod touch 3G" },
             { "iPod4,1", "iPod touch 4G" },
-            { "iPod5,1", "iPod touch 5G" }
+            { "iPod5,1", "iPod touch 5G" },
+            { "iPod7,1", "iPod touch 6G" }
         };
 
         internal static void Init()
