@@ -58,17 +58,26 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                 if (!plutilExists)
                     Console.WriteLine("WARNING: plutil not found! Binary plists will NOT be generated.");
             }
-
+            
             IEnumerable<string> pages = GetKeyPages("Firmware");
-            foreach (string title in pages) {
+            foreach (string title in pages)
+            {
                 if (!DoesPageExist(title))
                     continue;
                 Console.WriteLine(title);
                 // TODO: Maybe make this go faster by using client.DownloadStringAsync
                 // TODO: Parse the page using XPath (action=render)
-                ParseAndSaveKeyPage(client.DownloadString(
-                    "http://theiphonewiki.com/w/index.php?title=" + title + "&action=raw"));
+                //ParseAndSaveKeyPage(client.DownloadString(
+                SaveKeyPage(client.DownloadString(
+                    "http://theiphonewiki.com/w/index.php?title=" + title + "&action=raw"), title);
             }
+        }
+
+        private static void SaveKeyPage(string page, string title)
+        {
+            StreamWriter writer = new StreamWriter(Path.Combine(keyDir, title + ".txt"), false, System.Text.Encoding.UTF8);
+            writer.Write(page);
+            writer.Close();
         }
 
         private static IEnumerable<string> GetKeyPages(string page)
