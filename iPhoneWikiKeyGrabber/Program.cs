@@ -66,18 +66,12 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                     continue;
                 Console.WriteLine(title);
                 // TODO: Maybe make this go faster by using client.DownloadStringAsync
-                // TODO: Parse the page using XPath (action=render)
-                //ParseAndSaveKeyPage(client.DownloadString(
-                SaveKeyPage(client.DownloadString(
-                    "http://theiphonewiki.com/w/index.php?title=" + title + "&action=raw"), title);
+                // TODO: Parse the page using XPath (action=render) [id tags]
+                ParseAndSaveKeyPage(client.DownloadString(
+                    "http://theiphonewiki.com/w/index.php?title=" + title + "&action=raw"));
+                //SaveKeyPageSource(client.DownloadString(
+                //    "http://theiphonewiki.com/w/index.php?title=" + title + "&action=raw"), title);
             }
-        }
-
-        private static void SaveKeyPage(string page, string title)
-        {
-            StreamWriter writer = new StreamWriter(Path.Combine(keyDir, title + ".txt"), false, System.Text.Encoding.UTF8);
-            writer.Write(page);
-            writer.Close();
         }
 
         private static IEnumerable<string> GetKeyPages(string page)
@@ -123,6 +117,12 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
             if (list.Count == 0)
                 return false;
             return true;
+        }
+        private static void SaveKeyPageSource(string page, string title)
+        {
+            StreamWriter writer = new StreamWriter(Path.Combine(keyDir, title + ".txt"), false, System.Text.Encoding.UTF8);
+            writer.Write(page);
+            writer.Close();
         }
         private static void ParseAndSaveKeyPage(string contents)
         {
