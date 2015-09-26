@@ -27,7 +27,7 @@
             <Grid Margin="6" Background="{StaticResource GrayBorder}">
                 <Grid Margin="3" Background="White">
                     <ProgressBar Visibility="Hidden" x:Name="progDecrypt" />
-                    <Grid Margin="6" x:Name="gridDecrypt">
+                    <Grid Margin="6" x:Name="gridDmg">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="6" />

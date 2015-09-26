@@ -147,20 +147,14 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                         continue;
                     }
 
-                    // TODO: Regex
+                    // TODO: Verify all key pages have been updated and remove.
                     value = value.Replace("appletv", "AppleTV");
                     value = value.Replace("ipad", "iPad");
                     value = value.Replace("iphone", "iPhone");
                     value = value.Replace("ipod", "iPod");
 
-                    char[] numbers = new char[]
-                    {
-                        value[value.Length - 2],
-                        ',',
-                        value[value.Length - 1]
-                    };
-
-                    value = value.Substring(0, value.Length - 2) + new String(numbers);
+                    value = value.Substring(0, value.Length - 2) +
+                        value[value.Length - 2] + ',' + value[value.Length - 1];
                 } else if (key == "DownloadURL") {
                     key = "Download URL";
                 } else if (key.StartsWith("SEPFirmware")) {

@@ -289,7 +289,7 @@ namespace Hexware.Programs.iDecryptIt
                 try {
                     Process.Start("https://mega.co.nz/#!Ml8hyCQI!d2ihbCEvtkFcFSgldAPqIQ1_OpRIWAeJZl_HODWjC7s");
                 } catch (Exception ex) {
-                    Error("Unable to open prototype beta webpage", ex);
+                    Error("Unable to open prototype download page", ex);
                 }
                 return;
             }
@@ -461,7 +461,7 @@ namespace Hexware.Programs.iDecryptIt
             decryptProc.BeginErrorReadLine();
 
             // Screen mods
-            gridDecrypt.IsEnabled = false;
+            gridDmg.IsEnabled = false;
             progDecrypt.Visibility = Visibility.Visible;
             TaskbarItemInfo.ProgressState = TaskbarItemProgressState.Normal;
 
@@ -513,7 +513,7 @@ namespace Hexware.Programs.iDecryptIt
         {
             if (e.ProgressPercentage == 100 && !decryptWorker.CancellationPending) {
                 decryptWorker.CancelAsync();
-                gridDecrypt.IsEnabled = true;
+                gridDmg.IsEnabled = true;
                 // reset progress values
                 decryptProg = 0.0;
                 TaskbarItemInfo.ProgressValue = 0.0;
@@ -769,11 +769,14 @@ namespace Hexware.Programs.iDecryptIt
                 case "12D5480a":
                 case "12D508":
                     return "7.1/8.2";
-                case "12F5037c": // should this be "7.2/8.3"?
+                case "12F5037c":
                     return "7.1/8.3";
                 case "12F61":
                 case "12F69":
                     return "7.2/8.3";
+                case "13T5347l": // AppleTV5,3 (ATV 4) exlcusive (tvOS 9.0?)
+                case "13T5365h":
+                    return "9.0/9.1";
             }
             return null;
         }
