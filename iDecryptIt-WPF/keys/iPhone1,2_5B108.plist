@@ -61,9 +61,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>f0408fd6dc0778876c58fb59d37d44b1</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>b41941f8d30bc06e2268a7e89eb2c018</string>
 		</dict>
 		<key>BatteryLow1</key>
 		<dict>
@@ -72,9 +72,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>3ce0dd810dbad8b90407a57acca80ff2</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>bd80bf6f43aa13c7e6518faee262e3ab</string>
 		</dict>
 		<key>DeviceTree</key>
 		<dict>
@@ -94,20 +94,20 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>28bebce29b48781aafc9b5109dccc83f</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>497914be358babb79cad2877fed02add</string>
 		</dict>
 		<key>GlyphPlugin</key>
 		<dict>
 			<key>File Name</key>
-			<string>glyphcharging.s5l8900x.img3</string>
+			<string>glyphplugin.s5l8900x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>a6ece338e8db3eefa4a38201c8e5033f</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>e69a0d9f9fba2e33269c140d54cc5223</string>
 		</dict>
 		<key>iBEC</key>
 		<dict>
@@ -159,9 +159,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>2e5e5657ea41b468c2a7712d01ec6342</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>c40d0fd13597a59bc1ce48c783de10a4</string>
 		</dict>
 		<key>RecoveryMode</key>
 		<dict>

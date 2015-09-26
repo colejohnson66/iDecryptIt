@@ -294,7 +294,7 @@ namespace Hexware.Programs.iDecryptIt
                 return;
             }
 
-            Stream stream = GetStream(selectedModel + "_" + selectedVersion + ".plist");
+            Stream stream = GetStream(selectedModel.Replace(",", "") + "_" + selectedVersion + ".plist");
             if (stream == Stream.Null) {
                 Debug("[KEYSELECT]", "Key file doesn't exist. No keys available.");
                 MessageBox.Show(
