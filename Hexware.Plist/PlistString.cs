@@ -37,6 +37,10 @@ namespace Hexware.Plist
 
             _value = value;
         }
+        public static implicit operator PlistString(string value)
+        {
+            return new PlistString(value);
+        }
 
         public string Value
         {

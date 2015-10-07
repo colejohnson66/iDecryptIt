@@ -32,6 +32,10 @@ namespace Hexware.Plist
         {
             _value = value;
         }
+        public static implicit operator PlistBool(bool value)
+        {
+            return new PlistBool(value);
+        }
 
         public bool Value
         {

@@ -41,6 +41,10 @@ namespace Hexware.Plist
             // Used by PlistArray.ReadBinary and PlistArray.ReadXml to avoid shallow copy
             _value = value;
         }
+        public static implicit operator PlistArray(IPlistElement[] value)
+        {
+            return new PlistArray(value);
+        }
 
         public IPlistElement[] Value
         {
