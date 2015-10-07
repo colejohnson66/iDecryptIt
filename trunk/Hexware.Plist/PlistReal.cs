@@ -83,6 +83,50 @@ namespace Hexware.Plist
         {
             _value = value;
         }
+        public static explicit operator PlistReal(string value)
+        {
+            return new PlistReal(value);
+        }
+        public static implicit operator PlistReal(float value)
+        {
+            return new PlistReal(value);
+        }
+        public static implicit operator PlistReal(double value)
+        {
+            return new PlistReal(value);
+        }
+        public static implicit operator PlistReal(sbyte value)
+        {
+            return new PlistReal(value);
+        }
+        public static implicit operator PlistReal(byte value)
+        {
+            return new PlistReal(value);
+        }
+        public static implicit operator PlistReal(short value)
+        {
+            return new PlistReal(value);
+        }
+        public static implicit operator PlistReal(ushort value)
+        {
+            return new PlistReal(value);
+        }
+        public static implicit operator PlistReal(int value)
+        {
+            return new PlistReal(value);
+        }
+        public static implicit operator PlistReal(uint value)
+        {
+            return new PlistReal(value);
+        }
+        public static implicit operator PlistReal(long value)
+        {
+            return new PlistReal(value);
+        }
+        public static implicit operator PlistReal(ulong value)
+        {
+            return new PlistReal(value);
+        }
 
         public double Value
         {

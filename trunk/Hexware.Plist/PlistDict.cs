@@ -42,6 +42,10 @@ namespace Hexware.Plist
             // Used by PlistDict.ReadBinary and PlistDict.ReadXml to avoid the shallow copy
             _value = value;
         }
+        public static implicit operator PlistDict(Dictionary<string, IPlistElement> value)
+        {
+            return new PlistDict(value);
+        }
 
         public Dictionary<string, IPlistElement> Value
         {

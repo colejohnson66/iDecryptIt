@@ -49,6 +49,14 @@ namespace Hexware.Plist
                 throw new FormatException("Provided date is not in valid ISO 8601 standard");
             }
         }
+        public static implicit operator PlistDate(DateTime value)
+        {
+            return new PlistDate(value);
+        }
+        public static explicit operator PlistDate(string value)
+        {
+            return new PlistDate(value);
+        }
 
         public DateTime Value
         {

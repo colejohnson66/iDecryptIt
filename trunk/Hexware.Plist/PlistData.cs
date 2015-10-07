@@ -58,6 +58,10 @@ namespace Hexware.Plist
                 throw new FormatException("Not a valid base64 encoded string");
             }
         }
+        public static implicit operator PlistData(byte[] value)
+        {
+            return new PlistData(value);
+        }
 
         public byte[] Value
         {

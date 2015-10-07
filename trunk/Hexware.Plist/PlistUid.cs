@@ -34,6 +34,10 @@ namespace Hexware.Plist
         {
             _value = value;
         }
+        public static implicit operator PlistUid(ulong value)
+        {
+            return new PlistUid(value);
+        }
 
         public ulong Value
         {

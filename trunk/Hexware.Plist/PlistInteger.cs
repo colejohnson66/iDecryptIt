@@ -104,6 +104,50 @@ namespace Hexware.Plist
                 throw new FormatException("\"" + value + "\" cannot be converted to an long");
             }
         }
+        public static explicit operator PlistInteger(string value)
+        {
+            return new PlistInteger(value);
+        }
+        public static explicit operator PlistInteger(float value)
+        {
+            return new PlistInteger(value);
+        }
+        public static explicit operator PlistInteger(double value)
+        {
+            return new PlistInteger(value);
+        }
+        public static implicit operator PlistInteger(sbyte value)
+        {
+            return new PlistInteger(value);
+        }
+        public static implicit operator PlistInteger(byte value)
+        {
+            return new PlistInteger(value);
+        }
+        public static implicit operator PlistInteger(short value)
+        {
+            return new PlistInteger(value);
+        }
+        public static implicit operator PlistInteger(ushort value)
+        {
+            return new PlistInteger(value);
+        }
+        public static implicit operator PlistInteger(int value)
+        {
+            return new PlistInteger(value);
+        }
+        public static implicit operator PlistInteger(uint value)
+        {
+            return new PlistInteger(value);
+        }
+        public static implicit operator PlistInteger(long value)
+        {
+            return new PlistInteger(value);
+        }
+        public static explicit operator PlistInteger(ulong value)
+        {
+            return new PlistInteger(value);
+        }
 
         public long Value
         {

@@ -42,6 +42,6 @@ using System.Runtime.InteropServices;
 [assembly: Guid("8d367e2e-1afe-48d0-b2aa-4bb0cc65bbd3")]
 
 // TODO: Change to 2.0 when serializing works
-[assembly: AssemblyVersion("1.1.*")]
-[assembly: AssemblyFileVersion("1.1.0.0")]
+[assembly: AssemblyVersion("1.2.*")]
+[assembly: AssemblyFileVersion("1.2.0.0")]
 [assembly: NeutralResourcesLanguage("en-US")]
