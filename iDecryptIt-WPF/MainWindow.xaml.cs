@@ -513,6 +513,10 @@ namespace Hexware.Programs.iDecryptIt
         }
         private void decryptWorker_DoWork(object sender, DoWorkEventArgs e)
         {
+            // This should be done by reading the console output and parsing the
+            //   offset number. That is the offset in the input that `dmg' is at.
+            //   It's more accurate that pure filesize as `dmg' also uncompresses
+            //   the output filesystem.
             while (!decryptWorker.CancellationPending) {
                 if (decryptProc.HasExited) {
                     decryptWorker.ReportProgress(100);

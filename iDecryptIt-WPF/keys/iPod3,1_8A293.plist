@@ -18,7 +18,12 @@
 			<string>018-5530-583.dmg</string>
 			<key>Key</key>
 			<string>ec6eb0268c4e9f8ab9d003f601e8f4b36f4fc4311c61e5ebed07ce718424ffee7e7d924d</string>
-			<key>GM Key</key>
+		</dict>
+		<key>GM Root FS</key>
+		<dict>
+			<key>File Name</key>
+			<string>XXX-XXXX-XXX.dmg</string>
+			<key>Key</key>
 			<string>ddd5c2872ca8e460acf1159940f198df43089176cd8d10adbef8fe4b79f4f4a030fe3e86</string>
 		</dict>
 		<key>Update Ramdisk</key>

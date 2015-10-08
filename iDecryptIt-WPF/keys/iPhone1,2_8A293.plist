@@ -20,8 +20,13 @@
 			<string>018-5536-600.dmg</string>
 			<key>Key</key>
 			<string>09e054a8dd6c11c7f41ad9e614a8d564aa7d0c653585f29c0b07d1f0a1e1dc0040624a16</string>
-			<key>GM Key</key>
-			<string>TODO</string>
+		</dict>
+		<key>GM Root FS</key>
+		<dict>
+			<key>File Name</key>
+			<string>018-7317-130.dmg</string>
+			<key>Key</key>
+			<string>f1e2bb18a353dacf3f1ce7de8adcfb26d93fe676695bc9504c874a6ce671d2d3047b121d</string>
 		</dict>
 		<key>Restore Ramdisk</key>
 		<dict>
