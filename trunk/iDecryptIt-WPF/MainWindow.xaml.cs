@@ -363,6 +363,7 @@ namespace Hexware.Programs.iDecryptIt
             ProcessFirmwareItem(plist, "Restore Ramdisk");
             ProcessFirmwareItem(plist, "Update Ramdisk");
             ProcessFirmwareItem(plist, "AppleLogo");
+            ProcessFirmwareItem(plist, "BatteryCharging");
             ProcessFirmwareItem(plist, "BatteryCharging0");
             ProcessFirmwareItem(plist, "BatteryCharging1");
             ProcessFirmwareItem(plist, "BatteryFull");
