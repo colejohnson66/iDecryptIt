@@ -230,6 +230,9 @@ namespace Hexware.Programs.iDecryptIt
             keyGrid.Add("AppleLogo", new KeyGridItem(
                 grdAppleLogo, keyAppleLogoIV, keyAppleLogoKey, fileAppleLogo,
                 grdAppleLogoNoEncrypt, fileAppleLogoNoEncrypt));
+            keyGrid.Add("BatteryCharging", new KeyGridItem(
+                grdBatteryCharging, keyBatteryChargingIV, keyBatteryChargingKey, fileBatteryCharging,
+                grdBatteryChargingNoEncrypt, fileBatteryChargingNoEncrypt));
             keyGrid.Add("BatteryCharging0", new KeyGridItem(
                 grdBatteryCharging0, keyBatteryCharging0IV, keyBatteryCharging0Key, fileBatteryCharging0,
                 grdBatteryCharging0NoEncrypt, fileBatteryCharging0NoEncrypt));
@@ -337,15 +340,25 @@ namespace Hexware.Programs.iDecryptIt
                 return;
             }
 
-            txtDevice.Text = GlobalVars.DeviceNames[plist.Get<PlistString>("Device").Value];
+            string device = plist.Get<PlistString>("Device").Value;
+            string version = plist.Get<PlistString>("Version").Value;
+            string build = plist.Get<PlistString>("Build").Value;
 
-            txtVersion.Text = plist.Get<PlistString>("Version").Value +
-                " (Build " + plist.Get<PlistString>("Build").Value + ")";
+            txtDevice.Text = GlobalVars.DeviceNames[device];
+            txtVersion.Text = version + " (Build " + build + ")";
             //if (goldMaster)
             //    txtVersion.Text = txtVersion.Text + " [GM]";
 
-            fileRootFS.Text = plist.Get<PlistDict>("Root FS").Get<PlistString>("File Name").Value;
-            keyRootFS.Text = plist.Get<PlistDict>("Root FS").Get<PlistString>((goldMaster) ? "GM Key" : "Key").Value;
+            if (goldMaster && build == "8A293" && device != "iPhone3,1")
+            {
+                fileRootFS.Text = plist.Get<PlistDict>("GM Root FS").Get<PlistString>("File Name").Value;
+                keyRootFS.Text = plist.Get<PlistDict>("GM Root FS").Get<PlistString>("Key").Value;
+            }
+            else
+            {
+                fileRootFS.Text = plist.Get<PlistDict>("Root FS").Get<PlistString>("File Name").Value;
+                keyRootFS.Text = plist.Get<PlistDict>("Root FS").Get<PlistString>("Key").Value;
+            }
 
             ProcessFirmwareItem(plist, "Restore Ramdisk");
             ProcessFirmwareItem(plist, "Update Ramdisk");

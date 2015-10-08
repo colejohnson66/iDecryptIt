@@ -141,22 +141,12 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                     displayVersion = value.Trim();
                     continue;
                 } else if (key == "Device") {
-                    if (value.Contains(","))
-                    {
-                        data.Add(key, value.Trim());
-                        continue;
-                    }
-
-                    // TODO: Verify all key pages have been updated and remove.
-                    value = value.Replace("appletv", "AppleTV");
-                    value = value.Replace("ipad", "iPad");
-                    value = value.Replace("iphone", "iPhone");
-                    value = value.Replace("ipod", "iPod");
-
-                    value = value.Substring(0, value.Length - 2) +
-                        value[value.Length - 2] + ',' + value[value.Length - 1];
+                    Debug.Assert(value.Contains(","));
                 } else if (key == "DownloadURL") {
                     key = "Download URL";
+                } else if (key == "RootFS" || key == "GMRootFS" || key == "UpdateRamdisk" || key == "RestoreRamdisk") {
+                    if (String.IsNullOrWhiteSpace(value))
+                        value = "XXX-XXXX-XXX";
                 } else if (key.StartsWith("SEPFirmware")) {
                     key = key.Replace("SEPFirmware", "SEP-Firmware");
                 }
@@ -220,15 +210,18 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                         elem = new PlistDict(new Dictionary<string, IPlistElement>());
                         elem.Add("File Name", new PlistString(data["RootFS"] + ".dmg"));
                         elem.Add("Key", new PlistString(data["RootFSKey"]));
-                        if (data.ContainsKey("GMRootFSKey")) {
-                            // Only applicable to 4.0GM/4.0 8A293 (excluding iPhone3,1)
-                            elem.Add("GM Key", new PlistString(data["GMRootFSKey"]));
-                            length = data["GMRootFSKey"].Length;
-                            Debug.Assert(length == 72 || length == 4, debug + "data[\"GMRootFSKey\"].Length (" + length + ") != 72");
-                        }
                         length = data["RootFSKey"].Length;
                         Debug.Assert(length == 72 || length == 4, debug + "data[\"RootFSKey\"].Length (" + length + ") != 72");
                         dict.Add("Root FS", elem);
+                        break;
+
+                    case "GMRootFS":
+                        elem = new PlistDict(new Dictionary<string, IPlistElement>());
+                        elem.Add("File Name", new PlistString(data["GMRootFS"] + ".dmg"));
+                        elem.Add("Key", new PlistString(data["GMRootFSKey"]));
+                        length = data["GMRootFSKey"].Length;
+                        Debug.Assert(length == 72 || length == 4, debug + "data[\"GMRootFSKey\"].Length (" + length + ") != 72");
+                        dict.Add("GM Root FS", elem);
                         break;
 
                     case "UpdateRamdisk":
@@ -252,6 +245,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                         break;
 
                     case "AppleLogo":
+                    case "BatteryCharging":
                     case "BatteryCharging0":
                     case "BatteryCharging1":
                     case "BatteryFull":
