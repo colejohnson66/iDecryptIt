@@ -18,7 +18,12 @@
 			<string>018-5533-585.dmg</string>
 			<key>Key</key>
 			<string>fcada08311f553b2d7194c97922e01c821b632bf62e64500056ea37e56343e6131a9839b</string>
-			<key>GM Key</key>
+		</dict>
+		<key>GM Root FS</key>
+		<dict>
+			<key>File Name</key>
+			<string>XXX-XXXX-XXX.dmg</string>
+			<key>Key</key>
 			<string>8811ded8264fff60660128f0c29f3d7e25f1293bc6290f62c2ce28480df778b2ff1426e9</string>
 		</dict>
 		<key>Restore Ramdisk</key>

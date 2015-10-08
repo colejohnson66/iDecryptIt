@@ -35,6 +35,13 @@
 			<key>Encryption</key>
 			<false />
 		</dict>
+		<key>BatteryCharging</key>
+		<dict>
+			<key>File Name</key>
+			<string>batterycharging.img2</string>
+			<key>Encryption</key>
+			<false />
+		</dict>
 		<key>BatteryLow0</key>
 		<dict>
 			<key>File Name</key>
