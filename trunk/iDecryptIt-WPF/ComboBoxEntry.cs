@@ -4,7 +4,7 @@
  * =============================================================================
  * Copyright (c) 2014 Cole Johnson
  * 
- * This file is part of iDecryptIt
+ * This file is part of iDecryptIt.
  * 
  * iDecryptIt is free software: you can redistribute it and/or modify it under
  *   the terms of the GNU General Public License as published by the Free
