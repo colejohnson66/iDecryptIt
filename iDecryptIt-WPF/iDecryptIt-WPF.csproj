@@ -496,6 +496,7 @@
     <EmbeddedResource Include="keys\iPhone5,1_12F70.plist" />
     <EmbeddedResource Include="keys\iPhone5,1_12H143.plist" />
     <EmbeddedResource Include="keys\iPhone5,1_12H321.plist" />
+    <EmbeddedResource Include="keys\iPhone5,1_13A344.plist" />
     <EmbeddedResource Include="keys\iPhone5,2_10A405.plist" />
     <EmbeddedResource Include="keys\iPhone5,2_10A525.plist" />
     <EmbeddedResource Include="keys\iPhone5,2_10A551.plist" />
@@ -522,6 +523,7 @@
     <EmbeddedResource Include="keys\iPhone5,2_12F70.plist" />
     <EmbeddedResource Include="keys\iPhone5,2_12H143.plist" />
     <EmbeddedResource Include="keys\iPhone5,2_12H321.plist" />
+    <EmbeddedResource Include="keys\iPhone5,2_13A344.plist" />
     <EmbeddedResource Include="keys\iPhone5,3_11A470a.plist" />
     <EmbeddedResource Include="keys\iPhone5,3_11A501.plist" />
     <EmbeddedResource Include="keys\iPhone5,3_11B511.plist" />
@@ -541,6 +543,7 @@
     <EmbeddedResource Include="keys\iPhone5,3_12F70.plist" />
     <EmbeddedResource Include="keys\iPhone5,3_12H143.plist" />
     <EmbeddedResource Include="keys\iPhone5,3_12H321.plist" />
+    <EmbeddedResource Include="keys\iPhone5,3_13A344.plist" />
     <EmbeddedResource Include="keys\iPhone5,4_11A470a.plist" />
     <EmbeddedResource Include="keys\iPhone5,4_11A501.plist" />
     <EmbeddedResource Include="keys\iPhone5,4_11B511.plist" />
@@ -561,6 +564,8 @@
     <EmbeddedResource Include="keys\iPhone5,4_12F70.plist" />
     <EmbeddedResource Include="keys\iPhone5,4_12H143.plist" />
     <EmbeddedResource Include="keys\iPhone5,4_12H321.plist" />
+    <EmbeddedResource Include="keys\iPhone5,4_13A344.plist" />
+    <EmbeddedResource Include="keys\iPod1,1_3A101a.plist" />
     <EmbeddedResource Include="keys\iPod1,1_3A110a.plist" />
     <EmbeddedResource Include="keys\iPod1,1_3B48b.plist" />
     <EmbeddedResource Include="keys\iPod1,1_4A102.plist" />
