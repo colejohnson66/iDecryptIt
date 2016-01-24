@@ -2,7 +2,7 @@
  * File:   Apple8900File.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2015 Cole Johnson
+ * Copyright (c) 2015-2016 Cole Johnson
  * 
  * This file is part of iDecryptIt.
  * 
@@ -28,8 +28,7 @@ namespace Hexware.Programs.iDecryptIt.Firmware
 {
     public class Apple8900File
     {
-        /* File format:
-         * Apple8900 {
+        /* Apple8900 {
          *    0  byte[4]  magic;   // "8900"
          *    4  byte[3]  version; // "1.0"
          *    7  byte     format;  // unencrypted == 0x4; encrypted == 0x3
@@ -53,10 +52,9 @@ namespace Hexware.Programs.iDecryptIt.Firmware
             0x18, 0x84, 0x58, 0xA6, 0xD1, 0x50, 0x34, 0xDF,
             0xE3, 0x86, 0xF2, 0x3B, 0x61, 0xD4, 0x37, 0x74
         };
-        private static readonly byte[] Magic = new byte[] { 0x38, 0x39, 0x00, 0x00 };
+        private static readonly byte[] Magic = new byte[] { 0x38, 0x39, 0x30, 0x30 };
 
         private Stream _stream;
-        private byte[] _header;
 
         public Apple8900File(Stream stream)
         {
@@ -65,7 +63,13 @@ namespace Hexware.Programs.iDecryptIt.Firmware
 
         public byte[] GetPayload()
         {
-            _stream.Seek(0, SeekOrigin.Begin);
+            return GetPayload(true);
+        }
+
+        public byte[] GetPayload(bool resetStreamPosition)
+        {
+            if (resetStreamPosition)
+                _stream.Seek(0, SeekOrigin.Begin);
 
             // Read out the header
             byte[] header = new byte[0x800];
@@ -81,7 +85,7 @@ namespace Hexware.Programs.iDecryptIt.Firmware
                     (char)header[4] + (char)header[5] + (char)header[6]);
 
             byte format = header[7];
-            if (format != 0x3 || format != 0x4)
+            if (format != 0x3 && format != 0x4)
                 throw new FileFormatException("Unknown 8900 file format: " + format);
             bool encrypted = (format == 0x3);
 
@@ -93,20 +97,31 @@ namespace Hexware.Programs.iDecryptIt.Firmware
                 throw new FileFormatException("8900 file contains an invalid payload size.");
 
             if (encrypted)
-                DecryptPayload(payload);
+                DecryptPayload(ref payload);
 
             return payload;
         }
 
-        private void DecryptPayload(byte[] payload)
+        private void DecryptPayload(ref byte[] payload)
         {
-            using (RijndaelManaged rijndael = new RijndaelManaged())
-            {
-                rijndael.BlockSize = 128;
-                rijndael.Mode = CipherMode.CBC;
-                rijndael.IV = new byte[16];
-                rijndael.Key = Key0x837;
-                // TODO decrypt
+            using (AesManaged aes = new AesManaged()) {
+                aes.BlockSize = 128;
+                aes.Mode = CipherMode.CBC;
+                aes.IV = new byte[16];
+                aes.Key = Key0x837;
+                try {
+                    using (MemoryStream ms = new MemoryStream()) {
+                        using (CryptoStream cs = new CryptoStream(ms, aes.CreateDecryptor(), CryptoStreamMode.Write)) {
+                            cs.Write(payload, 0, payload.Length);
+                            byte[] buf = ms.ToArray();
+                            payload = buf;
+                        }
+                    }
+                }
+                catch (CryptographicException)
+                {
+                    // ignore padding issue
+                }
             }
         }
     }

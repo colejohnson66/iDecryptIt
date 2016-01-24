@@ -2,7 +2,7 @@
  * File:   AssemblyInfo.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2010-2015 Cole Johnson
+ * Copyright (c) 2010-2016 Cole Johnson
  * 
  * This file is part of iDecryptIt.
  * 
@@ -28,7 +28,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("iOS firmware tools")]
 [assembly: AssemblyCompany("Hexware")]
 [assembly: AssemblyProduct("iDecryptIt")]
-[assembly: AssemblyCopyright("Copyright (c) 2010-2015")]
+[assembly: AssemblyCopyright("Copyright (c) 2010-2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -41,6 +41,6 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 [assembly: Guid("ba12c942-94e7-4c25-b4b9-29c3e37dbf14")]
 
-[assembly: AssemblyVersion("9.02.0.1593")]
-[assembly: AssemblyFileVersion("9.02.0.1593")]
+[assembly: AssemblyVersion("9.02.0.1602")]
+[assembly: AssemblyFileVersion("9.02.0.1602")]
 [assembly: NeutralResourcesLanguage("en-us")]

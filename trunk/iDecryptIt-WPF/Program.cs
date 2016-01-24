@@ -2,7 +2,7 @@
  * File:   Program.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2012-2015 Cole Johnson
+ * Copyright (c) 2012-2016 Cole Johnson
  * 
  * This file is part of iDecryptIt
  * 
@@ -30,10 +30,14 @@ namespace Hexware.Programs.iDecryptIt
         [STAThread]
         internal static void Main(string[] args)
         {
+            //Firmware.Apple8900File file = new Firmware.Apple8900File(System.IO.File.OpenRead(
+            //    @"C:\iPod1,1_1.1.5_4B1_Restore\Firmware\all_flash\all_flash.n45ap.production\applelogo.img2"));
+            //byte[] payload = file.GetPayload();
+            //System.IO.File.WriteAllBytes(@"C:\iPod1,1_1.1.5_4B1_Restore\applelogo.dec.img2", payload);
+
             GlobalVars.Init();
             Console.WriteLine("iDecryptIt " + GlobalVars.Version + GlobalVars.Version64);
-
-            // TODO: GNU Getopt .NET <http://getopt.codeplex.com/>
+            
             for (int i = 0; i < args.Length; i++) {
                 if (args[i] == "/d" || args[i] == "/debug") {
                     GlobalVars.Debug = true;
@@ -55,7 +59,7 @@ namespace Hexware.Programs.iDecryptIt
 
         private static void PrintLicense()
         {
-            Console.WriteLine("Copyright (c) 2010-2015 Cole Johnson");
+            Console.WriteLine("Copyright (c) 2010-2016 Cole Johnson");
             Console.WriteLine();
             Console.WriteLine("iDecryptIt is free software: you can redistribute it and/or modify it under");
             Console.WriteLine("  the terms of the GNU General Public License as published by the Free");
@@ -67,7 +71,7 @@ namespace Hexware.Programs.iDecryptIt
             Console.WriteLine("  FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for");
             Console.WriteLine("  more details.");
             Console.WriteLine();
-            Console.WriteLine("You should have recieved a copy of the GNU General Public License along with");
+            Console.WriteLine("You should have received a copy of the GNU General Public License along with");
             Console.WriteLine("  iDecryptIt. If not, see <http://www.gnu.org/licenses/>.");
         }
     }
