@@ -2,7 +2,7 @@
  * File:   Program.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2012-2015, Cole Johnson
+ * Copyright (c) 2012-2016, Cole Johnson
  * 
  * This file is part of iDecryptIt
  * 
@@ -191,6 +191,8 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
             foreach (string key in data.Keys) {
                 switch (key) {
                     case "Version":
+                        if (data[key].Contains("b"))
+                            throw new Exception();
                         // Remove everything past the "[[Golden Master|GM]]" on GM pages
                         // Both options work for public firmwares, but the first may not on betas
                         string temp = data[key].Split('[', 'b')[0];
@@ -228,9 +230,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                     case "RestoreRamdisk":
                         elem = new PlistDict(new Dictionary<string, IPlistElement>());
                         elem.Add("File Name", new PlistString(data[key] + ".dmg"));
-                        if (IsImg2Firmware(data["Build"])) {
-                            elem.Add("Encryption", new PlistBool(false));
-                        } else if (data[key + "IV"] == "Not Encrypted") {
+                        if (data[key + "IV"] == "Not Encrypted") {
                             elem.Add("Encryption", new PlistBool(false));
                         } else {
                             elem.Add("Encryption", new PlistBool(true));
