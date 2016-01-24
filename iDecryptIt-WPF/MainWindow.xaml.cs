@@ -115,7 +115,7 @@ namespace Hexware.Programs.iDecryptIt
                 string exName = ex.GetType().Name;
                 Debug("[ERRLOG]", exName + " thrown while saving log.");
                 MessageBox.Show(
-                    "A(n) " + exName + " error occured while saving the error log.",
+                    "A(n) " + exName + " error occurred while saving the error log.",
                     "iDecryptIt",
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
@@ -141,7 +141,7 @@ namespace Hexware.Programs.iDecryptIt
             }
 
             MessageBox.Show(
-                "iDecryptIt has encoundered a fatal error and must close.\r\n" + message,
+                "iDecryptIt has encountered a fatal error and must close.\r\n" + message,
                 "iDecryptIt",
                 MessageBoxButton.OK,
                 MessageBoxImage.Error);
@@ -153,7 +153,7 @@ namespace Hexware.Programs.iDecryptIt
                 string exName = ex.GetType().Name;
                 Debug("[ERRLOG]", exName + " thrown while saving log.");
                 MessageBox.Show(
-                    "A(n) " + exName + " error occured while saving the error log.",
+                    "A(n) " + exName + " error occurred while saving the error log.",
                     "iDecryptIt",
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
