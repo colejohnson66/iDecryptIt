@@ -39,7 +39,7 @@
     <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
     <AssemblyVersionSettings>None.None.None.Increment</AssemblyVersionSettings>
     <AssemblyFileVersionSettings>None.None.None.Increment</AssemblyFileVersionSettings>
-    <AssemblyVersion>9.02.0.1602</AssemblyVersion>
+    <AssemblyVersion>9.02.0.1603</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -331,6 +331,7 @@
     <EmbeddedResource Include="keys\iPad3,1_12A365.plist" />
     <EmbeddedResource Include="keys\iPad3,1_10B146.plist" />
     <EmbeddedResource Include="keys\iPad3,3_10B329.plist" />
+    <EmbeddedResource Include="keys\iPad3,6_13D15.plist" />
     <EmbeddedResource Include="keys\iPhone1,1_1A543a.plist" />
     <EmbeddedResource Include="keys\iPhone1,1_1C25.plist" />
     <EmbeddedResource Include="keys\iPhone1,1_1C28.plist" />
@@ -533,6 +534,8 @@
     <EmbeddedResource Include="keys\iPhone5,2_12H143.plist" />
     <EmbeddedResource Include="keys\iPhone5,2_12H321.plist" />
     <EmbeddedResource Include="keys\iPhone5,2_13A344.plist" />
+    <EmbeddedResource Include="keys\iPhone5,2_13B143.plist" />
+    <EmbeddedResource Include="keys\iPhone5,2_13C75.plist" />
     <EmbeddedResource Include="keys\iPhone5,3_11A470a.plist" />
     <EmbeddedResource Include="keys\iPhone5,3_11A501.plist" />
     <EmbeddedResource Include="keys\iPhone5,3_11B511.plist" />
@@ -553,6 +556,7 @@
     <EmbeddedResource Include="keys\iPhone5,3_12H143.plist" />
     <EmbeddedResource Include="keys\iPhone5,3_12H321.plist" />
     <EmbeddedResource Include="keys\iPhone5,3_13A344.plist" />
+    <EmbeddedResource Include="keys\iPhone5,3_13A452.plist" />
     <EmbeddedResource Include="keys\iPhone5,4_11A470a.plist" />
     <EmbeddedResource Include="keys\iPhone5,4_11A501.plist" />
     <EmbeddedResource Include="keys\iPhone5,4_11B511.plist" />
