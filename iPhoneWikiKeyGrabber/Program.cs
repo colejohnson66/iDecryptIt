@@ -26,12 +26,17 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Xml;
 
 namespace Hexware.Programs.iDecryptIt.KeyGrabber
 {
+    public struct FirmwareVersion
+    {
+        public string Version;
+        public string Build;
+        public bool HasKeys;
+    }
     public class Program
     {
         static WebClient client = new WebClient();
@@ -39,7 +44,8 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
         static string keyDir = Path.Combine(Directory.GetCurrentDirectory(), "keys");
         static string plutil = "C:\\Program Files (x86)\\Common Files\\Apple\\Apple Application Support\\plutil.exe";
         static bool plutilExists;
-        static bool makeBinaryPlists;
+        static bool makeBinaryPlists = false;
+        static Dictionary<string, List<FirmwareVersion>> versionsList = new Dictionary<string, List<FirmwareVersion>>();
 
         public static void Main(string[] args)
         {
@@ -62,8 +68,6 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
             IEnumerable<string> pages = GetKeyPages("Firmware");
             foreach (string title in pages)
             {
-                if (!DoesPageExist(title))
-                    continue;
                 Console.WriteLine(title);
                 // TODO: Maybe make this go faster by using client.DownloadStringAsync
                 // TODO: Parse the page using XPath (action=render) [id tags]
@@ -76,47 +80,138 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 
         private static IEnumerable<string> GetKeyPages(string page)
         {
-            string baseUrl = "https://theiphonewiki.com/w/api.php?format=xml&action=query&prop=links&titles=" + page + "&pllimit=500";
-            Regex regex = new Regex(@"(?:\w+ )+\d\w+ \(\D+\d,\d\)", RegexOptions.Compiled);
-            XmlDocument doc = new XmlDocument();
-            string plcontinue = null;
-            while (true) {
-                if (plcontinue == null)
-                    doc.InnerXml = client.DownloadString(baseUrl);
-                else
-                    doc.InnerXml = client.DownloadString(baseUrl + "&plcontinue=" + plcontinue);
-                Debug.Assert(doc.SelectNodes("//error").Count == 0);
+            string url = "https://www.theiphonewiki.com/w/index.php?title=" + page + "&action=render";
 
-                // get links
-                XmlNodeList list = doc.SelectNodes("//pl[@ns='0']");
-                foreach (XmlNode node in list) {
-                    string title = node.Attributes.GetNamedItem("title").Value;
-                    if (title == "Alpine 1A420 (iPhone1,1)")
-                        continue;
-                    if (regex.IsMatch(title))
-                        yield return title;
+            // MediaWiki outputs valid [X]HTML...sortove
+            XmlDocument doc = new XmlDocument();
+            doc.InnerXml = "<doc>" + client.DownloadString(url) + "</doc>";
+            XmlNodeList tableList = doc.SelectNodes("//table[@class='wikitable']");
+            Debug.Assert(tableList.Count != 0, "Can't find device tables.");
+            foreach (XmlNode table in tableList)
+            {
+                // What device is this?
+                string device = null;
+                foreach (XmlNode link in table.SelectNodes(".//a"))
+                {
+                    if (link.InnerText.Contains("ipsw"))
+                        device = link.InnerText.Trim().Split('_')[0];
+                }
+                if (device == null)
+                    throw new Exception();
+
+                // If we've already seen this device, append to its list,
+                //   else, make a new list
+                List<FirmwareVersion> versions;
+                if (!versionsList.TryGetValue(device, out versions))
+                {
+                    versions = new List<FirmwareVersion>();
+                    versionsList.Add(device, versions);
                 }
 
-                // Are there more links to grab?
-                list = doc.SelectNodes("//@plcontinue");
-                if (list.Count == 0)
-                    break;
-                if (list.Count != 1)
-                    throw new Exception();
-                plcontinue = list[0].Value;
+                foreach (string fwPage in ParseTable(table, versions))
+                    yield return fwPage;
             }
         }
-        private static bool DoesPageExist(string pageTitle)
+        private static IEnumerable<string> ParseTable(XmlNode table, List<FirmwareVersion> list)
         {
-            XmlDocument doc = new XmlDocument();
-            doc.InnerXml = client.DownloadString(
-                "http://theiphonewiki.com/w/api.php?format=xml&action=query&prop=pageprops&titles=" + pageTitle.Replace(' ', '_'));
-            Debug.Assert(doc.SelectNodes("//error").Count == 0);
+            bool isSpecialATVFormat = false;
+            int rowNum = -1;
+            foreach (XmlNode row in table.ChildNodes)
+            {
+                rowNum++;
+                
+                // skip headers
+                if (row.InnerText.Contains("Download URL"))
+                    continue;
+                if (row.InnerText.Contains("Marketing") && row.InnerText.Contains("Internal"))
+                {
+                    isSpecialATVFormat = true;
+                    continue;
+                }
 
-            XmlNodeList list = doc.SelectNodes("//@pageid");
-            if (list.Count == 0)
-                return false;
-            return true;
+                // Fix colspans and rowspans
+                int col = 0;
+                foreach (XmlNode cell in row.ChildNodes)
+                {
+                    foreach (XmlAttribute attr in cell.Attributes)
+                    {
+                        if (attr.Name == "rowspan")
+                        {
+                            int val = Convert.ToInt32(attr.Value);
+                            cell.Attributes.Remove(attr);
+
+                            XmlNode newRow = row;
+                            for (int i = 1; i < val; i++)
+                            {
+                                // Insert a new cell between [col-1] and [col]
+                                // Use `InsertBefore' because `col' could be 0
+                                newRow = newRow.NextSibling;
+                                newRow.InsertBefore(cell.Clone(), newRow.ChildNodes[col]);
+                            }
+                        }
+                        else if (attr.Name == "colspan")
+                        {
+                            int val = Convert.ToInt32(attr.Value);
+                            cell.Attributes.Remove(attr);
+
+                            for (int i = 1; i < val; i++)
+                                row.InsertAfter(cell.Clone(), cell);
+                        }
+                    }
+                    col++;
+                }
+                
+                FirmwareVersion ver = new FirmwareVersion();
+                XmlNode buildCell;
+                if (isSpecialATVFormat)
+                {
+                    string marketing = row.ChildNodes[0].InnerText.Trim();
+                    string @internal = row.ChildNodes[1].InnerText.Trim();
+
+                    if (marketing == @internal)
+                    {
+                        // Should only be true on ATV-4.3 (8F455 - 2557)
+                        Debug.Assert(row.ChildNodes[2].InnerText.Trim() == "2557");
+                        ver.Version = "4.3";
+                    }
+                    else
+                    {
+                        ver.Version = String.Format(
+                            "{0}/{1}",
+                            marketing,
+                            @internal);
+                    }
+                    buildCell = row.ChildNodes[3];
+                }
+                else
+                {
+                    ver.Version = row.ChildNodes[0].InnerText.Trim();
+                    buildCell = row.ChildNodes[1];
+                }
+                ver.Build = buildCell.InnerText.Trim();
+                
+                XmlNodeList keyPageUrl = buildCell.SelectNodes(".//@href");
+                if (keyPageUrl.Count == 0)
+                {
+                    // This build doesn't have an IPSW. For now, just add the
+                    //   version to the list, but don't yield a URL. When adding
+                    //   support for betas, this logic will need to be redone.
+                    ver.HasKeys = false;
+                    list.Add(ver);
+                    continue;
+                }
+                else if (keyPageUrl.Count == 1)
+                {
+                    ver.HasKeys = true;
+                    list.Add(ver);
+
+                    string url = keyPageUrl[0].Value;
+                    url = url.Substring(url.IndexOf("/wiki/") + "/wiki/".Length);
+                    yield return url;
+                }
+                else
+                    throw new Exception();
+            }
         }
         private static void SaveKeyPageSource(string page, string title)
         {
