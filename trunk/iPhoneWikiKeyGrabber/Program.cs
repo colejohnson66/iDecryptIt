@@ -26,6 +26,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Xml;
 
@@ -202,10 +203,16 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                 }
                 else if (keyPageUrl.Count == 1)
                 {
+                    string url = keyPageUrl[0].Value;
+                    if (url.Contains("redlink"))
+                    {
+                        ver.HasKeys = false;
+                        list.Add(ver);
+                        continue;
+                    }
+
                     ver.HasKeys = true;
                     list.Add(ver);
-
-                    string url = keyPageUrl[0].Value;
                     url = url.Substring(url.IndexOf("/wiki/") + "/wiki/".Length);
                     yield return url;
                 }
@@ -275,7 +282,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
         }
         private static PlistDict BuildPlist(Dictionary<string, string> data)
         {
-            PlistDict dict = new PlistDict(new Dictionary<string, IPlistElement>());
+            PlistDict dict = new PlistDict();
 
             int length;
             string debug = data["Codename"] + " " + data["Build"] + " (" + data["Device"] + "): ";
@@ -286,12 +293,15 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
             foreach (string key in data.Keys) {
                 switch (key) {
                     case "Version":
-                        if (data[key].Contains("b"))
-                            throw new Exception();
-                        // Remove everything past the "[[Golden Master|GM]]" on GM pages
-                        // Both options work for public firmwares, but the first may not on betas
-                        string temp = data[key].Split('[', 'b')[0];
-                        //string[] temp = data[key].Split(new string[] { " and " }, StringSplitOptions.None)[1];
+                        string temp = data["Version"];
+                        if (temp.Contains("b") || temp.Contains("["))
+                        {
+                            // will need to be updated for beta support
+                            Match match = new Regex(@"^([\d\.]+)[^(]+\(([\d\.]+)").Match(temp);
+                            temp = $"{match.Groups[1].Value} ({match.Groups[2].Value})";
+                            Console.WriteLine(" <<>> \"{0}\" --> \"{1}\"", data[key], temp);
+                            Console.ReadLine();
+                        }
                         dict.Add("Version", new PlistString(temp));
                         break;
 
@@ -304,26 +314,26 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                         break;
 
                     case "RootFS":
-                        elem = new PlistDict(new Dictionary<string, IPlistElement>());
+                        elem = new PlistDict();
                         elem.Add("File Name", new PlistString(data["RootFS"] + ".dmg"));
                         elem.Add("Key", new PlistString(data["RootFSKey"]));
                         length = data["RootFSKey"].Length;
-                        Debug.Assert(length == 72 || length == 4, debug + "data[\"RootFSKey\"].Length (" + length + ") != 72");
+                        Debug.Assert(length == 72 || length == 4, $"{debug}data[\"RootFSKey\"].Length ({length}) != 72)");
                         dict.Add("Root FS", elem);
                         break;
 
-                    case "GMRootFS":
-                        elem = new PlistDict(new Dictionary<string, IPlistElement>());
+                    /*case "GMRootFS":
+                        elem = new PlistDict();
                         elem.Add("File Name", new PlistString(data["GMRootFS"] + ".dmg"));
                         elem.Add("Key", new PlistString(data["GMRootFSKey"]));
                         length = data["GMRootFSKey"].Length;
-                        Debug.Assert(length == 72 || length == 4, debug + "data[\"GMRootFSKey\"].Length (" + length + ") != 72");
+                        Debug.Assert(length == 72 || length == 4, $"{debug}data[\"GMRootFSKey\"].Length ({length}) != 72");
                         dict.Add("GM Root FS", elem);
-                        break;
+                        break;*/
 
                     case "UpdateRamdisk":
                     case "RestoreRamdisk":
-                        elem = new PlistDict(new Dictionary<string, IPlistElement>());
+                        elem = new PlistDict();
                         elem.Add("File Name", new PlistString(data[key] + ".dmg"));
                         if (data[key + "IV"] == "Not Encrypted") {
                             elem.Add("Encryption", new PlistBool(false));
@@ -332,9 +342,9 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                             elem.Add("IV", new PlistString(data[key + "IV"]));
                             elem.Add("Key", new PlistString(data[key + "Key"]));
                             length = data[key + "IV"].Length;
-                            Debug.Assert(length == 32 || length == 4, debug + "data[\"" + key + "IV\"].Length (" + length + ") != 32");
+                            Debug.Assert(length == 32 || length == 4, $"{debug}data[\"{key}IV\"].Length ({length}) != 32");
                             length = data[key + "Key"].Length;
-                            Debug.Assert(length == 32 || length == 64 || length == 4, debug + "data[\"" + key + "Key\"].Length (" + length + ") != (32 || 64)");
+                            Debug.Assert(length == 32 || length == 64 || length == 4, $"{debug}data[\"{key}Key\"].Length ({length}) != (32 || 64)");
                         }
                         dict.Add(key.Replace("Ramdisk", " Ramdisk"), elem);
                         break;
@@ -357,7 +367,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                     case "NeedService":
                     case "RecoveryMode":
                     case "SEP-Firmware":
-                        elem = new PlistDict(new Dictionary<string, IPlistElement>());
+                        elem = new PlistDict();
                         elem.Add("File Name", new PlistString(data[key]));
                         if (data[key + "IV"] == "Not Encrypted") {
                             elem.Add("Encryption", new PlistBool(false));
@@ -366,15 +376,18 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                             elem.Add("IV", new PlistString(data[key + "IV"]));
                             elem.Add("Key", new PlistString(data[key + "Key"]));
                             length = data[key + "IV"].Length;
-                            Debug.Assert(length == 32 || length == 4, debug + "data[\"" + key + "IV\"].Length (" + length + ") != 32");
+                            Debug.Assert(length == 32 || length == 4, $"{debug}data[\"{key}IV\"].Length ({length}) != 32");
                             length = data[key + "Key"].Length;
-                            Debug.Assert(length == 32 || length == 64 || length == 4, debug + "data[\"" + key + "Key\"].Length (" + length + ") != (32 || 64)");
+                            Debug.Assert(length == 32 || length == 64 || length == 4, $"{debug}data[\"{key}Key\"].Length ({length}) != (32 || 64)");
                         }
                         dict.Add(key, elem);
                         break;
 
-                    default:
-                        Debug.Assert(key.EndsWith("IV") || key.EndsWith("Key") || key.EndsWith("KBAG"), "Unknown key: " + key);
+                   default:
+                        // Ignore GM keys for now
+                        if (key.StartsWith("GM"))
+                            break;
+                        Debug.Assert(key.EndsWith("IV") || key.EndsWith("Key") || key.EndsWith("KBAG"), $"Unknown key: {key}");
                         break;
                 }
             }
