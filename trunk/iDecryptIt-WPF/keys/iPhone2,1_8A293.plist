@@ -21,13 +21,6 @@
 			<key>Key</key>
 			<string>5d79765bc3233cbee58727c17a9487e5dc1e38400c2a98c30997bb02d00e97ae3ce5fab8</string>
 		</dict>
-		<key>GM Root FS</key>
-		<dict>
-			<key>File Name</key>
-			<string>018-7319-141.dmg</string>
-			<key>Key</key>
-			<string>9f5df1142f09cf9cb38e08af4f7f56e3d9e748a86ab7e7e556d8f1ff029e5a9a83b35211</string>
-		</dict>
 		<key>Update Ramdisk</key>
 		<dict>
 			<key>File Name</key>
