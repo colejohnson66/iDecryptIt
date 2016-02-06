@@ -2,7 +2,7 @@
  * File:   PlistDict.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2012, 2014-2015 Cole Johnson
+ * Copyright (c) 2012, 2014-2016 Cole Johnson
  * 
  * This file is part of Hexware.Plist
  * 
@@ -30,6 +30,10 @@ namespace Hexware.Plist
     {
         internal Dictionary<string, IPlistElement> _value;
 
+        public PlistDict()
+        {
+            _value = new Dictionary<string, IPlistElement>();
+        }
         public PlistDict(Dictionary<string, IPlistElement> value)
         {
             if (value == null)
