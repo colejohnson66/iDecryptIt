@@ -26,8 +26,9 @@ namespace Hexware.Plist
 {
     internal class BinaryPlistWriter : BinaryWriter
     {
-        internal int objectCount;
-        internal int[] objectOffsets;
+        // SHUT UP COMPILER
+        //internal int objectCount;
+        //internal int[] objectOffsets;
 
         internal void WriteTypedInteger(long value)
         {
