@@ -2,7 +2,7 @@
  * File:   KeySelectionLists.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2014-2015 Cole Johnson
+ * Copyright (c) 2014-2016 Cole Johnson
  * 
  * This file is part of iDecryptIt
  * 
@@ -1168,6 +1168,7 @@ namespace Hexware.Programs.iDecryptIt
             AppleTV21 = new List<ComboBoxEntry>();
             AppleTV21.Add(new ComboBoxEntry("8M89", "4.0/4.1 (8M89)"));
             AppleTV21.Add(new ComboBoxEntry("8C150", "4.1/4.2 (8C150)"));
+			AppleTV21.Add(new ComboBoxEntry("8C152", "4.1.1/4.2.1 (8C152)"));
             AppleTV21.Add(new ComboBoxEntry("8C154", "4.1.1/4.2.1 (8C154)"));
             AppleTV21.Add(new ComboBoxEntry("8F191m", "4.2/4.3 (8F191m)"));
             AppleTV21.Add(new ComboBoxEntry("8F202", "4.2.1/4.3 (8F202)"));
