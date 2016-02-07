@@ -42,9 +42,9 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
     {
         static WebClient client = new WebClient();
         static List<string> pages = new List<string>();
-        static string keyDir = Path.Combine(Directory.GetCurrentDirectory(), "keys");
-        static string plutil = "C:\\Program Files (x86)\\Common Files\\Apple\\Apple Application Support\\plutil.exe";
-        static bool plutilExists;
+        static string curDir = Directory.GetCurrentDirectory();
+        static string keyDir = Path.Combine(curDir, "keys");
+        static string plutil = "C:\\Program Files\\Common Files\\Apple\\Apple Application Support\\plutil.exe";
         static bool makeBinaryPlists = false;
         static Dictionary<string, List<FirmwareVersion>> versionsList = new Dictionary<string, List<FirmwareVersion>>();
 
@@ -61,9 +61,11 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 #endif
 
             if (makeBinaryPlists) {
-                plutilExists = File.Exists(plutil);
-                if (!plutilExists)
+                if (!File.Exists(plutil))
+                {
+                    makeBinaryPlists = false;
                     Console.WriteLine("WARNING: plutil not found! Binary plists will NOT be generated.");
+                }
             }
             
             IEnumerable<string> pages = GetKeyPages("Firmware");
@@ -263,7 +265,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
             PlistDocument doc = new PlistDocument(BuildPlist(data));
             doc.Save(filename, PlistDocumentType.Xml);
 
-            if (plutilExists) {
+            if (makeBinaryPlists) {
                 Process proc = new Process();
                 proc.StartInfo.FileName = plutil;
                 proc.StartInfo.Arguments = "-convert binary1 \"" + filename + "\"";
