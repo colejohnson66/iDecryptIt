@@ -72,11 +72,30 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
             foreach (string title in pages)
             {
                 Console.WriteLine(title);
-                // TODO: Maybe make this go faster by using client.DownloadStringAsync
                 // TODO: Parse the page using XPath (action=render) [id tags]
                 ParseAndSaveKeyPage(client.DownloadString(
                     "http://theiphonewiki.com/w/index.php?title=" + title + "&action=raw"));
             }
+
+            // Build version listing
+            PlistDict plistRoot = new PlistDict();
+            foreach (var deviceList in versionsList)
+            {
+                List<FirmwareVersion> versions = deviceList.Value;
+                PlistArray deviceArr = new PlistArray(new IPlistElement[versions.Count]);
+                for (int i = 0; i < versions.Count; i++)
+                {
+                    FirmwareVersion ver = versions[i];
+                    PlistDict versionDict = new PlistDict();
+                    versionDict.Add("Build", new PlistString(ver.Build));
+                    versionDict.Add("Version", new PlistString(ver.Version));
+                    versionDict.Add("Has Keys", new PlistBool(ver.HasKeys));
+                    deviceArr.Set(i, versionDict);
+                }
+                plistRoot.Add(deviceList.Key, deviceArr);
+            }
+            PlistDocument versionDoc = new PlistDocument(plistRoot);
+            versionDoc.Save(Path.Combine(curDir, "KeyList.plist"), PlistDocumentType.Xml);
         }
 
         private static IEnumerable<string> GetKeyPages(string page)
@@ -296,7 +315,6 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                             Match match = new Regex(@"^([\d\.]+)[^(]+\(([\d\.]+)").Match(temp);
                             temp = $"{match.Groups[1].Value} ({match.Groups[2].Value})";
                             Console.WriteLine(" <<>> \"{0}\" --> \"{1}\"", data[key], temp);
-                            Console.ReadLine();
                         }
                         dict.Add("Version", new PlistString(temp));
                         break;
