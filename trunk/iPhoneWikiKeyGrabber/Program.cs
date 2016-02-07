@@ -76,8 +76,6 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                 // TODO: Parse the page using XPath (action=render) [id tags]
                 ParseAndSaveKeyPage(client.DownloadString(
                     "http://theiphonewiki.com/w/index.php?title=" + title + "&action=raw"));
-                //SaveKeyPageSource(client.DownloadString(
-                //    "http://theiphonewiki.com/w/index.php?title=" + title + "&action=raw"), title);
             }
         }
 
@@ -219,14 +217,10 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                     yield return url;
                 }
                 else
+                {
                     throw new Exception();
+                }
             }
-        }
-        private static void SaveKeyPageSource(string page, string title)
-        {
-            StreamWriter writer = new StreamWriter(Path.Combine(keyDir, title + ".txt"), false, System.Text.Encoding.UTF8);
-            writer.Write(page);
-            writer.Close();
         }
         private static void ParseAndSaveKeyPage(string contents)
         {
@@ -268,7 +262,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
             if (makeBinaryPlists) {
                 Process proc = new Process();
                 proc.StartInfo.FileName = plutil;
-                proc.StartInfo.Arguments = "-convert binary1 \"" + filename + "\"";
+                proc.StartInfo.Arguments = $"-convert binary1 \"{filename}\"";
                 proc.StartInfo.UseShellExecute = false;
                 proc.StartInfo.RedirectStandardOutput = true;
                 proc.StartInfo.RedirectStandardError = true;
