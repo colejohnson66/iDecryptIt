@@ -50,9 +50,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>6cf064ea36d7eb3ad6645e6ee5abbb76</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>cc30982ca657eb22a4f4d71c48f176d02845eb2e08054a744c19bbe1ed571693</string>
 		</dict>
 		<key>BatteryCharging0</key>
 		<dict>
@@ -72,9 +72,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>6fbd792d7dc5ddec67d4bbb4ef0a993d</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>8f345494e1a2c42ad9edcdf9f2d3fec0d6a2a9b60eb73a6e3475b238308faec9</string>
 		</dict>
 		<key>BatteryFull</key>
 		<dict>
@@ -83,9 +83,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>44624265596c4652eb610ab1cfde7049</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>355caf5c839bf737dd470982b10f0de0fac403127387b7631076f61fd5399f58</string>
 		</dict>
 		<key>BatteryLow0</key>
 		<dict>
@@ -116,9 +116,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>3d80353176873ef4d0bc15b275bd1516</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>1d075ccde505179ccf09b03eab294333c7c3d4c28da1589a5ef5be3581901719</string>
 		</dict>
 		<key>GlyphPlugin</key>
 		<dict>
@@ -127,9 +127,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>b3ef1c40b177abd5af1ada90b7a7e859</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>2c3f9ad4bdc88d828f9498ff64b108b2f810fd8ce08c5a50f8605a15e792a80e</string>
 		</dict>
 		<key>iBEC</key>
 		<dict>
@@ -138,9 +138,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>e5745ff00ccdf531ff327d183fe8a8b8</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>c5d69597699c741248d4b8ecc7f351737d8241156d4016b31d91cea8a437870c</string>
 		</dict>
 		<key>iBoot</key>
 		<dict>
@@ -160,9 +160,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>08b52929345f7ac106f78ea5cd5243e5</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>e0667c57b6a106457d2a34b9a163b81794a41c520e937c7a803cf14c2e30195e</string>
 		</dict>
 		<key>Kernelcache</key>
 		<dict>

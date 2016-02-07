@@ -26,9 +26,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>749671a0054f49e0efc43131d779a216</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>b89d56c9d5214c60c3b5c4793f2dc4e63e324a673615b6ce347cd1dc6a24645c</string>
 		</dict>
 		<key>Restore Ramdisk</key>
 		<dict>
@@ -191,9 +191,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>2a3763eaa503c5a101fbd3c6f0aa086a</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>2abd57b480c1533eb27b2bfd2521b43c1df424821ca2836218c3d3e08bd5efe4</string>
 		</dict>
 	</dict>
 </plist>

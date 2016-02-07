@@ -48,9 +48,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>adf49517c9d99ba14466e24628cf68db</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>54db70d5cd7dc3c3dc5acbe408a91f0faf7061a9ef6b070da2cb1feb2e7bb04b</string>
 		</dict>
 		<key>BatteryCharging0</key>
 		<dict>
@@ -81,9 +81,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>0185f5b35c8b645266da4f72b6fe2422</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>138cd15af103a91287306a208dd3cd65248fa5569da8185b1df7422293952a3b</string>
 		</dict>
 		<key>BatteryLow0</key>
 		<dict>
@@ -92,9 +92,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>a585f7d8cf99faaeeb468d0c6ac38692</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>504215ae8cc5e8085d4389013719fac83c052d90ab0a5ddc85379de3b24147c1</string>
 		</dict>
 		<key>BatteryLow1</key>
 		<dict>

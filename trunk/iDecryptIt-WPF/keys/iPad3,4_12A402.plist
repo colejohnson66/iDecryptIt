@@ -59,9 +59,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>e769af6e7c7177b24a14d84e8648b830</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>a7ad76e2c12e5d065a113558b2cea2812777d84142c57653782b116cba99f50f</string>
 		</dict>
 		<key>BatteryCharging1</key>
 		<dict>
@@ -114,9 +114,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>db5d7a6878f89b2b01acf72f8cc40648</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>06424516ed790a1e422b3fee66db7cbed65c5ed4d48052fe0619041e15c649f6</string>
 		</dict>
 		<key>GlyphPlugin</key>
 		<dict>

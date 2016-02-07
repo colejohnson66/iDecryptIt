@@ -50,9 +50,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>492fbdf0d692d6f37fd86203c8119ae1</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>44594e849eedf1832a566fbbafe6d16594733754bdb83e7ea5b3acac8f07682a</string>
 		</dict>
 		<key>BatteryCharging0</key>
 		<dict>
@@ -138,9 +138,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>02e210da3d25922a39afe98ef10c88e2</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>d9d9262b7cbf3b02e0ff4bc5d85f19a2e8b7fc79026179bf8afdcc99c481b66d</string>
 		</dict>
 		<key>iBoot</key>
 		<dict>

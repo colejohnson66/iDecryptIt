@@ -37,9 +37,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>ce64c091f69bd2ef03348bd782e1abfa</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>ed82e44926f636cc0502bf97776b4622ddfd67f2614e39366da5aa7a8a7fc38c</string>
 		</dict>
 		<key>AppleLogo</key>
 		<dict>
@@ -81,9 +81,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>ad5b9876a21f5044583129cd4f018e8f</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>dfd5694b8761850c7301854ed48f78cdce4878319e88733144ba0c4b0446a3bd</string>
 		</dict>
 		<key>BatteryLow0</key>
 		<dict>
@@ -114,9 +114,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>3bd598d8fedefa8dfb493d6556b0a69e</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>416fdcec85badfd75068d8b13cef31615db85d6a46cd4f593685fb21c540ec49</string>
 		</dict>
 		<key>GlyphPlugin</key>
 		<dict>

@@ -70,9 +70,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>37992a7b5007e2b2f84ee03d85e5bdd9</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>514fe8129a7fbf7cecef47479bf9e33b7d7525f62facba22cceda2803490a31d</string>
 		</dict>
 		<key>BatteryFull</key>
 		<dict>
@@ -147,9 +147,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>ed9013a659fb651694c16be4b0d8ea44</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>0b45b97036ec0da00da15d67e9866bd7a24c45339821d2c4372dc66b0df21f28</string>
 		</dict>
 		<key>iBoot</key>
 		<dict>
@@ -158,9 +158,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>eff06f9054dcc31185219b24061eeb5f</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>b84e82e652475bf264355e55cd9d773b63ac77e8905bb1fbcbbf61f6f39c6850</string>
 		</dict>
 		<key>iBSS</key>
 		<dict>
@@ -202,9 +202,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>f854581ed9130e36317e26c673765558</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>459daa2b7e4fcdd8ed60a7a29524a0d10e24464029575bb7b9539f70a4fde05a</string>
 		</dict>
 	</dict>
 </plist>
