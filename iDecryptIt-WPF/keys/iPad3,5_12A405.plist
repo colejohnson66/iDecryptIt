@@ -94,9 +94,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>488dedb86c46252498f189d6e88b0fc3</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>62d108846d61975a4a4075fd30319bb794e5b82dbf34f45ab84036ee1a0d1118</string>
 		</dict>
 		<key>BatteryLow1</key>
 		<dict>

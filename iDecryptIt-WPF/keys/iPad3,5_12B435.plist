@@ -39,9 +39,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>528e6f785cd968e1ef5a294f74bb60aa</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>e5eaae10c643bc0ad9348ffbfb32ea0846f584d6cc404fb8a716bf88c3dfd949</string>
 		</dict>
 		<key>AppleLogo</key>
 		<dict>
@@ -72,9 +72,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>8121207ab6d06e9b91af63c32720431b</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>515b825029eefda55af91547079bcbe4cebded41059410e8c38540915cc98628</string>
 		</dict>
 		<key>BatteryFull</key>
 		<dict>
@@ -83,9 +83,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>8ffb924e0a0505b027fba3438cf71ceb</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>edb1716b65a460d6e57f3c8b5a7c4430e9e5373f15a85089eb55cc113a892f5a</string>
 		</dict>
 		<key>BatteryLow0</key>
 		<dict>
@@ -105,9 +105,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>f485735595af4fa8a4cb3258efedd213</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>5724bfe9535f4862f97d8290dad4c2cce37efdce2225760946eb3c73b9ce63d3</string>
 		</dict>
 		<key>DeviceTree</key>
 		<dict>

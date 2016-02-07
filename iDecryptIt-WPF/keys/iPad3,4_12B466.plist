@@ -26,9 +26,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>81fdb441b0a0e4344c5363e5233964a4</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>48f1ae9a898b7f1f1815816019196364a6fc1d78996319079d9e7b5c0cefd0b8</string>
 		</dict>
 		<key>Restore Ramdisk</key>
 		<dict>
@@ -59,9 +59,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>37629c955d503709d2801bf18610b7cc</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>3152cc34d8ed579833e0a419a8cbf3bc6e561b6fc2ae914ad2dcc4f89fab0c72</string>
 		</dict>
 		<key>BatteryCharging1</key>
 		<dict>
@@ -70,9 +70,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>46ea602d35dfa864f4729bb80caabc8e</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>5731d911ca3362090b189a384d65cedb7c4681cd0d7e99162669be92be9b88a0</string>
 		</dict>
 		<key>BatteryFull</key>
 		<dict>
@@ -103,9 +103,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>92fa778da67fc0f44ef7eeeef5061b1c</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>6d41349771d6b1a6aafcd92eb031b55d2b9969b8638a099334a74bcda36670b4</string>
 		</dict>
 		<key>DeviceTree</key>
 		<dict>

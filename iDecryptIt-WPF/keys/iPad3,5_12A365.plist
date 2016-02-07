@@ -39,9 +39,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>0391765fe20028689983ed2085e6345d</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>cdd26b53af346b275fb5028c59f328a15bab264e82ec6d466103afd4cdb6bbbd</string>
 		</dict>
 		<key>AppleLogo</key>
 		<dict>
@@ -72,9 +72,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>280988fca145e970ef39ca844156fa94</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>ff94c8dfe2c42c643c0c5152e304bbf562ea7dcfd9718d22658fdc0cb6fced83</string>
 		</dict>
 		<key>BatteryFull</key>
 		<dict>
@@ -105,9 +105,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>f8edb1591d5e8ee1913a0a5c12483d4b</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>2c683392224c0e605dae54734fcf07a21171d3773b068d685fd73862ea039b83</string>
 		</dict>
 		<key>DeviceTree</key>
 		<dict>
@@ -116,9 +116,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>8f0acddecdd7a71c34650fe6a37a6013</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>eab4a85331b1af1c81144110e8e7fd87484f12fee101b60dd13b5f1e6ed03d2e</string>
 		</dict>
 		<key>GlyphPlugin</key>
 		<dict>
@@ -138,9 +138,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>6812625010fb43049710f3908f521b9a</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>8c1bf7505501543663e790add06b8240e6300ca50c6a97b9ee3b3bd399a815ab</string>
 		</dict>
 		<key>iBoot</key>
 		<dict>
@@ -160,9 +160,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>197b5f34b45131bb7d70dd7d6d024672</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>cf5b10675b7dd566b36c03f7079bdffcb5742b0426d5523e4090b26295ca7a7c</string>
 		</dict>
 		<key>Kernelcache</key>
 		<dict>
@@ -193,9 +193,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>76bfa222efbc434ff7cfc0118673c6e5</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>ee11625302698634f638c1b162823928b6465802d0721c6f9c7605a70a498bbe</string>
 		</dict>
 	</dict>
 </plist>

@@ -17,7 +17,7 @@
 			<key>File Name</key>
 			<string>058-1064-002.dmg</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>2bb31789423ca87068a8d549e6d89034898201eabb380ad48672923e041381ea605e2b10</string>
 		</dict>
 		<key>Update Ramdisk</key>
 		<dict>
@@ -26,9 +26,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>fa6f6d02340bcd1acf92b182bf81b488</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>f74d0339a16f5dba0c3bafc9b356c6380093f2824f50508008c8c39284af22d3</string>
 		</dict>
 		<key>Restore Ramdisk</key>
 		<dict>
@@ -37,9 +37,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>25fb4d957ab5c9537e107846b3d71698</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>bb3ea38d52f4991e63ad9eb00021858e831c6f7a718396375ab9d60e5b599041</string>
 		</dict>
 		<key>AppleLogo</key>
 		<dict>
@@ -59,9 +59,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>fdc0da1f9421c6f58979ce1b4ea8bf5e</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>3a6354293a2ee8d7eb70c4aea1b6c28a71c689607427039275b0d4fd73c6db57</string>
 		</dict>
 		<key>BatteryCharging1</key>
 		<dict>
@@ -81,9 +81,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>e72db0ea9c252b9e0b76d56cc0c348e9</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>142254dec4adef5d933c4e15acbf52376f875817f8aa656357078f2c78e201dc</string>
 		</dict>
 		<key>BatteryLow0</key>
 		<dict>
@@ -92,9 +92,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>10b3ceee30b662458c5f25e1e47059d3</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>68907d98193c261091b3dbc2283e538d12a90918a7f50b9b15766b126aa018de</string>
 		</dict>
 		<key>BatteryLow1</key>
 		<dict>
@@ -147,9 +147,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>cf0143fa07432f6b1f73838530b69293</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>612052f9a81dff7f625e15011780d49dcab909f25cfa036be668b97a1901d79e</string>
 		</dict>
 		<key>iBSS</key>
 		<dict>
@@ -158,9 +158,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>5f300dbf95d62baf553331b330ac7287</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>031c494031c8103968f4e0727375e3d91b4a3b7763ad537260c424c79f6a9474</string>
 		</dict>
 		<key>Kernelcache</key>
 		<dict>
@@ -169,9 +169,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>6ab80404eb5357fc307764275cfc9a8a</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>aa61c975b582ebebbfd37ff303356c91d474cc0957326dc4e2ddd8540f085b87</string>
 		</dict>
 		<key>LLB</key>
 		<dict>
