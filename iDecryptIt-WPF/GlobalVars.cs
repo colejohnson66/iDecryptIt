@@ -143,10 +143,8 @@ namespace Hexware.Programs.iDecryptIt
             } catch (Exception) {
                 return DateTime.MinValue;
             } finally {
-                if (s != null) {
-                    s.Close();
+                if (s != null)
                     s.Dispose();
-                }
             }
 
             int i = BitConverter.ToInt32(b, c_PeHeaderOffset);
