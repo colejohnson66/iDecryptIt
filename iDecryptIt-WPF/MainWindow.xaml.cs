@@ -61,7 +61,7 @@ namespace Hexware.Programs.iDecryptIt
 
         public MainWindow()
         {
-            if (!GlobalVars.Debug)
+            if (!Globals.Debug)
                 NativeMethods.FreeConsole();
 
             DevicesViewModel = new KeySelectionViewModel();
@@ -81,7 +81,7 @@ namespace Hexware.Programs.iDecryptIt
 
         internal static void Debug(string component, string message)
         {
-            if (!GlobalVars.Debug)
+            if (!Globals.Debug)
                 return;
 
             Console.WriteLine("{0} {1}", component.PadRight(12), message);
@@ -177,8 +177,8 @@ namespace Hexware.Programs.iDecryptIt
             StreamWriter stream = new StreamWriter(fullPath, true, Encoding.UTF8);
             Debug("[ERRLOG]", "Saving log.");
 
-            stream.WriteLine("iDecryptIt " + GlobalVars.Version + GlobalVars.Version64);
-            stream.WriteLine("Compile time: " + GlobalVars.CompileTimestamp.ToString() + " UTC");
+            stream.WriteLine("iDecryptIt " + Globals.Version + Globals.Version64);
+            stream.WriteLine("Compile time: " + Globals.CompileTimestamp.ToString() + " UTC");
             stream.WriteLine("Log time: " + DateTime.UtcNow + " UTC");
             stream.WriteLine("Execution string: " + Environment.CommandLine);
             WriteSystemConfigToStream(stream);
@@ -314,7 +314,7 @@ namespace Hexware.Programs.iDecryptIt
             Debug("[GETSTREAM]", "Attempting read of stored resource, \"" + resourceName + "\".");
             try
             {
-                return GlobalVars.GetStream(resourceName);
+                return Globals.GetStream(resourceName);
             } catch (Exception ex) {
                 Error("Unable to retrieve keys.", ex);
             }
@@ -337,7 +337,7 @@ namespace Hexware.Programs.iDecryptIt
             string version = plist.Get<PlistString>("Version").Value;
             string build = plist.Get<PlistString>("Build").Value;
 
-            txtDevice.Text = GlobalVars.DeviceNames[device];
+            txtDevice.Text = Globals.DeviceNames[device];
             txtVersion.Text = version + " (Build " + build + ")";
             //if (goldMaster)
             //    txtVersion.Text = txtVersion.Text + " [GM]";
@@ -496,12 +496,12 @@ namespace Hexware.Programs.iDecryptIt
         }
         private void decryptProc_OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
-            if (GlobalVars.Debug)
+            if (Globals.Debug)
                 Console.WriteLine(e.Data);
         }
         private void decryptProc_ErrorDataReceived(object sender, DataReceivedEventArgs e)
         {
-            if (GlobalVars.Debug)
+            if (Globals.Debug)
                 Console.WriteLine(e.Data);
         }
         private void decryptWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -641,7 +641,7 @@ namespace Hexware.Programs.iDecryptIt
             }
 
             string device;
-            if (!GlobalVars.DeviceNames.TryGetValue(strArr[0], out device)) {
+            if (!Globals.DeviceNames.TryGetValue(strArr[0], out device)) {
                 MessageBox.Show(
                     "The supplied device: '" + strArr[0] + "' does not follow the format:\r\n" +
                         "\t{iPad/iPhone/iPad/AppleTV}{#},{#} " +
@@ -834,8 +834,8 @@ namespace Hexware.Programs.iDecryptIt
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            if (GlobalVars.ExecutionArgs.ContainsKey("dmg")) {
-                string fileName = GlobalVars.ExecutionArgs["dmg"];
+            if (Globals.ExecutionArgs.ContainsKey("dmg")) {
+                string fileName = Globals.ExecutionArgs["dmg"];
                 Debug("[INIT]", "File argument supplied: \"" + fileName + "\".");
                 textInputFileName.Text = fileName;
             }
@@ -857,7 +857,7 @@ namespace Hexware.Programs.iDecryptIt
         private void updateChecker_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
         {
             if (e.Result != null) {
-                Debug("[UPDATE]", "Installed version: " + GlobalVars.Version);
+                Debug("[UPDATE]", "Installed version: " + Globals.Version);
                 Debug("[UPDATE]", "Latest version: " + e.Result);
 
 #if !DEBUG

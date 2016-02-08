@@ -257,7 +257,7 @@ namespace Hexware.Programs.iDecryptIt
         private static void InitDevices()
         {
             PlistDocument keyList = new PlistDocument(
-                GlobalVars.GetStream("KeyList.plist"));
+                Globals.GetStream("KeyList.plist"));
             PlistDict rootNode = (PlistDict)keyList.RootNode;
 
             // Apple TV
