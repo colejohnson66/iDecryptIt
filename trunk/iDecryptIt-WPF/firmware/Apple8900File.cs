@@ -109,13 +109,14 @@ namespace Hexware.Programs.iDecryptIt.Firmware
                 aes.Mode = CipherMode.CBC;
                 aes.IV = new byte[16];
                 aes.Key = Key0x837;
-                try {
-                    using (MemoryStream ms = new MemoryStream()) {
-                        using (CryptoStream cs = new CryptoStream(ms, aes.CreateDecryptor(), CryptoStreamMode.Write)) {
-                            cs.Write(payload, 0, payload.Length);
-                            byte[] buf = ms.ToArray();
-                            payload = buf;
-                        }
+                try
+                {
+                    MemoryStream ms = new MemoryStream();
+                    using (CryptoStream cs = new CryptoStream(ms, aes.CreateDecryptor(), CryptoStreamMode.Write))
+                    {
+                        cs.Write(payload, 0, payload.Length);
+                        byte[] buf = ms.ToArray();
+                        payload = buf;
                     }
                 }
                 catch (CryptographicException)
