@@ -111,6 +111,10 @@ namespace Hexware.Programs.iDecryptIt
 
             Version64 = (Environment.Is64BitProcess) ? " x64" : "";
 
+#if DEBUG
+            Debug = true;
+#endif
+
             CompileTimestamp = GetLinkerTimestampUTC(thisAssembly);
         }
 
