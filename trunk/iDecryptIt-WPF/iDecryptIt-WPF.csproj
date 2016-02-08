@@ -151,7 +151,7 @@
     <Compile Include="ComboBoxEntry.cs" />
     <Compile Include="firmware\Apple8900File.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="GlobalVars.cs" />
+    <Compile Include="Globals.cs" />
     <Compile Include="KeyGridItem.cs" />
     <Compile Include="KeySelectionLists.cs" />
     <Compile Include="KeySelectionViewModel.cs" />

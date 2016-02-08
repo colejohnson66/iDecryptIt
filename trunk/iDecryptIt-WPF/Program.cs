@@ -35,20 +35,20 @@ namespace Hexware.Programs.iDecryptIt
             //byte[] payload = file.GetPayload();
             //System.IO.File.WriteAllBytes(@"C:\iPod1,1_1.1.5_4B1_Restore\applelogo.dec.img2", payload);
 
-            GlobalVars.Init();
-            Console.WriteLine("iDecryptIt " + GlobalVars.Version + GlobalVars.Version64);
+            Globals.Init();
+            Console.WriteLine("iDecryptIt " + Globals.Version + Globals.Version64);
             
             for (int i = 0; i < args.Length; i++) {
                 if (args[i] == "/d" || args[i] == "/debug") {
-                    GlobalVars.Debug = true;
+                    Globals.Debug = true;
                 } else if (args[i] == "/v" || args[i] == "/version") {
                     PrintLicense();
                     return;
                 } else if (args[i].Length > 4 && args[i].Substring(args[i].Length - 4) == ".dmg") {
-                    if (GlobalVars.ExecutionArgs.ContainsKey("dmg"))
-                        GlobalVars.ExecutionArgs["dmg"] = args[i];
+                    if (Globals.ExecutionArgs.ContainsKey("dmg"))
+                        Globals.ExecutionArgs["dmg"] = args[i];
                     else
-                        GlobalVars.ExecutionArgs.Add("dmg", args[i]);
+                        Globals.ExecutionArgs.Add("dmg", args[i]);
                 }
             }
 

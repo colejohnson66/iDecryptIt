@@ -1,8 +1,8 @@
 ﻿/* =============================================================================
- * File:   GlobalVars.cs
+ * File:   Globals.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2012-2015 Cole Johnson
+ * Copyright (c) 2012-2016 Cole Johnson
  * 
  * This file is part of iDecryptIt
  * 
@@ -27,7 +27,7 @@ using System.Reflection;
 
 namespace Hexware.Programs.iDecryptIt
 {
-    internal static class GlobalVars
+    internal static class Globals
     {
         internal static string Version;
         internal static string Version64;
@@ -114,18 +114,14 @@ namespace Hexware.Programs.iDecryptIt
             CompileTimestamp = GetLinkerTimestampUTC(thisAssembly);
         }
 
-        public static Stream GetStream(string resourceName)
+        internal static Stream GetStream(string resourceName)
         {
             Assembly assy = Assembly.GetExecutingAssembly();
             string[] resources = assy.GetManifestResourceNames();
-            int length = resources.Length;
-            for (int i = 0; i < length; i++)
+            for (int i = 0; i < resources.Length; i++)
             {
                 if (resources[i].ToLower().Contains(resourceName.ToLower()))
-                {
-                    // resource found
                     return assy.GetManifestResourceStream(resources[i]);
-                }
             }
             return Stream.Null;
         }
