@@ -67,6 +67,8 @@ namespace Hexware.Programs.iDecryptIt
             { "iPad5,2", "iPad mini 4 (Cellular)" },
             { "iPad5,3", "iPad Air 2 (Wi-Fi)" },
             { "iPad5,4", "iPad Air 2 (Cellular)" },
+            { "iPad6,7", "iPad Pro (Wi-Fi)" },
+            { "iPad6,8", "iPad Pro (Cellular)" },
             { "iPhone1,1", "iPhone 2G" },
             { "iPhone1,2", "iPhone 3G" },
             { "iPhone2,1", "iPhone 3GS" },
@@ -110,6 +112,22 @@ namespace Hexware.Programs.iDecryptIt
             Version64 = (Environment.Is64BitProcess) ? " x64" : "";
 
             CompileTimestamp = GetLinkerTimestampUTC(thisAssembly);
+        }
+
+        public static Stream GetStream(string resourceName)
+        {
+            Assembly assy = Assembly.GetExecutingAssembly();
+            string[] resources = assy.GetManifestResourceNames();
+            int length = resources.Length;
+            for (int i = 0; i < length; i++)
+            {
+                if (resources[i].ToLower().Contains(resourceName.ToLower()))
+                {
+                    // resource found
+                    return assy.GetManifestResourceStream(resources[i]);
+                }
+            }
+            return Stream.Null;
         }
 
         private static DateTime GetLinkerTimestampUTC(Assembly assembly)

@@ -18,6 +18,14 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <ApplicationIcon>icon.ico</ApplicationIcon>
     <StartupObject>Hexware.Programs.iDecryptIt.Program</StartupObject>
+    <PrimaryVersionType>AssemblyVersionAttribute</PrimaryVersionType>
+    <AssemblyInfoFilePath>Properties\AssemblyInfo.cs</AssemblyInfoFilePath>
+    <UpdateAssemblyVersion>True</UpdateAssemblyVersion>
+    <UpdateAssemblyFileVersion>True</UpdateAssemblyFileVersion>
+    <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
+    <AssemblyVersionSettings>None.None.None.Increment</AssemblyVersionSettings>
+    <AssemblyFileVersionSettings>None.None.None.Increment</AssemblyFileVersionSettings>
+    <AssemblyVersion>9.02.0.1604</AssemblyVersion>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -28,18 +36,10 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>1567</ApplicationRevision>
-    <ApplicationVersion>9.00.0.1567</ApplicationVersion>
+    <ApplicationRevision>1632</ApplicationRevision>
+    <ApplicationVersion>9.21.0.1632</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <PrimaryVersionType>AssemblyVersionAttribute</PrimaryVersionType>
-    <AssemblyInfoFilePath>Properties\AssemblyInfo.cs</AssemblyInfoFilePath>
-    <UpdateAssemblyVersion>True</UpdateAssemblyVersion>
-    <UpdateAssemblyFileVersion>True</UpdateAssemblyFileVersion>
-    <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
-    <AssemblyVersionSettings>None.None.None.Increment</AssemblyVersionSettings>
-    <AssemblyFileVersionSettings>None.None.None.Increment</AssemblyFileVersionSettings>
-    <AssemblyVersion>9.02.0.1604</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -100,7 +100,7 @@
     <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>Hexware.pfx</AssemblyOriginatorKeyFile>
@@ -173,6 +173,7 @@
     <None Include="app.config" />
     <AppDesigner Include="Properties\" />
     <None Include="Hexware.pfx" />
+    <EmbeddedResource Include="keys\KeyList.plist" />
     <None Include="LICENSE">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -203,13 +204,6 @@
     <Resource Include="img\icon%4032.png" />
     <Resource Include="img\icon%4048.png" />
     <Resource Include="img\logviewer%4032.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Hexware.Plist\Hexware.Plist.csproj">
-      <Project>{c7d0639f-8a98-441b-b1a6-420df6122573}</Project>
-      <Name>Hexware.Plist</Name>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="keys\AppleTV2,1_8C150.plist" />
@@ -748,6 +742,12 @@
     <EmbeddedResource Include="keys\iPod4,1_10B329.plist" />
     <EmbeddedResource Include="keys\iPod4,1_10B400.plist" />
     <EmbeddedResource Include="keys\iPod4,1_10B500.plist" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Hexware.Plist\Hexware.Plist.csproj">
+      <Project>{c7d0639f-8a98-441b-b1a6-420df6122573}</Project>
+      <Name>Hexware.Plist</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

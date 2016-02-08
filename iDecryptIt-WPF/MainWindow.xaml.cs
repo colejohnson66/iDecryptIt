@@ -2,7 +2,7 @@
  * File:   MainWindow.xaml.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2010-2015 Cole Johnson
+ * Copyright (c) 2010-2016 Cole Johnson
  * 
  * This file is part of iDecryptIt
  * 
@@ -297,7 +297,7 @@ namespace Hexware.Programs.iDecryptIt
                 return;
             }
 
-            Stream stream = GetStream(selectedModel.Replace(",", "") + "_" + selectedVersion + ".plist");
+            Stream stream = GetStream(selectedModel + "_" + selectedVersion + ".plist");
             if (stream == Stream.Null) {
                 Debug("[KEYSELECT]", "Key file doesn't exist. No keys available.");
                 MessageBox.Show(
@@ -312,16 +312,9 @@ namespace Hexware.Programs.iDecryptIt
         internal Stream GetStream(string resourceName)
         {
             Debug("[GETSTREAM]", "Attempting read of stored resource, \"" + resourceName + "\".");
-            try {
-                Assembly assy = Assembly.GetExecutingAssembly();
-                string[] resources = assy.GetManifestResourceNames();
-                int length = resources.Length;
-                for (int i = 0; i < length; i++) {
-                    if (resources[i].ToLower().Contains(resourceName.ToLower())) {
-                        // resource found
-                        return assy.GetManifestResourceStream(resources[i]);
-                    }
-                }
+            try
+            {
+                return GlobalVars.GetStream(resourceName);
             } catch (Exception ex) {
                 Error("Unable to retrieve keys.", ex);
             }
