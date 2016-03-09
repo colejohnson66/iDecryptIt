@@ -79,6 +79,12 @@ namespace Hexware.Programs.iDecryptIt
             InitKeyGridDictionary();
         }
 
+        private void Dispatcher_UnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        {
+            FatalError("An unknown error has occured.", e.Exception);
+            Close();
+            e.Handled = true;
+        }
         internal static void Debug(string component, string message)
         {
             if (!Globals.Debug)
@@ -496,28 +502,39 @@ namespace Hexware.Programs.iDecryptIt
         }
         private void decryptProc_OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
+            if (String.IsNullOrWhiteSpace(e.Data))
+                return;
+
             if (Globals.Debug)
                 Console.WriteLine(e.Data);
+
+            // Until iDecryptIt natively supports decrypting disk images, use this crude hack to calculate progress
+            // It's at least better than what we used to do: `destFileSize / srcFileSize' (doesn't work well if the image is compressed)
+
+            // dmg's progress is reported with each "run" of sectors on a line formatted like this:
+            // run 36: start=32604160 sectors=512, length=105688, fileOffset=0x184c75
+            // What we care about is `fileOffset'. Surprisingly, that's where the run begins. Because dmg progresses
+            //   through the file linearly, we can simply use that number to know how much dmg has decrypted/decompressed.
+            int idx = e.Data.IndexOf("fileOffset");
+            if (idx == -1)
+                return; // ignore this line of output
+            long offset = Convert.ToInt64(e.Data.Substring(idx + "fileOffset=0x".Length), 16);
+            decryptProg = (offset * 100.0) / decryptFromLength;
         }
         private void decryptProc_ErrorDataReceived(object sender, DataReceivedEventArgs e)
         {
+            // If I remember correctly, dmg doesn't use stderr, but we still need this function
             if (Globals.Debug)
                 Console.WriteLine(e.Data);
         }
         private void decryptWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            // This should be done by reading the console output and parsing the
-            //   offset number. That is the offset in the input that `dmg' is at.
-            //   It's more accurate that pure filesize as `dmg' also uncompresses
-            //   the output filesystem.
             while (!decryptWorker.CancellationPending) {
-                if (decryptProc.HasExited) {
+                if (decryptProc.HasExited)
                     decryptWorker.ReportProgress(100);
-                } else {
-                    decryptProg = ((new FileInfo(decryptTo).Length) * 100.0) / decryptFromLength;
+                else
                     decryptWorker.ReportProgress(0);
-                    Thread.Sleep(100); // don't hog the CPU
-                }
+                Thread.Sleep(25); // don't hog the CPU
             }
         }
         private void decryptWorker_ProgressReported(object sender, ProgressChangedEventArgs e)
@@ -653,11 +670,9 @@ namespace Hexware.Programs.iDecryptIt
             }
 
             string version = strArr[1];
-            if (strArr[0][0] == 'A') {
-                string temp = BuildToAppleTVVersion(strArr[0], strArr[2]);
-                if (temp != null)
-                    version = temp;
-            }
+            string temp = BuildToAppleTVVersion(strArr[0], strArr[2]);
+            if (temp != null)
+                version = temp;
 
             MessageBox.Show(
                 "Device: " + device + "\r\n" +
@@ -871,13 +886,6 @@ namespace Hexware.Programs.iDecryptIt
                 }
 #endif
             }
-        }
-
-        private void Dispatcher_UnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
-        {
-            FatalError("An unknown error has occured.", e.Exception);
-            Close();
-            e.Handled = true;
         }
     }
 }
