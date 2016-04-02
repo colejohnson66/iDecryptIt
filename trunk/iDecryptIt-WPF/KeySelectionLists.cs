@@ -60,6 +60,8 @@ namespace Hexware.Programs.iDecryptIt
         private static List<ComboBoxEntry> iPad43;
         private static List<ComboBoxEntry> iPad53;
         private static List<ComboBoxEntry> iPad54;
+        private static List<ComboBoxEntry> iPad63;
+        private static List<ComboBoxEntry> iPad64;
         private static List<ComboBoxEntry> iPad67;
         private static List<ComboBoxEntry> iPad68;
 
@@ -94,6 +96,7 @@ namespace Hexware.Programs.iDecryptIt
         private static List<ComboBoxEntry> iPhone72;
         private static List<ComboBoxEntry> iPhone81;
         private static List<ComboBoxEntry> iPhone82;
+        private static List<ComboBoxEntry> iPhone84;
 
         // iPod touch
         private static List<ComboBoxEntry> iPod11;
@@ -160,7 +163,9 @@ namespace Hexware.Programs.iDecryptIt
             ModelsHelper.Add("iPad5,2", iPad52);
             ModelsHelper.Add("iPad5,3", iPad53); // iPad Air 2
             ModelsHelper.Add("iPad5,4", iPad54);
-            ModelsHelper.Add("iPad6,7", iPad67); // iPad Pro
+            ModelsHelper.Add("iPad6,3", iPad63); // iPad Pro 9.7"
+            ModelsHelper.Add("iPad6,4", iPad64);
+            ModelsHelper.Add("iPad6,7", iPad67); // iPad Pro 12.9"
             ModelsHelper.Add("iPad6,8", iPad68);
             ModelsHelper.Add("iPhone1,1", iPhone11); // iPhone 2G
             ModelsHelper.Add("iPhone1,2", iPhone12); // iPhone 3G
@@ -179,6 +184,7 @@ namespace Hexware.Programs.iDecryptIt
             ModelsHelper.Add("iPhone7,2", iPhone72); // iPhone 6
             ModelsHelper.Add("iPhone8,1", iPhone81); // iPhone 6s
             ModelsHelper.Add("iPhone8,2", iPhone82); // iPhone 6s+
+            ModelsHelper.Add("iPhone8,4", iPhone84); // iPhone SE
             ModelsHelper.Add("iPod1,1", iPod11); // iPod 1G
             ModelsHelper.Add("iPod2,1", iPod21); // iPod 2G
             ModelsHelper.Add("iPod3,1", iPod31); // iPod 3G
@@ -211,8 +217,10 @@ namespace Hexware.Programs.iDecryptIt
             iPad.Add(new ComboBoxEntry("iPad4,3", "Air Cellular China (iPad4,3)"));
             iPad.Add(new ComboBoxEntry("iPad5,3", "Air 2 Wi-Fi (iPad5,3)"));
             iPad.Add(new ComboBoxEntry("iPad5,4", "Air 2 Cellular (iPad5,4)"));
-            iPad.Add(new ComboBoxEntry("iPad6,7", "Pro Wi-Fi (iPad6,7)"));
-            iPad.Add(new ComboBoxEntry("iPad6,8", "Pro Cellular (iPad6,8)"));
+            iPad.Add(new ComboBoxEntry("iPad6,3", "Pro 9.7\" Wi-Fi (iPad6,3)"));
+            iPad.Add(new ComboBoxEntry("iPad6,4", "Pro 9.7\" Cellular (iPad6,4)"));
+            iPad.Add(new ComboBoxEntry("iPad6,7", "Pro 12.9\" Wi-Fi (iPad6,7)"));
+            iPad.Add(new ComboBoxEntry("iPad6,8", "Pro 12.9\" Cellular (iPad6,8)"));
 
             iPadMini = new List<ComboBoxEntry>();
             iPadMini.Add(new ComboBoxEntry("iPad2,5", "1G Wi-Fi (iPad2,5)"));
@@ -245,6 +253,7 @@ namespace Hexware.Programs.iDecryptIt
             iPhone.Add(new ComboBoxEntry("iPhone7,2", "6 (iPhone7,2)"));
             iPhone.Add(new ComboBoxEntry("iPhone8,1", "6s (iPhone8,1)"));
             iPhone.Add(new ComboBoxEntry("iPhone8,2", "6s Plus (iPhone8,2)"));
+            iPhone.Add(new ComboBoxEntry("iPhone8,4", "SE (iPhone8,4)"));
 
             iPodTouch = new List<ComboBoxEntry>();
             iPodTouch.Add(new ComboBoxEntry("iPod1,1", "1G (iPod1,1)"));
@@ -283,6 +292,8 @@ namespace Hexware.Programs.iDecryptIt
             InitDevice(ref iPad43, rootNode.Get<PlistArray>("iPad4,3"));
             InitDevice(ref iPad53, rootNode.Get<PlistArray>("iPad5,3"));
             InitDevice(ref iPad54, rootNode.Get<PlistArray>("iPad5,4"));
+            //InitDevice(ref iPad63, rootNode.Get<PlistArray>("iPad6,3"));
+            //InitDevice(ref iPad64, rootNode.Get<PlistArray>("iPad6,4"));
             InitDevice(ref iPad67, rootNode.Get<PlistArray>("iPad6,7"));
             InitDevice(ref iPad68, rootNode.Get<PlistArray>("iPad6,8"));
 
@@ -317,6 +328,7 @@ namespace Hexware.Programs.iDecryptIt
             InitDevice(ref iPhone72, rootNode.Get<PlistArray>("iPhone7,2"));
             InitDevice(ref iPhone81, rootNode.Get<PlistArray>("iPhone8,1"));
             InitDevice(ref iPhone82, rootNode.Get<PlistArray>("iPhone8,2"));
+            //InitDevice(ref iPhone84, rootNode.Get<PlistArray>("iPhone8,4"));
 
             // iPod touch
             InitDevice(ref iPod11, rootNode.Get<PlistArray>("iPod1,1"));
