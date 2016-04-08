@@ -67,15 +67,14 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                     Console.WriteLine("WARNING: plutil not found! Binary plists will NOT be generated.");
                 }
             }
-            
-            IEnumerable<string> pages = GetKeyPages("Firmware");
-            foreach (string title in pages)
-            {
-                Console.WriteLine(title);
-                // TODO: Parse the page using XPath (action=render) [id tags]
-                ParseAndSaveKeyPage(client.DownloadString(
-                    "http://theiphonewiki.com/w/index.php?title=" + title + "&action=raw"));
-            }
+
+            // TODO: Parse the page using XPath (action=render) [id tags]
+            EnumerateFirmwareList("Firmware/Apple_TV");
+            //EnumerateFirmwareList("Firmware/Apple_Watch");
+            EnumerateFirmwareList("Firmware/iPad");
+            EnumerateFirmwareList("Firmware/iPad_mini");
+            EnumerateFirmwareList("Firmware/iPhone");
+            EnumerateFirmwareList("Firmware/iPod_touch");
 
             // Build version listing
             PlistDict plistRoot = new PlistDict();
@@ -97,7 +96,15 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
             PlistDocument versionDoc = new PlistDocument(plistRoot);
             versionDoc.Save(Path.Combine(curDir, "KeyList.plist"), PlistDocumentType.Xml);
         }
-
+        private static void EnumerateFirmwareList(string page)
+        {
+            foreach (string title in GetKeyPages(page))
+            {
+                Console.WriteLine(title);
+                ParseAndSaveKeyPage(client.DownloadString(
+                    "http://theiphonewiki.com/w/index.php?title=" + title + "&action=raw"));
+            }
+        }
         private static IEnumerable<string> GetKeyPages(string page)
         {
             string url = "https://www.theiphonewiki.com/w/index.php?title=" + page + "&action=render";
@@ -114,7 +121,10 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                 foreach (XmlNode link in table.SelectNodes(".//a"))
                 {
                     if (link.InnerText.Contains("ipsw"))
+                    {
                         device = link.InnerText.Trim().Split('_')[0];
+                        break;
+                    }
                 }
                 if (device == null)
                     throw new Exception();
@@ -149,10 +159,57 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                     continue;
                 }
 
+                // Kludge to fix issues of rowspans
+                // Should probably be a list we check against instead of a bunch of `row.InnerText.ToLower().Contains(...)'
+                FirmwareVersion ver = new FirmwareVersion();
+                XmlNode buildCell = null;
+                if (row.InnerText.ToLower().Contains("6.1_11d257") ||
+                    row.InnerText.ToLower().Contains("6.2_11d257") ||
+                    row.InnerText.ToLower().Contains("6.2.1_11d258"))
+                {
+                    // Find build cell
+                    foreach (XmlNode cell in row.ChildNodes)
+                    {
+                        if (cell.InnerText.Contains("11D25"))
+                        {
+                            buildCell = cell;
+                            break;
+                        }
+                    }
+                    // Get version
+                    if (buildCell.InnerText.Contains("11D257a"))
+                    {
+                        ver.Build = "11D257a";
+                        ver.Version = "6.1/7.1.2";
+                    }
+                    else if (buildCell.InnerText.Contains("11D257b"))
+                    {
+                        ver.Build = "11D257b";
+                        ver.Version = "6.2/7.1.2";
+                    }
+                    else if (buildCell.InnerText.Contains("11D257c"))
+                    {
+                        ver.Build = "11D257c";
+                        ver.Version = "6.2/7.1.2";
+                    }
+                    else if (buildCell.InnerText.Contains("11D258"))
+                    {
+                        ver.Build = "11D258";
+                        ver.Version = "6.2.1/7.1.2";
+                    }
+                    goto kludgeJump;
+                }
+
                 // Fix colspans and rowspans
+                // Possible fix for kludge: recursive rowspan fixer. Before copying, it scans the
+                //   cells (l2r, t2b) between the original and the destination for more rowspans.
                 int col = 0;
                 foreach (XmlNode cell in row.ChildNodes)
                 {
+                    // Ignore the documentation column
+                    if (cell.InnerText.Contains(".ipd"))
+                        continue;
+
                     foreach (XmlAttribute attr in cell.Attributes)
                     {
                         if (attr.Name == "rowspan")
@@ -169,20 +226,19 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                                 newRow.InsertBefore(cell.Clone(), newRow.ChildNodes[col]);
                             }
                         }
-                        else if (attr.Name == "colspan")
-                        {
-                            int val = Convert.ToInt32(attr.Value);
-                            cell.Attributes.Remove(attr);
-
-                            for (int i = 1; i < val; i++)
-                                row.InsertAfter(cell.Clone(), cell);
-                        }
+                        //else if (attr.Name == "colspan")
+                        //{
+                        //    int val = Convert.ToInt32(attr.Value);
+                        //    cell.Attributes.Remove(attr);
+                        //
+                        //    for (int i = 1; i < val; i++)
+                        //        row.InsertAfter(cell.Clone(), cell);
+                        //}
                     }
                     col++;
                 }
-                
-                FirmwareVersion ver = new FirmwareVersion();
-                XmlNode buildCell;
+
+                // `ver' and `buildCell' are defined up at the kludge
                 if (isSpecialATVFormat)
                 {
                     string marketing = row.ChildNodes[0].InnerText.Trim();
@@ -210,6 +266,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                 }
                 ver.Build = buildCell.InnerText.Trim();
                 
+            kludgeJump:
                 XmlNodeList keyPageUrl = buildCell.SelectNodes(".//@href");
                 if (keyPageUrl.Count == 0)
                 {
@@ -273,7 +330,11 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
             if (displayVersion != null && data["Device"].StartsWith("AppleTV"))
                 data["Version"] = displayVersion; // Will need to be updated to handle betas
 
+            // the rowspan fixer messes with these builds, so don't worry if it already exists, we'd be saving the same data
             string filename = Path.Combine(keyDir, data["Device"] + "_" + data["Build"] + ".plist");
+            if (filename.EndsWith("iPhone1,1_1C25.plist") || filename.EndsWith("iPhone1,1_1C28.plist"))
+                if (File.Exists(filename))
+                    return;
             Debug.Assert(!File.Exists(filename), filename);
             PlistDocument doc = new PlistDocument(BuildPlist(data));
             doc.Save(filename, PlistDocumentType.Xml);
