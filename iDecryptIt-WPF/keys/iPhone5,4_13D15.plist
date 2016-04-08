@@ -39,9 +39,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>7644c57273128a5f6866f859b69f5e3c</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>95d2432d49de405df7dc0ad2fea0a1bc28e5bf24963d5c8101cf62e90c4e7ff7</string>
 		</dict>
 		<key>AppleLogo</key>
 		<dict>
@@ -182,9 +182,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>c538fb6295f46ff7b391fe4b0b82064f</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>27e0206e4f5d55e12cda5c4dbade082cc3fac0ba3c251d27fe8929907d385f79</string>
 		</dict>
 		<key>RecoveryMode</key>
 		<dict>

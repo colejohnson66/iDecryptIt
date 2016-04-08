@@ -112,7 +112,7 @@
 		<key>DeviceTree</key>
 		<dict>
 			<key>File Name</key>
-			<string>DeviceTree.n91ap.img3</string>
+			<string>DeviceTree.n41ap.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -200,7 +200,7 @@
 		<key>RecoveryMode</key>
 		<dict>
 			<key>File Name</key>
-			<string>recoverymode@2x~iphone.s5l8950x.img3</string>
+			<string>recoverymode@1136~iphone.s5l8950x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>

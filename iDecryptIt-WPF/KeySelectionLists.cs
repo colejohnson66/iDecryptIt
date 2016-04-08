@@ -292,8 +292,8 @@ namespace Hexware.Programs.iDecryptIt
             InitDevice(ref iPad43, rootNode.Get<PlistArray>("iPad4,3"));
             InitDevice(ref iPad53, rootNode.Get<PlistArray>("iPad5,3"));
             InitDevice(ref iPad54, rootNode.Get<PlistArray>("iPad5,4"));
-            //InitDevice(ref iPad63, rootNode.Get<PlistArray>("iPad6,3"));
-            //InitDevice(ref iPad64, rootNode.Get<PlistArray>("iPad6,4"));
+            InitDevice(ref iPad63, rootNode.Get<PlistArray>("iPad6,3"));
+            InitDevice(ref iPad64, rootNode.Get<PlistArray>("iPad6,4"));
             InitDevice(ref iPad67, rootNode.Get<PlistArray>("iPad6,7"));
             InitDevice(ref iPad68, rootNode.Get<PlistArray>("iPad6,8"));
 
@@ -328,7 +328,7 @@ namespace Hexware.Programs.iDecryptIt
             InitDevice(ref iPhone72, rootNode.Get<PlistArray>("iPhone7,2"));
             InitDevice(ref iPhone81, rootNode.Get<PlistArray>("iPhone8,1"));
             InitDevice(ref iPhone82, rootNode.Get<PlistArray>("iPhone8,2"));
-            //InitDevice(ref iPhone84, rootNode.Get<PlistArray>("iPhone8,4"));
+            InitDevice(ref iPhone84, rootNode.Get<PlistArray>("iPhone8,4"));
 
             // iPod touch
             InitDevice(ref iPod11, rootNode.Get<PlistArray>("iPod1,1"));

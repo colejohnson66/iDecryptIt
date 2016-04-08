@@ -46,7 +46,7 @@
 		<key>AppleLogo</key>
 		<dict>
 			<key>File Name</key>
-			<string>applelogo@2x~iphone.s5l8955x.img3</string>
+			<string>applelogo@2x.s5l8955x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -57,7 +57,7 @@
 		<key>BatteryCharging0</key>
 		<dict>
 			<key>File Name</key>
-			<string>batterycharging0@2x~iphone.s5l8955x.img3</string>
+			<string>batterycharging0@2x.s5l8955x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -68,7 +68,7 @@
 		<key>BatteryCharging1</key>
 		<dict>
 			<key>File Name</key>
-			<string>batterycharging1@2x~iphone.s5l8955x.img3</string>
+			<string>batterycharging1@2x.s5l8955x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -79,7 +79,7 @@
 		<key>BatteryFull</key>
 		<dict>
 			<key>File Name</key>
-			<string>batteryfull@2x~iphone.s5l8955x.img3</string>
+			<string>batteryfull@2x.s5l8955x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -90,7 +90,7 @@
 		<key>BatteryLow0</key>
 		<dict>
 			<key>File Name</key>
-			<string>batterylow0@2x~iphone.s5l8955x.img3</string>
+			<string>batterylow0@2x.s5l8955x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -101,7 +101,7 @@
 		<key>BatteryLow1</key>
 		<dict>
 			<key>File Name</key>
-			<string>batterylow1@2x~iphone.s5l8955x.img3</string>
+			<string>batterylow1@2x.s5l8955x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -134,7 +134,7 @@
 		<key>GlyphPlugin</key>
 		<dict>
 			<key>File Name</key>
-			<string>glyphplugin@1136~iphone-lightning.s5l8955x.img3</string>
+			<string>glyphplugin@2x.s5l8955x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
@@ -200,7 +200,7 @@
 		<key>RecoveryMode</key>
 		<dict>
 			<key>File Name</key>
-			<string>recoverymode@1136~iphone-lightning.s5l8955x.img3</string>
+			<string>recoverymode@2x~ipad.s5l8955x.img3</string>
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
