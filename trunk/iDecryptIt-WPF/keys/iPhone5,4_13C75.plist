@@ -19,7 +19,7 @@
 			<key>File Name</key>
 			<string>058-25898-078.dmg</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>5aa5a9c557e25c9f4fc8a29a23a5b5b3b880e4dfa8d6bdde8cc791dde533b898c0917c83</string>
 		</dict>
 		<key>Update Ramdisk</key>
 		<dict>
@@ -28,9 +28,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>75dac0dbab25d426693db1376f1c46b3</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>4a911dc6852fec9c4f5b937997197ee1be310dbb79a7d1d839f5b723cb7ef00f</string>
 		</dict>
 		<key>Restore Ramdisk</key>
 		<dict>
@@ -39,9 +39,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>4d256a1116e4457d8cb283ebab6fde05</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>31752ba09dfa3d76355a0085a5d9ea4e4a94dc65928df5f79c88ec075cf00ad5</string>
 		</dict>
 		<key>AppleLogo</key>
 		<dict>
@@ -50,9 +50,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>db177ef07de5b295a59e89ae82b34722</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>81fabf8a84cd5fd86a5f16fa6c817d8378ae42c409516737c21f3b96e6d7ef1a</string>
 		</dict>
 		<key>BatteryCharging0</key>
 		<dict>
@@ -83,9 +83,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>0dd15dcd5a25f8faf56ff94361acaa91</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>c5beff66cc8cc744b35ae35452c0bbb54678a802735d3cdb287f93c519d783eb</string>
 		</dict>
 		<key>BatteryLow0</key>
 		<dict>
@@ -193,9 +193,9 @@
 			<key>Encryption</key>
 			<true />
 			<key>IV</key>
-			<string>TODO</string>
+			<string>714c02c6389e96b9019b820fd2a8c44c</string>
 			<key>Key</key>
-			<string>TODO</string>
+			<string>ea645c7d8522d39e6db63e02e28dc85040dfa4e3a42532e21b5b67ff6c8cc60a</string>
 		</dict>
 	</dict>
 </plist>

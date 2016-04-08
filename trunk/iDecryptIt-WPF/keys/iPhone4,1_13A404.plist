@@ -1,0 +1,201 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist>
+	<dict>
+		<key>Version</key>
+		<string>9.0.1</string>
+		<key>Build</key>
+		<string>13A404</string>
+		<key>Device</key>
+		<string>iPhone4,1</string>
+		<key>Codename</key>
+		<string>Monarch</string>
+		<key>Baseband</key>
+		<string>6.0.00</string>
+		<key>Download URL</key>
+		<string>http://appldnld.apple.com/ios9.0.1/031-35120-20150923-DC2E0F5A-5EFF-11E5-9EC2-995F51D92A8C/iPhone4,1_9.0.1_13A404_Restore.ipsw</string>
+		<key>Root FS</key>
+		<dict>
+			<key>File Name</key>
+			<string>058-04038-276.dmg</string>
+			<key>Key</key>
+			<string>386bdea2325c9fb1082e4368fb6d86af32bef325117bee64b309cd8c3f4dd6acae53d15a</string>
+		</dict>
+		<key>Update Ramdisk</key>
+		<dict>
+			<key>File Name</key>
+			<string>058-03591-288.dmg</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>3126794df52b82e6fdea70fc64f640c1</string>
+			<key>Key</key>
+			<string>ecc8ba0ffdaeb446d060d1aab7af5fb631eed4f8538d072e0cc5ef2ee650e756</string>
+		</dict>
+		<key>Restore Ramdisk</key>
+		<dict>
+			<key>File Name</key>
+			<string>058-03653-288.dmg</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>5aa658da4d8ecd4b2c891baa1378a58c</string>
+			<key>Key</key>
+			<string>c39310236f50f4f272e3f97f4795ea1fe52c3644b57743a0318af90252e17cba</string>
+		</dict>
+		<key>AppleLogo</key>
+		<dict>
+			<key>File Name</key>
+			<string>applelogo@2x~iphone.s5l8940x.img3</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>1a2b5092ba05394f0c959340c340be9c</string>
+			<key>Key</key>
+			<string>19941ef1a348c3f354772ab4b19a97038fb0abeb73e4ecba66718bcdb8e3c35d</string>
+		</dict>
+		<key>BatteryCharging0</key>
+		<dict>
+			<key>File Name</key>
+			<string>batterycharging0@2x~iphone.s5l8940x.img3</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>add5bb1da80ef1bb79e86abec728b5e9</string>
+			<key>Key</key>
+			<string>224436892defd4fe825db321749cbaa874b3c2589a82819b6386a88644be66dc</string>
+		</dict>
+		<key>BatteryCharging1</key>
+		<dict>
+			<key>File Name</key>
+			<string>batterycharging1@2x~iphone.s5l8940x.img3</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>6da4e1f1ef984b2bca14863cd62b6bf2</string>
+			<key>Key</key>
+			<string>4ee980d2042bffd5a4c3b5f95430f53173e82db6fc52345ac2b6d9a5dbdadd54</string>
+		</dict>
+		<key>BatteryFull</key>
+		<dict>
+			<key>File Name</key>
+			<string>batteryfull@2x~iphone.s5l8940x.img3</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>567d030b6562b21f69624ed7d831d043</string>
+			<key>Key</key>
+			<string>94c2c432aec1aa376f7588bfa2d34e540b59f5af26c23be8b342488cb7e7dee9</string>
+		</dict>
+		<key>BatteryLow0</key>
+		<dict>
+			<key>File Name</key>
+			<string>batterylow0@2x~iphone.s5l8940x.img3</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>d05123b55e859e59b369d3fd0c30340e</string>
+			<key>Key</key>
+			<string>126282ab267adf07eaa4859c197d36d481f68b465ca84180b12d8d0678cb9d7a</string>
+		</dict>
+		<key>BatteryLow1</key>
+		<dict>
+			<key>File Name</key>
+			<string>batterylow1@2x~iphone.s5l8940x.img3</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>c3f03c15d13f04bfd10fd7e21fadf2d8</string>
+			<key>Key</key>
+			<string>1193bf5b693b9fb970108ecbe37c58b5ec13520d3cdf682d3be7cf67311f0369</string>
+		</dict>
+		<key>DeviceTree</key>
+		<dict>
+			<key>File Name</key>
+			<string>DeviceTree.n94ap.img3</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>9a8e80fcce7e8052073622b42b70d06a</string>
+			<key>Key</key>
+			<string>db06344bdf08634398483b92d4e9efce34d533b2690404e9db8484afff5380de</string>
+		</dict>
+		<key>GlyphPlugin</key>
+		<dict>
+			<key>File Name</key>
+			<string>glyphplugin@2x~iphone-30pin.s5l8940x.img3</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>415df68b952dbf1b1258052e4d03beb0</string>
+			<key>Key</key>
+			<string>9bb618a568690f67c2dc2111e2025ee946c55227deb133afcc5358b4c5cbd425</string>
+		</dict>
+		<key>iBEC</key>
+		<dict>
+			<key>File Name</key>
+			<string>iBEC.n94.RELEASE.dfu</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>0f898094dd2cfff3f95a7dc34b85814d</string>
+			<key>Key</key>
+			<string>c448b48ee9cada4f3b6b8aa4e88da6f8470f4d598f3536b5b5da8ef58a614ce2</string>
+		</dict>
+		<key>iBoot</key>
+		<dict>
+			<key>File Name</key>
+			<string>iBoot.n94.RELEASE.img3</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>01236aa1df3c60a4d9af815294fa7005</string>
+			<key>Key</key>
+			<string>aa601bccf179bd6e365fb24faf7a20b7ae6cee07c6e443dc91775861c7d4e767</string>
+		</dict>
+		<key>iBSS</key>
+		<dict>
+			<key>File Name</key>
+			<string>iBSS.n94.RELEASE.dfu</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>39c8c98a536aab16aa8a210389ba2f73</string>
+			<key>Key</key>
+			<string>b1d8d4a3e20f912715b4cd04a1f663ea40b89e8e9e04495c9ad6fd12ef54ad77</string>
+		</dict>
+		<key>Kernelcache</key>
+		<dict>
+			<key>File Name</key>
+			<string>kernelcache.release.n94</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>3e6df3a8c7099f01e84d7541f00075c0</string>
+			<key>Key</key>
+			<string>f18625d849947d010bc91f07f865c9c06a062c9c6a702a9bb9885092666a6c9a</string>
+		</dict>
+		<key>LLB</key>
+		<dict>
+			<key>File Name</key>
+			<string>LLB.n94.RELEASE.img3</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>fbf4f585a75b6f8a7986704e7255225a</string>
+			<key>Key</key>
+			<string>d30d2deeea24f68c6e5424f601f06fa9dd53059b684c5f2ffe81b516b8913566</string>
+		</dict>
+		<key>RecoveryMode</key>
+		<dict>
+			<key>File Name</key>
+			<string>recoverymode@2x~iphone-30pin.s5l8940x.img3</string>
+			<key>Encryption</key>
+			<true />
+			<key>IV</key>
+			<string>891d89fab945bb9147652c0f0b7679cb</string>
+			<key>Key</key>
+			<string>738c3f721949ff21e6a097e50d4b7865c8a3c2438283b61e0dff7f004296fc78</string>
+		</dict>
+	</dict>
+</plist>
