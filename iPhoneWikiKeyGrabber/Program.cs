@@ -122,7 +122,8 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                 {
                     if (link.InnerText.Contains("ipsw"))
                     {
-                        device = link.InnerText.Trim().Split('_')[0];
+                        device = link.InnerText.Trim().Split('_')[0].
+                            Replace("appletv", "AppleTV").Replace("ip", "iP");
                         break;
                     }
                 }
