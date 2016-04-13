@@ -93,8 +93,12 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                 }
                 plistRoot.Add(deviceList.Key, deviceArr);
             }
+
+            // Save version listing
             PlistDocument versionDoc = new PlistDocument(plistRoot);
-            versionDoc.Save(Path.Combine(keyDir, "KeyList.plist"), PlistDocumentType.Xml);
+            string keyListPath = Path.Combine(keyDir, "KeyList.plist");
+            versionDoc.Save(keyListPath, PlistDocumentType.Xml);
+            ConvertPlist(keyListPath);
         }
         private static void EnumerateFirmwareListAndSaveKeys(string page)
         {
@@ -244,19 +248,14 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
             //   is nothing.
             XmlNodeList rows = table.ChildNodes;
             int rowCount = rows.Count;
-            
-            // find out how many columns there are
-            int colCount = rows[0].ChildNodes.Count;
+
+            // Subtract 1 to ignore the documentation column (it causes
+            //   problems when using XmlNode.InsertBefore(...) and we
+            //   don't care about it)
+            int colCount = rows[0].ChildNodes.Count - 1;
             int startRow = 1;
             if (rows[1].InnerText.Contains("Marketing"))
-            {
-                colCount += 2;
                 startRow = 2;
-            }
-
-            // Ignore the documentation column (it causes problems when using
-            //   XmlNode.InsertBefore(...) and we don't care about it)
-            colCount -= 1;
 
             for (int col = 0; col < colCount; col++)
             {
@@ -348,13 +347,18 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                 if (File.Exists(filename))
                     return;
             Debug.Assert(!File.Exists(filename), filename);
+
             PlistDocument doc = new PlistDocument(BuildPlist(data));
             doc.Save(filename, PlistDocumentType.Xml);
-
-            if (makeBinaryPlists) {
+            ConvertPlist(filename);
+        }
+        private static void ConvertPlist(string path)
+        {
+            if (makeBinaryPlists)
+            {
                 Process proc = new Process();
                 proc.StartInfo.FileName = plutil;
-                proc.StartInfo.Arguments = $"-convert binary1 \"{filename}\"";
+                proc.StartInfo.Arguments = $"-convert binary1 \"{path}\"";
                 proc.StartInfo.UseShellExecute = false;
                 proc.StartInfo.RedirectStandardOutput = true;
                 proc.StartInfo.RedirectStandardError = true;
@@ -362,10 +366,10 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                 proc.ErrorDataReceived += proc_OutputDataRecieved;
                 proc.Start();
                 proc.WaitForExit();
+
                 // verify file converted correctly and can be loaded
-                // (assertion prevents optimization out)
-                PlistDocument doc2 = new PlistDocument(filename);
-                Debug.Assert(doc2.RootNode != null);
+                PlistDocument doc = new PlistDocument(path);
+                Debug.Assert(doc.RootNode != null);
             }
         }
         private static PlistDict BuildPlist(Dictionary<string, string> data)
