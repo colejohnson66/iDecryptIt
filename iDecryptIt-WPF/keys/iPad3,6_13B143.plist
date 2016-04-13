@@ -12,8 +12,6 @@
 		<string>Boulder</string>
 		<key>Baseband</key>
 		<string>10.00.00</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/ios9.1/031-41055-20151021-BA17F5FA-73FB-11E5-B0C8-9A7243DA716B/iPad3,6_9.1_13B143_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

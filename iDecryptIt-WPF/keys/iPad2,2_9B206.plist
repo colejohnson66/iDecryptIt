@@ -12,8 +12,6 @@
 		<string>Hoodoo</string>
 		<key>Baseband</key>
 		<string>04.12.01</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/iOS5.1.1/041-4296.20120427.dPX6x/iPad2,2_5.1.1_9B206_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

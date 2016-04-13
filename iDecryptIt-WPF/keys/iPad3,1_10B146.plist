@@ -10,8 +10,6 @@
 		<string>iPad3,1</string>
 		<key>Codename</key>
 		<string>Brighton</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/iOS6.1/091-0736.20130215.Wwft4/iPad3,1_6.1.2_10B146_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

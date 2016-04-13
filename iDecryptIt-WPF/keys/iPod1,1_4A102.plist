@@ -10,8 +10,6 @@
 		<string>iPod1,1</string>
 		<key>Codename</key>
 		<string>Little Bear</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com.edgesuite.net/content.info.apple.com/iPod/SBML/osx/bundles/061-4312.20080226.Btu45/iPod1,1_1.1.4_4A102_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

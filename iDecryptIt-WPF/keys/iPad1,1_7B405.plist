@@ -12,8 +12,6 @@
 		<string>Wildcat</string>
 		<key>Baseband</key>
 		<string>06.15.00</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/iPad/061-8282.20100713.vgtgh/iPad1,1_3.2.1_7B405_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

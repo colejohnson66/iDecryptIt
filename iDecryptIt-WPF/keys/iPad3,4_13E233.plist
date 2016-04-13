@@ -10,8 +10,6 @@
 		<string>iPad3,4</string>
 		<key>Codename</key>
 		<string>Eagle</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/iOS9.3/031-28381-20160321-51033254-EAA8-11E5-B2F6-D479BD379832/iPad3,4_9.3_13E233_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

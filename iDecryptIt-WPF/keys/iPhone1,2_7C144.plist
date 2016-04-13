@@ -12,8 +12,6 @@
 		<string>Northstar</string>
 		<key>Baseband</key>
 		<string>05.11.07</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com.edgesuite.net/content.info.apple.com/iPhone/061-6600.20090909.AwndZ/iPhone1,2_3.1_7C144_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

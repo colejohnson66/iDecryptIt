@@ -10,8 +10,6 @@
 		<string>iPad2,1</string>
 		<key>Codename</key>
 		<string>SUOkemoTaos</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/ios8.1.2/031-12405.20141208.wjy81/iPad2,1_8.1.2_12B440_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

@@ -12,8 +12,6 @@
 		<string>Innsbruck</string>
 		<key>Baseband</key>
 		<string>5.0.00</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/iOS7/091-9486.20130918.V5WIX/iPhone4,1_7.0_11A465_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

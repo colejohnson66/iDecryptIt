@@ -10,8 +10,6 @@
 		<string>iPod4,1</string>
 		<key>Codename</key>
 		<string>Brighton</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/iOS6.1/091-0732.20130215.Mkmt5/iPod4,1_6.1.2_10B146_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

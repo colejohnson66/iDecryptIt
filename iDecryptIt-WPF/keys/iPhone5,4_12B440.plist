@@ -12,8 +12,6 @@
 		<string>SUOkemoTaos</string>
 		<key>Baseband</key>
 		<string>3.11.00</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/ios8.1.2/031-11453.20141208.ve68F/iPhone5,4_8.1.2_12B440_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

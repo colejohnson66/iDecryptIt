@@ -12,8 +12,6 @@
 		<string>Sundance</string>
 		<key>Baseband</key>
 		<string>04.12.02</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/iOS6/Restore/041-7175.20120919.wvv7Y/iPhone3,1_6.0_10A403_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

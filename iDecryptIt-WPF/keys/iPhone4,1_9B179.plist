@@ -12,8 +12,6 @@
 		<string>Hoodoo</string>
 		<key>Baseband</key>
 		<string>2.0.10</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/iOS5/041-1530.20120307.LDDac/iPhone4,1_5.1_9B179_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

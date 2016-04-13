@@ -12,8 +12,6 @@
 		<string>OkemoZurs</string>
 		<key>Baseband</key>
 		<string>04.12.09</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/ios8.2/031-06562-20150309-D4DE5AB4-C1FE-11E4-B5CA-43803780E501/iPad2,2_8.2_12D508_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

@@ -10,8 +10,6 @@
 		<string>iPod3,1</string>
 		<key>Codename</key>
 		<string>Durango</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/iPhone4/041-0552.20110325.Yt67u/iPod3,1_4.3.1_8G4_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

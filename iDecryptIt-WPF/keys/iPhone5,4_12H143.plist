@@ -12,8 +12,6 @@
 		<string>Copper</string>
 		<key>Baseband</key>
 		<string>4.03.00</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/ios8.4/ipsw/031-25933-20150630-7A54DD5C-1B90-11E5-A3B8-AF63BE268FF7/iPhone5,4_8.4_12H143_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

@@ -12,8 +12,6 @@
 		<string>Big Bear</string>
 		<key>Baseband</key>
 		<string>04.05.04_G</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com.edgesuite.net/content.info.apple.com/iPhone/061-4956.20080710.V50OI/iPhone1,1_2.0_5A347_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

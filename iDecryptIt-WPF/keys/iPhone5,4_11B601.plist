@@ -12,8 +12,6 @@
 		<string>InnsbruckTaos</string>
 		<key>Baseband</key>
 		<string>1.03.02</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/iOS7/031-2903.20140129.AaQe3/iPhone5,4_7.0.5_11B601_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

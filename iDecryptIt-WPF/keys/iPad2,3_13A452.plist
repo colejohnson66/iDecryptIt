@@ -12,8 +12,6 @@
 		<string>Monarch</string>
 		<key>Baseband</key>
 		<string>3.0.04</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/ios9.0.2/031-37222-20150930-7ECD2660-64A0-11E5-B504-5AE151D92A8C/iPad2,3_9.0.2_13A452_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

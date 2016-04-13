@@ -12,8 +12,6 @@
 		<string>Eagle</string>
 		<key>Baseband</key>
 		<string>10.01.00</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/iOS9.3/031-28424-20160321-A0C3F228-EAA9-11E5-93D1-6C7DBD379832/iPad3,5_9.3_13E233_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

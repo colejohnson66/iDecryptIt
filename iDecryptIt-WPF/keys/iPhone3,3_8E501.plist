@@ -12,8 +12,6 @@
 		<string>Phoenix</string>
 		<key>Baseband</key>
 		<string>1.0.06</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/iPhone4/041-1916.20110715.V5rUA/iPhone3,3_4.2.9_8E501_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

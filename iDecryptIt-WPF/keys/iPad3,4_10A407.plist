@@ -10,8 +10,6 @@
 		<string>iPad3,4</string>
 		<key>Codename</key>
 		<string>Sundance</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/iOS6/041-7543.20121101.trs43/iPad3,4_6.0_10A407_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

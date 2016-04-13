@@ -12,8 +12,6 @@
 		<string>Okemo</string>
 		<key>Baseband</key>
 		<string>7.03.00</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/iOS8/031-05562.20140917.E0S9Y/iPad3,5_8.0_12A365_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

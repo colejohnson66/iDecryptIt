@@ -12,8 +12,6 @@
 		<string>Castlerock</string>
 		<key>Baseband</key>
 		<string>6.01.00</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/ios9.2/031-29163-20151203-08D59E74-8D8B-11E5-8D43-A8628B8BECEB/iPhone5,3_9.2_13C75_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

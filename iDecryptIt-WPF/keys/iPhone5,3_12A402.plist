@@ -12,8 +12,6 @@
 		<string>Okemo</string>
 		<key>Baseband</key>
 		<string>3.09.01</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/iOS8/031-07530.20140924.lcnxL/iPhone5,3_8.0.1_12A402_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

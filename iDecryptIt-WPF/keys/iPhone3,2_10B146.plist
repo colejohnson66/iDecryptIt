@@ -12,8 +12,6 @@
 		<string>Brighton</string>
 		<key>Baseband</key>
 		<string>04.12.05</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/iOS6.1/091-0739.20130215.F654R/iPhone3,2_6.1.2_10B146_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

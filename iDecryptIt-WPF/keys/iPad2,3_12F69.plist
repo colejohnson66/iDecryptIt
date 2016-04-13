@@ -12,8 +12,6 @@
 		<string>Stowe</string>
 		<key>Baseband</key>
 		<string>3.0.04</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/ios8.3/031-14914-20150408-082350F8-D8B8-11E4-8407-441C90F2D2C2/iPad2,3_8.3_12F69_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

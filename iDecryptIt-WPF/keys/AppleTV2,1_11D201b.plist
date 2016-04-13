@@ -10,8 +10,6 @@
 		<string>AppleTV2,1</string>
 		<key>Codename</key>
 		<string>SUSochi</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/iOS7.1/031-00223.20140425.46vnh/appletv2,1_6.1.1_11d201b_restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

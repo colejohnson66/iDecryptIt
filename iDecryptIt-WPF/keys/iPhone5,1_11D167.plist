@@ -12,8 +12,6 @@
 		<string>Sochi</string>
 		<key>Baseband</key>
 		<string>6.02.00</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/iOS7.1/031-4323.20140310.gdKZa/iPhone5,1_7.1_11D167_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

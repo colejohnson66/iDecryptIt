@@ -10,8 +10,6 @@
 		<string>AppleTV2,1</string>
 		<key>Codename</key>
 		<string>Brighton</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/AppleTV/041-6474.20130128.Cnnew/AppleTV2,1_5.2_10B144b_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

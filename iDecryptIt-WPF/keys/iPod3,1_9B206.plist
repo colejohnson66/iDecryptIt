@@ -10,8 +10,6 @@
 		<string>iPod3,1</string>
 		<key>Codename</key>
 		<string>Hoodoo</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/iOS5.1.1/041-4300.20120427.WvgGq/iPod3,1_5.1.1_9B206_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

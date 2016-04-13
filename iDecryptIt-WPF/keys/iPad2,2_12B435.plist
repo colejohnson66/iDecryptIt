@@ -12,8 +12,6 @@
 		<string>SUOkemoTaos</string>
 		<key>Baseband</key>
 		<string>04.12.09</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/iOS8.1.1/031-09898.20141117.DnCVi/iPad2,2_8.1.1_12B435_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

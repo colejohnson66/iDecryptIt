@@ -12,8 +12,6 @@
 		<string>Sochi</string>
 		<key>Baseband</key>
 		<string>5.2.00</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/iOS7.1/031-4816.20140627.XQbdQ/iPhone4,1_7.1.2_11D257_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

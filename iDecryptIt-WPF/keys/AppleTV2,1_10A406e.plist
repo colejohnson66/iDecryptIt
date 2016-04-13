@@ -10,8 +10,6 @@
 		<string>AppleTV2,1</string>
 		<key>Codename</key>
 		<string>Sundance</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/AppleTV/041-0803.20120924.LOop5/AppleTV2,1_5.1_10A406e_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

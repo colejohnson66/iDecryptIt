@@ -12,8 +12,6 @@
 		<string>Donner</string>
 		<key>Baseband</key>
 		<string>5.5.00</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/ios8.4.1/031-31129-20150812-751A3CB8-3C8F-11E5-A8A5-A91A3A53DB92/iPhone4,1_8.4.1_12H321_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

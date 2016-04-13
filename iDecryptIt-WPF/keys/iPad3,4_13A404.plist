@@ -10,8 +10,6 @@
 		<string>iPad3,4</string>
 		<key>Codename</key>
 		<string>Monarch</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/ios9.0.1/031-35401-20150923-DD4659CE-5EFF-11E5-B95C-B95F51D92A8C/iPad3,4_9.0.1_13A404_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

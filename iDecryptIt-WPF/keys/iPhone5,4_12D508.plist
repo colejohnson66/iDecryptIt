@@ -12,8 +12,6 @@
 		<string>OkemoZurs</string>
 		<key>Baseband</key>
 		<string>3.11.00</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/ios8.2/031-06530-20150309-D4DC2474-C1FE-11E4-81AF-2C803780E501/iPhone5,4_8.2_12D508_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

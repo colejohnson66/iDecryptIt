@@ -12,8 +12,6 @@
 		<string>OkemoTaos</string>
 		<key>Baseband</key>
 		<string>7.03.00</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/iOS8.1/031-08959.20141020.uxhkm/iphone5,2_8.1_12b410_restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

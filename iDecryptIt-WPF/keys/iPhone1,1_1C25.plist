@@ -12,8 +12,6 @@
 		<string>SUHeavenlyJuly</string>
 		<key>Baseband</key>
 		<string>03.12.08_G</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com.edgesuite.net/content.info.apple.com/iPhone/061-3614.20070731.Nt6Y7/iPhone1,1_1.0.1_1C25_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

@@ -12,8 +12,6 @@
 		<string>Sugar Bowl</string>
 		<key>Baseband</key>
 		<string>04.05.04_G</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com.edgesuite.net/content.info.apple.com/iPhone/061-5202.20080909.gkbEj/iPhone1,1_2.1_5F136_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

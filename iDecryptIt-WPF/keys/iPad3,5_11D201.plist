@@ -12,8 +12,6 @@
 		<string>SUSochi</string>
 		<key>Baseband</key>
 		<string>6.02.00</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/iOS7.1/031-00300.20140425.7s6By/iPad3,5_7.1.1_11D201_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

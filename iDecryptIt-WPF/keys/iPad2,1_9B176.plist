@@ -10,8 +10,6 @@
 		<string>iPad2,1</string>
 		<key>Codename</key>
 		<string>Hoodoo</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/iOS5/041-1539.20120307.JwD8A/iPad2,1_5.1_9B176_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

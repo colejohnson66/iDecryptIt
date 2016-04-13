@@ -12,8 +12,6 @@
 		<string>Copper</string>
 		<key>Baseband</key>
 		<string>3.0.04</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/ios8.4/ipsw/031-26004-20150630-7A53DB46-1B90-11E5-B2D1-A563BE268FF7/iPad2,3_8.4_12H143_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>
