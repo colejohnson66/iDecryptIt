@@ -10,8 +10,6 @@
 		<string>iPod4,1</string>
 		<key>Codename</key>
 		<string>Telluride</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/iPhone4/061-9622.20111012.Evry3/iPod4,1_5.0_9A334_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

@@ -12,8 +12,6 @@
 		<string>Jasper</string>
 		<key>Baseband</key>
 		<string>07.10.00</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/iPad/061-9857.20101122.VGthy/iPad1,1_4.2.1_8C148_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

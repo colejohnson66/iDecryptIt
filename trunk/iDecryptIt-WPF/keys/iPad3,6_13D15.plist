@@ -12,8 +12,6 @@
 		<string>Dillon</string>
 		<key>Baseband</key>
 		<string>10.00.00</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/ios9.2.1/031-47612-20160119-C6B3A756-B969-11E5-8074-574E8FD31F8F/iPad3,6_9.2.1_13D15_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

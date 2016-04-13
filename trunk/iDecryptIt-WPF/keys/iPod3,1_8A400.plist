@@ -10,8 +10,6 @@
 		<string>iPod3,1</string>
 		<key>Codename</key>
 		<string>Apex</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/iPhone4/061-8554.20100811.Bgt54/iPod3,1_4.0.2_8A400_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

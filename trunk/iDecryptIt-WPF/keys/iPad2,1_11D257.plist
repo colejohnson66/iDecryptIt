@@ -10,8 +10,6 @@
 		<string>iPad2,1</string>
 		<key>Codename</key>
 		<string>Sochi</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/iOS7.1/031-4776.20140627.JjYSr/iPad2,1_7.1.2_11D257_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

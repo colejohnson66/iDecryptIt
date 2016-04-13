@@ -10,8 +10,6 @@
 		<string>iPad2,1</string>
 		<key>Codename</key>
 		<string>Boulder</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/ios9.1/031-40994-20151021-BA17F6A4-73FB-11E5-B0C8-917243DA716B/iPad2,1_9.1_13B143_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

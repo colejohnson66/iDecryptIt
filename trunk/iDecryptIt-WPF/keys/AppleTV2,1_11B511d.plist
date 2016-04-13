@@ -10,8 +10,6 @@
 		<string>AppleTV2,1</string>
 		<key>Codename</key>
 		<string>InnsbruckTaos</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/AppleTV/091-8981.20131024.CoPt5/AppleTV2,1_6.0.1_11B511d_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

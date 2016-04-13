@@ -12,8 +12,6 @@
 		<string>Jasper</string>
 		<key>Baseband</key>
 		<string>03.10.01</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/iPhone4/061-9858.20101122.Er456/iPhone3,1_4.2.1_8C148_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

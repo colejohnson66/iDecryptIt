@@ -12,8 +12,6 @@
 		<string>Durango</string>
 		<key>Baseband</key>
 		<string>07.11.00</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/iPhone4/041-0329.20110311.Cvfre/iPad1,1_4.3_8F190_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

@@ -10,8 +10,6 @@
 		<string>iPad3,4</string>
 		<key>Codename</key>
 		<string>Innsbruck</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/iOS7/091-9811.20130924.bz21c/iPad3,4_7.0.2_11A501_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

@@ -10,8 +10,6 @@
 		<string>iPad3,1</string>
 		<key>Codename</key>
 		<string>Okemo</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/iOS8/031-05574.20140917.Ws8pf/iPad3,1_8.0_12A365_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

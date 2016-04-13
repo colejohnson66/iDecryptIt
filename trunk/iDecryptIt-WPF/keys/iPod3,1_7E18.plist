@@ -10,8 +10,6 @@
 		<string>iPod3,1</string>
 		<key>Codename</key>
 		<string>SUNorthstarTwo</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com.edgesuite.net/content.info.apple.com/iPhone/061-7473.20100202.4i44t/iPod3,1_3.1.3_7E18_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

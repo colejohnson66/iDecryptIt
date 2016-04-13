@@ -12,8 +12,6 @@
 		<string>Castlerock</string>
 		<key>Baseband</key>
 		<string>04.12.09</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/ios9.2/031-29087-20151203-674B783A-8D8A-11E5-B7DD-5D618B8BECEB/iPad2,2_9.2_13C75_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

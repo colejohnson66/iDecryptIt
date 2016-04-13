@@ -12,8 +12,6 @@
 		<string>Stowe</string>
 		<key>Baseband</key>
 		<string>5.4.00</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/ios8.3/058-16120-20150408-6F9DF1C2-DAEB-11E4-AC1D-9A6C90F2D2C2/iPhone4,1_8.3_12F70_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

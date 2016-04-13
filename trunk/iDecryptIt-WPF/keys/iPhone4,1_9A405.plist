@@ -12,8 +12,6 @@
 		<string>Telluride</string>
 		<key>Baseband</key>
 		<string>1.0.13</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/iPhone4/041-3305.20111109.Bghy6/iPhone4,1_5.0.1_9A405_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

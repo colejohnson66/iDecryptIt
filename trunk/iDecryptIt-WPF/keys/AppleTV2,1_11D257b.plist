@@ -10,8 +10,6 @@
 		<string>AppleTV2,1</string>
 		<key>Codename</key>
 		<string>Sochi</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/iOS7.1/031-04154.20140630.ntte3/appletv2,1_6.2_11d257b_restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

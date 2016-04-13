@@ -10,8 +10,6 @@
 		<string>AppleTV2,1</string>
 		<key>Codename</key>
 		<string>Innsbruck</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/AppleTV/041-3019.20130914.ovaxw/appletv2,1_6.0_11a469a_restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

@@ -12,8 +12,6 @@
 		<string>InnsbruckTaos</string>
 		<key>Baseband</key>
 		<string>3.0.04</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/iOS7/031-1104.20131104.bbgss/ipad2,3_7.0.4_11b553_restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

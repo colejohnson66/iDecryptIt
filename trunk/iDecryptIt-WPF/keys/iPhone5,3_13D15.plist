@@ -12,8 +12,6 @@
 		<string>Dillon</string>
 		<key>Baseband</key>
 		<string>6.01.00</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/ios9.2.1/031-47685-20160119-5D8F6A9E-B969-11E5-8DC2-1F4C8FD31F8F/iPhone5,3_9.2.1_13D15_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

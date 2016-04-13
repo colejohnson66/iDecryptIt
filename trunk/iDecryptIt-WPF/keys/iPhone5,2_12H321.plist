@@ -12,8 +12,6 @@
 		<string>Donner</string>
 		<key>Baseband</key>
 		<string>8.02.00</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/ios8.4.1/031-31065-20150812-7518F132-3C8F-11E5-A96A-A11A3A53DB92/iPhone5,2_8.4.1_12H321_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

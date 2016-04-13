@@ -10,8 +10,6 @@
 		<string>iPad3,4</string>
 		<key>Codename</key>
 		<string>Castlerock</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/ios9.2/031-29112-20151203-854B22DA-8D8B-11E5-9A44-8B648B8BECEB/iPad3,4_9.2_13C75_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

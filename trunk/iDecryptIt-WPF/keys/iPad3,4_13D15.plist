@@ -10,8 +10,6 @@
 		<string>iPad3,4</string>
 		<key>Codename</key>
 		<string>Dillon</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/ios9.2.1/031-47743-20160119-C58D421A-B969-11E5-8AD5-394E8FD31F8F/iPad3,4_9.2.1_13D15_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

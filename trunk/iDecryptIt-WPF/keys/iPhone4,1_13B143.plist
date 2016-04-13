@@ -12,8 +12,6 @@
 		<string>Boulder</string>
 		<key>Baseband</key>
 		<string>6.0.00</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/ios9.1/031-41357-20151021-866B88C4-73FC-11E5-91CE-6B7443DA716B/iPhone4,1_9.1_13B143_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

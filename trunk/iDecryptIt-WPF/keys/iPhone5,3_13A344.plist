@@ -12,8 +12,6 @@
 		<string>Monarch</string>
 		<key>Baseband</key>
 		<string>5.00.11</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/ios9/058-12416-20150916-2D014842-5678-11E5-8BA0-FBF76CA99CB1/iPhone5,3_9.0_13A344_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

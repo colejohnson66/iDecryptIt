@@ -12,8 +12,6 @@
 		<string>Kirkwood</string>
 		<key>Baseband</key>
 		<string>04.05.04_G</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com.edgesuite.net/content.info.apple.com/iPhone/061-6974.20090731.Cf4Tg/iPhone1,1_3.0.1_7A400_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

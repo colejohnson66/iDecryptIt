@@ -12,8 +12,6 @@
 		<string>SUNorthstarTwo</string>
 		<key>Baseband</key>
 		<string>05.12.01</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com.edgesuite.net/content.info.apple.com/iPhone/061-7472.20100202.8tugj/iPhone2,1_3.1.3_7E18_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

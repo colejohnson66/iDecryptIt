@@ -12,8 +12,6 @@
 		<string>Donner</string>
 		<key>Baseband</key>
 		<string>3.0.04</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/ios8.4.1/031-31281-20150812-40590580-3C90-11E5-92A1-011C3A53DB92/iPad2,3_8.4.1_12H321_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

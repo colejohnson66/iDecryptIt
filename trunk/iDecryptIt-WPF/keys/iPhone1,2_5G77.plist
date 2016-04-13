@@ -12,8 +12,6 @@
 		<string>Timberline</string>
 		<key>Baseband</key>
 		<string>02.28.00</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com.edgesuite.net/content.info.apple.com/iPhone/061-5778.20081120.Aqw4R/iPhone1,2_2.2_5G77_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

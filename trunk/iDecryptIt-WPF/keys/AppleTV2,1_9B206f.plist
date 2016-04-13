@@ -10,8 +10,6 @@
 		<string>AppleTV2,1</string>
 		<key>Codename</key>
 		<string>Hoodoo</string>
-		<key>Download URL</key>
-		<string>http://appldnld.apple.com/AppleTV/041-4348.20120510.Axdep/AppleTV2,1_5.0_9B206f_Restore.ipsw</string>
 		<key>Root FS</key>
 		<dict>
 			<key>File Name</key>

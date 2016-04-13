@@ -7055,38 +7055,6 @@
 			</dict>
 			<dict>
 				<key>Build</key>
-				<string>1C25</string>
-				<key>Version</key>
-				<string>1.0.1</string>
-				<key>Has Keys</key>
-				<true />
-			</dict>
-			<dict>
-				<key>Build</key>
-				<string>1C28</string>
-				<key>Version</key>
-				<string>1.0.2</string>
-				<key>Has Keys</key>
-				<true />
-			</dict>
-			<dict>
-				<key>Build</key>
-				<string>1C28</string>
-				<key>Version</key>
-				<string>1.0.2</string>
-				<key>Has Keys</key>
-				<true />
-			</dict>
-			<dict>
-				<key>Build</key>
-				<string>1C28</string>
-				<key>Version</key>
-				<string>1.0.2</string>
-				<key>Has Keys</key>
-				<true />
-			</dict>
-			<dict>
-				<key>Build</key>
 				<string>1C28</string>
 				<key>Version</key>
 				<string>1.0.2</string>
