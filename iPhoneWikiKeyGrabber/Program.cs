@@ -68,13 +68,13 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                 }
             }
 
-            // TODO: Parse the page using XPath (action=render) [id tags]
-            EnumerateFirmwareList("Firmware/Apple_TV");
-            //EnumerateFirmwareList("Firmware/Apple_Watch");
-            EnumerateFirmwareList("Firmware/iPad");
-            EnumerateFirmwareList("Firmware/iPad_mini");
-            EnumerateFirmwareList("Firmware/iPhone");
-            EnumerateFirmwareList("Firmware/iPod_touch");
+            // TODO: Parse the key page using XPath (action=render) [id tags]
+            EnumerateFirmwareListAndSaveKeys("Firmware/Apple_TV");
+            //EnumerateFirmwareListAndSaveKeys("Firmware/Apple_Watch");
+            EnumerateFirmwareListAndSaveKeys("Firmware/iPad");
+            EnumerateFirmwareListAndSaveKeys("Firmware/iPad_mini");
+            EnumerateFirmwareListAndSaveKeys("Firmware/iPhone");
+            EnumerateFirmwareListAndSaveKeys("Firmware/iPod_touch");
 
             // Build version listing
             PlistDict plistRoot = new PlistDict();
@@ -94,9 +94,9 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                 plistRoot.Add(deviceList.Key, deviceArr);
             }
             PlistDocument versionDoc = new PlistDocument(plistRoot);
-            versionDoc.Save(Path.Combine(curDir, "KeyList.plist"), PlistDocumentType.Xml);
+            versionDoc.Save(Path.Combine(keyDir, "KeyList.plist"), PlistDocumentType.Xml);
         }
-        private static void EnumerateFirmwareList(string page)
+        private static void EnumerateFirmwareListAndSaveKeys(string page)
         {
             foreach (string title in GetKeyPages(page))
             {
@@ -143,8 +143,11 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                     yield return fwPage;
             }
         }
-        private static IEnumerable<string> ParseTable(XmlNode table, List<FirmwareVersion> list)
+        private static IEnumerable<string> ParseTable(XmlNode table, List<FirmwareVersion> versionList)
         {
+            FixColspans(table);
+            FixRowspans(table);
+
             bool isSpecialATVFormat = false;
             int rowNum = -1;
             foreach (XmlNode row in table.ChildNodes)
@@ -159,87 +162,9 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                     isSpecialATVFormat = true;
                     continue;
                 }
-
-                // Kludge to fix issues of rowspans
-                // Should probably be a list we check against instead of a bunch of `row.InnerText.ToLower().Contains(...)'
+                
                 FirmwareVersion ver = new FirmwareVersion();
                 XmlNode buildCell = null;
-                if (row.InnerText.ToLower().Contains("6.1_11d257") ||
-                    row.InnerText.ToLower().Contains("6.2_11d257") ||
-                    row.InnerText.ToLower().Contains("6.2.1_11d258"))
-                {
-                    // Find build cell
-                    foreach (XmlNode cell in row.ChildNodes)
-                    {
-                        if (cell.InnerText.Contains("11D25"))
-                        {
-                            buildCell = cell;
-                            break;
-                        }
-                    }
-                    // Get version
-                    if (buildCell.InnerText.Contains("11D257a"))
-                    {
-                        ver.Build = "11D257a";
-                        ver.Version = "6.1/7.1.2";
-                    }
-                    else if (buildCell.InnerText.Contains("11D257b"))
-                    {
-                        ver.Build = "11D257b";
-                        ver.Version = "6.2/7.1.2";
-                    }
-                    else if (buildCell.InnerText.Contains("11D257c"))
-                    {
-                        ver.Build = "11D257c";
-                        ver.Version = "6.2/7.1.2";
-                    }
-                    else if (buildCell.InnerText.Contains("11D258"))
-                    {
-                        ver.Build = "11D258";
-                        ver.Version = "6.2.1/7.1.2";
-                    }
-                    goto kludgeJump;
-                }
-
-                // Fix colspans and rowspans
-                // Possible fix for kludge: recursive rowspan fixer. Before copying, it scans the
-                //   cells (l2r, t2b) between the original and the destination for more rowspans.
-                int col = 0;
-                foreach (XmlNode cell in row.ChildNodes)
-                {
-                    // Ignore the documentation column
-                    if (cell.InnerText.Contains(".ipd"))
-                        continue;
-
-                    foreach (XmlAttribute attr in cell.Attributes)
-                    {
-                        if (attr.Name == "rowspan")
-                        {
-                            int val = Convert.ToInt32(attr.Value);
-                            cell.Attributes.Remove(attr);
-
-                            XmlNode newRow = row;
-                            for (int i = 1; i < val; i++)
-                            {
-                                // Insert a new cell between [col-1] and [col]
-                                // Use `InsertBefore' because `col' could be 0
-                                newRow = newRow.NextSibling;
-                                newRow.InsertBefore(cell.Clone(), newRow.ChildNodes[col]);
-                            }
-                        }
-                        //else if (attr.Name == "colspan")
-                        //{
-                        //    int val = Convert.ToInt32(attr.Value);
-                        //    cell.Attributes.Remove(attr);
-                        //
-                        //    for (int i = 1; i < val; i++)
-                        //        row.InsertAfter(cell.Clone(), cell);
-                        //}
-                    }
-                    col++;
-                }
-
-                // `ver' and `buildCell' are defined up at the kludge
                 if (isSpecialATVFormat)
                 {
                     string marketing = row.ChildNodes[0].InnerText.Trim();
@@ -266,8 +191,21 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                     buildCell = row.ChildNodes[1];
                 }
                 ver.Build = buildCell.InnerText.Trim();
+
+                // Don't add a version we've already seen (FixRowspans(...) causes this)
+                // Example: iPhone 2G 1.0.1 (1C25) and 1.0.2 (1C28)
+                bool isDup = false;
+                foreach (FirmwareVersion testVer in versionList)
+                {
+                    if (ver.Build == testVer.Build)
+                    {
+                        isDup = true;
+                        break;
+                    }
+                }
+                if (isDup)
+                    continue;
                 
-            kludgeJump:
                 XmlNodeList keyPageUrl = buildCell.SelectNodes(".//@href");
                 if (keyPageUrl.Count == 0)
                 {
@@ -275,7 +213,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                     //   version to the list, but don't yield a URL. When adding
                     //   support for betas, this logic will need to be redone.
                     ver.HasKeys = false;
-                    list.Add(ver);
+                    versionList.Add(ver);
                     continue;
                 }
                 else if (keyPageUrl.Count == 1)
@@ -284,18 +222,89 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                     if (url.Contains("redlink"))
                     {
                         ver.HasKeys = false;
-                        list.Add(ver);
+                        versionList.Add(ver);
                         continue;
                     }
 
                     ver.HasKeys = true;
-                    list.Add(ver);
+                    versionList.Add(ver);
                     url = url.Substring(url.IndexOf("/wiki/") + "/wiki/".Length);
                     yield return url;
                 }
                 else
                 {
                     throw new Exception();
+                }
+            }
+        }
+        private static void FixRowspans(XmlNode table)
+        {
+            // This method is a pretty inefficient way IMHO of fixing the problem,
+            //   but compared to the time the web request for the page takes, this
+            //   is nothing.
+            XmlNodeList rows = table.ChildNodes;
+            int rowCount = rows.Count;
+            
+            // find out how many columns there are
+            int colCount = rows[0].ChildNodes.Count;
+            int startRow = 1;
+            if (rows[1].InnerText.Contains("Marketing"))
+            {
+                colCount += 2;
+                startRow = 2;
+            }
+
+            // Ignore the documentation column (it causes problems when using
+            //   XmlNode.InsertBefore(...) and we don't care about it)
+            colCount -= 1;
+
+            for (int col = 0; col < colCount; col++)
+            {
+                for (int row = startRow; row < rowCount; row++)
+                {
+                    XmlNode cell = rows[row].ChildNodes[col];
+                    Debug.Assert(cell != null);
+                restart:
+                    foreach (XmlAttribute attr in cell.Attributes)
+                    {
+                        if (attr.Name != "rowspan")
+                            continue;
+                        int val = Convert.ToInt32(attr.Value);
+                        Debug.Assert(val >= 2);
+                        cell.Attributes.Remove(attr);
+                        for (int i = 1; i < val; i++)
+                        {
+                            // Insert the new cell before the cell currently occupying the space we want
+                            XmlNode rowToAddTo = rows[row + i];
+                            rowToAddTo.InsertBefore(cell.Clone(), rowToAddTo.ChildNodes[col]);
+                        }
+                        // We aren't allowed to modify the collection while enumerating,
+                        //   so if we change it, we need to restart the enumeration
+                        goto restart;
+                    }
+                }
+            }
+        }
+        private static void FixColspans(XmlNode table)
+        {
+            foreach (XmlNode row in table.ChildNodes)
+            {
+            restart:
+                foreach (XmlNode cell in row.ChildNodes)
+                {
+                    foreach (XmlAttribute attr in cell.Attributes)
+                    {
+                        if (attr.Name != "colspan")
+                            continue;
+                        int val = Convert.ToInt32(attr.Value);
+                        Debug.Assert(val >= 2);
+                        cell.Attributes.Remove(attr);
+                        for (int i = 1; i < val; i++)
+                            row.InsertAfter(cell.Clone(), cell);
+                        // We aren't allowed to modify the collection while enumerating,
+                        //   so if we change it, we need to restart the enumeration
+                        goto restart;
+                    }
                 }
             }
         }
@@ -309,6 +318,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
             string displayVersion = null;
             Dictionary<string, string> data = new Dictionary<string, string>();
             for (int i = 0; i < lines.Length; i++) {
+                Debug.Assert(lines[i].StartsWith(" | "));
                 lines[i] = lines[i].Substring(3); // Remove " | "
                 string key = lines[i].Split(' ')[0];
                 string value = lines[i].Split('=')[1];
@@ -319,6 +329,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                     Debug.Assert(value.Contains(","));
                 } else if (key == "DownloadURL") {
                     key = "Download URL";
+                    continue; // Ignore for now
                 } else if (key == "RootFS" || key == "GMRootFS" || key == "UpdateRamdisk" || key == "RestoreRamdisk") {
                     if (String.IsNullOrWhiteSpace(value))
                         value = "XXX-XXXX-XXX";
