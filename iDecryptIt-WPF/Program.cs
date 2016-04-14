@@ -30,20 +30,24 @@ namespace Hexware.Programs.iDecryptIt
         [STAThread]
         internal static void Main(string[] args)
         {
-            //Firmware.Apple8900File file = new Firmware.Apple8900File(System.IO.File.OpenRead(
-            //    @"C:\iPod1,1_1.1.5_4B1_Restore\Firmware\all_flash\all_flash.n45ap.production\applelogo.img2"));
-            //byte[] payload = file.GetPayload();
-            //System.IO.File.WriteAllBytes(@"C:\iPod1,1_1.1.5_4B1_Restore\applelogo.dec.img2", payload);
+            //Firmware.Apple8900Stream logo = new Firmware.Apple8900Stream(System.IO.File.OpenRead(
+            //    @"C:\test\applelogo.img2"));
+            //byte[] logoPayload = new byte[logo.Length];
+            //logo.Read(logoPayload, 0, (int)logo.Length);
+            //System.IO.File.WriteAllBytes(@"C:\test\applelogo.dec.img2", logoPayload);
+
+            //Firmware.Apple8900Stream rdsk = new Firmware.Apple8900Stream(System.IO.File.OpenRead(
+            //    @"C:\test\022-3604-4.dmg"));
+            //byte[] rdskPayload = new byte[rdsk.Length];
+            //rdsk.Read(rdskPayload, 0, (int)rdsk.Length);
+            //System.IO.File.WriteAllBytes(@"C:\test\022-3604-4.dec.dmg", rdskPayload);
 
             Globals.Init();
-            Console.WriteLine("iDecryptIt " + Globals.Version + Globals.Version64);
-            
+            PrintLicense();
+
             for (int i = 0; i < args.Length; i++) {
                 if (args[i] == "/d" || args[i] == "/debug") {
                     Globals.Debug = true;
-                } else if (args[i] == "/v" || args[i] == "/version") {
-                    PrintLicense();
-                    return;
                 } else if (args[i].Length > 4 && args[i].Substring(args[i].Length - 4) == ".dmg") {
                     if (Globals.ExecutionArgs.ContainsKey("dmg"))
                         Globals.ExecutionArgs["dmg"] = args[i];
@@ -59,6 +63,7 @@ namespace Hexware.Programs.iDecryptIt
 
         private static void PrintLicense()
         {
+            Console.WriteLine("iDecryptIt " + Globals.Version + Globals.Version64);
             Console.WriteLine("Copyright (c) 2010-2016 Cole Johnson");
             Console.WriteLine();
             Console.WriteLine("iDecryptIt is free software: you can redistribute it and/or modify it under");
