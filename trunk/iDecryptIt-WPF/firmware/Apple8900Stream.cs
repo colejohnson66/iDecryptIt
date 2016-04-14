@@ -26,14 +26,17 @@ using System.Security.Cryptography;
 
 namespace Hexware.Programs.iDecryptIt.Firmware
 {
+    // This stream exposes the payload of the file as a stream, NOT the 8900 wrapper
+    // A better name would be Apple8900PayloadStream, but in the future, this class
+    // will allow changing the footer and other data.
     class Apple8900Stream : Stream, IDisposable
     {
         /* Apple8900 {
          *    0  byte[4]  magic;   // "8900"
          *    4  byte[3]  version; // "1.0"
-         *    7  byte     format;  // unencrypted == 0x4; encrypted == 0x3
+         *    7  byte     format;  // unencrypted == 0x4; encrypted == 0x3; types 0x1 and 0x2 exist, but are unsupported
          *    8  uint32;
-         *    C  uint32   dataSize;
+         *    C  uint32   payloadLength;
          *   10  uint32   footerSigOffset;  // ignoring header
          *   14  uint32   footerCertOffset; // ignoring header
          *   18  uint32   footerCertSize;
@@ -42,7 +45,7 @@ namespace Hexware.Programs.iDecryptIt.Firmware
          *   3E  uint16   epoch;
          *   40  byte[16] headerSig; // aes128cbc(sha1(file[0:0x40])[0:0x10], Key0x837, ZeroIV)
          *   50  byte[0x7B0] padding;
-         *  800  Img2File payload;   // sizeof(payload) == dataSize
+         *  800  byte[]   payload;   // sizeof(payload) == dataSize (always either an IMG2 or DMG file)
          * ????  byte[?]  footer;    // padding, signature and certificate
          */
         
@@ -54,11 +57,9 @@ namespace Hexware.Programs.iDecryptIt.Firmware
             0xE3, 0x86, 0xF2, 0x3B, 0x61, 0xD4, 0x37, 0x74
         };
         private static readonly byte[] Magic = new byte[] { 0x38, 0x39, 0x30, 0x30 };
-        private static readonly byte[] Version = new byte[] { 0x31, 0x2E, 0x30 };
 
         private Stream _stream;
         private bool _encrypted = false;
-        private int _dataSize;
         private byte[] _payload;
         private int _seekPos;
 
@@ -72,6 +73,7 @@ namespace Hexware.Programs.iDecryptIt.Firmware
                 throw new ArgumentException("Stream must support seeking.", "stream");
 
             _stream = stream;
+            ParseStream();
         }
 
         private void ParseStream()
@@ -93,13 +95,13 @@ namespace Hexware.Programs.iDecryptIt.Firmware
                 throw new FileFormatException("Unknown Apple 8900 file type. Only types 3 and 4 are supported.");
             _encrypted = (buf[7] == 3);
 
-            _dataSize = BitConverter.ToInt32(buf, 0xC);
-            if (_dataSize <= 0)
+            int payloadLength = BitConverter.ToInt32(buf, 0xC);
+            if (payloadLength <= 0)
                 throw new FileFormatException("Payload cannot have a zero or negative size.");
 
-            _payload = new byte[_dataSize];
+            _payload = new byte[payloadLength];
             _seekPos = 0;
-            if (_stream.Read(_payload, 0, _dataSize) != _dataSize)
+            if (_stream.Read(_payload, 0, payloadLength) != payloadLength)
                 throw new FileFormatException("Stream to small to contain indicated payload.");
 
             if (_encrypted)
@@ -158,7 +160,7 @@ namespace Hexware.Programs.iDecryptIt.Firmware
         {
             get
             {
-                return _dataSize;
+                return _payload.Length;
             }
         }
         public override long Position
@@ -181,8 +183,8 @@ namespace Hexware.Programs.iDecryptIt.Firmware
         public override int Read(byte[] buffer, int offset, int count)
         {
             // if `count' would put us past the end of the stream, fix it
-            if (_seekPos + count > _dataSize)
-                count = _dataSize - _seekPos;
+            if (_seekPos + count > _payload.Length)
+                count = _payload.Length - _seekPos;
 
             Array.Copy(_payload, _seekPos, buffer, offset, count);
             return count;
@@ -194,7 +196,7 @@ namespace Hexware.Programs.iDecryptIt.Firmware
             else if (origin == SeekOrigin.Current)
                 _seekPos += (int)offset;
             else
-                _seekPos = _dataSize - (int)offset;
+                _seekPos = _payload.Length - (int)offset;
             return _seekPos;
         }
         public override void SetLength(long value)
