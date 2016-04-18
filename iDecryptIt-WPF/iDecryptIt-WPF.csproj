@@ -150,6 +150,7 @@
     </ApplicationDefinition>
     <Compile Include="ComboBoxEntry.cs" />
     <Compile Include="firmware\Apple8900Stream.cs" />
+    <Compile Include="firmware\Img2Stream.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Globals.cs" />
     <Compile Include="KeyGridItem.cs" />

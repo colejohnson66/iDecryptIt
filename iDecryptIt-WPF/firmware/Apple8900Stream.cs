@@ -1,5 +1,5 @@
 ﻿/* =============================================================================
- * File:   Apple8900Reader.cs
+ * File:   Apple8900Stream.cs
  * Author: Cole Johnson
  * =============================================================================
  * Copyright (c) 2016 Cole Johnson
@@ -29,7 +29,7 @@ namespace Hexware.Programs.iDecryptIt.Firmware
     // This stream exposes the payload of the file as a stream, NOT the 8900 wrapper
     // A better name would be Apple8900PayloadStream, but in the future, this class
     // will allow changing the footer and other data.
-    class Apple8900Stream : Stream, IDisposable
+    public class Apple8900Stream : Stream
     {
         /* Apple8900 {
          *    0  byte[4]  magic;   // "8900"
@@ -45,8 +45,9 @@ namespace Hexware.Programs.iDecryptIt.Firmware
          *   3E  uint16   epoch;
          *   40  byte[16] headerSig; // aes128cbc(sha1(file[0:0x40])[0:0x10], Key0x837, ZeroIV)
          *   50  byte[0x7B0] padding;
-         *  800  byte[]   payload;   // sizeof(payload) == dataSize (always either an IMG2 or DMG file)
+         *  800  byte[]   payload;   // sizeof(payload) == payloadLength (IMG2, DMG, or raw data)
          * ????  byte[?]  footer;    // padding, signature and certificate
+         * }
          */
         
         // <https://www.theiphonewiki.com/wiki/AES_Keys#Key_0x837>
