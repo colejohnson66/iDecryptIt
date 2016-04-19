@@ -57,7 +57,7 @@ namespace Hexware.Programs.iDecryptIt.Firmware
             0x18, 0x84, 0x58, 0xA6, 0xD1, 0x50, 0x34, 0xDF,
             0xE3, 0x86, 0xF2, 0x3B, 0x61, 0xD4, 0x37, 0x74
         };
-        private static readonly byte[] Magic = new byte[] { 0x38, 0x39, 0x30, 0x30 };
+        private static readonly uint Magic = 0x30303938u; // '8900' in big endian
 
         private Stream _stream;
         private bool _encrypted = false;
@@ -65,6 +65,10 @@ namespace Hexware.Programs.iDecryptIt.Firmware
         private int _seekPos;
 
         public Apple8900Stream(Stream stream)
+            : this(stream, true)
+        { }
+
+        public Apple8900Stream(Stream stream, bool resetStreamPosition)
         {
             if (stream == null)
                 throw new ArgumentNullException("stream");
@@ -74,19 +78,19 @@ namespace Hexware.Programs.iDecryptIt.Firmware
                 throw new ArgumentException("Stream must support seeking.", "stream");
 
             _stream = stream;
-            ParseStream();
+            ParseStream(resetStreamPosition);
         }
 
-        private void ParseStream()
+        private void ParseStream(bool resetPos)
         {
-            _stream.Seek(0, SeekOrigin.Begin);
+            if (resetPos)
+                _stream.Seek(0, SeekOrigin.Begin);
 
             byte[] buf = new byte[0x800];
             if (_stream.Read(buf, 0, 0x800) != 0x800)
                 throw new FileFormatException("Stream too small to contain an 8900 file.");
 
-            if (buf[0] != Magic[0] || buf[1] != Magic[1] ||
-                buf[2] != Magic[2] || buf[3] != Magic[3])
+            if (BitConverter.ToUInt32(buf, 0) != Magic)
                 throw new FileFormatException("Stream is not an Apple 8900 file.");
 
             if (buf[4] != '1' || buf[5] != '.' || buf[6] != '0')
@@ -107,6 +111,10 @@ namespace Hexware.Programs.iDecryptIt.Firmware
 
             if (_encrypted)
                 DecryptPayload();
+
+            // TODO: Read signiature and certificate
+            // To read sig, read 0x80 bytes from `0x800+footerSigOffset'
+            // To read cert, read `footerCertSize' bytes from `0x800+footerCertOffset'
         }
         private void DecryptPayload()
         {

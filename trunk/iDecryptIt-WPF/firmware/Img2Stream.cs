@@ -30,7 +30,7 @@ namespace Hexware.Programs.iDecryptIt.Firmware
     public class Img2Stream
     {
         /* Img2 {
-         *    0  byte[4]  magic;     // "2gmI" ("Img2" in little-endian)
+         *    0  byte[4]  magic;     // "2gmI" ("Img2" in little endian)
          *    4  byte[4]  imageType; // eg. "logo" for AppleLogo
          *    8  uint16;
          *    A  uint16   epoch;
@@ -45,14 +45,14 @@ namespace Hexware.Programs.iDecryptIt.Firmware
          *   68  uint32  checksum2;
          *   6C  uint32;                 // always 0xFFFF'FFFF?
          *   70  VersionTag {
-         *         70  byte[4]  magic;   // "srev" ("vers" in little-endian)
+         *         70  byte[4]  magic;   // "srev" ("vers" in little endian)
          *         74  uint32;
          *         78  byte[24] version; // "EmbeddedImages-##" (terminated with a null and 0xFF)
          *       }
          *   90  byte[0x370];
          *  400  byte[]  payload; // sizeof(payload) == payloadLengthPadded
          */
-        
-        private static readonly byte[] Magic = new byte[] { 0x32, 0x67, 0x6D, 0x49 };
+
+        private static readonly uint Magic = 0x496D6732; // "Img2" in little endian
     }
 }
