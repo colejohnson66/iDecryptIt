@@ -30,17 +30,36 @@ namespace Hexware.Programs.iDecryptIt
         [STAThread]
         internal static void Main(string[] args)
         {
-            //Firmware.Apple8900Stream logo = new Firmware.Apple8900Stream(System.IO.File.OpenRead(
-            //    @"C:\test\applelogo.img2"));
-            //byte[] logoPayload = new byte[logo.Length];
-            //logo.Read(logoPayload, 0, (int)logo.Length);
-            //System.IO.File.WriteAllBytes(@"C:\test\applelogo.dec.img2", logoPayload);
+            /*Firmware.Apple8900Stream logo = new Firmware.Apple8900Stream(System.IO.File.OpenRead(
+                @"C:\test\iPhone1,1_1.0_1A543a_Restore\Firmware\all_flash\all_flash.m68ap.production\applelogo.img2"));
+            Firmware.Img2Stream logo2 = new Firmware.Img2Stream(logo);
+            Firmware.IBootImageStream logo3 = new Firmware.IBootImageStream(logo2);
 
-            //Firmware.Apple8900Stream rdsk = new Firmware.Apple8900Stream(System.IO.File.OpenRead(
-            //    @"C:\test\022-3604-4.dmg"));
-            //byte[] rdskPayload = new byte[rdsk.Length];
-            //rdsk.Read(rdskPayload, 0, (int)rdsk.Length);
-            //System.IO.File.WriteAllBytes(@"C:\test\022-3604-4.dec.dmg", rdskPayload);
+            byte[] logoPayload = new byte[logo3.Length];
+            logo3.Read(logoPayload, 0, logoPayload.Length);
+            System.IO.File.WriteAllBytes(@"C:\test\dec.applelogo.bin", logoPayload);
+            System.Drawing.Bitmap logoImg = new System.Drawing.Bitmap(logo3.Width, logo3.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            int pixelNum = 0;
+            for (int y = 0; y < logo3.Height; y++)
+            {
+                for (int x = 0; x < logo3.Width; x++)
+                {
+                    byte pixel = logoPayload[pixelNum];
+                    System.Drawing.Color color = System.Drawing.Color.FromArgb(
+                        255 - logoPayload[pixelNum + 1],
+                        pixel, pixel, pixel);
+                    logoImg.SetPixel(x, y, color);
+                    pixelNum += 2;
+                }
+            }
+            logoImg.Save(@"C:\test\dec.applelogo.bmp");*/
+
+            //Firmware.Apple8900Stream krnl = new Firmware.Apple8900Stream(System.IO.File.OpenRead(
+            //    @"C:\test\iPhone1,1_1.0_1A543a_Restore\kernelcache.restore.release.s5l8900xrb"));
+            //Firmware.CompStream krnl2 = new Firmware.CompStream(krnl);
+            //byte[] krnlPayload = new byte[krnl2.Length];
+            //krnl2.Read(krnlPayload, 0, krnlPayload.Length);
+            //System.IO.File.WriteAllBytes(@"C:\test\dec.kernelcache.bin", krnlPayload);
 
             Globals.Init();
             PrintLicense();

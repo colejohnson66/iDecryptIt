@@ -1,5 +1,5 @@
 ﻿/* =============================================================================
- * File:   Img2Stream.cs
+ * File:   IBootImageStream.cs
  * Author: Cole Johnson
  * =============================================================================
  * Copyright (c) 2016 Cole Johnson
@@ -25,44 +25,42 @@ using System.IO;
 
 namespace Hexware.Programs.iDecryptIt.Firmware
 {
-    public class Img2Stream : Stream
+    public enum IBootImageColorType
     {
-        /* Img2 {
-         *    0  byte[4]  magic;     // "2gmI" ("Img2" in little endian)
-         *    4  byte[4]  imageType; // eg. "logo" for AppleLogo
-         *    8  uint16;
-         *    A  uint16   epoch;
-         *    C  uint32   flags1;
-         *   10  uint32   payloadLengthPadded;
-         *   14  uint32   payloadLength;
-         *   18  uint32;
-         *   1C  uint32   flags2;        // 0x0100'0000 has to be unset
-         *   20  byte[64];
-         *   60  uint32;                 // possibly a length field
-         *   64  uint32  headerChecksum; // crc32(file[0:0x64])
-         *   68  uint32  checksum2;
-         *   6C  uint32;                 // always 0xFFFF'FFFF?
-         *   70  VersionTag {
-         *         70  byte[4]  magic;   // "srev" ("vers" in little endian)
-         *         74  uint32;
-         *         78  byte[24] version; // "EmbeddedImages-##" (terminated with a null and 0xFF)
-         *       }
-         *   90  byte[0x370];
-         *  400  byte[]  payload; // sizeof(payload) == payloadLengthPadded
+        Argb,
+        Gray
+    }
+    public class IBootImageStream : Stream
+    {
+        /* IBootImage {
+         *    0  byte[8]  magic;   // "iBootIm\0"
+         *    8  uint32;
+         *    C  uint32   compressionType;
+         *   10  uint32   colorType;
+         *   14  uint16   width;
+         *   16  uint16   height;
+         *   18  byte[0x28] padding;
+         *   40  byte[]   payload; // sizeof(payload) == sizeof(file) - offsetof(payload)
+         * }
          */
 
-        private static readonly uint Magic = 0x496D6732; // "Img2" in little endian
-
+        private static readonly ulong Magic = 0x006D49746F6F4269; // "iBootIm\0" in big endian
+        private static readonly uint LzssSignature = 0x6C7A7373; // "lzss" in little endian
+        private static readonly uint ColorArgb = 0x61726762; // "argb" in little endian
+        private static readonly uint ColorGray = 0x67726579; // "grey" in little endian
+        
         private Stream _stream;
-        private uint _imageType;
         private byte[] _payload;
         private int _seekPos;
+        private IBootImageColorType _colorType;
+        private int _width;
+        private int _height;
 
-        public Img2Stream(Stream stream)
+        public IBootImageStream(Stream stream)
             : this(stream, true)
         { }
 
-        public Img2Stream(Stream stream, bool resetStreamPosition)
+        public IBootImageStream(Stream stream, bool resetStreamPosition)
         {
             if (stream == null)
                 throw new ArgumentNullException("stream");
@@ -80,30 +78,64 @@ namespace Hexware.Programs.iDecryptIt.Firmware
             if (resetPos)
                 _stream.Seek(0, SeekOrigin.Begin);
 
-            byte[] buf = new byte[0x400];
-            if (_stream.Read(buf, 0, 0x400) != 0x400)
-                throw new FileFormatException("Stream too small to contain an IMG2 file.");
+            byte[] buf = new byte[0x40];
+            if (_stream.Read(buf, 0, 0x40) != 0x40)
+                throw new FileFormatException("Stream too small to contain an iBootImage file.");
 
-            if (BitConverter.ToUInt32(buf, 0) != Magic)
-                throw new FileFormatException("Stream is not an IMG2 file.");
+            if (BitConverter.ToUInt64(buf, 0) != Magic)
+                throw new FileFormatException("Stream is not an iBootImage file.");
 
-            _imageType = BitConverter.ToUInt32(buf, 4);
+            if (BitConverter.ToUInt32(buf, 0xC) != LzssSignature)
+                throw new FileFormatException("Unknown iBootImage compression type. Only LZSS is supported.");
 
-            int payloadLength = BitConverter.ToInt32(buf, 0x14);
-            if (payloadLength <= 0)
-                throw new FileFormatException("Payload cannot have a zero or negative size.");
+            uint colorType = BitConverter.ToUInt32(buf, 0x10);
+            if (colorType == ColorGray)
+                _colorType = IBootImageColorType.Gray;
+            else if (colorType == ColorArgb)
+                _colorType = IBootImageColorType.Argb;
+            else
+                throw new FileFormatException("Unknown iBootImage color type. Only ARGB and grey are supported");
 
-            _payload = new byte[payloadLength];
-            _seekPos = 0;
-            if (_stream.Read(_payload, 0, payloadLength) != payloadLength)
+            _width = BitConverter.ToInt16(buf, 0x14);
+            _height = BitConverter.ToInt16(buf, 0x16);
+            if (_width < 0 || _height < 0)
+                throw new FileFormatException("iBootImage cannot have a negative dimension.");
+
+            int compLen = (int)_stream.Length - 0x40;
+            int decompLen = 0;
+            if (_colorType == IBootImageColorType.Gray)
+                decompLen = 2 * _width * _height;
+            else //if (_colorType == IBootImageColorType.Argb)
+                decompLen = 4 * _width * _height;
+
+            byte[] compPayload = new byte[compLen];
+            _payload = new byte[decompLen];
+            if (_stream.Read(compPayload, 0, compLen) != compLen)
                 throw new FileFormatException("Stream to small to contain indicated payload.");
+
+            int length = Lzss.Decompress(_payload, compPayload);
+            System.Diagnostics.Debug.Assert(length == decompLen);
         }
 
-        public uint ImageType
+        public IBootImageColorType ColorType
         {
             get
             {
-                return _imageType;
+                return _colorType;
+            }
+        }
+        public int Width
+        {
+            get
+            {
+                return _width;
+            }
+        }
+        public int Height
+        {
+            get
+            {
+                return _height;
             }
         }
 
