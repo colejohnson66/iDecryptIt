@@ -34,17 +34,18 @@ namespace Hexware.Plist
         {
             _value = new Dictionary<string, IPlistElement>();
         }
-        public PlistDict(Dictionary<string, IPlistElement> value)
+        public PlistDict(Dictionary<string, IPlistElement> value) : this(value, true)
+        {
+        }
+        public PlistDict(Dictionary<string, IPlistElement> value, bool copy)
         {
             if (value == null)
                 throw new ArgumentNullException("value");
 
-            _value = new Dictionary<string, IPlistElement>(value);
-        }
-        internal PlistDict(Dictionary<string, IPlistElement> value, bool unused)
-        {
-            // Used by PlistDict.ReadBinary and PlistDict.ReadXml to avoid the shallow copy
-            _value = value;
+            if (copy)
+                _value = new Dictionary<string, IPlistElement>(value);
+            else
+                _value = value;
         }
         public static implicit operator PlistDict(Dictionary<string, IPlistElement> value)
         {
@@ -171,13 +172,13 @@ namespace Hexware.Plist
             if (length == 0x0F)
                 length = (int)PlistInteger.ReadBinary(reader, reader.ReadByte()).Value;
 
-            int[] keyrefs = new int[length];
-            int[] objrefs = new int[length];
+            long[] keyrefs = new long[length];
+            long[] objrefs = new long[length];
             for (int i = 0; i < length; i++)
-                keyrefs[i] = (int)BinaryPlistReader.ParseUnsignedBigEndianNumber(
+                keyrefs[i] = (long)BinaryPlistReader.ParseUnsignedBigEndianNumber(
                     reader.ReadBytes(reader.Trailer.ReferenceOffsetSize));
             for (int i = 0; i < length; i++)
-                objrefs[i] = (int)BinaryPlistReader.ParseUnsignedBigEndianNumber(
+                objrefs[i] = (long)BinaryPlistReader.ParseUnsignedBigEndianNumber(
                     reader.ReadBytes(reader.Trailer.ReferenceOffsetSize));
 
             Dictionary<string, IPlistElement> ret = new Dictionary<string, IPlistElement>();
@@ -202,12 +203,20 @@ namespace Hexware.Plist
         // TODO
         void IPlistElementInternal.WriteBinary(BinaryPlistWriter writer)
         {
+            // Add all the children to the object table first
+            foreach (string key in _value.Keys)
+            {
+                writer.AddObjectToTable(new PlistString(key));
+            }
+
             if (_value.Count < 0x0F) {
                 writer.Write((byte)(0xD0 | _value.Count));
             } else {
                 writer.Write((byte)0xDF);
                 writer.WriteTypedInteger(_value.Count);
             }
+
+            
 
             // TODO: keyref*
             // TODO: objref*

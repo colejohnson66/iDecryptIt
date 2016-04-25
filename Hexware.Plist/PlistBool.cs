@@ -2,7 +2,7 @@
  * File:   PlistBool.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2012, 2014-2015 Cole Johnson
+ * Copyright (c) 2012, 2014-2016 Cole Johnson
  * 
  * This file is part of Hexware.Plist
  * 
@@ -59,6 +59,15 @@ namespace Hexware.Plist
             {
                 return PlistElementType.Boolean;
             }
+        }
+
+        public override bool Equals(object obj)
+        {
+            PlistBool other = obj as PlistBool;
+            if (other == null)
+                return false;
+
+            return (_value == other._value);
         }
     }
     public partial class PlistBool : IPlistElementInternal

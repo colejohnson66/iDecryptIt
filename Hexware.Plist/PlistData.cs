@@ -2,7 +2,7 @@
  * File:   PlistData.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2012, 2014-2015 Cole Johnson
+ * Copyright (c) 2012, 2014-2016 Cole Johnson
  * 
  * This file is part of Hexware.Plist
  * 
@@ -21,6 +21,7 @@
  * =============================================================================
  */
 using System;
+using System.Linq;
 using System.Text;
 using System.Xml;
 
@@ -94,6 +95,15 @@ namespace Hexware.Plist
             {
                 return PlistElementType.Data;
             }
+        }
+
+        public override bool Equals(object obj)
+        {
+            PlistData other = obj as PlistData;
+            if (other == null)
+                return false;
+
+            return _value.SequenceEqual(other._value);
         }
     }
     public partial class PlistData : IPlistElementInternal

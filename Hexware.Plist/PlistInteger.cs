@@ -2,7 +2,7 @@
  * File:   PlistInteger.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2012, 2014-2015 Cole Johnson
+ * Copyright (c) 2012, 2014-2016 Cole Johnson
  * 
  * This file is part of Hexware.Plist
  * 
@@ -171,6 +171,15 @@ namespace Hexware.Plist
             {
                 return PlistElementType.Integer;
             }
+        }
+
+        public override bool Equals(object obj)
+        {
+            PlistInteger other = obj as PlistInteger;
+            if (other == null)
+                return false;
+
+            return _value == other._value;
         }
     }
     public partial class PlistInteger : IPlistElementInternal

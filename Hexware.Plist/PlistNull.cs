@@ -2,7 +2,7 @@
  * File:   PlistNull.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2012, 2014-2015 Cole Johnson
+ * Copyright (c) 2012, 2014-2016 Cole Johnson
  * 
  * This file is part of Hexware.Plist
  * 
@@ -40,6 +40,15 @@ namespace Hexware.Plist
             {
                 return PlistElementType.Null;
             }
+        }
+
+        public override bool Equals(object obj)
+        {
+            PlistNull other = obj as PlistNull;
+            if (other == null)
+                return false;
+
+            return true;
         }
     }
     public partial class PlistNull : IPlistElementInternal

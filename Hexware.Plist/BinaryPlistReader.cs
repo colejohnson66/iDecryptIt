@@ -29,13 +29,13 @@ namespace Hexware.Plist
     {
         internal BinaryPlistTrailer Trailer;
 
-        internal int[] ObjectOffsets;
+        internal long[] ObjectOffsets;
 
         internal BinaryPlistReader(Stream stream) : base(stream)
         {
         }
 
-        internal IPlistElement ParseObject(int obj)
+        internal IPlistElement ParseObject(long obj)
         {
             this.BaseStream.Seek(ObjectOffsets[obj], SeekOrigin.Begin);
             byte type = this.ReadByte();

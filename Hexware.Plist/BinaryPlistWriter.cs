@@ -2,7 +2,7 @@
  * File:   BinaryPlistWriter.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2015 Cole Johnson
+ * Copyright (c) 2015-2016 Cole Johnson
  * 
  * This file is part of Hexware.Plist
  * 
@@ -20,19 +20,43 @@
  *   along with Hexware.Plist. If not, see <http://www.gnu.org/licenses/>.
  * =============================================================================
  */
+using System.Collections.Generic;
 using System.IO;
 
 namespace Hexware.Plist
 {
     internal class BinaryPlistWriter : BinaryWriter
     {
-        // SHUT UP COMPILER
-        //internal int objectCount;
-        //internal int[] objectOffsets;
+        internal List<long> objOffsets;
+        internal List<IPlistElement> objects;
 
         internal void WriteTypedInteger(long value)
         {
             ((IPlistElementInternal)new PlistInteger(value)).WriteBinary(this);
+        }
+
+        internal int AddObjectToTable(IPlistElement obj)
+        {
+            if (obj.ElementType == PlistElementType.Array ||
+                obj.ElementType == PlistElementType.Dictionary)
+            {
+                // Don't compare these; Assume all arrays and dictionaries are unique
+                objOffsets.Add(this.BaseStream.Position);
+                objects.Add(obj);
+                return objects.Count;
+            }
+
+            for (int i = 0; i < objects.Count; i++)
+            {
+                IPlistElement testAgainst = objects[i];
+                if (obj.Equals(objects[i]))
+                    return i;
+            }
+
+            // this object is unique
+            objOffsets.Add(this.BaseStream.Position);
+            objects.Add(obj);
+            return objects.Count;
         }
     }
 }
