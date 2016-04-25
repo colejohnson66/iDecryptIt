@@ -2,7 +2,7 @@
  * File:   PlistReal.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2012, 2014 Cole Johnson
+ * Copyright (c) 2012, 2014-2016 Cole Johnson
  * 
  * This file is part of Hexware.Plist
  * 
@@ -150,6 +150,15 @@ namespace Hexware.Plist
             {
                 return PlistElementType.Real;
             }
+        }
+
+        public override bool Equals(object obj)
+        {
+            PlistReal other = obj as PlistReal;
+            if (other == null)
+                return false;
+
+            return _value == other._value;
         }
     }
     public partial class PlistReal : IPlistElementInternal

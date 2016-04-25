@@ -75,6 +75,15 @@ namespace Hexware.Plist
                 return PlistElementType.String;
             }
         }
+
+        public override bool Equals(object obj)
+        {
+            PlistString other = obj as PlistString;
+            if (other == null)
+                return false;
+
+            return _value == other._value;
+        }
     }
     public partial class PlistString : IPlistElementInternal
     {

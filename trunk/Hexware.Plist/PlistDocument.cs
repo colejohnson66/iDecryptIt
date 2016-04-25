@@ -143,10 +143,10 @@ namespace Hexware.Plist
             reader.Trailer = new BinaryPlistTrailer(reader.ReadBytes(32));
 
             reader.BaseStream.Seek(reader.Trailer.OffsetTableOffset, SeekOrigin.Begin);
-            reader.ObjectOffsets = new int[reader.Trailer.NumberOfObjects];
+            reader.ObjectOffsets = new long[reader.Trailer.NumberOfObjects];
             for (int i = 0; i < reader.Trailer.NumberOfObjects; i++) {
                 byte[] buf = reader.ReadBytes(reader.Trailer.OffsetTableOffsetSize);
-                reader.ObjectOffsets[i] = (int)BinaryPlistReader.ParseUnsignedBigEndianNumber(buf);
+                reader.ObjectOffsets[i] = (long)BinaryPlistReader.ParseUnsignedBigEndianNumber(buf);
             }
 
             _value = reader.ParseObject(reader.Trailer.RootObjectNumber);

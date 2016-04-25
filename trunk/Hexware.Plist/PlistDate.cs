@@ -81,6 +81,15 @@ namespace Hexware.Plist
                 return PlistElementType.Date;
             }
         }
+
+        public override bool Equals(object obj)
+        {
+            PlistDate other = obj as PlistDate;
+            if (other == null)
+                return false;
+
+            return (_value == other._value);
+        }
     }
     public partial class PlistDate : IPlistElementInternal
     {
