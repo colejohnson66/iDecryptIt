@@ -97,6 +97,7 @@ namespace Hexware.Programs.iDecryptIt
             Console.WriteLine();
             Console.WriteLine("You should have received a copy of the GNU General Public License along with");
             Console.WriteLine("  iDecryptIt. If not, see <http://www.gnu.org/licenses/>.");
+            Console.WriteLine();
         }
     }
 }
