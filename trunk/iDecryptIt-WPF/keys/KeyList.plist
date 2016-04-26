@@ -1217,7 +1217,7 @@
 				<key>Version</key>
 				<string>9.3</string>
 				<key>Has Keys</key>
-				<false />
+				<true />
 			</dict>
 			<dict>
 				<key>Build</key>
@@ -1225,7 +1225,7 @@
 				<key>Version</key>
 				<string>9.3</string>
 				<key>Has Keys</key>
-				<false />
+				<true />
 			</dict>
 			<dict>
 				<key>Build</key>
@@ -1233,7 +1233,7 @@
 				<key>Version</key>
 				<string>9.3.1</string>
 				<key>Has Keys</key>
-				<false />
+				<true />
 			</dict>
 		</array>
 		<key>iPad2,2</key>
@@ -1572,7 +1572,7 @@
 				<key>Version</key>
 				<string>9.3</string>
 				<key>Has Keys</key>
-				<false />
+				<true />
 			</dict>
 			<dict>
 				<key>Build</key>
@@ -1580,7 +1580,7 @@
 				<key>Version</key>
 				<string>9.3</string>
 				<key>Has Keys</key>
-				<false />
+				<true />
 			</dict>
 			<dict>
 				<key>Build</key>
@@ -1588,7 +1588,7 @@
 				<key>Version</key>
 				<string>9.3.1</string>
 				<key>Has Keys</key>
-				<false />
+				<true />
 			</dict>
 		</array>
 		<key>iPad2,3</key>
@@ -1927,7 +1927,7 @@
 				<key>Version</key>
 				<string>9.3</string>
 				<key>Has Keys</key>
-				<false />
+				<true />
 			</dict>
 			<dict>
 				<key>Build</key>
@@ -1935,7 +1935,7 @@
 				<key>Version</key>
 				<string>9.3</string>
 				<key>Has Keys</key>
-				<false />
+				<true />
 			</dict>
 			<dict>
 				<key>Build</key>
@@ -1943,7 +1943,7 @@
 				<key>Version</key>
 				<string>9.3.1</string>
 				<key>Has Keys</key>
-				<false />
+				<true />
 			</dict>
 		</array>
 		<key>iPad2,4</key>
@@ -8405,7 +8405,7 @@
 				<key>Version</key>
 				<string>9.3</string>
 				<key>Has Keys</key>
-				<false />
+				<true />
 			</dict>
 			<dict>
 				<key>Build</key>
@@ -8413,7 +8413,7 @@
 				<key>Version</key>
 				<string>9.3</string>
 				<key>Has Keys</key>
-				<false />
+				<true />
 			</dict>
 			<dict>
 				<key>Build</key>
