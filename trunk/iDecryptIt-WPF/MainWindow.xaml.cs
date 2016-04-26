@@ -293,16 +293,6 @@ namespace Hexware.Programs.iDecryptIt
 
             Debug("[KEYSELECT]", "Opening keys for " + selectedModel + " " + selectedVersion + ".");
 
-            // Oh, you want the prototype beta, huh?
-            if (selectedModel == "iPhone1,1" && selectedVersion == "1A420") {
-                try {
-                    Process.Start("https://mega.co.nz/#!Ml8hyCQI!d2ihbCEvtkFcFSgldAPqIQ1_OpRIWAeJZl_HODWjC7s");
-                } catch (Exception ex) {
-                    Error("Unable to open prototype download page", ex);
-                }
-                return;
-            }
-
             Stream stream = GetStream(selectedModel + "_" + selectedVersion + ".plist");
             if (stream == Stream.Null) {
                 Debug("[KEYSELECT]", "Key file doesn't exist. No keys available.");
@@ -876,7 +866,7 @@ namespace Hexware.Programs.iDecryptIt
                 Debug("[UPDATE]", "Latest version: " + e.Result);
 
 #if !DEBUG
-                if (e.Result != GlobalVars.Version)
+                if (e.Result != Globals.Version)
                 {
                     MessageBox.Show(
                         "Update Available.",
