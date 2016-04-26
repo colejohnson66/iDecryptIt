@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Changelog</title>
+</head>
+<body>
+<!--
+Copyright (c) 2010-2016 Cole Johnson
+
+This file is part of iDecryptIt.
+
+iDecryptIt is free software: you can redistribute it and/or modify it under
+  the terms of the GNU General Public License as published by the Free
+  Software Foundation, either version 3 of the License, or (at your option)
+  any later version.
+
+iDecryptIt is distributed in the hope that it will be useful, but WITHOUT
+  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+  FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+  more details.
+
+You should have received a copy of the GNU General Public License along with
+  iDecryptIt. If not, see <http://www.gnu.org/licenses/>.
+-->
+<img src="icon.png" style="float:right; margin:10px;" />
+<h1 style="text-decoration:underline;">iDecryptIt Changelog</h1>
+    
+<h2 style="text-decoration:underline;">Version 9.x</h2>
+<h3>Version 9.31.0 (9.3.1 / tvOS 9.2) (Build 2G86)</h3>
+<ul>
+    <li>Added support for 8.2-9.3.1 for all supported devices</li>
+	<li>Added support for 8C152 build of 4.1.1 (4.2.1) for Apple TV 2G</li>
+    <li>Added support for 7.1 (8.2) and 7.2 (8.3) for Apple TV 3G</li>
+    <li>Added support for new Apple TV 4G, iPad Pro, iPad mini 4, iPhone 6s, iPhone 6s Plus, iPhone SE, and iPod touch 6G</li>
+    <li>Added support for <code>BatteryCharging</code> files (present in IMG2-based firmwares)</li>
+    <li>Removed support for prototype 1A420 for the original iPhone</li>
+    <li>Progress bar now more accurate (it won't sit at 100% for a few seconds before finishing)</li>
+    <li>Updated and corrected all keys
+    <ul>
+        <li>Includes over 300 new firmware key sets courtesy of iH8sn0w, iAdam1n, and xerub</li>
+    </ul>
+    </li>
+</ul>
+
+<h2 style="text-decoration:underline;">Version 8.x</h2>
+<h3>Version 8.13.0 (8.1.3 / ATV7.0.3) (Build 2F38)</h3>
+<ul>
+    <li>Added support for 8.0.1, 8.0.2, 8.1, 8.1.1, 8.1.2, and 8.1.3 for all supported devices</li>
+    <li>Added support for 7.0.1 (8.1), 7.0.2 (8.1.1), and 7.0.3 (8.1.3) for Apple TV 3G</li>
+    <li>Added support for new devices:
+        <ul>
+            <li>iPad Air 2 (Wi-Fi and Cellular)</li>
+            <li>iPad mini 3 (Wi-Fi, Cellular, and China)</li>
+        </ul>
+    </li>
+    <li>Corrected incorrect device names:
+        <ul>
+            <li>&quot;iPad mini 2G (Wi-Fi)&quot; to &quot;iPad mini 2 (Wi-Fi)&quot;</li>
+            <li>&quot;iPad mini 2G (Cellular)&quot; to &quot;iPad mini 2 (Cellular)&quot;</li>
+            <li>&quot;iPad4,3&quot; to &quot;iPad Air Cellular (China)&quot;</li>
+            <li>&quot;iPad4,6&quot; to &quot;iPad mini 2 Cellular (China)&quot;</li>
+            <li>&quot;iPhone5,2&quot; to &quot;iPhone 5 (CDMA)&quot;</li>
+        </ul>
+    </li>
+    <li>Added keys:
+        <ul>
+            <li>Everything on 8.0 (12A365) for iPhone 4S</li>
+            <li>Root FS on 8.1 (12B411) for iPhone 4S</li>
+            <li>Root FS, ramdisks, DeviceTree, iBEC, iBoot, iBSS, Kernelcache, and LLB on 8.1.2 (12B440) for iPhone 4S</li>
+            <li>Root FS, ramdisks, AppleLogo, DeviceTree, iBEC, iBoot, iBSS, Kernelcache, and LLB on 8.1.3 (12B466) for iPhone 4S</li>
+        </ul>
+    </li>
+    <li>Corrected wrong keys:
+        <ul>
+            <li>BatteryFull and LLB on 4.2.2/4.3 (8F305) for Apple TV 2G</li>
+            <li>BatteryFull and GlyphPlugin on 4.3 (8F455) for Apple TV 2G</li>
+            <li>BatteryFull on 4.4/5.0 (9A334v) for Apple TV 2G</li>
+            <li>iBoot on 7.1.2 (11D257) for iPad 2 (GSM)</li>
+            <li>RecoveryMode for 4.0 (8A293) for iPhone 4 (GSM)</li>
+            <li>RecoveryMode for 4.0.1 (8A306) for iPhone 4 (GSM)</li>
+            <li>AppleLogo, BatteryFull, DeviceTree, and RecoveryMode keys on 7.0.4 (11B544a) for iPhone 4 (GSM)</li>
+            <li>AppleLogo, BatteryFull, and DeviceTree for 7.0.6 (11B651) for iPhone 4 (GSM)</li>
+            <li>BatteryFull, GlyphPlugin, and LLB for 4.2.8 (8E401) for iPhone 4 (CDMA)</li>
+            <li>AppleLogo, BatteryFull, DeviceTree, and iBoot for 6.1.5 (10B400) for iPod touch 4G</li>
+            <li>BatteryFull, DeviceTree, and iBoot for 6.1.6 (10B500) for iPod touch 4G</li>
+        </ul>
+    </li>
+</ul>
+
+<h3>Version 8.02.0 (8.0.2 / ATV7.0) (Build 2E64)</h3>
+<ul>
+    <li>Added 11D201 Kernelcache keys for iPad 2 (Wi-Fi, GSM, CDMA) and iPhone 4S</li>
+    <li>Added 12A365 ramdisk keys for iPad 2 (Wi-Fi, GSM, CDMA) and iPhone 4S</li>
+    <li>Added 12A365 Root FS key for iPad 2 (Wi-Fi, GSM, CDMA)</li>
+    <li>Corrected 11D2567 Root FS key for iPad 2 (CDMA)</li>
+    <li>File names are now displayed next to the keys</li>
+</ul>
+
+<h3>Version 8.00.0 (8.0 / ATV7.0) (Build 2E47)</h3>
+<ul>
+    <li>Added iPad Air, iPad mini 2G, iPhone 6, and iPhone 6 Plus</li>
+    <li>Updated keys</li>
+    <li>Fixed crash when attempting to decrypt without the <code>/console</code> switch</li>
+</ul>
+
+<h2 style="text-decoration:underline;">Version 7.x</h2>
+<h3>Version 7.02.0 (7.0.2 / ATV6.0) (Build 2C60)</h3>
+<ul>
+    <li>All (published) final keys are available</li>
+    <li>Temporarily removed beta keys</li>
+    <li>Updated iPhone Wiki icon</li>
+    <li>Localization temporarily removed</li>
+    <li>Tab area replaced with selected firmware details</li>
+    <li>Decrypt progress bar now more fluidly advances</li>
+    <li>Console window for &quot;Decrypt&quot; now hidden again</li>
+    <li>Changelog fixes</li>
+    <li>Memory management fixes</li>
+    <li>Added license files for used tools (now GPL compliant)</li>
+    <li>Removed key submission form</li>
+    <li>Relaxed error messages and frequency</li>
+    <li>Added some debug messages (visible with /debug)</li>
+</ul>
+
+<h2 style="text-decoration:underline;">Version 5.x</h2>
+<h3>Version 5.10.0 (5.1b2 / ATV5.0b1) (Build 2B39)</h3>
+<ul>
+    <li>Row for ATV4.4.3 (9A405l)</li>
+    <li>Row for ATV5.0b1 (9B5127c)</li>
+    <li>Row for 5.0.1 (9A406)</li>
+    <li>Row for 5.1b1 (9B5117b)</li>
+    <li>Row for 5.1b2 (9B5127c)</li>
+    <li>Key for 3.0.1 (7A400) on iPhone 2G</li>
+    <li>Key for ATV4.4.3 (9A405l) on Apple TV 2G</li>
+    <li>Key for ATV5.0b1 (9B5127c) on Apple TV 2G</li>
+    <li>Key for 5.0.1 (9A406) on iPhone 4S</li>
+    <li>Keys for 5.1b1 (9B5117b) on all devices except the iPad 2</li>
+    <li>Keys for 5.1b2 (9B5127c) on all devices except the iPad 2, iPhone 3GS, and iPod touch 3G</li>
+    <li>New tab: &quot;5.x Beta ATV&quot;</li>
+    <li>7-Zip now works</li>
+    <li>Note mod for &quot;4.x Beta ATV&quot;</li>
+    <li>Note mod for &quot;5.x Beta&quot;</li>
+    <li>5.0.1 label no longer on top of 5.0 label</li>
+    <li>Slight increase on width of version number area<br />to accomidate the version number of ATV4.4.3</li>
+    <li>Changelog fixes for 5.01.0 (1J59)</li>
+    <li>README fixes for 5.01.0 (1J59)</li>
+    <li>README now displays the location of the tag<br />relative to the SVN root instead of revision number</li>
+    <li>README uses underlines instead of thin &lt;hr /&gt;</li>
+    <li>Slight modification to iPhone 3G image</li>
+    <li>New image for iPhone 4 GSM</li>
+    <li>Slight modification to iPhone 4 CDMA image</li>
+    <li>Removed &quot;Clear Key&quot; button</li>
+    <li>Fixed MAJOR bug that caused some computers<br />to fail at decryption</li>
+    <li>Slight mod to temp directory deletion handling</li>
+    <li>Progress bar for decryption</li>
+    <li>Dynamic Splash Screen</li>
+    <li>&quot;Decrypt to&quot; textbox updates on &quot;Decrypt from&quot; change</li>
+    <li>Spanish translation fixes</li>
+    <li>Spanish instant translation disabled for a bit</li>
+    <li>Replaced &quot;About&quot; webpage with window</li>
+    <li>Slight mod to program execution code</li>
+    <li>Message Box tweaks</li>
+    <li>Tabs with no keys now hide on device click</li>
+    <li>Memory management fixes</li>
+</ul>
+<h3>Version 5.01.0 (5.0.1 / ATV4.4.2) (Build 1J59)</h3>
+<ul>
+    <li>Row for ATV 4.4.2/5.0 (9A336a)</li>
+    <li>Row for 5.0.1b1 (9A402)</li>
+    <li>Row for 5.0.2b2 (9A404)</li>
+    <li>Row for 5.0.1 (9A405)</li>
+    <li>Key for 4.4.2/5.0 (9A336a) on Apple TV 2G</li>
+    <li>Keys for 5.0[GM] (9A334) on iPhone 3GS</li>
+    <li>Keys for 5.0.1b1 (9A402) on all supported devices except A5</li>
+    <li>Keys for 5.0.1b2 (9A404) on all supported devices except A5</li>
+    <li>Keys for 5.0.1 (9A405) on all supported devices except A5</li>
+    <li>&quot;Decrypt&quot; button now checks if input and output file exist</li>
+    <li>&quot;7zip&quot; area removed</li>
+    <li>Smaller &quot;Select Language&quot; screen</li>
+    <li>Marquee on &quot;Select Language&quot; screen</li>
+    <li>&quot;Select Language&quot; screen no longer defaults to English,<br />but your selected language</li>
+    <li>&quot;Select Language&quot; for Spanish no longer requires a<br />restart (English soon)</li>
+    <li>Slightly more efficient code base</li>
+    <li>DMG file names for iPhone 2G on iOS 1.x Final</li>
+    <li>DMG file names for iPhone 2G on iOS 2.x Final</li>
+    <li>DMG file names for iPhone 2G on iOS 3.x Final</li>
+    <li>Brought back the &quot;.dmg&quot; file name restriction on selecting<br />the input file for VFDecrypt</li>
+    <li>Transition from VB.NET to C#.NET</li>
+    <li>&quot;What Am I&quot; now modifies the version for the Apple TV 2G</li>
+    <li>&quot;Prototype&quot; on 1A420 (1.0) button now works</li>
+    <li>Temporary removal of &quot;drag-n-drop&quot; on iDecryptIt</li>
+</ul>
+<h3>Version 5.00.7 (5.0 / ATV4.4.1) (Build 1I76)</h3>
+<ul>
+    <li>Row for 5.0GM (9A334)</li>
+    <li>Row for 5.0 (9A334)</li>
+    <li>Row for ATV 4.4/5.0 (9A334v)</li>
+    <li>Row for ATV 4.4.1/5.0 (9A335a)</li>
+    <li>Key for 4.4/5.0 (9A334v) on Apple TV 2G</li>
+    <li>Key for 4.4.1/5.0 (9A335a) on Apple TV 2G</li>
+    <li>Keys for 5.0[GM] (9A334) on all supported devices but the A5 devices</li>
+    <li>Changelog fixes for 5.00.6 section</li>
+    <li>Code updates</li>
+    <li>&quot;Help&quot; documents modifed a bit</li>
+    <li>&quot;Help&quot; images shrunken in size a bit</li>
+    <li>Removed &quot;Web&quot; tab on &quot;below-section&quot;</li>
+    <li>&quot;Help&quot; buttons now open a browser instead of on iDecryptIt</li>
+    <li>Selecting an input file for decryption now only replaces the file name&#39;s &quot;.dmg&quot;<br />and no longer the entire path</li>
+    <li>Now deletes the temp directory that the Update Checker uses</li>
+    <li>Now deletes the temp directory that the Installer uses</li>
+    <li>Gradient background on all windows</li>
+    <li>&quot;Select Language&quot; control shrunk a bit</li>
+    <li>MAJOR window changes
+        <ul>
+            <li>Removed ribbon</li>
+            <li>New button for iPhone 4S</li>
+            <li>Swapped &quot;5.x Beta&quot; and &quot;5.x Final&quot; tabs on &quot;below-section&quot;</li>
+            <li>Minimum Window size changed from 300x400 to 600x800</li>
+            <li>Compliance with Windows UX Guidelines (I think)<br />to allow for MS Store submission</li>
+            <li>The Apple TV now gets its own tabs due to Apple&#39;s<br />stupid version numbers</li>
+            <li>Clicking the 1.0b (Prototype) button now opens RapidShare for download</li>
+            <li>Notes at the bottom of some tabs changed a bit</li>
+        </ul>
+    </li>
+</ul>
+<h3>Version 5.00.6 (5.0b7 / ATV4.4b6-7) (Build 1H35)</h3>
+<ul>
+    <li>Row for 5.0b7 (9A5313e)</li>
+    <li>Keys for 5.0b7 (9A5313e) on all but iPad 2 (all three)</li>
+    <li>New Ribbon tab: Tools</li>
+    <li>Moved 7-Zip to &quot;Tools&quot; tab</li>
+    <li>Added a &quot;What Is This&quot; Help button to &quot;Tools&quot; tab</li>
+    <li>Minor alteration to the &quot;Select Input File&quot; dialog box</li>
+    <li>Source code no longer included in the installer</li>
+    <li>&quot;Check for updates&quot; button removed as it now runs at startup</li>
+    <li>Update Checker no longer downloads to the current running directory</li>
+    <li>Update Checker now downloads to the temporary directory ({TEMPDIR}/idecryptit/)</li>
+    <li>Installer changed from InstallJammer to Install<br />(please uninstall first, delete the directory where you installed to, and run CCleaner if you have it)</li>
+    <li>Fixed the &quot;You cannot ... twice ...&quot; message box problem</li>
+    <li>You can now drag a DMG onto the icon and it will load that file name into the text boxes</li>
+    <li>You can now right-click on a DMG and tell it to open it with iDecryptIt</li>
+</ul>
+<h3>Version 5.00.5 (5.0b6 / ATV4.4b5-6) (Build 1G28)</h3>
+<ul>
+    <li>Rows for 5.0b5 (9A5288d) and 5.0b6 (9A5302b)</li>
+    <li>Key for 5.0b6 (9A5302b) on all but the iPad 2&#39;s</li>
+    <li>Keys for 5.0b5 (9A5288d) on all but the iPad 2&#39;s</li>
+    <li>Keys for 5.0b4 (9A5274d) on iPad, iPhone 4 (GSM), and iPhone 4 (CDMA)</li>
+    <li>Key for 5.0b3 (9A5259f) on iPod touch 3G</li>
+    <li>Keys for 5.0b2 (9A5259f) on iPhone 4 (GSM) and iPod touch 3G</li>
+    <li>Key for 5.0b1 (9A5220p) on iPod touch 3G</li>
+    <li>Key for 4.3 (8F190) on iPod touch 3G (Beta (8F190) had key, but not Final)</li>
+    <li>Key for 4.2b3 (8C5115c) on iPhone 3GS</li>
+    <li>Key for 4.2b2 (8C5101c) on iPad</li>
+    <li>Missing builds for 3.x Beta filled for the iPhone 2G</li>
+    <li>Big images on the &quot;Key&quot; tab</li>
+    <li>Removed unreleased devices (Apple TV 3G, iPhone 5, and iPod touch 5G)</li>
+    <li>Changed the No Key text on 3.0.1 (7A400) on the iPhone 2G (wasn&#39;t changed when every other one was)</li>
+    <li>Changed 5F126 to 5F136</li>
+    <li>Tweaked localization a bit</li>
+    <li>&quot;Decrypt&quot; on the Home tab now localized</li>
+    <li>Fixed fatal bug in Message Boxes on the &quot;Decrypt&quot; button</li>
+    <li>&quot;Unavailable&quot; changed to &quot;Build not available for this device&quot; and localized into Spanish</li>
+</ul>
+<h3>Version 5.00.4 (5.0b4 / ATV4.4b3) (Build 1F75)</h3>
+<ul>
+    <li>&quot;Publish Key&quot; no longer disabled and works (English only)</li>
+    <li>Spanish Localization on Check for Updates opening error (Window still English)</li>
+    <li>Change Language will no longer error out when trying to open a second time in one session.</li>
+    <li>Little notes on the tabs now translated to Spanish</li>
+    <li>Minor alteration on the ReadMe</li>
+    <li>You are now alerted when it is done decrypting</li>
+    <li>Photoshop Documents and Paint.NET Documents no longer included in installer</li>
+    <li>Rows for 4.2.10 (8E600), 4.3 (8F455), 4.3.5 (8L1), and 5.0b4 (9A5247d)</li>
+    <li>Keys for 4.3.4 (8K2) on all three iPad 2&#39;s, iPhone 3GS, and iPhone 4 GSM</li>
+    <li>Keys for 5.0b4 (9A5247d) on iPhone 3GS and iPod touch 4G</li>
+    <li>Key for 4.2.10 (8E600) on iPhone 4 CDMA</li>
+    <li>Keys for 4.3.5 (8L1)</li>
+    <li>Key for 4.3 (8F455) on Apple TV 2G</li>
+</ul>
+<h3>Version 5.00.3 (5.0b3 / ATV4.4b3) (Build 1F38)</h3>
+<ul>
+    <li>Keys for 5.0b3 on iPhone 4 CDMA, iPod touch 4G, iPad, and Apple TV 2G</li>
+    <li>Keys for 4.3.4 (8K2) on iPod touch 4G and iPad</li>
+    <li>Key for 4.2.9 (8E501) on iPhone 4 CDMA</li>
+    <li>Localization</li>
+    <li>New &quot;Change Language&quot; button on the &quot;Help -&gt; Extras&quot; area on the ribbon</li>
+    <li>New unusable &quot;Apple TV 3G&quot;, &quot;iPhone 5&quot;, and &quot;iPod touch 5G&quot; buttons on the &quot;Keys&quot; tab on the ribbon</li>
+</ul>
+<h3>Version 5.00.2 (5.0b2 / ATV4.4b2) (Build 1E50)</h3>
+<ul>
+    <li>Minor aesthetic change to iPad 2 images</li>
+    <li>Window refuses to go to less than 400x300</li>
+    <li>Default size reduced from 1024x768 to 800x600</li>
+    <li>Key for iPhone 4 CDMA 5.0b1 (9A5220p)</li>
+    <li>DMG File Names started</li>
+    <li>When you shrink the window, the images on the ribbon now stay</li>
+    <li>Keys 5.0b2 on all devices except iPad 2 (all three) and iPod touch 3G</li>
+    <li>The &quot;None Published&quot; text changed</li>
+    <li>Readme now has image</li>
+    <li>Button for helping out on the ribbon (disabled)</li>
+    <li>&quot;Decrypt&quot; image changed</li>
+    <li>Cole Stuff icon updated</li>
+</ul>
+<h3>Version 5.00.1 (5.0b1 / ATV4.4b1) (Build 1E06)</h3>
+<ul>
+    <li>Typo Fixes</li>
+    <li>Resizable window</li>
+    <li>Combined the 4.0-4.2.1 beta tab and 4.3 beta tab into one</li>
+    <li>Moved 4.x Final ATV tab next to 4.x Final tab</li>
+</ul>
+<h3>Version 5.00.0 (5.0b1 / ATV4.4b1) (Build 1E00)</h3>
+<ul>
+    <li>Keys for 5.0b1 (9A5220p) on the iPhone 3GS and iPad 1G</li>
+    <li>Keys for 4.3.3 (8J2/8J3) on all three iPad 2s</li>
+    <li>Keys tab is now in alphabetical order</li>
+    <li>Version numbers now (iOS Major).(iOS Minor).(Revision).(Build)</li>
+    <li>Complete transition from absolute positioning to grid (table-like)</li>
+    <li>Unusable 5.0 Final tab added</li>
+    <li>Smaller Executable:
+        <ul>
+            <li>Repetitive code changed to function</li>
+            <li>Unneeded images removed</li>
+        </ul>
+    </li>
+</ul>
+
+<h2 style="text-decoration:underline;">Version 2.x</h2>
+<h3>Version 2.00.0 (5.0b1 / VZ4.2.8 / ATV4.4b1) (Build 1D02)</h3>
+<ul>
+    <li>&quot;Check for updates&quot; code fixed</li>
+    <li>&quot;Check for updates&quot; now opens a new window instead.</li>
+    <li>Redundant code removed</li>
+    <li>Includes latest iOS 5.0 beta keys</li>
+    <li>Removed &quot;Comic Sans MS&quot; to conform to Windows UX Guidelines</li>
+</ul>
+
+<h2 style="text-decoration:underline;">Version 1.x</h2>
+<h3>Version 1.01.0 (4.3.3 / VZ4.2.8 / ATV4.2.2) (Build 1C52)</h3>
+<ul>
+    <li>Clicking &quot;Changelog&quot; will no longer give you an error</li>
+    <li>&quot;Check for Updates&quot; now works.</li>
+</ul>
+<h3>Version 1.00.0 (4.3.3 / VZ4.2.8 / ATV4.2.2) (Build 1C31)</h3>
+<ul>
+    <li>First release</li>
+</ul>
+
+</body>
+</html>
