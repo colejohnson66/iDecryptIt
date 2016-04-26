@@ -31,8 +31,8 @@ namespace Hexware.Programs.iDecryptIt.Firmware
          *    0  byte[4]  magic;     // "comp"
          *    4  uint32   compressionType;
          *    8  uint32   checksum;
-         *    C  uint32   decompressedLength;   // big endian
-         *   10  uint32   compressedLength; // big endian
+         *    C  uint32   decompressedLength; // big endian
+         *   10  uint32   compressedLength;   // big endian
          *   14  byte[0x16C] padding;
          *  180  byte[]   payload;   // sizeof(payload) == compressedLength
          * }
