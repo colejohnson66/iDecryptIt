@@ -22,6 +22,7 @@
  */
 using Hexware.Plist;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Hexware.Programs.iDecryptIt
 {
@@ -265,9 +266,10 @@ namespace Hexware.Programs.iDecryptIt
         }
         private static void InitDevices()
         {
-            PlistDocument keyList = new PlistDocument(
-                Globals.GetStream("KeyList.plist"));
+            Stream keyListPlist = Globals.GetStream("KeyList.plist");
+            PlistDocument keyList = new PlistDocument(keyListPlist);
             PlistDict rootNode = (PlistDict)keyList.RootNode;
+            keyListPlist.Close();
 
             // Apple TV
             InitDevice(ref AppleTV21, rootNode.Get<PlistArray>("AppleTV2,1"));
