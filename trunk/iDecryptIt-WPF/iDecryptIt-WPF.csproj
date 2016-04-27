@@ -154,6 +154,7 @@
     <Compile Include="firmware\Img2Stream.cs" />
     <Compile Include="firmware\Lzss.cs" />
     <Compile Include="firmware\CompStream.cs" />
+    <Compile Include="firmware\TarFile.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Globals.cs" />
     <Compile Include="KeyGridItem.cs" />

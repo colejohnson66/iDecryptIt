@@ -36,12 +36,12 @@ namespace Hexware.Programs.iDecryptIt.Firmware
          *   10  uint32   payloadLengthPadded;
          *   14  uint32   payloadLength;
          *   18  uint32;
-         *   1C  uint32   flags2;        // 0x0100'0000 has to be unset
+         *   1C  uint32   flags2;         // 0x0100'0000 has to be unset
          *   20  byte[64];
-         *   60  uint32;                 // possibly a length field
-         *   64  uint32  headerChecksum; // crc32(file[0:0x64])
-         *   68  uint32  checksum2;
-         *   6C  uint32;                 // always 0xFFFF'FFFF?
+         *   60  uint32;                  // possibly a length field
+         *   64  uint32   headerChecksum; // crc32(file[0:0x64])
+         *   68  uint32   checksum2;
+         *   6C  uint32;                  // always 0xFFFF'FFFF?
          *   70  VersionTag {
          *         70  byte[4]  magic;   // "srev" ("vers" in little endian)
          *         74  uint32;
