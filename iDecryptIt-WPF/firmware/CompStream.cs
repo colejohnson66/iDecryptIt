@@ -22,6 +22,7 @@
  */
 using System;
 using System.IO;
+using System.Linq;
 
 namespace Hexware.Programs.iDecryptIt.Firmware
 {
@@ -78,13 +79,8 @@ namespace Hexware.Programs.iDecryptIt.Firmware
                 throw new FileFormatException("Unknown Comp compression type. Only LZSS is supported.");
 
             // the lengths are stored in big endian; reverse them
-            byte[] tmp = new byte[4];
-            Array.Copy(buf, 0xC, tmp, 0, 4);
-            Array.Reverse(tmp);
-            int decompLen = BitConverter.ToInt32(tmp, 0);
-            Array.Copy(buf, 0x10, tmp, 0, 4);
-            Array.Reverse(tmp);
-            int compLen = BitConverter.ToInt32(tmp, 0);
+            int decompLen = BitConverter.ToInt32(buf.Skip(0xC).Take(4).Reverse().ToArray(), 0);
+            int compLen = BitConverter.ToInt32(buf.Skip(0x10).Take(4).Reverse().ToArray(), 0);
             if (compLen <= 0 || decompLen <= 0)
                 throw new FileFormatException("Payload cannot have a zero or negative size.");
 

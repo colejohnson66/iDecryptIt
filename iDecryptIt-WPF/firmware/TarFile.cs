@@ -26,7 +26,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace Hexware.Programs.iDecryptIt.firmware
+namespace Hexware.Programs.iDecryptIt.Firmware
 {
     // Implements just the "ustar" format as that's all that's needed
     public class TarFile : IDisposable
@@ -61,10 +61,11 @@ namespace Hexware.Programs.iDecryptIt.firmware
          *  ???  TarEntry[2] footer; // 0x400 NULL bytes
          * }
          */
+
+        private static readonly byte[] Magic = new byte[] { (byte)'u', (byte)'s', (byte)'t', (byte)'a', (byte)'r' };
+        
         private Stream _stream;
-        private string[] _entryNames; // a hashmap might be a good idea
-        private long[] _entryOffsets;
-        private long[] _entrySizes;
+        private Dictionary<string, TarEntry> _entries;
 
         public TarFile(Stream stream)
         {
@@ -76,6 +77,81 @@ namespace Hexware.Programs.iDecryptIt.firmware
                 throw new ArgumentException("Stream must support seeking.", "stream");
 
             _stream = stream;
+            ParseStream();
+        }
+
+        private void ParseStream()
+        {
+            _entries = new Dictionary<string, TarEntry>();
+            _stream.Seek(0, SeekOrigin.Begin);
+            
+            while (true)
+            {
+                byte[] header = new byte[512];
+                if (_stream.Read(header, 0, 512) != 512)
+                    throw new FileFormatException("Stream contains incomplete Tape Archive entry header.");
+
+                // Is this a null entry? If so, we've reached the supposed end of the
+                //   stream. On real tape archives using the TAR format, there may be
+                //   data after the null entry, but it is ignored. In addition, there
+                //   should be two null entries to signify the end of the archive,
+                //   but 7-Zip handles just fine with only one null entry.
+                if (header.All(x => (x == 0)))
+                    return;
+
+                // Is this a ustar file?
+                if (!Magic.SequenceEqual(header.Skip(257).Take(5)))
+                    throw new FileFormatException("Tape Archive entry is not a valid ustar entry.");
+                
+                // Get file name and file size. Trim null characters while doing so.
+                char[] arrfileName = Encoding.ASCII.GetChars(header, 0, 100);
+                if (arrfileName[0] == 0)
+                    throw new FileFormatException("Invalid file name.");
+                string strFileName = new String(arrfileName.TakeWhile(x => x != 0).ToArray());
+                char[] arrfileSize = Encoding.ASCII.GetChars(header, 124, 12);
+                string strFileSize = new String(arrfileSize.TakeWhile(x => x != 0).ToArray());
+
+                // Before adding the entry to the list, ensure the stream contains that many bytes.
+                // Interpret the file size as unsigned to ensure it's not read as a signed number.
+                //   TODO: Are numbers interpreted as signed /at all/?
+                ulong fileSize = Convert.ToUInt64(strFileSize, 8);
+                TarEntry entry = new TarEntry(_stream.Position, (long)fileSize);
+
+                // Round file size up to multiple of 512
+                // Hacker's Delight 2nd Ed., pg. 59
+                ulong paddedFileLength = (fileSize + 511UL) & ~511UL;
+
+                // Skip over file
+                try
+                {
+                    _stream.Seek((long)paddedFileLength, SeekOrigin.Current);
+                }
+                catch (IOException ex)
+                {
+                    throw new FileFormatException("File length extends past end of stream.", ex);
+                }
+
+                // Add the entry
+                if (_entries.ContainsKey(strFileName))
+                    throw new FileFormatException("Encountered a file with an already encountered file path.");
+
+                _entries.Add(strFileName, entry);
+            }
+        }
+
+        public MemoryStream GetFile(string fileName)
+        {
+            TarEntry entry;
+            if (!_entries.TryGetValue(fileName, out entry))
+                throw new FileNotFoundException("Specified file does not exist in archive.");
+
+            if (entry.Size > Int32.MaxValue)
+                throw new InsufficientMemoryException("Specified file too large to allocate.");
+
+            byte[] buf = new byte[(int)entry.Size];
+            _stream.Seek(entry.Offset, SeekOrigin.Begin);
+            _stream.Read(buf, 0, buf.Length);
+            return new MemoryStream(buf, false);
         }
 
         #region IDisposable Support
@@ -87,7 +163,7 @@ namespace Hexware.Programs.iDecryptIt.firmware
             {
                 if (disposing)
                 {
-                    // TODO: dispose managed state (managed objects).
+                    _stream.Dispose();
                 }
 
                 // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
@@ -102,15 +178,25 @@ namespace Hexware.Programs.iDecryptIt.firmware
         //   // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
         //   Dispose(false);
         // }
-
-        // This code added to correctly implement the disposable pattern.
+        
         public void Dispose()
         {
-            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
             Dispose(true);
             // TODO: uncomment the following line if the finalizer is overridden above.
             // GC.SuppressFinalize(this);
         }
         #endregion
+
+        private struct TarEntry
+        {
+            internal long Offset;
+            internal long Size;
+
+            public TarEntry(long offset, long size)
+            {
+                Offset = offset;
+                Size = size;
+            }
+        }
     }
 }
