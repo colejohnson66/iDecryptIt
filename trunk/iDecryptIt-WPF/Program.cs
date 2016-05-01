@@ -61,6 +61,10 @@ namespace Hexware.Programs.iDecryptIt
             //krnl2.Read(krnlPayload, 0, krnlPayload.Length);
             //System.IO.File.WriteAllBytes(@"C:\test\dec.kernelcache.bin", krnlPayload);
 
+            //System.IO.FileStream stream = new System.IO.FileStream(@"E:\iDecryptIt\trunk\iDecryptIt-WPF\keys\keys.tar", System.IO.FileMode.Open);
+            //Firmware.TarFile tar = new Firmware.TarFile(stream);
+            //System.IO.MemoryStream memStream = tar.GetFile("AppleTV2,1_8C150.plist");
+
             Globals.Init();
             PrintLicense();
 
