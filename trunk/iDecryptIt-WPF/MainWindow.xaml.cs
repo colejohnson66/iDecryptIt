@@ -292,8 +292,8 @@ namespace Hexware.Programs.iDecryptIt
                 return;
 
             Debug("[KEYSELECT]", "Opening keys for " + selectedModel + " " + selectedVersion + ".");
-
-            Stream stream = GetStream(selectedModel + "_" + selectedVersion + ".plist");
+            
+            Stream stream = GetKeyStream(selectedModel + "_" + selectedVersion + ".plist");
             if (stream == Stream.Null) {
                 Debug("[KEYSELECT]", "Key file doesn't exist. No keys available.");
                 MessageBox.Show(
@@ -305,12 +305,12 @@ namespace Hexware.Programs.iDecryptIt
             }
             LoadFirmwareKeys(stream, false);
         }
-        internal Stream GetStream(string resourceName)
+        internal Stream GetKeyStream(string fileName)
         {
-            Debug("[GETSTREAM]", "Attempting read of stored resource, \"" + resourceName + "\".");
+            Debug("[GETSTREAM]", "Attempting read of stored resource, \"" + fileName + "\".");
             try
             {
-                return Globals.GetStream(resourceName);
+                return Globals.KeyArchive.GetFile(fileName);
             } catch (Exception ex) {
                 Error("Unable to retrieve keys.", ex);
             }

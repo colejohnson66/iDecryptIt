@@ -23,6 +23,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using System.Reflection;
 
 namespace Hexware.Programs.iDecryptIt
@@ -34,6 +35,7 @@ namespace Hexware.Programs.iDecryptIt
         internal static DateTime CompileTimestamp;
         internal static Dictionary<string, string> ExecutionArgs = new Dictionary<string, string>();
         internal static bool Debug;
+        internal static Firmware.TarFile KeyArchive;
 
         internal static Dictionary<string, string> DeviceNames = new Dictionary<string, string>() {
             { "AppleTV2,1", "Apple TV 2G" },
@@ -119,6 +121,8 @@ namespace Hexware.Programs.iDecryptIt
 #endif
 
             CompileTimestamp = GetLinkerTimestampUTC(thisAssembly);
+
+            DecompressKeys();
         }
 
         internal static Stream GetStream(string resourceName)
@@ -153,6 +157,18 @@ namespace Hexware.Programs.iDecryptIt
             int i = BitConverter.ToInt32(b, c_PeHeaderOffset);
             int secondsSince1970 = BitConverter.ToInt32(b, i + c_LinkerTimestampOffset);
             return new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(secondsSince1970);
+        }
+
+        private static void DecompressKeys()
+        {
+            GZipStream compressedKeys = new GZipStream(GetStream("keys.tar.gz"), CompressionMode.Decompress);
+            MemoryStream decompressedKeys = new MemoryStream();
+
+            compressedKeys.CopyTo(decompressedKeys);
+            compressedKeys.Close();
+
+            decompressedKeys.Seek(0, SeekOrigin.Begin);
+            KeyArchive = new Firmware.TarFile(decompressedKeys);
         }
     }
 }
