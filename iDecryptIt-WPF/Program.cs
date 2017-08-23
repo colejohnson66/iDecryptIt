@@ -2,7 +2,7 @@
  * File:   Program.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2012-2016 Cole Johnson
+ * Copyright (c) 2012-2017 Cole Johnson
  * 
  * This file is part of iDecryptIt
  * 
@@ -54,12 +54,12 @@ namespace Hexware.Programs.iDecryptIt
             }
             logoImg.Save(@"C:\test\dec.applelogo.bmp");*/
 
-            Firmware.Apple8900Stream krnl = new Firmware.Apple8900Stream(System.IO.File.OpenRead(
-                @"C:\test\iPhone1,1_1.0.1_1C25_Restore\kernelcache.release.s5l8900xrb"));
-            Firmware.CompStream krnl2 = new Firmware.CompStream(krnl);
-            byte[] krnlPayload = new byte[krnl2.Length];
-            krnl2.Read(krnlPayload, 0, krnlPayload.Length);
-            System.IO.File.WriteAllBytes(@"C:\test\dec.kernelcache.bin", krnlPayload);
+            //Firmware.Apple8900Stream krnl = new Firmware.Apple8900Stream(System.IO.File.OpenRead(
+            //    @"C:\test\iPhone1,1_1.0.1_1C25_Restore\kernelcache.release.s5l8900xrb"));
+            //Firmware.CompStream krnl2 = new Firmware.CompStream(krnl);
+            //byte[] krnlPayload = new byte[krnl2.Length];
+            //krnl2.Read(krnlPayload, 0, krnlPayload.Length);
+            //System.IO.File.WriteAllBytes(@"C:\test\dec.kernelcache.bin", krnlPayload);
 
             //System.IO.FileStream stream = new System.IO.FileStream(@"E:\iDecryptIt\trunk\iDecryptIt-WPF\keys\keys.tar", System.IO.FileMode.Open);
             //Firmware.TarFile tar = new Firmware.TarFile(stream);
@@ -80,14 +80,14 @@ namespace Hexware.Programs.iDecryptIt
             }
 
             Console.WriteLine("Loading...");
-            Thread.Sleep(500);
+            Thread.Sleep(333);
             App.Main();
         }
 
         private static void PrintLicense()
         {
             Console.WriteLine("iDecryptIt " + Globals.Version + Globals.Version64);
-            Console.WriteLine("Copyright (c) 2010-2016 Cole Johnson");
+            Console.WriteLine("Copyright (c) 2010-2017 Cole Johnson");
             Console.WriteLine();
             Console.WriteLine("iDecryptIt is free software: you can redistribute it and/or modify it under");
             Console.WriteLine("  the terms of the GNU General Public License as published by the Free");

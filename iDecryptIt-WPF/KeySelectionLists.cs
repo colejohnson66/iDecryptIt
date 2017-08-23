@@ -65,8 +65,8 @@ namespace Hexware.Programs.iDecryptIt
         private static List<ComboBoxEntry> iPad64;
         private static List<ComboBoxEntry> iPad67;
         private static List<ComboBoxEntry> iPad68;
-        private static List<ComboBoxEntry> iPad611;
-        private static List<ComboBoxEntry> iPad612;
+        //private static List<ComboBoxEntry> iPad611;
+        //private static List<ComboBoxEntry> iPad612;
         //private static List<ComboBoxEntry> iPad71;
         //private static List<ComboBoxEntry> iPad72;
         //private static List<ComboBoxEntry> iPad73;
