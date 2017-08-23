@@ -373,30 +373,27 @@ namespace Hexware.Programs.iDecryptIt
         {
             KeyGridItem controls = keyGrid[key];
 
-            if (rootNode.Exists(key)) {
+            if (rootNode.Exists(key))
+            {
                 PlistDict node = rootNode.Get<PlistDict>(key);
-                if (node.Get<PlistBool>("Encryption").Value) {
-                    controls.EncryptedGrid.Visibility = Visibility.Visible;
-                    controls.EncryptedIV.Text = node.Get<PlistString>("IV").Value;
-                    controls.EncryptedKey.Text = node.Get<PlistString>("Key").Value;
-                    controls.EncryptedFileName.Text = node.Get<PlistString>("File Name").Value;
-                    controls.NotEncryptedGrid.Visibility = Visibility.Collapsed;
-                    controls.NotEncryptedFileName.Text = "";
-                } else {
-                    controls.EncryptedGrid.Visibility = Visibility.Collapsed;
-                    controls.EncryptedIV.Text = "";
-                    controls.EncryptedKey.Text = "";
-                    controls.EncryptedFileName.Text = "";
-                    controls.NotEncryptedGrid.Visibility = Visibility.Visible;
-                    controls.NotEncryptedFileName.Text = node.Get<PlistString>("File Name").Value;
+                if (node.Get<PlistBool>("Encryption").Value)
+                {
+                    controls.ShowEncryptedRows(
+                        node.Get<PlistString>("IV").Value,
+                        node.Get<PlistString>("Key").Value,
+                        node.Get<PlistString>("File Name").Value);
+                    controls.HideNotEncryptedRows();
                 }
-            } else {
-                controls.EncryptedGrid.Visibility = Visibility.Collapsed;
-                controls.EncryptedIV.Text = "";
-                controls.EncryptedKey.Text = "";
-                controls.EncryptedFileName.Text = "";
-                controls.NotEncryptedGrid.Visibility = Visibility.Collapsed;
-                controls.NotEncryptedFileName.Text = "";
+                else
+                {
+                    controls.HideEncryptedRows();
+                    controls.ShowNotEncryptedRows(node.Get<PlistString>("File Name").Value);
+                }
+            }
+            else
+            {
+                controls.HideEncryptedRows();
+                controls.HideNotEncryptedRows();
             }
         }
 

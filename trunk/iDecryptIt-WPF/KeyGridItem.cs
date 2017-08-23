@@ -2,7 +2,7 @@
  * File:   KeyGridItem.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2015 Cole Johnson
+ * Copyright (c) 2015-2017 Cole Johnson
  * 
  * This file is part of iDecryptIt
  * 
@@ -20,6 +20,7 @@
  *   iDecryptIt. If not, see <http://www.gnu.org/licenses/>.
  * =============================================================================
  */
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Hexware.Programs.iDecryptIt
@@ -44,6 +45,33 @@ namespace Hexware.Programs.iDecryptIt
 
             NotEncryptedGrid = notEncryptedGrid;
             NotEncryptedFileName = notEncryptedFileName;
+        }
+
+        internal void HideEncryptedRows()
+        {
+            EncryptedGrid.Visibility = Visibility.Collapsed;
+            EncryptedIV.Text = "";
+            EncryptedKey.Text = "";
+            EncryptedFileName.Text = "";
+        }
+
+        internal void HideNotEncryptedRows()
+        {
+            NotEncryptedGrid.Visibility = Visibility.Collapsed;
+            NotEncryptedFileName.Text = "";
+        }
+
+        internal void ShowEncryptedRows(string iv, string key, string fileName)
+        {
+            EncryptedGrid.Visibility = Visibility.Visible;
+            EncryptedIV.Text = iv;
+            EncryptedKey.Text = key;
+            EncryptedFileName.Text = fileName;
+        }
+
+        internal void ShowNotEncryptedRows(string fileName)
+        {
+            NotEncryptedFileName.Text = fileName;
         }
     }
 }
