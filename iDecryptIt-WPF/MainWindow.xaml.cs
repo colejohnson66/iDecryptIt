@@ -2,7 +2,7 @@
  * File:   MainWindow.xaml.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2010-2016 Cole Johnson
+ * Copyright (c) 2010-2017 Cole Johnson
  * 
  * This file is part of iDecryptIt
  * 
@@ -862,7 +862,7 @@ namespace Hexware.Programs.iDecryptIt
         private void updateChecker_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
         {
             if (e.Result != null) {
-                Debug("[UPDATE]", "Installed version: " + Globals.Version);
+                Debug("[UPDATE]", "Installed version: " + Globals.Version + Globals.Version64);
                 Debug("[UPDATE]", "Latest version: " + e.Result);
 
 #if !DEBUG
