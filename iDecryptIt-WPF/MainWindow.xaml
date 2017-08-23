@@ -23,7 +23,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
+        <Grid>
             <Grid Margin="6" Background="{StaticResource GrayBorder}">
                 <Grid Margin="3" Background="White">
                     <ProgressBar Visibility="Hidden" x:Name="progDecrypt" />
@@ -145,12 +145,10 @@
                             <Grid Height="32">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="32" />
-                                    <ColumnDefinition Width="6" />
                                     <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="6" />
                                 </Grid.ColumnDefinitions>
                                 <Image Source="img/Help-browser@32.png" />
-                                <TextBlock Grid.Column="2" Text="Identify Version" VerticalAlignment="Center" />
+                                <TextBlock Grid.Column="1" Text="Identify Version" VerticalAlignment="Center" Margin="6,0" />
                             </Grid>
                         </Button>
                         <Grid Grid.Column="2" Height="24">
@@ -172,10 +170,24 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <Button x:Name="btnREADME" Grid.Column="0" ToolTip="Readme" Click="btnReadme_Click">
-                            <Image Source="img/Help-browser@32.png" />
+                            <Grid Height="32">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="32" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Image Source="img/Help-browser@32.png" />
+                                <TextBlock Grid.Column="1" Margin="6,0" Text="Readme" VerticalAlignment="Center" x:Name="btnReadmeText" />
+                            </Grid>
                         </Button>
-                        <Button x:Name="btnChangelog" Grid.Column="2" ToolTip="Changelog" Click="btnChangelog_Click">
-                            <Image Source="img/logviewer@32.png" />
+                        <Button Grid.Column="2" x:Name="btnChangelog" Click="btnChangelog_Click">
+                            <Grid Height="32">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="32" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Image Source="img/logviewer@32.png" />
+                                <TextBlock Grid.Column="1" Margin="6,0" Text="Changelog" VerticalAlignment="Center" x:Name="btnChangelogText" />
+                            </Grid>
                         </Button>
                     </Grid>
                 </Grid>
@@ -186,27 +198,15 @@
                 <Grid Margin="3" Background="White">
                     <Grid Margin="6" x:Name="gridVersion">
                         <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="6" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="6" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="6" />
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="6" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="6" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="6" />
-                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Button x:Name="btnViewKeys" Click="btnViewKeys_Click">
-                            <Grid Height="32">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="32" />
-                                    <ColumnDefinition Width="6" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="6" />
-                                </Grid.ColumnDefinitions>
-                                <Image Source="img/dialog-password@32.png" />
-                                <TextBlock Grid.Column="2" Text="View Keys" VerticalAlignment="Center" x:Name="btnViewKeysText" />
-                            </Grid>
-                        </Button>
-                        <Grid Grid.Column="2" Height="24">
+                        <Grid Grid.Column="0" Height="24">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
@@ -217,7 +217,7 @@
                                       SelectedValue="{Binding DevicesViewModel.Value}"
                                       SelectionChanged="cmbDeviceDropDown_SelectionChanged" />
                         </Grid>
-                        <Grid Grid.Column="4" Height="24">
+                        <Grid Grid.Column="2" Height="24">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
@@ -228,7 +228,7 @@
                                       SelectedValue="{Binding ModelsViewModel.Value}"
                                       SelectionChanged="cmbModelDropDown_SelectionChanged" />
                         </Grid>
-                        <Grid Grid.Column="6" Height="24">
+                        <Grid Grid.Column="4" Height="24">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
@@ -239,6 +239,16 @@
                                       SelectedValue="{Binding VersionsViewModel.Value}"
                                       SelectionChanged="cmbVersionDropDown_SelectionChanged" />
                         </Grid>
+                        <Button Grid.Column="6" x:Name="btnViewKeys" Click="btnViewKeys_Click">
+                            <Grid Height="32">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="32" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Image Source="img/dialog-password@32.png" />
+                                <TextBlock Grid.Column="1" Margin="6,0" Text="View Keys" VerticalAlignment="Center" x:Name="btnViewKeysText" />
+                            </Grid>
+                        </Button>
                     </Grid>
                 </Grid>
             </Grid>
