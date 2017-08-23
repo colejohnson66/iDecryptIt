@@ -2,7 +2,7 @@
  * File:   Globals.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2012-2016 Cole Johnson
+ * Copyright (c) 2012-2017 Cole Johnson
  * 
  * This file is part of iDecryptIt
  * 
@@ -42,14 +42,24 @@ namespace Hexware.Programs.iDecryptIt
             { "AppleTV3,1", "Apple TV 3G" },
             { "AppleTV3,2", "Apple TV 3G [Rev A]" },
             { "AppleTV5,4", "Apple TV 4G" },
+
+            { "iPad2,5", "iPad mini (Wi-Fi)" },
+            { "iPad2,6", "iPad mini (GSM)" },
+            { "iPad2,7", "iPad mini (Global)" },
+            { "iPad4,4", "iPad mini 2 (Wi-Fi)" },
+            { "iPad4,5", "iPad mini 2 (Cellular)" },
+            { "iPad4,6", "iPad mini 2 (Cellular China)" },
+            { "iPad4,7", "iPad mini 3 (Wi-Fi)" },
+            { "iPad4,8", "iPad mini 3 (Cellular)" },
+            { "iPad4,9", "iPad mini 3 (Cellular China)" },
+            { "iPad5,1", "iPad mini 4 (Wi-Fi)" },
+            { "iPad5,2", "iPad mini 4 (Cellular)" },
+
             { "iPad1,1", "iPad 1G" },
             { "iPad2,1", "iPad 2 (Wi-Fi)" },
             { "iPad2,2", "iPad 2 (GSM)" },
             { "iPad2,3", "iPad 2 (CDMA)" },
             { "iPad2,4", "iPad 2 (Wi-Fi) [Rev A]" },
-            { "iPad2,5", "iPad mini 1G (Wi-Fi)" },
-            { "iPad2,6", "iPad mini 1G (GSM)" },
-            { "iPad2,7", "iPad mini 1G (Global)" },
             { "iPad3,1", "iPad 3 (Wi-Fi)" },
             { "iPad3,2", "iPad 3 (CDMA)" },
             { "iPad3,3", "iPad 3 (Global)" },
@@ -58,21 +68,20 @@ namespace Hexware.Programs.iDecryptIt
             { "iPad3,6", "iPad 4 (Global)" },
             { "iPad4,1", "iPad Air (Wi-Fi)" },
             { "iPad4,2", "iPad Air (Cellular)" },
-            { "iPad4,3", "iPad Air (China)" },
-            { "iPad4,4", "iPad mini 2 (Wi-Fi)" },
-            { "iPad4,5", "iPad mini 2 (Cellular)" },
-            { "iPad4,6", "iPad mini 2 (China)" },
-            { "iPad4,7", "iPad mini 3 (Wi-Fi)" },
-            { "iPad4,8", "iPad mini 3 (Cellular)" },
-            { "iPad4,9", "iPad mini 3 (China)" },
-            { "iPad5,1", "iPad mini 4 (Wi-Fi)" },
-            { "iPad5,2", "iPad mini 4 (Cellular)" },
+            { "iPad4,3", "iPad Air (Cellular China)" },
             { "iPad5,3", "iPad Air 2 (Wi-Fi)" },
             { "iPad5,4", "iPad Air 2 (Cellular)" },
-            { "iPad6,3", "iPad Pro (9.7\") [Wi-Fi]" },
-            { "iPad6,4", "iPad Pro (9.7\") [Cellular]" },
-            { "iPad6,7", "iPad Pro (12.9\") [Wi-Fi]" },
-            { "iPad6,8", "iPad Pro (12.9\") [Cellular]" },
+            { "iPad6,3", "iPad Pro 9.7\" (Wi-Fi)" },
+            { "iPad6,4", "iPad Pro 9.7\" (Cellular)" },
+            { "iPad6,7", "iPad Pro 12.9\" (Wi-Fi)" },
+            { "iPad6,8", "iPad Pro 12.9\" (Cellular)" },
+            { "iPad6,11", "iPad 5 (Wi-Fi)" },
+            { "iPad6,12", "iPad 5 (Cellular)" },
+            { "iPad7,1", "iPad Pro 2 12.9\" (Wi-Fi)" },
+            { "iPad7,2", "iPad Pro 2 12.9\" (Cellular)" },
+            { "iPad7,3", "iPad Pro 2 10.5\" (Wi-Fi)" },
+            { "iPad7,4", "iPad Pro 2 10.5\" (Cellular)" },
+
             { "iPhone1,1", "iPhone 2G" },
             { "iPhone1,2", "iPhone 3G" },
             { "iPhone2,1", "iPhone 3GS" },
@@ -80,17 +89,21 @@ namespace Hexware.Programs.iDecryptIt
             { "iPhone3,2", "iPhone 4 (GSM) [Rev A]" },
             { "iPhone3,3", "iPhone 4 (CDMA)" },
             { "iPhone4,1", "iPhone 4S" },
-            { "iPhone5,1", "iPhone 5 (GSM)" },
-            { "iPhone5,2", "iPhone 5 (CDMA)" },
-            { "iPhone5,3", "iPhone 5c (GSM)" },
-            { "iPhone5,4", "iPhone 5c (Global)" },
-            { "iPhone6,1", "iPhone 5s (GSM)" },
-            { "iPhone6,2", "iPhone 5s (Global)" },
+            { "iPhone5,1", "iPhone 5 (iPhone5,1)" }, // TODO (A1428)
+            { "iPhone5,2", "iPhone 5 (iPhone5,2)" }, // TODO (A1429, A1442)
+            { "iPhone5,3", "iPhone 5c (iPhone5,3)" }, // North America, Japan
+            { "iPhone5,4", "iPhone 5c (iPhone5,4)" }, // Asia-Pacific, China, Europe, Middle East
+            { "iPhone6,1", "iPhone 5s (iPhone6,1)" }, // Asia-Pacific, China, Europe, Middle East
+            { "iPhone6,2", "iPhone 5s (iPhone6,2)" }, // North America, Japan
             { "iPhone7,1", "iPhone 6 Plus" },
             { "iPhone7,2", "iPhone 6" },
             { "iPhone8,1", "iPhone 6s" },
             { "iPhone8,2", "iPhone 6s Plus" },
             { "iPhone8,4", "iPhone SE" },
+            { "iPhone9,1", "iPhone 7 (iPhone9,1)" }, // VZW, Sprint, China, Japan
+            { "iPhone9,3", "iPhone 7 (iPhone9,3)" }, // AT&T, TM, Global
+            { "iPhone9,2", "iPhone 7 Plus (iPhone9,2)" }, // VZW, Sprint, China, Japan
+            { "iPhone9,4", "iPhone 7 Plus (iPhone9,4)" }, // AT&T, TM, Global
             { "iPod1,1", "iPod touch 1G" },
             { "iPod2,1", "iPod touch 2G" },
             { "iPod3,1", "iPod touch 3G" },
@@ -109,7 +122,7 @@ namespace Hexware.Programs.iDecryptIt
             Version ver = thisAssembly.GetName().Version;
             char[] build = ver.Revision.ToString().ToCharArray();
             build[0]++;
-            build[1] = (char)(build[1] - '0' + 'A');
+            build[1] = (char)(build[1] - '0' + 'A'); // second character is a letter; map [0,9] to [A,J]
             Version = String.Format(
                 "{0}.{1:D2}.{2}.{3}",
                 ver.Major, ver.Minor, ver.Build, new String(build));

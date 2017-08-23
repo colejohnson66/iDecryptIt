@@ -2,7 +2,7 @@
  * File:   KeySelectionLists.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2014-2016 Cole Johnson
+ * Copyright (c) 2014-2017 Cole Johnson
  * 
  * This file is part of iDecryptIt
  * 
@@ -65,6 +65,12 @@ namespace Hexware.Programs.iDecryptIt
         private static List<ComboBoxEntry> iPad64;
         private static List<ComboBoxEntry> iPad67;
         private static List<ComboBoxEntry> iPad68;
+        private static List<ComboBoxEntry> iPad611;
+        private static List<ComboBoxEntry> iPad612;
+        //private static List<ComboBoxEntry> iPad71;
+        //private static List<ComboBoxEntry> iPad72;
+        //private static List<ComboBoxEntry> iPad73;
+        //private static List<ComboBoxEntry> iPad74;
 
         // iPad mini
         private static List<ComboBoxEntry> iPad25;
@@ -98,6 +104,10 @@ namespace Hexware.Programs.iDecryptIt
         private static List<ComboBoxEntry> iPhone81;
         private static List<ComboBoxEntry> iPhone82;
         private static List<ComboBoxEntry> iPhone84;
+        //private static List<ComboBoxEntry> iPhone91;
+        //private static List<ComboBoxEntry> iPhone93;
+        //private static List<ComboBoxEntry> iPhone92;
+        //private static List<ComboBoxEntry> iPhone94;
 
         // iPod touch
         private static List<ComboBoxEntry> iPod11;
@@ -168,6 +178,12 @@ namespace Hexware.Programs.iDecryptIt
             ModelsHelper.Add("iPad6,4", iPad64);
             ModelsHelper.Add("iPad6,7", iPad67); // iPad Pro 12.9"
             ModelsHelper.Add("iPad6,8", iPad68);
+            //ModelsHelper.Add("iPad6,11", iPad611); // iPad 5
+            //ModelsHelper.Add("iPad6,12", iPad612);
+            //ModelsHelper.Add("iPad7,1", iPad71); // iPad Pro 2 12.9"
+            //ModelsHelper.Add("iPad7,2", iPad72);
+            //ModelsHelper.Add("iPad7,3", iPad73); // iPad Pro 2 10.5"
+            //ModelsHelper.Add("iPad7,4", iPad74);
             ModelsHelper.Add("iPhone1,1", iPhone11); // iPhone 2G
             ModelsHelper.Add("iPhone1,2", iPhone12); // iPhone 3G
             ModelsHelper.Add("iPhone2,1", iPhone21); // iPhone 3GS
@@ -186,6 +202,10 @@ namespace Hexware.Programs.iDecryptIt
             ModelsHelper.Add("iPhone8,1", iPhone81); // iPhone 6s
             ModelsHelper.Add("iPhone8,2", iPhone82); // iPhone 6s+
             ModelsHelper.Add("iPhone8,4", iPhone84); // iPhone SE
+            //ModelsHelper.Add("iPhone9,1", iPhone91); // iPhone 7
+            //ModelsHelper.Add("iPhone9,3", iPhone93);
+            //ModelsHelper.Add("iPhone9,2", iPhone92); // iPhone 7+
+            //ModelsHelper.Add("iPhone9,4", iPhone94);
             ModelsHelper.Add("iPod1,1", iPod11); // iPod 1G
             ModelsHelper.Add("iPod2,1", iPod21); // iPod 2G
             ModelsHelper.Add("iPod3,1", iPod31); // iPod 3G
@@ -331,6 +351,10 @@ namespace Hexware.Programs.iDecryptIt
             InitDevice(ref iPhone81, rootNode.Get<PlistArray>("iPhone8,1"));
             InitDevice(ref iPhone82, rootNode.Get<PlistArray>("iPhone8,2"));
             InitDevice(ref iPhone84, rootNode.Get<PlistArray>("iPhone8,4"));
+            //InitDevice(ref iPhone91, rootNode.Get<PlistArray>("iPhone9,1"));
+            //InitDevice(ref iPhone93, rootNode.Get<PlistArray>("iPhone9,3"));
+            //InitDevice(ref iPhone92, rootNode.Get<PlistArray>("iPhone9,2"));
+            //InitDevice(ref iPhone94, rootNode.Get<PlistArray>("iPhone9,4"));
 
             // iPod touch
             InitDevice(ref iPod11, rootNode.Get<PlistArray>("iPod1,1"));
