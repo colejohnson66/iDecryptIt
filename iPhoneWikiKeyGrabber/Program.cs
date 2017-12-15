@@ -2,7 +2,7 @@
  * File:   Program.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2012-2016, Cole Johnson
+ * Copyright (c) 2012-2017, Cole Johnson
  * 
  * This file is part of iDecryptIt
  * 
@@ -102,16 +102,31 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
         }
         private static void EnumerateFirmwareListAndSaveKeys(string page)
         {
-            foreach (string title in GetKeyPages(page))
+            XmlDocument doc = new XmlDocument();
+            doc.InnerXml = "<doc>" + client.DownloadString(
+                    "http://theiphonewiki.com/w/index.php?title=" + page + "&action=render") + "</doc>";
+
+            // Parse the major version lists
+            foreach (XmlNode majorVersion in doc.SelectNodes(".//a"))
             {
-                Console.WriteLine(title);
-                ParseAndSaveKeyPage(client.DownloadString(
-                    "http://theiphonewiki.com/w/index.php?title=" + title + "&action=raw"));
+                foreach (XmlAttribute link in majorVersion.Attributes)
+                {
+                    if (link.Name == "href" && link.Value.Contains(page))
+                    {
+                        // Found a major version page (eg. Firmware/Apple_TV/4.x)
+                        foreach (string title in GetKeyPages(link.Value))
+                        {
+                            Console.WriteLine(title);
+                            ParseAndSaveKeyPage(client.DownloadString(
+                                "http://theiphonewiki.com/w/index.php?title=" + title + "&action=raw"));
+                        }
+                    }
+                }
             }
         }
-        private static IEnumerable<string> GetKeyPages(string page)
+        private static IEnumerable<string> GetKeyPages(string url)
         {
-            string url = "https://www.theiphonewiki.com/w/index.php?title=" + page + "&action=render";
+            url = "http://theiphonewiki.com/w/index.php?title=" + url.Substring(url.IndexOf("wiki/") + 5) + "&action=render";
 
             // MediaWiki outputs valid [X]HTML...sortove
             XmlDocument doc = new XmlDocument();
@@ -124,13 +139,14 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                 string device = null;
                 foreach (XmlNode link in table.SelectNodes(".//a"))
                 {
-                    if (link.InnerText.Contains("ipsw"))
+                    if (link.InnerText.Contains("AppleTV") || link.InnerText.Contains("iPad") || link.InnerText.Contains("iPhone") || link.InnerText.Contains("iPod"))
                     {
                         device = link.InnerText.Trim().Split('_')[0].
                             Replace("appletv", "AppleTV").Replace("ip", "iP");
                         break;
                     }
                 }
+                // TODO: Apple TV 4K throws an exception here
                 if (device == null)
                     throw new Exception();
 
@@ -210,7 +226,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                 if (isDup)
                     continue;
                 
-                XmlNodeList keyPageUrl = buildCell.SelectNodes(".//@href");
+                XmlNodeList keyPageUrl = buildCell.NextSibling.SelectNodes(".//@href");
                 if (keyPageUrl.Count == 0)
                 {
                     // This build doesn't have an IPSW. For now, just add the
@@ -220,9 +236,9 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                     versionList.Add(ver);
                     continue;
                 }
-                else if (keyPageUrl.Count == 1)
+                foreach (XmlNode urlNode in keyPageUrl)
                 {
-                    string url = keyPageUrl[0].Value;
+                    string url = urlNode.Value;
                     if (url.Contains("redlink"))
                     {
                         ver.HasKeys = false;
@@ -234,10 +250,6 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                     versionList.Add(ver);
                     url = url.Substring(url.IndexOf("/wiki/") + "/wiki/".Length);
                     yield return url;
-                }
-                else
-                {
-                    throw new Exception();
                 }
             }
         }
@@ -275,6 +287,11 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                         {
                             // Insert the new cell before the cell currently occupying the space we want
                             XmlNode rowToAddTo = rows[row + i];
+                            if (rowToAddTo == null)
+                            {
+                                Console.WriteLine("ERROR");
+                                break;
+                            }
                             rowToAddTo.InsertBefore(cell.Clone(), rowToAddTo.ChildNodes[col]);
                         }
                         // We aren't allowed to modify the collection while enumerating,
@@ -407,20 +424,16 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                     case "RootFS":
                         elem = new PlistDict();
                         elem.Add("File Name", new PlistString(data["RootFS"] + ".dmg"));
-                        elem.Add("Key", new PlistString(data["RootFSKey"]));
-                        length = data["RootFSKey"].Length;
-                        Debug.Assert(length == 72 || length == 4, $"{debug}data[\"RootFSKey\"].Length ({length}) != 72)");
+                        if (data[key + "Key"] == "Not Encrypted") {
+                            elem.Add("Encryption", new PlistBool(false));
+                        } else {
+                            elem.Add("Encryption", new PlistBool(true));
+                            elem.Add("Key", new PlistString(data["RootFSKey"]));
+                            length = data["RootFSKey"].Length;
+                            Debug.Assert(length == 72 || length == 7, $"{debug}data[\"RootFSKey\"].Length ({length}) != 72)");
+                        }
                         dict.Add("Root FS", elem);
                         break;
-
-                    /*case "GMRootFS":
-                        elem = new PlistDict();
-                        elem.Add("File Name", new PlistString(data["GMRootFS"] + ".dmg"));
-                        elem.Add("Key", new PlistString(data["GMRootFSKey"]));
-                        length = data["GMRootFSKey"].Length;
-                        Debug.Assert(length == 72 || length == 4, $"{debug}data[\"GMRootFSKey\"].Length ({length}) != 72");
-                        dict.Add("GM Root FS", elem);
-                        break;*/
 
                     case "UpdateRamdisk":
                     case "RestoreRamdisk":
@@ -433,9 +446,9 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                             elem.Add("IV", new PlistString(data[key + "IV"]));
                             elem.Add("Key", new PlistString(data[key + "Key"]));
                             length = data[key + "IV"].Length;
-                            Debug.Assert(length == 32 || length == 4, $"{debug}data[\"{key}IV\"].Length ({length}) != 32");
+                            Debug.Assert(length == 32 || length == 7, $"{debug}data[\"{key}IV\"].Length ({length}) != 32");
                             length = data[key + "Key"].Length;
-                            Debug.Assert(length == 32 || length == 64 || length == 4, $"{debug}data[\"{key}Key\"].Length ({length}) != (32 || 64)");
+                            Debug.Assert(length == 32 || length == 64 || length == 7, $"{debug}data[\"{key}Key\"].Length ({length}) != (32 || 64)");
                         }
                         dict.Add(key.Replace("Ramdisk", " Ramdisk"), elem);
                         break;
@@ -467,16 +480,16 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                             elem.Add("IV", new PlistString(data[key + "IV"]));
                             elem.Add("Key", new PlistString(data[key + "Key"]));
                             length = data[key + "IV"].Length;
-                            Debug.Assert(length == 32 || length == 4, $"{debug}data[\"{key}IV\"].Length ({length}) != 32");
+                            Debug.Assert(length == 32 || length == 7, $"{debug}data[\"{key}IV\"].Length ({length}) != 32");
                             length = data[key + "Key"].Length;
-                            Debug.Assert(length == 32 || length == 64 || length == 4, $"{debug}data[\"{key}Key\"].Length ({length}) != (32 || 64)");
+                            Debug.Assert(length == 32 || length == 64 || length == 7, $"{debug}data[\"{key}Key\"].Length ({length}) != (32 || 64)");
                         }
                         dict.Add(key, elem);
                         break;
 
                    default:
                         // Ignore GM keys for now
-                        if (key.StartsWith("GM"))
+                        if (key.StartsWith("GM") || key.Contains("Beta"))
                             break;
                         Debug.Assert(key.EndsWith("IV") || key.EndsWith("Key") || key.EndsWith("KBAG"), $"Unknown key: {key}");
                         break;
@@ -486,7 +499,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
         }
         private static string HexStringToBase64(string hex)
         {
-            if (hex == "TODO")
+            if (hex == "Unknown")
                 return "";
             byte[] bytes = new byte[hex.Length / 2];
             for (int i = 0; i < hex.Length; i += 2)
