@@ -104,6 +104,13 @@ namespace Hexware.Programs.iDecryptIt
             { "iPhone9,3", "iPhone 7 (iPhone9,3)" }, // AT&T, TM, Global
             { "iPhone9,2", "iPhone 7 Plus (iPhone9,2)" }, // VZW, Sprint, China, Japan
             { "iPhone9,4", "iPhone 7 Plus (iPhone9,4)" }, // AT&T, TM, Global
+            { "iPhone10,1", "iPhone 8 (iPhone10,1)" },
+            { "iPhone10,4", "iPhone 8 (iPhone10,4)" },
+            { "iPhone10,2", "iPhone 8 Plus (iPhone10,2)" },
+            { "iPhone10,5", "iPhone 8 Plus (iPhone10,5)" },
+            { "iPhone10,3", "iPhone X (iPhone10,3)" },
+            { "iPhone10,6", "iPhone X (iPhone10,6)" },
+
             { "iPod1,1", "iPod touch 1G" },
             { "iPod2,1", "iPod touch 2G" },
             { "iPod3,1", "iPod touch 3G" },
