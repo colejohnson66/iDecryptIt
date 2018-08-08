@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iDecryptIt-WPF", "iDecryptIt-WPF\iDecryptIt-WPF.csproj", "{A627FA1E-BE08-4003-B14B-51DC5C05FE6A}"
 EndProject
@@ -19,6 +19,7 @@ Global
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{A627FA1E-BE08-4003-B14B-51DC5C05FE6A}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{A627FA1E-BE08-4003-B14B-51DC5C05FE6A}.Debug|Any CPU.Build.0 = Debug|x86
 		{A627FA1E-BE08-4003-B14B-51DC5C05FE6A}.Debug|x64.ActiveCfg = Debug|x64
 		{A627FA1E-BE08-4003-B14B-51DC5C05FE6A}.Debug|x64.Build.0 = Debug|x64
 		{A627FA1E-BE08-4003-B14B-51DC5C05FE6A}.Debug|x86.ActiveCfg = Debug|x86
@@ -29,6 +30,7 @@ Global
 		{A627FA1E-BE08-4003-B14B-51DC5C05FE6A}.Release|x86.ActiveCfg = Release|x86
 		{A627FA1E-BE08-4003-B14B-51DC5C05FE6A}.Release|x86.Build.0 = Release|x86
 		{AE4ED7CC-5ED3-45AF-B5C2-F592D42573F7}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{AE4ED7CC-5ED3-45AF-B5C2-F592D42573F7}.Debug|Any CPU.Build.0 = Debug|x86
 		{AE4ED7CC-5ED3-45AF-B5C2-F592D42573F7}.Debug|x64.ActiveCfg = Debug|x86
 		{AE4ED7CC-5ED3-45AF-B5C2-F592D42573F7}.Debug|x64.Build.0 = Debug|x86
 		{AE4ED7CC-5ED3-45AF-B5C2-F592D42573F7}.Debug|x86.ActiveCfg = Debug|x86
@@ -53,5 +55,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4D6908A4-90D8-48DE-8D96-353F2C07B3CB}
 	EndGlobalSection
 EndGlobal
