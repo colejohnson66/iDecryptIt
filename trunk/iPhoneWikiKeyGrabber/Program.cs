@@ -170,7 +170,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 
             bool isSpecialATVFormat = false;
             int rowNum = -1;
-            foreach (XmlNode row in table.ChildNodes)
+            foreach (XmlNode row in table.ChildNodes[0].ChildNodes)
             {
                 rowNum++;
                 
@@ -258,7 +258,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
             // This method is a pretty inefficient way IMHO of fixing the problem,
             //   but compared to the time the web request for the page takes, this
             //   is nothing.
-            XmlNodeList rows = table.ChildNodes;
+            XmlNodeList rows = table.ChildNodes[0].ChildNodes;
             int rowCount = rows.Count;
 
             // Subtract 1 to ignore the documentation column (it causes
@@ -303,7 +303,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
         }
         private static void FixColspans(XmlNode table)
         {
-            foreach (XmlNode row in table.ChildNodes)
+            foreach (XmlNode row in table.ChildNodes[0].ChildNodes)
             {
             restart:
                 foreach (XmlNode cell in row.ChildNodes)
@@ -329,7 +329,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
             string[] lines = contents
                 .Replace("{{keys", "")
                 .Replace("}}", "")
-                .Split(new char[] { '\n', '\r' }, 100, StringSplitOptions.RemoveEmptyEntries);
+                .Split(new char[] { '\n', '\r' }, 200, StringSplitOptions.RemoveEmptyEntries);
 
             string displayVersion = null;
             Dictionary<string, string> data = new Dictionary<string, string>();
@@ -418,6 +418,8 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                     case "Codename":
                     case "Download URL":
                     case "Baseband":
+                    case "Model":
+                    case "Model2":
                         dict.Add(key, new PlistString(data[key]));
                         break;
 
@@ -436,7 +438,9 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                         break;
 
                     case "UpdateRamdisk":
+                    case "UpdateRamdisk2":
                     case "RestoreRamdisk":
+                    case "RestoreRamdisk2":
                         elem = new PlistDict();
                         elem.Add("File Name", new PlistString(data[key] + ".dmg"));
                         if (data[key + "IV"] == "Not Encrypted") {
@@ -453,24 +457,56 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                         dict.Add(key.Replace("Ramdisk", " Ramdisk"), elem);
                         break;
 
+                    case "AOPFirmware":
+                    //case "AOPFirmware2":
                     case "AppleLogo":
+                    case "AppleLogo2":
+                    case "AppleMaggie":
+                    //case "AppleMaggie2":
+                    case "AudioDSP":
+                    //case "AudioDSP2":
                     case "BatteryCharging":
+                    //case "BatteryCharging2":
                     case "BatteryCharging0":
+                    case "BatteryCharging02":
                     case "BatteryCharging1":
+                    case "BatteryCharging12":
                     case "BatteryFull":
+                    case "BatteryFull2":
                     case "BatteryLow0":
+                    case "BatteryLow02":
                     case "BatteryLow1":
+                    case "BatteryLow12":
+                    case "Dali":
+                    //case "Dali2":
                     case "DeviceTree":
+                    case "DeviceTree2":
                     case "GlyphCharging":
+                    //case "GlyphCharging2":
                     case "GlyphPlugin":
+                    case "GlyphPlugin2":
+                    case "Homer":
+                    //case "Homer2":
                     case "iBEC":
+                    case "iBEC2":
                     case "iBoot":
+                    case "iBoot2":
                     case "iBSS":
+                    case "iBSS2":
                     case "Kernelcache":
+                    case "Kernelcache2":
+                    case "LiquidDetect":
+                    //case "LiquidDetect2":
                     case "LLB":
+                    case "LLB2":
+                    case "Multitouch":
+                    //case "Multitouch2":
                     case "NeedService":
+                    //case "NeedService2":
                     case "RecoveryMode":
+                    case "RecoveryMode2":
                     case "SEP-Firmware":
+                    case "SEP-Firmware2":
                         elem = new PlistDict();
                         elem.Add("File Name", new PlistString(data[key]));
                         if (data[key + "IV"] == "Not Encrypted") {
