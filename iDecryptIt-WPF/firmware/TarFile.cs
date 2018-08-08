@@ -139,6 +139,13 @@ namespace Hexware.Programs.iDecryptIt.Firmware
             }
         }
 
+        public bool FileExists(string fileName)
+        {
+            if (_entries.TryGetValue(fileName, out TarEntry entry))
+                return true;
+            return false;
+        }
+
         public MemoryStream GetFile(string fileName)
         {
             TarEntry entry;

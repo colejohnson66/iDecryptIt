@@ -2,7 +2,7 @@
  * File:   MainWindow.xaml.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2010-2017 Cole Johnson
+ * Copyright (c) 2010-2018 Cole Johnson
  * 
  * This file is part of iDecryptIt
  * 
@@ -105,7 +105,7 @@ namespace Hexware.Programs.iDecryptIt
 
             MessageBoxResult res = MessageBox.Show(
                 message + "\r\n\r\n" +
-                    "Do you want iDecryptIt to save an error log for bug reporting?" +
+                    "Do you want iDecryptIt to save an error log for bug reporting? " +
                     "(no personally identifiable information will be included)",
                 "iDecryptIt",
                 MessageBoxButton.YesNo,
@@ -308,6 +308,8 @@ namespace Hexware.Programs.iDecryptIt
         internal Stream GetKeyStream(string fileName)
         {
             Debug("[GETSTREAM]", "Attempting read of stored resource, \"" + fileName + "\".");
+            if (!Globals.KeyArchive.FileExists(fileName))
+                return Stream.Null;
             try
             {
                 return Globals.KeyArchive.GetFile(fileName);
@@ -480,9 +482,8 @@ namespace Hexware.Programs.iDecryptIt
             try {
                 string folder = Path.GetDirectoryName(textInputFileName.Text);
                 string file = Path.GetFileName(textInputFileName.Text);
-                if (file.Substring(file.Length - 4, 4) != ".dmg") {
+                if (file.Substring(file.Length - 4, 4) != ".dmg")
                     return;
-                }
                 file = file.Substring(0, file.Length - 4) + "_decrypted.dmg";
                 textOutputFileName.Text = Path.Combine(folder, file);
             } catch (Exception) { }
