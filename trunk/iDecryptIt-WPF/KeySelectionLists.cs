@@ -347,11 +347,11 @@ namespace Hexware.Programs.iDecryptIt
             InitDevice(ref iPad67, rootNode.Get<PlistArray>("iPad6,7"));
             InitDevice(ref iPad68, rootNode.Get<PlistArray>("iPad6,8"));
             InitDevice(ref iPad611, rootNode.Get<PlistArray>("iPad6,11"));
-            InitDevice(ref iPad612, rootNode.Get<PlistArray>("iPad6,12"));
+            //InitDevice(ref iPad612, rootNode.Get<PlistArray>("iPad6,12"));
             InitDevice(ref iPad71, rootNode.Get<PlistArray>("iPad7,1"));
-            InitDevice(ref iPad72, rootNode.Get<PlistArray>("iPad7,2"));
+            //InitDevice(ref iPad72, rootNode.Get<PlistArray>("iPad7,2"));
             InitDevice(ref iPad73, rootNode.Get<PlistArray>("iPad7,3"));
-            InitDevice(ref iPad74, rootNode.Get<PlistArray>("iPad7,4"));
+            //InitDevice(ref iPad74, rootNode.Get<PlistArray>("iPad7,4"));
 
             // iPad mini
             InitDevice(ref iPad25, rootNode.Get<PlistArray>("iPad2,5"));
@@ -386,15 +386,15 @@ namespace Hexware.Programs.iDecryptIt
             InitDevice(ref iPhone82, rootNode.Get<PlistArray>("iPhone8,2"));
             InitDevice(ref iPhone84, rootNode.Get<PlistArray>("iPhone8,4"));
             InitDevice(ref iPhone91, rootNode.Get<PlistArray>("iPhone9,1"));
-            InitDevice(ref iPhone93, rootNode.Get<PlistArray>("iPhone9,3"));
+            //InitDevice(ref iPhone93, rootNode.Get<PlistArray>("iPhone9,3"));
             InitDevice(ref iPhone92, rootNode.Get<PlistArray>("iPhone9,2"));
-            InitDevice(ref iPhone94, rootNode.Get<PlistArray>("iPhone9,4"));
+            //InitDevice(ref iPhone94, rootNode.Get<PlistArray>("iPhone9,4"));
             InitDevice(ref iPhone101, rootNode.Get<PlistArray>("iPhone10,1"));
-            InitDevice(ref iPhone104, rootNode.Get<PlistArray>("iPhone10,4"));
+            //InitDevice(ref iPhone104, rootNode.Get<PlistArray>("iPhone10,4"));
             InitDevice(ref iPhone102, rootNode.Get<PlistArray>("iPhone10,2"));
-            InitDevice(ref iPhone105, rootNode.Get<PlistArray>("iPhone10,5"));
+            //InitDevice(ref iPhone105, rootNode.Get<PlistArray>("iPhone10,5"));
             InitDevice(ref iPhone103, rootNode.Get<PlistArray>("iPhone10,3"));
-            InitDevice(ref iPhone106, rootNode.Get<PlistArray>("iPhone10,6"));
+            //InitDevice(ref iPhone106, rootNode.Get<PlistArray>("iPhone10,6"));
 
             // iPod touch
             InitDevice(ref iPod11, rootNode.Get<PlistArray>("iPod1,1"));
