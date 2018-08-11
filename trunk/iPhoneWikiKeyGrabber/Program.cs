@@ -2,7 +2,7 @@
  * File:   Program.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2012-2017, Cole Johnson
+ * Copyright (c) 2012-2018, Cole Johnson
  * 
  * This file is part of iDecryptIt
  * 
@@ -25,8 +25,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Net;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Xml;
 
@@ -37,6 +37,24 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
         public string Version;
         public string Build;
         public bool HasKeys;
+
+        public override bool Equals(object obj)
+        {
+            if (obj.GetType() != typeof(FirmwareVersion))
+                return false;
+            FirmwareVersion other = (FirmwareVersion)obj;
+            return Build == other.Build;
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = -1408460819;
+            hashCode = hashCode * -1521134295 + base.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Version);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Build);
+            hashCode = hashCode * -1521134295 + HasKeys.GetHashCode();
+            return hashCode;
+        }
     }
     public class Program
     {
@@ -57,16 +75,17 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
             Directory.CreateDirectory(keyDir);
 
 #if !DEBUG
-            makeBinaryPlists = true;
+            // Currently, the .tar.gz file of binary Plists is bigger than the one for text Plists
+            //makeBinaryPlists = true;
 #endif
 
-            if (makeBinaryPlists) {
-                if (!File.Exists(plutil))
-                {
-                    makeBinaryPlists = false;
-                    Console.WriteLine("WARNING: plutil not found! Binary plists will NOT be generated.");
-                }
+            if (makeBinaryPlists && !File.Exists(plutil))
+            {
+                makeBinaryPlists = false;
+                Console.WriteLine("WARNING: plutil not found! Binary plists will NOT be generated.");
             }
+
+            InitVersionsList();
 
             // TODO: Parse the key page using XPath (action=render) [id tags]
             EnumerateFirmwareListAndSaveKeys("Firmware/Apple_TV");
@@ -76,11 +95,18 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
             EnumerateFirmwareListAndSaveKeys("Firmware/iPhone");
             EnumerateFirmwareListAndSaveKeys("Firmware/iPod_touch");
 
+            /*foreach (string title in GetKeyPages("https://www.theiphonewiki.com/wiki/Firmware/iPhone/11.x"))
+            {
+                Console.WriteLine(title);
+                ParseAndSaveKeyPage(client.DownloadString(
+                    "http://theiphonewiki.com/w/index.php?title=" + title + "&action=raw"));
+            }*/
+
             // Build version listing
             PlistDict plistRoot = new PlistDict();
             foreach (var deviceList in versionsList)
             {
-                List<FirmwareVersion> versions = deviceList.Value;
+                List<FirmwareVersion> versions = deviceList.Value.Distinct().ToList();
                 PlistArray deviceArr = new PlistArray(new IPlistElement[versions.Count]);
                 for (int i = 0; i < versions.Count; i++)
                 {
@@ -100,11 +126,103 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
             versionDoc.Save(keyListPath, PlistDocumentType.Xml);
             ConvertPlist(keyListPath);
         }
+        private static void InitVersionsList()
+        {
+            // Apple TV
+            versionsList.Add("AppleTV2,1", new List<FirmwareVersion>());
+            versionsList.Add("AppleTV3,1", new List<FirmwareVersion>());
+            versionsList.Add("AppleTV3,2", new List<FirmwareVersion>());
+            versionsList.Add("AppleTV5,3", new List<FirmwareVersion>());
+            versionsList.Add("AppleTV6,2", new List<FirmwareVersion>());
+
+            // iPad
+            versionsList.Add("iPad1,1", new List<FirmwareVersion>());
+            versionsList.Add("iPad2,1", new List<FirmwareVersion>());
+            versionsList.Add("iPad2,2", new List<FirmwareVersion>());
+            versionsList.Add("iPad2,3", new List<FirmwareVersion>());
+            versionsList.Add("iPad2,4", new List<FirmwareVersion>());
+            versionsList.Add("iPad3,1", new List<FirmwareVersion>());
+            versionsList.Add("iPad3,2", new List<FirmwareVersion>());
+            versionsList.Add("iPad3,3", new List<FirmwareVersion>());
+            versionsList.Add("iPad3,4", new List<FirmwareVersion>());
+            versionsList.Add("iPad3,5", new List<FirmwareVersion>());
+            versionsList.Add("iPad3,6", new List<FirmwareVersion>());
+            versionsList.Add("iPad4,1", new List<FirmwareVersion>());
+            versionsList.Add("iPad4,2", new List<FirmwareVersion>());
+            versionsList.Add("iPad4,3", new List<FirmwareVersion>());
+            versionsList.Add("iPad5,3", new List<FirmwareVersion>());
+            versionsList.Add("iPad5,4", new List<FirmwareVersion>());
+            versionsList.Add("iPad6,3", new List<FirmwareVersion>());
+            versionsList.Add("iPad6,4", new List<FirmwareVersion>());
+            versionsList.Add("iPad6,7", new List<FirmwareVersion>());
+            versionsList.Add("iPad6,8", new List<FirmwareVersion>());
+            versionsList.Add("iPad6,11", new List<FirmwareVersion>());
+            versionsList.Add("iPad6,12", new List<FirmwareVersion>());
+            versionsList.Add("iPad7,1", new List<FirmwareVersion>());
+            versionsList.Add("iPad7,2", new List<FirmwareVersion>());
+            versionsList.Add("iPad7,3", new List<FirmwareVersion>());
+            versionsList.Add("iPad7,4", new List<FirmwareVersion>());
+            versionsList.Add("iPad7,5", new List<FirmwareVersion>());
+            versionsList.Add("iPad7,6", new List<FirmwareVersion>());
+
+            // iPad mini
+            versionsList.Add("iPad2,5", new List<FirmwareVersion>());
+            versionsList.Add("iPad2,6", new List<FirmwareVersion>());
+            versionsList.Add("iPad2,7", new List<FirmwareVersion>());
+            versionsList.Add("iPad4,4", new List<FirmwareVersion>());
+            versionsList.Add("iPad4,5", new List<FirmwareVersion>());
+            versionsList.Add("iPad4,6", new List<FirmwareVersion>());
+            versionsList.Add("iPad4,7", new List<FirmwareVersion>());
+            versionsList.Add("iPad4,8", new List<FirmwareVersion>());
+            versionsList.Add("iPad4,9", new List<FirmwareVersion>());
+            versionsList.Add("iPad5,1", new List<FirmwareVersion>());
+            versionsList.Add("iPad5,2", new List<FirmwareVersion>());
+
+            // iPhone
+            versionsList.Add("iPhone1,1", new List<FirmwareVersion>());
+            versionsList.Add("iPhone1,2", new List<FirmwareVersion>());
+            versionsList.Add("iPhone2,1", new List<FirmwareVersion>());
+            versionsList.Add("iPhone3,1", new List<FirmwareVersion>());
+            versionsList.Add("iPhone3,2", new List<FirmwareVersion>());
+            versionsList.Add("iPhone3,3", new List<FirmwareVersion>());
+            versionsList.Add("iPhone4,1", new List<FirmwareVersion>());
+            versionsList.Add("iPhone5,1", new List<FirmwareVersion>());
+            versionsList.Add("iPhone5,2", new List<FirmwareVersion>());
+            versionsList.Add("iPhone5,3", new List<FirmwareVersion>());
+            versionsList.Add("iPhone5,4", new List<FirmwareVersion>());
+            versionsList.Add("iPhone6,1", new List<FirmwareVersion>());
+            versionsList.Add("iPhone6,2", new List<FirmwareVersion>());
+            versionsList.Add("iPhone7,1", new List<FirmwareVersion>());
+            versionsList.Add("iPhone7,2", new List<FirmwareVersion>());
+            versionsList.Add("iPhone8,1", new List<FirmwareVersion>());
+            versionsList.Add("iPhone8,2", new List<FirmwareVersion>());
+            versionsList.Add("iPhone8,4", new List<FirmwareVersion>());
+            versionsList.Add("iPhone9,1", new List<FirmwareVersion>());
+            versionsList.Add("iPhone9,3", new List<FirmwareVersion>());
+            versionsList.Add("iPhone9,2", new List<FirmwareVersion>());
+            versionsList.Add("iPhone9,4", new List<FirmwareVersion>());
+            versionsList.Add("iPhone10,1", new List<FirmwareVersion>());
+            versionsList.Add("iPhone10,4", new List<FirmwareVersion>());
+            versionsList.Add("iPhone10,2", new List<FirmwareVersion>());
+            versionsList.Add("iPhone10,5", new List<FirmwareVersion>());
+            versionsList.Add("iPhone10,3", new List<FirmwareVersion>());
+            versionsList.Add("iPhone10,6", new List<FirmwareVersion>());
+
+            // iPod touch
+            versionsList.Add("iPod1,1", new List<FirmwareVersion>());
+            versionsList.Add("iPod2,1", new List<FirmwareVersion>());
+            versionsList.Add("iPod3,1", new List<FirmwareVersion>());
+            versionsList.Add("iPod4,1", new List<FirmwareVersion>());
+            versionsList.Add("iPod5,1", new List<FirmwareVersion>());
+            versionsList.Add("iPod7,1", new List<FirmwareVersion>());
+        }
         private static void EnumerateFirmwareListAndSaveKeys(string page)
         {
-            XmlDocument doc = new XmlDocument();
-            doc.InnerXml = "<doc>" + client.DownloadString(
-                    "http://theiphonewiki.com/w/index.php?title=" + page + "&action=render") + "</doc>";
+            XmlDocument doc = new XmlDocument
+            {
+                InnerXml = "<doc>" + client.DownloadString(
+                    "http://theiphonewiki.com/w/index.php?title=" + page + "&action=render") + "</doc>"
+            };
 
             // Parse the major version lists
             foreach (XmlNode majorVersion in doc.SelectNodes(".//a"))
@@ -129,41 +247,19 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
             url = "http://theiphonewiki.com/w/index.php?title=" + url.Substring(url.IndexOf("wiki/") + 5) + "&action=render";
 
             // MediaWiki outputs valid [X]HTML...sortove
-            XmlDocument doc = new XmlDocument();
-            doc.InnerXml = "<doc>" + client.DownloadString(url) + "</doc>";
+            XmlDocument doc = new XmlDocument
+            {
+                InnerXml = "<doc>" + client.DownloadString(url) + "</doc>"
+            };
             XmlNodeList tableList = doc.SelectNodes("//table[@class='wikitable']");
             Debug.Assert(tableList.Count != 0, "Can't find device tables.");
             foreach (XmlNode table in tableList)
             {
-                // What device is this?
-                string device = null;
-                foreach (XmlNode link in table.SelectNodes(".//a"))
-                {
-                    if (link.InnerText.Contains("AppleTV") || link.InnerText.Contains("iPad") || link.InnerText.Contains("iPhone") || link.InnerText.Contains("iPod"))
-                    {
-                        device = link.InnerText.Trim().Split('_')[0].
-                            Replace("appletv", "AppleTV").Replace("ip", "iP");
-                        break;
-                    }
-                }
-                // TODO: Apple TV 4K throws an exception here
-                if (device == null)
-                    throw new Exception();
-
-                // If we've already seen this device, append to its list,
-                //   else, make a new list
-                List<FirmwareVersion> versions;
-                if (!versionsList.TryGetValue(device, out versions))
-                {
-                    versions = new List<FirmwareVersion>();
-                    versionsList.Add(device, versions);
-                }
-
-                foreach (string fwPage in ParseTable(table, versions))
+                foreach (string fwPage in ParseTable(table))
                     yield return fwPage;
             }
         }
-        private static IEnumerable<string> ParseTable(XmlNode table, List<FirmwareVersion> versionList)
+        private static IEnumerable<string> ParseTable(XmlNode table)
         {
             FixColspans(table);
             FixRowspans(table);
@@ -175,7 +271,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                 rowNum++;
                 
                 // skip headers
-                if (row.InnerText.Contains("Download URL"))
+                if (row.InnerText.Contains("Version"))
                     continue;
                 if (row.InnerText.Contains("Marketing") && row.InnerText.Contains("Internal"))
                 {
@@ -214,7 +310,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
 
                 // Don't add a version we've already seen (FixRowspans(...) causes this)
                 // Example: iPhone 2G 1.0.1 (1C25) and 1.0.2 (1C28)
-                bool isDup = false;
+                /*bool isDup = false;
                 foreach (FirmwareVersion testVer in versionList)
                 {
                     if (ver.Build == testVer.Build)
@@ -224,7 +320,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                     }
                 }
                 if (isDup)
-                    continue;
+                    continue;*/
                 
                 XmlNodeList keyPageUrl = buildCell.NextSibling.SelectNodes(".//@href");
                 if (keyPageUrl.Count == 0)
@@ -233,21 +329,25 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                     //   version to the list, but don't yield a URL. When adding
                     //   support for betas, this logic will need to be redone.
                     ver.HasKeys = false;
-                    versionList.Add(ver);
+                    //versionList.Add(ver);
                     continue;
                 }
                 foreach (XmlNode urlNode in keyPageUrl)
                 {
                     string url = urlNode.Value;
+                    string device = url.Substring(
+                        url.IndexOf('(') + 1,
+                        url.IndexOf(')') - url.IndexOf('(') - 1);
+
                     if (url.Contains("redlink"))
                     {
                         ver.HasKeys = false;
-                        versionList.Add(ver);
+                        versionsList[device].Add(ver);
                         continue;
                     }
 
                     ver.HasKeys = true;
-                    versionList.Add(ver);
+                    versionsList[device].Add(ver);
                     url = url.Substring(url.IndexOf("/wiki/") + "/wiki/".Length);
                     yield return url;
                 }
@@ -379,8 +479,8 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                 proc.StartInfo.UseShellExecute = false;
                 proc.StartInfo.RedirectStandardOutput = true;
                 proc.StartInfo.RedirectStandardError = true;
-                proc.OutputDataReceived += proc_OutputDataRecieved;
-                proc.ErrorDataReceived += proc_OutputDataRecieved;
+                proc.OutputDataReceived += Proc_OutputDataRecieved;
+                proc.ErrorDataReceived += Proc_OutputDataRecieved;
                 proc.Start();
                 proc.WaitForExit();
 
@@ -403,11 +503,12 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
                 switch (key) {
                     case "Version":
                         string temp = data["Version"];
-                        if (temp.Contains("b") || temp.Contains("["))
+                        if (temp.Contains("and"))
                         {
                             // will need to be updated for beta support
-                            Match match = new Regex(@"^([\d\.]+)[^(]+\(([\d\.]+)").Match(temp);
-                            temp = $"{match.Groups[1].Value} ({match.Groups[2].Value})";
+                            //Match match = new Regex(@"^([\d\.]+)[^(]+\(([\d\.]+)").Match(temp);
+                            //temp = $"{match.Groups[1].Value} ({match.Groups[2].Value})";
+                            temp = temp.Substring(temp.IndexOf("and") + 4);
                             Console.WriteLine(" <<>> \"{0}\" --> \"{1}\"", data[key], temp);
                         }
                         dict.Add("Version", new PlistString(temp));
@@ -554,7 +655,7 @@ namespace Hexware.Programs.iDecryptIt.KeyGrabber
             return false;
         }
 
-        private static void proc_OutputDataRecieved(object sender, DataReceivedEventArgs e)
+        private static void Proc_OutputDataRecieved(object sender, DataReceivedEventArgs e)
         {
             Console.WriteLine(e.Data);
         }
