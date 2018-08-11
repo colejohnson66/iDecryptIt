@@ -236,9 +236,28 @@
                             </Grid.ColumnDefinitions>
                             <TextBlock x:Name="txtSelectVersion" Text="Version:  " VerticalAlignment="Center" />
                             <ComboBox x:Name="cmbVersionDropDown" Grid.Column="1" IsEnabled="False"
-                                      DisplayMemberPath="Value" SelectedValuePath="ID"
+                                      SelectedValuePath="ID"
                                       SelectedValue="{Binding VersionsViewModel.Value}"
-                                      SelectionChanged="cmbVersionDropDown_SelectionChanged" />
+                                      SelectionChanged="cmbVersionDropDown_SelectionChanged">
+                                <!-- Set the text to red if there aren't any keys -->
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock x:Name="cmbVersionDropDownTxt" Text="{Binding Path=Value}">
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Path=HasKeys}" Value="false">
+                                                            <DataTrigger.Setters>
+                                                                <Setter Property="Foreground" Value="Red" />
+                                                            </DataTrigger.Setters>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
                         </Grid>
                         <Button Grid.Column="6" x:Name="btnViewKeys" Click="btnViewKeys_Click">
                             <Grid Height="32">

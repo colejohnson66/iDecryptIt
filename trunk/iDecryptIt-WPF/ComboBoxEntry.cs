@@ -2,7 +2,7 @@
  * File:   ComboBoxEntry.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2014 Cole Johnson
+ * Copyright (c) 2014, 2018 Cole Johnson
  * 
  * This file is part of iDecryptIt.
  * 
@@ -29,11 +29,20 @@ namespace Hexware.Programs.iDecryptIt
             ID = id;
             Value = value;
         }
+        public ComboBoxEntry(string id, string value, bool hasKeys)
+        {
+            ID = id;
+            Value = value;
+            HasKeys = hasKeys;
+        }
 
         public string ID
         { get; set; }
 
         public string Value
+        { get; set; }
+
+        public bool HasKeys
         { get; set; }
     }
 }
