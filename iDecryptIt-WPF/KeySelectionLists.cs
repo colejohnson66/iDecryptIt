@@ -439,10 +439,11 @@ namespace Hexware.Programs.iDecryptIt
                 PlistDict dict = (PlistDict)elem;
                 string build = dict.Get<PlistString>("Build").Value;
                 string version = dict.Get<PlistString>("Version").Value;
-                //bool hasKeys = dict.Get<PlistBool>("Has Keys").Value;
+                bool hasKeys = dict.Get<PlistBool>("Has Keys").Value;
                 device.Add(new ComboBoxEntry(
                     build,
-                    $"{version} ({build})"));
+                    $"{version} ({build})",
+                    hasKeys));
             }
         }
     }
