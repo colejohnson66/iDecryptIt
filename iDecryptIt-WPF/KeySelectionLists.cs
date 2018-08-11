@@ -43,6 +43,7 @@ namespace Hexware.Programs.iDecryptIt
         private static List<ComboBoxEntry> AppleTV31;
         private static List<ComboBoxEntry> AppleTV32;
         private static List<ComboBoxEntry> AppleTV53;
+        private static List<ComboBoxEntry> AppleTV62;
 
         // iPad
         private static List<ComboBoxEntry> iPad11;
@@ -71,6 +72,8 @@ namespace Hexware.Programs.iDecryptIt
         private static List<ComboBoxEntry> iPad72;
         private static List<ComboBoxEntry> iPad73;
         private static List<ComboBoxEntry> iPad74;
+        private static List<ComboBoxEntry> iPad75;
+        private static List<ComboBoxEntry> iPad76;
 
         // iPad mini
         private static List<ComboBoxEntry> iPad25;
@@ -125,13 +128,15 @@ namespace Hexware.Programs.iDecryptIt
 
         internal static void Init()
         {
-            Products = new List<ComboBoxEntry>();
-            Products.Add(new ComboBoxEntry("AppleTV", "Apple TV"));
-            Products.Add(new ComboBoxEntry("iPad", "iPad"));
-            Products.Add(new ComboBoxEntry("iPadMini", "iPad mini"));
-            Products.Add(new ComboBoxEntry("iPhone", "iPhone"));
-            Products.Add(new ComboBoxEntry("iPodTouch", "iPod touch"));
-            
+            Products = new List<ComboBoxEntry>
+            {
+                new ComboBoxEntry("AppleTV", "Apple TV"),
+                new ComboBoxEntry("iPad", "iPad"),
+                new ComboBoxEntry("iPadMini", "iPad mini"),
+                new ComboBoxEntry("iPhone", "iPhone"),
+                new ComboBoxEntry("iPodTouch", "iPod touch")
+            };
+
             InitModels();
 
             InitDevices();
@@ -141,176 +146,195 @@ namespace Hexware.Programs.iDecryptIt
         }
         private static void InitHelpers()
         {
-            ProductsHelper = new Dictionary<string, List<ComboBoxEntry>>();
-            ProductsHelper.Add("AppleTV", AppleTV);
-            ProductsHelper.Add("iPad", iPad);
-            ProductsHelper.Add("iPadMini", iPadMini);
-            ProductsHelper.Add("iPhone", iPhone);
-            ProductsHelper.Add("iPodTouch", iPodTouch);
+            ProductsHelper = new Dictionary<string, List<ComboBoxEntry>>
+            {
+                { "AppleTV", AppleTV },
+                { "iPad", iPad },
+                { "iPadMini", iPadMini },
+                { "iPhone", iPhone },
+                { "iPodTouch", iPodTouch }
+            };
 
-            ModelsHelper = new Dictionary<string, List<ComboBoxEntry>>();
-            ModelsHelper.Add("AppleTV2,1", AppleTV21); // Apple TV 2G
-            ModelsHelper.Add("AppleTV3,1", AppleTV31); // Apple TV 3G
-            ModelsHelper.Add("AppleTV3,2", AppleTV32);
-            ModelsHelper.Add("AppleTV5,3", AppleTV53);
-            ModelsHelper.Add("iPad1,1", iPad11); // iPad 1G
-            ModelsHelper.Add("iPad2,1", iPad21); // iPad 2
-            ModelsHelper.Add("iPad2,2", iPad22);
-            ModelsHelper.Add("iPad2,3", iPad23);
-            ModelsHelper.Add("iPad2,4", iPad24);
-            ModelsHelper.Add("iPad2,5", iPad25); // iPad mini 1G
-            ModelsHelper.Add("iPad2,6", iPad26);
-            ModelsHelper.Add("iPad2,7", iPad27);
-            ModelsHelper.Add("iPad3,1", iPad31); // iPad 3
-            ModelsHelper.Add("iPad3,2", iPad32);
-            ModelsHelper.Add("iPad3,3", iPad33);
-            ModelsHelper.Add("iPad3,4", iPad34); // iPad 4
-            ModelsHelper.Add("iPad3,5", iPad35);
-            ModelsHelper.Add("iPad3,6", iPad36);
-            ModelsHelper.Add("iPad4,1", iPad41); // iPad Air
-            ModelsHelper.Add("iPad4,2", iPad42);
-            ModelsHelper.Add("iPad4,3", iPad43);
-            ModelsHelper.Add("iPad4,4", iPad44); // iPad mini 2
-            ModelsHelper.Add("iPad4,5", iPad45);
-            ModelsHelper.Add("iPad4,6", iPad46);
-            ModelsHelper.Add("iPad4,7", iPad47); // iPad mini 3
-            ModelsHelper.Add("iPad4,8", iPad48);
-            ModelsHelper.Add("iPad4,9", iPad49);
-            ModelsHelper.Add("iPad5,1", iPad51); // iPad mini 4
-            ModelsHelper.Add("iPad5,2", iPad52);
-            ModelsHelper.Add("iPad5,3", iPad53); // iPad Air 2
-            ModelsHelper.Add("iPad5,4", iPad54);
-            ModelsHelper.Add("iPad6,3", iPad63); // iPad Pro 9.7"
-            ModelsHelper.Add("iPad6,4", iPad64);
-            ModelsHelper.Add("iPad6,7", iPad67); // iPad Pro 12.9"
-            ModelsHelper.Add("iPad6,8", iPad68);
-            ModelsHelper.Add("iPad6,11", iPad611); // iPad 5
-            ModelsHelper.Add("iPad6,12", iPad612);
-            //ModelsHelper.Add("iPad7,1", iPad71); // iPad Pro 2 12.9"
-            //ModelsHelper.Add("iPad7,2", iPad72);
-            //ModelsHelper.Add("iPad7,3", iPad73); // iPad Pro 2 10.5"
-            //ModelsHelper.Add("iPad7,4", iPad74);
-            ModelsHelper.Add("iPhone1,1", iPhone11); // iPhone 2G
-            ModelsHelper.Add("iPhone1,2", iPhone12); // iPhone 3G
-            ModelsHelper.Add("iPhone2,1", iPhone21); // iPhone 3GS
-            ModelsHelper.Add("iPhone3,1", iPhone31); // iPhone 4
-            ModelsHelper.Add("iPhone3,2", iPhone32);
-            ModelsHelper.Add("iPhone3,3", iPhone33);
-            ModelsHelper.Add("iPhone4,1", iPhone41); // iPhone 4S
-            ModelsHelper.Add("iPhone5,1", iPhone51); // iPhone 5
-            ModelsHelper.Add("iPhone5,2", iPhone52);
-            ModelsHelper.Add("iPhone5,3", iPhone53); // iPhone 5c
-            ModelsHelper.Add("iPhone5,4", iPhone54);
-            ModelsHelper.Add("iPhone6,1", iPhone61); // iPhone 5s
-            ModelsHelper.Add("iPhone6,2", iPhone62);
-            ModelsHelper.Add("iPhone7,1", iPhone71); // iPhone 6+
-            ModelsHelper.Add("iPhone7,2", iPhone72); // iPhone 6
-            ModelsHelper.Add("iPhone8,1", iPhone81); // iPhone 6s
-            ModelsHelper.Add("iPhone8,2", iPhone82); // iPhone 6s+
-            ModelsHelper.Add("iPhone8,4", iPhone84); // iPhone SE
-            ModelsHelper.Add("iPhone9,1", iPhone91); // iPhone 7
-            ModelsHelper.Add("iPhone9,3", iPhone93);
-            ModelsHelper.Add("iPhone9,2", iPhone92); // iPhone 7+
-            ModelsHelper.Add("iPhone9,4", iPhone94);
-            ModelsHelper.Add("iPhone10,1", iPhone101); // iPhone 8
-            ModelsHelper.Add("iPhone10,4", iPhone104);
-            ModelsHelper.Add("iPhone10,2", iPhone102); // iPhone 8+
-            ModelsHelper.Add("iPhone10,5", iPhone105);
-            ModelsHelper.Add("iPhone10,3", iPhone103); // iPhone X
-            ModelsHelper.Add("iPhone10,6", iPhone106);
-            ModelsHelper.Add("iPod1,1", iPod11); // iPod 1G
-            ModelsHelper.Add("iPod2,1", iPod21); // iPod 2G
-            ModelsHelper.Add("iPod3,1", iPod31); // iPod 3G
-            ModelsHelper.Add("iPod4,1", iPod41); // iPod 4G
-            ModelsHelper.Add("iPod5,1", iPod51); // iPod 5G
-            ModelsHelper.Add("iPod7,1", iPod71); // iPod 6G
+            ModelsHelper = new Dictionary<string, List<ComboBoxEntry>>
+            {
+                { "AppleTV2,1", AppleTV21 }, // Apple TV 2G
+                { "AppleTV3,1", AppleTV31 }, // Apple TV 3G
+                { "AppleTV3,2", AppleTV32 },
+                { "AppleTV5,3", AppleTV53 },
+                { "AppleTV6,2", AppleTV62 },
+                { "iPad1,1", iPad11 }, // iPad 1G
+                { "iPad2,1", iPad21 }, // iPad 2
+                { "iPad2,2", iPad22 },
+                { "iPad2,3", iPad23 },
+                { "iPad2,4", iPad24 },
+                { "iPad2,5", iPad25 }, // iPad mini 1G
+                { "iPad2,6", iPad26 },
+                { "iPad2,7", iPad27 },
+                { "iPad3,1", iPad31 }, // iPad 3
+                { "iPad3,2", iPad32 },
+                { "iPad3,3", iPad33 },
+                { "iPad3,4", iPad34 }, // iPad 4
+                { "iPad3,5", iPad35 },
+                { "iPad3,6", iPad36 },
+                { "iPad4,1", iPad41 }, // iPad Air
+                { "iPad4,2", iPad42 },
+                { "iPad4,3", iPad43 },
+                { "iPad4,4", iPad44 }, // iPad mini 2
+                { "iPad4,5", iPad45 },
+                { "iPad4,6", iPad46 },
+                { "iPad4,7", iPad47 }, // iPad mini 3
+                { "iPad4,8", iPad48 },
+                { "iPad4,9", iPad49 },
+                { "iPad5,1", iPad51 }, // iPad mini 4
+                { "iPad5,2", iPad52 },
+                { "iPad5,3", iPad53 }, // iPad Air 2
+                { "iPad5,4", iPad54 },
+                { "iPad6,3", iPad63 }, // iPad Pro 9.7"
+                { "iPad6,4", iPad64 },
+                { "iPad6,7", iPad67 }, // iPad Pro 12.9"
+                { "iPad6,8", iPad68 },
+                { "iPad6,11", iPad611 }, // iPad 5
+                { "iPad6,12", iPad612 },
+                { "iPad7,1", iPad71 }, // iPad Pro 2 12.9"
+                { "iPad7,2", iPad72 },
+                { "iPad7,3", iPad73 }, // iPad Pro 2 10.5"
+                { "iPad7,4", iPad74 },
+                { "iPad7,5", iPad75 }, // iPad 6
+                { "iPad7,6", iPad76 },
+                { "iPhone1,1", iPhone11 }, // iPhone 2G
+                { "iPhone1,2", iPhone12 }, // iPhone 3G
+                { "iPhone2,1", iPhone21 }, // iPhone 3GS
+                { "iPhone3,1", iPhone31 }, // iPhone 4
+                { "iPhone3,2", iPhone32 },
+                { "iPhone3,3", iPhone33 },
+                { "iPhone4,1", iPhone41 }, // iPhone 4S
+                { "iPhone5,1", iPhone51 }, // iPhone 5
+                { "iPhone5,2", iPhone52 },
+                { "iPhone5,3", iPhone53 }, // iPhone 5c
+                { "iPhone5,4", iPhone54 },
+                { "iPhone6,1", iPhone61 }, // iPhone 5s
+                { "iPhone6,2", iPhone62 },
+                { "iPhone7,1", iPhone71 }, // iPhone 6+
+                { "iPhone7,2", iPhone72 }, // iPhone 6
+                { "iPhone8,1", iPhone81 }, // iPhone 6s
+                { "iPhone8,2", iPhone82 }, // iPhone 6s+
+                { "iPhone8,4", iPhone84 }, // iPhone SE
+                { "iPhone9,1", iPhone91 }, // iPhone 7
+                { "iPhone9,3", iPhone93 },
+                { "iPhone9,2", iPhone92 }, // iPhone 7+
+                { "iPhone9,4", iPhone94 },
+                { "iPhone10,1", iPhone101 }, // iPhone 8
+                { "iPhone10,4", iPhone104 },
+                { "iPhone10,2", iPhone102 }, // iPhone 8+
+                { "iPhone10,5", iPhone105 },
+                { "iPhone10,3", iPhone103 }, // iPhone X
+                { "iPhone10,6", iPhone106 },
+                { "iPod1,1", iPod11 }, // iPod 1G
+                { "iPod2,1", iPod21 }, // iPod 2G
+                { "iPod3,1", iPod31 }, // iPod 3G
+                { "iPod4,1", iPod41 }, // iPod 4G
+                { "iPod5,1", iPod51 }, // iPod 5G
+                { "iPod7,1", iPod71 } // iPod 6G
+            };
         }
         private static void InitModels()
         {
-            AppleTV = new List<ComboBoxEntry>();
-            AppleTV.Add(new ComboBoxEntry("AppleTV2,1", "2G (AppleTV2,1)"));
-            AppleTV.Add(new ComboBoxEntry("AppleTV3,1", "3G (AppleTV3,1)"));
-            AppleTV.Add(new ComboBoxEntry("AppleTV3,2", "3G Rev A (AppleTV3,2)"));
-            AppleTV.Add(new ComboBoxEntry("AppleTV5,3", "4G (AppleTV5,3)"));
+            AppleTV = new List<ComboBoxEntry>
+            {
+                new ComboBoxEntry("AppleTV2,1", "2G (AppleTV2,1)"),
+                new ComboBoxEntry("AppleTV3,1", "3G (AppleTV3,1)"),
+                new ComboBoxEntry("AppleTV3,2", "3G Rev A (AppleTV3,2)"),
+                new ComboBoxEntry("AppleTV5,3", "4G (AppleTV5,3)")
+            };
 
-            iPad = new List<ComboBoxEntry>();
-            iPad.Add(new ComboBoxEntry("iPad1,1", "1G (iPad1,1)"));
-            iPad.Add(new ComboBoxEntry("iPad2,1", "2 Wi-Fi (iPad2,1)"));
-            iPad.Add(new ComboBoxEntry("iPad2,2", "2 GSM (iPad2,2)"));
-            iPad.Add(new ComboBoxEntry("iPad2,3", "2 CDMA (iPad2,3)"));
-            iPad.Add(new ComboBoxEntry("iPad2,4", "2 Wi-Fi Rev A (iPad2,4)"));
-            iPad.Add(new ComboBoxEntry("iPad3,1", "3 Wi-Fi (iPad3,1)"));
-            iPad.Add(new ComboBoxEntry("iPad3,2", "3 CDMA (iPad3,2)"));
-            iPad.Add(new ComboBoxEntry("iPad3,3", "3 Global (iPad3,3)"));
-            iPad.Add(new ComboBoxEntry("iPad3,4", "4 Wi-Fi (iPad3,4)"));
-            iPad.Add(new ComboBoxEntry("iPad3,5", "4 GSM (iPad3,5)"));
-            iPad.Add(new ComboBoxEntry("iPad3,6", "4 Global (iPad3,6)"));
-            iPad.Add(new ComboBoxEntry("iPad4,1", "Air Wi-Fi (iPad4,1)"));
-            iPad.Add(new ComboBoxEntry("iPad4,2", "Air Cellular (iPad4,2)"));
-            iPad.Add(new ComboBoxEntry("iPad4,3", "Air Cellular China (iPad4,3)"));
-            iPad.Add(new ComboBoxEntry("iPad5,3", "Air 2 Wi-Fi (iPad5,3)"));
-            iPad.Add(new ComboBoxEntry("iPad5,4", "Air 2 Cellular (iPad5,4)"));
-            iPad.Add(new ComboBoxEntry("iPad6,3", "Pro 9.7\" Wi-Fi (iPad6,3)"));
-            iPad.Add(new ComboBoxEntry("iPad6,4", "Pro 9.7\" Cellular (iPad6,4)"));
-            iPad.Add(new ComboBoxEntry("iPad6,7", "Pro 12.9\" Wi-Fi (iPad6,7)"));
-            iPad.Add(new ComboBoxEntry("iPad6,8", "Pro 12.9\" Cellular (iPad6,8)"));
-            iPad.Add(new ComboBoxEntry("iPad6,11", "5 Wi-Fi (iPad6,11)"));
-            iPad.Add(new ComboBoxEntry("iPad6,12", "5 Cellular (iPad6,12)"));
-            iPad.Add(new ComboBoxEntry("iPad7,1", "Pro 2 12.9\" Wi-Fi (iPad7,1)"));
-            iPad.Add(new ComboBoxEntry("iPad7,2", "Pro 2 12.9\" Cellular (iPad7,2)"));
-            iPad.Add(new ComboBoxEntry("iPad7,3", "Pro 2 10.5\" Wi-Fi (iPad7,3)"));
-            iPad.Add(new ComboBoxEntry("iPad7,4", "Pro 2 10.5\" Cellular (iPad7,4)"));
+            iPad = new List<ComboBoxEntry>
+            {
+                new ComboBoxEntry("iPad1,1", "1G (iPad1,1)"),
+                new ComboBoxEntry("iPad2,1", "2 Wi-Fi (iPad2,1)"),
+                new ComboBoxEntry("iPad2,2", "2 GSM (iPad2,2)"),
+                new ComboBoxEntry("iPad2,3", "2 CDMA (iPad2,3)"),
+                new ComboBoxEntry("iPad2,4", "2 Wi-Fi Rev A (iPad2,4)"),
+                new ComboBoxEntry("iPad3,1", "3 Wi-Fi (iPad3,1)"),
+                new ComboBoxEntry("iPad3,2", "3 CDMA (iPad3,2)"),
+                new ComboBoxEntry("iPad3,3", "3 Global (iPad3,3)"),
+                new ComboBoxEntry("iPad3,4", "4 Wi-Fi (iPad3,4)"),
+                new ComboBoxEntry("iPad3,5", "4 GSM (iPad3,5)"),
+                new ComboBoxEntry("iPad3,6", "4 Global (iPad3,6)"),
+                new ComboBoxEntry("iPad4,1", "Air Wi-Fi (iPad4,1)"),
+                new ComboBoxEntry("iPad4,2", "Air Cellular (iPad4,2)"),
+                new ComboBoxEntry("iPad4,3", "Air Cellular China (iPad4,3)"),
+                new ComboBoxEntry("iPad5,3", "Air 2 Wi-Fi (iPad5,3)"),
+                new ComboBoxEntry("iPad5,4", "Air 2 Cellular (iPad5,4)"),
+                new ComboBoxEntry("iPad6,3", "Pro 9.7\" Wi-Fi (iPad6,3)"),
+                new ComboBoxEntry("iPad6,4", "Pro 9.7\" Cellular (iPad6,4)"),
+                new ComboBoxEntry("iPad6,7", "Pro 12.9\" Wi-Fi (iPad6,7)"),
+                new ComboBoxEntry("iPad6,8", "Pro 12.9\" Cellular (iPad6,8)"),
+                new ComboBoxEntry("iPad6,11", "5 Wi-Fi (iPad6,11)"),
+                new ComboBoxEntry("iPad6,12", "5 Cellular (iPad6,12)"),
+                new ComboBoxEntry("iPad7,1", "Pro 2 12.9\" Wi-Fi (iPad7,1)"),
+                new ComboBoxEntry("iPad7,2", "Pro 2 12.9\" Cellular (iPad7,2)"),
+                new ComboBoxEntry("iPad7,3", "Pro 2 10.5\" Wi-Fi (iPad7,3)"),
+                new ComboBoxEntry("iPad7,4", "Pro 2 10.5\" Cellular (iPad7,4)"),
+                new ComboBoxEntry("iPad7,5", "6 Wi-Fi (iPad7,5)"),
+                new ComboBoxEntry("iPad7,6", "6 Cellular (iPad7,6)")
+            };
 
-            iPadMini = new List<ComboBoxEntry>();
-            iPadMini.Add(new ComboBoxEntry("iPad2,5", "1G Wi-Fi (iPad2,5)"));
-            iPadMini.Add(new ComboBoxEntry("iPad2,5", "1G GSM (iPad2,5)"));
-            iPadMini.Add(new ComboBoxEntry("iPad2,5", "1G Global (iPad2,5)"));
-            iPadMini.Add(new ComboBoxEntry("iPad4,4", "2 Wi-Fi (iPad4,4)"));
-            iPadMini.Add(new ComboBoxEntry("iPad4,5", "2 Cellular (iPad4,5)"));
-            iPadMini.Add(new ComboBoxEntry("iPad4,6", "2 Cellular China (iPad4,6)"));
-            iPadMini.Add(new ComboBoxEntry("iPad4,7", "3 Wi-Fi (iPad4,7)"));
-            iPadMini.Add(new ComboBoxEntry("iPad4,8", "3 Cellular (iPad4,8)"));
-            iPadMini.Add(new ComboBoxEntry("iPad4,9", "3 Cellular China (iPad4,9)"));
-            iPadMini.Add(new ComboBoxEntry("iPad5,1", "4 Wi-Fi (iPad5,1)"));
-            iPadMini.Add(new ComboBoxEntry("iPad5,2", "4 Cellular (iPad5,2)"));
+            iPadMini = new List<ComboBoxEntry>
+            {
+                new ComboBoxEntry("iPad2,5", "1G Wi-Fi (iPad2,5)"),
+                new ComboBoxEntry("iPad2,5", "1G GSM (iPad2,5)"),
+                new ComboBoxEntry("iPad2,5", "1G Global (iPad2,5)"),
+                new ComboBoxEntry("iPad4,4", "2 Wi-Fi (iPad4,4)"),
+                new ComboBoxEntry("iPad4,5", "2 Cellular (iPad4,5)"),
+                new ComboBoxEntry("iPad4,6", "2 Cellular China (iPad4,6)"),
+                new ComboBoxEntry("iPad4,7", "3 Wi-Fi (iPad4,7)"),
+                new ComboBoxEntry("iPad4,8", "3 Cellular (iPad4,8)"),
+                new ComboBoxEntry("iPad4,9", "3 Cellular China (iPad4,9)"),
+                new ComboBoxEntry("iPad5,1", "4 Wi-Fi (iPad5,1)"),
+                new ComboBoxEntry("iPad5,2", "4 Cellular (iPad5,2)")
+            };
 
-            iPhone = new List<ComboBoxEntry>();
-            iPhone.Add(new ComboBoxEntry("iPhone1,1", "2G (iPhone1,1)"));
-            iPhone.Add(new ComboBoxEntry("iPhone1,2", "3G (iPhone1,2)"));
-            iPhone.Add(new ComboBoxEntry("iPhone2,1", "3GS (iPhone2,1)"));
-            iPhone.Add(new ComboBoxEntry("iPhone3,1", "4 GSM (iPhone3,1)"));
-            iPhone.Add(new ComboBoxEntry("iPhone3,2", "4 CDMA (iPhone3,2)"));
-            iPhone.Add(new ComboBoxEntry("iPhone3,3", "4 GSM Rev A (iPhone3,3)"));
-            iPhone.Add(new ComboBoxEntry("iPhone4,1", "4S (iPhone4,1)"));
-            iPhone.Add(new ComboBoxEntry("iPhone5,1", "5 GSM (iPhone5,1)"));
-            iPhone.Add(new ComboBoxEntry("iPhone5,2", "5 CDMA (iPhone5,2)"));
-            iPhone.Add(new ComboBoxEntry("iPhone5,3", "5c GSM (iPhone5,3)"));
-            iPhone.Add(new ComboBoxEntry("iPhone5,4", "5c Global (iPhone5,4)"));
-            iPhone.Add(new ComboBoxEntry("iPhone6,1", "5s GSM (iPhone6,1)"));
-            iPhone.Add(new ComboBoxEntry("iPhone6,2", "5s Global (iPhone6,2)"));
-            iPhone.Add(new ComboBoxEntry("iPhone7,1", "6 Plus (iPhone7,1)"));
-            iPhone.Add(new ComboBoxEntry("iPhone7,2", "6 (iPhone7,2)"));
-            iPhone.Add(new ComboBoxEntry("iPhone8,1", "6s (iPhone8,1)"));
-            iPhone.Add(new ComboBoxEntry("iPhone8,2", "6s Plus (iPhone8,2)"));
-            iPhone.Add(new ComboBoxEntry("iPhone8,4", "SE (iPhone8,4)"));
-            iPhone.Add(new ComboBoxEntry("iPhone9,1", "7 (iPhone9,1)"));
-            iPhone.Add(new ComboBoxEntry("iPhone9,2", "7 (iPhone9,2)"));
-            iPhone.Add(new ComboBoxEntry("iPhone9,3", "7 Plus (iPhone9,3)"));
-            iPhone.Add(new ComboBoxEntry("iPhone9,4", "7 Plus (iPhone9,4)"));
-            iPhone.Add(new ComboBoxEntry("iPhone10,1", "8 (iPhone10,1)"));
-            iPhone.Add(new ComboBoxEntry("iPhone10,4", "8 (iPhone10,4)"));
-            iPhone.Add(new ComboBoxEntry("iPhone10,2", "8 Plus (iPhone10,2)"));
-            iPhone.Add(new ComboBoxEntry("iPhone10,5", "8 Plus (iPhone10,5)"));
-            iPhone.Add(new ComboBoxEntry("iPhone10,3", "X (iPhone10,3)"));
-            iPhone.Add(new ComboBoxEntry("iPhone10,6", "X (iPhone10,6)"));
+            iPhone = new List<ComboBoxEntry>
+            {
+                new ComboBoxEntry("iPhone1,1", "2G (iPhone1,1)"),
+                new ComboBoxEntry("iPhone1,2", "3G (iPhone1,2)"),
+                new ComboBoxEntry("iPhone2,1", "3GS (iPhone2,1)"),
+                new ComboBoxEntry("iPhone3,1", "4 GSM (iPhone3,1)"),
+                new ComboBoxEntry("iPhone3,2", "4 CDMA (iPhone3,2)"),
+                new ComboBoxEntry("iPhone3,3", "4 GSM Rev A (iPhone3,3)"),
+                new ComboBoxEntry("iPhone4,1", "4S (iPhone4,1)"),
+                new ComboBoxEntry("iPhone5,1", "5 GSM (iPhone5,1)"),
+                new ComboBoxEntry("iPhone5,2", "5 CDMA (iPhone5,2)"),
+                new ComboBoxEntry("iPhone5,3", "5c GSM (iPhone5,3)"),
+                new ComboBoxEntry("iPhone5,4", "5c Global (iPhone5,4)"),
+                new ComboBoxEntry("iPhone6,1", "5s GSM (iPhone6,1)"),
+                new ComboBoxEntry("iPhone6,2", "5s Global (iPhone6,2)"),
+                new ComboBoxEntry("iPhone7,1", "6 Plus (iPhone7,1)"),
+                new ComboBoxEntry("iPhone7,2", "6 (iPhone7,2)"),
+                new ComboBoxEntry("iPhone8,1", "6s (iPhone8,1)"),
+                new ComboBoxEntry("iPhone8,2", "6s Plus (iPhone8,2)"),
+                new ComboBoxEntry("iPhone8,4", "SE (iPhone8,4)"),
+                new ComboBoxEntry("iPhone9,1", "7 (iPhone9,1)"),
+                new ComboBoxEntry("iPhone9,2", "7 (iPhone9,2)"),
+                new ComboBoxEntry("iPhone9,3", "7 Plus (iPhone9,3)"),
+                new ComboBoxEntry("iPhone9,4", "7 Plus (iPhone9,4)"),
+                new ComboBoxEntry("iPhone10,1", "8 (iPhone10,1)"),
+                new ComboBoxEntry("iPhone10,4", "8 (iPhone10,4)"),
+                new ComboBoxEntry("iPhone10,2", "8 Plus (iPhone10,2)"),
+                new ComboBoxEntry("iPhone10,5", "8 Plus (iPhone10,5)"),
+                new ComboBoxEntry("iPhone10,3", "X (iPhone10,3)"),
+                new ComboBoxEntry("iPhone10,6", "X (iPhone10,6)")
+            };
 
-            iPodTouch = new List<ComboBoxEntry>();
-            iPodTouch.Add(new ComboBoxEntry("iPod1,1", "1G (iPod1,1)"));
-            iPodTouch.Add(new ComboBoxEntry("iPod2,1", "2G (iPod2,1)"));
-            iPodTouch.Add(new ComboBoxEntry("iPod3,1", "3G (iPod3,1)"));
-            iPodTouch.Add(new ComboBoxEntry("iPod4,1", "4G (iPod4,1)"));
-            iPodTouch.Add(new ComboBoxEntry("iPod5,1", "5G (iPod5,1)"));
-            iPodTouch.Add(new ComboBoxEntry("iPod7,1", "6G (iPod7,1)"));
+            iPodTouch = new List<ComboBoxEntry>
+            {
+                new ComboBoxEntry("iPod1,1", "1G (iPod1,1)"),
+                new ComboBoxEntry("iPod2,1", "2G (iPod2,1)"),
+                new ComboBoxEntry("iPod3,1", "3G (iPod3,1)"),
+                new ComboBoxEntry("iPod4,1", "4G (iPod4,1)"),
+                new ComboBoxEntry("iPod5,1", "5G (iPod5,1)"),
+                new ComboBoxEntry("iPod7,1", "6G (iPod7,1)")
+            };
         }
         private static void InitDevices()
         {
@@ -324,6 +348,7 @@ namespace Hexware.Programs.iDecryptIt
             InitDevice(ref AppleTV31, rootNode.Get<PlistArray>("AppleTV3,1"));
             InitDevice(ref AppleTV32, rootNode.Get<PlistArray>("AppleTV3,2"));
             InitDevice(ref AppleTV53, rootNode.Get<PlistArray>("AppleTV5,3"));
+            InitDevice(ref AppleTV62, rootNode.Get<PlistArray>("AppleTV6,2"));
 
             // iPad
             InitDevice(ref iPad11, rootNode.Get<PlistArray>("iPad1,1"));
@@ -347,11 +372,13 @@ namespace Hexware.Programs.iDecryptIt
             InitDevice(ref iPad67, rootNode.Get<PlistArray>("iPad6,7"));
             InitDevice(ref iPad68, rootNode.Get<PlistArray>("iPad6,8"));
             InitDevice(ref iPad611, rootNode.Get<PlistArray>("iPad6,11"));
-            //InitDevice(ref iPad612, rootNode.Get<PlistArray>("iPad6,12"));
+            InitDevice(ref iPad612, rootNode.Get<PlistArray>("iPad6,12"));
             InitDevice(ref iPad71, rootNode.Get<PlistArray>("iPad7,1"));
-            //InitDevice(ref iPad72, rootNode.Get<PlistArray>("iPad7,2"));
+            InitDevice(ref iPad72, rootNode.Get<PlistArray>("iPad7,2"));
             InitDevice(ref iPad73, rootNode.Get<PlistArray>("iPad7,3"));
-            //InitDevice(ref iPad74, rootNode.Get<PlistArray>("iPad7,4"));
+            InitDevice(ref iPad74, rootNode.Get<PlistArray>("iPad7,4"));
+            InitDevice(ref iPad75, rootNode.Get<PlistArray>("iPad7,5"));
+            InitDevice(ref iPad76, rootNode.Get<PlistArray>("iPad7,6"));
 
             // iPad mini
             InitDevice(ref iPad25, rootNode.Get<PlistArray>("iPad2,5"));
@@ -386,15 +413,15 @@ namespace Hexware.Programs.iDecryptIt
             InitDevice(ref iPhone82, rootNode.Get<PlistArray>("iPhone8,2"));
             InitDevice(ref iPhone84, rootNode.Get<PlistArray>("iPhone8,4"));
             InitDevice(ref iPhone91, rootNode.Get<PlistArray>("iPhone9,1"));
-            //InitDevice(ref iPhone93, rootNode.Get<PlistArray>("iPhone9,3"));
+            InitDevice(ref iPhone93, rootNode.Get<PlistArray>("iPhone9,3"));
             InitDevice(ref iPhone92, rootNode.Get<PlistArray>("iPhone9,2"));
-            //InitDevice(ref iPhone94, rootNode.Get<PlistArray>("iPhone9,4"));
+            InitDevice(ref iPhone94, rootNode.Get<PlistArray>("iPhone9,4"));
             InitDevice(ref iPhone101, rootNode.Get<PlistArray>("iPhone10,1"));
-            //InitDevice(ref iPhone104, rootNode.Get<PlistArray>("iPhone10,4"));
+            InitDevice(ref iPhone104, rootNode.Get<PlistArray>("iPhone10,4"));
             InitDevice(ref iPhone102, rootNode.Get<PlistArray>("iPhone10,2"));
-            //InitDevice(ref iPhone105, rootNode.Get<PlistArray>("iPhone10,5"));
+            InitDevice(ref iPhone105, rootNode.Get<PlistArray>("iPhone10,5"));
             InitDevice(ref iPhone103, rootNode.Get<PlistArray>("iPhone10,3"));
-            //InitDevice(ref iPhone106, rootNode.Get<PlistArray>("iPhone10,6"));
+            InitDevice(ref iPhone106, rootNode.Get<PlistArray>("iPhone10,6"));
 
             // iPod touch
             InitDevice(ref iPod11, rootNode.Get<PlistArray>("iPod1,1"));

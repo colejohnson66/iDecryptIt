@@ -1,6 +1,7 @@
 <Window x:Class="Hexware.Programs.iDecryptIt.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:Hexware.Programs.iDecryptIt"
         Title="iDecryptIt"
         Icon="icon.ico"
         Height="600" Width="800"
@@ -57,7 +58,7 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <TextBlock x:Name="txtInputLabel" Text="Input File:  " VerticalAlignment="Center" />
-                            <TextBox x:Name="textInputFileName" Grid.Column="1" TextChanged="textInputFileName_TextChanged" />
+                            <TextBox x:Name="textInputFileName" Grid.Column="1" TextChanged="TextInputFileName_TextChanged" />
                         </Grid>
                         <Grid Grid.Column="4" Height="24">
                             <Grid.ColumnDefinitions>
@@ -312,8 +313,8 @@
                                     <ColumnDefinition Width="{DynamicResource keyFilenameWidth}" />
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="Root FS Key" x:Name="lblRootFSKey" VerticalAlignment="Center" />
-                                <TextBox Grid.Column="2" x:Name="keyRootFS" />
-                                <TextBox Grid.Column="4" x:Name="fileRootFS" />
+                                <TextBox Grid.Column="2" x:Name="keyRootFS" IsReadOnly="True" />
+                                <TextBox Grid.Column="4" x:Name="fileRootFS" IsReadOnly="True" />
                             </Grid>
                             <Grid Grid.Row="3" x:Name="grdRestore" Margin="0,3">
                                 <Grid.ColumnDefinitions>
@@ -330,9 +331,9 @@
                                 </Grid.RowDefinitions>
                                 <TextBlock Text="Restore Ramdisk (IV)" x:Name="lblRestoreIV" VerticalAlignment="Center" />
                                 <TextBlock Text="Restore Ramdisk (Key)" x:Name="lblRestoreKey" VerticalAlignment="Center" Grid.Row="2" />
-                                <TextBox Grid.Column="2" x:Name="keyRestoreIV" />
-                                <TextBox Grid.Column="2" x:Name="keyRestoreKey" Grid.Row="2" />
-                                <TextBox Grid.Column="4" x:Name="fileRestore" Grid.RowSpan="3" VerticalAlignment="Center" />
+                                <TextBox Grid.Column="2" x:Name="keyRestoreIV" IsReadOnly="True" />
+                                <TextBox Grid.Column="2" x:Name="keyRestoreKey" IsReadOnly="True" Grid.Row="2" />
+                                <TextBox Grid.Column="4" x:Name="fileRestore" IsReadOnly="True" Grid.RowSpan="3" VerticalAlignment="Center" />
                             </Grid>
                             <Grid Grid.Row="4" x:Name="grdRestoreNoEncrypt" Margin="0,3">
                                 <Grid.ColumnDefinitions>
@@ -344,7 +345,7 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="Restore Ramdisk" x:Name="lblRestoreNoEncrypt" VerticalAlignment="Center" />
                                 <TextBlock Grid.Column="2" Text="Not Encrypted" x:Name="keyRestoreNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                <TextBox Grid.Column="4" x:Name="fileRestoreNoEncrypt" />
+                                <TextBox Grid.Column="4" x:Name="fileRestoreNoEncrypt" IsReadOnly="True" />
                             </Grid>
                             <Grid Grid.Row="5" x:Name="grdUpdate" Margin="0,3">
                                 <Grid.ColumnDefinitions>
@@ -361,9 +362,9 @@
                                 </Grid.RowDefinitions>
                                 <TextBlock Text="Update Ramdisk (IV)" x:Name="lblUpdateIV" VerticalAlignment="Center" />
                                 <TextBlock Text="Update Ramdisk (Key)" x:Name="lblUpdateKey" VerticalAlignment="Center" Grid.Row="2" />
-                                <TextBox Grid.Column="2" x:Name="keyUpdateIV" />
-                                <TextBox Grid.Column="2" x:Name="keyUpdateKey" Grid.Row="2" />
-                                <TextBox Grid.Column="4" x:Name="fileUpdate" Grid.RowSpan="3" VerticalAlignment="Center" />
+                                <TextBox Grid.Column="2" x:Name="keyUpdateIV" IsReadOnly="True" />
+                                <TextBox Grid.Column="2" x:Name="keyUpdateKey" IsReadOnly="True" Grid.Row="2" />
+                                <TextBox Grid.Column="4" x:Name="fileUpdate" IsReadOnly="True" Grid.RowSpan="3" VerticalAlignment="Center" />
                             </Grid>
                             <Grid Grid.Row="6" x:Name="grdUpdateNoEncrypt" Margin="0,3">
                                 <Grid.ColumnDefinitions>
@@ -375,7 +376,7 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="Update Ramdisk" x:Name="lblUpdateNoEncrypt" VerticalAlignment="Center" />
                                 <TextBlock Grid.Column="2" Text="Not Encrypted" x:Name="keyUpdateNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                <TextBox Grid.Column="4" x:Name="fileUpdateNoEncrypt" />
+                                <TextBox Grid.Column="4" x:Name="fileUpdateNoEncrypt" IsReadOnly="True" />
                             </Grid>
                             <Grid Grid.Row="7" x:Name="grdAppleLogo" Margin="0,3">
                                 <Grid.ColumnDefinitions>
@@ -392,9 +393,9 @@
                                 </Grid.RowDefinitions>
                                 <TextBlock Text="AppleLogo (IV)" x:Name="lblAppleLogoIV" VerticalAlignment="Center" />
                                 <TextBlock Text="AppleLogo (Key)" x:Name="lblAppleLogoKey" VerticalAlignment="Center" Grid.Row="2" />
-                                <TextBox Grid.Column="2" x:Name="keyAppleLogoIV" />
-                                <TextBox Grid.Column="2" x:Name="keyAppleLogoKey" Grid.Row="2" />
-                                <TextBox Grid.Column="4" x:Name="fileAppleLogo" Grid.RowSpan="3" VerticalAlignment="Center" />
+                                <TextBox Grid.Column="2" x:Name="keyAppleLogoIV" IsReadOnly="True" />
+                                <TextBox Grid.Column="2" x:Name="keyAppleLogoKey" IsReadOnly="True" Grid.Row="2" />
+                                <TextBox Grid.Column="4" x:Name="fileAppleLogo" IsReadOnly="True" Grid.RowSpan="3" VerticalAlignment="Center" />
                             </Grid>
                             <Grid Grid.Row="8" x:Name="grdAppleLogoNoEncrypt" Margin="0,3">
                                 <Grid.ColumnDefinitions>
@@ -406,7 +407,7 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="AppleLogo" x:Name="lblAppleLogoNoEncrypt" VerticalAlignment="Center" />
                                 <TextBlock Grid.Column="2" Text="Not Encrypted" x:Name="keyAppleLogoNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                <TextBox Grid.Column="4" x:Name="fileAppleLogoNoEncrypt" />
+                                <TextBox Grid.Column="4" x:Name="fileAppleLogoNoEncrypt" IsReadOnly="True" />
                             </Grid>
                             <Grid Grid.Row="9" x:Name="grdBatteryCharging" Margin="0,3">
                                 <Grid.ColumnDefinitions>
@@ -423,9 +424,9 @@
                                 </Grid.RowDefinitions>
                                 <TextBlock Text="BatteryCharging (IV)" x:Name="lblBatteryChargingIV" VerticalAlignment="Center" />
                                 <TextBlock Text="BatteryCharging (Key)" x:Name="lblBatteryChargingKey" VerticalAlignment="Center" Grid.Row="2" />
-                                <TextBox Grid.Column="2" x:Name="keyBatteryChargingIV" />
-                                <TextBox Grid.Column="2" x:Name="keyBatteryChargingKey" Grid.Row="2" />
-                                <TextBox Grid.Column="4" x:Name="fileBatteryCharging" Grid.RowSpan="3" VerticalAlignment="Center" />
+                                <TextBox Grid.Column="2" x:Name="keyBatteryChargingIV" IsReadOnly="True" />
+                                <TextBox Grid.Column="2" x:Name="keyBatteryChargingKey" IsReadOnly="True" Grid.Row="2" />
+                                <TextBox Grid.Column="4" x:Name="fileBatteryCharging" IsReadOnly="True" Grid.RowSpan="3" VerticalAlignment="Center" />
                             </Grid>
                             <Grid Grid.Row="10" x:Name="grdBatteryChargingNoEncrypt" Margin="0,3">
                                 <Grid.ColumnDefinitions>
@@ -437,7 +438,7 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="BatteryCharging0" x:Name="lblBatteryChargingNoEncrypt" VerticalAlignment="Center" />
                                 <TextBlock Grid.Column="2" Text="Not Encrypted" x:Name="keyBatteryChargingNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                <TextBox Grid.Column="4" x:Name="fileBatteryChargingNoEncrypt" />
+                                <TextBox Grid.Column="4" x:Name="fileBatteryChargingNoEncrypt" IsReadOnly="True" />
                             </Grid>
                             <Grid Grid.Row="11" x:Name="grdBatteryCharging0" Margin="0,3">
                                 <Grid.ColumnDefinitions>
@@ -454,9 +455,9 @@
                                 </Grid.RowDefinitions>
                                 <TextBlock Text="BatteryCharging0 (IV)" x:Name="lblBatteryCharging0IV" VerticalAlignment="Center" />
                                 <TextBlock Text="BatteryCharging0 (Key)" x:Name="lblBatteryCharging0Key" VerticalAlignment="Center" Grid.Row="2" />
-                                <TextBox Grid.Column="2" x:Name="keyBatteryCharging0IV" />
-                                <TextBox Grid.Column="2" x:Name="keyBatteryCharging0Key" Grid.Row="2" />
-                                <TextBox Grid.Column="4" x:Name="fileBatteryCharging0" Grid.RowSpan="3" VerticalAlignment="Center" />
+                                <TextBox Grid.Column="2" x:Name="keyBatteryCharging0IV" IsReadOnly="True" />
+                                <TextBox Grid.Column="2" x:Name="keyBatteryCharging0Key" IsReadOnly="True" Grid.Row="2" />
+                                <TextBox Grid.Column="4" x:Name="fileBatteryCharging0" IsReadOnly="True" Grid.RowSpan="3" VerticalAlignment="Center" />
                             </Grid>
                             <Grid Grid.Row="12" x:Name="grdBatteryCharging0NoEncrypt" Margin="0,3">
                                 <Grid.ColumnDefinitions>
@@ -468,7 +469,7 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="BatteryCharging0" x:Name="lblBatteryCharging0NoEncrypt" VerticalAlignment="Center" />
                                 <TextBlock Grid.Column="2" Text="Not Encrypted" x:Name="keyBatteryCharging0NoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                <TextBox Grid.Column="4" x:Name="fileBatteryCharging0NoEncrypt" />
+                                <TextBox Grid.Column="4" x:Name="fileBatteryCharging0NoEncrypt" IsReadOnly="True" />
                             </Grid>
                             <Grid Grid.Row="13" x:Name="grdBatteryCharging1" Margin="0,3">
                                 <Grid.ColumnDefinitions>
@@ -485,9 +486,9 @@
                                 </Grid.RowDefinitions>
                                 <TextBlock Text="BatteryCharging1 (IV)" x:Name="lblBatteryCharging1IV" VerticalAlignment="Center" />
                                 <TextBlock Text="BatteryCharging1 (Key)" x:Name="lblBatteryCharging1Key" VerticalAlignment="Center" Grid.Row="2" />
-                                <TextBox Grid.Column="2" x:Name="keyBatteryCharging1IV" />
-                                <TextBox Grid.Column="2" x:Name="keyBatteryCharging1Key" Grid.Row="2" />
-                                <TextBox Grid.Column="4" x:Name="fileBatteryCharging1" Grid.RowSpan="3" VerticalAlignment="Center" />
+                                <TextBox Grid.Column="2" x:Name="keyBatteryCharging1IV" IsReadOnly="True" />
+                                <TextBox Grid.Column="2" x:Name="keyBatteryCharging1Key" IsReadOnly="True" Grid.Row="2" />
+                                <TextBox Grid.Column="4" x:Name="fileBatteryCharging1" IsReadOnly="True" Grid.RowSpan="3" VerticalAlignment="Center" />
                             </Grid>
                             <Grid Grid.Row="14" x:Name="grdBatteryCharging1NoEncrypt" Margin="0,3">
                                 <Grid.ColumnDefinitions>
@@ -499,7 +500,7 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="BatteryCharging1" x:Name="lblBatteryCharging1NoEncrypt" VerticalAlignment="Center" />
                                 <TextBlock Grid.Column="2" Text="Not Encrypted" x:Name="keyBatteryCharging1NoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                <TextBox Grid.Column="4" x:Name="fileBatteryCharging1NoEncrypt" />
+                                <TextBox Grid.Column="4" x:Name="fileBatteryCharging1NoEncrypt" IsReadOnly="True" />
                             </Grid>
                             <Grid Grid.Row="15" x:Name="grdBatteryFull" Margin="0,3">
                                 <Grid.ColumnDefinitions>
@@ -516,9 +517,9 @@
                                 </Grid.RowDefinitions>
                                 <TextBlock Text="BatteryFull (IV)" x:Name="lblBatteryFullIV" VerticalAlignment="Center" />
                                 <TextBlock Text="BatteryFull (Key)" x:Name="lblBatteryFullKey" VerticalAlignment="Center" Grid.Row="2" />
-                                <TextBox Grid.Column="2" x:Name="keyBatteryFullIV" />
-                                <TextBox Grid.Column="2" x:Name="keyBatteryFullKey" Grid.Row="2" />
-                                <TextBox Grid.Column="4" x:Name="fileBatteryFull" Grid.RowSpan="3" VerticalAlignment="Center" />
+                                <TextBox Grid.Column="2" x:Name="keyBatteryFullIV" IsReadOnly="True" />
+                                <TextBox Grid.Column="2" x:Name="keyBatteryFullKey" IsReadOnly="True" Grid.Row="2" />
+                                <TextBox Grid.Column="4" x:Name="fileBatteryFull" IsReadOnly="True" Grid.RowSpan="3" VerticalAlignment="Center" />
                             </Grid>
                             <Grid Grid.Row="16" x:Name="grdBatteryFullNoEncrypt" Margin="0,3">
                                 <Grid.ColumnDefinitions>
@@ -530,7 +531,7 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="BatteryFull" x:Name="lblBatteryFullNoEncrypt" VerticalAlignment="Center" />
                                 <TextBlock Grid.Column="2" Text="Not Encrypted" x:Name="keyBatteryFullNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                <TextBox Grid.Column="4" x:Name="fileBatteryFullNoEncrypt" />
+                                <TextBox Grid.Column="4" x:Name="fileBatteryFullNoEncrypt" IsReadOnly="True" />
                             </Grid>
                             <Grid Grid.Row="17" x:Name="grdBatteryLow0" Margin="0,3">
                                 <Grid.ColumnDefinitions>
@@ -547,9 +548,9 @@
                                 </Grid.RowDefinitions>
                                 <TextBlock Text="BatteryLow0 (IV)" x:Name="lblBatteryLow0IV" VerticalAlignment="Center" />
                                 <TextBlock Text="BatteryLow0 (Key)" x:Name="lblBatteryLow0Key" VerticalAlignment="Center" Grid.Row="2" />
-                                <TextBox Grid.Column="2" x:Name="keyBatteryLow0IV" />
-                                <TextBox Grid.Column="2" x:Name="keyBatteryLow0Key" Grid.Row="2" />
-                                <TextBox Grid.Column="4" x:Name="fileBatteryLow0" Grid.RowSpan="3" VerticalAlignment="Center" />
+                                <TextBox Grid.Column="2" x:Name="keyBatteryLow0IV" IsReadOnly="True" />
+                                <TextBox Grid.Column="2" x:Name="keyBatteryLow0Key" IsReadOnly="True" Grid.Row="2" />
+                                <TextBox Grid.Column="4" x:Name="fileBatteryLow0" IsReadOnly="True" Grid.RowSpan="3" VerticalAlignment="Center" />
                             </Grid>
                             <Grid Grid.Row="18" x:Name="grdBatteryLow0NoEncrypt" Margin="0,3">
                                 <Grid.ColumnDefinitions>
@@ -561,7 +562,7 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="BatteryLow0" x:Name="lblBatteryLow0NoEncrypt" VerticalAlignment="Center" />
                                 <TextBlock Grid.Column="2" Text="Not Encrypted" x:Name="keyBatteryLow0NoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                <TextBox Grid.Column="4" x:Name="fileBatteryLow0NoEncrypt" />
+                                <TextBox Grid.Column="4" x:Name="fileBatteryLow0NoEncrypt" IsReadOnly="True" />
                             </Grid>
                             <Grid Grid.Row="19" x:Name="grdBatteryLow1" Margin="0,3">
                                 <Grid.ColumnDefinitions>
@@ -578,9 +579,9 @@
                                 </Grid.RowDefinitions>
                                 <TextBlock Text="BatteryLow1 (IV)" x:Name="lblBatteryLow1IV" VerticalAlignment="Center" />
                                 <TextBlock Text="BatteryLow1 (Key)" x:Name="lblBatteryLow1Key" VerticalAlignment="Center" Grid.Row="2" />
-                                <TextBox Grid.Column="2" x:Name="keyBatteryLow1IV" />
-                                <TextBox Grid.Column="2" x:Name="keyBatteryLow1Key" Grid.Row="2" />
-                                <TextBox Grid.Column="4" x:Name="fileBatteryLow1" Grid.RowSpan="3" VerticalAlignment="Center" />
+                                <TextBox Grid.Column="2" x:Name="keyBatteryLow1IV" IsReadOnly="True" />
+                                <TextBox Grid.Column="2" x:Name="keyBatteryLow1Key" IsReadOnly="True" Grid.Row="2" />
+                                <TextBox Grid.Column="4" x:Name="fileBatteryLow1" IsReadOnly="True" Grid.RowSpan="3" VerticalAlignment="Center" />
                             </Grid>
                             <Grid Grid.Row="20" x:Name="grdBatteryLow1NoEncrypt" Margin="0,3">
                                 <Grid.ColumnDefinitions>
@@ -592,7 +593,7 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="BatteryLow1" x:Name="lblBatteryLow1NoEncrypt" VerticalAlignment="Center" />
                                 <TextBlock Grid.Column="2" Text="Not Encrypted" x:Name="keyBatteryLow1NoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                <TextBox Grid.Column="4" x:Name="fileBatteryLow1NoEncrypt" />
+                                <TextBox Grid.Column="4" x:Name="fileBatteryLow1NoEncrypt" IsReadOnly="True" />
                             </Grid>
                             <Grid Grid.Row="21" x:Name="grdDeviceTree" Margin="0,3">
                                 <Grid.ColumnDefinitions>
@@ -609,9 +610,9 @@
                                 </Grid.RowDefinitions>
                                 <TextBlock Text="DeviceTree (IV)" x:Name="lblDeviceTreeIV" VerticalAlignment="Center" />
                                 <TextBlock Text="DeviceTree (Key)" x:Name="lblDeviceTreeKey" VerticalAlignment="Center" Grid.Row="2" />
-                                <TextBox Grid.Column="2" x:Name="keyDeviceTreeIV" />
-                                <TextBox Grid.Column="2" x:Name="keyDeviceTreeKey" Grid.Row="2" />
-                                <TextBox Grid.Column="4" x:Name="fileDeviceTree" Grid.RowSpan="3" VerticalAlignment="Center" />
+                                <TextBox Grid.Column="2" x:Name="keyDeviceTreeIV" IsReadOnly="True" />
+                                <TextBox Grid.Column="2" x:Name="keyDeviceTreeKey" IsReadOnly="True" Grid.Row="2" />
+                                <TextBox Grid.Column="4" x:Name="fileDeviceTree" IsReadOnly="True" Grid.RowSpan="3" VerticalAlignment="Center" />
                             </Grid>
                             <Grid Grid.Row="22" x:Name="grdDeviceTreeNoEncrypt" Margin="0,3">
                                 <Grid.ColumnDefinitions>
@@ -623,7 +624,7 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="DeviceTree" x:Name="lblDeviceTreeNoEncrypt" VerticalAlignment="Center" />
                                 <TextBlock Grid.Column="2" Text="Not Encrypted" x:Name="keyDeviceTreeNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                <TextBox Grid.Column="4" x:Name="fileDeviceTreeNoEncrypt" />
+                                <TextBox Grid.Column="4" x:Name="fileDeviceTreeNoEncrypt" IsReadOnly="True" />
                             </Grid>
                             <Grid Grid.Row="23" x:Name="grdGlyphCharging" Margin="0,3">
                                 <Grid.ColumnDefinitions>
@@ -640,9 +641,9 @@
                                 </Grid.RowDefinitions>
                                 <TextBlock Text="GlyphCharging (IV)" x:Name="lblGlyphChargingIV" VerticalAlignment="Center" />
                                 <TextBlock Text="GlyphCharging (Key)" x:Name="lblGlyphChargingKey" VerticalAlignment="Center" Grid.Row="2" />
-                                <TextBox Grid.Column="2" x:Name="keyGlyphChargingIV" />
-                                <TextBox Grid.Column="2" x:Name="keyGlyphChargingKey" Grid.Row="2" />
-                                <TextBox Grid.Column="4" x:Name="fileGlyphCharging" Grid.RowSpan="3" VerticalAlignment="Center" />
+                                <TextBox Grid.Column="2" x:Name="keyGlyphChargingIV" IsReadOnly="True" />
+                                <TextBox Grid.Column="2" x:Name="keyGlyphChargingKey" IsReadOnly="True" Grid.Row="2" />
+                                <TextBox Grid.Column="4" x:Name="fileGlyphCharging" IsReadOnly="True" Grid.RowSpan="3" VerticalAlignment="Center" />
                             </Grid>
                             <Grid Grid.Row="24" x:Name="grdGlyphChargingNoEncrypt" Margin="0,3">
                                 <Grid.ColumnDefinitions>
@@ -654,7 +655,7 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="GlyphCharging" x:Name="lblGlyphChargingNoEncrypt" VerticalAlignment="Center" />
                                 <TextBlock Grid.Column="2" Text="Not Encrypted" x:Name="keyGlyphChargingNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                <TextBox Grid.Column="4" x:Name="fileGlyphChargingNoEncrypt" />
+                                <TextBox Grid.Column="4" x:Name="fileGlyphChargingNoEncrypt" IsReadOnly="True" />
                             </Grid>
                             <Grid Grid.Row="25" x:Name="grdGlyphPlugin" Margin="0,3">
                                 <Grid.ColumnDefinitions>
@@ -671,9 +672,9 @@
                                 </Grid.RowDefinitions>
                                 <TextBlock Text="GlyphPlugin (IV)" x:Name="lblGlyphPluginIV" VerticalAlignment="Center" />
                                 <TextBlock Text="GlyphPlugin (Key)" x:Name="lblGlyphPluginKey" VerticalAlignment="Center" Grid.Row="2" />
-                                <TextBox Grid.Column="2" x:Name="keyGlyphPluginIV" />
-                                <TextBox Grid.Column="2" x:Name="keyGlyphPluginKey" Grid.Row="2" />
-                                <TextBox Grid.Column="4" x:Name="fileGlyphPlugin" Grid.RowSpan="3" VerticalAlignment="Center" />
+                                <TextBox Grid.Column="2" x:Name="keyGlyphPluginIV" IsReadOnly="True" />
+                                <TextBox Grid.Column="2" x:Name="keyGlyphPluginKey" IsReadOnly="True" Grid.Row="2" />
+                                <TextBox Grid.Column="4" x:Name="fileGlyphPlugin" IsReadOnly="True" Grid.RowSpan="3" VerticalAlignment="Center" />
                             </Grid>
                             <Grid Grid.Row="26" x:Name="grdGlyphPluginNoEncrypt" Margin="0,3">
                                 <Grid.ColumnDefinitions>
@@ -685,7 +686,7 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="GlyphPlugin" x:Name="lblGlyphPluginNoEncrypt" VerticalAlignment="Center" />
                                 <TextBlock Grid.Column="2" Text="Not Encrypted" x:Name="keyGlyphPluginNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                <TextBox Grid.Column="4" x:Name="fileGlyphPluginNoEncrypt" />
+                                <TextBox Grid.Column="4" x:Name="fileGlyphPluginNoEncrypt" IsReadOnly="True" />
                             </Grid>
                             <Grid Grid.Row="27" x:Name="grdiBEC" Margin="0,3">
                                 <Grid.ColumnDefinitions>
@@ -702,9 +703,9 @@
                                 </Grid.RowDefinitions>
                                 <TextBlock Text="iBEC (IV)" x:Name="lbliBECIV" VerticalAlignment="Center" />
                                 <TextBlock Text="iBEC (Key)" x:Name="lbliBECKey" VerticalAlignment="Center" Grid.Row="2" />
-                                <TextBox Grid.Column="2" x:Name="keyiBECIV" />
-                                <TextBox Grid.Column="2" x:Name="keyiBECKey" Grid.Row="2" />
-                                <TextBox Grid.Column="4" x:Name="fileiBEC" Grid.RowSpan="3" VerticalAlignment="Center" />
+                                <TextBox Grid.Column="2" x:Name="keyiBECIV" IsReadOnly="True" />
+                                <TextBox Grid.Column="2" x:Name="keyiBECKey" IsReadOnly="True" Grid.Row="2" />
+                                <TextBox Grid.Column="4" x:Name="fileiBEC" IsReadOnly="True" Grid.RowSpan="3" VerticalAlignment="Center" />
                             </Grid>
                             <Grid Grid.Row="28" x:Name="grdiBECNoEncrypt" Margin="0,3">
                                 <Grid.ColumnDefinitions>
@@ -716,7 +717,7 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="iBEC" x:Name="lbliBECNoEncrypt" VerticalAlignment="Center" />
                                 <TextBlock Grid.Column="2" Text="Not Encrypted" x:Name="keyiBECNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                <TextBox Grid.Column="4" x:Name="fileiBECNoEncrypt" />
+                                <TextBox Grid.Column="4" x:Name="fileiBECNoEncrypt" IsReadOnly="True" />
                             </Grid>
                             <Grid Grid.Row="29" x:Name="grdiBoot" Margin="0,3">
                                 <Grid.ColumnDefinitions>
@@ -733,9 +734,9 @@
                                 </Grid.RowDefinitions>
                                 <TextBlock Text="iBoot (IV)" x:Name="lbliBootIV" VerticalAlignment="Center" />
                                 <TextBlock Text="iBoot (Key)" x:Name="lbliBootKey" VerticalAlignment="Center" Grid.Row="2" />
-                                <TextBox Grid.Column="2" x:Name="keyiBootIV" />
-                                <TextBox Grid.Column="2" x:Name="keyiBootKey" Grid.Row="2" />
-                                <TextBox Grid.Column="4" x:Name="fileiBoot" Grid.RowSpan="3" VerticalAlignment="Center" />
+                                <TextBox Grid.Column="2" x:Name="keyiBootIV" IsReadOnly="True" />
+                                <TextBox Grid.Column="2" x:Name="keyiBootKey" IsReadOnly="True" Grid.Row="2" />
+                                <TextBox Grid.Column="4" x:Name="fileiBoot" IsReadOnly="True" Grid.RowSpan="3" VerticalAlignment="Center" />
                             </Grid>
                             <Grid Grid.Row="30" x:Name="grdiBootNoEncrypt" Margin="0,3">
                                 <Grid.ColumnDefinitions>
@@ -747,7 +748,7 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="iBoot" x:Name="lbliBootNoEncrypt" VerticalAlignment="Center" />
                                 <TextBlock Grid.Column="2" Text="Not Encrypted" x:Name="keyiBootNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                <TextBox Grid.Column="4" x:Name="fileiBootNoEncrypt" />
+                                <TextBox Grid.Column="4" x:Name="fileiBootNoEncrypt" IsReadOnly="True" />
                             </Grid>
                             <Grid Grid.Row="31" x:Name="grdiBSS" Margin="0,3">
                                 <Grid.ColumnDefinitions>
@@ -764,9 +765,9 @@
                                 </Grid.RowDefinitions>
                                 <TextBlock Text="iBSS (IV)" x:Name="lbliBSSIV" VerticalAlignment="Center" />
                                 <TextBlock Text="iBSS (Key)" x:Name="lbliBSSKey" VerticalAlignment="Center" Grid.Row="2" />
-                                <TextBox Grid.Column="2" x:Name="keyiBSSIV" />
-                                <TextBox Grid.Column="2" x:Name="keyiBSSKey" Grid.Row="2" />
-                                <TextBox Grid.Column="4" x:Name="fileiBSS" Grid.RowSpan="3" VerticalAlignment="Center" />
+                                <TextBox Grid.Column="2" x:Name="keyiBSSIV" IsReadOnly="True" />
+                                <TextBox Grid.Column="2" x:Name="keyiBSSKey" IsReadOnly="True" Grid.Row="2" />
+                                <TextBox Grid.Column="4" x:Name="fileiBSS" IsReadOnly="True" Grid.RowSpan="3" VerticalAlignment="Center" />
                             </Grid>
                             <Grid Grid.Row="32" x:Name="grdiBSSNoEncrypt" Margin="0,3">
                                 <Grid.ColumnDefinitions>
@@ -778,7 +779,7 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="iBSS" x:Name="lbliBSSNoEncrypt" VerticalAlignment="Center" />
                                 <TextBlock Grid.Column="2" Text="Not Encrypted" x:Name="keyiBSSNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                <TextBox Grid.Column="4" x:Name="fileiBSSNoEncrypt" />
+                                <TextBox Grid.Column="4" x:Name="fileiBSSNoEncrypt" IsReadOnly="True" />
                             </Grid>
                             <Grid Grid.Row="33" x:Name="grdKernelcache" Margin="0,3">
                                 <Grid.ColumnDefinitions>
@@ -795,9 +796,9 @@
                                 </Grid.RowDefinitions>
                                 <TextBlock Text="Kernelcache (IV)" x:Name="lblKernelcacheIV" VerticalAlignment="Center" />
                                 <TextBlock Text="Kernelcache (Key)" x:Name="lblKernelcacheKey" VerticalAlignment="Center" Grid.Row="2" />
-                                <TextBox Grid.Column="2" x:Name="keyKernelcacheIV" />
-                                <TextBox Grid.Column="2" x:Name="keyKernelcacheKey" Grid.Row="2" />
-                                <TextBox Grid.Column="4" x:Name="fileKernelcache" Grid.RowSpan="3" VerticalAlignment="Center" />
+                                <TextBox Grid.Column="2" x:Name="keyKernelcacheIV" IsReadOnly="True" />
+                                <TextBox Grid.Column="2" x:Name="keyKernelcacheKey" IsReadOnly="True" Grid.Row="2" />
+                                <TextBox Grid.Column="4" x:Name="fileKernelcache" IsReadOnly="True" Grid.RowSpan="3" VerticalAlignment="Center" />
                             </Grid>
                             <Grid Grid.Row="34" x:Name="grdKernelcacheNoEncrypt" Margin="0,3">
                                 <Grid.ColumnDefinitions>
@@ -809,7 +810,7 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="Kernelcache" x:Name="lblKernelcacheNoEncrypt" VerticalAlignment="Center" />
                                 <TextBlock Grid.Column="2" Text="Not Encrypted" x:Name="keyKernelcacheNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                <TextBox Grid.Column="4" x:Name="fileKernelcacheNoEncrypt" />
+                                <TextBox Grid.Column="4" x:Name="fileKernelcacheNoEncrypt" IsReadOnly="True" />
                             </Grid>
                             <Grid Grid.Row="35" x:Name="grdNeedService" Margin="0,3">
                                 <Grid.ColumnDefinitions>
@@ -826,9 +827,9 @@
                                 </Grid.RowDefinitions>
                                 <TextBlock Text="NeedService (IV)" x:Name="lblNeedServiceIV" VerticalAlignment="Center" />
                                 <TextBlock Text="NeedService (Key)" x:Name="lblNeedServiceKey" VerticalAlignment="Center" Grid.Row="2" />
-                                <TextBox Grid.Column="2" x:Name="keyNeedServiceIV" />
-                                <TextBox Grid.Column="2" x:Name="keyNeedServiceKey" Grid.Row="2" />
-                                <TextBox Grid.Column="4" x:Name="fileNeedService" Grid.RowSpan="3" VerticalAlignment="Center" />
+                                <TextBox Grid.Column="2" x:Name="keyNeedServiceIV" IsReadOnly="True" />
+                                <TextBox Grid.Column="2" x:Name="keyNeedServiceKey" IsReadOnly="True" Grid.Row="2" />
+                                <TextBox Grid.Column="4" x:Name="fileNeedService" IsReadOnly="True" Grid.RowSpan="3" VerticalAlignment="Center" />
                             </Grid>
                             <Grid Grid.Row="36" x:Name="grdNeedServiceNoEncrypt" Margin="0,3">
                                 <Grid.ColumnDefinitions>
@@ -840,7 +841,7 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="NeedService" x:Name="lblNeedServiceNoEncrypt" VerticalAlignment="Center" />
                                 <TextBlock Grid.Column="2" Text="Not Encrypted" x:Name="keyNeedServiceNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                <TextBox Grid.Column="4" x:Name="fileNeedServiceNoEncrypt" />
+                                <TextBox Grid.Column="4" x:Name="fileNeedServiceNoEncrypt" IsReadOnly="True" />
                             </Grid>
                             <Grid Grid.Row="37" x:Name="grdRecoveryMode" Margin="0,3">
                                 <Grid.ColumnDefinitions>
@@ -857,9 +858,9 @@
                                 </Grid.RowDefinitions>
                                 <TextBlock Text="RecoveryMode (IV)" x:Name="lblRecoveryModeIV" VerticalAlignment="Center" />
                                 <TextBlock Text="RecoveryMode (Key)" x:Name="lblRecoveryModeKey" VerticalAlignment="Center" Grid.Row="2" />
-                                <TextBox Grid.Column="2" x:Name="keyRecoveryModeIV" />
-                                <TextBox Grid.Column="2" x:Name="keyRecoveryModeKey" Grid.Row="2" />
-                                <TextBox Grid.Column="4" x:Name="fileRecoveryMode" Grid.RowSpan="3" VerticalAlignment="Center" />
+                                <TextBox Grid.Column="2" x:Name="keyRecoveryModeIV" IsReadOnly="True" />
+                                <TextBox Grid.Column="2" x:Name="keyRecoveryModeKey" IsReadOnly="True" Grid.Row="2" />
+                                <TextBox Grid.Column="4" x:Name="fileRecoveryMode" IsReadOnly="True" Grid.RowSpan="3" VerticalAlignment="Center" />
                             </Grid>
                             <Grid Grid.Row="38" x:Name="grdRecoveryModeNoEncrypt" Margin="0,3">
                                 <Grid.ColumnDefinitions>
@@ -871,7 +872,7 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="RecoveryMode" x:Name="lblRecoveryModeNoEncrypt" VerticalAlignment="Center" />
                                 <TextBlock Grid.Column="2" Text="Not Encrypted" x:Name="keyRecoveryModeNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                <TextBox Grid.Column="4" x:Name="fileRecoveryModeNoEncrypt" />
+                                <TextBox Grid.Column="4" x:Name="fileRecoveryModeNoEncrypt" IsReadOnly="True" />
                             </Grid>
                             <Grid Grid.Row="39" x:Name="grdSEPFirmware" Margin="0,3">
                                 <Grid.ColumnDefinitions>
@@ -888,9 +889,9 @@
                                 </Grid.RowDefinitions>
                                 <TextBlock Text="SEP-Firmware (IV)" x:Name="lblSEPFirmwareIV" VerticalAlignment="Center" />
                                 <TextBlock Text="SEP-Firmware (Key)" x:Name="lblSEPFirmwareKey" VerticalAlignment="Center" Grid.Row="2" />
-                                <TextBox Grid.Column="2" x:Name="keySEPFirmwareIV" />
-                                <TextBox Grid.Column="2" x:Name="keySEPFirmwareKey" Grid.Row="2" />
-                                <TextBox Grid.Column="4" x:Name="fileSEPFirmware" Grid.RowSpan="3" VerticalAlignment="Center" />
+                                <TextBox Grid.Column="2" x:Name="keySEPFirmwareIV" IsReadOnly="True" />
+                                <TextBox Grid.Column="2" x:Name="keySEPFirmwareKey" IsReadOnly="True" Grid.Row="2" />
+                                <TextBox Grid.Column="4" x:Name="fileSEPFirmware" IsReadOnly="True" Grid.RowSpan="3" VerticalAlignment="Center" />
                             </Grid>
                             <Grid Grid.Row="40" x:Name="grdSEPFirmwareNoEncrypt" Margin="0,3">
                                 <Grid.ColumnDefinitions>
@@ -902,7 +903,7 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="SEP-Firmware" x:Name="lblSEPFirmwareNoEncrypt" VerticalAlignment="Center" />
                                 <TextBlock Grid.Column="2" Text="Not Encrypted" x:Name="keySEPFirmwareNoEncrypt" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                <TextBox Grid.Column="4" x:Name="fileSEPFirmwareNoEncrypt" />
+                                <TextBox Grid.Column="4" x:Name="fileSEPFirmwareNoEncrypt" IsReadOnly="True" />
                             </Grid>
                         </Grid>
                     </ScrollViewer>

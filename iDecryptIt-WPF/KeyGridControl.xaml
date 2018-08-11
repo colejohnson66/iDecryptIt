@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="Hexware.Programs.iDecryptIt.KeyGridControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Hexware.Programs.iDecryptIt"
+             mc:Ignorable="d" 
+             d:DesignHeight="100" d:DesignWidth="500">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="125" />
+            <ColumnDefinition Width="6" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="6" />
+            <ColumnDefinition Width="150" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="6" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="6" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        
+        <TextBlock Text="Restore Ramdisk (IV)" x:Name="IVLabel" VerticalAlignment="Center" />
+        <TextBlock Text="Restore Ramdisk (Key)" x:Name="KeyLabel" VerticalAlignment="Center" Grid.Row="2" />
+        <TextBox Grid.Column="2" x:Name="IVContent" IsReadOnly="True" VerticalAlignment="Center" />
+        <TextBox Grid.Column="2" x:Name="KeyContent" IsReadOnly="True" Grid.Row="2" VerticalAlignment="Center" />
+        <TextBox Grid.Column="4" x:Name="EncryptedFileName" IsReadOnly="True" Grid.RowSpan="3" VerticalAlignment="Center" />
+
+        <TextBlock Grid.Row="6" Text="Restore Ramdisk" x:Name="NotEncryptedLabel" VerticalAlignment="Center" />
+        <TextBlock Grid.Row="6" Grid.Column="2" Text="Not Encrypted" x:Name="NotEncryptedText" VerticalAlignment="Center" />
+        <TextBox Grid.Row="6" Grid.Column="4" x:Name="NotEncryptedFileName" IsReadOnly="True" VerticalAlignment="Center" />
+    </Grid>
+</UserControl>

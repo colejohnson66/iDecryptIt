@@ -402,9 +402,11 @@ namespace Hexware.Programs.iDecryptIt
         private void btnSelectRootFSInputFile_Click(object sender, RoutedEventArgs e)
         {
             Debug("[SELECTFS]", "Loading file dialog.");
-            OpenFileDialog decrypt = new OpenFileDialog();
-            decrypt.Filter = "Apple Disk Images|*.dmg";
-            decrypt.CheckFileExists = true;
+            OpenFileDialog decrypt = new OpenFileDialog
+            {
+                Filter = "Apple Disk Images|*.dmg",
+                CheckFileExists = true
+            };
             decrypt.ShowDialog();
             Debug("[SELECTFS]", "File dialog closed.");
             if (!String.IsNullOrWhiteSpace(decrypt.SafeFileName)) {
@@ -445,19 +447,23 @@ namespace Hexware.Programs.iDecryptIt
             decryptFromLength = new FileInfo(decryptFrom).Length;
 
             Debug("[DECRYPT]", "Launching dmg.");
-            ProcessStartInfo x = new ProcessStartInfo();
-            x.RedirectStandardError = true;
-            x.RedirectStandardOutput = true;
-            x.UseShellExecute = false;
-            x.FileName = Path.Combine(execDir, "dmg.exe");
-            x.Arguments = String.Format("extract \"{0}\" \"{1}\" -k {2}", textInputFileName.Text, textOutputFileName.Text, textDecryptKey.Text);
-            x.ErrorDialog = true;
+            ProcessStartInfo procStartInfo = new ProcessStartInfo
+            {
+                RedirectStandardError = true,
+                RedirectStandardOutput = true,
+                UseShellExecute = false,
+                FileName = Path.Combine(execDir, "dmg.exe"),
+                Arguments = String.Format("extract \"{0}\" \"{1}\" -k {2}", textInputFileName.Text, textOutputFileName.Text, textDecryptKey.Text),
+                ErrorDialog = true
+            };
 
-            decryptProc = new Process();
-            decryptProc.EnableRaisingEvents = true;
-            decryptProc.OutputDataReceived += decryptProc_OutputDataReceived;
-            decryptProc.StartInfo = x;
-            decryptProc.ErrorDataReceived += decryptProc_ErrorDataReceived;
+            decryptProc = new Process
+            {
+                EnableRaisingEvents = true,
+                StartInfo = procStartInfo,
+            };
+            decryptProc.OutputDataReceived += DecryptProc_OutputDataReceived;
+            decryptProc.ErrorDataReceived += DecryptProc_ErrorDataReceived;
             decryptProc.Start();
             decryptProc.BeginOutputReadLine(); // Execution halts if the buffer is full
             decryptProc.BeginErrorReadLine();
@@ -470,14 +476,16 @@ namespace Hexware.Programs.iDecryptIt
             // Wait for file to exist before starting worker (processes are asynchronous)
             while (!File.Exists(decryptTo)) { }
             Debug("[DECRYPT]", "Starting progress checker.");
-            decryptWorker = new BackgroundWorker();
-            decryptWorker.WorkerSupportsCancellation = true;
-            decryptWorker.WorkerReportsProgress = true;
-            decryptWorker.DoWork += decryptWorker_DoWork;
-            decryptWorker.ProgressChanged += decryptWorker_ProgressReported;
+            decryptWorker = new BackgroundWorker
+            {
+                WorkerSupportsCancellation = true,
+                WorkerReportsProgress = true
+            };
+            decryptWorker.DoWork += DecryptWorker_DoWork;
+            decryptWorker.ProgressChanged += DecryptWorker_ProgressReported;
             decryptWorker.RunWorkerAsync();
         }
-        private void textInputFileName_TextChanged(object sender, TextChangedEventArgs e)
+        private void TextInputFileName_TextChanged(object sender, TextChangedEventArgs e)
         {
             try {
                 string folder = Path.GetDirectoryName(textInputFileName.Text);
@@ -488,7 +496,7 @@ namespace Hexware.Programs.iDecryptIt
                 textOutputFileName.Text = Path.Combine(folder, file);
             } catch (Exception) { }
         }
-        private void decryptProc_OutputDataReceived(object sender, DataReceivedEventArgs e)
+        private void DecryptProc_OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
             if (String.IsNullOrWhiteSpace(e.Data))
                 return;
@@ -509,13 +517,13 @@ namespace Hexware.Programs.iDecryptIt
             long offset = Convert.ToInt64(e.Data.Substring(idx + "fileOffset=0x".Length), 16);
             decryptProg = (offset * 100.0) / decryptFromLength;
         }
-        private void decryptProc_ErrorDataReceived(object sender, DataReceivedEventArgs e)
+        private void DecryptProc_ErrorDataReceived(object sender, DataReceivedEventArgs e)
         {
             // If I remember correctly, dmg doesn't use stderr, but we still need this function
             if (Globals.Debug)
                 Console.WriteLine(e.Data);
         }
-        private void decryptWorker_DoWork(object sender, DoWorkEventArgs e)
+        private void DecryptWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             while (!decryptWorker.CancellationPending) {
                 if (decryptProc.HasExited)
@@ -525,7 +533,7 @@ namespace Hexware.Programs.iDecryptIt
                 Thread.Sleep(25); // don't hog the CPU
             }
         }
-        private void decryptWorker_ProgressReported(object sender, ProgressChangedEventArgs e)
+        private void DecryptWorker_ProgressReported(object sender, ProgressChangedEventArgs e)
         {
             if (e.ProgressPercentage == 100 && !decryptWorker.CancellationPending) {
                 decryptWorker.CancelAsync();
@@ -602,9 +610,11 @@ namespace Hexware.Programs.iDecryptIt
         private void btnSelect7ZInputFile_Click(object sender, RoutedEventArgs e)
         {
             Debug("[SELECT7Z]", "Loading file dialog.");
-            OpenFileDialog extract = new OpenFileDialog();
-            extract.Filter = "Apple Disk Images|*.dmg";
-            extract.CheckFileExists = true;
+            OpenFileDialog extract = new OpenFileDialog
+            {
+                Filter = "Apple Disk Images|*.dmg",
+                CheckFileExists = true
+            };
             extract.ShowDialog();
             Debug("[SELECT7Z]", "File dialog closed.");
             if (!String.IsNullOrWhiteSpace(extract.SafeFileName)) {
@@ -616,9 +626,11 @@ namespace Hexware.Programs.iDecryptIt
         private void btnSelectWhatAmIFile_Click(object sender, RoutedEventArgs e)
         {
             Debug("[SELECTWHAT]", "Opening file dialog.");
-            OpenFileDialog what = new OpenFileDialog();
-            what.Filter = "Apple Firmware Files|*.ipsw";
-            what.CheckFileExists = true;
+            OpenFileDialog what = new OpenFileDialog
+            {
+                Filter = "Apple Firmware Files|*.ipsw",
+                CheckFileExists = true
+            };
             what.ShowDialog();
             Debug("[SELECTWHAT]", "Closing file dialog.");
             if (!String.IsNullOrWhiteSpace(what.SafeFileName)) {
@@ -645,8 +657,8 @@ namespace Hexware.Programs.iDecryptIt
                 return;
             }
 
-            string device;
-            if (!Globals.DeviceNames.TryGetValue(strArr[0], out device)) {
+            if (!Globals.DeviceNames.TryGetValue(strArr[0], out string device))
+            {
                 MessageBox.Show(
                     "The supplied device: '" + strArr[0] + "' does not follow the format:\r\n" +
                         "\t{iPad/iPhone/iPad/AppleTV}{#},{#} " +
@@ -846,7 +858,7 @@ namespace Hexware.Programs.iDecryptIt
             Debug("[UPDATE]", "Checking for updates.");
             try {
                 WebClient updateChecker = new WebClient();
-                updateChecker.DownloadStringCompleted += updateChecker_DownloadStringCompleted;
+                updateChecker.DownloadStringCompleted += UpdateChecker_DownloadStringCompleted;
                 updateChecker.DownloadStringAsync(new Uri(
                     @"http://theiphonewiki.com/w/index.php?title=User:5urd/Latest_stable_software_release/iDecryptIt&action=raw"));
             } catch (Exception) { }
@@ -857,7 +869,7 @@ namespace Hexware.Programs.iDecryptIt
             Thread.Sleep(500);
             Application.Current.Shutdown();
         }
-        private void updateChecker_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
+        private void UpdateChecker_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
         {
             if (e.Result != null) {
                 Debug("[UPDATE]", "Installed version: " + Globals.Version + Globals.Version64);
