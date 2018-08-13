@@ -35,6 +35,7 @@ namespace Hexware.Programs.iDecryptIt
         internal static DateTime CompileTimestamp;
         internal static Dictionary<string, string> ExecutionArgs = new Dictionary<string, string>();
         internal static bool Debug;
+        internal static bool Trace;
         internal static Firmware.TarFile KeyArchive;
 
         internal static Dictionary<string, string> DeviceNames = new Dictionary<string, string>() {
@@ -141,6 +142,7 @@ namespace Hexware.Programs.iDecryptIt
 
 #if DEBUG
             Debug = true;
+            Trace = true;
 #endif
 
             CompileTimestamp = GetLinkerTimestampUTC(thisAssembly);

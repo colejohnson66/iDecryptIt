@@ -76,7 +76,7 @@
                             <TextBlock x:Name="textDecryptLabel" Text="Key:  " VerticalAlignment="Center" />
                             <TextBox x:Name="textDecryptKey" Grid.Column="1" />
                         </Grid>
-                        <Button x:Name="btnSelectRootFSInputFile" Content="Select Input File" Grid.Column="8" Height="24" Click="btnSelectRootFSInputFile_Click" />
+                        <Button x:Name="btnSelectRootFSInputFile" Content="Select Input File..." Grid.Column="8" Height="24" Click="btnSelectRootFSInputFile_Click" />
                     </Grid>
                 </Grid>
             </Grid>
@@ -122,7 +122,7 @@
                             <TextBlock x:Name="txt7ZOutputLabel" Text="Output Folder:  " VerticalAlignment="Center" />
                             <TextBox x:Name="text7ZOuputFolder" Grid.Column="1" />
                         </Grid>
-                        <Button x:Name="btnSelect7ZInputFile" Content="Select Input File" Grid.Column="6" Height="24" Click="btnSelect7ZInputFile_Click" />
+                        <Button x:Name="btnSelect7ZInputFile" Content="Select Input File..." Grid.Column="6" Height="24" Click="btnSelect7ZInputFile_Click" />
                     </Grid>
                 </Grid>
             </Grid>
@@ -160,7 +160,7 @@
                             <TextBlock x:Name="textWhatAmIFileLabel" Text="File Name:  " VerticalAlignment="Center" />
                             <TextBox x:Name="textWhatAmIFileName" Grid.Column="1" />
                         </Grid>
-                        <Button x:Name="btnSelectWhatAmIFile" Content="Select File" Grid.Column="4" Height="24" Click="btnSelectWhatAmIFile_Click" />
+                        <Button x:Name="btnSelectWhatAmIFile" Content="Select File..." Grid.Column="4" Height="24" Click="btnSelectWhatAmIFile_Click" />
                     </Grid>
                 </Grid>
                 <Grid Margin="2,3,3,3" Background="White" Grid.Column="1">
