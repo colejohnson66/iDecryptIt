@@ -9,6 +9,11 @@
         Background="{StaticResource Background}"
         Loaded="Window_Loaded"
         Closing="Window_Closing">
+    <Window.Resources>
+        <GridLength x:Key="keyTitleWidth">125</GridLength>
+        <GridLength x:Key="keyFilenameWidth">125</GridLength>
+        <GridLength x:Key="keyButtonWidth">75</GridLength>
+    </Window.Resources>
     <Grid Margin="18">
         <Grid x:Name="MainPane" Visibility="Hidden">
             <Grid.RowDefinitions>
@@ -81,8 +86,8 @@
                 <RowDefinition Height="24" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="6" />
-                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="6" />
                 <RowDefinition Height="24" />
             </Grid.RowDefinitions>
             <TextBlock Text="Get Keys" FontSize="36" />
@@ -150,10 +155,12 @@
                         </ComboBox.ItemTemplate>
                     </ComboBox>
                 </Grid>
-
-
             </Grid>
-            
+            <ScrollViewer Grid.Row="4">
+                <StackPanel x:Name="GetKeysStackPanel">
+                </StackPanel>
+            </ScrollViewer>
+
             <Button Grid.Row="6" x:Name="GetKeysBackButton" Content="&lt; Back" MinWidth="100" HorizontalAlignment="Left" Click="GoBackButton_Click" />
         </Grid>
     </Grid>
