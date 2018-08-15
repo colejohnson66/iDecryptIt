@@ -20,6 +20,7 @@
  *   iDecryptIt. If not, see <http://www.gnu.org/licenses/>.
  * =============================================================================
  */
+using Hexware.Plist;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -72,7 +73,9 @@ namespace Hexware.Programs.iDecryptIt
             KeySelectionLists.Init();
             GetKeysDeviceComboBox.ItemsSource = KeySelectionLists.Products;
 
+#if !DEBUG
             this.Dispatcher.UnhandledException += Dispatcher_UnhandledException;
+#endif
         }
 
         private void Dispatcher_UnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
@@ -81,7 +84,7 @@ namespace Hexware.Programs.iDecryptIt
             {
                 Trace(nameof(Dispatcher_UnhandledException), sender, e);
             }
-            catch (Exception ex)
+            catch (Exception)
             { }
 
             FatalError("An unknown error has occured.", e.Exception);
@@ -181,8 +184,7 @@ namespace Hexware.Programs.iDecryptIt
                 return;
             }
 
-            string device;
-            if (!Globals.DeviceNames.TryGetValue(strArr[0], out device))
+            if (!Globals.DeviceNames.TryGetValue(strArr[0], out string device))
                 device = strArr[0];
 
             IdentifyResultsDevice.Text = "Device: " + device;
@@ -213,11 +215,22 @@ namespace Hexware.Programs.iDecryptIt
             IdentifyPane.Visibility = Visibility.Hidden;
             GetKeysPane.Visibility = Visibility.Hidden;
         }
+        private void GetKeysDecryptButton_Click(object sender, RoutedEventArgs e)
+        {
+            Trace(nameof(GetKeysDecryptButton_Click), sender, e);
+
+            // ((Button)sender).Name contains the button name
+
+            UIElement obj = GetKeysStackPanelFindObject("RootFSKey");
+        }
 
         // Get Keys Pane
         private void GetKeysDeviceComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Trace(nameof(GetKeysDeviceComboBox_SelectionChanged), sender, e);
+
+            GetKeysStatusBar.Text = "";
+            GetKeysClearStackPanel();
 
             if (e.AddedItems.Count == 0)
                 return;
@@ -237,6 +250,9 @@ namespace Hexware.Programs.iDecryptIt
         {
             Trace(nameof(GetKeysModelComboBox_SelectionChanged), sender, e);
 
+            GetKeysStatusBar.Text = "";
+            GetKeysClearStackPanel();
+
             if (e.AddedItems.Count == 0)
                 return;
 
@@ -251,6 +267,9 @@ namespace Hexware.Programs.iDecryptIt
         {
             Trace(nameof(GetKeysVersionComboBox_SelectionChanged), sender, e);
 
+            GetKeysStatusBar.Text = "";
+            GetKeysClearStackPanel();
+
             if (e.AddedItems.Count == 0)
                 return;
 
@@ -261,11 +280,7 @@ namespace Hexware.Programs.iDecryptIt
             if (stream == Stream.Null)
             {
                 Debug("[KEYSELECT]", "Key file doesn't exist. No keys available.");
-                //MessageBox.Show(
-                //    "Sorry, but that version doesn't have any published keys.",
-                //    "iDecryptIt",
-                //    MessageBoxButton.OK,
-                //    MessageBoxImage.Information);
+                GetKeysStatusBar.Text = "No keys are available for that device/version combo";
                 return;
             }
             LoadKeys(stream);
@@ -274,14 +289,75 @@ namespace Hexware.Programs.iDecryptIt
         private void LoadKeys(Stream document)
         {
             Trace(nameof(LoadKeys), document);
-            
-            GetKeysClearStackPanel();
-            GetKeysAddDeviceAndVersion("Device", "Version", "Build");
-            GetKeysAddRootFS();
-            GetKeysAddEncryptedItem("Restore Ramdisk", "RestoreRamdisk");
-            GetKeysAddNotEncryptedItem("Update Ramdisk", "UpdateRamdisk");
+
+            PlistDict plist;
+            try
+            {
+                PlistDocument doc = new PlistDocument(document);
+                plist = (PlistDict)doc.RootNode;
+            }
+            catch (Exception ex)
+            {
+                Error("Error loading key file.", ex);
+                return;
+            }
+
+            string device = plist.Get<PlistString>("Device").Value;
+            string version = plist.Get<PlistString>("Version").Value;
+            string build = plist.Get<PlistString>("Build").Value;
+            GetKeysAddDeviceAndVersion(Globals.DeviceNames[device], version, build);
+
+            // TODO: Read Encryption value and go from there
+            string rootFSKey = plist.Get<PlistDict>("Root FS").Get<PlistString>("Key").Value;
+            string rootFSFilename = plist.Get<PlistDict>("Root FS").Get<PlistString>("File Name").Value;
+            GetKeysAddRootFS(rootFSKey, rootFSFilename);
+
+            ProcessFirmwareItem(plist, "Update Ramdisk", "UpdateRamdisk");
+            ProcessFirmwareItem(plist, "Update Ramdisk2", "UpdateRamdisk2");
+            ProcessFirmwareItem(plist, "Restore Ramdisk", "RestoreRamdisk");
+            ProcessFirmwareItem(plist, "Restore Ramdisk2", "RestoreRamdisk2");
+            ProcessFirmwareItem(plist, "AOPFirmware");
+            ProcessFirmwareItem(plist, "AppleLogo");
+            ProcessFirmwareItem(plist, "AppleLogo2");
+            ProcessFirmwareItem(plist, "AppleMaggie");
+            ProcessFirmwareItem(plist, "AudioDSP");
+            ProcessFirmwareItem(plist, "BatteryCharging");
+            ProcessFirmwareItem(plist, "BatteryCharging0");
+            ProcessFirmwareItem(plist, "BatteryCharging02");
+            ProcessFirmwareItem(plist, "BatteryCharging1");
+            ProcessFirmwareItem(plist, "BatteryCharging12");
+            ProcessFirmwareItem(plist, "BatteryFull");
+            ProcessFirmwareItem(plist, "BatteryFull2");
+            ProcessFirmwareItem(plist, "BatteryLow0");
+            ProcessFirmwareItem(plist, "BatteryLow02");
+            ProcessFirmwareItem(plist, "BatteryLow1");
+            ProcessFirmwareItem(plist, "BatteryLow12");
+            ProcessFirmwareItem(plist, "Dali");
+            ProcessFirmwareItem(plist, "DeviceTree");
+            ProcessFirmwareItem(plist, "DeviceTree2");
+            ProcessFirmwareItem(plist, "GlyphCharging");
+            ProcessFirmwareItem(plist, "GlyphPlugin");
+            ProcessFirmwareItem(plist, "GlyphPlugin2");
+            ProcessFirmwareItem(plist, "Homer");
+            ProcessFirmwareItem(plist, "iBEC");
+            ProcessFirmwareItem(plist, "iBEC2");
+            ProcessFirmwareItem(plist, "iBoot");
+            ProcessFirmwareItem(plist, "iBoot2");
+            ProcessFirmwareItem(plist, "iBSS");
+            ProcessFirmwareItem(plist, "iBSS2");
+            ProcessFirmwareItem(plist, "Kernelcache");
+            ProcessFirmwareItem(plist, "Kernelcache2");
+            ProcessFirmwareItem(plist, "LiquidDetect");
+            ProcessFirmwareItem(plist, "LLB");
+            ProcessFirmwareItem(plist, "LLB2");
+            ProcessFirmwareItem(plist, "Multitouch");
+            ProcessFirmwareItem(plist, "NeedService");
+            ProcessFirmwareItem(plist, "RecoveryMode");
+            ProcessFirmwareItem(plist, "RecoveryMode2");
+            ProcessFirmwareItem(plist, "SEP-Firmware", "SEPFirmware");
+            ProcessFirmwareItem(plist, "SEP-Firmware2", "SEPFirmware2");
         }
-        internal Stream GetKeyStream(string fileName)
+        private Stream GetKeyStream(string fileName)
         {
             Trace(nameof(GetKeyStream), fileName);
 
@@ -300,6 +376,39 @@ namespace Hexware.Programs.iDecryptIt
             }
             return Stream.Null;
         }
+        private void ProcessFirmwareItem(PlistDict rootNode, string firmwareItem)
+        {
+            ProcessFirmwareItem(rootNode, firmwareItem, firmwareItem);
+        }
+        private void ProcessFirmwareItem(PlistDict rootNode, string firmwareItem, string id)
+        {
+            Trace(nameof(ProcessFirmwareItem), rootNode, firmwareItem, id);
+
+            if (!rootNode.Exists(firmwareItem))
+                return;
+
+            PlistDict node = rootNode.Get<PlistDict>(firmwareItem);
+
+            if (firmwareItem.EndsWith("2"))
+                firmwareItem = firmwareItem.Substring(0, firmwareItem.Length - 1);
+
+            if (node.Get<PlistBool>("Encryption").Value)
+            {
+                GetKeysAddEncryptedItem(
+                    firmwareItem,
+                    id,
+                    node.Get<PlistString>("IV").Value,
+                    node.Get<PlistString>("Key").Value,
+                    node.Get<PlistString>("File Name").Value);
+            }
+            else
+            {
+                GetKeysAddNotEncryptedItem(
+                    firmwareItem,
+                    id,
+                    node.Get<PlistString>("File Name").Value);
+            }
+        }
 
         private void GetKeysClearStackPanel()
         {
@@ -313,20 +422,24 @@ namespace Hexware.Programs.iDecryptIt
 
             //<TextBlock Text="Device" x:Name="txtDevice" FontSize="24" />
             //<TextBlock Text="Version (Build)" x:Name="txtVersion" FontSize="16" Margin="12,6,0,6" />
-            TextBlock deviceBlock = new TextBlock();
-            deviceBlock.Text = device;
-            deviceBlock.FontSize = 24;
+            TextBlock deviceBlock = new TextBlock
+            {
+                Text = device,
+                FontSize = 24
+            };
             GetKeysStackPanel.Children.Add(deviceBlock);
 
-            TextBlock versionBlock = new TextBlock();
-            versionBlock.Text = String.Format("{0} ({1})", version, build);
-            versionBlock.FontSize = 16;
-            versionBlock.Margin = new Thickness(12, 6, 0, 6);
+            TextBlock versionBlock = new TextBlock
+            {
+                Text = String.Format("{0} (Build {1})", version, build),
+                FontSize = 16,
+                Margin = new Thickness(12, 6, 0, 6)
+            };
             GetKeysStackPanel.Children.Add(versionBlock);
         }
-        private void GetKeysAddRootFS()
+        private void GetKeysAddRootFS(string rootFSKey, string rootFSFilename)
         {
-            Trace(nameof(GetKeysAddRootFS));
+            Trace(nameof(GetKeysAddRootFS), rootFSKey, rootFSFilename);
 
             Grid grid = new Grid();
             grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(125, GridUnitType.Pixel) });
@@ -339,35 +452,45 @@ namespace Hexware.Programs.iDecryptIt
             grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(6, GridUnitType.Pixel) });
             grid.Margin = new Thickness(0, 3, 0, 3);
 
-            TextBlock rootFSKeyLabel = new TextBlock();
-            rootFSKeyLabel.Text = "Root FS Key";
-            rootFSKeyLabel.VerticalAlignment = VerticalAlignment.Center;
+            TextBlock rootFSKeyLabel = new TextBlock
+            {
+                Text = "Root FS Key",
+                VerticalAlignment = VerticalAlignment.Center
+            };
             grid.Children.Add(rootFSKeyLabel);
 
-            TextBox key = new TextBox();
-            key.Name = "RootFSKey";
-            key.IsReadOnly = true;
+            TextBox key = new TextBox
+            {
+                Name = "RootFSKey",
+                Text = rootFSKey,
+                IsReadOnly = true
+            };
             key.SetValue(Grid.ColumnProperty, 2);
             grid.Children.Add(key);
 
-            TextBox filename = new TextBox();
-            filename.Name = "RootFSFilename";
-            filename.IsReadOnly = true;
+            TextBox filename = new TextBox
+            {
+                Name = "RootFSFilename",
+                Text = rootFSFilename,
+                IsReadOnly = true
+            };
             filename.SetValue(Grid.ColumnProperty, 4);
             grid.Children.Add(filename);
 
-            Button decrypt = new Button();
-            decrypt.Name = "RootFSDecrypt";
-            decrypt.Content = "Decrypt >";
+            Button decrypt = new Button
+            {
+                Name = "RootFSDecrypt",
+                Content = "Decrypt >"
+            };
             decrypt.SetValue(Grid.ColumnProperty, 6);
             decrypt.Click += GetKeysDecryptButton_Click;
             grid.Children.Add(decrypt);
 
             GetKeysStackPanel.Children.Add(grid);
         }
-        private void GetKeysAddNotEncryptedItem(string firmwareItem, string firmwareKey)
+        private void GetKeysAddNotEncryptedItem(string firmwareItem, string id, string firmwareFilename)
         {
-            Trace(nameof(GetKeysAddNotEncryptedItem), firmwareItem, firmwareKey);
+            Trace(nameof(GetKeysAddNotEncryptedItem), firmwareItem, id, firmwareFilename);
 
             Grid grid = new Grid();
             grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(125, GridUnitType.Pixel) });
@@ -380,37 +503,46 @@ namespace Hexware.Programs.iDecryptIt
             grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(6, GridUnitType.Pixel) });
             grid.Margin = new Thickness(0, 3, 0, 3);
 
-            TextBlock label = new TextBlock();
-            label.Text = firmwareItem;
-            label.VerticalAlignment = VerticalAlignment.Center;
+            TextBlock label = new TextBlock
+            {
+                Text = firmwareItem,
+                VerticalAlignment = VerticalAlignment.Center
+            };
             grid.Children.Add(label);
 
-            TextBlock key = new TextBlock();
-            key.Name = firmwareKey + "NotEncrypted";
-            key.Text = "Not Encrypted";
-            key.VerticalAlignment = VerticalAlignment.Center;
-            key.HorizontalAlignment = HorizontalAlignment.Center;
+            TextBlock key = new TextBlock
+            {
+                Name = id + "NotEncrypted",
+                Text = "Not Encrypted",
+                VerticalAlignment = VerticalAlignment.Center,
+                HorizontalAlignment = HorizontalAlignment.Center
+            };
             key.SetValue(Grid.ColumnProperty, 2);
             grid.Children.Add(key);
 
-            TextBox filename = new TextBox();
-            filename.Name = firmwareKey + "Filename";
-            filename.IsReadOnly = true;
+            TextBox filename = new TextBox
+            {
+                Name = id + "Filename",
+                Text = firmwareFilename,
+                IsReadOnly = true
+            };
             filename.SetValue(Grid.ColumnProperty, 4);
             grid.Children.Add(filename);
 
-            Button decrypt = new Button();
-            decrypt.Name = firmwareKey + "Decrypt";
-            decrypt.Content = "Decrypt >";
+            Button decrypt = new Button
+            {
+                Name = id + "Decrypt",
+                Content = "Decrypt >"
+            };
             decrypt.SetValue(Grid.ColumnProperty, 6);
             decrypt.Click += GetKeysDecryptButton_Click;
             grid.Children.Add(decrypt);
 
             GetKeysStackPanel.Children.Add(grid);
         }
-        private void GetKeysAddEncryptedItem(string firmwareItem, string firmwareKey)
+        private void GetKeysAddEncryptedItem(string firmwareItem, string id, string firmwareIV, string firmwareKey, string firmwareFilename)
         {
-            Trace(nameof(GetKeysAddEncryptedItem), firmwareItem, firmwareKey);
+            Trace(nameof(GetKeysAddEncryptedItem), firmwareItem, id, firmwareIV, firmwareKey, firmwareFilename);
 
             Grid grid = new Grid();
             grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(125, GridUnitType.Pixel) });
@@ -426,57 +558,63 @@ namespace Hexware.Programs.iDecryptIt
             grid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(1, GridUnitType.Auto) });
             grid.Margin = new Thickness(0, 3, 0, 3);
 
-            TextBlock ivLabel = new TextBlock();
-            ivLabel.Text = firmwareItem + " (IV)";
-            ivLabel.VerticalAlignment = VerticalAlignment.Center;
+            TextBlock ivLabel = new TextBlock
+            {
+                Text = firmwareItem + " (IV)",
+                VerticalAlignment = VerticalAlignment.Center
+            };
             grid.Children.Add(ivLabel);
 
-            TextBlock keyLabel = new TextBlock();
-            keyLabel.Text = firmwareItem + " (Key)";
-            keyLabel.VerticalAlignment = VerticalAlignment.Center;
+            TextBlock keyLabel = new TextBlock
+            {
+                Text = firmwareItem + " (Key)",
+                VerticalAlignment = VerticalAlignment.Center
+            };
             keyLabel.SetValue(Grid.RowProperty, 2);
             grid.Children.Add(keyLabel);
 
-            TextBox iv = new TextBox();
-            iv.Name = firmwareKey + "IV";
-            iv.IsReadOnly = true;
+            TextBox iv = new TextBox
+            {
+                Name = id + "IV",
+                Text = firmwareIV,
+                IsReadOnly = true
+            };
             iv.SetValue(Grid.ColumnProperty, 2);
             grid.Children.Add(iv);
 
-            TextBox key = new TextBox();
-            key.Name = firmwareKey + "Key";
-            key.IsReadOnly = true;
+            TextBox key = new TextBox
+            {
+                Name = id + "Key",
+                Text = firmwareKey,
+                IsReadOnly = true
+            };
             key.SetValue(Grid.ColumnProperty, 2);
             key.SetValue(Grid.RowProperty, 2);
             grid.Children.Add(key);
 
-            TextBox filename = new TextBox();
-            filename.Name = firmwareKey + "Filename";
-            filename.IsReadOnly = true;
+            TextBox filename = new TextBox
+            {
+                Name = id + "Filename",
+                Text = firmwareFilename,
+                IsReadOnly = true,
+                VerticalAlignment = VerticalAlignment.Center
+            };
             filename.SetValue(Grid.ColumnProperty, 4);
             filename.SetValue(Grid.RowSpanProperty, 3);
-            filename.VerticalAlignment = VerticalAlignment.Center;
             grid.Children.Add(filename);
 
-            Button decrypt = new Button();
-            decrypt.Name = firmwareKey + "Decrypt";
-            decrypt.Content = "Decrypt >";
+            Button decrypt = new Button
+            {
+                Name = id + "Decrypt",
+                Content = "Decrypt >",
+                VerticalAlignment = VerticalAlignment.Center
+            };
             decrypt.SetValue(Grid.ColumnProperty, 6);
             decrypt.SetValue(Grid.RowSpanProperty, 3);
-            decrypt.VerticalAlignment = VerticalAlignment.Center;
             decrypt.Click += GetKeysDecryptButton_Click;
             grid.Children.Add(decrypt);
 
             GetKeysStackPanel.Children.Add(grid);
-        }
-
-        private void GetKeysDecryptButton_Click(object sender, RoutedEventArgs e)
-        {
-            Trace(nameof(GetKeysDecryptButton_Click), sender, e);
-
-            // ((Button)sender).Name contains the button name
-
-            object obj = GetKeysStackPanelFindObject("RootFSKey");
         }
         private UIElement GetKeysStackPanelFindObject(string name)
         {

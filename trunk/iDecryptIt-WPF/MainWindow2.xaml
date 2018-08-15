@@ -37,55 +37,58 @@
             <Button Grid.Row="7" x:Name="MainDecryptPaneButton" Content="Decrypt Firmware Item &gt;" MinWidth="150" HorizontalAlignment="Right" />
             <Button Grid.Row="9" x:Name="MainAboutPaneButton" Content="About &gt;" MinWidth="150" HorizontalAlignment="Right" />
         </Grid>
-        
+
         <Grid x:Name="IdentifyPane" Visibility="Hidden">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="24" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="6" />
                 <RowDefinition Height="24" />
             </Grid.RowDefinitions>
             <TextBlock Text="Identify IPSW" FontSize="36" />
 
             <Grid Grid.Row="2">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="24" />
-                    <RowDefinition Height="6" />
-                    <RowDefinition Height="24" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="6" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <TextBox x:Name="IdentifyTextBox" />
-                <Button Grid.Column="2" x:Name="IdentifySelectInputFileButton" Content="Select Input File..." MinWidth="100" Click="IdentifySelectInputFileButton_Click" />
-                <Button Grid.Row="2" Grid.Column="2" x:Name="IdentifyButton" Content="Identify..." MinWidth="100" HorizontalAlignment="Right" Click="IdentifyButton_Click" />
-            </Grid>
-            <Grid Grid.Row="3">
-                <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="6" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="6" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <TextBlock x:Name="IdentifyResultsDevice" Text="Device: " />
-                <TextBlock Grid.Row="2" x:Name="IdentifyResultsVersion" Text="Version: " />
-                <TextBlock Grid.Row="4" x:Name="IdentifyResultsBuild" Text="Build: " />
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="24" />
+                        <RowDefinition Height="6" />
+                        <RowDefinition Height="24" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="6" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="IdentifyTextBox" />
+                    <Button Grid.Column="2" x:Name="IdentifySelectInputFileButton" Content="Select Input File..." MinWidth="100" Click="IdentifySelectInputFileButton_Click" />
+                    <Button Grid.Row="2" Grid.Column="2" x:Name="IdentifyButton" Content="Identify..." MinWidth="100" HorizontalAlignment="Right" Click="IdentifyButton_Click" />
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="6" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="6" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock x:Name="IdentifyResultsDevice" Text="Device: " />
+                    <TextBlock Grid.Row="2" x:Name="IdentifyResultsVersion" Text="Version: " />
+                    <TextBlock Grid.Row="4" x:Name="IdentifyResultsBuild" Text="Build: " />
+                </Grid>
             </Grid>
 
-            <Button Grid.Row="5" x:Name="IdentifyBackButton" Content="&lt; Back" MinWidth="100" HorizontalAlignment="Left" Click="GoBackButton_Click" />
+            <Button Grid.Row="4" x:Name="IdentifyBackButton" Content="&lt; Back" MinWidth="100" HorizontalAlignment="Left" Click="GoBackButton_Click" />
         </Grid>
 
         <Grid x:Name="GetKeysPane">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="24" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="6" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="6" />
                 <RowDefinition Height="24" />
@@ -93,75 +96,88 @@
             <TextBlock Text="Get Keys" FontSize="36" />
 
             <Grid Grid.Row="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="6" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="6" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Grid Height="24">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="6" />
+                        <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="6" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Text="Device:" VerticalAlignment="Center" />
-                    <ComboBox x:Name="GetKeysDeviceComboBox" Grid.Column="2"
+                    <Grid Height="24">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="6" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Device:" VerticalAlignment="Center" />
+                        <ComboBox x:Name="GetKeysDeviceComboBox" Grid.Column="2"
                               DisplayMemberPath="Value" SelectedValuePath="ID"
                               SelectedValue="{Binding DevicesViewModel.Value}"
                               SelectionChanged="GetKeysDeviceComboBox_SelectionChanged" />
-                </Grid>
-                <Grid Grid.Column="2" Height="24">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="6" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="Model:" VerticalAlignment="Center" />
-                    <ComboBox x:Name="GetKeysModelComboBox" Grid.Column="2" IsEnabled="False"
+                    </Grid>
+                    <Grid Grid.Column="2" Height="24">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="6" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Model:" VerticalAlignment="Center" />
+                        <ComboBox x:Name="GetKeysModelComboBox" Grid.Column="2" IsEnabled="False"
                               DisplayMemberPath="Value" SelectedValuePath="ID"
                               SelectedValue="{Binding ModelsViewModel.Value}"
                               SelectionChanged="GetKeysModelComboBox_SelectionChanged" />
-                </Grid>
-                <Grid Grid.Column="4" Height="24">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="6" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="Version:" VerticalAlignment="Center" />
-                    <ComboBox x:Name="GetKeysVersionComboBox" Grid.Column="2" IsEnabled="False"
+                    </Grid>
+                    <Grid Grid.Column="4" Height="24">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="6" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Version:" VerticalAlignment="Center" />
+                        <ComboBox x:Name="GetKeysVersionComboBox" Grid.Column="2" IsEnabled="False"
                               SelectedValuePath="ID"
                               SelectedValue="{Binding VersionsViewModel.Value}"
                               SelectionChanged="GetKeysVersionComboBox_SelectionChanged">
-                        <!-- Set the text to red if there aren't any keys -->
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock x:Name="GetKeysVersionComboBoxText" Text="{Binding Path=Value}">
-                                    <TextBlock.Style>
-                                        <Style TargetType="TextBlock">
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding Path=HasKeys}" Value="false">
-                                                    <DataTrigger.Setters>
-                                                        <Setter Property="Foreground" Value="Red" />
-                                                    </DataTrigger.Setters>
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </TextBlock.Style>
-                                </TextBlock>
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
+                            <!-- Set the text to red if there aren't any keys -->
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock x:Name="GetKeysVersionComboBoxText" Text="{Binding Path=Value}">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=HasKeys}" Value="false">
+                                                        <DataTrigger.Setters>
+                                                            <Setter Property="Foreground" Value="Red" />
+                                                        </DataTrigger.Setters>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </Grid>
                 </Grid>
+                <ScrollViewer Grid.Row="2">
+                    <StackPanel x:Name="GetKeysStackPanel">
+                    </StackPanel>
+                </ScrollViewer>
             </Grid>
-            <ScrollViewer Grid.Row="4">
-                <StackPanel x:Name="GetKeysStackPanel">
-                </StackPanel>
-            </ScrollViewer>
 
-            <Button Grid.Row="6" x:Name="GetKeysBackButton" Content="&lt; Back" MinWidth="100" HorizontalAlignment="Left" Click="GoBackButton_Click" />
-        </Grid>
+            <Grid Grid.Row="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Button x:Name="GetKeysBackButton" Content="&lt; Back" MinWidth="100" Click="GoBackButton_Click" />
+                <TextBlock Grid.Column="1" x:Name="GetKeysStatusBar" HorizontalAlignment="Right" VerticalAlignment="Center" />
+            </Grid>
+         </Grid>
     </Grid>
 </Window>
