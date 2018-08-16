@@ -135,13 +135,6 @@
     <Compile Include="firmware\CompStream.cs" />
     <Compile Include="firmware\TarFile.cs" />
     <Compile Include="Globals.cs" />
-    <Compile Include="KeyGridControl.cs">
-      <Generator>MSBuild:Compile</Generator>
-    </Compile>
-    <Page Include="KeyGridControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Compile Include="KeyGridItem.cs" />
     <Compile Include="KeySelectionLists.cs" />
     <Compile Include="KeySelectionViewModel.cs" />
