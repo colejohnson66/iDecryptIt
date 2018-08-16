@@ -25,6 +25,7 @@ using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -33,19 +34,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Threading;
 
 namespace Hexware.Programs.iDecryptIt
 {
-    /// <summary>
-    /// Interaction logic for MainWindow2.xaml
-    /// </summary>
     public partial class MainWindow2 : Window
     {
         static string execDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
@@ -57,6 +49,11 @@ namespace Hexware.Programs.iDecryptIt
         string selectedModel;
         KeySelectionViewModel VersionsViewModel;
         string selectedVersion;
+
+        Process rootFSDecryptProcess;
+        long rootFSDecryptFromLength;
+        double rootFSDecryptProgress;
+        BackgroundWorker rootFSDecryptWorker;
 
         public MainWindow2()
         {
@@ -80,13 +77,6 @@ namespace Hexware.Programs.iDecryptIt
 
         private void Dispatcher_UnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            try
-            {
-                Trace(nameof(Dispatcher_UnhandledException), sender, e);
-            }
-            catch (Exception)
-            { }
-
             FatalError("An unknown error has occured.", e.Exception);
             Close();
             e.Handled = true;
@@ -99,44 +89,19 @@ namespace Hexware.Programs.iDecryptIt
         {
             throw new NotImplementedException();
         }
-
         private static void Debug(string component, string message)
         {
             if (!Globals.Debug)
                 return;
             Console.WriteLine("{0}{1}", component.PadRight(12), message);
         }
-        private static void Trace(string functionName, params object[] args)
-        {
-            if (!Globals.Trace)
-                return;
-
-            if (args.Length == 0)
-            {
-                Console.WriteLine("{0}{1}()", "[TRACE]".PadRight(12), functionName);
-                return;
-            }
-            Console.WriteLine("{0}{1}(", "[TRACE]".PadRight(12), functionName);
-            
-            for (int i = 0; i < args.Length; i++)
-            {
-                Console.Write("                {0}", args[i]); // 16 spaces for a 4 space indent
-                if (i != args.Length - 1)
-                    Console.WriteLine(", ");
-            }
-            Console.WriteLine(")");
-        }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Trace(nameof(Window_Loaded), sender, e);
-
             Debug("[INIT]", "Opening...");
         }
         private void Window_Closing(object sender, CancelEventArgs e)
         {
-            Trace(nameof(Window_Closing), sender, e);
-
             Debug("[DEINIT]", "Closing...");
 
             Thread.Sleep(500);
@@ -146,8 +111,6 @@ namespace Hexware.Programs.iDecryptIt
         // Identify IPSW Pane
         private void IdentifySelectInputFileButton_Click(object sender, RoutedEventArgs e)
         {
-            Trace(nameof(IdentifySelectInputFileButton_Click), sender, e);
-
             OpenFileDialog dialog = new OpenFileDialog
             {
                 Filter = "Apple Firmware Files|*.ipsw",
@@ -166,8 +129,6 @@ namespace Hexware.Programs.iDecryptIt
         }
         private void IdentifyButton_Click(object sender, RoutedEventArgs e)
         {
-            Trace(nameof(IdentifyButton_Click), sender, e);
-            
             if (String.IsNullOrWhiteSpace(IdentifyTextBox.Text))
                 return;
 
@@ -195,40 +156,30 @@ namespace Hexware.Programs.iDecryptIt
         // Pane change buttons
         private void MainIdentifyPaneButton_Click(object sender, RoutedEventArgs e)
         {
-            Trace(nameof(MainIdentifyPaneButton_Click), sender, e);
-
             MainPane.Visibility = Visibility.Hidden;
             IdentifyPane.Visibility = Visibility.Visible;
         }
         private void MainGetKeysPaneButton_Click(object sender, RoutedEventArgs e)
         {
-            Trace(nameof(MainGetKeysPaneButton_Click), sender, e);
-
             MainPane.Visibility = Visibility.Hidden;
             GetKeysPane.Visibility = Visibility.Visible;
         }
+        private void MainDecryptRootFSPaneButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainPane.Visibility = Visibility.Hidden;
+            DecryptRootFSPane.Visibility = Visibility.Visible;
+        }
         private void GoBackButton_Click(object sender, RoutedEventArgs e)
         {
-            Trace(nameof(GoBackButton_Click), sender, e);
-
             MainPane.Visibility = Visibility.Visible;
             IdentifyPane.Visibility = Visibility.Hidden;
             GetKeysPane.Visibility = Visibility.Hidden;
-        }
-        private void GetKeysDecryptButton_Click(object sender, RoutedEventArgs e)
-        {
-            Trace(nameof(GetKeysDecryptButton_Click), sender, e);
-
-            // ((Button)sender).Name contains the button name
-
-            UIElement obj = GetKeysStackPanelFindObject("RootFSKey");
+            DecryptRootFSPane.Visibility = Visibility.Hidden;
         }
 
         // Get Keys Pane
         private void GetKeysDeviceComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Trace(nameof(GetKeysDeviceComboBox_SelectionChanged), sender, e);
-
             GetKeysStatusBar.Text = "";
             GetKeysClearStackPanel();
 
@@ -248,8 +199,6 @@ namespace Hexware.Programs.iDecryptIt
         }
         private void GetKeysModelComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Trace(nameof(GetKeysModelComboBox_SelectionChanged), sender, e);
-
             GetKeysStatusBar.Text = "";
             GetKeysClearStackPanel();
 
@@ -265,8 +214,6 @@ namespace Hexware.Programs.iDecryptIt
         }
         private void GetKeysVersionComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Trace(nameof(GetKeysVersionComboBox_SelectionChanged), sender, e);
-
             GetKeysStatusBar.Text = "";
             GetKeysClearStackPanel();
 
@@ -286,142 +233,12 @@ namespace Hexware.Programs.iDecryptIt
             LoadKeys(stream);
         }
 
-        private void LoadKeys(Stream document)
-        {
-            Trace(nameof(LoadKeys), document);
-
-            PlistDict plist;
-            try
-            {
-                PlistDocument doc = new PlistDocument(document);
-                plist = (PlistDict)doc.RootNode;
-            }
-            catch (Exception ex)
-            {
-                Error("Error loading key file.", ex);
-                return;
-            }
-
-            string device = plist.Get<PlistString>("Device").Value;
-            string version = plist.Get<PlistString>("Version").Value;
-            string build = plist.Get<PlistString>("Build").Value;
-            GetKeysAddDeviceAndVersion(Globals.DeviceNames[device], version, build);
-
-            // TODO: Read Encryption value and go from there
-            string rootFSKey = plist.Get<PlistDict>("Root FS").Get<PlistString>("Key").Value;
-            string rootFSFilename = plist.Get<PlistDict>("Root FS").Get<PlistString>("File Name").Value;
-            GetKeysAddRootFS(rootFSKey, rootFSFilename);
-
-            ProcessFirmwareItem(plist, "Update Ramdisk", "UpdateRamdisk");
-            ProcessFirmwareItem(plist, "Update Ramdisk2", "UpdateRamdisk2");
-            ProcessFirmwareItem(plist, "Restore Ramdisk", "RestoreRamdisk");
-            ProcessFirmwareItem(plist, "Restore Ramdisk2", "RestoreRamdisk2");
-            ProcessFirmwareItem(plist, "AOPFirmware");
-            ProcessFirmwareItem(plist, "AppleLogo");
-            ProcessFirmwareItem(plist, "AppleLogo2");
-            ProcessFirmwareItem(plist, "AppleMaggie");
-            ProcessFirmwareItem(plist, "AudioDSP");
-            ProcessFirmwareItem(plist, "BatteryCharging");
-            ProcessFirmwareItem(plist, "BatteryCharging0");
-            ProcessFirmwareItem(plist, "BatteryCharging02");
-            ProcessFirmwareItem(plist, "BatteryCharging1");
-            ProcessFirmwareItem(plist, "BatteryCharging12");
-            ProcessFirmwareItem(plist, "BatteryFull");
-            ProcessFirmwareItem(plist, "BatteryFull2");
-            ProcessFirmwareItem(plist, "BatteryLow0");
-            ProcessFirmwareItem(plist, "BatteryLow02");
-            ProcessFirmwareItem(plist, "BatteryLow1");
-            ProcessFirmwareItem(plist, "BatteryLow12");
-            ProcessFirmwareItem(plist, "Dali");
-            ProcessFirmwareItem(plist, "DeviceTree");
-            ProcessFirmwareItem(plist, "DeviceTree2");
-            ProcessFirmwareItem(plist, "GlyphCharging");
-            ProcessFirmwareItem(plist, "GlyphPlugin");
-            ProcessFirmwareItem(plist, "GlyphPlugin2");
-            ProcessFirmwareItem(plist, "Homer");
-            ProcessFirmwareItem(plist, "iBEC");
-            ProcessFirmwareItem(plist, "iBEC2");
-            ProcessFirmwareItem(plist, "iBoot");
-            ProcessFirmwareItem(plist, "iBoot2");
-            ProcessFirmwareItem(plist, "iBSS");
-            ProcessFirmwareItem(plist, "iBSS2");
-            ProcessFirmwareItem(plist, "Kernelcache");
-            ProcessFirmwareItem(plist, "Kernelcache2");
-            ProcessFirmwareItem(plist, "LiquidDetect");
-            ProcessFirmwareItem(plist, "LLB");
-            ProcessFirmwareItem(plist, "LLB2");
-            ProcessFirmwareItem(plist, "Multitouch");
-            ProcessFirmwareItem(plist, "NeedService");
-            ProcessFirmwareItem(plist, "RecoveryMode");
-            ProcessFirmwareItem(plist, "RecoveryMode2");
-            ProcessFirmwareItem(plist, "SEP-Firmware", "SEPFirmware");
-            ProcessFirmwareItem(plist, "SEP-Firmware2", "SEPFirmware2");
-        }
-        private Stream GetKeyStream(string fileName)
-        {
-            Trace(nameof(GetKeyStream), fileName);
-
-            Debug("[GETSTREAM]", "Attempting read of stored resource, \"" + fileName + "\".");
-
-            if (!Globals.KeyArchive.FileExists(fileName))
-                return Stream.Null;
-
-            try
-            {
-                return Globals.KeyArchive.GetFile(fileName);
-            }
-            catch (Exception ex)
-            {
-                Error("Unable to retrieve keys.", ex);
-            }
-            return Stream.Null;
-        }
-        private void ProcessFirmwareItem(PlistDict rootNode, string firmwareItem)
-        {
-            ProcessFirmwareItem(rootNode, firmwareItem, firmwareItem);
-        }
-        private void ProcessFirmwareItem(PlistDict rootNode, string firmwareItem, string id)
-        {
-            Trace(nameof(ProcessFirmwareItem), rootNode, firmwareItem, id);
-
-            if (!rootNode.Exists(firmwareItem))
-                return;
-
-            PlistDict node = rootNode.Get<PlistDict>(firmwareItem);
-
-            if (firmwareItem.EndsWith("2"))
-                firmwareItem = firmwareItem.Substring(0, firmwareItem.Length - 1);
-
-            if (node.Get<PlistBool>("Encryption").Value)
-            {
-                GetKeysAddEncryptedItem(
-                    firmwareItem,
-                    id,
-                    node.Get<PlistString>("IV").Value,
-                    node.Get<PlistString>("Key").Value,
-                    node.Get<PlistString>("File Name").Value);
-            }
-            else
-            {
-                GetKeysAddNotEncryptedItem(
-                    firmwareItem,
-                    id,
-                    node.Get<PlistString>("File Name").Value);
-            }
-        }
-
         private void GetKeysClearStackPanel()
         {
-            Trace(nameof(GetKeysClearStackPanel));
-
             GetKeysStackPanel.Children.Clear();
         }
         private void GetKeysAddDeviceAndVersion(string device, string version, string build)
         {
-            Trace(nameof(GetKeysAddDeviceAndVersion), device, version, build);
-
-            //<TextBlock Text="Device" x:Name="txtDevice" FontSize="24" />
-            //<TextBlock Text="Version (Build)" x:Name="txtVersion" FontSize="16" Margin="12,6,0,6" />
             TextBlock deviceBlock = new TextBlock
             {
                 Text = device,
@@ -437,10 +254,58 @@ namespace Hexware.Programs.iDecryptIt
             };
             GetKeysStackPanel.Children.Add(versionBlock);
         }
+        private void GetKeysAddNotEncryptedRootFS(string rootFSFilename)
+        {
+            Grid grid = new Grid();
+            grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(125, GridUnitType.Pixel) });
+            grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(6, GridUnitType.Pixel) });
+            grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Star) });
+            grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(6, GridUnitType.Pixel) });
+            grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(125, GridUnitType.Pixel) });
+            grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(6, GridUnitType.Pixel) });
+            grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(75, GridUnitType.Pixel) });
+            grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(6, GridUnitType.Pixel) });
+            grid.Margin = new Thickness(0, 3, 0, 3);
+            
+            TextBlock rootFSLabel = new TextBlock
+            {
+                Text = "Root FS",
+                VerticalAlignment = VerticalAlignment.Center
+            };
+            grid.Children.Add(rootFSLabel);
+
+            TextBlock notEncryptedLabel = new TextBlock
+            {
+                Name = "RootFSNotEncrypted",
+                Text = "Not Encrypted",
+                VerticalAlignment = VerticalAlignment.Center,
+                HorizontalAlignment = HorizontalAlignment.Center
+            };
+            notEncryptedLabel.SetValue(Grid.ColumnProperty, 2);
+            grid.Children.Add(notEncryptedLabel);
+
+            TextBox filename = new TextBox
+            {
+                Name = "RootFSFilename",
+                Text = rootFSFilename,
+                IsReadOnly = true
+            };
+            filename.SetValue(Grid.ColumnProperty, 4);
+            grid.Children.Add(filename);
+
+            Button decrypt = new Button
+            {
+                Name = "RootFSDecrypt",
+                Content = "Decrypt >"
+            };
+            decrypt.SetValue(Grid.ColumnProperty, 6);
+            decrypt.Click += GetKeysDecryptButton_Click;
+            grid.Children.Add(decrypt);
+
+            GetKeysStackPanel.Children.Add(grid);
+        }
         private void GetKeysAddRootFS(string rootFSKey, string rootFSFilename)
         {
-            Trace(nameof(GetKeysAddRootFS), rootFSKey, rootFSFilename);
-
             Grid grid = new Grid();
             grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(125, GridUnitType.Pixel) });
             grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(6, GridUnitType.Pixel) });
@@ -490,8 +355,6 @@ namespace Hexware.Programs.iDecryptIt
         }
         private void GetKeysAddNotEncryptedItem(string firmwareItem, string id, string firmwareFilename)
         {
-            Trace(nameof(GetKeysAddNotEncryptedItem), firmwareItem, id, firmwareFilename);
-
             Grid grid = new Grid();
             grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(125, GridUnitType.Pixel) });
             grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(6, GridUnitType.Pixel) });
@@ -542,8 +405,6 @@ namespace Hexware.Programs.iDecryptIt
         }
         private void GetKeysAddEncryptedItem(string firmwareItem, string id, string firmwareIV, string firmwareKey, string firmwareFilename)
         {
-            Trace(nameof(GetKeysAddEncryptedItem), firmwareItem, id, firmwareIV, firmwareKey, firmwareFilename);
-
             Grid grid = new Grid();
             grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(125, GridUnitType.Pixel) });
             grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(6, GridUnitType.Pixel) });
@@ -616,10 +477,9 @@ namespace Hexware.Programs.iDecryptIt
 
             GetKeysStackPanel.Children.Add(grid);
         }
+
         private UIElement GetKeysStackPanelFindObject(string name)
         {
-            Trace(nameof(GetKeysStackPanelFindObject), name);
-
             foreach (UIElement possibleGrid in GetKeysStackPanel.Children)
             {
                 if (possibleGrid.GetType() == typeof(Grid))
@@ -640,6 +500,301 @@ namespace Hexware.Programs.iDecryptIt
             }
 
             return null;
+        }
+        private void GetKeysDecryptButton_Click(object sender, RoutedEventArgs e)
+        {
+            string buttonName = ((Button)sender).Name;
+
+            if (buttonName == "RootFSDecrypt")
+            {
+                if (GetKeysStackPanelFindObject("RootFSNotEncrypted") == null)
+                {
+                    TextBox keyBox = (TextBox)GetKeysStackPanelFindObject("RootFSKey");
+                    DecryptRootFSKey.Text = keyBox.Text;
+                }
+            }
+            else
+            {
+
+            }
+
+            GetKeysPane.Visibility = Visibility.Hidden;
+            DecryptRootFSPane.Visibility = Visibility.Visible;
+
+            UIElement obj = GetKeysStackPanelFindObject("RootFSKey");
+        }
+
+        private void LoadKeys(Stream document)
+        {
+            PlistDict plist;
+            try
+            {
+                PlistDocument doc = new PlistDocument(document);
+                plist = (PlistDict)doc.RootNode;
+            }
+            catch (Exception ex)
+            {
+                Error("Error loading key file.", ex);
+                return;
+            }
+
+            string device = plist.Get<PlistString>("Device").Value;
+            string version = plist.Get<PlistString>("Version").Value;
+            string build = plist.Get<PlistString>("Build").Value;
+            GetKeysAddDeviceAndVersion(Globals.DeviceNames[device], version, build);
+
+            PlistDict rootFS = plist.Get<PlistDict>("Root FS");
+            string rootFSFilename = rootFS.Get<PlistString>("File Name").Value;
+            if (!rootFS.Get<PlistBool>("Encryption").Value)
+                GetKeysAddNotEncryptedRootFS(rootFSFilename);
+            else
+                GetKeysAddRootFS(rootFS.Get<PlistString>("Key").Value, rootFSFilename);
+
+            ProcessFirmwareItem(plist, "Update Ramdisk", "UpdateRamdisk");
+            ProcessFirmwareItem(plist, "Update Ramdisk2", "UpdateRamdisk2");
+            ProcessFirmwareItem(plist, "Restore Ramdisk", "RestoreRamdisk");
+            ProcessFirmwareItem(plist, "Restore Ramdisk2", "RestoreRamdisk2");
+            ProcessFirmwareItem(plist, "AOPFirmware");
+            ProcessFirmwareItem(plist, "AppleLogo");
+            ProcessFirmwareItem(plist, "AppleLogo2");
+            ProcessFirmwareItem(plist, "AppleMaggie");
+            ProcessFirmwareItem(plist, "AudioDSP");
+            ProcessFirmwareItem(plist, "BatteryCharging");
+            ProcessFirmwareItem(plist, "BatteryCharging0");
+            ProcessFirmwareItem(plist, "BatteryCharging02");
+            ProcessFirmwareItem(plist, "BatteryCharging1");
+            ProcessFirmwareItem(plist, "BatteryCharging12");
+            ProcessFirmwareItem(plist, "BatteryFull");
+            ProcessFirmwareItem(plist, "BatteryFull2");
+            ProcessFirmwareItem(plist, "BatteryLow0");
+            ProcessFirmwareItem(plist, "BatteryLow02");
+            ProcessFirmwareItem(plist, "BatteryLow1");
+            ProcessFirmwareItem(plist, "BatteryLow12");
+            ProcessFirmwareItem(plist, "Dali");
+            ProcessFirmwareItem(plist, "DeviceTree");
+            ProcessFirmwareItem(plist, "DeviceTree2");
+            ProcessFirmwareItem(plist, "GlyphCharging");
+            ProcessFirmwareItem(plist, "GlyphPlugin");
+            ProcessFirmwareItem(plist, "GlyphPlugin2");
+            ProcessFirmwareItem(plist, "Homer");
+            ProcessFirmwareItem(plist, "iBEC");
+            ProcessFirmwareItem(plist, "iBEC2");
+            ProcessFirmwareItem(plist, "iBoot");
+            ProcessFirmwareItem(plist, "iBoot2");
+            ProcessFirmwareItem(plist, "iBSS");
+            ProcessFirmwareItem(plist, "iBSS2");
+            ProcessFirmwareItem(plist, "Kernelcache");
+            ProcessFirmwareItem(plist, "Kernelcache2");
+            ProcessFirmwareItem(plist, "LiquidDetect");
+            ProcessFirmwareItem(plist, "LLB");
+            ProcessFirmwareItem(plist, "LLB2");
+            ProcessFirmwareItem(plist, "Multitouch");
+            ProcessFirmwareItem(plist, "NeedService");
+            ProcessFirmwareItem(plist, "RecoveryMode");
+            ProcessFirmwareItem(plist, "RecoveryMode2");
+            ProcessFirmwareItem(plist, "SEP-Firmware", "SEPFirmware");
+            ProcessFirmwareItem(plist, "SEP-Firmware2", "SEPFirmware2");
+        }
+        private Stream GetKeyStream(string fileName)
+        {
+            Debug("[GETSTREAM]", "Attempting read of stored resource, \"" + fileName + "\".");
+
+            if (!Globals.KeyArchive.FileExists(fileName))
+                return Stream.Null;
+
+            try
+            {
+                return Globals.KeyArchive.GetFile(fileName);
+            }
+            catch (Exception ex)
+            {
+                Error("Unable to retrieve keys.", ex);
+            }
+            return Stream.Null;
+        }
+        private void ProcessFirmwareItem(PlistDict rootNode, string firmwareItem)
+        {
+            ProcessFirmwareItem(rootNode, firmwareItem, firmwareItem);
+        }
+        private void ProcessFirmwareItem(PlistDict rootNode, string firmwareItem, string id)
+        {
+            if (!rootNode.Exists(firmwareItem))
+                return;
+
+            PlistDict node = rootNode.Get<PlistDict>(firmwareItem);
+
+            if (firmwareItem.EndsWith("2"))
+                firmwareItem = firmwareItem.Substring(0, firmwareItem.Length - 1);
+
+            if (node.Get<PlistBool>("Encryption").Value)
+            {
+                GetKeysAddEncryptedItem(
+                    firmwareItem,
+                    id,
+                    node.Get<PlistString>("IV").Value,
+                    node.Get<PlistString>("Key").Value,
+                    node.Get<PlistString>("File Name").Value);
+            }
+            else
+            {
+                GetKeysAddNotEncryptedItem(
+                    firmwareItem,
+                    id,
+                    node.Get<PlistString>("File Name").Value);
+            }
+        }
+
+        // Decrypt Root FS Pane
+        private void DecryptRootFSInputSelect_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog()
+            {
+                Filter = "Apple Disk Images|*.dmg",
+                CheckFileExists = true
+            };
+            dialog.ShowDialog();
+
+            if (String.IsNullOrWhiteSpace(dialog.SafeFileName))
+                return;
+
+            DecryptRootFSInput.Text = dialog.FileName;
+            DecryptRootFSOutput.Text = dialog.FileName.Substring(0, dialog.FileName.Length - 4) + "_decrypted.dmg";
+        }
+        private void DecryptRootFSInput_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string input = DecryptRootFSInput.Text;
+            try
+            {
+                string folder = Path.GetDirectoryName(input);
+                string file = Path.GetFileName(input);
+                if (!file.EndsWith(".dmg"))
+                    return;
+                file = file.Substring(0, file.Length - 4) + "_decrypted.dmg";
+                DecryptRootFSOutput.Text = Path.Combine(folder, file);
+            }
+            catch (Exception)
+            { }
+        }
+        private void DecryptRootFSButton_Click(object sender, RoutedEventArgs e)
+        {
+            string input = DecryptRootFSInput.Text;
+            string output = DecryptRootFSOutput.Text;
+            string key = DecryptRootFSKey.Text;
+
+            if (String.IsNullOrWhiteSpace(input) ||
+                String.IsNullOrWhiteSpace(output))
+                return;
+
+            if (!File.Exists(input))
+            {
+                MessageBox.Show(
+                    "The input file does not exist.",
+                    "iDecryptIt");
+                return;
+            }
+            if (File.Exists(output))
+            {
+                if (MessageBox.Show(
+                    "The output file already exists. Shall I delete it?",
+                    "iDecryptIt",
+                    MessageBoxButton.YesNo) == MessageBoxResult.No)
+                    return;
+                File.Delete(output);
+            }
+
+            rootFSDecryptFromLength = new FileInfo(input).Length;
+
+            ProcessStartInfo startInfo = new ProcessStartInfo()
+            {
+                RedirectStandardError = true,
+                RedirectStandardOutput = true,
+                UseShellExecute = false,
+                FileName = Path.Combine(execDir, "dmg.exe"),
+                Arguments = String.Format("extract \"{0}\" \"{1}\" -k {2}", input, output, key),
+                ErrorDialog = true
+            };
+
+            rootFSDecryptProcess = new Process()
+            {
+                EnableRaisingEvents = true,
+                StartInfo = startInfo
+            };
+            rootFSDecryptProcess.OutputDataReceived += RootFSDecryptProcess_OutputDataReceived;
+            rootFSDecryptProcess.ErrorDataReceived += RootFSDecryptProcess_ErrorDataReceived;
+            rootFSDecryptProcess.Start();
+            rootFSDecryptProcess.BeginOutputReadLine(); // execution halts if buffer is full
+            rootFSDecryptProcess.BeginErrorReadLine();
+
+            // Screen mods
+            DecryptRootFSGrid.IsEnabled = false;
+            DecryptRootFSProgressBar.Visibility = Visibility.Visible;
+
+            // Wait for output file to exist before starting worker as processes are async
+            while (!File.Exists(output)) { }
+            rootFSDecryptWorker = new BackgroundWorker()
+            {
+                WorkerSupportsCancellation = true,
+                WorkerReportsProgress = true
+            };
+            rootFSDecryptWorker.DoWork += RootFSDecryptWorker_DoWork;
+            rootFSDecryptWorker.ProgressChanged += RootFSDecryptWorker_ProgressChanged;
+        }
+
+        private void RootFSDecryptProcess_OutputDataReceived(object sender, DataReceivedEventArgs e)
+        {
+            if (String.IsNullOrWhiteSpace(e.Data))
+                return;
+
+            if (Globals.Debug)
+                Console.WriteLine(e.Data);
+
+            // Until iDecryptIt natively supports decrypting disk images, use this crude hack to calculate progress
+
+            // dmg's progress is reported with each "run" of sectors on a line formatted like this:
+            // run 36: start=32604160 sectors=512, length=105688, fileOffset=0x184c75
+            // What we care about is `fileOffset'. Surprisingly, that's where the run begins. Because dmg progresses
+            //   through the file linearly, we can simply use that number to know how much dmg has decrypted/decompressed.
+
+            int idx = e.Data.IndexOf("fileOffset");
+            if (idx == -1)
+                return; // ignore this line of output
+            long offset = Convert.ToInt64(e.Data.Substring(idx + "fileOffset=0x".Length), 16);
+            rootFSDecryptProgress = (offset * 100.0) / rootFSDecryptFromLength;
+        }
+        private void RootFSDecryptProcess_ErrorDataReceived(object sender, DataReceivedEventArgs e)
+        {
+            // dmg doesn't use stderr, but this function is still needed
+            if (Globals.Debug)
+                Console.WriteLine(e.Data);
+        }
+        private void RootFSDecryptWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            while (!rootFSDecryptWorker.CancellationPending)
+            {
+                if (rootFSDecryptProcess.HasExited)
+                    rootFSDecryptWorker.ReportProgress(100);
+                else
+                    rootFSDecryptWorker.ReportProgress(0);
+                Thread.Sleep(25); // don't hog the CPU
+            }
+        }
+        private void RootFSDecryptWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            if (e.ProgressPercentage == 100 && !rootFSDecryptWorker.CancellationPending)
+            {
+                rootFSDecryptWorker.CancelAsync();
+                DecryptRootFSGrid.IsEnabled = true;
+                DecryptRootFSProgressBar.Visibility = Visibility.Hidden;
+
+                rootFSDecryptProgress = 0.0;
+
+                return;
+            }
+
+            if (rootFSDecryptProgress > 100.0)
+                DecryptRootFSProgressBar.Value = 100.0;
+            else
+                DecryptRootFSProgressBar.Value = rootFSDecryptProgress;
         }
     }
 }

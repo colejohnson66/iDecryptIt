@@ -42,7 +42,7 @@ namespace Hexware.Programs.iDecryptIt
             { "AppleTV2,1", "Apple TV 2G" },
             { "AppleTV3,1", "Apple TV 3G" },
             { "AppleTV3,2", "Apple TV 3G [Rev A]" },
-            { "AppleTV5,4", "Apple TV 4G" },
+            { "AppleTV5,3", "Apple TV 4G" },
             { "AppleTV6,2", "Apple TV 4K" },
 
             { "iPad2,5", "iPad mini (Wi-Fi)" },
