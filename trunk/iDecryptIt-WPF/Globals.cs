@@ -2,7 +2,7 @@
  * File:   Globals.cs
  * Author: Cole Johnson
  * =============================================================================
- * Copyright (c) 2012-2017 Cole Johnson
+ * Copyright (c) 2012-2018 Cole Johnson
  * 
  * This file is part of iDecryptIt
  * 
@@ -35,7 +35,6 @@ namespace Hexware.Programs.iDecryptIt
         internal static DateTime CompileTimestamp;
         internal static Dictionary<string, string> ExecutionArgs = new Dictionary<string, string>();
         internal static bool Debug;
-        internal static bool Trace;
         internal static Firmware.TarFile KeyArchive;
 
         internal static Dictionary<string, string> DeviceNames = new Dictionary<string, string>() {
@@ -142,7 +141,6 @@ namespace Hexware.Programs.iDecryptIt
 
 #if DEBUG
             Debug = true;
-            Trace = true;
 #endif
 
             CompileTimestamp = GetLinkerTimestampUTC(thisAssembly);
@@ -167,8 +165,8 @@ namespace Hexware.Programs.iDecryptIt
             const int c_PeHeaderOffset = 60;
             const int c_LinkerTimestampOffset = 8;
             byte[] b = new byte[512];
-            Stream s = null;
 
+            Stream s = null;
             try {
                 s = new FileStream(assembly.Location, FileMode.Open, FileAccess.Read);
                 s.Read(b, 0, 512);
