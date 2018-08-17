@@ -511,16 +511,25 @@ namespace Hexware.Programs.iDecryptIt
                 {
                     TextBox keyBox = (TextBox)GetKeysStackPanelFindObject("RootFSKey");
                     DecryptRootFSKey.Text = keyBox.Text;
-                    TextBox filenameBox = (TextBox)GetKeysStackPanelFindObject("RootFSFilename");
                 }
-            }
-            else
-            {
 
+                TextBox filenameBox = (TextBox)GetKeysStackPanelFindObject("RootFSFilename");
+                OpenFileDialog dialog = new OpenFileDialog
+                {
+                    CheckFileExists = true,
+                    Filter = "Root FS File|" + filenameBox.Text
+                };
+                dialog.ShowDialog();
+                if (!String.IsNullOrWhiteSpace(dialog.FileName))
+                    DecryptRootFSInput.Text = dialog.FileName;
+
+                GetKeysPane.Visibility = Visibility.Hidden;
+                DecryptRootFSPane.Visibility = Visibility.Visible;
+
+                return;
             }
 
-            GetKeysPane.Visibility = Visibility.Hidden;
-            DecryptRootFSPane.Visibility = Visibility.Visible;
+            // firmware item (not root fs)
         }
 
         private void LoadKeys(Stream document)
