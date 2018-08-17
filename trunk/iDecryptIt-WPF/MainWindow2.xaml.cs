@@ -738,6 +738,7 @@ namespace Hexware.Programs.iDecryptIt
             };
             rootFSDecryptWorker.DoWork += RootFSDecryptWorker_DoWork;
             rootFSDecryptWorker.ProgressChanged += RootFSDecryptWorker_ProgressChanged;
+            rootFSDecryptWorker.RunWorkerAsync();
         }
 
         private void RootFSDecryptProcess_OutputDataReceived(object sender, DataReceivedEventArgs e)
