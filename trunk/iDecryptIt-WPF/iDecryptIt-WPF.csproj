@@ -26,7 +26,7 @@
     <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
     <AssemblyVersionSettings>None.None.None.Increment</AssemblyVersionSettings>
     <AssemblyFileVersionSettings>None.None.None.Increment</AssemblyFileVersionSettings>
-    <AssemblyVersion>11.41.0.1735</AssemblyVersion>
+    <AssemblyVersion>11.41.1.1822</AssemblyVersion>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -37,8 +37,8 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>1735</ApplicationRevision>
-    <ApplicationVersion>11.41.0.1735</ApplicationVersion>
+    <ApplicationRevision>1822</ApplicationRevision>
+    <ApplicationVersion>11.41.1.1822</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -103,9 +103,6 @@
     <Content Include="help\style.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="xpwntool.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <Page Include="MainWindow2.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
