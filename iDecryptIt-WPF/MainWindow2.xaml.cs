@@ -511,6 +511,7 @@ namespace Hexware.Programs.iDecryptIt
                 {
                     TextBox keyBox = (TextBox)GetKeysStackPanelFindObject("RootFSKey");
                     DecryptRootFSKey.Text = keyBox.Text;
+                    TextBox filenameBox = (TextBox)GetKeysStackPanelFindObject("RootFSFilename");
                 }
             }
             else
@@ -520,8 +521,6 @@ namespace Hexware.Programs.iDecryptIt
 
             GetKeysPane.Visibility = Visibility.Hidden;
             DecryptRootFSPane.Visibility = Visibility.Visible;
-
-            UIElement obj = GetKeysStackPanelFindObject("RootFSKey");
         }
 
         private void LoadKeys(Stream document)
@@ -755,7 +754,6 @@ namespace Hexware.Programs.iDecryptIt
             // run 36: start=32604160 sectors=512, length=105688, fileOffset=0x184c75
             // What we care about is `fileOffset'. Surprisingly, that's where the run begins. Because dmg progresses
             //   through the file linearly, we can simply use that number to know how much dmg has decrypted/decompressed.
-
             int idx = e.Data.IndexOf("fileOffset");
             if (idx == -1)
                 return; // ignore this line of output
