@@ -1,5 +1,8 @@
-﻿namespace KeyGrabber;
+﻿using JetBrains.Annotations;
 
+namespace iDecryptIt.Shared;
+
+[PublicAPI]
 public enum FirmwareItemType
 {
     UpdateRamdisk,

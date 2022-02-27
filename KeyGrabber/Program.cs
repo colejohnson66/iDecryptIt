@@ -1,4 +1,13 @@
-﻿using System.Diagnostics;
+﻿using iDecryptIt.Shared;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Net.Http;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Xml;
 
 namespace KeyGrabber;
@@ -11,116 +20,199 @@ public static class Program
     private const string WIKI_URL_START = "https://www.theiphonewiki.com/wiki/";
 
     private static readonly HttpClient Client = new();
-    private static readonly List<string> Pages = new();
     private static readonly string CurrentDirectory = Directory.GetCurrentDirectory();
     private static readonly string KeysDir = Path.Combine(CurrentDirectory, "Keys");
-    private static readonly Dictionary<string, List<FirmwareVersion>> Versions = new();
+    private static readonly Dictionary<DeviceID, List<FirmwareVersionEntry>> Versions = new();
 
-    public static Task Main(string[] args)
+    public static async Task Main()
     {
         if (Directory.Exists(KeysDir))
             Directory.Delete(KeysDir, true);
         Directory.CreateDirectory(KeysDir);
 
-        foreach (string id in Descriptors.DeviceIDs)
+        foreach (DeviceID id in Enum.GetValues<DeviceID>())
             Versions.Add(id, new());
-        return Task.CompletedTask;
+
+        await ProcessDescriptor("Firmware/Apple_TV/", Descriptors.AppleTVFirmwarePages);
+        await ProcessDescriptor("Firmware/Apple_Watch/", Descriptors.AppleWatchFirmwarePages);
+        await ProcessDescriptor("Firmware/HomePod/", Descriptors.HomePodFirmwarePages);
+        // await ProcessDescriptor("Firmware/Mac/", Descriptors.AppleSiliconFirmwarePages);
+        // await ProcessDescriptor("Firmware/iBridge/", Descriptors.IBridgeFirmwarePages);
+        await ProcessDescriptor("Firmware/iPad/", Descriptors.IPadFirmwarePages);
+        await ProcessDescriptor("Firmware/iPad_Air/", Descriptors.IPadAirFirmwarePages);
+        await ProcessDescriptor("Firmware/iPad_Pro/", Descriptors.IPadProFirmwarePages);
+        await ProcessDescriptor("Firmware/iPad_mini/", Descriptors.IPadMiniFirmwarePages);
+        await ProcessDescriptor("Firmware/iPhone/", Descriptors.IPhoneFirmwarePages);
+        await ProcessDescriptor("Firmware/iPod_touch/", Descriptors.IPodTouchFirmwarePages);
+        await ProcessDescriptor("Beta_Firmware/Apple_TV/", Descriptors.AppleTVBetaFirmwarePages);
+        await ProcessDescriptor("Beta_Firmware/Apple_Watch/", Descriptors.AppleWatchBetaFirmwarePages);
+        await ProcessDescriptor("Beta_Firmware/HomePod/", Descriptors.HomePodBetaFirmwarePages);
+        // await ProcessDescriptor("Beta_Firmware/Mac/", Descriptors.AppleSiliconBetaFirmwarePages);
+        // await ProcessDescriptor("Beta_Firmware/iBridge/", Descriptors.IBridgeBetaFirmwarePages);
+        await ProcessDescriptor("Beta_Firmware/iPad/", Descriptors.IPadBetaFirmwarePages);
+        await ProcessDescriptor("Beta_Firmware/iPad_Air/", Descriptors.IPadAirBetaFirmwarePages);
+        await ProcessDescriptor("Beta_Firmware/iPad_Pro/", Descriptors.IPadProBetaFirmwarePages);
+        await ProcessDescriptor("Beta_Firmware/iPad_mini/", Descriptors.IPadMiniBetaFirmwarePages);
+        await ProcessDescriptor("Beta_Firmware/iPhone/", Descriptors.IPhoneBetaFirmwarePages);
+        await ProcessDescriptor("Beta_Firmware/iPod_touch/", Descriptors.IPodTouchBetaFirmwarePages);
+
+        await using BinaryWriter hasKeysWriter = new(File.OpenWrite("HasKeys.bin"), Encoding.UTF8);
+        foreach (char c in "iDecryptItHasKey") // 16 byte header
+            hasKeysWriter.Write((byte)c);
+        foreach ((DeviceID id, List<FirmwareVersionEntry> entries) in Versions)
+        {
+            hasKeysWriter.Write(id.ToStringID());
+            hasKeysWriter.Write(entries.Count);
+            foreach (FirmwareVersionEntry entry in entries)
+                new HasKeysEntry(entry.Version, entry.Build, entry.KeyPages![0].Url is not null).Serialize(hasKeysWriter);
+        }
+
+        // Unfortunately, the wiki export caps at 5000 pages, so we have to crawl one by one...
+        foreach ((_, List<FirmwareVersionEntry> entries) in Versions)
+        {
+            await Parallel.ForEachAsync(
+                entries, async (entry, _) =>
+                {
+                    if (entry.KeyPages?[0].Url is null)
+                        return;
+                    string text;
+                    while (true)
+                    {
+                        try
+                        {
+                            text = await GetPageAsRawWikiText(entry.KeyPages[0].Url!);
+                            break;
+                        }
+                        catch (Exception)
+                        {
+                            Thread.Sleep(15000);
+                        }
+                    }
+                    KeyPage page = ParseKeyPage(text);
+
+                    string fileName = $"{KeysDir}/{page.Device}_{page.Build}.bin";
+                    if (new FileInfo(fileName).Exists)
+                        fileName = $"{KeysDir}/___{page.Device}_{page.Build}_{DateTime.Now.ToString("O").Replace(':', '_')}.bin";
+                    await using BinaryWriter pageWriter = new(File.OpenWrite(fileName));
+                    foreach (char c in "iDecryptItKeyFil") // 16 byte header
+                        pageWriter.Write((byte)c);
+                    page.Serialize(pageWriter);
+                });
+        }
+
+        Debug.WriteLine("");
+        Debug.WriteLine("DONE!");
     }
 
-    private static async Task GetKeyPagesFromMajorVersionPage(string page, params string[] tableProps)
+#region Descriptors
+    private static async Task ProcessDescriptor(string basePageName, Dictionary<string, string[]> descriptor)
+    {
+        foreach ((string? majorVersion, string[]? tables) in descriptor)
+            await BuildVersionsDictionary($"{basePageName}{majorVersion}", tables);
+    }
+
+    private static async Task BuildVersionsDictionary(string page, string[] tableProps)
     {
         XmlDocument doc = await GetPageAsXml(page);
         XmlNodeList tables = doc.SelectNodes("//table[@class='wikitable']/tbody")!;
-        Debug.Assert(tables.Count is not 0);
-        foreach (XmlNode table in tables)
-        { }
-
-        throw new NotImplementedException();
-    }
-
-    private static IEnumerable<string> ParseMajorVersionTable(XmlNode table)
-    {
-        FixColSpans(table);
-        FixRowSpans(table);
-
-        // TODO: won't work for watchOS
-        bool specialAtvFormat = table.ChildNodes[1]!.InnerText.Contains("Marketing");
-
-        int buildCellIdx = -1;
-        int keysCellIdx = -1;
-        int releaseDateCellIdx = -1;
-        int urlCellIdx = -1;
-        int hashCellIdx = -1;
-        int fileSizeCellIdx = -1;
-        XmlNode row0 = table.ChildNodes[0]!;
-        for (int colIdx = 0; colIdx < row0.ChildNodes.Count; colIdx++)
+        Debug.Assert(tables.Count == tableProps.Length);
+        for (int i = 0; i < tables.Count; i++)
         {
-            XmlNode cell = row0.ChildNodes[colIdx]!;
-            string cellName = cell.Value!.Trim().ToLower();
-            if (cellName is "build")
-                buildCellIdx = colIdx;
-            if (cellName is "keys")
-                keysCellIdx = colIdx;
-            if (cellName.Contains("date"))
-                releaseDateCellIdx = colIdx;
-            if (cellName.Contains("ipsw"))
-                urlCellIdx = colIdx;
-            if (cellName.Contains("sha1"))
-                hashCellIdx = colIdx;
-            if (cellName.Contains("size"))
-                fileSizeCellIdx = colIdx;
-        }
+            XmlNode table = tables[i]!;
+            FixColSpans(table);
+            FixRowSpans(table);
+            string[] descriptor = tableProps[i].Split(' ');
+            Debug.Assert(table.ChildNodes[0]!.ChildNodes.Count == descriptor.Length);
 
-        foreach (XmlNode row in table.ChildNodes)
-        {
-            if (row.InnerText.Contains("Version") || row.InnerText.Contains("Marketing"))
-                continue;
 
-            FirmwareVersion version = new();
-
-            version.Version = row.ChildNodes[0]!.InnerText.Trim();
-            if (specialAtvFormat)
+            foreach (XmlNode row in table.ChildNodes)
             {
-                string @internal = row.ChildNodes[1]!.InnerText.Trim();
-                if (version.Version == @internal)
+                // skip headers
+                if (row.ChildNodes[0]!.Name is "th")
+                    continue;
+
+                FirmwareVersionEntry version = new();
+                for (int cellIdx = 0; cellIdx < descriptor.Length; cellIdx++)
                 {
-                    // should only be true on ATV-4.3 (8F455.2557)
-                    Debug.Assert(row.ChildNodes[2]!.InnerText.Trim() is "2557");
-                    version.Version = "4.3";
+                    XmlNode cell = row.ChildNodes[cellIdx]!;
+                    string cellText = cell.InnerText.Trim();
+                    string thisDescriptor = descriptor[cellIdx];
+                    switch (thisDescriptor)
+                    {
+                        case "vm": // Marketing version (always comes before "v")
+                            version.Version = cellText;
+                            continue;
+                        case "v": // iOS version
+                            version.Version = version.Version is ""
+                                ? cell.InnerText.Trim()
+                                : $"{version.Version} (iOS {cellText})";
+                            continue;
+                        case "bm": // Marketing build (always comes before "b")
+                            version.Build = cellText;
+                            continue;
+                        case "b": // Build
+                            version.Build = version.Build is ""
+                                ? cell.InnerText.Trim()
+                                : $"{version.Build} ({cellText})";
+                            continue;
+
+                        // case "k..." handled below
+                        // case "bb", "bb..." ignored for now
+                        case "r": // Release date
+                            if (DateTime.TryParse(cellText, out DateTime dt))
+                                version.ReleaseDate = dt;
+                            continue;
+                        case "u": // Download URL
+                            // ReSharper disable once LoopCanBeConvertedToQuery
+                            foreach (XmlNode link in cell.SelectNodes(".//@href")!)
+                            {
+                                // skip cite links
+                                if (link.Value![0] is '#')
+                                    continue;
+                                version.Url = link.Value!;
+                                break;
+                            }
+                            continue;
+                        case "h": // Hash
+                            if (cellText is "?" or "N/A")
+                                continue;
+                            Debug.Assert(cellText.Length is 40);
+                            version.Hash = cellText;
+                            continue;
+                        case "s": // File size
+                            if (long.TryParse(cellText.Replace(",", ""), out long l))
+                                version.FileSize = l;
+                            continue;
+                        case "d": // Documentation
+                        case "i": // Ignore
+                            continue;
+                    }
+                    if (thisDescriptor[..2] is "bb")
+                        continue; // skip baseband
+                    Debug.Assert(thisDescriptor[0] is 'k');
+                    string[] devices = thisDescriptor[2..^1].Split(';');
+                    List<FirmwareVersionEntryUrl> keyPages = new();
+                    foreach (XmlNode link in cell.SelectNodes(".//a")!)
+                    {
+                        // skip cite links
+                        string url = link.SelectSingleNode("@href")!.Value!;
+                        if (url[0] is '#')
+                            continue;
+                        bool redlink = url.EndsWith("redlink=1");
+                        string device = link.InnerText.Trim();
+                        Debug.Assert(devices.Contains(device));
+                        if (!redlink)
+                            Debug.Assert(url.StartsWith(WIKI_URL_START));
+                        keyPages.Add(new(device, redlink ? null : url[WIKI_URL_START.Length..]));
+                    }
+                    version.KeyPages = keyPages.ToArray();
                 }
-                else
-                {
-                    version.Version = $"{version.Version}/{@internal}";
-                }
+                foreach (FirmwareVersionEntryUrl url in version.KeyPages!)
+                    Versions[DeviceIDHelpers.FromStringID(url.Device)].Add(version.CloneOneDevice(url.Device));
             }
-
-            version.Build = row.ChildNodes[buildCellIdx]!.InnerText.Trim();
-
-            XmlNodeList keyPageCell = row.ChildNodes[keysCellIdx]!.SelectNodes(".//@href")!;
-            version.HasKeys = keyPageCell.Count is not 0;
-            string device = "";
-            string url = "";
-            if (version.HasKeys)
-            {
-                Debug.Assert(keyPageCell.Count is 1);
-                url = keyPageCell[0]!.Value!;
-                int start = url.IndexOf('(');
-                int end = url.IndexOf(')');
-                device = url[(start + 1)..(end - start - 1)];
-                if (url.Contains("redlink"))
-                    version.HasKeys = false;
-            }
-
-            version.ReleaseDate = DateTime.Parse(row.ChildNodes[releaseDateCellIdx]!.InnerText.Trim());
-            version.Url = row.ChildNodes[urlCellIdx]!.InnerText.Trim();
-            version.Hash = row.ChildNodes[hashCellIdx]!.InnerText.Trim();
-            version.FileSize = row.ChildNodes[fileSizeCellIdx]!.InnerText.Trim();
-
-            Versions[device].Add(version);
-
-            yield return url;
         }
     }
+#endregion
 
     private static KeyPage ParseKeyPage(string contents)
     {
@@ -129,13 +221,13 @@ public static class Program
         string[] lines = contents
             .Replace("{{keys", "")
             .Replace("}}", "")
-            .Split(new[] { '\n', '\r' }, 200, StringSplitOptions.RemoveEmptyEntries);
+            .Split(new[] { '\n', '\r' }, 200, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
 
         Dictionary<string, string> props = new();
         foreach (string line in lines)
         {
-            Debug.Assert(line.StartsWith(" | "));
-            string[] lineProps = line.Split('=', 2, StringSplitOptions.TrimEntries);
+            Debug.Assert(line.StartsWith("| "));
+            string[] lineProps = line[2..].Split('=', 2, StringSplitOptions.TrimEntries);
             props.Add(lineProps[0], lineProps[1]);
         }
 
@@ -145,6 +237,9 @@ public static class Program
 
     private static KeyPage BuildKeyPageFromDictionary(Dictionary<string, string> props)
     {
+        if (props.ContainsKey("Model") && !props.ContainsKey("Model2"))
+            props.Remove("Model"); // TODO: fix pages with this issue
+
         KeyPage page = new()
         {
             Version = props["Version"],
@@ -158,26 +253,22 @@ public static class Program
 
         if (props.TryGetValue("RootFS", out s))
         {
-            page.RootFS = new(s);
+            page.RootFS = new($"{s}.dmg");
             s = props["RootFSKey"];
             if (s is "Not Encrypted")
                 page.RootFS.Encrypted = false;
-            else if (s is "Unknown")
-                page.RootFS.Key = null;
             else
-                page.RootFS.Key = s;
+                page.RootFS.Key = s is "Unknown" ? null : s;
         }
 
         if (props.TryGetValue("RootFSBeta", out s))
         {
-            page.RootFSBeta = new(s);
+            page.RootFSBeta = new($"{s}.dmg");
             s = props["RootFSBetaKey"];
             if (s is "Not Encrypted")
                 page.RootFSBeta.Encrypted = false;
-            else if (s is "Unknown")
-                page.RootFSBeta.Key = null;
             else
-                page.RootFSBeta.Key = s;
+                page.RootFSBeta.Key = s is "Unknown" ? null : s;
         }
 
         foreach (FirmwareItemType enumVal in Enum.GetValues<FirmwareItemType>())
@@ -186,16 +277,38 @@ public static class Program
             if (!props.TryGetValue(enumStr, out string? filename))
                 continue;
 
-            FirmwareItem item = new(filename);
-            string iv = props[$"{enumStr}IV"];
-            if (iv is "Not Encrypted")
-                item.Encrypted = false;
-            else if (iv is "Unknown")
-                item.KBag = props[$"{enumStr}KBAG"];
-            else
-                item.IVKey = new(iv, props[$"{enumStr}Key"]);
+            if (enumStr.Contains("Ramdisk"))
+                filename += ".dmg";
 
-            page.FirmwareItems.Add(enumVal, item);
+            FirmwareItem item = new(filename);
+            try
+            {
+                string iv = props[$"{enumStr}IV"];
+
+                switch (iv)
+                {
+                    case "Not Encrypted":
+                        item.Encrypted = false;
+                        break;
+
+                    // ReSharper disable once StringLiteralTypo
+                    case "Unknown":
+                        if (props.TryGetValue($"{enumStr}KBAG", out s))
+                            item.KBag = s;
+                        break;
+
+                    default:
+                        item.IVKey = new(iv, props[$"{enumStr}Key"]);
+                        break;
+                }
+                page.FirmwareItems.Add(enumVal, item);
+            }
+            catch
+            {
+                // page with bad syntax
+                // could probably recover, but just fix the source and rerun this program
+                ;
+            }
         }
 
         return page;
@@ -203,32 +316,37 @@ public static class Program
 
     private static async Task<XmlDocument> GetPageAsXml(string page)
     {
-        string contents = await Client.GetStringAsync($"{URL_START}{page}{URL_END_HTML}");
+        string url = $"{URL_START}{page}{URL_END_HTML}";
+        Debug.WriteLine($"Downloading: {url}");
+        string contents = await Client.GetStringAsync(url);
         return new()
         {
             InnerXml = contents,
         };
     }
 
-    private static async Task<string> GetPageAsRawWikiText(string page) =>
-        await Client.GetStringAsync($"{URL_START}{page}{URL_END_RAW}");
+    private static async Task<string> GetPageAsRawWikiText(string page)
+    {
+        string url = $"{URL_START}{page}{URL_END_RAW}";
+        Debug.WriteLine($"Downloading: {url}");
+        return await Client.GetStringAsync(url);
+    }
 
     private static void FixRowSpans(XmlNode table)
     {
         // This method is a pretty inefficient way IMHO of fixing the problem...
 
-        XmlNodeList rows = table.ChildNodes[0]!.ChildNodes;
+        XmlNodeList rows = table.ChildNodes;
         int rowCount = rows.Count;
 
         // Subtract 1 to ignore the release notes column (it causes
         //   problems when using XmlNode.InsertBefore(...) and we
         //   don't care about it)
-        int colCount = rows[0]!.ChildNodes.Count - 1;
-        int startRow = rows[1]!.InnerText.Contains("Marketing") ? 2 : 1;
+        int colCount = rows[0]!.ChildNodes.Count;
 
         for (int col = 0; col < colCount; col++)
         {
-            for (int row = startRow; row < rowCount; row++)
+            for (int row = 0; row < rowCount; row++)
             {
                 XmlNode cell = rows[row]!.ChildNodes[col]!;
                 Debug.Assert(cell != null);
@@ -238,7 +356,6 @@ public static class Program
                     if (attr.Name != "rowspan")
                         continue;
                     int val = Convert.ToInt32(attr.Value);
-                    Debug.Assert(val >= 2); // check for `rowspan="1"`
                     cell.Attributes.Remove(attr);
                     for (int i = 1; i < val; i++)
                     {
@@ -258,7 +375,7 @@ public static class Program
 
     private static void FixColSpans(XmlNode table)
     {
-        foreach (XmlNode row in table.ChildNodes[0]!.ChildNodes)
+        foreach (XmlNode row in table.ChildNodes)
         {
         restart:
             foreach (XmlNode cell in row.ChildNodes)
