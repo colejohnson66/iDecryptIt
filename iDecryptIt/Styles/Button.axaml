@@ -1,0 +1,44 @@
+﻿<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:svg="clr-namespace:Avalonia.Svg.Skia;assembly=Avalonia.Svg.Skia"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Design.PreviewWith>
+        <Border Padding="10">
+            <Button Classes="WithImage Vertical">
+                <StackPanel>
+                    <Image Source="{svg:SvgImage /Assets/Icons/unlock.svg}" />
+                    <TextBlock Text="Decrypt" />
+                </StackPanel>
+            </Button>
+        </Border>
+    </Design.PreviewWith>
+
+    <Style Selector="Button">
+        <Setter Property="BorderBrush" Value="{DynamicResource ColorBlack}" />
+    </Style>
+
+    <Style Selector="Button.WithImage Image">
+        <Setter Property="Height" Value="32" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="Width" Value="32" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+
+    <Style Selector="Button.WithImage.Horizontal StackPanel">
+        <Setter Property="Orientation" Value="Horizontal" />
+    </Style>
+    <Style Selector="Button.WithImage.Horizontal TextBlock">
+        <Setter Property="Margin" Value="4,0,0,0"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+
+    <Style Selector="Button.WithImage.Vertical StackPanel">
+        <Setter Property="Orientation" Value="Vertical" />
+    </Style>
+    <Style Selector="Button.WithImage.Vertical TextBlock">
+        <Setter Property="Margin" Value="0,4,0,0"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Center" />
+    </Style>
+
+</Styles>

@@ -1,20 +1,324 @@
 <Window
     xmlns="https://github.com/avaloniaui"
+    xmlns:controls="clr-namespace:iDecryptIt.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:iDecryptIt.ViewModels"
+    xmlns:svg="clr-namespace:Avalonia.Svg.Skia;assembly=Avalonia.Svg.Skia"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
     x:Class="iDecryptIt.Views.MainWindow"
+    Background="{DynamicResource ColorSky100}"
+    Height="600" Width="800"
+    MinHeight="600" MinWidth="800"
     Title="iDecryptIt">
 
     <Design.DataContext>
         <vm:MainWindowViewModel />
     </Design.DataContext>
 
-    <TextBlock
-        HorizontalAlignment="Center"
-        Text="{Binding Greeting}"
-        VerticalAlignment="Center" />
+    <DockPanel
+        LastChildFill="True"
+        Margin="{DynamicResource PaddingAll}">
+
+        <Border
+            DockPanel.Dock="Top"
+            Background="{DynamicResource ColorGray200}"
+            Margin="{DynamicResource PaddingAll}">
+            <Border
+                Background="{DynamicResource ColorWhite}"
+                Margin="{DynamicResource PaddingAll}">
+                <DockPanel
+                    LastChildFill="True"
+                    Margin="{DynamicResource PaddingAll}">
+
+                    <Separator
+                        DockPanel.Dock="Left"
+                        Width="4" />
+
+                    <StackPanel
+                        DockPanel.Dock="Left"
+                        Orientation="Vertical"
+                        Spacing="4"
+                        VerticalAlignment="Center">
+                        <Button
+                            Classes="WithImage Vertical"
+                            HorizontalAlignment="Center">
+                            <StackPanel>
+                                <Image Source="{svg:SvgImage /Assets/Icons/unlock.svg}" />
+                                <TextBlock Text="Decrypt" />
+                            </StackPanel>
+                        </Button>
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            IsVisible="{Binding DecryptingRootFS}"
+                            MaxWidth="100"
+                            TextWrapping="Wrap">Decrypting Root FS</TextBlock>
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            IsVisible="{Binding !DecryptingRootFS}"
+                            MaxWidth="100"
+                            TextWrapping="Wrap">Decrypting FW Item</TextBlock>
+                        <Button
+                            Command="{Binding DecryptingRootFSSwitchCommand}"
+                            Content="Switch"
+                            HorizontalAlignment="Center" />
+                    </StackPanel>
+
+                    <Separator
+                        DockPanel.Dock="Left"
+                        Width="4" />
+
+                    <UniformGrid
+                        DockPanel.Dock="Right"
+                        IsVisible="{Binding DecryptingRootFS}"
+                        Rows="3">
+                        <Button
+                            Content="Select Input..."
+                            Command="{Binding RootFSOpenCommand}"
+                            CommandParameter="input"
+                            HorizontalAlignment="Center"
+                            Margin="{DynamicResource PaddingAll}" />
+                        <Button
+                            Content="Select Output..."
+                            Command="{Binding RootFSOpenCommand}"
+                            CommandParameter="output"
+                            HorizontalAlignment="Center"
+                            Margin="{DynamicResource PaddingAll}" />
+                        <Button
+                            Content="Copy Key"
+                            Command="{Binding RootFSCopyKeyCommand}"
+                            HorizontalAlignment="Center"
+                            Margin="{DynamicResource PaddingAll}" />
+                    </UniformGrid>
+                    <UniformGrid
+                        DockPanel.Dock="Right"
+                        IsVisible="{Binding !DecryptingRootFS}"
+                        Rows="4">
+                        <Button
+                            Content="Select Input..."
+                            Command="{Binding DecryptOpenCommand}"
+                            CommandParameter="input"
+                            HorizontalAlignment="Center"
+                            Margin="{DynamicResource PaddingAll}" />
+                        <Button
+                            Content="Select Output..."
+                            Command="{Binding DecryptOpenCommand}"
+                            CommandParameter="output"
+                            HorizontalAlignment="Center"
+                            Margin="{DynamicResource PaddingAll}" />
+                    </UniformGrid>
+
+                    <Panel>
+                        <UniformGrid
+                            IsVisible="{Binding DecryptingRootFS}"
+                            Rows="3">
+                            <TextBox
+                                Margin="{DynamicResource PaddingAll}"
+                                MaxHeight="24"
+                                Text="{Binding RootFSInput}"
+                                Watermark="Input Path" />
+                            <TextBox
+                                Margin="{DynamicResource PaddingAll}"
+                                MaxHeight="24"
+                                Text="{Binding RootFSOutput}"
+                                Watermark="Output Path" />
+                            <TextBox
+                                Margin="{DynamicResource PaddingAll}"
+                                MaxHeight="24"
+                                Text="{Binding RootFSKey}"
+                                Watermark="Key" />
+                        </UniformGrid>
+                        <UniformGrid
+                            IsVisible="{Binding !DecryptingRootFS}"
+                            Rows="4">
+                            <TextBox
+                                Margin="{DynamicResource PaddingAll}"
+                                Text="{Binding DecryptInput}"
+                                Watermark="Input Path" />
+                            <TextBox
+                                Margin="{DynamicResource PaddingAll}"
+                                Text="{Binding DecryptOutput}"
+                                Watermark="Output Path" />
+                            <TextBox
+                                Margin="{DynamicResource PaddingAll}"
+                                Text="{Binding DecryptIV}"
+                                Watermark="IV" />
+                            <TextBox
+                                Margin="{DynamicResource PaddingAll}"
+                                Text="{Binding DecryptKey}"
+                                Watermark="Key" />
+                        </UniformGrid>
+                    </Panel>
+
+                </DockPanel>
+            </Border>
+        </Border>
+
+        <Separator
+            DockPanel.Dock="Top"
+            Height="4" />
+
+        <Border
+            DockPanel.Dock="Top"
+            Background="{DynamicResource ColorGray200}"
+            Margin="{DynamicResource PaddingAll}">
+            <Border
+                Background="{DynamicResource ColorWhite}"
+                Margin="{DynamicResource PaddingAll}">
+                <DockPanel
+                    LastChildFill="True"
+                    Margin="{DynamicResource PaddingAll}">
+
+                    <Separator
+                        DockPanel.Dock="Left"
+                        Width="4" />
+
+                    <Button
+                        DockPanel.Dock="Left"
+                        Classes="WithImage Vertical"
+                        HorizontalAlignment="Center">
+                        <StackPanel>
+                            <Image Source="{svg:SvgImage /Assets/Icons/file-earmark-zip.svg}" />
+                            <TextBlock Text="Extract" />
+                        </StackPanel>
+                    </Button>
+
+                    <Separator
+                        DockPanel.Dock="Left"
+                        Width="4" />
+
+                    <UniformGrid
+                        DockPanel.Dock="Right"
+                        Rows="2">
+                        <Button
+                            Content="Select Input..."
+                            Command="{Binding ExtractOpenCommand}"
+                            CommandParameter="input"
+                            HorizontalAlignment="Center"
+                            Margin="{DynamicResource PaddingAll}" />
+                        <Button
+                            Content="Select Output..."
+                            Command="{Binding ExtractOpenCommand}"
+                            CommandParameter="output"
+                            HorizontalAlignment="Center"
+                            Margin="{DynamicResource PaddingAll}" />
+                    </UniformGrid>
+
+                    <UniformGrid Rows="2">
+                        <TextBox
+                            Margin="{DynamicResource PaddingAll}"
+                            Text="{Binding ExtractInput}"
+                            Watermark="Input Path" />
+                        <TextBox
+                            Margin="{DynamicResource PaddingAll}"
+                            Text="{Binding ExtractOutput}"
+                            Watermark="Output Folder" />
+                    </UniformGrid>
+
+                </DockPanel>
+            </Border>
+        </Border>
+
+        <Separator
+            DockPanel.Dock="Top"
+            Height="4" />
+
+        <Border
+            DockPanel.Dock="Top"
+            Background="{DynamicResource ColorGray200}"
+            Margin="{DynamicResource PaddingAll}">
+            <Border
+                Background="{DynamicResource ColorWhite}"
+                Margin="{DynamicResource PaddingAll}">
+                <DockPanel
+                    LastChildFill="True"
+                    Margin="{DynamicResource PaddingAll}">
+
+                    <Separator
+                        DockPanel.Dock="Right"
+                        Width="4" />
+
+                    <Button
+                        DockPanel.Dock="Right"
+                        Classes="WithImage Horizontal"
+                        HorizontalAlignment="Center">
+                        <StackPanel>
+                            <Image Source="{svg:SvgImage /Assets/Icons/key.svg}" />
+                            <TextBlock Text="View Keys" />
+                        </StackPanel>
+                    </Button>
+
+                    <Separator
+                        DockPanel.Dock="Right"
+                        Width="4" />
+
+                    <Separator
+                        DockPanel.Dock="Left"
+                        Width="4" />
+
+                    <UniformGrid Columns="3">
+                        <ComboBox
+                            HorizontalAlignment="Stretch"
+                            Items="{Binding ViewKeysDeviceList}"
+                            Margin="{DynamicResource PaddingR}"
+                            SelectedIndex="{Binding ViewKeysDeviceListSelected}"
+                            PlaceholderForeground="{DynamicResource ColorGray400}"
+                            PlaceholderText="Select Device"
+                            VerticalAlignment="Center" />
+                        <ComboBox
+                            HorizontalAlignment="Stretch"
+                            IsEnabled="{Binding ViewKeysModelListEnabled}"
+                            Items="{Binding ViewKeysModelList}"
+                            Margin="{DynamicResource PaddingR}"
+                            SelectedIndex="{Binding ViewKeysModelListSelected}"
+                            PlaceholderForeground="{DynamicResource ColorGray400}"
+                            PlaceholderText="Select Model"
+                            VerticalAlignment="Center" />
+                        <ComboBox
+                            HorizontalAlignment="Stretch"
+                            IsEnabled="{Binding ViewKeysBuildListEnabled}"
+                            Items="{Binding ViewKeysBuildList}"
+                            Margin="{DynamicResource PaddingR}"
+                            SelectedIndex="{Binding ViewKeysBuildListSelected}"
+                            PlaceholderForeground="{DynamicResource ColorGray400}"
+                            PlaceholderText="Select Build"
+                            VerticalAlignment="Center" />
+                    </UniformGrid>
+
+                </DockPanel>
+            </Border>
+        </Border>
+
+        <Separator
+            DockPanel.Dock="Top"
+            Height="4" />
+
+        <Border
+            DockPanel.Dock="Top"
+            Background="{DynamicResource ColorGray200}"
+            Margin="{DynamicResource PaddingAll}">
+            <Border
+                Background="{DynamicResource ColorWhite}"
+                Margin="{DynamicResource PaddingAll}">
+                <ScrollViewer
+                    Margin="{DynamicResource PaddingAll}">
+                    <StackPanel
+                        Margin="{DynamicResource PaddingAll}"
+                        Orientation="Vertical"
+                        Spacing="4">
+
+                        <controls:FirmwareItem
+                            ItemKind="AudioCodecFirmware2"
+                            IV="abc"
+                            Key="def"
+                            FileName="123" />
+
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+        </Border>
+
+    </DockPanel>
 
 </Window>

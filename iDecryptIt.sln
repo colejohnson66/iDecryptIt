@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iDecryptIt", "iDecryptIt\iD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iDecryptIt.Shared", "iDecryptIt.Shared\iDecryptIt.Shared.csproj", "{209BA5DF-398E-4654-85E2-F026FFCC51F2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyGrabber", "KeyGrabber\KeyGrabber.csproj", "{82510FB3-F606-4F2D-AB3E-ACB8519B8F98}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -16,13 +18,9 @@ Global
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{C7D0639F-8A98-441B-B1A6-420DF6122573}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C7D0639F-8A98-441B-B1A6-420DF6122573}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C7D0639F-8A98-441B-B1A6-420DF6122573}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C7D0639F-8A98-441B-B1A6-420DF6122573}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A627FA1E-BE08-4003-B14B-51DC5C05FE6A}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{A627FA1E-BE08-4003-B14B-51DC5C05FE6A}.Debug|Any CPU.Build.0 = Debug|x86
 		{A627FA1E-BE08-4003-B14B-51DC5C05FE6A}.Release|Any CPU.ActiveCfg = Release|x86
-		{A627FA1E-BE08-4003-B14B-51DC5C05FE6A}.Release|Any CPU.Build.0 = Release|x86
 		{57453F7A-045A-4BC2-941E-8C5E011AF45D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{57453F7A-045A-4BC2-941E-8C5E011AF45D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57453F7A-045A-4BC2-941E-8C5E011AF45D}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -31,5 +29,9 @@ Global
 		{209BA5DF-398E-4654-85E2-F026FFCC51F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{209BA5DF-398E-4654-85E2-F026FFCC51F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{209BA5DF-398E-4654-85E2-F026FFCC51F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82510FB3-F606-4F2D-AB3E-ACB8519B8F98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82510FB3-F606-4F2D-AB3E-ACB8519B8F98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82510FB3-F606-4F2D-AB3E-ACB8519B8F98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82510FB3-F606-4F2D-AB3E-ACB8519B8F98}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

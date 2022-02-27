@@ -5,6 +5,8 @@ namespace iDecryptIt.Shared;
 [PublicAPI]
 public enum FirmwareItemType
 {
+    RootFS,
+    RootFSBeta,
     UpdateRamdisk,
     UpdateRamdisk2,
     UpdateRamdiskOTA,

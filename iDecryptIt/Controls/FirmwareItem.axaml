@@ -1,0 +1,85 @@
+﻿<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:controls="clr-namespace:iDecryptIt.Controls"
+    xmlns:converters="clr-namespace:iDecryptIt.Converters"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Design.PreviewWith>
+        <controls:FirmwareItem
+            ItemKind="AppleLogo"
+            FileName="abc"
+            Key="456"
+            Width="800" />
+    </Design.PreviewWith>
+
+    <Styles.Resources>
+        <converters:ConcatConverter x:Key="ConcatConverter" />
+        <converters:FirmwareItemTypeNameConverter x:Key="NameConverter" />
+        <converters:FirmwareItemTypeIsRootFSConverter x:Key="IsRootFSConverter" />
+    </Styles.Resources>
+
+    <Style Selector="controls|FirmwareItem">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <DockPanel
+                    LastChildFill="True">
+
+                    <TextBlock
+                        DockPanel.Dock="Left"
+                        MinWidth="125"
+                        Text="{TemplateBinding Property=ItemKind, Converter={StaticResource NameConverter}}"
+                        VerticalAlignment="Center" />
+
+                    <Separator
+                        DockPanel.Dock="Left"
+                        Width="8" />
+
+                    <TextBox
+                        DockPanel.Dock="Right"
+                        MinWidth="150"
+                        VerticalAlignment="Center"
+                        Watermark="Unknown" />
+
+                    <Separator
+                        DockPanel.Dock="Right"
+                        Width="8" />
+
+                    <UniformGrid
+                        Columns="1">
+                        <DockPanel
+                            IsVisible="{TemplateBinding IV, Converter={x:Static ObjectConverters.IsNotNull}}"
+                            Margin="{StaticResource PaddingAll}"
+                            LastChildFill="True">
+                            <TextBlock
+                                DockPanel.Dock="Left"
+                                HorizontalAlignment="Center"
+                                MinWidth="35"
+                                Text="IV: "
+                                VerticalAlignment="Center" />
+                            <TextBox
+                                IsReadOnly="True"
+                                Text="{TemplateBinding IV}"
+                                Watermark="Unknown" />
+                        </DockPanel>
+                        <DockPanel
+                            IsVisible="{TemplateBinding Key, Converter={x:Static ObjectConverters.IsNotNull}}"
+                            Margin="{StaticResource PaddingAll}"
+                            LastChildFill="True">
+                            <TextBlock
+                                DockPanel.Dock="Left"
+                                HorizontalAlignment="Center"
+                                MinWidth="35"
+                                Text="Key: "
+                                VerticalAlignment="Center" />
+                            <TextBox
+                                IsReadOnly="True"
+                                Text="{TemplateBinding Key}"
+                                Watermark="Unknown" />
+                        </DockPanel>
+                    </UniformGrid>
+
+                </DockPanel>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+</Styles>
