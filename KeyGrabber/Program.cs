@@ -22,17 +22,87 @@ public static class Program
     private static readonly HttpClient Client = new();
     private static readonly string CurrentDirectory = Directory.GetCurrentDirectory();
     private static readonly string KeysDir = Path.Combine(CurrentDirectory, "Keys");
+    private static readonly string OutputDir = Path.Combine(CurrentDirectory, "Output");
     private static readonly Dictionary<DeviceID, List<FirmwareVersionEntry>> Versions = new();
 
     public static async Task Main()
     {
         if (Directory.Exists(KeysDir))
             Directory.Delete(KeysDir, true);
+        if (Directory.Exists(OutputDir))
+            Directory.Delete(OutputDir, true);
         Directory.CreateDirectory(KeysDir);
+        Directory.CreateDirectory(OutputDir);
 
         foreach (DeviceID id in Enum.GetValues<DeviceID>())
             Versions.Add(id, new());
 
+        await ProcessDescriptors();
+
+        Debug.WriteLine("Descriptor parsing complete.");
+        Debug.WriteLine("Generating 'HasKeys.bin'...");
+
+        await using BinaryWriter hasKeysWriter = new(File.OpenWrite(Path.Combine(OutputDir, "HasKeys.bin")), Encoding.UTF8);
+        foreach (char c in IOHelpers.HEADER_HAS_KEYS) // 16 byte header
+            hasKeysWriter.Write((byte)c);
+        foreach ((DeviceID id, List<FirmwareVersionEntry> entries) in Versions)
+        {
+            hasKeysWriter.Write(id.ToStringID());
+            hasKeysWriter.Write(entries.Count);
+            foreach (FirmwareVersionEntry entry in entries)
+                new HasKeysEntry(entry.Version, entry.Build, entry.KeyPages![0].Url is not null).Serialize(hasKeysWriter);
+        }
+
+        Debug.WriteLine("Beginning crawl...");
+
+        // Unfortunately, the wiki export caps at 5000 pages, so we have to crawl one by one...
+        // TODO: iterate by scanning [[Category:All Key Pages]] to avoid duplicates
+        foreach ((_, List<FirmwareVersionEntry> entries) in Versions)
+        {
+            await Parallel.ForEachAsync(
+                entries, async (entry, _) =>
+                {
+                    if (entry.KeyPages?[0].Url is null)
+                        return;
+
+                    KeyPage page = ParseKeyPage(await GetPageAsRawWikiText(entry.KeyPages[0].Url!));
+
+                    string fileName = $"{KeysDir}/{page.Device}_{page.Build}.bin";
+                    if (new FileInfo(fileName).Exists)
+                        return; // duplicate
+                    await using BinaryWriter pageWriter = new(File.OpenWrite(fileName));
+                    page.Serialize(pageWriter);
+                });
+        }
+
+        Debug.WriteLine("Crawl and save complete.");
+        Debug.WriteLine("Bundling...");
+
+        // bundle them up
+        foreach (DeviceID id in Enum.GetValues<DeviceID>())
+        {
+            Debug.WriteLine($"Bundling {id}.");
+            string idStr = id.ToStringID();
+            KeyPageBundleWriter writer = new();
+            foreach (string file in Directory.GetFiles(KeysDir, $"{idStr}_*.bin"))
+            {
+                string build = new FileInfo(file).Name[(idStr.Length + 1)..^4];
+                byte[] contents = await File.ReadAllBytesAsync(file);
+                writer.AddFile(build, contents);
+            }
+            await using BinaryWriter bundleWriter = new(File.OpenWrite(Path.Combine(OutputDir, $"{idStr}.bin")));
+            writer.WriteBundle(bundleWriter);
+        }
+
+        Debug.WriteLine("Bundling complete.");
+        Debug.WriteLine("");
+        Debug.WriteLine("Done!");
+    }
+
+    #region Descriptors
+
+    private static async Task ProcessDescriptors()
+    {
         await ProcessDescriptor("Firmware/Apple_TV/", Descriptors.AppleTVFirmwarePages);
         await ProcessDescriptor("Firmware/Apple_Watch/", Descriptors.AppleWatchFirmwarePages);
         await ProcessDescriptor("Firmware/HomePod/", Descriptors.HomePodFirmwarePages);
@@ -55,56 +125,8 @@ public static class Program
         await ProcessDescriptor("Beta_Firmware/iPad_mini/", Descriptors.IPadMiniBetaFirmwarePages);
         await ProcessDescriptor("Beta_Firmware/iPhone/", Descriptors.IPhoneBetaFirmwarePages);
         await ProcessDescriptor("Beta_Firmware/iPod_touch/", Descriptors.IPodTouchBetaFirmwarePages);
-
-        await using BinaryWriter hasKeysWriter = new(File.OpenWrite("HasKeys.bin"), Encoding.UTF8);
-        foreach (char c in "iDecryptItHasKey") // 16 byte header
-            hasKeysWriter.Write((byte)c);
-        foreach ((DeviceID id, List<FirmwareVersionEntry> entries) in Versions)
-        {
-            hasKeysWriter.Write(id.ToStringID());
-            hasKeysWriter.Write(entries.Count);
-            foreach (FirmwareVersionEntry entry in entries)
-                new HasKeysEntry(entry.Version, entry.Build, entry.KeyPages![0].Url is not null).Serialize(hasKeysWriter);
-        }
-
-        // Unfortunately, the wiki export caps at 5000 pages, so we have to crawl one by one...
-        foreach ((_, List<FirmwareVersionEntry> entries) in Versions)
-        {
-            await Parallel.ForEachAsync(
-                entries, async (entry, _) =>
-                {
-                    if (entry.KeyPages?[0].Url is null)
-                        return;
-                    string text;
-                    while (true)
-                    {
-                        try
-                        {
-                            text = await GetPageAsRawWikiText(entry.KeyPages[0].Url!);
-                            break;
-                        }
-                        catch (Exception)
-                        {
-                            Thread.Sleep(15000);
-                        }
-                    }
-                    KeyPage page = ParseKeyPage(text);
-
-                    string fileName = $"{KeysDir}/{page.Device}_{page.Build}.bin";
-                    if (new FileInfo(fileName).Exists)
-                        fileName = $"{KeysDir}/___{page.Device}_{page.Build}_{DateTime.Now.ToString("O").Replace(':', '_')}.bin";
-                    await using BinaryWriter pageWriter = new(File.OpenWrite(fileName));
-                    foreach (char c in "iDecryptItKeyFil") // 16 byte header
-                        pageWriter.Write((byte)c);
-                    page.Serialize(pageWriter);
-                });
-        }
-
-        Debug.WriteLine("");
-        Debug.WriteLine("DONE!");
     }
 
-#region Descriptors
     private static async Task ProcessDescriptor(string basePageName, Dictionary<string, string[]> descriptor)
     {
         foreach ((string? majorVersion, string[]? tables) in descriptor)
@@ -212,7 +234,10 @@ public static class Program
             }
         }
     }
-#endregion
+
+    #endregion
+
+    #region Key Page Parsing
 
     private static KeyPage ParseKeyPage(string contents)
     {
@@ -238,7 +263,10 @@ public static class Program
     private static KeyPage BuildKeyPageFromDictionary(Dictionary<string, string> props)
     {
         if (props.ContainsKey("Model") && !props.ContainsKey("Model2"))
+        {
+            File.WriteAllText($"BAD_{props["Device"]}_{props["Build"]}", "");
             props.Remove("Model"); // TODO: fix pages with this issue
+        }
 
         KeyPage page = new()
         {
@@ -303,34 +331,46 @@ public static class Program
                 }
                 page.FirmwareItems.Add(enumVal, item);
             }
-            catch
+            catch (Exception ex)
             {
-                // page with bad syntax
-                // could probably recover, but just fix the source and rerun this program
-                ;
+                // TODO: page with bad syntax - fix it
+                File.WriteAllText($"BAD_{props["Device"]}_{props["Build"]}_{enumStr}", ex.Message);
             }
         }
 
         return page;
     }
 
-    private static async Task<XmlDocument> GetPageAsXml(string page)
+    #endregion
+
+    #region URL Downloading
+
+    private static async Task<string> DownloadURL(string url)
     {
-        string url = $"{URL_START}{page}{URL_END_HTML}";
         Debug.WriteLine($"Downloading: {url}");
-        string contents = await Client.GetStringAsync(url);
-        return new()
+        while (true)
         {
-            InnerXml = contents,
-        };
+            try
+            {
+                return await Client.GetStringAsync(url);
+            }
+            catch
+            {
+                // network dip - hold off for a few seconds
+                Thread.Sleep(30000);
+            }
+        }
     }
 
-    private static async Task<string> GetPageAsRawWikiText(string page)
-    {
-        string url = $"{URL_START}{page}{URL_END_RAW}";
-        Debug.WriteLine($"Downloading: {url}");
-        return await Client.GetStringAsync(url);
-    }
+    private static async Task<XmlDocument> GetPageAsXml(string page) =>
+        new() { InnerXml = await DownloadURL($"{URL_START}{page}{URL_END_HTML}") };
+
+    private static Task<string> GetPageAsRawWikiText(string page) =>
+        DownloadURL($"{URL_START}{page}{URL_END_RAW}");
+
+    #endregion
+
+    #region Table Fixups
 
     private static void FixRowSpans(XmlNode table)
     {
@@ -398,4 +438,6 @@ public static class Program
             }
         }
     }
+
+    #endregion
 }

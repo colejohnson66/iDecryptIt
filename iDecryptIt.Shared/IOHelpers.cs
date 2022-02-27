@@ -8,6 +8,10 @@ namespace iDecryptIt.Shared;
 [PublicAPI]
 public static class IOHelpers
 {
+    public const string HEADER_BUNDLE = "iDecryptItBundle";
+    public const string HEADER_KEY_FILE = "iDecryptItKeyFil";
+    public const string HEADER_HAS_KEYS = "iDecryptItHasKey";
+
     public static byte[] DecodeFromHexString(string str)
     {
         Contract.Assert(str.Length % 2 is 0);
