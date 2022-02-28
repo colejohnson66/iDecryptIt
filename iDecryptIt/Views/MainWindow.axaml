@@ -3,14 +3,15 @@
     xmlns:controls="clr-namespace:iDecryptIt.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:iDecryptIt.Models"
     xmlns:vm="clr-namespace:iDecryptIt.ViewModels"
     xmlns:svg="clr-namespace:Avalonia.Svg.Skia;assembly=Avalonia.Svg.Skia"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
     x:Class="iDecryptIt.Views.MainWindow"
     Background="{DynamicResource ColorSky100}"
-    Height="600" Width="800"
-    MinHeight="600" MinWidth="800"
+    Height="800" Width="800"
+    MinHeight="800" MinWidth="800"
     Title="iDecryptIt">
 
     <Design.DataContext>
@@ -43,6 +44,7 @@
                         VerticalAlignment="Center">
                         <Button
                             Classes="WithImage Vertical"
+                            Command="{Binding DecryptCommand}"
                             HorizontalAlignment="Center">
                             <StackPanel>
                                 <Image Source="{svg:SvgImage /Assets/Icons/unlock.svg}" />
@@ -177,6 +179,7 @@
                     <Button
                         DockPanel.Dock="Left"
                         Classes="WithImage Vertical"
+                        Command="{Binding ExtractCommand}"
                         HorizontalAlignment="Center">
                         <StackPanel>
                             <Image Source="{svg:SvgImage /Assets/Icons/file-earmark-zip.svg}" />
@@ -242,6 +245,7 @@
                     <Button
                         DockPanel.Dock="Right"
                         Classes="WithImage Horizontal"
+                        Command="{Binding ViewKeysCommand}"
                         HorizontalAlignment="Center">
                         <StackPanel>
                             <Image Source="{svg:SvgImage /Assets/Icons/key.svg}" />
@@ -302,17 +306,28 @@
                 Background="{DynamicResource ColorWhite}"
                 Margin="{DynamicResource PaddingAll}">
                 <ScrollViewer
-                    Margin="{DynamicResource PaddingAll}">
+                    Margin="{DynamicResource PaddingAll}"
+                    Padding="4,0">
                     <StackPanel
                         Margin="{DynamicResource PaddingAll}"
-                        Orientation="Vertical"
-                        Spacing="4">
+                        Orientation="Vertical">
 
-                        <controls:FirmwareItem
-                            ItemKind="AudioCodecFirmware2"
-                            IV="abc"
-                            Key="def"
-                            FileName="123" />
+                        <TextBlock
+                            FontSize="36"
+                            Text="{Binding KeysHeading, FallbackValue=Device}" />
+
+                        <ItemsRepeater Items="{Binding KeyEntries}">
+                            <ItemsRepeater.ItemTemplate>
+                                <DataTemplate DataType="models:FirmwareItemModel">
+                                    <controls:FirmwareItem
+                                        ItemKind="{Binding ItemKind}"
+                                        FileName="{Binding FileName}"
+                                        Encrypted="{Binding Encrypted}"
+                                        IV="{Binding IV}"
+                                        Key="{Binding Key}" />
+                                </DataTemplate>
+                            </ItemsRepeater.ItemTemplate>
+                        </ItemsRepeater>
 
                     </StackPanel>
                 </ScrollViewer>

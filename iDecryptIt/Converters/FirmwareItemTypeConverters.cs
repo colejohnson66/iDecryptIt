@@ -16,8 +16,8 @@ public class FirmwareItemTypeNameConverter : IValueConverter
 
         return item switch
         {
-            FirmwareItemType.RootFS => "Root FS",
-            RootFSBeta => "Root FS (Beta)",
+            FirmwareItemType.RootFS => "Root Filesystem",
+            RootFSBeta => "Root Filesystem (Beta)",
             UpdateRamdisk or UpdateRamdisk2 => "Update Ramdisk",
             UpdateRamdiskOTA or UpdateRamdiskOTA2 => "Update Ramdisk (OTA)",
             UpdateRamdiskBeta or UpdateRamdiskBeta2 => "Update Ramdisk (Beta)",
@@ -71,20 +71,6 @@ public class FirmwareItemTypeNameConverter : IValueConverter
             WirelessPower or WirelessPower2 => "Wireless Power",
             _ => AvaloniaProperty.UnsetValue,
         };
-    }
-
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) =>
-        AvaloniaProperty.UnsetValue;
-}
-
-public class FirmwareItemTypeIsRootFSConverter : IValueConverter
-{
-    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
-    {
-        if (value is not FirmwareItemType item)
-            return AvaloniaProperty.UnsetValue;
-
-        return value is FirmwareItemType.RootFS or RootFSBeta;
     }
 
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) =>

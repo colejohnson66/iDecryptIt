@@ -10,6 +10,7 @@
 
     <Application.Styles>
         <FluentTheme Mode="Light" />
+        <StyleInclude Source="/Controls/FirmwareItem.axaml" />
         <StyleInclude Source="/Styles/Button.axaml" />
     </Application.Styles>
 
