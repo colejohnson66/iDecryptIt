@@ -4,8 +4,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:iDecryptIt.Models"
-    xmlns:vm="clr-namespace:iDecryptIt.ViewModels"
     xmlns:svg="clr-namespace:Avalonia.Svg.Skia;assembly=Avalonia.Svg.Skia"
+    xmlns:vm="clr-namespace:iDecryptIt.ViewModels"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
     x:Class="iDecryptIt.Views.MainWindow"
@@ -24,10 +24,12 @@
 
         <Border
             DockPanel.Dock="Top"
-            Background="{DynamicResource ColorGray200}"
+            Background="{DynamicResource ColorBlue100}"
+            CornerRadius="8"
             Margin="{DynamicResource PaddingAll}">
             <Border
                 Background="{DynamicResource ColorWhite}"
+                CornerRadius="4"
                 Margin="{DynamicResource PaddingAll}">
                 <DockPanel
                     LastChildFill="True"
@@ -74,7 +76,7 @@
                     <UniformGrid
                         DockPanel.Dock="Right"
                         IsVisible="{Binding DecryptingRootFS}"
-                        Rows="3">
+                        Rows="4">
                         <Button
                             Content="Select Input..."
                             Command="{Binding RootFSOpenCommand}"
@@ -85,11 +87,6 @@
                             Content="Select Output..."
                             Command="{Binding RootFSOpenCommand}"
                             CommandParameter="output"
-                            HorizontalAlignment="Center"
-                            Margin="{DynamicResource PaddingAll}" />
-                        <Button
-                            Content="Copy Key"
-                            Command="{Binding RootFSCopyKeyCommand}"
                             HorizontalAlignment="Center"
                             Margin="{DynamicResource PaddingAll}" />
                     </UniformGrid>
@@ -114,7 +111,7 @@
                     <Panel>
                         <UniformGrid
                             IsVisible="{Binding DecryptingRootFS}"
-                            Rows="3">
+                            Rows="4">
                             <TextBox
                                 Margin="{DynamicResource PaddingAll}"
                                 MaxHeight="24"
@@ -163,10 +160,12 @@
 
         <Border
             DockPanel.Dock="Top"
-            Background="{DynamicResource ColorGray200}"
+            Background="{DynamicResource ColorBlue100}"
+            CornerRadius="8"
             Margin="{DynamicResource PaddingAll}">
             <Border
                 Background="{DynamicResource ColorWhite}"
+                CornerRadius="4"
                 Margin="{DynamicResource PaddingAll}">
                 <DockPanel
                     LastChildFill="True"
@@ -229,10 +228,12 @@
 
         <Border
             DockPanel.Dock="Top"
-            Background="{DynamicResource ColorGray200}"
+            Background="{DynamicResource ColorBlue100}"
+            CornerRadius="8"
             Margin="{DynamicResource PaddingAll}">
             <Border
                 Background="{DynamicResource ColorWhite}"
+                CornerRadius="4"
                 Margin="{DynamicResource PaddingAll}">
                 <DockPanel
                     LastChildFill="True"
@@ -300,10 +301,12 @@
 
         <Border
             DockPanel.Dock="Top"
-            Background="{DynamicResource ColorGray200}"
+            Background="{DynamicResource ColorBlue100}"
+            CornerRadius="8"
             Margin="{DynamicResource PaddingAll}">
             <Border
                 Background="{DynamicResource ColorWhite}"
+                CornerRadius="4"
                 Margin="{DynamicResource PaddingAll}">
                 <ScrollViewer
                     Margin="{DynamicResource PaddingAll}"

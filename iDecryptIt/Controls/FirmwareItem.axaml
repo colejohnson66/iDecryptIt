@@ -25,7 +25,7 @@
 
                     <Border
                         DockPanel.Dock="Top"
-                        Background="{DynamicResource ColorGray200}"
+                        Background="{DynamicResource ColorBlue200}"
                         Height="2" />
 
                     <TextBlock

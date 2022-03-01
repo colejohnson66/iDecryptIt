@@ -15,7 +15,7 @@
     </Design.PreviewWith>
 
     <Style Selector="Button">
-        <Setter Property="BorderBrush" Value="{DynamicResource ColorBlack}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource ColorSlate400}" />
     </Style>
 
     <Style Selector="Button.WithImage Image">
