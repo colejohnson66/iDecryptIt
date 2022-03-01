@@ -100,23 +100,23 @@ public enum DeviceID
     iPad6_12,
     iPad7_1, // Pro 2nd gen 12.9"
     iPad7_2,
-    iPad7_3, // Pro (2nd gen) 10.5"
+    iPad7_3, // Pro 2nd gen 10.5"
     iPad7_4,
     iPad7_5, // 6th gen
     iPad7_6,
     iPad7_11, // 7th gen
     iPad7_12,
-    iPad8_1, // Pro (3rd gen) 11"
+    iPad8_1, // Pro 3rd gen 11"
     iPad8_2,
     iPad8_3,
     iPad8_4,
-    iPad8_5, // Pro 3rd gen 12.9" // 4th?
+    iPad8_5, // Pro 3rd gen 12.9"
     iPad8_6,
     iPad8_7,
     iPad8_8,
-    iPad8_9, // Pro 2nd (4th*) gen 11"
+    iPad8_9, // Pro 4th gen 11"
     iPad8_10,
-    iPad8_11,
+    iPad8_11, // Pro 4th gen 12.9"
     iPad8_12,
     iPad11_1, // mini 5th gen
     iPad11_2,
@@ -128,7 +128,7 @@ public enum DeviceID
     iPad12_2,
     iPad13_1, // Air 4th gen
     iPad13_2,
-    iPad13_4, // Pro 3rd (5th*) gen 11"
+    iPad13_4, // Pro 5th gen 11"
     iPad13_5,
     iPad13_6,
     iPad13_7,

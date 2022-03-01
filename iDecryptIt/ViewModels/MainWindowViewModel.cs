@@ -1,14 +1,21 @@
-﻿using iDecryptIt.Models;
+﻿using DynamicData;
+using iDecryptIt.Models;
 using iDecryptIt.Shared;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
+using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Linq;
 using System.Reactive;
+using System.Reactive.Disposables;
 
 namespace iDecryptIt.ViewModels;
 
 public class MainWindowViewModel : ViewModelBase
 {
+    private readonly CompositeDisposable _disposables;
+
     public MainWindowViewModel()
     {
         DecryptingRootFSSwitchCommand = ReactiveCommand.Create(OnDecryptingRootFSSwitch);
@@ -23,6 +30,51 @@ public class MainWindowViewModel : ViewModelBase
         ExtractCommand = ReactiveCommand.Create(OnExtract);
 
         ViewKeysCommand = ReactiveCommand.Create(OnViewKeys);
+
+        _disposables = new();
+        Subscribe(_disposables);
+    }
+
+    private void Subscribe(CompositeDisposable disposables)
+    {
+        this.WhenAnyValue(vm => vm.ViewKeysDeviceListSelected)
+            .Subscribe(
+                value =>
+                {
+                    if (value < 0 || value >= ViewKeysDeviceEnumValues.Length)
+                    {
+                        ViewKeysModelListEnabled = false;
+                        ViewKeysBuildListEnabled = false;
+                        return;
+                    }
+
+                    ViewKeysDeviceEnumValue = ViewKeysDeviceEnumValues[value];
+                    //
+                    ViewKeysModelEnumValue = DeviceID.AppleTV2_1;
+                    ViewKeysModelEnumValues = DeviceIDMappings.Groups[ViewKeysDeviceEnumValue].ToArray();
+                    ViewKeysModelList.Clear();
+                    ViewKeysModelList.AddRange(ViewKeysModelEnumValues.Select(deviceID => DeviceIDMappings.DeviceName[deviceID]));
+                    ViewKeysModelListEnabled = true;
+                    ViewKeysModelListSelected = -1;
+                    //
+                    ViewKeysBuildListEnabled = false;
+                    ViewKeysBuildListSelected = -1;
+                })
+            .DisposeWith(disposables);
+        this.WhenAnyValue(vm => vm.ViewKeysModelListSelected)
+            .Subscribe(
+                value =>
+                {
+                    if (value < 0 || value >= ViewKeysModelEnumValues.Length)
+                    {
+                        ViewKeysBuildListEnabled = false;
+                        return;
+                    }
+
+                    ViewKeysModelEnumValue = ViewKeysModelEnumValues[value];
+                    Debug.WriteLine(ViewKeysModelEnumValue);
+                })
+            .DisposeWith(disposables);
     }
 
     [Reactive] public bool DecryptingRootFS { get; set; } = false;
@@ -61,11 +113,17 @@ public class MainWindowViewModel : ViewModelBase
     private void OnExtract()
     { }
 
-    [Reactive] public ObservableCollection<string> ViewKeysDeviceList { get; set; } = new();
+    private DeviceIDGroup ViewKeysDeviceEnumValue;
+    private static readonly DeviceIDGroup[] ViewKeysDeviceEnumValues = DeviceIDMappings.GroupName.Keys.ToArray();
+    [Reactive] public ObservableCollection<string> ViewKeysDeviceList { get; set; } = new(DeviceIDMappings.GroupName.Values.ToArray());
     [Reactive] public int ViewKeysDeviceListSelected { get; set; } = -1;
+    //
+    private DeviceID ViewKeysModelEnumValue;
+    private DeviceID[] ViewKeysModelEnumValues = Array.Empty<DeviceID>();
     [Reactive] public ObservableCollection<string> ViewKeysModelList { get; set; } = new();
     [Reactive] public int ViewKeysModelListSelected { get; set; } = -1;
     [Reactive] public bool ViewKeysModelListEnabled { get; set; } = false;
+    //
     [Reactive] public ObservableCollection<string> ViewKeysBuildList { get; set; } = new();
     [Reactive] public int ViewKeysBuildListSelected { get; set; } = -1;
     [Reactive] public bool ViewKeysBuildListEnabled { get; set; } = false;
