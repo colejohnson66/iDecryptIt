@@ -1,0 +1,26 @@
+Apple8900Header
+ -    0  u8[4]  magic   // "8900" in big endian
+ -    4  u8[3]  version // "1.0" in big endian
+ -    7  u8     format  // 1 (boot payload encrypted with UID)
+                        // 2 (unencrypted boot payload)
+                        // 3 (payload encrypted with Key 0x837
+                        // 4 (unencrypted payload)
+ -    8  u32
+ -    C  u32    length
+ -   10  u32    sigOffset  // offset from end of Apple8900Header
+ -   14  u32    certOffset // offset from end of Apple8900Header
+ -   18  u32    certLength
+ -   1C  u8[32] salt       // unknown purpose?
+ -   3C  u16
+ -   3E  u16    securityEpoch
+ -   40  u8[16] headerSig  // Aes128Cbc(Sha1(header[..0x40])[..0x10], Key0x837, ZeroIV)
+ -   50  u8[0x7B0] padding
+
+Apple8900Signature
+ -  ??? (size is `0x80`)
+
+Apple8900
+ -    0  Apple8900Header header
+ -  800  u8[]   payload         // size is `header.length`
+ -  ???  Apple8900Signature
+ -  ???  u8[]   certificate     // basic cert file (eg. '.cer' on Windows)

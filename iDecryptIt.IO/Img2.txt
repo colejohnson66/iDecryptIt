@@ -1,0 +1,26 @@
+﻿Img2Header
+ -    0  u32    magic             // "Img2" in little endian
+ -    4  u32    imageType         // eg. "logo" (little endian) for AppleLogo
+ -    8  u16
+ -    A  u16    securityEpoch
+ -    C  u32    flags1
+ -   10  u32    lengthWithPadding
+ -   14  u32    length            // without padding
+ -   18  u32
+ -   1C  u32    flags2            // 0x0100_0000 has to be unset
+ -   20  u8[64] reserved
+ -   60  u32                      // possibly a length field
+ -   64  u32    checksum          // Crc32(header[..0x64])
+ -   68  u32    checksum2
+ -   6C  u32                      // always 0xFFFF_FFFF?
+ -   70  Img2VersionTag
+ -   90  u8[0x370] padding
+
+Img2VersionTag
+ -    0  u32    magic   // "vers" in little endian
+ -    4  u32
+ -    8  u8[24] version // "EmbeddedImages-####" (terminated with null and 0xFF)
+
+Img2File
+ -    0  Img2Header
+ -  400  u8[]   payload

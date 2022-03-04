@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hexware.Plist", "Hexware.Pl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iDecryptIt", "iDecryptIt\iDecryptIt.csproj", "{57453F7A-045A-4BC2-941E-8C5E011AF45D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iDecryptIt.IO", "iDecryptIt.IO\iDecryptIt.IO.csproj", "{A539B536-9D1D-497A-9A0A-EA7EAD88DE15}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iDecryptIt.Shared", "iDecryptIt.Shared\iDecryptIt.Shared.csproj", "{209BA5DF-398E-4654-85E2-F026FFCC51F2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyGrabber", "KeyGrabber\KeyGrabber.csproj", "{82510FB3-F606-4F2D-AB3E-ACB8519B8F98}"
@@ -25,6 +27,10 @@ Global
 		{57453F7A-045A-4BC2-941E-8C5E011AF45D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57453F7A-045A-4BC2-941E-8C5E011AF45D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57453F7A-045A-4BC2-941E-8C5E011AF45D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A539B536-9D1D-497A-9A0A-EA7EAD88DE15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A539B536-9D1D-497A-9A0A-EA7EAD88DE15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A539B536-9D1D-497A-9A0A-EA7EAD88DE15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A539B536-9D1D-497A-9A0A-EA7EAD88DE15}.Release|Any CPU.Build.0 = Release|Any CPU
 		{209BA5DF-398E-4654-85E2-F026FFCC51F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{209BA5DF-398E-4654-85E2-F026FFCC51F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{209BA5DF-398E-4654-85E2-F026FFCC51F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
