@@ -1,6 +1,9 @@
-﻿namespace iDecryptIt.IO;
+﻿using JetBrains.Annotations;
 
-public enum Apple8900Format : byte
+namespace iDecryptIt.IO;
+
+[PublicAPI]
+public enum Apple8900Format
 {
     BootPayloadEncryptedWithGid = 1,
     BootPayloadUnencrypted = 2,

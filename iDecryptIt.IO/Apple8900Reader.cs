@@ -5,7 +5,6 @@ using System.Diagnostics.Contracts;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
-using System.Text;
 
 namespace iDecryptIt.IO;
 
@@ -17,8 +16,8 @@ public class Apple8900Reader : IDisposable
         0x18, 0x84, 0x58, 0xA6, 0xD1, 0x50, 0x34, 0xDF,
         0xE3, 0x86, 0xF2, 0x3B, 0x61, 0xD4, 0x37, 0x74,
     };
-    public static ReadOnlyCollection<byte> KEY_0x837 = Array.AsReadOnly(KEY_0x837_ARRAY);
-    private static byte[] MAGIC { get; } = Encoding.ASCII.GetBytes("89001.0");
+    public static ReadOnlyCollection<byte> KEY_0x837 { get; } = Array.AsReadOnly(KEY_0x837_ARRAY);
+    private static byte[] MAGIC = { (byte)'8', (byte)'9', (byte)'0', (byte)'0', (byte)'1', (byte)'.', (byte)'0' };
 
     private readonly Stream _input;
 
@@ -98,14 +97,19 @@ public class Apple8900Reader : IDisposable
     {
         Contract.Assert(_input.Position is 0x800);
         byte[] payload = new byte[Length];
-        _input.Read(payload);
+        if (_input.Read(payload) != Length)
+            throw new EndOfStreamException("Unexpected EOF while reading payload.");
 
+        // ReSharper disable once ConvertIfStatementToSwitchStatement
         if (Format is Apple8900Format.BootPayloadUnencrypted or
             Apple8900Format.GenericPayloadUnencrypted)
         {
             _payload = payload;
             return;
         }
+
+        if (Format is Apple8900Format.BootPayloadEncryptedWithGid)
+            throw new ArgumentException("Unable to decrypt boot payloads encrypted with the GID key.");
 
         _payload = new byte[Length];
         try

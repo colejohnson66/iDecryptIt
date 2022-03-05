@@ -10,8 +10,8 @@ namespace iDecryptIt.IO;
 [PublicAPI]
 public class Img2Reader : IDisposable
 {
-    private static byte[] MAGIC { get; } = { (byte)'2', (byte)'g', (byte)'m', (byte)'I' };
-    private static byte[] MAGIC_VERSION_TAG { get; } = { (byte)'s', (byte)'r', (byte)'e', (byte)'v' };
+    private static byte[] MAGIC = { (byte)'2', (byte)'g', (byte)'m', (byte)'I' };
+    private static byte[] MAGIC_VERSION_TAG = { (byte)'s', (byte)'r', (byte)'e', (byte)'v' };
 
     private readonly Stream _input;
 
@@ -72,13 +72,14 @@ public class Img2Reader : IDisposable
         _input.Read(_payload);
 
         byte[] padding = new byte[_paddedLength - Length];
-        _input.Read(padding);
+        if (_input.Read(padding) != padding.Length)
+            throw new EndOfStreamException("Unexpected EOF while reading payload.");
         SpuriousDataInPayloadPadding = padding.Any(b => b is not 0);
     }
 
     public uint ImageType { get; private set; }
     public ushort SecurityEpoch { get; private set; }
-    public string VersionTagValue { get; private set; }
+    public string VersionTagValue { get; private set; } = "";
     public bool SpuriousDataInHeaderPadding { get; private set; }
     public bool SpuriousDataInPayloadPadding { get; private set; }
 

@@ -1,0 +1,11 @@
+﻿CompHeader
+ -    0  u8[4]     magic              // "comp" in big endian
+ -    4  u32       compressionType    // "lzss" in little endian
+ -    8  u32       checksum           // LZAdler32 of the payload
+ -    C  u32       lengthDecompressed // in big endian
+ -   10  u32       lengthCompressed   // in big endian
+ -   14  u8[0x16C] padding
+
+Comp
+ -    0  CompHeader header
+ -  180  u8[]       payload // length is `header.lengthCompressed`
