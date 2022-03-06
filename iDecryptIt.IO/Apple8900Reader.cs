@@ -56,7 +56,7 @@ public class Apple8900Reader : IDisposable
         Span<byte> headerSpan = header.AsSpan();
 
         // magic
-        if (!MAGIC.SequenceEqual(header[..MAGIC.Length]))
+        if (!MAGIC.SequenceEqual(header[..4]))
             throw new InvalidDataException("Input file is not an \"8900\" file.");
 
         // format

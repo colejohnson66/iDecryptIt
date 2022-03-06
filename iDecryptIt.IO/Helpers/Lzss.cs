@@ -3,17 +3,20 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace iDecryptIt.IO;
+namespace iDecryptIt.IO.Helpers;
 
 [PublicAPI]
-internal static class Helpers
+internal static class Lzss
 {
     private const int N = 4096; // size of ring buffer - must be a power of 2
     private const int F = 18; // upper limit for match length
     private const int THRESHOLD = 2; // encode string into position and length if match_length is greater than this
 
+    // ReSharper disable CommentTypo
     // Based off of Haruhiko Okumura's LZSS.C which is in the public domain
-    public static byte[] DecompressLzss(byte[] input)
+    // ReSharper enable CommentTypo
+
+    internal static byte[] Decompress(byte[] input)
     {
         List<byte> dest = new();
         using MemoryStream src = new(input);

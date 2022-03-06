@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using iDecryptIt.IO.Helpers;
+using JetBrains.Annotations;
 using System;
 using System.Diagnostics.Contracts;
 using System.IO;
@@ -42,7 +43,7 @@ public class CompReader : IDisposable
         Span<byte> headerSpan = header.AsSpan();
 
         // magic
-        if (!MAGIC.SequenceEqual(header[..MAGIC.Length]))
+        if (!MAGIC.SequenceEqual(header[..4]))
             throw new InvalidDataException("Input file is not a \"Comp\" file.");
         if (!MAGIC_LZSS.SequenceEqual(header[4..8]))
             throw new InvalidDataException($"Unknown compression format: \"{(char)header[0xB]}{(char)header[0xA]}{(char)header[9]}{(char)header[8]}\"");
@@ -65,7 +66,7 @@ public class CompReader : IDisposable
         if (_input.Read(payload) != _compressedLength)
             throw new EndOfStreamException("Unexpected EOF while reading payload.");
 
-        _payload = Helpers.DecompressLzss(payload);
+        _payload = Lzss.Decompress(payload);
         if (_payload.Length != _decompressedLength)
             throw new InvalidDataException($"Expected a decompressed length of {_decompressedLength}, but got a length of {_payload.Length}.");
     }

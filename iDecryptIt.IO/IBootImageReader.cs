@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using iDecryptIt.IO.Helpers;
+using JetBrains.Annotations;
 using System;
 using System.Diagnostics.Contracts;
 using System.IO;
@@ -42,7 +43,7 @@ public class IBootImageReader : IDisposable
         Span<byte> headerSpan = header.AsSpan();
 
         // magic
-        if (!MAGIC.SequenceEqual(header[..MAGIC.Length]))
+        if (!MAGIC.SequenceEqual(header[..8]))
             throw new InvalidDataException("Input file is not an \"iBootImage\" file.");
         if (!MAGIC_LZSS.SequenceEqual(header[8..0xC]))
             throw new InvalidDataException($"Unknown compression format: \"{(char)header[0xB]}{(char)header[0xA]}{(char)header[9]}{(char)header[8]}\"");
@@ -73,7 +74,7 @@ public class IBootImageReader : IDisposable
 
         // gray images are two bytes per pixel; color are four
         int expectedSize = Width * Height * (Format is IBootImageFormat.Color ? 4 : 2);
-        _payload = Helpers.DecompressLzss(payload);
+        _payload = Lzss.Decompress(payload);
         if (_payload.Length != expectedSize)
             throw new InvalidDataException($"Expected a decompressed length of {expectedSize}, but got a length of {_payload.Length}.");
     }
