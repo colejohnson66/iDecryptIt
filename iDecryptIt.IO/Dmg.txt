@@ -1,0 +1,175 @@
+﻿// all numbers are big endian
+
+const CHECKSUM_CRC32:   u32 = 2
+const CHECKSUM_MKBLOCK: u16 = 2
+const CHECKSUM_NONE:    u16 = 0
+
+const BLOCK_ZLIB:       u32 = 0x8000_0005
+const BLOCK_RAW:        u32 = 1
+const BLOCK_IGNORE:     u32 = 2
+const BLOCK_COMMENT:    u32 = 0x7FFF_FFFE
+const BLOCK_TERMINATOR: u32 = 0x7FFF_FFFF
+
+const SECTOR_SIZE = 512
+
+const DRIVER_DESCRIPTOR_SIGNATURE:   u16 = 0x4552 // 'ER'
+const APPLE_PARTITION_MAP_SIGNATURE: u16 = 0x504D // 'PM'
+const UDIF_BLOCK_SIGNATURE:          u32 = 0x6D697368 // 'mish'
+const KOLY_SIGNATURE:                u32 = 0x6B6F6C79 // 'koly'
+const HSFX_SIGNATURE:                u16 = 0x4858 // 'HX'
+
+const ATTRIBUTE_HDIUTIL: u16 = 0x50
+
+const HFSX_VOLUME_TYPE = "Apple_HFSX"
+
+const DDM_SIZE   = 1
+const PARTITION_SIZE = 0x3F
+const ATAPI_SIZE = 8
+const FREE_SIZE  = 0xA
+const EXTRA_SIZE = ATAPI_OFFSET + ATAPI_SIZE + FREE_SIZE // 82 == 0x52
+
+const DDM_OFFSET   = 0
+const PARTITION_OFFSET = DDM_SIZE // 1
+const ATAPI_OFFSET = 64
+const USER_OFFSET  = ATAPI_OFFSET + ATAPI_SIZE // 72 == 0x48
+
+const BOOTCODE_DMMY: u32 = 0x444D4D59 // 'DMMY'
+const BOOTCODE_GOON: u32 = 0x676F6F6E // 'GOON'
+
+enum {
+  kUDIFFlagsFlattened = 1
+}
+enum {
+  kUDIFDeviceImageType    = 1
+  kUDIFPartitionImageType = 2
+}
+
+const DDM_DESCRIPTOR:           u32 = 0xFFFF_FFFF
+const ENTIRE_DEVICE_DESCRIPTOR: u32 = 0xFFFF_FFFE
+
+UDIFChecksum
+ -    0  u32        type
+ -    4  u32        size
+ -    8  u32[0x20]  data
+ // sizeof == 0x88
+
+UDIFID              // similar to a GUID, but not (there's no version bits)
+ -    0  u32  data0 // LSB
+ -    4  u32  data1
+ -    8  u32  data2
+ -    C  u32  data3 // MSB
+ // sizeof == 0x10
+
+UDIFResourceFile
+ -    0  u32  signature
+ -    4  u32  version
+ -    8  u32  headerSize
+ -    C  u32  flags
+ //
+ -   10  u64  runningDataForkOffset
+ -   18  u64  dataForkOffset
+ -   20  u64  dataForkLength
+ -   28  u64  rsrcForkOffset
+ -   30  u64  rsrcForkLength
+ //
+ -   38  u32     segmentNumber
+ -   3C  u32     segmentCount
+ -   40  UDIFID  segmentID
+ //
+ -   50  UDIFChecksum  dataForkChecksum
+ //
+ -   D8  u64  xmlOffset
+ -   E0  u64  xmlLength
+ //
+ -   E8  u8[0x78]  reserved1
+ //
+ -  160  UDIFChecksum  masterChecksum
+ //
+ -  1E8  u32  imageVariant
+ -  1EC  u64  sectorCount
+ //
+ -  1F4  u32[3]  reserved2
+ // sizeof == 0x200
+
+BLKXRun
+ -    0  u32  type
+ -    4  u32  reserved
+ -    8  u64  sectorStart
+ -   10  u64  sectorCount
+ -   18  u64  compOffset
+ -   20  u64  compLength
+ // sizeof == 0x28
+
+SizeResource
+ -    0  u16     version // set to 5
+ -    2  u32     isHfs   // boolean
+ -    6  u32
+ -    A  u8      dataLength
+ -    B  u8[255] data        // length is `dataLength + 1`; zero padded
+ -  10A  u32
+ -  10E  u32
+ -  112  u32     volumeModified
+ -  116  u32
+ -  11A  u16     volumeSignature // 'HX'
+ -  11C  u16     sizePresent     // boolean
+ // sizeof == 0x11D
+
+ChecksumResource
+ -    0  u16  version // set to 1
+ -    2  u32  type    // set to 2 for MKBlockChecksum
+ -    6  u32  checksum
+ // sizeof == 0xA
+
+BLKXTable
+ -    0  u32           blockSignature
+ -    4  u32           infoVersion
+ -    8  u64           firstSectorNumber
+ -   10  u64           sectorCount
+ -   18  u64           dataStart
+ -   20  u32           decompressBufferRequested
+ -   24  u32           blockDescriptor
+ -   28  u32[6]        reserved
+ -   40  UDIFChecksum  checksum
+ -   68  u32           blockRunsCount
+ -   6C  BLKXRun[]     runs            // count is `blockRunsCount`
+ // sizeof == 0x6C + blockRunsCount * sizeof(BLKXRun == 0x28)
+
+DriverDescriptor
+ -    0  u32  ddBlock
+ -    4  u16  ddSize
+ -    6  u16  ddType
+ // sizeof == 8
+
+Partition
+ -    0  u16     signature
+ -    2  u16     signaturePadding
+ -    4  u32     mapBlockCount
+ -    8  u32     pyPartitionStart
+ -    C  u32     partitionBlockCount
+ -   10  u8[32]  partitionName
+ -   30  u8[32]  partitionType
+ -   50  u32     lgDataStart
+ -   54  u32     dataCount
+ -   58  u32     partStatus
+ -   5C  u32     lgBootStart
+ -   60  u32     bootSize
+ -   64  u32[2]  bootAddress
+ -   6C  u32[2]  bootEntry
+ -   74  u32     bootChecksum
+ -   78  u8[16]  pmProcessor
+ -   88  u32     bootCode
+ -   8C  u8[372] padding
+ // sizeof == 0x200
+
+DriverDescriptorRecord
+ -    0  u16  signature
+ -    2  u16  blockSize
+ -    4  u32  blockCount
+ -    8  u16  deviceType
+ -    A  u16  deviceID
+ -    C  u32  data
+ -   10  u16  driverCount
+ -   12  u32  ddBlock
+ -   16  u16  ddSize
+ -   18  u16  ddType
+ -   1A  DriverDescriptor[]  ddPadding
