@@ -1,5 +1,6 @@
 ﻿using JetBrains.Annotations;
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace iDecryptIt.IO;
@@ -12,9 +13,9 @@ internal static class Helpers
     private const int THRESHOLD = 2; // encode string into position and length if match_length is greater than this
 
     // Based off of Haruhiko Okumura's LZSS.C which is in the public domain
-    public static MemoryStream DecompressLzss(byte[] input)
+    public static byte[] DecompressLzss(byte[] input)
     {
-        MemoryStream dest = new(); // no "using" so it can be returned
+        List<byte> dest = new();
         using MemoryStream src = new(input);
 
         byte[] buf = new byte[N - 1 + F];
@@ -39,7 +40,7 @@ internal static class Helpers
                 if (b is -1)
                     break;
 
-                dest.WriteByte((byte)b);
+                dest.Add((byte)b);
                 buf[bufPos++] = (byte)b;
                 bufPos &= N - 1;
             }
@@ -55,13 +56,13 @@ internal static class Helpers
                 for (int k = 0; k <= j; k++)
                 {
                     byte b = buf[(i + k) & (N - 1)];
-                    dest.WriteByte(b);
+                    dest.Add(b);
                     buf[bufPos++] = b;
                     bufPos &= N - 1;
                 }
             }
         }
 
-        return dest;
+        return dest.ToArray();
     }
 }

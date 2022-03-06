@@ -65,8 +65,7 @@ public class CompReader : IDisposable
         if (_input.Read(payload) != _compressedLength)
             throw new EndOfStreamException("Unexpected EOF while reading payload.");
 
-        using MemoryStream decompressed = Helpers.DecompressLzss(payload);
-        _payload = decompressed.ToArray();
+        _payload = Helpers.DecompressLzss(payload);
         if (_payload.Length != _decompressedLength)
             throw new InvalidDataException($"Expected a decompressed length of {_decompressedLength}, but got a length of {_payload.Length}.");
     }

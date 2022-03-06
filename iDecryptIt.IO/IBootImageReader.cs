@@ -73,8 +73,7 @@ public class IBootImageReader : IDisposable
 
         // gray images are two bytes per pixel; color are four
         int expectedSize = Width * Height * (Format is IBootImageFormat.Color ? 4 : 2);
-        using MemoryStream decompressed = Helpers.DecompressLzss(payload);
-        _payload = decompressed.ToArray();
+        _payload = Helpers.DecompressLzss(payload);
         if (_payload.Length != expectedSize)
             throw new InvalidDataException($"Expected a decompressed length of {expectedSize}, but got a length of {_payload.Length}.");
     }
