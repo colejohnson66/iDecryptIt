@@ -27,11 +27,8 @@ public class KeyPageBundle : IDisposable
 
     public static KeyPageBundle Read(BinaryReader reader)
     {
-        foreach (char c in IOHelpers.HEADER_BUNDLE)
-        {
-            if (reader.ReadByte() != (byte)c)
-                throw new InvalidDataException("Bad header.");
-        }
+        if (IOHelpers.HEADER_BUNDLE.Any(c => reader.ReadByte() != (byte)c))
+            throw new InvalidDataException("Bad header.");
 
         // header
         Dictionary<string, (int, int)> offsets = new();

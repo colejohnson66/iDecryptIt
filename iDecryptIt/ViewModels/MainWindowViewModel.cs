@@ -5,15 +5,16 @@ using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Linq;
 using System.Reactive;
 using System.Reactive.Disposables;
+
+// ReSharper disable MemberCanBePrivate.Global
 
 namespace iDecryptIt.ViewModels;
 
 public class MainWindowViewModel : ViewModelBase
 {
+    // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
     private readonly CompositeDisposable _disposables;
 
     public MainWindowViewModel()
@@ -37,42 +38,42 @@ public class MainWindowViewModel : ViewModelBase
 
     private void Subscribe(CompositeDisposable disposables)
     {
-        this.WhenAnyValue(vm => vm.ViewKeysDeviceListSelected)
+        this.WhenAnyValue(vm => vm.VKGroupSelectedItem)
             .Subscribe(
                 value =>
                 {
-                    if (value < 0 || value >= ViewKeysDeviceEnumValues.Length)
-                    {
-                        ViewKeysModelListEnabled = false;
-                        ViewKeysBuildListEnabled = false;
-                        return;
-                    }
+                    // clear any old values
+                    VKModelEnabled = false;
+                    VKModelList.Clear();
+                    VKModelSelectedItem = null;
+                    //
+                    VKBuildEnabled = false;
+                    VKBuildList.Clear();
+                    VKBuildSelectedItem = null;
+                    //
+                    ViewKeysCommandEnabled = false;
 
-                    ViewKeysDeviceEnumValue = ViewKeysDeviceEnumValues[value];
-                    //
-                    ViewKeysModelEnumValue = DeviceID.AppleTV2_1;
-                    ViewKeysModelEnumValues = DeviceIDMappings.Groups[ViewKeysDeviceEnumValue].ToArray();
-                    ViewKeysModelList.Clear();
-                    ViewKeysModelList.AddRange(ViewKeysModelEnumValues.Select(deviceID => DeviceIDMappings.DeviceName[deviceID]));
-                    ViewKeysModelListEnabled = true;
-                    ViewKeysModelListSelected = -1;
-                    //
-                    ViewKeysBuildListEnabled = false;
-                    ViewKeysBuildListSelected = -1;
+                    if (value is null || !Device.MappingGroupToDevices.ContainsKey(value.Value))
+                        return;
+
+                    VKModelEnabled = true;
+                    VKModelList.AddRange(Device.MappingGroupToDevices[value.Value]);
                 })
             .DisposeWith(disposables);
-        this.WhenAnyValue(vm => vm.ViewKeysModelListSelected)
+
+        this.WhenAnyValue(vm => vm.VKModelSelectedItem)
             .Subscribe(
                 value =>
                 {
-                    if (value < 0 || value >= ViewKeysModelEnumValues.Length)
-                    {
-                        ViewKeysBuildListEnabled = false;
-                        return;
-                    }
+                    // clear any old values
+                    VKBuildEnabled = false;
+                    VKBuildList.Clear();
+                    VKBuildSelectedItem = null;
+                    //
+                    ViewKeysCommandEnabled = false;
 
-                    ViewKeysModelEnumValue = ViewKeysModelEnumValues[value];
-                    Debug.WriteLine(ViewKeysModelEnumValue);
+                    if (value is null)
+                        return;
                 })
             .DisposeWith(disposables);
     }
@@ -88,7 +89,7 @@ public class MainWindowViewModel : ViewModelBase
     public ReactiveCommand<string, Unit> RootFSOpenCommand { get; set; }
     private void OnRootFSOpen(string parameter)
     { }
-    public ReactiveCommand<Unit, Unit> RootFSCopyKeyCommand { get; set; }
+    public ReactiveCommand<Unit, Unit> RootFSCopyKeyCommand { get; }
     private void OnRootFSCopyKey()
     { }
 
@@ -113,21 +114,19 @@ public class MainWindowViewModel : ViewModelBase
     private void OnExtract()
     { }
 
-    private DeviceIDGroup ViewKeysDeviceEnumValue;
-    private static readonly DeviceIDGroup[] ViewKeysDeviceEnumValues = DeviceIDMappings.GroupName.Keys.ToArray();
-    [Reactive] public ObservableCollection<string> ViewKeysDeviceList { get; set; } = new(DeviceIDMappings.GroupName.Values.ToArray());
-    [Reactive] public int ViewKeysDeviceListSelected { get; set; } = -1;
+    // not `Enum.GetValues<DeviceGroup>` because some don't exist in the map
+    public ObservableCollection<DeviceGroup> VKGroupList { get; } = new(Device.MappingGroupToDevices.Keys);
+    [Reactive] public DeviceGroup? VKGroupSelectedItem { get; set; } = null;
     //
-    private DeviceID ViewKeysModelEnumValue;
-    private DeviceID[] ViewKeysModelEnumValues = Array.Empty<DeviceID>();
-    [Reactive] public ObservableCollection<string> ViewKeysModelList { get; set; } = new();
-    [Reactive] public int ViewKeysModelListSelected { get; set; } = -1;
-    [Reactive] public bool ViewKeysModelListEnabled { get; set; } = false;
+    [Reactive] public bool VKModelEnabled { get; set; } = false;
+    [Reactive] public ObservableCollection<Device> VKModelList { get; set; } = new();
+    [Reactive] public Device? VKModelSelectedItem { get; set; } = null;
     //
-    [Reactive] public ObservableCollection<string> ViewKeysBuildList { get; set; } = new();
-    [Reactive] public int ViewKeysBuildListSelected { get; set; } = -1;
-    [Reactive] public bool ViewKeysBuildListEnabled { get; set; } = false;
+    [Reactive] public bool VKBuildEnabled { get; set; } = false;
+    [Reactive] public ObservableCollection<string> VKBuildList { get; set; } = new();
+    [Reactive] public string? VKBuildSelectedItem { get; set; } = null;
 
+    [Reactive] public bool ViewKeysCommandEnabled { get; set; }
     public ReactiveCommand<Unit, Unit> ViewKeysCommand { get; set; }
     private void OnViewKeys()
     { }

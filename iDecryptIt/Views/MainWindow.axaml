@@ -4,6 +4,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:iDecryptIt.Models"
+    xmlns:shared="clr-namespace:iDecryptIt.Shared;assembly=iDecryptIt.Shared"
     xmlns:svg="clr-namespace:Avalonia.Svg.Skia;assembly=Avalonia.Svg.Skia"
     xmlns:vm="clr-namespace:iDecryptIt.ViewModels"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -247,7 +248,8 @@
                         DockPanel.Dock="Right"
                         Classes="WithImage Horizontal"
                         Command="{Binding ViewKeysCommand}"
-                        HorizontalAlignment="Center">
+                        HorizontalAlignment="Center"
+                        IsEnabled="{Binding ViewKeysCommandEnabled}">
                         <StackPanel>
                             <Image Source="{svg:SvgImage /Assets/Icons/key.svg}" />
                             <TextBlock Text="View Keys" />
@@ -265,27 +267,33 @@
                     <UniformGrid Columns="3">
                         <ComboBox
                             HorizontalAlignment="Stretch"
-                            Items="{Binding ViewKeysDeviceList}"
+                            Items="{Binding VKGroupList}"
                             Margin="{DynamicResource PaddingR}"
-                            SelectedIndex="{Binding ViewKeysDeviceListSelected}"
+                            SelectedItem="{Binding VKGroupSelectedItem}"
                             PlaceholderForeground="{DynamicResource ColorGray400}"
                             PlaceholderText="Select Device"
-                            VerticalAlignment="Center" />
+                            VerticalAlignment="Center">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate DataType="shared:DeviceGroup">
+                                    <TextBlock Text="{Binding}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
                         <ComboBox
                             HorizontalAlignment="Stretch"
-                            IsEnabled="{Binding ViewKeysModelListEnabled}"
-                            Items="{Binding ViewKeysModelList}"
+                            IsEnabled="{Binding VKModelEnabled}"
+                            Items="{Binding VKModelList}"
                             Margin="{DynamicResource PaddingR}"
-                            SelectedIndex="{Binding ViewKeysModelListSelected}"
+                            SelectedItem="{Binding VKModelSelectedItem}"
                             PlaceholderForeground="{DynamicResource ColorGray400}"
                             PlaceholderText="Select Model"
                             VerticalAlignment="Center" />
                         <ComboBox
                             HorizontalAlignment="Stretch"
-                            IsEnabled="{Binding ViewKeysBuildListEnabled}"
-                            Items="{Binding ViewKeysBuildList}"
+                            IsEnabled="{Binding VKBuildEnabled}"
+                            Items="{Binding VKBuildList}"
                             Margin="{DynamicResource PaddingR}"
-                            SelectedIndex="{Binding ViewKeysBuildListSelected}"
+                            SelectedItem="{Binding VKBuildSelectedItem}"
                             PlaceholderForeground="{DynamicResource ColorGray400}"
                             PlaceholderText="Select Build"
                             VerticalAlignment="Center" />

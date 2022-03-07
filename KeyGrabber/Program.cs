@@ -10,6 +10,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
 
+// ReSharper disable SuggestBaseTypeForParameter
+
 namespace KeyGrabber;
 
 public static class Program
@@ -19,11 +21,14 @@ public static class Program
     private const string URL_END_RAW = "&action=raw";
     private const string WIKI_URL_START = "https://www.theiphonewiki.com/wiki/";
 
+    private static readonly object _badPageFileLock = new();
+    private const string BAD_PAGE_FILE = "BAD.txt";
+
     private static readonly HttpClient Client = new();
     private static readonly string CurrentDirectory = Directory.GetCurrentDirectory();
     private static readonly string KeysDir = Path.Combine(CurrentDirectory, "Keys");
     private static readonly string OutputDir = Path.Combine(CurrentDirectory, "Output");
-    private static readonly Dictionary<DeviceID, List<FirmwareVersionEntry>> Versions = new();
+    private static readonly Dictionary<Device, List<FirmwareVersionEntry>> Versions = new();
 
     public static async Task Main()
     {
@@ -34,7 +39,10 @@ public static class Program
         Directory.CreateDirectory(KeysDir);
         Directory.CreateDirectory(OutputDir);
 
-        foreach (DeviceID id in Enum.GetValues<DeviceID>())
+        if (File.Exists(BAD_PAGE_FILE))
+            File.Delete(BAD_PAGE_FILE);
+
+        foreach (Device id in Device.AllDevices)
             Versions.Add(id, new());
 
         await ProcessDescriptors();
@@ -45,9 +53,9 @@ public static class Program
         await using BinaryWriter hasKeysWriter = new(File.OpenWrite(Path.Combine(OutputDir, "HasKeys.bin")), Encoding.UTF8);
         foreach (char c in IOHelpers.HEADER_HAS_KEYS) // 16 byte header
             hasKeysWriter.Write((byte)c);
-        foreach ((DeviceID id, List<FirmwareVersionEntry> entries) in Versions)
+        foreach ((Device device, List<FirmwareVersionEntry> entries) in Versions)
         {
-            hasKeysWriter.Write(id.ToStringID());
+            hasKeysWriter.Write(device.ModelString);
             hasKeysWriter.Write(entries.Count);
             foreach (FirmwareVersionEntry entry in entries)
                 new HasKeysEntry(entry.Version, entry.Build, entry.KeyPages![0].Url is not null).Serialize(hasKeysWriter);
@@ -79,10 +87,10 @@ public static class Program
         Debug.WriteLine("Bundling...");
 
         // bundle them up
-        foreach (DeviceID id in Enum.GetValues<DeviceID>())
+        foreach (Device device in Device.AllDevices)
         {
-            Debug.WriteLine($"Bundling {id}.");
-            string idStr = id.ToStringID();
+            Debug.WriteLine($"Bundling {device}.");
+            string idStr = device.ModelString;
             KeyPageBundleWriter writer = new();
             foreach (string file in Directory.GetFiles(KeysDir, $"{idStr}_*.bin"))
             {
@@ -135,6 +143,7 @@ public static class Program
 
     private static async Task BuildVersionsDictionary(string page, string[] tableProps)
     {
+        // TODO: handle builds with no key page link (eg. Watch listings)
         XmlDocument doc = await GetPageAsXml(page);
         XmlNodeList tables = doc.SelectNodes("//table[@class='wikitable']/tbody")!;
         Debug.Assert(tables.Count == tableProps.Length);
@@ -210,7 +219,7 @@ public static class Program
                             continue;
                     }
                     if (thisDescriptor[..2] is "bb")
-                        continue; // skip baseband
+                        continue; // skip baseband for now
                     Debug.Assert(thisDescriptor[0] is 'k');
                     string[] devices = thisDescriptor[2..^1].Split(';');
                     List<FirmwareVersionEntryUrl> keyPages = new();
@@ -230,7 +239,7 @@ public static class Program
                     version.KeyPages = keyPages.ToArray();
                 }
                 foreach (FirmwareVersionEntryUrl url in version.KeyPages!)
-                    Versions[DeviceIDHelpers.FromStringID(url.Device)].Add(version.CloneOneDevice(url.Device));
+                    Versions[Device.FromModelString(url.Device)].Add(version.CloneOneDevice(url.Device));
             }
         }
     }
@@ -246,7 +255,7 @@ public static class Program
         string[] lines = contents
             .Replace("{{keys", "")
             .Replace("}}", "")
-            .Split(new[] { '\n', '\r' }, 200, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+            .Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
 
         Dictionary<string, string> props = new();
         foreach (string line in lines)
@@ -264,8 +273,8 @@ public static class Program
     {
         if (props.ContainsKey("Model") && !props.ContainsKey("Model2"))
         {
-            File.WriteAllText($"BAD_{props["Device"]}_{props["Build"]}", "");
-            props.Remove("Model"); // TODO: fix pages with this issue
+            MarkBadPage("No 'Model2'", props);
+            props.Remove("Model");
         }
 
         KeyPage page = new()
@@ -301,6 +310,9 @@ public static class Program
 
         foreach (FirmwareItemType enumVal in Enum.GetValues<FirmwareItemType>())
         {
+            if (enumVal is FirmwareItemType.RootFS or FirmwareItemType.RootFSBeta)
+                continue;
+
             string enumStr = enumVal.ToString();
             if (!props.TryGetValue(enumStr, out string? filename))
                 continue;
@@ -309,36 +321,46 @@ public static class Program
                 filename += ".dmg";
 
             FirmwareItem item = new(filename);
-            try
+            if (!props.TryGetValue($"{enumStr}IV", out string? iv))
             {
-                string iv = props[$"{enumStr}IV"];
-
-                switch (iv)
-                {
-                    case "Not Encrypted":
-                        item.Encrypted = false;
-                        break;
-
-                    // ReSharper disable once StringLiteralTypo
-                    case "Unknown":
-                        if (props.TryGetValue($"{enumStr}KBAG", out s))
-                            item.KBag = s;
-                        break;
-
-                    default:
-                        item.IVKey = new(iv, props[$"{enumStr}Key"]);
-                        break;
-                }
-                page.FirmwareItems.Add(enumVal, item);
+                MarkBadPage($"Missing '{enumStr}IV'", props);
+                continue;
             }
-            catch (Exception ex)
+
+            switch (iv)
             {
-                // TODO: page with bad syntax - fix it
-                File.WriteAllText($"BAD_{props["Device"]}_{props["Build"]}_{enumStr}", ex.Message);
+                case "Not Encrypted":
+                    item.Encrypted = false;
+                    break;
+
+                // ReSharper disable once StringLiteralTypo
+                case "Unknown":
+                    // for now, don't error if the KBAG isn't known
+                    if (props.TryGetValue($"{enumStr}KBAG", out s))
+                        item.KBag = s;
+                    break;
+
+                default:
+                    if (props.TryGetValue($"{enumStr}Key", out string? key))
+                        item.IVKey = new(iv, key);
+                    else
+                        MarkBadPage($"Missing '{enumStr}Key'", props);
+                    break;
             }
+            page.FirmwareItems.Add(enumVal, item);
         }
 
         return page;
+    }
+
+    private static void MarkBadPage(string error, Dictionary<string, string> props)
+    {
+        lock (_badPageFileLock)
+        {
+            File.AppendAllText(
+                BAD_PAGE_FILE,
+                $"{error.PadRight(15, ' ')}: \"{props["Codename"]} {props["Build"]} ({props["Device"]})\"\r\n");
+        }
     }
 
     #endregion

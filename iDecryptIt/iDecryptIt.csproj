@@ -18,6 +18,7 @@
     <PackageReference Include="ReactiveUI.Fody" Version="17.1.50" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\iDecryptIt.IO\iDecryptIt.IO.csproj" />
     <ProjectReference Include="..\iDecryptIt.Shared\iDecryptIt.Shared.csproj" />
   </ItemGroup>
 </Project>
