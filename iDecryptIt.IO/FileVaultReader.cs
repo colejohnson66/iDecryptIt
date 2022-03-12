@@ -1,0 +1,94 @@
+﻿using iDecryptIt.IO.DmgTypes;
+using JetBrains.Annotations;
+using System;
+using System.IO;
+using System.Security.Cryptography;
+
+namespace iDecryptIt.IO;
+
+[PublicAPI]
+public class FileVaultReader : IDisposable
+{
+    private readonly Stream _input;
+    private readonly Aes _aes;
+    private readonly HMACSHA1 _hmac;
+
+    private readonly FileVaultV2Header _header;
+    private readonly int _lastBlockSize;
+
+    private FileVaultReader(Stream input, byte[] fullKey)
+    {
+        if (!input.CanSeek)
+            throw new ArgumentException("Input must be seekable.", nameof(input));
+        if (fullKey.Length is not 36)
+            throw new ArgumentException("Key must be 36 bytes.", nameof(fullKey));
+
+        _input = input;
+        _input.Position = 0;
+
+        // The 36 byte (72 char) "Root FS key" is:
+        byte[] aesKey = fullKey[..16]; // a 16 byte AES-128 key
+        byte[] hmacKey = fullKey[16..]; // followed by a 20 byte HMAC key
+
+        _aes = Aes.Create();
+        _aes.BlockSize = 128;
+        _aes.Mode = CipherMode.CBC;
+        _aes.Padding = PaddingMode.Zeros;
+        _aes.IV = new byte[16]; // the HMAC of each block's index is the IV
+        _aes.Key = aesKey;
+
+        _hmac = new(hmacKey);
+
+        _header = FileVaultV2Header.Read(new(_input));
+        BlockSize = (int)_header.BlockSize;
+        TotalBlocks = (int)(((long)_header.DataSize + (BlockSize - 1)) / BlockSize); // round up
+        _lastBlockSize = (int)((long)_header.DataSize - (TotalBlocks - 1) * BlockSize);
+    }
+
+    public static FileVaultReader Parse(Stream input, byte[] fullKey) =>
+        new(input, fullKey);
+
+    public int TotalBlocks { get; }
+    public int BlockSize { get; }
+
+    public byte[] ReadBlock(int blockNumber)
+    {
+        if (blockNumber >= TotalBlocks)
+            throw new ArgumentException($"Attempt to read past the end of the data. Block {blockNumber} requested, but only {TotalBlocks} exist.", nameof(blockNumber));
+
+        if (blockNumber == TotalBlocks - 1)
+            ;
+
+        _input.Position = (long)_header.DataOffset + blockNumber * BlockSize;
+        byte[] block = new byte[blockNumber == TotalBlocks - 1 ? _lastBlockSize : BlockSize];
+        if (_input.Read(block) != block.Length)
+            throw new EndOfStreamException("Unexpected EOF.");
+
+        // compute the digest (the IV for decryption)
+        byte[] hmacData = BitConverter.GetBytes(blockNumber);
+        Array.Reverse(hmacData);
+        _hmac.Initialize();
+        byte[] hmac = _hmac.ComputeHash(hmacData);
+
+        // set to as the IV
+        _aes.IV = hmac[..16];
+
+        // decrypt
+        byte[] decrypted = new byte[block.Length];
+        using CryptoStream cs = new(new MemoryStream(block), _aes.CreateDecryptor(), CryptoStreamMode.Read);
+        cs.Read(decrypted);
+        return decrypted;
+    }
+
+#region IDisposable
+
+    public void Dispose()
+    {
+        _input.Dispose();
+        _aes.Dispose();
+        _hmac.Dispose();
+        GC.SuppressFinalize(this);
+    }
+
+#endregion
+}

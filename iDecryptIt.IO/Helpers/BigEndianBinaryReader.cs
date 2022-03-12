@@ -26,6 +26,14 @@ internal class BigEndianBinaryReader
         return Encoding.ASCII.GetString(bytes);
     }
 
+    public byte[] ReadBytes(int count)
+    {
+        byte[] buffer = new byte[count];
+        if (_stream.Read(buffer) != count)
+            throw new EndOfStreamException("Unexpected EOF.");
+        return buffer;
+    }
+
     public uint ReadUInt32()
     {
         byte[] buffer = new byte[4];

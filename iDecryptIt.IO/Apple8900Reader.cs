@@ -120,9 +120,7 @@ public class Apple8900Reader : IDisposable
             aes.IV = new byte[16];
             aes.Key = KEY_0x837_ARRAY;
 
-            using MemoryStream ms = new(payload);
-            using CryptoStream cs = new(ms, aes.CreateDecryptor(), CryptoStreamMode.Read);
-
+            using CryptoStream cs = new(new MemoryStream(payload), aes.CreateDecryptor(), CryptoStreamMode.Read);
             cs.Read(_payload);
         }
         catch (CryptographicException)

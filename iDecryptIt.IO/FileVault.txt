@@ -1,0 +1,39 @@
+﻿FileVaultV1Header
+ -    0  u8[48]   padding1
+ -   30  u32      kdfIterationCount
+ -   34  u32      kdfSaltLength
+ -   38  u8[48]   kdfSalt
+ -   68  u8[32]   unwrapIV
+ -   88  u32      wrappedAesKeyLength
+ -   8C  u8[296]  wrappedAesKey
+ -  1B4  u32      wrappedHmacSha1KeyLength
+ -  1B8  u8[300]  wrappedHmacSha1Key
+ -  2E4  u32      integrityKeyLength
+ -  2E8  u8[48]   integrityKey
+ -  318  u8[484]  padding2
+ // sizeof == 0x4FC
+
+FileVaultV2Header
+ -    0  u8[8]      signature // 'encrcdsa'
+ -    8  u32        version   // set to 2?
+ -    C  u32        encIVSize
+ -   10  u32[5]
+ -   24  UDIFID     uuid
+ -   34  u32        blockSize
+ -   38  u64        dataSize
+ -   40  u64        dataOffset // offset in file
+ -   48  u8[0x260]  padding
+ -  2A8  u32        kdfAlgorithm
+ -  2AC  u32        kdfPRngAlgorithm
+ -  2B0  u32        kdfIterationCount
+ -  2B4  u32        kdfSaltLength
+ -  2B8  u8[32]     kdfSalt
+ -  2D8  u32        blobEncIVSize
+ -  2DC  u8[32]     blobEncIV
+ -  2E0  u32        blobEncKeyBits
+ -  2E4  u32        blobEncAlgorithm
+ -  2E8  u32        blobEncPadding
+ -  2EC  u32        blobEncMode
+ -  2F0  u32        encKeyBlobSize
+ -  2F4  u8[48]     encKeyBlob
+ // sizeof == 0x324
