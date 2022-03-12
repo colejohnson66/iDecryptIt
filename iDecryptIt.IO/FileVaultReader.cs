@@ -79,9 +79,6 @@ public class FileVaultReader : IDisposable
         if (blockNumber >= TotalBlocks)
             throw new ArgumentException($"Attempt to read past the end of the data. Block {blockNumber} requested, but only {TotalBlocks} exist.", nameof(blockNumber));
 
-        if (blockNumber == TotalBlocks - 1)
-            ;
-
         _input.Position = (long)_header.DataOffset + blockNumber * BlockSize;
         byte[] block = new byte[blockNumber == TotalBlocks - 1 ? _lastBlockSize : BlockSize];
         if (_input.Read(block) != block.Length)
