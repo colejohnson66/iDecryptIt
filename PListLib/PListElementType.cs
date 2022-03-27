@@ -1,6 +1,6 @@
 ﻿using JetBrains.Annotations;
 
-namespace iDecryptIt.PList;
+namespace PListLib;
 
 [PublicAPI]
 public enum PListElementType

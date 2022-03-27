@@ -1,5 +1,5 @@
 ﻿/* =============================================================================
- * File:   PListUuid.cs
+ * File:   PListString.cs
  * Author: Cole Tobin
  * =============================================================================
  * Copyright (c) 2022 Cole Tobin
@@ -22,15 +22,29 @@
  */
 
 using JetBrains.Annotations;
-using System;
+using System.Diagnostics;
+using System.Xml;
 
-namespace iDecryptIt.PList;
+namespace PListLib;
 
 [PublicAPI]
-public class PListUuid : IPListElement<Guid>, IPListElementInternals
+public class PListString : IPListElement<string>, IPListElementInternals
 {
-    public PListElementType Type => PListElementType.Uuid;
-    public bool SerializableAsXml => false;
+    public PListElementType Type => PListElementType.String;
+    public bool SerializableAsXml => true;
     public dynamic UntypedValue => Value;
-    public Guid Value { get; set; }
+    public string Value { get; set; }
+
+    public PListString(string value)
+    {
+        Value = value;
+    }
+
+    internal static PListString ReadXml(XmlNode node)
+    {
+        Debug.Assert(node.NodeType is XmlNodeType.Element);
+        Debug.Assert(node.Name.ToLowerInvariant() is PListHelpers.XML_NAME_STRING);
+
+        return new(node.InnerText);
+    }
 }

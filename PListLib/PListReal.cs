@@ -1,5 +1,5 @@
 ﻿/* =============================================================================
- * File:   PListSet.cs
+ * File:   PListReal.cs
  * Author: Cole Tobin
  * =============================================================================
  * Copyright (c) 2022 Cole Tobin
@@ -23,15 +23,29 @@
 
 using JetBrains.Annotations;
 using System;
-using System.Collections.Generic;
+using System.Diagnostics;
+using System.Xml;
 
-namespace iDecryptIt.PList;
+namespace PListLib;
 
 [PublicAPI]
-public class PListSet : IPListElement<HashSet<IPListElement>>, IPListElementInternals
+public class PListReal : IPListElement<double>, IPListElementInternals
 {
-    public PListElementType Type => PListElementType.Set;
-    public bool SerializableAsXml => throw new NotImplementedException();
+    public PListElementType Type => PListElementType.Real;
+    public bool SerializableAsXml => true;
     public dynamic UntypedValue => Value;
-    public HashSet<IPListElement> Value { get; set; }
+    public double Value { get; set; }
+
+    public PListReal(double value)
+    {
+        Value = value;
+    }
+
+    internal static PListReal ReadXml(XmlNode node)
+    {
+        Debug.Assert(node.NodeType is XmlNodeType.Element);
+        Debug.Assert(node.Name.ToLowerInvariant() is PListHelpers.XML_NAME_REAL);
+
+        return new(Convert.ToDouble(node.InnerText));
+    }
 }

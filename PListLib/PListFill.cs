@@ -1,5 +1,5 @@
 ﻿/* =============================================================================
- * File:   PListString.cs
+ * File:   PListFill.cs
  * Author: Cole Tobin
  * =============================================================================
  * Copyright (c) 2022 Cole Tobin
@@ -22,29 +22,15 @@
  */
 
 using JetBrains.Annotations;
-using System.Diagnostics;
-using System.Xml;
+using System;
 
-namespace iDecryptIt.PList;
+namespace PListLib;
 
 [PublicAPI]
-public class PListString : IPListElement<string>, IPListElementInternals
+// TODO: are fill bytes even used? or are they ignored?
+public class PListFill : IPListElement, IPListElementInternals
 {
-    public PListElementType Type => PListElementType.String;
-    public bool SerializableAsXml => true;
-    public dynamic UntypedValue => Value;
-    public string Value { get; set; }
-
-    public PListString(string value)
-    {
-        Value = value;
-    }
-
-    internal static PListString ReadXml(XmlNode node)
-    {
-        Debug.Assert(node.NodeType is XmlNodeType.Element);
-        Debug.Assert(node.Name.ToLowerInvariant() is PListHelpers.XML_NAME_STRING);
-
-        return new(node.InnerText);
-    }
+    public PListElementType Type => PListElementType.Fill;
+    public bool SerializableAsXml => false;
+    public dynamic UntypedValue => throw new InvalidOperationException($"{nameof(PListFill)} has no value.");
 }

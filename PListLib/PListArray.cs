@@ -27,7 +27,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Xml;
 
-namespace iDecryptIt.PList;
+namespace PListLib;
 
 [PublicAPI]
 public class PListArray : IPListElement<List<IPListElement>>, IPListElementInternals

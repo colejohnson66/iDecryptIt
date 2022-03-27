@@ -24,7 +24,7 @@
 using System.Diagnostics;
 using System.Xml;
 
-namespace iDecryptIt.PList;
+namespace PListLib;
 
 internal static class PListHelpers
 {

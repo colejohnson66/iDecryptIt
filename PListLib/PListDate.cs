@@ -1,5 +1,5 @@
 ﻿/* =============================================================================
- * File:   PListReal.cs
+ * File:   PListDate.cs
  * Author: Cole Tobin
  * =============================================================================
  * Copyright (c) 2022 Cole Tobin
@@ -24,28 +24,33 @@
 using JetBrains.Annotations;
 using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.Xml;
 
-namespace iDecryptIt.PList;
+namespace PListLib;
 
 [PublicAPI]
-public class PListReal : IPListElement<double>, IPListElementInternals
+public class PListDate : IPListElement<DateTime>, IPListElementInternals
 {
-    public PListElementType Type => PListElementType.Real;
+    public PListElementType Type => PListElementType.Date;
     public bool SerializableAsXml => true;
     public dynamic UntypedValue => Value;
-    public double Value { get; set; }
+    public DateTime Value { get; set; }
 
-    public PListReal(double value)
+    public PListDate(DateTime value)
     {
         Value = value;
     }
+    public PListDate(string value)
+    {
+        Value = DateTime.Parse(value, null, DateTimeStyles.AdjustToUniversal);
+    }
 
-    internal static PListReal ReadXml(XmlNode node)
+    internal static PListDate ReadXml(XmlNode node)
     {
         Debug.Assert(node.NodeType is XmlNodeType.Element);
-        Debug.Assert(node.Name.ToLowerInvariant() is PListHelpers.XML_NAME_REAL);
+        Debug.Assert(node.Name.ToLowerInvariant() is PListHelpers.XML_NAME_DATE);
 
-        return new(Convert.ToDouble(node.InnerText));
+        return new(node.InnerText);
     }
 }

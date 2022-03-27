@@ -1,5 +1,5 @@
 ﻿/* =============================================================================
- * File:   PListOrderedSet.cs
+ * File:   PListUid.cs
  * Author: Cole Tobin
  * =============================================================================
  * Copyright (c) 2022 Cole Tobin
@@ -22,16 +22,14 @@
  */
 
 using JetBrains.Annotations;
-using System;
-using System.Collections.Generic;
 
-namespace iDecryptIt.PList;
+namespace PListLib;
 
 [PublicAPI]
-public class PListOrderedSet : IPListElement<SortedSet<IPListElement>>, IPListElementInternals
+// TODO: type?
+public class PListUid : IPListElement, IPListElementInternals
 {
-    public PListElementType Type => PListElementType.OrderedSet;
-    public bool SerializableAsXml => throw new NotImplementedException();
-    public dynamic UntypedValue => Value;
-    public SortedSet<IPListElement> Value { get; set; }
+    public PListElementType Type => PListElementType.Uid;
+    public bool SerializableAsXml => false;
+    public dynamic UntypedValue { get; }
 }

@@ -26,7 +26,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Xml;
 
-namespace iDecryptIt.PList;
+namespace PListLib;
 
 [PublicAPI]
 public class PListDictionary : IPListElement<Dictionary<string, IPListElement>>, IPListElementInternals

@@ -24,7 +24,7 @@
 using JetBrains.Annotations;
 using System.Xml;
 
-namespace iDecryptIt.PList;
+namespace PListLib;
 
 [PublicAPI]
 public class PListDocument : IPListElement<IPListElement>

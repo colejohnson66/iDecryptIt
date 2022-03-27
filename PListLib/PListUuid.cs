@@ -1,5 +1,5 @@
 ﻿/* =============================================================================
- * File:   PListNull.cs
+ * File:   PListUuid.cs
  * Author: Cole Tobin
  * =============================================================================
  * Copyright (c) 2022 Cole Tobin
@@ -24,13 +24,13 @@
 using JetBrains.Annotations;
 using System;
 
-namespace iDecryptIt.PList;
+namespace PListLib;
 
 [PublicAPI]
-public class PListNull : IPListElement, IPListElementInternals
+public class PListUuid : IPListElement<Guid>, IPListElementInternals
 {
-    public PListElementType Type => PListElementType.Null;
-    public bool SerializableAsXml => throw new NotImplementedException();
-
-    public dynamic? UntypedValue => null;
+    public PListElementType Type => PListElementType.Uuid;
+    public bool SerializableAsXml => false;
+    public dynamic UntypedValue => Value;
+    public Guid Value { get; set; }
 }

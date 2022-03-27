@@ -24,7 +24,7 @@
 using JetBrains.Annotations;
 using System;
 
-namespace iDecryptIt.PList;
+namespace PListLib;
 
 [PublicAPI]
 public class PListUrl : IPListElement<Uri>, IPListElementInternals

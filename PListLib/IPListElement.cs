@@ -23,7 +23,7 @@
 
 using JetBrains.Annotations;
 
-namespace iDecryptIt.PList;
+namespace PListLib;
 
 [PublicAPI]
 public interface IPListElement

@@ -1,5 +1,5 @@
 ﻿/* =============================================================================
- * File:   IPListElementInternals.cs
+ * File:   PListSet.cs
  * Author: Cole Tobin
  * =============================================================================
  * Copyright (c) 2022 Cole Tobin
@@ -22,12 +22,16 @@
  */
 
 using JetBrains.Annotations;
+using System;
+using System.Collections.Generic;
 
-namespace iDecryptIt.PList;
+namespace PListLib;
 
 [PublicAPI]
-internal interface IPListElementInternals
+public class PListSet : IPListElement<HashSet<IPListElement>>, IPListElementInternals
 {
-    // internal void WriteBinary(BinaryPListWriter writer);
-    // internal void WriteXml(XmlNode parent, XmlDocument writer);
+    public PListElementType Type => PListElementType.Set;
+    public bool SerializableAsXml => throw new NotImplementedException();
+    public dynamic UntypedValue => Value;
+    public HashSet<IPListElement> Value { get; set; }
 }

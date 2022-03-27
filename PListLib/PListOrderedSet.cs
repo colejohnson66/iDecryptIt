@@ -1,5 +1,5 @@
 ﻿/* =============================================================================
- * File:   PListDate.cs
+ * File:   PListOrderedSet.cs
  * Author: Cole Tobin
  * =============================================================================
  * Copyright (c) 2022 Cole Tobin
@@ -23,34 +23,15 @@
 
 using JetBrains.Annotations;
 using System;
-using System.Diagnostics;
-using System.Globalization;
-using System.Xml;
+using System.Collections.Generic;
 
-namespace iDecryptIt.PList;
+namespace PListLib;
 
 [PublicAPI]
-public class PListDate : IPListElement<DateTime>, IPListElementInternals
+public class PListOrderedSet : IPListElement<SortedSet<IPListElement>>, IPListElementInternals
 {
-    public PListElementType Type => PListElementType.Date;
-    public bool SerializableAsXml => true;
+    public PListElementType Type => PListElementType.OrderedSet;
+    public bool SerializableAsXml => throw new NotImplementedException();
     public dynamic UntypedValue => Value;
-    public DateTime Value { get; set; }
-
-    public PListDate(DateTime value)
-    {
-        Value = value;
-    }
-    public PListDate(string value)
-    {
-        Value = DateTime.Parse(value, null, DateTimeStyles.AdjustToUniversal);
-    }
-
-    internal static PListDate ReadXml(XmlNode node)
-    {
-        Debug.Assert(node.NodeType is XmlNodeType.Element);
-        Debug.Assert(node.Name.ToLowerInvariant() is PListHelpers.XML_NAME_DATE);
-
-        return new(node.InnerText);
-    }
+    public SortedSet<IPListElement> Value { get; set; }
 }

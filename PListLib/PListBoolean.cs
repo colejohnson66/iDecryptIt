@@ -1,5 +1,5 @@
 ﻿/* =============================================================================
- * File:   PListInteger.cs
+ * File:   PListBoolean.cs
  * Author: Cole Tobin
  * =============================================================================
  * Copyright (c) 2022 Cole Tobin
@@ -22,30 +22,33 @@
  */
 
 using JetBrains.Annotations;
-using System;
 using System.Diagnostics;
 using System.Xml;
 
-namespace iDecryptIt.PList;
+namespace PListLib;
 
 [PublicAPI]
-public class PListInteger : IPListElement<long>, IPListElementInternals
+public class PListBoolean : IPListElement<bool>, IPListElementInternals
 {
-    public PListElementType Type => PListElementType.Integer;
+    public PListElementType Type => PListElementType.Boolean;
     public bool SerializableAsXml => true;
-    public dynamic UntypedValue => Value;
-    public long Value { get; set; }
 
-    public PListInteger(long value)
+    public dynamic UntypedValue => Value;
+    public bool Value { get; set; }
+
+    public PListBoolean(bool value)
     {
         Value = value;
     }
 
-    internal static PListInteger ReadXml(XmlNode node)
+    public static implicit operator bool(PListBoolean elem) => elem.Value;
+    public static implicit operator PListBoolean(bool value) => new(value);
+
+    internal static PListBoolean ReadXml(XmlNode node)
     {
         Debug.Assert(node.NodeType is XmlNodeType.Element);
-        Debug.Assert(node.Name.ToLowerInvariant() is PListHelpers.XML_NAME_INTEGER);
+        Debug.Assert(node.Name.ToLowerInvariant() is PListHelpers.XML_NAME_BOOL_TRUE or PListHelpers.XML_NAME_BOOL_FALSE);
 
-        return new(Convert.ToInt64(node.InnerText));
+        return new(node.Name.ToLowerInvariant() is PListHelpers.XML_NAME_BOOL_TRUE);
     }
 }
