@@ -74,8 +74,7 @@ public static class Program
         Debug.WriteLine("Generating 'HasKeys.bin'...");
 
         await using BinaryWriter hasKeysWriter = new(File.OpenWrite(Path.Combine(OutputDir, "HasKeys.bin")), Encoding.UTF8);
-        foreach (char c in IOHelpers.HEADER_HAS_KEYS) // 16 byte header
-            hasKeysWriter.Write((byte)c);
+        hasKeysWriter.Write(Encoding.ASCII.GetBytes(IOHelpers.HEADER_HAS_KEYS)); // 16 byte header
         foreach ((Device device, List<FirmwareVersionEntry> entries) in Versions)
         {
             hasKeysWriter.Write(device.ModelString);

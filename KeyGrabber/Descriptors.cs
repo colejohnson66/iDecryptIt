@@ -930,6 +930,7 @@ public static class Descriptors
                 "v b k(iPad5,3;iPad5,4) bb r u h s d",
                 "v b k(iPad11,3;iPad11,4) bb r u h s d",
                 "v b k(iPad13,1;iPad13,2) bb r u h s d",
+                "v b k(iPad13,16;iPad13,17) bb r u h s d",
             }
         },
     };
@@ -1599,6 +1600,7 @@ public static class Descriptors
                 "v b k(iPhone14,5) bb r u h s d",
                 "v b k(iPhone14,2) bb r u h s d",
                 "v b k(iPhone14,3) bb r u h s d",
+                "v b k(iPhone14,6) bb r u h s d",
             }
         },
     };
