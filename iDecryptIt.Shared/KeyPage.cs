@@ -103,7 +103,8 @@ public class KeyPage
 
         while (reader.BaseStream.Position < reader.BaseStream.Length)
         {
-            switch (reader.ReadString())
+            string key = reader.ReadString();
+            switch (key)
             {
                 case "Models":
                     string model1 = reader.ReadString();
@@ -117,8 +118,8 @@ public class KeyPage
                     page.RootFSBeta = RootFS.Deserialize(reader);
                     break;
                 default:
-                    FirmwareItemType key = Enum.Parse<FirmwareItemType>(reader.ReadString());
-                    page.FirmwareItems.Add(key, FirmwareItem.Deserialize(reader));
+                    FirmwareItemType type = Enum.Parse<FirmwareItemType>(key);
+                    page.FirmwareItems.Add(type, FirmwareItem.Deserialize(reader));
                     break;
             }
         }
