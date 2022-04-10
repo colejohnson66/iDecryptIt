@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-#
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iDecryptIt-WPF", "iDecryptIt-WPF\iDecryptIt-WPF.csproj", "{A627FA1E-BE08-4003-B14B-51DC5C05FE6A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hexware.Plist", "Hexware.Plist\Hexware.Plist.csproj", "{C7D0639F-8A98-441B-B1A6-420DF6122573}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iDecryptIt", "iDecryptIt\iDecryptIt.csproj", "{57453F7A-045A-4BC2-941E-8C5E011AF45D}"
 EndProject
@@ -20,9 +20,10 @@ Global
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C7D0639F-8A98-441B-B1A6-420DF6122573}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C7D0639F-8A98-441B-B1A6-420DF6122573}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A627FA1E-BE08-4003-B14B-51DC5C05FE6A}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{A627FA1E-BE08-4003-B14B-51DC5C05FE6A}.Release|Any CPU.ActiveCfg = Release|x86
 		{57453F7A-045A-4BC2-941E-8C5E011AF45D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
