@@ -208,7 +208,7 @@ public class Device : IComparable, IComparable<Device>, IEquatable<Device>
     public static readonly Device iPhone14_3 = new(IPhone, 14, 3); // 13 Pro Max
     public static readonly Device iPhone14_4 = new(IPhone, 14, 4); // 13 mini
     public static readonly Device iPhone14_5 = new(IPhone, 14, 5); // 13
-    public static readonly Device iPhone14_6 = new(IPhone, 15, 6); // SE 3rd gen
+    public static readonly Device iPhone14_6 = new(IPhone, 14, 6); // SE 3rd gen
     public static readonly Device iPod1_1 = new(IPodTouch, 1, 1); // (1st gen)
     public static readonly Device iPod2_1 = new(IPodTouch, 2, 1); // 2nd gen
     public static readonly Device iPod3_1 = new(IPodTouch, 3, 1); // 3rd gen
