@@ -73,14 +73,16 @@ public static class Program
         Debug.WriteLine("Descriptor parsing complete.");
         Debug.WriteLine("Generating 'HasKeys.bin'...");
 
-        await using BinaryWriter hasKeysWriter = new(File.OpenWrite(Path.Combine(OutputDir, "HasKeys.bin")), Encoding.UTF8);
-        hasKeysWriter.Write(Encoding.ASCII.GetBytes(IOHelpers.HEADER_HAS_KEYS)); // 16 byte header
-        foreach ((Device device, List<FirmwareVersionEntry> entries) in Versions)
+        await using (BinaryWriter hasKeysWriter = new(File.OpenWrite(Path.Combine(OutputDir, "HasKeys.bin")), Encoding.UTF8))
         {
-            hasKeysWriter.Write(device.ModelString);
-            hasKeysWriter.Write(entries.Count);
-            foreach (FirmwareVersionEntry entry in entries)
-                new HasKeysEntry(entry.Version, entry.Build, entry.KeyPages![0].Url is not null).Serialize(hasKeysWriter);
+            hasKeysWriter.Write(Encoding.ASCII.GetBytes(IOHelpers.HEADER_HAS_KEYS)); // 16 byte header
+            foreach ((Device device, List<FirmwareVersionEntry> entries) in Versions)
+            {
+                hasKeysWriter.Write(device.ModelString);
+                hasKeysWriter.Write(entries.Count);
+                foreach (FirmwareVersionEntry entry in entries)
+                    new HasKeysEntry(entry.Version, entry.Build, entry.KeyPages![0].Url is not null).Serialize(hasKeysWriter);
+            }
         }
 
         Debug.WriteLine("Beginning crawl...");
@@ -97,11 +99,19 @@ public static class Program
 
                     KeyPage page = ParseKeyPage(await GetPageAsRawWikiText(entry.KeyPages[0].Url!));
 
-                    string fileName = $"{KeysDir}/{page.Device}_{page.Build}.bin";
-                    if (new FileInfo(fileName).Exists)
-                        return; // duplicate
-                    await using BinaryWriter pageWriter = new(File.OpenWrite(fileName));
-                    page.Serialize(pageWriter);
+                    try
+                    {
+                        string fileName = $"{KeysDir}/{page.Device}_{page.Build}.bin";
+                        if (File.Exists(fileName))
+                            return; // duplicate
+                        await using BinaryWriter pageWriter = new(File.OpenWrite(fileName));
+                        page.Serialize(pageWriter);
+                    }
+                    catch
+                    {
+                        // ignore; race condition may cause another thread to create the destination file between
+                        // this one checking if it exists and opening
+                    }
                 });
         }
 
@@ -401,7 +411,7 @@ public static class Program
             catch
             {
                 // network dip - hold off for a few seconds
-                Thread.Sleep(30000);
+                Thread.Sleep(15000);
             }
         }
     }
