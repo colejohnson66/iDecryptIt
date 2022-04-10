@@ -45,11 +45,6 @@ public class PListArray : IPListElement<List<IPListElement>>, IPListElementInter
         Value = value;
     }
 
-    public static implicit operator IPListElement[](PListArray elem) => elem.Value.ToArray();
-    public static implicit operator List<IPListElement>(PListArray elem) => elem.Value;
-    public static implicit operator PListArray(IPListElement[] value) => new(value);
-    public static implicit operator PListArray(List<IPListElement> value) => new(value);
-
     internal static PListArray ReadXml(XmlNode node)
     {
         Debug.Assert(node.NodeType is XmlNodeType.Element);

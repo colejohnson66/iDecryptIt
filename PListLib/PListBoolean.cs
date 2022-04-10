@@ -41,9 +41,6 @@ public class PListBoolean : IPListElement<bool>, IPListElementInternals
         Value = value;
     }
 
-    public static implicit operator bool(PListBoolean elem) => elem.Value;
-    public static implicit operator PListBoolean(bool value) => new(value);
-
     internal static PListBoolean ReadXml(XmlNode node)
     {
         Debug.Assert(node.NodeType is XmlNodeType.Element);

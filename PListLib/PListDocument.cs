@@ -34,7 +34,7 @@ public class PListDocument : IPListElement<IPListElement>
     public dynamic UntypedValue => Value;
     public IPListElement Value { get; set; }
 
-    private PListDocument(string contents)
+    public PListDocument(string contents)
     {
         Value = ReadXml(
             new()
