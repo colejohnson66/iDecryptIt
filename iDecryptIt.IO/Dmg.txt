@@ -102,7 +102,7 @@ BLKXRun
 
 SizeResource
  -    0  u16     version // set to 5
- -    2  u32     isHfs   // boolean
+ -    2  u32     isHfs   // boolean?
  -    6  u32
  -    A  u8      dataLength
  -    B  u8[255] data        // length is `dataLength + 1`; zero padded

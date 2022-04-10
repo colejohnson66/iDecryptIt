@@ -21,14 +21,25 @@
  * =============================================================================
  */
 
+using iDecryptIt.IO.DmgTypes;
+using iDecryptIt.IO.Helpers;
+using PListLib;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
+using System.Text;
 
 namespace iDecryptIt.IO;
 
 public class DmgReader : IDisposable
 {
     private readonly Stream _input;
+
+    private readonly UdifResourceFile _resourceFile;
+    private readonly PListDictionary _resourceFork;
+    private readonly List<DmgResource> _resources;
 
     private DmgReader(Stream input)
     {
@@ -38,10 +49,74 @@ public class DmgReader : IDisposable
         _input = input;
         _input.Position = 0;
 
+        // UdifResourceFile structs are 0x200 bytes and located at the end of the file
+        _input.Seek(-0x200, SeekOrigin.End);
+        _resourceFile = UdifResourceFile.Read(new(_input));
+
+        _resourceFork = ReadResourceFork();
+        _resources = ParseResourceFork();
+
+        // TODO: dmgfile.c[lines 171+]
     }
 
     public static DmgReader Parse(Stream input) =>
         new(input);
+
+    private PListDictionary ReadResourceFork()
+    {
+        _input.Seek((long)_resourceFile.XmlOffset, SeekOrigin.Begin);
+        byte[] fork = new byte[_resourceFile.XmlLength];
+        _input.Read(fork);
+
+        PListDocument doc = new(Encoding.ASCII.GetString(fork));
+
+        Debug.Assert(doc.Value.Type is PListElementType.Dictionary);
+        PListDictionary root = (PListDictionary)doc.Value;
+
+        Debug.Assert(root.Value.Keys.Count is 1 && root.Value.Keys.First() is "resource-fork");
+        Debug.Assert(root.Value.Values.First().Type is PListElementType.Dictionary);
+        return (PListDictionary)root.Value["resource-fork"];
+    }
+
+    private List<DmgResource> ParseResourceFork()
+    {
+        List<DmgResource> resources = new();
+
+        // ignore anything else
+        foreach (KeyValuePair<string, IPListElement> kvp in _resourceFork.Value.Where(kvp => kvp.Key is "blkx" or "size" or "cSum"))
+        {
+            // all `kvp.Value` are `PListArray<PListDictionary>`
+            Debug.Assert(kvp.Value.Type is PListElementType.Array);
+            PListArray value = (PListArray)kvp.Value;
+
+            foreach (IPListElement blkx in value.Value)
+            {
+                PListDictionary blkx1 = (PListDictionary)blkx;
+                PListString attributes = (PListString)blkx1.Value["Attributes"];
+                PListData data = (PListData)blkx1.Value["Data"];
+                PListString id = (PListString)blkx1.Value["ID"];
+                PListString name = (PListString)blkx1.Value["Name"];
+
+                using BigEndianBinaryReader dataReader = new(new MemoryStream(data.Value));
+                object dataObj = kvp.Key switch
+                {
+                    "blkx" => BlkxResource.Read(dataReader),
+                    "size" => SizeResource.Read(dataReader),
+                    "cSum" => CSumResource.Read(dataReader),
+                    _ => throw new(),
+                };
+
+                Debug.Assert(attributes.Value.StartsWith("0x"));
+                resources.Add(new(
+                    uint.Parse(attributes.Value[2..]),
+                    dataObj,
+                    int.Parse(id.Value),
+                    name.Value));
+            }
+        }
+
+        return resources;
+    }
 
 #region IDisposable
 

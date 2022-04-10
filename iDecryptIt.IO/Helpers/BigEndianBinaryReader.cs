@@ -27,7 +27,7 @@ using System.Text;
 
 namespace iDecryptIt.IO.Helpers;
 
-internal class BigEndianBinaryReader
+internal class BigEndianBinaryReader : IDisposable
 {
     private readonly Stream _stream;
 
@@ -57,6 +57,23 @@ internal class BigEndianBinaryReader
         return buffer;
     }
 
+    public byte ReadUInt8()
+    {
+        int b = _stream.ReadByte();
+        if (b is -1)
+            throw new EndOfStreamException("Unexpected EOF.");
+        return (byte)b;
+    }
+
+    public ushort ReadUInt16()
+    {
+        byte[] buffer = new byte[2];
+        if (_stream.Read(buffer) != 2)
+            throw new EndOfStreamException("Unexpected EOF.");
+        Array.Reverse(buffer);
+        return BitConverter.ToUInt16(buffer);
+    }
+
     public uint ReadUInt32()
     {
         byte[] buffer = new byte[4];
@@ -74,4 +91,14 @@ internal class BigEndianBinaryReader
         Array.Reverse(buffer);
         return BitConverter.ToUInt64(buffer);
     }
+
+#region IDisposable
+
+    public void Dispose()
+    {
+        _stream.Dispose();
+        GC.SuppressFinalize(this);
+    }
+
+#endregion
 }
