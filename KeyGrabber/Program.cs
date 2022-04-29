@@ -88,7 +88,7 @@ public static class Program
         Debug.WriteLine("Beginning crawl...");
 
         // Unfortunately, the wiki export caps at 5000 pages, so we have to crawl one by one...
-        // TODO: iterate by scanning [[Category:All Key Pages]] to avoid duplicates
+        // TODO: iterate by scanning [[Firmware Keys/##.x]] to avoid duplicates
         foreach ((_, List<FirmwareVersionEntry> entries) in Versions)
         {
             await Parallel.ForEachAsync(
@@ -98,12 +98,12 @@ public static class Program
                         return;
 
                     KeyPage page = ParseKeyPage(await GetPageAsRawWikiText(entry.KeyPages[0].Url!));
+                    string fileName = $"{KeysDir}/{page.Device}_{page.Build}.bin";
+                    if (File.Exists(fileName))
+                        return; // duplicate
 
                     try
                     {
-                        string fileName = $"{KeysDir}/{page.Device}_{page.Build}.bin";
-                        if (File.Exists(fileName))
-                            return; // duplicate
                         await using BinaryWriter pageWriter = new(File.OpenWrite(fileName));
                         page.Serialize(pageWriter);
                     }
@@ -205,54 +205,64 @@ public static class Program
                         case "vm": // Marketing version (always comes before "v")
                             version.Version = cellText;
                             continue;
+
                         case "v": // iOS version
+                            // if marketing version exists, put this cell in parenthesis
                             version.Version = version.Version is ""
-                                ? cell.InnerText.Trim()
+                                ? cellText
                                 : $"{version.Version} (iOS {cellText})";
                             continue;
+
                         case "bm": // Marketing build (always comes before "b")
                             version.Build = cellText;
                             continue;
+
                         case "b": // Build
+                            // if marketing version exists, put this cell in parenthesis
                             version.Build = version.Build is ""
-                                ? cell.InnerText.Trim()
+                                ? cellText
                                 : $"{version.Build} ({cellText})";
                             continue;
 
-                        // case "k..." handled below
-                        // case "bb", "bb..." ignored for now
+                        // cases "k..." and "bb..." handled below
+
                         case "r": // Release date
                             if (DateTime.TryParse(cellText, out DateTime dt))
                                 version.ReleaseDate = dt;
                             continue;
+
                         case "u": // Download URL
-                            // ReSharper disable once LoopCanBeConvertedToQuery
-                            foreach (XmlNode link in cell.SelectNodes(".//@href")!)
-                            {
-                                // skip cite links
-                                if (link.Value![0] is '#')
-                                    continue;
-                                version.Url = link.Value!;
-                                break;
-                            }
+                            version.Url = cell
+                                .SelectNodes(".//@href")!
+                                .Cast<XmlNode>()
+                                .Select(link => link.Value!)
+                                .First(url => url[0] is not '#');
                             continue;
+
                         case "h": // Hash
                             if (cellText is "?" or "N/A")
                                 continue;
+                            // SHA-1 hashes are 20 bytes
                             Debug.Assert(cellText.Length is 40);
                             version.Hash = cellText;
                             continue;
+
                         case "s": // File size
                             if (long.TryParse(cellText.Replace(",", ""), out long l))
                                 version.FileSize = l;
                             continue;
+
                         case "d": // Documentation
                         case "i": // Ignore
                             continue;
+
+                        default:
+                            if (thisDescriptor.StartsWith("bb"))
+                                continue; // ignore baseband for now
+                            Debug.Assert(thisDescriptor[0] is 'k');
+                            break;
                     }
-                    if (thisDescriptor[..2] is "bb")
-                        continue; // skip baseband for now
-                    Debug.Assert(thisDescriptor[0] is 'k');
+
                     string[] devices = thisDescriptor[2..^1].Split(';');
                     List<FirmwareVersionEntryUrl> keyPages = new();
                     foreach (XmlNode link in cell.SelectNodes(".//a")!)
@@ -261,6 +271,7 @@ public static class Program
                         string url = link.SelectSingleNode("@href")!.Value!;
                         if (url[0] is '#')
                             continue;
+
                         bool redlink = url.EndsWith("redlink=1");
                         string device = link.InnerText.Trim();
                         Debug.Assert(devices.Contains(device));
@@ -284,6 +295,7 @@ public static class Program
     {
         // convert the contents into a set of key-value pairs
 
+        // remove template header/footer
         string[] lines = contents
             .Replace("{{keys", "")
             .Replace("}}", "")
@@ -297,14 +309,18 @@ public static class Program
             props.Add(lineProps[0], lineProps[1]);
         }
 
+        // all device IDs have a comma
         Debug.Assert(props["Device"].Contains(','));
+
         return BuildKeyPageFromDictionary(props);
     }
 
     private static KeyPage BuildKeyPageFromDictionary(Dictionary<string, string> props)
     {
+        // pages with `Model` prop must have an accompanying `Model2` one
         if (props.ContainsKey("Model") && !props.ContainsKey("Model2"))
         {
+            // if not, just ignore the `Model` prop
             MarkBadPage("No 'Model2'", props);
             props.Remove("Model");
         }
@@ -349,12 +365,15 @@ public static class Program
             if (!props.TryGetValue(enumStr, out string? filename))
                 continue;
 
+            // ramdisks don't have the extension due to historical mistake
             if (enumStr.Contains("Ramdisk"))
                 filename += ".dmg";
 
             FirmwareItem item = new(filename);
+            // ALL firmware items must have an `...IV` prop (even unencrypted ones)
             if (!props.TryGetValue($"{enumStr}IV", out string? iv))
             {
+                // if not, ignore it for now
                 MarkBadPage($"Missing '{enumStr}IV'", props);
                 continue;
             }
@@ -365,14 +384,15 @@ public static class Program
                     item.Encrypted = false;
                     break;
 
-                // ReSharper disable once StringLiteralTypo
                 case "Unknown":
                     // for now, don't error if the KBAG isn't known
+                    // TODO: should we?
                     if (props.TryGetValue($"{enumStr}KBAG", out s))
                         item.KBag = s;
                     break;
 
                 default:
+                    // any encrypted item MUST have an accompanying `...Key` prop
                     if (props.TryGetValue($"{enumStr}Key", out string? key))
                         item.IVKey = new(iv, key);
                     else
@@ -431,12 +451,8 @@ public static class Program
         // This method is a pretty inefficient way IMHO of fixing the problem...
 
         XmlNodeList rows = table.ChildNodes;
-        int rowCount = rows.Count;
-
-        // Subtract 1 to ignore the release notes column (it causes
-        //   problems when using XmlNode.InsertBefore(...) and we
-        //   don't care about it)
         int colCount = rows[0]!.ChildNodes.Count;
+        int rowCount = rows.Count;
 
         for (int col = 0; col < colCount; col++)
         {
@@ -459,8 +475,8 @@ public static class Program
                         rowToAddTo.InsertBefore(cell.Clone(), rowToAddTo.ChildNodes[col]);
                     }
 
-                    // We aren't allowed to modify the collection while enumerating,
-                    //   so if we change it, we need to restart the enumeration
+                    // We aren't allowed to modify the collection while enumerating, so if we change it, we need to
+                    //   restart the enumeration
                     goto restart;
                 }
             }
@@ -485,8 +501,8 @@ public static class Program
                     for (int i = 1; i < val; i++)
                         row.InsertAfter(cell.Clone(), cell);
 
-                    // We aren't allowed to modify the collection while enumerating,
-                    //   so if we change it, we need to restart the enumeration
+                    // We aren't allowed to modify the collection while enumerating, so if we change it, we need to
+                    //   restart the enumeration
                     goto restart;
                 }
             }
