@@ -26,6 +26,7 @@ using System.Diagnostics;
 using System.Diagnostics.Contracts;
 using System.IO;
 using System.Text;
+using System.Text.Json;
 
 namespace iDecryptIt.Shared;
 
@@ -68,7 +69,7 @@ public class FirmwareItem
 
         writer.Write(Encrypted);
         if (!Encrypted)
-            return;
+            return; // if not encrypted, nothing more to do
 
         if (IVKey is not null)
         {
@@ -89,6 +90,33 @@ public class FirmwareItem
             foreach (char c in UNKNOWN_MAGIC)
                 writer.Write((byte)c);
         }
+    }
+
+    public void Serialize(Utf8JsonWriter writer)
+    {
+        // if not encrypted, they must both be null
+        Contract.Assert(Encrypted || (IVKey is null && KBag is null));
+
+        if (Filename is not null)
+            writer.WriteString(nameof(Filename), Filename);
+
+        writer.WriteBoolean(nameof(Encrypted), Encrypted);
+        if (!Encrypted)
+            return; // if not encrypted, nothing more to do
+
+        if (IVKey is not null)
+        {
+            writer.WriteStartObject(nameof(IVKey));
+            writer.WriteString(nameof(IVKeyPair.IV), IVKey.IV);
+            writer.WriteString(nameof(IVKeyPair.Key), IVKey.Key);
+            writer.WriteEndObject();
+        }
+        else if (KBag is not null)
+        {
+            writer.WriteString(nameof(KBag), KBag);
+        }
+
+        // write nothing for unknown
     }
 
     public static FirmwareItem Deserialize(BinaryReader reader)
@@ -126,7 +154,7 @@ public class FirmwareItem
         {
             string start = $"FirmwareItem {{ {Filename}";
             if (!Encrypted)
-                return $"{start} }}";
+                return $"{start}, Unencrypted }}";
             if (IVKey is not null)
                 return $"{start}, IV={IVKey.IV}, Key={IVKey.Key} }}";
             // ReSharper disable once ConvertIfStatementToReturnStatement

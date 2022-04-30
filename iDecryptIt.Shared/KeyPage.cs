@@ -26,6 +26,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Text.Json;
 
 namespace iDecryptIt.Shared;
 
@@ -90,8 +91,54 @@ public class KeyPage
         }
     }
 
+    public void Serialize(Utf8JsonWriter writer)
+    {
+        writer.WriteString(nameof(Version), Version);
+        writer.WriteString(nameof(Build), Build);
+        writer.WriteString(nameof(Device), Device);
+        writer.WriteString(nameof(Codename), Codename);
+
+        if (Baseband is not null)
+            writer.WriteString(nameof(Baseband), Baseband is "" ? "?" : Baseband); // coerce empty values to ?
+
+        if (DownloadUrl is not null)
+            writer.WriteString(nameof(DownloadUrl), DownloadUrl);
+
+        if (Models is not null)
+        {
+            writer.WriteStartArray(nameof(Models));
+            writer.WriteStringValue(Models.Value.Item1);
+            writer.WriteStringValue(Models.Value.Item2);
+            writer.WriteEndArray();
+        }
+
+        if (RootFS is not null)
+        {
+            writer.WriteStartObject(nameof(RootFS));
+            RootFS.Serialize(writer);
+            writer.WriteEndObject();
+        }
+
+        if (RootFSBeta is not null)
+        {
+            writer.WriteStartObject(nameof(RootFSBeta));
+            RootFSBeta.Serialize(writer);
+            writer.WriteEndObject();
+        }
+
+        foreach ((FirmwareItemType key, FirmwareItem value) in FirmwareItems)
+        {
+            writer.WriteStartObject(key.ToString());
+            value.Serialize(writer);
+            writer.WriteEndObject();
+        }
+    }
+
     public static KeyPage Deserialize(BinaryReader reader)
     {
+        if (Encoding.ASCII.GetString(reader.ReadBytes(16)) != IOHelpers.HEADER_KEY_FILE)
+            throw new FormatException($"Provided file is not a valid {nameof(KeyPage)} file.");
+
         // ReSharper disable once UseObjectOrCollectionInitializer
         KeyPage page = new();
         page.Version = reader.ReadString();
@@ -165,11 +212,27 @@ public class RootFS
             foreach (char c in KEY_MAGIC)
                 writer.Write((byte)c);
             writer.Write(Key);
-            return;
         }
+        else
+        {
+            foreach (char c in UNKNOWN_MAGIC)
+                writer.Write((byte)c);
+        }
+    }
 
-        foreach (char c in UNKNOWN_MAGIC)
-            writer.Write((byte)c);
+    public void Serialize(Utf8JsonWriter writer)
+    {
+        if (Filename is not null)
+            writer.WriteString(nameof(Filename), Filename);
+
+        writer.WriteBoolean(nameof(Encrypted), Encrypted);
+        if (!Encrypted)
+            return; // if not encrypted, nothing more to do
+
+        if (Key is not null)
+            writer.WriteString(nameof(Key), Key);
+
+        // write nothing for unknown
     }
 
     public static RootFS Deserialize(BinaryReader reader)

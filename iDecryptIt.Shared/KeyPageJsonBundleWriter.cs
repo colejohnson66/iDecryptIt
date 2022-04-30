@@ -1,5 +1,5 @@
 ﻿/* =============================================================================
- * File:   KeyPageBundleWriter.cs
+ * File:   KeyPageJsonBundleWriter.cs
  * Author: Cole Tobin
  * =============================================================================
  * Copyright (c) 2022 Cole Tobin
@@ -21,40 +21,29 @@
  * =============================================================================
  */
 
-using JetBrains.Annotations;
 using System.Collections.Generic;
-using System.IO;
+using System.Text.Json;
 
 namespace iDecryptIt.Shared;
 
-[PublicAPI]
-public sealed class KeyPageBundleWriter
+public class KeyPageJsonBundleWriter
 {
-    private MemoryStream _concatenatedFiles = new();
-    // buildID -> (offset in `_concatenatedFiles`, length)
-    private Dictionary<string, (int, int)> _offsets = new();
+    private readonly Dictionary<string, KeyPage> _pages = new();
 
-    public void AddFile(string buildID, byte[] file)
+    public void AddFile(string buildID, KeyPage page)
     {
-        _offsets.Add(buildID, ((int)_concatenatedFiles.Length, file.Length));
-        _concatenatedFiles.Write(file);
+        _pages.Add(buildID, page);
     }
 
-    public void WriteBundle(BinaryWriter writer)
+    public void WriteBundle(Utf8JsonWriter writer)
     {
-        foreach (char c in IOHelpers.HEADER_BUNDLE)
-            writer.Write((byte)c);
-
-        // header
-        writer.Write(_offsets.Count);
-        foreach ((string name, (int offset, int length)) in _offsets)
+        writer.WriteStartObject();
+        foreach ((string build, KeyPage page) in _pages)
         {
-            writer.Write(name);
-            writer.Write(offset);
-            writer.Write(length);
+            writer.WriteStartObject(build);
+            page.Serialize(writer);
+            writer.WriteEndObject();
         }
-
-        writer.Write(_concatenatedFiles.ToArray());
-        writer.Dispose();
+        writer.WriteEndObject();
     }
 }

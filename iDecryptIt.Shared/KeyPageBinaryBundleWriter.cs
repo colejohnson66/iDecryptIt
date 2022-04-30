@@ -1,5 +1,5 @@
 ﻿/* =============================================================================
- * File:   HasKeysEntry.cs
+ * File:   KeyPageBinaryBundleWriter.cs
  * Author: Cole Tobin
  * =============================================================================
  * Copyright (c) 2022 Cole Tobin
@@ -22,37 +22,39 @@
  */
 
 using JetBrains.Annotations;
+using System.Collections.Generic;
 using System.IO;
-using System.Text.Json;
 
 namespace iDecryptIt.Shared;
 
 [PublicAPI]
-public record HasKeysEntry(
-    string Version,
-    string Build,
-    bool HasKeys)
+public sealed class KeyPageBinaryBundleWriter
 {
-    public void Serialize(BinaryWriter writer)
+    private MemoryStream _concatenatedFiles = new();
+    // buildID -> (offset in `_concatenatedFiles`, length)
+    private Dictionary<string, (int, int)> _offsets = new();
+
+    public void AddFile(string buildID, byte[] file)
     {
-        writer.Write(Version);
-        writer.Write(Build);
-        writer.Write(HasKeys);
+        _offsets.Add(buildID, ((int)_concatenatedFiles.Length, file.Length));
+        _concatenatedFiles.Write(file);
     }
 
-    public void Serialize(Utf8JsonWriter writer)
+    public void WriteBundle(BinaryWriter writer)
     {
-        // these are serialized as a tuple to save whitespace
-        writer.WriteStringValue(Version);
-        writer.WriteStringValue(Build);
-        writer.WriteBooleanValue(HasKeys);
-    }
+        foreach (char c in IOHelpers.HEADER_BUNDLE)
+            writer.Write((byte)c);
 
-    public static HasKeysEntry Deserialize(BinaryReader reader)
-    {
-        string version = reader.ReadString();
-        string build = reader.ReadString();
-        bool hasKeys = reader.ReadBoolean();
-        return new(version, build, hasKeys);
+        // header
+        writer.Write(_offsets.Count);
+        foreach ((string name, (int offset, int length)) in _offsets)
+        {
+            writer.Write(name);
+            writer.Write(offset);
+            writer.Write(length);
+        }
+
+        writer.Write(_concatenatedFiles.ToArray());
+        writer.Dispose();
     }
 }

@@ -29,6 +29,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
@@ -50,30 +51,38 @@ public static class Program
     private static readonly HttpClient Client = new();
     private static readonly string CurrentDirectory = Directory.GetCurrentDirectory();
     private static readonly string KeysDir = Path.Combine(CurrentDirectory, "Keys");
-    private static readonly string OutputDir = Path.Combine(CurrentDirectory, "Output");
+    private static readonly string iDecryptItOutputDir = Path.Combine(CurrentDirectory, "Output-iDecryptIt");
+    private static readonly string iFirmwareOutputDir = Path.Combine(CurrentDirectory, "Output-iFirmware");
     private static readonly Dictionary<Device, List<FirmwareVersionEntry>> Versions = new();
 
     public static async Task Main()
     {
+        Debug.WriteLine("Deleting old artifacts...");
         if (Directory.Exists(KeysDir))
             Directory.Delete(KeysDir, true);
-        if (Directory.Exists(OutputDir))
-            Directory.Delete(OutputDir, true);
-        Directory.CreateDirectory(KeysDir);
-        Directory.CreateDirectory(OutputDir);
-
+        if (Directory.Exists(iDecryptItOutputDir))
+            Directory.Delete(iDecryptItOutputDir, true);
+        if (Directory.Exists(iFirmwareOutputDir))
+            Directory.Delete(iFirmwareOutputDir, true);
         if (File.Exists(BAD_PAGE_FILE))
             File.Delete(BAD_PAGE_FILE);
+
+        Directory.CreateDirectory(KeysDir);
+        Directory.CreateDirectory(iDecryptItOutputDir);
+        Directory.CreateDirectory(iFirmwareOutputDir);
 
         foreach (Device id in Device.AllDevices)
             Versions.Add(id, new());
 
+
+        Debug.WriteLine("Parsing descriptor pages...");
         await ProcessDescriptors();
-
         Debug.WriteLine("Descriptor parsing complete.");
-        Debug.WriteLine("Generating 'HasKeys.bin'...");
 
-        await using (BinaryWriter hasKeysWriter = new(File.OpenWrite(Path.Combine(OutputDir, "HasKeys.bin")), Encoding.UTF8))
+
+        // use a "using block" using so the file is closed when we're done (not really needed, but why not cleanup?)
+        Debug.WriteLine("Generating 'HasKeys.bin'...");
+        await using (BinaryWriter hasKeysWriter = new(File.OpenWrite(Path.Combine(iDecryptItOutputDir, "HasKeys.bin")), Encoding.UTF8))
         {
             hasKeysWriter.Write(Encoding.ASCII.GetBytes(IOHelpers.HEADER_HAS_KEYS)); // 16 byte header
             foreach ((Device device, List<FirmwareVersionEntry> entries) in Versions)
@@ -84,11 +93,33 @@ public static class Program
                     new HasKeysEntry(entry.Version, entry.Build, entry.KeyPages![0].Url is not null).Serialize(hasKeysWriter);
             }
         }
+        Debug.WriteLine("'HasKeys.bin' complete.");
 
-        Debug.WriteLine("Beginning crawl...");
+
+        // same here
+        Debug.WriteLine("Generating 'HasKeys.json'...");
+        await using (Utf8JsonWriter hasKeysWriter = new(File.OpenWrite(Path.Combine(iFirmwareOutputDir, "HasKeys.json")), new() { Indented = true }))
+        {
+            hasKeysWriter.WriteStartObject();
+            foreach ((Device device, List<FirmwareVersionEntry> entries) in Versions)
+            {
+                hasKeysWriter.WriteStartArray(device.ModelString);
+                foreach (FirmwareVersionEntry entry in entries)
+                {
+                    hasKeysWriter.WriteStartArray();
+                    new HasKeysEntry(entry.Version, entry.Build, entry.KeyPages![0].Url is not null).Serialize(hasKeysWriter);
+                    hasKeysWriter.WriteEndArray();
+                }
+                hasKeysWriter.WriteEndArray();
+            }
+            hasKeysWriter.WriteEndObject();
+        }
+        Debug.WriteLine("'HasKeys.json' complete.");
+
 
         // Unfortunately, the wiki export caps at 5000 pages, so we have to crawl one by one...
         // TODO: iterate by scanning [[Firmware Keys/##.x]] to avoid duplicates
+        Debug.WriteLine("Beginning crawl and save...");
         foreach ((_, List<FirmwareVersionEntry> entries) in Versions)
         {
             await Parallel.ForEachAsync(
@@ -114,27 +145,52 @@ public static class Program
                     }
                 });
         }
-
         Debug.WriteLine("Crawl and save complete.");
-        Debug.WriteLine("Bundling...");
 
-        // bundle them up
+
+        Debug.WriteLine("Bundling for iDecryptIt...");
         foreach (Device device in Device.AllDevices)
         {
             Debug.WriteLine($"Bundling {device}.");
             string idStr = device.ModelString;
-            KeyPageBundleWriter writer = new();
+            KeyPageBinaryBundleWriter writer = new();
             foreach (string file in Directory.GetFiles(KeysDir, $"{idStr}_*.bin"))
             {
                 string build = new FileInfo(file).Name[(idStr.Length + 1)..^4];
                 byte[] contents = await File.ReadAllBytesAsync(file);
                 writer.AddFile(build, contents);
             }
-            await using BinaryWriter bundleWriter = new(File.OpenWrite(Path.Combine(OutputDir, $"{idStr}.bin")));
+            await using BinaryWriter bundleWriter = new(File.OpenWrite(Path.Combine(iDecryptItOutputDir, $"{idStr}.bin")));
             writer.WriteBundle(bundleWriter);
         }
+        Debug.WriteLine("Bundling for iDecryptIt complete.");
 
-        Debug.WriteLine("Bundling complete.");
+
+        Debug.WriteLine("Bundling for iFirmware...");
+        foreach (Device device in Device.AllDevices)
+        {
+            Debug.WriteLine($"Bundling {device}.");
+            string idStr = device.ModelString;
+            KeyPageJsonBundleWriter writer = new();
+            foreach (string file in Directory.GetFiles(KeysDir, $"{idStr}_*.bin"))
+            {
+                // deserialize the bin files
+                using BinaryReader reader = new(File.OpenRead(file));
+                string build = new FileInfo(file).Name[(idStr.Length + 1)..^4];
+                writer.AddFile(build, KeyPage.Deserialize(reader));
+            }
+            JsonWriterOptions options = new()
+            {
+                Indented = true,
+            };
+            await using Utf8JsonWriter bundleWriter = new(
+                File.OpenWrite(Path.Combine(iFirmwareOutputDir, $"{idStr}.json")),
+                new() { Indented = true });
+            writer.WriteBundle(bundleWriter);
+        }
+        Debug.WriteLine("Bundling for iFirmware complete.");
+
+
         Debug.WriteLine("");
         Debug.WriteLine("Done!");
     }
@@ -236,7 +292,7 @@ public static class Program
                                 .SelectNodes(".//@href")!
                                 .Cast<XmlNode>()
                                 .Select(link => link.Value!)
-                                .First(url => url[0] is not '#');
+                                .FirstOrDefault(url => url[0] is not '#');
                             continue;
 
                         case "h": // Hash
