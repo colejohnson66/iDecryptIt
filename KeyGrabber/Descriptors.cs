@@ -1819,6 +1819,7 @@ public static class Descriptors
                 "v b k(iPhone14,5) bb r u s",
                 "v b k(iPhone14,2) bb r u s",
                 "v b k(iPhone14,3) bb r u s",
+                "v b k(iPhone14,6) bb r u s",
             }
         },
     };
