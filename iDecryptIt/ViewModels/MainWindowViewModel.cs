@@ -139,7 +139,7 @@ public class MainWindowViewModel : ViewModelBase
 
     // not `Enum.GetValues<DeviceGroup>` because some don't exist in the map
     public ObservableCollection<DeviceGroup> VKGroupList { get; } = new(Device.MappingGroupToDevices.Keys);
-    [Reactive] public DeviceGroup? VKGroupSelectedItem { get; set; } = null;
+    [Reactive] public DeviceGroup? VKGroupSelectedItem { get; set; } // = null; // see github:reactiveu/ReactiveUI#2688
     //
     [Reactive] public bool VKModelEnabled { get; set; } = false;
     [Reactive] public ObservableCollection<Device> VKModelList { get; set; } = new();
