@@ -29,6 +29,7 @@ using ReactiveUI.Fody.Helpers;
 using System;
 using System.Collections.ObjectModel;
 using System.Reactive;
+using System.Reactive.Concurrency;
 using System.Reactive.Disposables;
 
 // ReSharper disable MemberCanBePrivate.Global
@@ -57,6 +58,8 @@ public class MainWindowViewModel : ViewModelBase
 
         _disposables = new();
         Subscribe(_disposables);
+
+        RxApp.TaskpoolScheduler.Schedule(KeyHelpers.EnsureInit);
     }
 
     private void Subscribe(CompositeDisposable disposables)
@@ -97,6 +100,9 @@ public class MainWindowViewModel : ViewModelBase
 
                     if (value is null)
                         return;
+
+                    VKBuildEnabled = true;
+                    VKBuildList.AddRange(KeyHelpers.GetHasKeysList(value));
                 })
             .DisposeWith(disposables);
     }
@@ -146,8 +152,8 @@ public class MainWindowViewModel : ViewModelBase
     [Reactive] public Device? VKModelSelectedItem { get; set; } = null;
     //
     [Reactive] public bool VKBuildEnabled { get; set; } = false;
-    [Reactive] public ObservableCollection<string> VKBuildList { get; set; } = new();
-    [Reactive] public string? VKBuildSelectedItem { get; set; } = null;
+    [Reactive] public ObservableCollection<HasKeysEntry> VKBuildList { get; set; } = new();
+    [Reactive] public HasKeysEntry? VKBuildSelectedItem { get; set; } = null;
 
     [Reactive] public bool ViewKeysCommandEnabled { get; set; }
     public ReactiveCommand<Unit, Unit> ViewKeysCommand { get; set; }

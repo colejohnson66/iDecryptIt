@@ -1,6 +1,7 @@
 <Window
     xmlns="https://github.com/avaloniaui"
     xmlns:controls="clr-namespace:iDecryptIt.Controls"
+    xmlns:converters="clr-namespace:iDecryptIt.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:iDecryptIt.Models"
@@ -8,7 +9,7 @@
     xmlns:svg="clr-namespace:Avalonia.Svg.Skia;assembly=Avalonia.Svg.Skia"
     xmlns:vm="clr-namespace:iDecryptIt.ViewModels"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
+    mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="800"
     x:Class="iDecryptIt.Views.MainWindow"
     Background="{DynamicResource ColorSky100}"
     Height="800" Width="800"
@@ -18,6 +19,12 @@
     <Design.DataContext>
         <vm:MainWindowViewModel />
     </Design.DataContext>
+
+    <Window.Resources>
+        <converters:BoolToSolidColorBrushConverter x:Key="BoolToSolidColorBrushConverter" />
+        <converters:DeviceGroupConverter x:Key="DeviceGroupConverter" />
+        <converters:HasKeysEntryToVersionBuildString x:Key="HasKeysEntryToVersionBuildString" />
+    </Window.Resources>
 
     <DockPanel
         LastChildFill="True"
@@ -57,12 +64,14 @@
                         <TextBlock
                             HorizontalAlignment="Center"
                             IsVisible="{Binding DecryptingRootFS}"
-                            MaxWidth="100"
+                            MaxWidth="75"
+                            TextAlignment="Center"
                             TextWrapping="Wrap">Decrypting Root FS</TextBlock>
                         <TextBlock
                             HorizontalAlignment="Center"
                             IsVisible="{Binding !DecryptingRootFS}"
-                            MaxWidth="100"
+                            MaxWidth="75"
+                            TextAlignment="Center"
                             TextWrapping="Wrap">Decrypting FW Item</TextBlock>
                         <Button
                             Command="{Binding DecryptingRootFSSwitchCommand}"
@@ -275,7 +284,7 @@
                             VerticalAlignment="Center">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate DataType="shared:DeviceGroup">
-                                    <TextBlock Text="{Binding}" />
+                                    <TextBlock Text="{Binding ., Converter={StaticResource DeviceGroupConverter}}" />
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
@@ -287,7 +296,13 @@
                             SelectedItem="{Binding VKModelSelectedItem}"
                             PlaceholderForeground="{DynamicResource ColorGray400}"
                             PlaceholderText="Select Model"
-                            VerticalAlignment="Center" />
+                            VerticalAlignment="Center">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate DataType="shared:Device">
+                                    <TextBlock Text="{Binding}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
                         <ComboBox
                             HorizontalAlignment="Stretch"
                             IsEnabled="{Binding VKBuildEnabled}"
@@ -296,7 +311,17 @@
                             SelectedItem="{Binding VKBuildSelectedItem}"
                             PlaceholderForeground="{DynamicResource ColorGray400}"
                             PlaceholderText="Select Build"
-                            VerticalAlignment="Center" />
+                            VerticalAlignment="Center">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate DataType="shared:HasKeysEntry">
+                                    <!-- TODO: the color isn't working -->
+                                    <!-- TODO: convert the entries to a custom model to remove need for binding converters (slows down a lot) -->
+                                    <TextBlock
+                                        Foreground="{Binding HasKeys, Converter={StaticResource BoolToSolidColorBrushConverter}, ConverterParameter=green$red}"
+                                        Text="{Binding ., Converter={StaticResource HasKeysEntryToVersionBuildString}}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
                     </UniformGrid>
 
                 </DockPanel>

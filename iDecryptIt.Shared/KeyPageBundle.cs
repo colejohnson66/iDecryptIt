@@ -45,10 +45,10 @@ public class KeyPageBundle : IDisposable
         _offsets = offsets;
         _reader = reader;
         _startOffset = (int)reader.BaseStream.Position;
-        Builds = _offsets.Keys.ToList().AsReadOnly();
+        Builds = new(_offsets.Keys.ToList());
     }
 
-    public static KeyPageBundle Read(BinaryReader reader)
+    public static KeyPageBundle Open(BinaryReader reader)
     {
         if (IOHelpers.HEADER_BUNDLE.Any(c => reader.ReadByte() != (byte)c))
             throw new InvalidDataException("Bad header.");
