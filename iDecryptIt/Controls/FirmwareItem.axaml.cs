@@ -29,7 +29,6 @@ namespace iDecryptIt.Controls;
 
 public class FirmwareItem : TemplatedControl
 {
-    // ReSharper disable once MemberCanBePrivate.Global
     public static readonly StyledProperty<FirmwareItemType> ItemKindProperty =
         AvaloniaProperty.Register<FirmwareItem, FirmwareItemType>(nameof(ItemKind));
     public FirmwareItemType ItemKind
@@ -38,16 +37,14 @@ public class FirmwareItem : TemplatedControl
         set => SetValue(ItemKindProperty, value);
     }
 
-    // ReSharper disable once MemberCanBePrivate.Global
-    public static readonly StyledProperty<string> FileNameProperty =
-        AvaloniaProperty.Register<FirmwareItem, string>(nameof(FileName));
-    public string FileName
+    public static readonly StyledProperty<string?> FilenameProperty =
+        AvaloniaProperty.Register<FirmwareItem, string?>(nameof(Filename));
+    public string? Filename
     {
-        get => GetValue(FileNameProperty);
-        set => SetValue(FileNameProperty, value);
+        get => GetValue(FilenameProperty);
+        set => SetValue(FilenameProperty, value);
     }
 
-    // ReSharper disable once MemberCanBePrivate.Global
     public static readonly StyledProperty<bool> EncryptedProperty =
         AvaloniaProperty.Register<FirmwareItem, bool>(nameof(Encrypted));
     public bool Encrypted
@@ -56,7 +53,6 @@ public class FirmwareItem : TemplatedControl
         set => SetValue(EncryptedProperty, value);
     }
 
-    // ReSharper disable once MemberCanBePrivate.Global
     public static readonly StyledProperty<string?> IVProperty =
         AvaloniaProperty.Register<FirmwareItem, string?>(nameof(IV));
     public string? IV
@@ -65,7 +61,6 @@ public class FirmwareItem : TemplatedControl
         set => SetValue(IVProperty, value);
     }
 
-    // ReSharper disable once MemberCanBePrivate.Global
     public static readonly StyledProperty<string?> KeyProperty =
         AvaloniaProperty.Register<FirmwareItem, string?>(nameof(Key));
     public string? Key
@@ -74,7 +69,7 @@ public class FirmwareItem : TemplatedControl
         set => SetValue(KeyProperty, value);
     }
 
-    // ReSharper disable once MemberCanBePrivate.Global
+    // TODO: use this value
     public static readonly StyledProperty<string?> KBagProperty =
         AvaloniaProperty.Register<FirmwareItem, string?>(nameof(KBag));
     public string? KBag

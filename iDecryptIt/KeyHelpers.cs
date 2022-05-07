@@ -28,6 +28,7 @@ using iDecryptIt.Shared;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -73,9 +74,6 @@ public static class KeyHelpers
     public static ReadOnlyCollection<HasKeysEntry> GetHasKeysList(Device device) =>
         _hasKeysDictionary[device];
 
-    public static bool HasKeys(Device device, string build) =>
-        GetHasKeysList(device).Any(entry => entry.Build == build);
-
     public static void EnsureBundleIsLoaded(Device device)
     {
         lock (_readBundlesLock)
@@ -116,7 +114,8 @@ public static class KeyHelpers
         {
             EnsureBundleIsLoadedInternal(device);
             KeyPageBundle bundle = _readBundles[device];
-            return bundle.HasBuild(build) ? bundle.Read(build) : null;
+            Debug.Assert(bundle.HasBuild(build));
+            return bundle.Read(build);
         }
     }
 }

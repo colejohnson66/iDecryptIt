@@ -5,13 +5,16 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Design.PreviewWith>
-        <controls:FirmwareItem
-            ItemKind="AppleLogo"
-            Encrypted="False"
-            FileName="abc"
-            IV=""
-            Key=""
-            Width="800" />
+        <Panel
+            Margin="8"
+            Width="800">
+            <controls:FirmwareItem
+                ItemKind="AppleLogo"
+                Encrypted="False"
+                Filename="abc"
+                IV=""
+                Key="" />
+        </Panel>
     </Design.PreviewWith>
 
     <Styles.Resources>
@@ -41,7 +44,8 @@
 
                     <Button
                         DockPanel.Dock="Right"
-                        Content="Decrypt"/>
+                        Content="Decrypt"
+                        Margin="0,8" />
 
                     <Separator
                         DockPanel.Dock="Right"
@@ -49,9 +53,11 @@
 
                     <TextBox
                         DockPanel.Dock="Right"
-                        MinWidth="150"
+                        Margin="0,8"
+                        Text="{TemplateBinding Filename}"
                         VerticalAlignment="Center"
-                        Watermark="Unknown" />
+                        Watermark="Unknown"
+                        Width="150" />
 
                     <Separator
                         DockPanel.Dock="Right"

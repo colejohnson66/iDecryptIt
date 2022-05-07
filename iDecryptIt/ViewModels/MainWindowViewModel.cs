@@ -27,7 +27,9 @@ using iDecryptIt.Shared;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Concurrency;
@@ -104,6 +106,9 @@ public class MainWindowViewModel : ViewModelBase
 
                     VKBuildEnabled = true;
                     VKBuildList.AddRange(KeyHelpers.GetHasKeysList(value).Select(VKBuildModel.FromHasKeysEntry));
+
+                    // load the bundle up for faster key loading
+                    RxApp.TaskpoolScheduler.Schedule(() => KeyHelpers.EnsureBundleIsLoaded(value));
                 })
             .DisposeWith(disposables);
 
@@ -152,9 +157,10 @@ public class MainWindowViewModel : ViewModelBase
     private void OnExtract()
     { }
 
-    // not `Enum.GetValues<DeviceGroup>` because some don't exist in the map
-    public ObservableCollection<DeviceGroup> VKGroupList { get; } = new(Device.MappingGroupToDevices.Keys);
-    [Reactive] public DeviceGroup? VKGroupSelectedItem { get; set; } // = null; // see github:reactiveu/ReactiveUI#2688
+    public ObservableCollection<DeviceGroup> VKGroupList { get; } = new(
+        Enum.GetValues<DeviceGroup>().Where(group => group is not (DeviceGroup.AudioAccessory or DeviceGroup.IBridge)));
+    // ReSharper disable once CommentTypo
+    [Reactive] public DeviceGroup? VKGroupSelectedItem { get; set; } // = null; // see github:reactiveui/ReactiveUI#2688
     //
     [Reactive] public bool VKModelEnabled { get; set; } = false;
     [Reactive] public ObservableCollection<Device> VKModelList { get; set; } = new();
@@ -167,12 +173,27 @@ public class MainWindowViewModel : ViewModelBase
     [Reactive] public bool ViewKeysCommandEnabled { get; set; }
     public ReactiveCommand<Unit, Unit> ViewKeysCommand { get; set; }
     private void OnViewKeys()
-    { }
+    {
+        Debug.Assert(VKBuildSelectedItem?.HasKeys is true);
+
+        Device device = VKModelSelectedItem!; // SAFETY: button can't be clicked if this is null
+        string build = VKBuildSelectedItem!.Build; // ditto
+
+        KeysHeading = device.ModelString;
+
+        KeyEntries.Clear();
+        KeyPage? page = KeyHelpers.ReadKeys(device, build);
+        Debug.Assert(page is not null); // SAFETY: never null if the key grabber worked correctly
+
+        if (page.RootFS is not null)
+            KeyEntries.Add(FirmwareItemModel.FromRootFS(FirmwareItemType.RootFS, page.RootFS));
+        if (page.RootFSBeta is not null)
+            KeyEntries.Add(FirmwareItemModel.FromRootFS(FirmwareItemType.RootFSBeta, page.RootFSBeta));
+
+        foreach (KeyValuePair<FirmwareItemType, FirmwareItem> item in page.FirmwareItems)
+            KeyEntries.Add(FirmwareItemModel.FromFirmwareItem(item.Key, item.Value));
+    }
 
     [Reactive] public string KeysHeading { get; set; } = "";
-    [Reactive]
-    public ObservableCollection<FirmwareItemModel> KeyEntries { get; set; } = new()
-    {
-        new(FirmwareItemType.RootFSBeta, "", true, null, ""),
-    };
+    [Reactive] public ObservableCollection<FirmwareItemModel> KeyEntries { get; set; } = new();
 }

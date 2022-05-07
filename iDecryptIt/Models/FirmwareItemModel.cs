@@ -22,12 +22,26 @@
  */
 
 using iDecryptIt.Shared;
+using System.Diagnostics;
 
 namespace iDecryptIt.Models;
 
 public record FirmwareItemModel(
     FirmwareItemType ItemKind,
-    string FileName,
+    string? FileName,
     bool Encrypted,
     string? IV,
-    string? Key);
+    string? Key)
+{
+    public static FirmwareItemModel FromFirmwareItem(FirmwareItemType type, FirmwareItem item)
+    {
+        Debug.Assert(type is not (FirmwareItemType.RootFS or FirmwareItemType.RootFSBeta));
+        return new(type, item.Filename, item.Encrypted, item.IVKey?.IV, item.IVKey?.Key);
+    }
+
+    public static FirmwareItemModel FromRootFS(FirmwareItemType type, RootFS item)
+    {
+        Debug.Assert(type is FirmwareItemType.RootFS or FirmwareItemType.RootFSBeta);
+        return new(type, item.Filename, item.Encrypted, null, item.Key);
+    }
+}

@@ -346,14 +346,14 @@
 
                         <TextBlock
                             FontSize="36"
-                            Text="{Binding KeysHeading, FallbackValue=Device}" />
+                            Text="{Binding KeysHeading}" />
 
                         <ItemsRepeater Items="{Binding KeyEntries}">
                             <ItemsRepeater.ItemTemplate>
                                 <DataTemplate DataType="models:FirmwareItemModel">
                                     <controls:FirmwareItem
                                         ItemKind="{Binding ItemKind}"
-                                        FileName="{Binding FileName}"
+                                        Filename="{Binding FileName}"
                                         Encrypted="{Binding Encrypted}"
                                         IV="{Binding IV}"
                                         Key="{Binding Key}" />
