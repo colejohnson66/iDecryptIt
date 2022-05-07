@@ -42,10 +42,10 @@ public static class KeyHelpers
     private static readonly object _readBundlesLock = new();
     private static readonly Dictionary<Device, KeyPageBundle> _readBundles = new();
     private static readonly LinkedList<Device> _readBundlesOrder = new(); // use a linked list to avoid array shifting
+    private const int MAX_LOADED_BUNDLES = 8;
 
     static KeyHelpers()
     {
-
         // TODO: handle the loader failing
         using BinaryReader reader = new(_loader.Open(new("avares://iDecryptIt/Assets/Keys/HasKeys.bin")));
         if (IOHelpers.HEADER_HAS_KEYS.Any(c => reader.ReadByte() != (byte)c))
@@ -76,8 +76,18 @@ public static class KeyHelpers
     public static bool HasKeys(Device device, string build) =>
         GetHasKeysList(device).Any(entry => entry.Build == build);
 
-    private static void EnsureBundleIsLoaded(Device device)
+    public static void EnsureBundleIsLoaded(Device device)
     {
+        lock (_readBundlesLock)
+            EnsureBundleIsLoadedInternal(device);
+    }
+
+    private static void EnsureBundleIsLoadedInternal(Device device)
+    {
+        // this method does not have a lock as `ReadKeys` acquires it for us
+        // however, due to the need to expose this as a public function,
+        // `EnsureBundleIsLoaded` exists to wrap this one.
+
         if (_readBundles.ContainsKey(device))
             return;
 
@@ -87,14 +97,14 @@ public static class KeyHelpers
         _readBundles.Add(device, KeyPageBundle.Open(reader));
         _readBundlesOrder.AddLast(device);
 
-        // if more than 8 bundles are open, close the oldest
-        if (_readBundlesOrder.Count > 8)
+        // if too many are open, close the oldest
+        if (_readBundlesOrder.Count > MAX_LOADED_BUNDLES)
         {
             Device oldestDevice = _readBundlesOrder.First();
             _readBundlesOrder.RemoveFirst();
 
             // then close it
-            _readBundles.Remove(device, out KeyPageBundle? bundleToClose);
+            _readBundles.Remove(oldestDevice, out KeyPageBundle? bundleToClose);
             bundleToClose!.Dispose();
         }
     }
@@ -104,7 +114,7 @@ public static class KeyHelpers
         // prevent another thread from disposing this bundle while we're using it
         lock (_readBundlesLock)
         {
-            EnsureBundleIsLoaded(device);
+            EnsureBundleIsLoadedInternal(device);
             KeyPageBundle bundle = _readBundles[device];
             return bundle.HasBuild(build) ? bundle.Read(build) : null;
         }
