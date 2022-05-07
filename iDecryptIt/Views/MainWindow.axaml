@@ -21,9 +21,7 @@
     </Design.DataContext>
 
     <Window.Resources>
-        <converters:BoolToSolidColorBrushConverter x:Key="BoolToSolidColorBrushConverter" />
         <converters:DeviceGroupConverter x:Key="DeviceGroupConverter" />
-        <converters:HasKeysEntryToVersionBuildString x:Key="HasKeysEntryToVersionBuildString" />
     </Window.Resources>
 
     <DockPanel
@@ -313,12 +311,10 @@
                             PlaceholderText="Select Build"
                             VerticalAlignment="Center">
                             <ComboBox.ItemTemplate>
-                                <DataTemplate DataType="shared:HasKeysEntry">
-                                    <!-- TODO: the color isn't working -->
-                                    <!-- TODO: convert the entries to a custom model to remove need for binding converters (slows down a lot) -->
+                                <DataTemplate DataType="models:VKBuildModel">
                                     <TextBlock
-                                        Foreground="{Binding HasKeys, Converter={StaticResource BoolToSolidColorBrushConverter}, ConverterParameter=green$red}"
-                                        Text="{Binding ., Converter={StaticResource HasKeysEntryToVersionBuildString}}" />
+                                        Foreground="{Binding TextColor}"
+                                        Text="{Binding VersionText}" />
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>

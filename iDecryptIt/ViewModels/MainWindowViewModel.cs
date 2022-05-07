@@ -28,6 +28,7 @@ using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Reactive;
 using System.Reactive.Concurrency;
 using System.Reactive.Disposables;
@@ -102,7 +103,15 @@ public class MainWindowViewModel : ViewModelBase
                         return;
 
                     VKBuildEnabled = true;
-                    VKBuildList.AddRange(KeyHelpers.GetHasKeysList(value));
+                    VKBuildList.AddRange(KeyHelpers.GetHasKeysList(value).Select(VKBuildModel.FromHasKeysEntry));
+                })
+            .DisposeWith(disposables);
+
+        this.WhenAnyValue(vm => vm.VKBuildSelectedItem)
+            .Subscribe(
+                value =>
+                {
+                    ViewKeysCommandEnabled = value?.HasKeys ?? false;
                 })
             .DisposeWith(disposables);
     }
@@ -152,8 +161,8 @@ public class MainWindowViewModel : ViewModelBase
     [Reactive] public Device? VKModelSelectedItem { get; set; } = null;
     //
     [Reactive] public bool VKBuildEnabled { get; set; } = false;
-    [Reactive] public ObservableCollection<HasKeysEntry> VKBuildList { get; set; } = new();
-    [Reactive] public HasKeysEntry? VKBuildSelectedItem { get; set; } = null;
+    [Reactive] public ObservableCollection<VKBuildModel> VKBuildList { get; set; } = new();
+    [Reactive] public VKBuildModel? VKBuildSelectedItem { get; set; } = null;
 
     [Reactive] public bool ViewKeysCommandEnabled { get; set; }
     public ReactiveCommand<Unit, Unit> ViewKeysCommand { get; set; }

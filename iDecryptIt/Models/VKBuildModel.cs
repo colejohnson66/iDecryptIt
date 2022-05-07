@@ -1,5 +1,5 @@
 ﻿/* =============================================================================
- * File:   BoolConverters.cs
+ * File:   VKBuildModel.cs
  * Author: Cole Tobin
  * =============================================================================
  * Copyright (c) 2022 Cole Tobin
@@ -21,30 +21,25 @@
  * =============================================================================
  */
 
-using Avalonia;
-using Avalonia.Data.Converters;
 using Avalonia.Media;
-using System;
-using System.Globalization;
+using iDecryptIt.Shared;
 
-namespace iDecryptIt.Converters;
+namespace iDecryptIt.Models;
 
-public class BoolToSolidColorBrushConverter : IValueConverter
+/* Technically, this model is not needed; all information could be displayed using a `HasKeysEntry` object and
+ *   converters. However, this is not performant. With some devices having over 100 builds, the <ComboBox> can take 5-10
+ *   seconds (or more) to open *each time*. dotTrace suggests this is related to the multitude of converter calls.
+ * Replacing that method with a wrapper model brings the opening time to less than a second. Hence, this class.
+ */
+public record VKBuildModel(
+    bool HasKeys,
+    string Build,
+    SolidColorBrush TextColor,
+    string VersionText)
 {
-    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
-    {
-        if (value is not bool b || parameter is not string colors)
-            return AvaloniaProperty.UnsetValue;
+    private static readonly SolidColorBrush BLACK = new(Colors.Black);
+    private static readonly SolidColorBrush RED = new(Colors.Red);
 
-        if (!colors.Contains('$'))
-            return AvaloniaProperty.UnsetValue;
-
-        int split = colors.IndexOf('$');
-        return Color.TryParse(b ? colors[..split] : colors[(split + 1)..], out Color color)
-            ? color
-            : AvaloniaProperty.UnsetValue;
-    }
-
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) =>
-        AvaloniaProperty.UnsetValue;
+    public static VKBuildModel FromHasKeysEntry(HasKeysEntry hkEntry) =>
+        new(hkEntry.HasKeys, hkEntry.Build, hkEntry.HasKeys ? BLACK : RED, $"{hkEntry.Version} ({hkEntry.Build})");
 }
