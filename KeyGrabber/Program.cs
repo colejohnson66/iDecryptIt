@@ -30,7 +30,6 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
 
@@ -48,14 +47,13 @@ public static class Program
     private static readonly object _badPageFileLock = new();
     private const string BAD_PAGE_FILE = "BAD.txt";
 
-    private static readonly HttpClient Client = new();
+    private static readonly HttpClient Client = new() { Timeout = TimeSpan.FromSeconds(5) };
     private static readonly string CurrentDirectory = Directory.GetCurrentDirectory();
     private static readonly string KeysDir = Path.Combine(CurrentDirectory, "Keys");
     private static readonly string iDecryptItOutputDir = Path.Combine(CurrentDirectory, "Output-iDecryptIt");
     private static readonly string iFirmwareOutputDir = Path.Combine(CurrentDirectory, "Output-iFirmware");
     private static readonly Dictionary<Device, List<FirmwareVersionEntry>> Versions = new();
 
-    // TODO: clean up build properties from key pages! (currently, only descriptor pages are cleaned)
     public static async Task Main()
     {
         Console.WriteLine("Deleting old artifacts...");
@@ -273,7 +271,8 @@ public static class Program
                             {
                                 int endBraceIndex = cellText.IndexOf(']');
                                 Debug.Assert(endBraceIndex is not -1);
-                                cellText = cellText.Remove(braceIndex, endBraceIndex - braceIndex);
+                                cellText = cellText.Remove(braceIndex, endBraceIndex - braceIndex + 1);
+                                Debug.Assert(!cellText.Contains('[')); // ensure there aren't others
                             }
 
                             version.Version = cellText;
@@ -285,7 +284,8 @@ public static class Program
                             {
                                 int endBraceIndex = cellText.IndexOf(']');
                                 Debug.Assert(endBraceIndex is not -1);
-                                cellText = cellText.Remove(braceIndex, endBraceIndex - braceIndex);
+                                cellText = cellText.Remove(braceIndex, endBraceIndex - braceIndex + 1);
+                                Debug.Assert(!cellText.Contains('[')); // ensure there aren't others
                             }
 
                             // if marketing version exists, put this cell in parenthesis
@@ -304,6 +304,7 @@ public static class Program
                             {
                                 Debug.Assert(cellText.EndsWith(']'));
                                 cellText = cellText[..braceIndex];
+                                Debug.Assert(!cellText.Contains('[')); // ensure there aren't others
                             }
 
                             // if marketing version exists, put this cell in parenthesis
@@ -413,9 +414,16 @@ public static class Program
             props.Remove("Model");
         }
 
+        // remove wikilinks
+        string version = props["Version"]
+            .Replace("[[Release Candidate|RC]]", "RC")
+            .Replace("[[Golden Master|GM]]", "GM");
+        if (version.Contains('['))
+            MarkBadPage("Possible wikilink in 'Version'", props);
+
         KeyPage page = new()
         {
-            Version = props["Version"],
+            Version = version,
             Build = props["Build"],
             Device = props["Device"],
             Codename = props["Codename"],
@@ -436,6 +444,7 @@ public static class Program
 
         if (props.TryGetValue("RootFSBeta", out s))
         {
+            // root filesystems don't have the extension due to historical mistake by me
             page.RootFSBeta = new($"{s}.dmg");
             s = props["RootFSBetaKey"];
             if (s is "Not Encrypted")
@@ -453,7 +462,7 @@ public static class Program
             if (!props.TryGetValue(enumStr, out string? filename))
                 continue;
 
-            // ramdisks don't have the extension due to historical mistake
+            // ramdisks don't have the extension due to the same historical mistake
             if (enumStr.Contains("Ramdisk"))
                 filename += ".dmg";
 
@@ -499,7 +508,8 @@ public static class Program
         {
             File.AppendAllText(
                 BAD_PAGE_FILE,
-                $"{error.PadRight(15, ' ')}: \"{props["Codename"]} {props["Build"]} ({props["Device"]})\"\r\n");
+                $"{error.PadRight(15, ' ')}: \"{props["Codename"]} {props["Build"]} ({props["Device"]})\"\r\n",
+                Encoding.UTF8);
         }
     }
 
@@ -519,7 +529,7 @@ public static class Program
             catch
             {
                 // network dip - hold off for a few seconds
-                Thread.Sleep(15000);
+                await Task.Delay(TimeSpan.FromSeconds(10));
             }
         }
     }
