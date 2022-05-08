@@ -105,7 +105,10 @@ public class MainWindowViewModel : ViewModelBase
                         return;
 
                     VKBuildEnabled = true;
-                    VKBuildList.AddRange(KeyHelpers.GetHasKeysList(value).Select(VKBuildModel.FromHasKeysEntry));
+                    VKBuildList.AddRange(
+                        KeyHelpers.GetHasKeysList(value)
+                            .Select(entry => new VKBuildModel(entry))
+                            .OrderBy(entry => entry));
 
                     // load the bundle up for faster key loading
                     RxApp.TaskpoolScheduler.Schedule(() => KeyHelpers.EnsureBundleIsLoaded(value));
