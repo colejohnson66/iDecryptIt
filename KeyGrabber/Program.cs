@@ -55,9 +55,10 @@ public static class Program
     private static readonly string iFirmwareOutputDir = Path.Combine(CurrentDirectory, "Output-iFirmware");
     private static readonly Dictionary<Device, List<FirmwareVersionEntry>> Versions = new();
 
+    // TODO: clean up build properties from key pages! (currently, only descriptor pages are cleaned)
     public static async Task Main()
     {
-        Debug.WriteLine("Deleting old artifacts...");
+        Console.WriteLine("Deleting old artifacts...");
         if (Directory.Exists(KeysDir))
             Directory.Delete(KeysDir, true);
         if (Directory.Exists(iDecryptItOutputDir))
@@ -75,13 +76,24 @@ public static class Program
             Versions.Add(id, new());
 
 
-        Debug.WriteLine("Parsing descriptor pages...");
+        Console.WriteLine("Parsing descriptor pages...");
         await ProcessDescriptors();
-        Debug.WriteLine("Descriptor parsing complete.");
+        Console.WriteLine("Descriptor parsing complete.");
+
+
+        // all <ref> tags (`[..]`) should've been removed
+        Console.WriteLine($"Checking for bad {nameof(FirmwareVersionEntry)} objects...");
+        foreach ((Device device, List<FirmwareVersionEntry> entries) in Versions)
+        {
+            Debug.Assert(
+                !entries.Any(entry => entry.Build.Contains('[') || entry.Version.Contains('[')),
+                $"{device.ModelString} has bad {nameof(FirmwareVersionEntry)} object.");
+        }
+        Console.WriteLine("No issues found.");
 
 
         // use a "using block" using so the file is closed when we're done (not really needed, but why not cleanup?)
-        Debug.WriteLine("Generating 'HasKeys.bin'...");
+        Console.WriteLine("Generating 'HasKeys.bin'...");
         await using (BinaryWriter hasKeysWriter = new(File.OpenWrite(Path.Combine(iDecryptItOutputDir, "HasKeys.bin")), Encoding.UTF8))
         {
             hasKeysWriter.Write(Encoding.ASCII.GetBytes(IOHelpers.HEADER_HAS_KEYS)); // 16 byte header
@@ -93,11 +105,10 @@ public static class Program
                     new HasKeysEntry(entry.Version, entry.Build, entry.KeyPages![0].Url is not null).Serialize(hasKeysWriter);
             }
         }
-        Debug.WriteLine("'HasKeys.bin' complete.");
-
+        Console.WriteLine("'HasKeys.bin' complete.");
 
         // same here
-        Debug.WriteLine("Generating 'HasKeys.json'...");
+        Console.WriteLine("Generating 'HasKeys.json'...");
         await using (Utf8JsonWriter hasKeysWriter = new(File.OpenWrite(Path.Combine(iFirmwareOutputDir, "HasKeys.json")), new() { Indented = true }))
         {
             hasKeysWriter.WriteStartObject();
@@ -114,12 +125,12 @@ public static class Program
             }
             hasKeysWriter.WriteEndObject();
         }
-        Debug.WriteLine("'HasKeys.json' complete.");
+        Console.WriteLine("'HasKeys.json' complete.");
 
 
         // Unfortunately, the wiki export caps at 5000 pages, so we have to crawl one by one...
         // TODO: iterate by scanning [[Firmware Keys/##.x]] to avoid duplicates
-        Debug.WriteLine("Beginning crawl and save...");
+        Console.WriteLine("Beginning crawl and save...");
         foreach ((_, List<FirmwareVersionEntry> entries) in Versions)
         {
             await Parallel.ForEachAsync(
@@ -145,13 +156,13 @@ public static class Program
                     }
                 });
         }
-        Debug.WriteLine("Crawl and save complete.");
+        Console.WriteLine("Crawl and save complete.");
 
 
-        Debug.WriteLine("Bundling for iDecryptIt...");
+        Console.WriteLine("Bundling for iDecryptIt...");
         foreach (Device device in Device.AllDevices)
         {
-            Debug.WriteLine($"Bundling {device}.");
+            Console.WriteLine($"Bundling {device}.");
             string idStr = device.ModelString;
             KeyPageBinaryBundleWriter writer = new();
             foreach (string file in Directory.GetFiles(KeysDir, $"{idStr}_*.bin"))
@@ -163,13 +174,13 @@ public static class Program
             await using BinaryWriter bundleWriter = new(File.OpenWrite(Path.Combine(iDecryptItOutputDir, $"{idStr}.bin")));
             writer.WriteBundle(bundleWriter);
         }
-        Debug.WriteLine("Bundling for iDecryptIt complete.");
+        Console.WriteLine("Bundling for iDecryptIt complete.");
 
 
-        Debug.WriteLine("Bundling for iFirmware...");
+        Console.WriteLine("Bundling for iFirmware...");
         foreach (Device device in Device.AllDevices)
         {
-            Debug.WriteLine($"Bundling {device}.");
+            Console.WriteLine($"Bundling {device}.");
             string idStr = device.ModelString;
             KeyPageJsonBundleWriter writer = new();
             foreach (string file in Directory.GetFiles(KeysDir, $"{idStr}_*.bin"))
@@ -179,20 +190,16 @@ public static class Program
                 string build = new FileInfo(file).Name[(idStr.Length + 1)..^4];
                 writer.AddFile(build, KeyPage.Deserialize(reader));
             }
-            JsonWriterOptions options = new()
-            {
-                Indented = true,
-            };
             await using Utf8JsonWriter bundleWriter = new(
                 File.OpenWrite(Path.Combine(iFirmwareOutputDir, $"{idStr}.json")),
                 new() { Indented = true });
             writer.WriteBundle(bundleWriter);
         }
-        Debug.WriteLine("Bundling for iFirmware complete.");
+        Console.WriteLine("Bundling for iFirmware complete.");
 
 
-        Debug.WriteLine("");
-        Debug.WriteLine("Done!");
+        Console.WriteLine("");
+        Console.WriteLine("Done!");
     }
 
     #region Descriptors
@@ -255,14 +262,32 @@ public static class Program
                 {
                     XmlNode cell = row.ChildNodes[cellIdx]!;
                     string cellText = cell.InnerText.Trim();
+                    int braceIndex = cellText.IndexOf('[');
+
                     string thisDescriptor = descriptor[cellIdx];
                     switch (thisDescriptor)
                     {
                         case "vm": // Marketing version (always comes before "v")
+                            // remove <ref> tags
+                            if (braceIndex is not -1)
+                            {
+                                int endBraceIndex = cellText.IndexOf(']');
+                                Debug.Assert(endBraceIndex is not -1);
+                                cellText = cellText.Remove(braceIndex, endBraceIndex - braceIndex);
+                            }
+
                             version.Version = cellText;
                             continue;
 
                         case "v": // iOS version
+                            // remove <ref> tags
+                            if (braceIndex is not -1)
+                            {
+                                int endBraceIndex = cellText.IndexOf(']');
+                                Debug.Assert(endBraceIndex is not -1);
+                                cellText = cellText.Remove(braceIndex, endBraceIndex - braceIndex);
+                            }
+
                             // if marketing version exists, put this cell in parenthesis
                             version.Version = version.Version is ""
                                 ? cellText
@@ -274,6 +299,13 @@ public static class Program
                             continue;
 
                         case "b": // Build
+                            // remove <ref> tags
+                            if (braceIndex is not -1)
+                            {
+                                Debug.Assert(cellText.EndsWith(']'));
+                                cellText = cellText[..braceIndex];
+                            }
+
                             // if marketing version exists, put this cell in parenthesis
                             version.Build = version.Build is ""
                                 ? cellText
@@ -477,7 +509,7 @@ public static class Program
 
     private static async Task<string> DownloadURL(string url)
     {
-        Debug.WriteLine($"Downloading: {url}");
+        Console.WriteLine($"Downloading: {url}");
         while (true)
         {
             try
