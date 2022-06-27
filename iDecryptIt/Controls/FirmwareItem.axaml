@@ -4,18 +4,33 @@
     xmlns:converters="clr-namespace:iDecryptIt.Converters"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
+    <!-- ReSharper disable MarkupAttributeTypo -->
     <Design.PreviewWith>
-        <Panel
-            Margin="8"
+        <StackPanel
+            Margin="{StaticResource Padding}"
             Width="800">
             <controls:FirmwareItem
-                ItemKind="AppleLogo"
+                ItemKind="RootFS"
+                Encrypted="True"
+                Filename="058-26545-063.dmg"
+                Key="495539be08c4a097045c5bb7298a053645089d2ea53fdc1847aef7618fbba22550aecb0e" />
+            <controls:FirmwareItem
+                ItemKind="UpdateRamdisk"
+                Encrypted="True"
+                Filename="058-26519-063.dmg"
+                IV="0b8f948b895ee63c3fdcb95b1d381c7f"
+                Key="980992e0ae6423821e7f54682eeb6eb478784893c46671b64a585ddfd241cb27" />
+            <controls:FirmwareItem
+                ItemKind="Dali"
                 Encrypted="False"
-                Filename="abc"
-                IV=""
-                Key="" />
-        </Panel>
+                Filename="dali-ui.n27a.release.im4p" />
+            <controls:FirmwareItem
+                ItemKind="SEPFirmware"
+                Encrypted="True"
+                KBag="0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"></controls:FirmwareItem>
+        </StackPanel>
     </Design.PreviewWith>
+    <!-- ReSharper restore MarkupAttributeTypo -->
 
     <Styles.Resources>
         <converters:FirmwareItemTypeNameConverter x:Key="NameConverter" />
@@ -33,7 +48,7 @@
 
                     <TextBlock
                         DockPanel.Dock="Left"
-                        Text="{TemplateBinding Property=ItemKind, Converter={StaticResource NameConverter}}"
+                        Text="{TemplateBinding ItemKind, Converter={StaticResource NameConverter}}"
                         TextWrapping="Wrap"
                         VerticalAlignment="Center"
                         Width="125" />
@@ -44,8 +59,10 @@
 
                     <Button
                         DockPanel.Dock="Right"
+                        Command="{TemplateBinding DecryptCommand}"
+                        CommandParameter="{Binding ., RelativeSource={RelativeSource TemplatedParent}}"
                         Content="Decrypt"
-                        Margin="0,8" />
+                        Margin="{StaticResource PaddingY}" />
 
                     <Separator
                         DockPanel.Dock="Right"
@@ -53,11 +70,11 @@
 
                     <TextBox
                         DockPanel.Dock="Right"
-                        Margin="0,8"
+                        Margin="{StaticResource PaddingY}"
                         Text="{TemplateBinding Filename}"
                         VerticalAlignment="Center"
                         Watermark="Unknown"
-                        Width="150" />
+                        Width="175" />
 
                     <Separator
                         DockPanel.Dock="Right"
@@ -75,12 +92,12 @@
                             IsVisible="{TemplateBinding Encrypted}">
                             <DockPanel
                                 IsVisible="{TemplateBinding IV, Converter={x:Static ObjectConverters.IsNotNull}}"
-                                Margin="{StaticResource PaddingAll}"
+                                Margin="{StaticResource PaddingY}"
                                 LastChildFill="True">
                                 <TextBlock
                                     DockPanel.Dock="Left"
                                     HorizontalAlignment="Center"
-                                    MinWidth="35"
+                                    MinWidth="45"
                                     Text="IV: "
                                     VerticalAlignment="Center" />
                                 <TextBox
@@ -90,12 +107,12 @@
                             </DockPanel>
                             <DockPanel
                                 IsVisible="{TemplateBinding Key, Converter={x:Static ObjectConverters.IsNotNull}}"
-                                Margin="{StaticResource PaddingAll}"
+                                Margin="{StaticResource PaddingY}"
                                 LastChildFill="True">
                                 <TextBlock
                                     DockPanel.Dock="Left"
                                     HorizontalAlignment="Center"
-                                    MinWidth="35"
+                                    MinWidth="45"
                                     Text="Key: "
                                     VerticalAlignment="Center" />
                                 <TextBox
@@ -104,6 +121,21 @@
                                     Watermark="Unknown" />
                             </DockPanel>
                         </UniformGrid>
+                        <DockPanel
+                            IsVisible="{TemplateBinding KBag, Converter={x:Static ObjectConverters.IsNotNull}}"
+                            Margin="{StaticResource PaddingY}"
+                            LastChildFill="True">
+                            <TextBlock
+                                DockPanel.Dock="Left"
+                                HorizontalAlignment="Center"
+                                MinWidth="45"
+                                Text="KBAG: "
+                                VerticalAlignment="Center" />
+                            <TextBox
+                                IsReadOnly="True"
+                                Text="{TemplateBinding KBag}"
+                                Watermark="Unknown" />
+                        </DockPanel>
                     </Panel>
 
                 </DockPanel>

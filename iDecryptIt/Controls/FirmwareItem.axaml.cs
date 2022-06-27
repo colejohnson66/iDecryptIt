@@ -24,6 +24,7 @@
 using Avalonia;
 using Avalonia.Controls.Primitives;
 using iDecryptIt.Shared;
+using System.Windows.Input;
 
 namespace iDecryptIt.Controls;
 
@@ -69,12 +70,19 @@ public class FirmwareItem : TemplatedControl
         set => SetValue(KeyProperty, value);
     }
 
-    // TODO: use this value
     public static readonly StyledProperty<string?> KBagProperty =
         AvaloniaProperty.Register<FirmwareItem, string?>(nameof(KBag));
     public string? KBag
     {
         get => GetValue(KBagProperty);
         set => SetValue(KBagProperty, value);
+    }
+
+    public static readonly StyledProperty<ICommand?> DecryptCommandProperty =
+        AvaloniaProperty.Register<FirmwareItem, ICommand?>(nameof(DecryptCommand));
+    public ICommand? DecryptCommand
+    {
+        get => GetValue(DecryptCommandProperty);
+        set => SetValue(DecryptCommandProperty, value);
     }
 }

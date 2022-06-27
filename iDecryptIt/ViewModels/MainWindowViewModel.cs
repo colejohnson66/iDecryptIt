@@ -55,6 +55,8 @@ public class MainWindowViewModel : ViewModelBase
 
         ViewKeysCommand = ReactiveCommand.Create(OnViewKeys);
 
+        FirmwareItemDecryptCommand = ReactiveCommand.Create<iDecryptIt.Controls.FirmwareItem>(OnFirmwareItemDecrypt);
+
         Subscribe();
 
         RxApp.TaskpoolScheduler.Schedule(KeyHelpers.EnsureInit);
@@ -181,14 +183,18 @@ public class MainWindowViewModel : ViewModelBase
         Debug.Assert(page is not null); // SAFETY: never null if the key grabber worked correctly
 
         if (page.RootFS is not null)
-            KeyEntries.Add(FirmwareItemModel.FromRootFS(FirmwareItemType.RootFS, page.RootFS));
+            KeyEntries.Add(FirmwareItemModel.FromRootFS(FirmwareItemType.RootFS, page.RootFS, FirmwareItemDecryptCommand));
         if (page.RootFSBeta is not null)
-            KeyEntries.Add(FirmwareItemModel.FromRootFS(FirmwareItemType.RootFSBeta, page.RootFSBeta));
+            KeyEntries.Add(FirmwareItemModel.FromRootFS(FirmwareItemType.RootFSBeta, page.RootFSBeta, FirmwareItemDecryptCommand));
 
         foreach (KeyValuePair<FirmwareItemType, FirmwareItem> item in page.FirmwareItems)
-            KeyEntries.Add(FirmwareItemModel.FromFirmwareItem(item.Key, item.Value));
+            KeyEntries.Add(FirmwareItemModel.FromFirmwareItem(item.Key, item.Value, FirmwareItemDecryptCommand));
     }
 
     [Reactive] public string KeysHeading { get; set; } = "";
     [Reactive] public ObservableCollection<FirmwareItemModel> KeyEntries { get; set; } = new();
+
+    public ReactiveCommand<iDecryptIt.Controls.FirmwareItem, Unit> FirmwareItemDecryptCommand { get; }
+    public void OnFirmwareItemDecrypt(iDecryptIt.Controls.FirmwareItem model)
+    { }
 }

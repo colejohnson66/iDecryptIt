@@ -26,20 +26,20 @@
 
     <DockPanel
         LastChildFill="True"
-        Margin="{DynamicResource PaddingAll}">
+        Margin="{DynamicResource Padding}">
 
         <Border
             DockPanel.Dock="Top"
             Background="{DynamicResource ColorBlue100}"
             CornerRadius="8"
-            Margin="{DynamicResource PaddingAll}">
+            Margin="{DynamicResource Padding}">
             <Border
                 Background="{DynamicResource ColorWhite}"
                 CornerRadius="4"
-                Margin="{DynamicResource PaddingAll}">
+                Margin="{DynamicResource Padding}">
                 <DockPanel
                     LastChildFill="True"
-                    Margin="{DynamicResource PaddingAll}">
+                    Margin="{DynamicResource Padding}">
 
                     <Separator
                         DockPanel.Dock="Left"
@@ -90,13 +90,13 @@
                             Command="{Binding RootFSOpenCommand}"
                             CommandParameter="input"
                             HorizontalAlignment="Center"
-                            Margin="{DynamicResource PaddingAll}" />
+                            Margin="{DynamicResource Padding}" />
                         <Button
                             Content="Select Output..."
                             Command="{Binding RootFSOpenCommand}"
                             CommandParameter="output"
                             HorizontalAlignment="Center"
-                            Margin="{DynamicResource PaddingAll}" />
+                            Margin="{DynamicResource Padding}" />
                     </UniformGrid>
                     <UniformGrid
                         DockPanel.Dock="Right"
@@ -107,13 +107,13 @@
                             Command="{Binding DecryptOpenCommand}"
                             CommandParameter="input"
                             HorizontalAlignment="Center"
-                            Margin="{DynamicResource PaddingAll}" />
+                            Margin="{DynamicResource Padding}" />
                         <Button
                             Content="Select Output..."
                             Command="{Binding DecryptOpenCommand}"
                             CommandParameter="output"
                             HorizontalAlignment="Center"
-                            Margin="{DynamicResource PaddingAll}" />
+                            Margin="{DynamicResource Padding}" />
                     </UniformGrid>
 
                     <Panel>
@@ -121,17 +121,17 @@
                             IsVisible="{Binding DecryptingRootFS}"
                             Rows="4">
                             <TextBox
-                                Margin="{DynamicResource PaddingAll}"
+                                Margin="{DynamicResource Padding}"
                                 MaxHeight="24"
                                 Text="{Binding RootFSInput}"
                                 Watermark="Input Path" />
                             <TextBox
-                                Margin="{DynamicResource PaddingAll}"
+                                Margin="{DynamicResource Padding}"
                                 MaxHeight="24"
                                 Text="{Binding RootFSOutput}"
                                 Watermark="Output Path" />
                             <TextBox
-                                Margin="{DynamicResource PaddingAll}"
+                                Margin="{DynamicResource Padding}"
                                 MaxHeight="24"
                                 Text="{Binding RootFSKey}"
                                 Watermark="Key" />
@@ -140,19 +140,19 @@
                             IsVisible="{Binding !DecryptingRootFS}"
                             Rows="4">
                             <TextBox
-                                Margin="{DynamicResource PaddingAll}"
+                                Margin="{DynamicResource Padding}"
                                 Text="{Binding DecryptInput}"
                                 Watermark="Input Path" />
                             <TextBox
-                                Margin="{DynamicResource PaddingAll}"
+                                Margin="{DynamicResource Padding}"
                                 Text="{Binding DecryptOutput}"
                                 Watermark="Output Path" />
                             <TextBox
-                                Margin="{DynamicResource PaddingAll}"
+                                Margin="{DynamicResource Padding}"
                                 Text="{Binding DecryptIV}"
                                 Watermark="IV" />
                             <TextBox
-                                Margin="{DynamicResource PaddingAll}"
+                                Margin="{DynamicResource Padding}"
                                 Text="{Binding DecryptKey}"
                                 Watermark="Key" />
                         </UniformGrid>
@@ -170,14 +170,14 @@
             DockPanel.Dock="Top"
             Background="{DynamicResource ColorBlue100}"
             CornerRadius="8"
-            Margin="{DynamicResource PaddingAll}">
+            Margin="{DynamicResource Padding}">
             <Border
                 Background="{DynamicResource ColorWhite}"
                 CornerRadius="4"
-                Margin="{DynamicResource PaddingAll}">
+                Margin="{DynamicResource Padding}">
                 <DockPanel
                     LastChildFill="True"
-                    Margin="{DynamicResource PaddingAll}">
+                    Margin="{DynamicResource Padding}">
 
                     <Separator
                         DockPanel.Dock="Left"
@@ -206,22 +206,22 @@
                             Command="{Binding ExtractOpenCommand}"
                             CommandParameter="input"
                             HorizontalAlignment="Center"
-                            Margin="{DynamicResource PaddingAll}" />
+                            Margin="{DynamicResource Padding}" />
                         <Button
                             Content="Select Output..."
                             Command="{Binding ExtractOpenCommand}"
                             CommandParameter="output"
                             HorizontalAlignment="Center"
-                            Margin="{DynamicResource PaddingAll}" />
+                            Margin="{DynamicResource Padding}" />
                     </UniformGrid>
 
                     <UniformGrid Rows="2">
                         <TextBox
-                            Margin="{DynamicResource PaddingAll}"
+                            Margin="{DynamicResource Padding}"
                             Text="{Binding ExtractInput}"
                             Watermark="Input Path" />
                         <TextBox
-                            Margin="{DynamicResource PaddingAll}"
+                            Margin="{DynamicResource Padding}"
                             Text="{Binding ExtractOutput}"
                             Watermark="Output Folder" />
                     </UniformGrid>
@@ -238,14 +238,14 @@
             DockPanel.Dock="Top"
             Background="{DynamicResource ColorBlue100}"
             CornerRadius="8"
-            Margin="{DynamicResource PaddingAll}">
+            Margin="{DynamicResource Padding}">
             <Border
                 Background="{DynamicResource ColorWhite}"
                 CornerRadius="4"
-                Margin="{DynamicResource PaddingAll}">
+                Margin="{DynamicResource Padding}">
                 <DockPanel
                     LastChildFill="True"
-                    Margin="{DynamicResource PaddingAll}">
+                    Margin="{DynamicResource Padding}">
 
                     <Separator
                         DockPanel.Dock="Right"
@@ -332,16 +332,16 @@
             DockPanel.Dock="Top"
             Background="{DynamicResource ColorBlue100}"
             CornerRadius="8"
-            Margin="{DynamicResource PaddingAll}">
+            Margin="{DynamicResource Padding}">
             <Border
                 Background="{DynamicResource ColorWhite}"
                 CornerRadius="4"
-                Margin="{DynamicResource PaddingAll}">
+                Margin="{DynamicResource Padding}">
                 <ScrollViewer
-                    Margin="{DynamicResource PaddingAll}"
+                    Margin="{DynamicResource Padding}"
                     Padding="4,0">
                     <StackPanel
-                        Margin="{DynamicResource PaddingAll}"
+                        Margin="{DynamicResource Padding}"
                         Orientation="Vertical">
 
                         <TextBlock
@@ -356,7 +356,9 @@
                                         Filename="{Binding FileName}"
                                         Encrypted="{Binding Encrypted}"
                                         IV="{Binding IV}"
-                                        Key="{Binding Key}" />
+                                        Key="{Binding Key}"
+                                        KBag="{Binding KBag}"
+                                        DecryptCommand="{Binding DecryptCommand}" />
                                 </DataTemplate>
                             </ItemsRepeater.ItemTemplate>
                         </ItemsRepeater>
