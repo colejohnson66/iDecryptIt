@@ -52,7 +52,7 @@
                         VerticalAlignment="Center">
                         <Button
                             Classes="WithImage Vertical"
-                            Command="{Binding DecryptCommand}"
+                            Command="{Binding OnDecrypt}"
                             HorizontalAlignment="Center">
                             <StackPanel>
                                 <Image Source="{svg:SvgImage /Assets/Icons/unlock.svg}" />
@@ -72,7 +72,7 @@
                             TextAlignment="Center"
                             TextWrapping="Wrap">Decrypting FW Item</TextBlock>
                         <Button
-                            Command="{Binding DecryptingRootFSSwitchCommand}"
+                            Command="{Binding OnDecryptingRootFSSwitch}"
                             Content="Switch"
                             HorizontalAlignment="Center" />
                     </StackPanel>
@@ -186,7 +186,7 @@
                     <Button
                         DockPanel.Dock="Left"
                         Classes="WithImage Vertical"
-                        Command="{Binding ExtractCommand}"
+                        Command="{Binding OnExtract}"
                         HorizontalAlignment="Center">
                         <StackPanel>
                             <Image Source="{svg:SvgImage /Assets/Icons/file-earmark-zip.svg}" />
@@ -254,9 +254,9 @@
                     <Button
                         DockPanel.Dock="Right"
                         Classes="WithImage Horizontal"
-                        Command="{Binding ViewKeysCommand}"
+                        Command="{Binding OnViewKeys}"
                         HorizontalAlignment="Center"
-                        IsEnabled="{Binding ViewKeysCommandEnabled}">
+                        IsEnabled="{Binding OnViewKeysEnabled}">
                         <StackPanel>
                             <Image Source="{svg:SvgImage /Assets/Icons/key.svg}" />
                             <TextBlock Text="View Keys" />

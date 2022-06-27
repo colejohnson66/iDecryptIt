@@ -55,7 +55,7 @@ public class VKBuildModel : IComparable<VKBuildModel>, IEquatable<VKBuildModel>
         TextColor = hkEntry.HasKeys ? BLACK : RED;
         VersionText = $"{hkEntry.Version} ({hkEntry.Build})";
 
-        // TODO: this doesn't handle builds with parenthesis (from Apple TV)
+        // TODO: this doesn't handle builds with parenthesis or periods (from Apple TV)
 
         /* Parse out the build string according to the regex:
          * (\d+)([A-Z])(\d+)([a-z]?)
