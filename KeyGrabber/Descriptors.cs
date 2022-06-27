@@ -47,7 +47,7 @@ public static class Descriptors
      */
 
     /// <summary><c>Firmware/Apple_TV/???</c></summary>
-    public static readonly Dictionary<string, string[]> AppleTVFirmwarePages = new()
+    private static readonly Dictionary<string, string[]> APPLE_TV_FW_PAGES = new()
     {
         { "4.x", new[] { "vm v bm b k(AppleTV2,1) r u h s d" } },
         {
@@ -115,7 +115,7 @@ public static class Descriptors
     };
 
     /// <summary><c>Beta_Firmware/Apple_TV/???</c></summary>
-    public static readonly Dictionary<string, string[]> AppleTVBetaFirmwarePages = new()
+    private static readonly Dictionary<string, string[]> APPLE_TV_BETA_FW_PAGES = new()
     {
         { "4.x", new[] { "vm v bm b k(AppleTV2,1) r u s" } },
         {
@@ -183,7 +183,7 @@ public static class Descriptors
     };
 
     /// <summary><c>Firmware/Apple_Watch/???</c></summary>
-    public static readonly Dictionary<string, string[]> AppleWatchFirmwarePages = new()
+    private static readonly Dictionary<string, string[]> APPLE_WATCH_FW_PAGES = new()
     {
         {
             "1.x", new[]
@@ -328,7 +328,7 @@ public static class Descriptors
     };
 
     /// <summary><c>Beta_Firmware/Apple_Watch/???</c></summary>
-    public static readonly Dictionary<string, string[]> AppleWatchBetaFirmwarePages = new()
+    private static readonly Dictionary<string, string[]> APPLE_WATCH_BETA_FW_PAGES = new()
     {
         {
             "2.x", new[]
@@ -458,7 +458,7 @@ public static class Descriptors
     };
 
     /// <summary><c>Firmware/HomePod/???</c></summary>
-    public static readonly Dictionary<string, string[]> HomePodFirmwarePages = new()
+    private static readonly Dictionary<string, string[]> HOME_POD_FW_PAGES = new()
     {
         { "11.x", new[] { "v b k(AudioAccessory1,1;AudioAccessory1,2) r d" } },
         { "12.x", new[] { "v b k(AudioAccessory1,1;AudioAccessory1,2) r d" } },
@@ -480,7 +480,7 @@ public static class Descriptors
     };
 
     /// <summary><c>Beta_Firmware/HomePod/???</c></summary>
-    public static readonly Dictionary<string, string[]> HomePodBetaFirmwarePages = new()
+    private static readonly Dictionary<string, string[]> HOME_POD_BETA_FW_PAGES = new()
     {
         { "11.x", new[] { "v b k(AudioAccessory1,1) r" } },
         {
@@ -500,7 +500,7 @@ public static class Descriptors
     };
 
     /// <summary><c>Firmware/Mac/???</c></summary>
-    public static readonly Dictionary<string, string[]> AppleSiliconFirmwarePages = new()
+    private static readonly Dictionary<string, string[]> APPLE_SILICON_FW_PAGES = new()
     {
         {
             "11.x", new[]
@@ -528,7 +528,7 @@ public static class Descriptors
     };
 
     /// <summary><c>Beta_Firmware/Mac/???</c></summary>
-    public static readonly Dictionary<string, string[]> AppleSiliconBetaFirmwarePages = new()
+    private static readonly Dictionary<string, string[]> APPLE_SILICON_BETA_FW_PAGES = new()
     {
         {
             "11.x", new[]
@@ -554,7 +554,7 @@ public static class Descriptors
     };
 
     /// <summary><c>Firmware/iBridge/???</c></summary>
-    public static readonly Dictionary<string, string[]> IBridgeFirmwarePages = new()
+    private static readonly Dictionary<string, string[]> IBRIDGE_FW_PAGES = new()
     {
         {
             "2.x", new[]
@@ -596,7 +596,7 @@ public static class Descriptors
     // TODO: iBridge betas?
 
     /// <summary><c>Firmware/iPad/???</c></summary>
-    public static readonly Dictionary<string, string[]> IPadFirmwarePages = new()
+    private static readonly Dictionary<string, string[]> IPAD_FW_PAGES = new()
     {
         { "3.x", new[] { "v b k(iPad1,1) bb r u h s d" } },
         {
@@ -732,7 +732,7 @@ public static class Descriptors
     };
 
     /// <summary><c>Beta_Firmware/iPad/???</c></summary>
-    public static readonly Dictionary<string, string[]> IPadBetaFirmwarePages = new()
+    private static readonly Dictionary<string, string[]> IPAD_BETA_FW_PAGES = new()
     {
         {
             "4.x", new[] { "v b k(iPad1,1) bb r u s" }
@@ -857,7 +857,7 @@ public static class Descriptors
     };
 
     /// <summary><c>Firmware/iPad_Air/???</c></summary>
-    public static readonly Dictionary<string, string[]> IPadAirFirmwarePages = new()
+    private static readonly Dictionary<string, string[]> IPAD_AIR_FW_PAGES = new()
     {
         {
             "7.x", new[]
@@ -936,7 +936,7 @@ public static class Descriptors
     };
 
     /// <summary><c>Beta_Firmware/iPad_Air/???</c></summary>
-    public static readonly Dictionary<string, string[]> IPadAirBetaFirmwarePages = new()
+    private static readonly Dictionary<string, string[]> IPAD_AIR_BETA_FW_PAGES = new()
     {
         {
             "7.x", new[]
@@ -1008,12 +1008,13 @@ public static class Descriptors
                 "v b k(iPad5,3;iPad5,4) bb r u s",
                 "v b k(iPad11,3;iPad11,4) bb r u s",
                 "v b k(iPad13,1;iPad13,2) bb r u s",
+				"v b k(iPad13,16;iPad13,17) bb r u s",
             }
         },
     };
 
     /// <summary><c>Firmware/iPad_Pro/???</c></summary>
-    public static readonly Dictionary<string, string[]> IPadProFirmwarePages = new()
+    private static readonly Dictionary<string, string[]> IPAD_PRO_FW_PAGES = new()
     {
         {
             "9.x", new[]
@@ -1099,7 +1100,7 @@ public static class Descriptors
     };
 
     /// <summary><c>Beta_Firmware/iPad_Pro/???</c></summary>
-    public static readonly Dictionary<string, string[]> IPadProBetaFirmwarePages = new()
+    private static readonly Dictionary<string, string[]> IPAD_PRO_BETA_FW_PAGES = new()
     {
         {
             "9.x", new[]
@@ -1185,7 +1186,7 @@ public static class Descriptors
     };
 
     /// <summary><c>Firmware/iPad_mini/???</c></summary>
-    public static readonly Dictionary<string, string[]> IPadMiniFirmwarePages = new()
+    private static readonly Dictionary<string, string[]> IPAD_MINI_FW_PAGES = new()
     {
         {
             "6.x", new[]
@@ -1286,7 +1287,7 @@ public static class Descriptors
     };
 
     /// <summary><c>Beta_Firmware/iPad_mini/???</c></summary>
-    public static readonly Dictionary<string, string[]> IPadMiniBetaFirmwarePages = new()
+    private static readonly Dictionary<string, string[]> IPAD_MINI_BETA_FW_PAGES = new()
     {
         {
             "6.x", new[]
@@ -1386,7 +1387,7 @@ public static class Descriptors
     };
 
     /// <summary><c>Firmware/iPhone/???</c></summary>
-    public static readonly Dictionary<string, string[]> IPhoneFirmwarePages = new()
+    private static readonly Dictionary<string, string[]> IPHONE_FW_PAGES = new()
     {
         { "1.x", new[] { "v b k(iPhone1,1) bb r u h s d" } },
         {
@@ -1606,7 +1607,7 @@ public static class Descriptors
     };
 
     /// <summary><c>Beta_Firmware/iPhone/???</c></summary>
-    public static readonly Dictionary<string, string[]> IPhoneBetaFirmwarePages = new()
+    private static readonly Dictionary<string, string[]> IPHONE_BETA_FW_PAGES = new()
     {
         { "1.x", new[] { "v b k(iPhone1,1) bb r u s" } },
         {
@@ -1825,7 +1826,7 @@ public static class Descriptors
     };
 
     /// <summary><c>Firmware/iPod_touch/???</c></summary>
-    public static readonly Dictionary<string, string[]> IPodTouchFirmwarePages = new()
+    private static readonly Dictionary<string, string[]> IPOD_TOUCH_FW_PAGES = new()
     {
         { "1.x", new[] { "v b k(iPod1,1) r u h s d" } },
         {
@@ -1895,7 +1896,7 @@ public static class Descriptors
     };
 
     /// <summary><c>Beta_Firmware/iPod_touch/???</c></summary>
-    public static readonly Dictionary<string, string[]> IPodTouchBetaFirmwarePages = new()
+    private static readonly Dictionary<string, string[]> IPOD_TOUCH_BETA_FW_PAGES = new()
     {
         { "1.x", new[] { "v b k(iPod1,1) r u s" } },
         { "2.x", new[] { "v b k(iPod1,1) r i s" } },
@@ -1955,5 +1956,32 @@ public static class Descriptors
         { "13.x", new[] { "v b k(iPod9,1) r u s" } },
         { "14.x", new[] { "v b k(iPod9,1) r u s" } },
         { "15.x", new[] { "v b k(iPod9,1) r u s" } },
+    };
+
+    public static readonly List<(string, Dictionary<string, string[]>)> ALL_DESCRIPTORS = new()
+    {
+        ("Firmware/Apple_TV/", APPLE_TV_FW_PAGES),
+        ("Firmware/Apple_Watch/", APPLE_WATCH_FW_PAGES),
+        ("Firmware/HomePod/", HOME_POD_FW_PAGES),
+        // ("Firmware/Mac/", APPLE_SILICON_FW_PAGES),
+        // ("Firmware/iBridge/", IBRIDGE_FW_PAGES),
+        ("Firmware/iPad/", IPAD_FW_PAGES),
+        ("Firmware/iPad_Air/", IPAD_AIR_FW_PAGES),
+        ("Firmware/iPad_Pro/", IPAD_PRO_FW_PAGES),
+        ("Firmware/iPad_mini/", IPAD_MINI_FW_PAGES),
+        ("Firmware/iPhone/", IPHONE_FW_PAGES),
+        ("Firmware/iPod_touch/", IPOD_TOUCH_FW_PAGES),
+
+        ("Beta_Firmware/Apple_TV/", APPLE_TV_BETA_FW_PAGES),
+        ("Beta_Firmware/Apple_Watch/", APPLE_WATCH_BETA_FW_PAGES),
+        ("Beta_Firmware/HomePod/", HOME_POD_BETA_FW_PAGES),
+        // ("Beta_Firmware/Mac/", APPLE_SILICON_BETA_FW_PAGES),
+        // ("Beta_Firmware/iBridge/", IBRIDGE_BETA_FW_PAGES),
+        ("Beta_Firmware/iPad/", IPAD_BETA_FW_PAGES),
+        ("Beta_Firmware/iPad_Air/", IPAD_AIR_BETA_FW_PAGES),
+        ("Beta_Firmware/iPad_Pro/", IPAD_PRO_BETA_FW_PAGES),
+        ("Beta_Firmware/iPad_mini/", IPAD_MINI_BETA_FW_PAGES),
+        ("Beta_Firmware/iPhone/", IPHONE_BETA_FW_PAGES),
+        ("Beta_Firmware/iPod_touch/", IPOD_TOUCH_BETA_FW_PAGES),
     };
 }

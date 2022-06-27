@@ -11,10 +11,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="obj\Release\net6.0" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\iDecryptIt.Shared\iDecryptIt.Shared.csproj" />
     </ItemGroup>
 

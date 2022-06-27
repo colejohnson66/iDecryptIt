@@ -204,34 +204,11 @@ public static class Program
 
     private static async Task ProcessDescriptors()
     {
-        await ProcessDescriptor("Firmware/Apple_TV/", Descriptors.AppleTVFirmwarePages);
-        await ProcessDescriptor("Firmware/Apple_Watch/", Descriptors.AppleWatchFirmwarePages);
-        await ProcessDescriptor("Firmware/HomePod/", Descriptors.HomePodFirmwarePages);
-        // await ProcessDescriptor("Firmware/Mac/", Descriptors.AppleSiliconFirmwarePages);
-        // await ProcessDescriptor("Firmware/iBridge/", Descriptors.IBridgeFirmwarePages);
-        await ProcessDescriptor("Firmware/iPad/", Descriptors.IPadFirmwarePages);
-        await ProcessDescriptor("Firmware/iPad_Air/", Descriptors.IPadAirFirmwarePages);
-        await ProcessDescriptor("Firmware/iPad_Pro/", Descriptors.IPadProFirmwarePages);
-        await ProcessDescriptor("Firmware/iPad_mini/", Descriptors.IPadMiniFirmwarePages);
-        await ProcessDescriptor("Firmware/iPhone/", Descriptors.IPhoneFirmwarePages);
-        await ProcessDescriptor("Firmware/iPod_touch/", Descriptors.IPodTouchFirmwarePages);
-        await ProcessDescriptor("Beta_Firmware/Apple_TV/", Descriptors.AppleTVBetaFirmwarePages);
-        await ProcessDescriptor("Beta_Firmware/Apple_Watch/", Descriptors.AppleWatchBetaFirmwarePages);
-        await ProcessDescriptor("Beta_Firmware/HomePod/", Descriptors.HomePodBetaFirmwarePages);
-        // await ProcessDescriptor("Beta_Firmware/Mac/", Descriptors.AppleSiliconBetaFirmwarePages);
-        // await ProcessDescriptor("Beta_Firmware/iBridge/", Descriptors.IBridgeBetaFirmwarePages);
-        await ProcessDescriptor("Beta_Firmware/iPad/", Descriptors.IPadBetaFirmwarePages);
-        await ProcessDescriptor("Beta_Firmware/iPad_Air/", Descriptors.IPadAirBetaFirmwarePages);
-        await ProcessDescriptor("Beta_Firmware/iPad_Pro/", Descriptors.IPadProBetaFirmwarePages);
-        await ProcessDescriptor("Beta_Firmware/iPad_mini/", Descriptors.IPadMiniBetaFirmwarePages);
-        await ProcessDescriptor("Beta_Firmware/iPhone/", Descriptors.IPhoneBetaFirmwarePages);
-        await ProcessDescriptor("Beta_Firmware/iPod_touch/", Descriptors.IPodTouchBetaFirmwarePages);
-    }
-
-    private static async Task ProcessDescriptor(string basePageName, Dictionary<string, string[]> descriptor)
-    {
-        foreach ((string? majorVersion, string[]? tables) in descriptor)
-            await BuildVersionsDictionary($"{basePageName}{majorVersion}", tables);
+        foreach ((string url, Dictionary<string, string[]> descriptor) in Descriptors.ALL_DESCRIPTORS)
+        {
+            foreach ((string? majorVersion, string[]? tables) in descriptor)
+                await BuildVersionsDictionary($"{url}{majorVersion}", tables);
+        }
     }
 
     private static async Task BuildVersionsDictionary(string page, string[] tableProps)
@@ -416,6 +393,7 @@ public static class Program
 
         // remove wikilinks
         string version = props["Version"]
+            .Replace("[[RC]]", "RC")
             .Replace("[[Release Candidate|RC]]", "RC")
             .Replace("[[Golden Master|GM]]", "GM");
         if (version.Contains('['))
