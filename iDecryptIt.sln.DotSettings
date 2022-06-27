@@ -1,4 +1,14 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=1977368ACEFFAE4E9DCB17D517539A3B/@KeyIndexDefined">False</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=5F52A248EA1F7040B20FEADE251F3DDB/Reformat/@EntryValue">False</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=B6BC04F2F60D1F4F858870582F97941A/Reformat/@EntryValue">False</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=B6BC04F2F60D1F4F858870582F97941A/Text/@EntryValue">public static readonly StyledProperty&lt;$type$&gt; $name$Property =
+    AvaloniaProperty.Register&lt;$class$, $type$&gt;(nameof($name$));
+public $type$ $name$
+{
+    get =&gt; GetValue($name$Property);
+    set =&gt; SetValue($name$Property, value);
+}</s:String>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=ACIBT/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=ANSF/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=ARMFW/@EntryIndexedValue">True</s:Boolean>
