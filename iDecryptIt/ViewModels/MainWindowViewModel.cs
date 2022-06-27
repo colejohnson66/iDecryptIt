@@ -33,7 +33,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Concurrency;
-using System.Reactive.Disposables;
 
 // ReSharper disable MemberCanBePrivate.Global
 
@@ -41,9 +40,6 @@ namespace iDecryptIt.ViewModels;
 
 public class MainWindowViewModel : ViewModelBase
 {
-    // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
-    private readonly CompositeDisposable _disposables;
-
     public MainWindowViewModel()
     {
         DecryptingRootFSSwitchCommand = ReactiveCommand.Create(OnDecryptingRootFSSwitch);
@@ -59,13 +55,12 @@ public class MainWindowViewModel : ViewModelBase
 
         ViewKeysCommand = ReactiveCommand.Create(OnViewKeys);
 
-        _disposables = new();
-        Subscribe(_disposables);
+        Subscribe();
 
         RxApp.TaskpoolScheduler.Schedule(KeyHelpers.EnsureInit);
     }
 
-    private void Subscribe(CompositeDisposable disposables)
+    private void Subscribe()
     {
         this.WhenAnyValue(vm => vm.VKGroupSelectedItem)
             .Subscribe(
@@ -75,11 +70,11 @@ public class MainWindowViewModel : ViewModelBase
                     VKModelEnabled = false;
                     VKModelList.Clear();
                     VKModelSelectedItem = null;
-                    //
+
                     VKBuildEnabled = false;
                     VKBuildList.Clear();
                     VKBuildSelectedItem = null;
-                    //
+
                     ViewKeysCommandEnabled = false;
 
                     if (value is null || !Device.MappingGroupToDevices.ContainsKey(value.Value))
@@ -87,8 +82,7 @@ public class MainWindowViewModel : ViewModelBase
 
                     VKModelEnabled = true;
                     VKModelList.AddRange(Device.MappingGroupToDevices[value.Value]);
-                })
-            .DisposeWith(disposables);
+                });
 
         this.WhenAnyValue(vm => vm.VKModelSelectedItem)
             .Subscribe(
@@ -98,7 +92,7 @@ public class MainWindowViewModel : ViewModelBase
                     VKBuildEnabled = false;
                     VKBuildList.Clear();
                     VKBuildSelectedItem = null;
-                    //
+
                     ViewKeysCommandEnabled = false;
 
                     if (value is null)
@@ -112,16 +106,14 @@ public class MainWindowViewModel : ViewModelBase
 
                     // load the bundle up for faster key loading
                     RxApp.TaskpoolScheduler.Schedule(() => KeyHelpers.EnsureBundleIsLoaded(value));
-                })
-            .DisposeWith(disposables);
+                });
 
         this.WhenAnyValue(vm => vm.VKBuildSelectedItem)
             .Subscribe(
                 value =>
                 {
                     ViewKeysCommandEnabled = value?.HasKeys ?? false;
-                })
-            .DisposeWith(disposables);
+                });
     }
 
     [Reactive] public bool DecryptingRootFS { get; set; } = false;
