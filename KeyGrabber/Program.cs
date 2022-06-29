@@ -204,10 +204,10 @@ public static class Program
 
     private static async Task ProcessDescriptors()
     {
-        foreach ((string url, Dictionary<string, string[]> descriptor) in Descriptors.ALL_DESCRIPTORS)
+        foreach (Descriptor descriptor in Descriptors.ALL_DESCRIPTORS)
         {
-            foreach ((string? majorVersion, string[]? tables) in descriptor)
-                await BuildVersionsDictionary($"{url}{majorVersion}", tables);
+            foreach (DescriptorEntry entry in descriptor.Entries)
+                await BuildVersionsDictionary($"{descriptor.UrlPrefix}{entry.MajorVersion}", entry.DslForTables);
         }
     }
 
@@ -389,6 +389,11 @@ public static class Program
             // if not, just ignore the `Model` prop
             MarkBadPage("No 'Model2'", props);
             props.Remove("Model");
+        }
+
+        if (props["Device"] is "iPhone6,2" && props["Build"] is "16C101")
+        {
+            Debug.WriteLine("iPhone6,2 16C101");
         }
 
         // remove wikilinks
