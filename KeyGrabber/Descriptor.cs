@@ -1,5 +1,5 @@
 ﻿/* =============================================================================
- * File:   Descriptors.cs
+ * File:   Descriptor.cs
  * Author: Cole Tobin
  * =============================================================================
  * Copyright (c) 2022 Cole Tobin
@@ -23,16 +23,16 @@
 
 namespace KeyGrabber;
 
-public record Descriptor(
-    string UrlPrefix,
-    params DescriptorEntry[] Entries);
-
-public record DescriptorEntry(
-    string MajorVersion,
-    params string[] DslForTables);
-
-public static class Descriptors
+public static class Descriptor
 {
+    public record DeviceEntry(
+        string UrlPrefix,
+        params MajorVersionEntry[] Entries);
+
+    public record MajorVersionEntry(
+        string MajorVersion,
+        params string[] DslForTables);
+
     /* DSL Key:
      *   - vm: Marketing version column
      *   - v: Version column
@@ -52,7 +52,7 @@ public static class Descriptors
      * Each entry in the `string[]` array MUST be in the order the tables appear on the page
      */
 
-    private static readonly Descriptor APPLE_TV = new(
+    private static readonly DeviceEntry APPLE_TV = new(
         "Firmware/Apple_TV/",
         new("4.x", "vm v bm b k(AppleTV2,1) r u h s d"),
         new(
@@ -102,7 +102,7 @@ public static class Descriptors
             "v b k(AppleTV11,1) r d"
         ));
 
-    private static readonly Descriptor APPLE_TV_BETA = new(
+    private static readonly DeviceEntry APPLE_TV_BETA = new(
         "Beta_Firmware/Apple_TV/",
         new("4.x", "vm v bm b k(AppleTV2,1) r u s"),
         new(
@@ -152,7 +152,7 @@ public static class Descriptors
             "v b k(AppleTV11,1) r"
         ));
 
-    private static readonly Descriptor APPLE_WATCH = new(
+    private static readonly DeviceEntry APPLE_WATCH = new(
         "Firmware/Apple_Watch/",
         new(
             "1.x",
@@ -279,7 +279,7 @@ public static class Descriptors
         )
     );
 
-    private static readonly Descriptor APPLE_WATCH_BETA = new(
+    private static readonly DeviceEntry APPLE_WATCH_BETA = new(
         "Beta_Firmware/Apple_Watch/",
         new(
             "2.x",
@@ -394,7 +394,7 @@ public static class Descriptors
         )
     );
 
-    private static readonly Descriptor HOME_POD = new(
+    private static readonly DeviceEntry HOME_POD = new(
         "Firmware/HomePod/",
         new("11.x", "v b k(AudioAccessory1,1;AudioAccessory1,2) r d"),
         new("12.x", "v b k(AudioAccessory1,1;AudioAccessory1,2) r d"),
@@ -411,7 +411,7 @@ public static class Descriptors
         )
     );
 
-    private static readonly Descriptor HOME_POD_BETA = new(
+    private static readonly DeviceEntry HOME_POD_BETA = new(
         "Beta_Firmware/HomePod/",
         new("11.x", "v b k(AudioAccessory1,1) r"),
         new(
@@ -427,7 +427,7 @@ public static class Descriptors
     );
 
     // ReSharper disable once UnusedMember.Local
-    private static readonly Descriptor APPLE_SILICON = new(
+    private static readonly DeviceEntry APPLE_SILICON = new(
         "Firmware/Mac/",
         new(
             "11.x",
@@ -449,7 +449,7 @@ public static class Descriptors
     );
 
     // ReSharper disable once UnusedMember.Local
-    private static readonly Descriptor APPLE_SILICON_BETA = new(
+    private static readonly DeviceEntry APPLE_SILICON_BETA = new(
         "Beta_Firmware/Mac/",
         new("11.x",
             "v b k(ADP3,2) r",
@@ -468,7 +468,7 @@ public static class Descriptors
 
     // ReSharper disable once UnusedMember.Local
     // ReSharper disable once IdentifierTypo
-    private static readonly Descriptor IBRIDGE = new(
+    private static readonly DeviceEntry IBRIDGE = new(
         "Firmware/iBridge/",
 
         new(
@@ -497,7 +497,7 @@ public static class Descriptors
 
     // TODO: iBridge betas?
 
-    private static readonly Descriptor IPAD = new(
+    private static readonly DeviceEntry IPAD = new(
         "Firmware/iPad/",
         new("3.x", "v b k(iPad1,1) bb r u h s d"),
         new(
@@ -607,7 +607,7 @@ public static class Descriptors
         )
     );
 
-    private static readonly Descriptor IPAD_BETA = new(
+    private static readonly DeviceEntry IPAD_BETA = new(
         "Beta_Firmware/iPad/",
         new("4.x", "v b k(iPad1,1) bb r u s"),
         new(
@@ -707,7 +707,7 @@ public static class Descriptors
         )
     );
 
-    private static readonly Descriptor IPAD_AIR = new(
+    private static readonly DeviceEntry IPAD_AIR = new(
         "Firmware/iPad_Air",
         new(
             "7.x",
@@ -767,7 +767,7 @@ public static class Descriptors
         )
     );
 
-    private static readonly Descriptor IPAD_AIR_BETA = new(
+    private static readonly DeviceEntry IPAD_AIR_BETA = new(
         "Beta_Firmware/iPad_Air/",
         new(
             "7.x",
@@ -826,7 +826,7 @@ public static class Descriptors
         )
     );
 
-    private static readonly Descriptor IPAD_PRO = new(
+    private static readonly DeviceEntry IPAD_PRO = new(
         "Firmware/iPad_Pro/",
         new(
             "9.x",
@@ -897,7 +897,7 @@ public static class Descriptors
         )
     );
 
-    private static readonly Descriptor IPAD_PRO_BETA = new(
+    private static readonly DeviceEntry IPAD_PRO_BETA = new(
         "Beta_Firmware/iPad_Pro",
         new(
             "9.x",
@@ -968,7 +968,7 @@ public static class Descriptors
         )
     );
 
-    private static readonly Descriptor IPAD_MINI = new(
+    private static readonly DeviceEntry IPAD_MINI = new(
         "Firmware/iPad_mini/",
         new(
             "6.x",
@@ -1048,7 +1048,7 @@ public static class Descriptors
         )
     );
 
-    private static readonly Descriptor IPAD_MINI_BETA = new(
+    private static readonly DeviceEntry IPAD_MINI_BETA = new(
         "Beta_Firmware/iPad_mini",
         new(
             "6.x",
@@ -1127,7 +1127,7 @@ public static class Descriptors
         )
     );
 
-    private static readonly Descriptor IPHONE = new(
+    private static readonly DeviceEntry IPHONE = new(
         "Firmware/iPhone/",
         new("1.x", "v b k(iPhone1,1) bb r u h s d"),
         new(
@@ -1318,7 +1318,7 @@ public static class Descriptors
         )
     );
 
-    private static readonly Descriptor IPHONE_BETA = new(
+    private static readonly DeviceEntry IPHONE_BETA = new(
         "Beta_Firmware/iPhone/",
         new("1.x", "v b k(iPhone1,1) bb r u s"),
         new(
@@ -1508,7 +1508,7 @@ public static class Descriptors
         )
     );
 
-    private static readonly Descriptor IPOD_TOUCH = new(
+    private static readonly DeviceEntry IPOD_TOUCH = new(
         "Firmware/iPod_touch/",
         new("1.x", "v b k(iPod1,1) r u h s d"),
         new(
@@ -1561,7 +1561,7 @@ public static class Descriptors
         new("15.x", "v b k(iPod9,1) r u h s d")
     );
 
-    private static readonly Descriptor IPOD_TOUCH_BETA = new(
+    private static readonly DeviceEntry IPOD_TOUCH_BETA = new(
         "Beta_Firmware/iPod_touch/",
         new("1.x", "v b k(iPod1,1) r u s"),
         new("2.x", "v b k(iPod1,1) r i s"),
@@ -1609,7 +1609,7 @@ public static class Descriptors
         new("15.x", "v b k(iPod9,1) r u s")
     );
 
-    public static readonly Descriptor[] ALL_DESCRIPTORS = new[]
+    public static readonly DeviceEntry[] ALL_DESCRIPTORS = new[]
     {
         APPLE_TV,
         APPLE_WATCH,

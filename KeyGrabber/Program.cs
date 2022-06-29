@@ -204,10 +204,10 @@ public static class Program
 
     private static async Task ProcessDescriptors()
     {
-        foreach (Descriptor descriptor in Descriptors.ALL_DESCRIPTORS)
+        foreach (Descriptor.DeviceEntry device in Descriptor.ALL_DESCRIPTORS)
         {
-            foreach (DescriptorEntry entry in descriptor.Entries)
-                await BuildVersionsDictionary($"{descriptor.UrlPrefix}{entry.MajorVersion}", entry.DslForTables);
+            foreach (Descriptor.MajorVersionEntry version in device.Entries)
+                await BuildVersionsDictionary($"{device.UrlPrefix}{version.MajorVersion}", version.DslForTables);
         }
     }
 
