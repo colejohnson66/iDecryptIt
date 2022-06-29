@@ -33,8 +33,6 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Xml;
 
-// ReSharper disable SuggestBaseTypeForParameter
-
 namespace KeyGrabber;
 
 public static class Program
@@ -389,11 +387,6 @@ public static class Program
             // if not, just ignore the `Model` prop
             MarkBadPage("No 'Model2'", props);
             props.Remove("Model");
-        }
-
-        if (props["Device"] is "iPhone6,2" && props["Build"] is "16C101")
-        {
-            Debug.WriteLine("iPhone6,2 16C101");
         }
 
         // remove wikilinks
