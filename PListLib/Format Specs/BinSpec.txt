@@ -1,0 +1,19 @@
+NeXTSTEP
+  NextSpec.txt
+Binary
+  - Timeline
+    - Lion and before used version 0.0          (BinSpec-0.txt)
+    - Mountain Lion introduced version 1.5      (BinSpec-1.txt)
+    - Mavericks backported version 1.5 to "0.0" (BinSpec-2.txt)
+  - Magic parse (? being anything)
+    - "bplist00" Leopard and earlier
+	- "bplist01" Leopard
+	- "bplist0?" <any>
+	- "bplist15" Mountain Lion
+  - What to do
+    - Write "bplist00"
+	- Parse as BinSpec-2.txt
+XML
+  PropertyList-1.0.dtd
+JSON
+  ?

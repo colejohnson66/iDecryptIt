@@ -1,0 +1,39 @@
+https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/PropertyLists/OldStylePlists/OldStylePLists.html
+
+NSString
+  - ASCII characters only
+  - Enclosed in quotes
+  - Quotes may be omitted if string matches [A-Za-z0-9]
+  - Unicode characters allowed if escaped as \U####
+  - Example:
+      "This is a string"
+
+NSData
+  - Enclosed in angled brackets
+  - Encoded in hexadecimal
+  - Spaces ignored
+  - Example:
+      <0fbd777 1c2735ae>
+
+NSArray
+  - Enclosed in parentheses
+  - Elements separated by commas
+  - Elements don't need to be same type
+  - Example:
+      ("San Francisco", "New York", "Seoul", "London", "Seattle", "Shanghai")
+
+NSDictionary
+  - Enclosed in braces
+  - Contains list of keys with values
+  - Every key-value pair ends with a semicolon
+  - Values don't need to be the same type
+  - Example:
+      { user = wshakesp; birth = 1564; death = 1616; }
+
+Example:
+  {
+      AnimalSmells = { pig = piggish; lamb = lambish; worm = wormy; };
+      AnimalSounds = { pig = oink; lamb = baa; worm = baa;
+                      Lisa = "Why is the worm talking like a lamb?"; };
+      AnimalColors = { pig = pink; lamb = black; worm = pink; };
+  }
