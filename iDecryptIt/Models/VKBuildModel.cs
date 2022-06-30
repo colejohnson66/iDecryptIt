@@ -55,7 +55,15 @@ public class VKBuildModel : IComparable<VKBuildModel>, IEquatable<VKBuildModel>
         TextColor = hkEntry.HasKeys ? BLACK : RED;
         VersionText = $"{hkEntry.Version} ({hkEntry.Build})";
 
-        // TODO: this doesn't handle builds with parenthesis or periods (from Apple TV)
+        if (Build.Contains('('))
+        {
+            // clean Apple TV build IDs from the format "1145 (8M89)" to "8M89"
+            Debug.Assert(Build.Contains(')'));
+            Build = Build[(Build.IndexOf('(') + 1)..Build.IndexOf(')')];
+
+            // rework the version text to "1145 - 8M89" (i.e. remove double nested parens)
+            VersionText = $"{hkEntry.Version} ({hkEntry.Build[..hkEntry.Build.IndexOf(' ')]} - {Build})";
+        }
 
         /* Parse out the build string according to the regex:
          * (\d+)([A-Z])(\d+)([a-z]?)
@@ -73,37 +81,36 @@ public class VKBuildModel : IComparable<VKBuildModel>, IEquatable<VKBuildModel>
          *    └─┼─ 453   minor   102 ────┘
          *      └─ a    suffix   '\0'
          */
-        string build = hkEntry.Build;
         int i = 0;
 
         _buildMajor = 0;
-        while (build[i] is >= '0' and <= '9')
+        while (Build[i] is >= '0' and <= '9')
         {
             _buildMajor *= 10;
-            _buildMajor += build[i] - '0';
+            _buildMajor += Build[i] - '0';
             i++;
-            Debug.Assert(i < build.Length);
+            Debug.Assert(i < Build.Length);
         }
 
-        _buildSep = build[i];
+        _buildSep = Build[i];
         Debug.Assert(_buildSep is >= 'A' and <= 'Z');
         i++;
-        Debug.Assert(i < build.Length);
+        Debug.Assert(i < Build.Length);
 
         _buildMinor = 0;
-        while (i < build.Length && build[i] is >= '0' and <= '9')
+        while (i < Build.Length && Build[i] is >= '0' and <= '9')
         {
             _buildMinor *= 10;
-            _buildMinor += build[i] - '0';
+            _buildMinor += Build[i] - '0';
             i++;
         }
 
         _buildSuffix = '\0';
-        if (i < build.Length - 1)
+        if (i < Build.Length - 1)
         {
             // the suffix is only one character
-            Debug.Assert(i == build.Length - 1);
-            _buildSuffix = build[i];
+            Debug.Assert(i == Build.Length - 1);
+            _buildSuffix = Build[i];
         }
     }
 
