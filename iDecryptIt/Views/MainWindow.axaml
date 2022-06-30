@@ -11,10 +11,14 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="800"
     x:Class="iDecryptIt.Views.MainWindow"
+    x:CompileBindings="True"
+    x:DataType="vm:MainWindowViewModel"
     Background="{DynamicResource ColorSky100}"
-    Height="800" Width="800"
-    MinHeight="800" MinWidth="800"
-    Title="iDecryptIt">
+    Height="800"
+    MinHeight="800"
+    MinWidth="800"
+    Title="iDecryptIt"
+    Width="800">
 
     <Design.DataContext>
         <vm:MainWindowViewModel />
@@ -52,7 +56,7 @@
                         VerticalAlignment="Center">
                         <Button
                             Classes="WithImage Vertical"
-                            Command="{Binding OnDecrypt}"
+                            Command="{CompiledBinding DecryptCommand}"
                             HorizontalAlignment="Center">
                             <StackPanel>
                                 <Image Source="{svg:SvgImage /Assets/Icons/unlock.svg}" />
@@ -61,18 +65,18 @@
                         </Button>
                         <TextBlock
                             HorizontalAlignment="Center"
-                            IsVisible="{Binding DecryptingRootFS}"
+                            IsVisible="{CompiledBinding DecryptingRootFS}"
                             MaxWidth="75"
                             TextAlignment="Center"
                             TextWrapping="Wrap">Decrypting Root FS</TextBlock>
                         <TextBlock
                             HorizontalAlignment="Center"
-                            IsVisible="{Binding !DecryptingRootFS}"
+                            IsVisible="{CompiledBinding !DecryptingRootFS}"
                             MaxWidth="75"
                             TextAlignment="Center"
                             TextWrapping="Wrap">Decrypting FW Item</TextBlock>
                         <Button
-                            Command="{Binding OnDecryptingRootFSSwitch}"
+                            Command="{CompiledBinding DecryptingRootFSSwitchCommand}"
                             Content="Switch"
                             HorizontalAlignment="Center" />
                     </StackPanel>
@@ -83,34 +87,34 @@
 
                     <UniformGrid
                         DockPanel.Dock="Right"
-                        IsVisible="{Binding DecryptingRootFS}"
+                        IsVisible="{CompiledBinding DecryptingRootFS}"
                         Rows="4">
                         <Button
                             Content="Select Input..."
-                            Command="{Binding RootFSOpenCommand}"
+                            Command="{CompiledBinding RootFSOpenCommand}"
                             CommandParameter="input"
                             HorizontalAlignment="Center"
                             Margin="{DynamicResource Padding}" />
                         <Button
                             Content="Select Output..."
-                            Command="{Binding RootFSOpenCommand}"
+                            Command="{CompiledBinding RootFSOpenCommand}"
                             CommandParameter="output"
                             HorizontalAlignment="Center"
                             Margin="{DynamicResource Padding}" />
                     </UniformGrid>
                     <UniformGrid
                         DockPanel.Dock="Right"
-                        IsVisible="{Binding !DecryptingRootFS}"
+                        IsVisible="{CompiledBinding !DecryptingRootFS}"
                         Rows="4">
                         <Button
                             Content="Select Input..."
-                            Command="{Binding DecryptOpenCommand}"
+                            Command="{CompiledBinding DecryptOpenCommand}"
                             CommandParameter="input"
                             HorizontalAlignment="Center"
                             Margin="{DynamicResource Padding}" />
                         <Button
                             Content="Select Output..."
-                            Command="{Binding DecryptOpenCommand}"
+                            Command="{CompiledBinding DecryptOpenCommand}"
                             CommandParameter="output"
                             HorizontalAlignment="Center"
                             Margin="{DynamicResource Padding}" />
@@ -118,42 +122,42 @@
 
                     <Panel>
                         <UniformGrid
-                            IsVisible="{Binding DecryptingRootFS}"
+                            IsVisible="{CompiledBinding DecryptingRootFS}"
                             Rows="4">
                             <TextBox
                                 Margin="{DynamicResource Padding}"
                                 MaxHeight="24"
-                                Text="{Binding RootFSInput}"
+                                Text="{CompiledBinding RootFSInput}"
                                 Watermark="Input Path" />
                             <TextBox
                                 Margin="{DynamicResource Padding}"
                                 MaxHeight="24"
-                                Text="{Binding RootFSOutput}"
+                                Text="{CompiledBinding RootFSOutput}"
                                 Watermark="Output Path" />
                             <TextBox
                                 Margin="{DynamicResource Padding}"
                                 MaxHeight="24"
-                                Text="{Binding RootFSKey}"
+                                Text="{CompiledBinding RootFSKey}"
                                 Watermark="Key" />
                         </UniformGrid>
                         <UniformGrid
-                            IsVisible="{Binding !DecryptingRootFS}"
+                            IsVisible="{CompiledBinding !DecryptingRootFS}"
                             Rows="4">
                             <TextBox
                                 Margin="{DynamicResource Padding}"
-                                Text="{Binding DecryptInput}"
+                                Text="{CompiledBinding DecryptInput}"
                                 Watermark="Input Path" />
                             <TextBox
                                 Margin="{DynamicResource Padding}"
-                                Text="{Binding DecryptOutput}"
+                                Text="{CompiledBinding DecryptOutput}"
                                 Watermark="Output Path" />
                             <TextBox
                                 Margin="{DynamicResource Padding}"
-                                Text="{Binding DecryptIV}"
+                                Text="{CompiledBinding DecryptIV}"
                                 Watermark="IV" />
                             <TextBox
                                 Margin="{DynamicResource Padding}"
-                                Text="{Binding DecryptKey}"
+                                Text="{CompiledBinding DecryptKey}"
                                 Watermark="Key" />
                         </UniformGrid>
                     </Panel>
@@ -186,7 +190,7 @@
                     <Button
                         DockPanel.Dock="Left"
                         Classes="WithImage Vertical"
-                        Command="{Binding OnExtract}"
+                        Command="{CompiledBinding ExtractCommand}"
                         HorizontalAlignment="Center">
                         <StackPanel>
                             <Image Source="{svg:SvgImage /Assets/Icons/file-earmark-zip.svg}" />
@@ -203,13 +207,13 @@
                         Rows="2">
                         <Button
                             Content="Select Input..."
-                            Command="{Binding ExtractOpenCommand}"
+                            Command="{CompiledBinding ExtractOpenCommand}"
                             CommandParameter="input"
                             HorizontalAlignment="Center"
                             Margin="{DynamicResource Padding}" />
                         <Button
                             Content="Select Output..."
-                            Command="{Binding ExtractOpenCommand}"
+                            Command="{CompiledBinding ExtractOpenCommand}"
                             CommandParameter="output"
                             HorizontalAlignment="Center"
                             Margin="{DynamicResource Padding}" />
@@ -218,11 +222,11 @@
                     <UniformGrid Rows="2">
                         <TextBox
                             Margin="{DynamicResource Padding}"
-                            Text="{Binding ExtractInput}"
+                            Text="{CompiledBinding ExtractInput}"
                             Watermark="Input Path" />
                         <TextBox
                             Margin="{DynamicResource Padding}"
-                            Text="{Binding ExtractOutput}"
+                            Text="{CompiledBinding ExtractOutput}"
                             Watermark="Output Folder" />
                     </UniformGrid>
 
@@ -254,9 +258,9 @@
                     <Button
                         DockPanel.Dock="Right"
                         Classes="WithImage Horizontal"
-                        Command="{Binding OnViewKeys}"
+                        Command="{CompiledBinding ViewKeysCommand}"
                         HorizontalAlignment="Center"
-                        IsEnabled="{Binding OnViewKeysEnabled}">
+                        IsEnabled="{CompiledBinding ViewKeysCommandEnabled}">
                         <StackPanel>
                             <Image Source="{svg:SvgImage /Assets/Icons/key.svg}" />
                             <TextBlock Text="View Keys" />
@@ -274,47 +278,47 @@
                     <UniformGrid Columns="3">
                         <ComboBox
                             HorizontalAlignment="Stretch"
-                            Items="{Binding VKGroupList}"
+                            Items="{CompiledBinding VKGroupList}"
                             Margin="{DynamicResource PaddingR}"
-                            SelectedItem="{Binding VKGroupSelectedItem}"
+                            SelectedItem="{CompiledBinding VKGroupSelectedItem}"
                             PlaceholderForeground="{DynamicResource ColorGray400}"
                             PlaceholderText="Select Device"
                             VerticalAlignment="Center">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate DataType="shared:DeviceGroup">
-                                    <TextBlock Text="{Binding ., Converter={StaticResource DeviceGroupConverter}}" />
+                                    <TextBlock Text="{CompiledBinding ., Converter={StaticResource DeviceGroupConverter}}" />
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
                         <ComboBox
                             HorizontalAlignment="Stretch"
-                            IsEnabled="{Binding VKModelEnabled}"
-                            Items="{Binding VKModelList}"
+                            IsEnabled="{CompiledBinding VKModelEnabled}"
+                            Items="{CompiledBinding VKModelList}"
                             Margin="{DynamicResource PaddingR}"
-                            SelectedItem="{Binding VKModelSelectedItem}"
+                            SelectedItem="{CompiledBinding VKModelSelectedItem}"
                             PlaceholderForeground="{DynamicResource ColorGray400}"
                             PlaceholderText="Select Model"
                             VerticalAlignment="Center">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate DataType="shared:Device">
-                                    <TextBlock Text="{Binding}" />
+                                    <TextBlock Text="{CompiledBinding}" />
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
                         <ComboBox
                             HorizontalAlignment="Stretch"
-                            IsEnabled="{Binding VKBuildEnabled}"
-                            Items="{Binding VKBuildList}"
+                            IsEnabled="{CompiledBinding VKBuildEnabled}"
+                            Items="{CompiledBinding VKBuildList}"
                             Margin="{DynamicResource PaddingR}"
-                            SelectedItem="{Binding VKBuildSelectedItem}"
+                            SelectedItem="{CompiledBinding VKBuildSelectedItem}"
                             PlaceholderForeground="{DynamicResource ColorGray400}"
                             PlaceholderText="Select Build"
                             VerticalAlignment="Center">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate DataType="models:VKBuildModel">
                                     <TextBlock
-                                        Foreground="{Binding TextColor}"
-                                        Text="{Binding VersionText}" />
+                                        Foreground="{CompiledBinding TextColor}"
+                                        Text="{CompiledBinding VersionText}" />
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
@@ -348,17 +352,17 @@
                             FontSize="36"
                             Text="{Binding KeysHeading}" />
 
-                        <ItemsRepeater Items="{Binding KeyEntries}">
+                        <ItemsRepeater Items="{CompiledBinding KeyEntries}">
                             <ItemsRepeater.ItemTemplate>
                                 <DataTemplate DataType="models:FirmwareItemModel">
                                     <controls:FirmwareItem
-                                        ItemKind="{Binding ItemKind}"
-                                        Filename="{Binding FileName}"
-                                        Encrypted="{Binding Encrypted}"
-                                        IV="{Binding IV}"
-                                        Key="{Binding Key}"
-                                        KBag="{Binding KBag}"
-                                        DecryptCommand="{Binding DecryptCommand}" />
+                                        ItemKind="{CompiledBinding ItemKind}"
+                                        Filename="{CompiledBinding FileName}"
+                                        Encrypted="{CompiledBinding Encrypted}"
+                                        IV="{CompiledBinding IV}"
+                                        Key="{CompiledBinding Key}"
+                                        KBag="{CompiledBinding KBag}"
+                                        DecryptCommand="{CompiledBinding DecryptCommand}" />
                                 </DataTemplate>
                             </ItemsRepeater.ItemTemplate>
                         </ItemsRepeater>

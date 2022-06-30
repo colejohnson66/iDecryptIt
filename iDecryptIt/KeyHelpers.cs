@@ -23,7 +23,6 @@
 
 using Avalonia;
 using Avalonia.Platform;
-using Fizzler;
 using iDecryptIt.Shared;
 using System;
 using System.Collections.Generic;
@@ -31,7 +30,6 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace iDecryptIt;
 
@@ -40,6 +38,7 @@ public static class KeyHelpers
     private static readonly IAssetLoader _loader = AvaloniaLocator.Current.GetService<IAssetLoader>()!;
     private static readonly ReadOnlyDictionary<Device, ReadOnlyCollection<HasKeysEntry>> _hasKeysDictionary;
 
+    // lock is used to ensure that calls to `ReadKeys` don't interfere with background calls to `EnsureBundleIsLoaded`
     private static readonly object _readBundlesLock = new();
     private static readonly Dictionary<Device, KeyPageBundle> _readBundles = new();
     private static readonly LinkedList<Device> _readBundlesOrder = new(); // use a linked list to avoid array shifting

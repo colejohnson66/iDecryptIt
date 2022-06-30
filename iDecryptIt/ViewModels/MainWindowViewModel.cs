@@ -34,17 +34,20 @@ using System.Linq;
 using System.Reactive;
 using System.Reactive.Concurrency;
 
-// ReSharper disable MemberCanBePrivate.Global
-
 namespace iDecryptIt.ViewModels;
 
 public class MainWindowViewModel : ViewModelBase
 {
     public MainWindowViewModel()
     {
+        DecryptingRootFSSwitchCommand = ReactiveCommand.Create(OnDecryptingRootFSSwitch);
         RootFSOpenCommand = ReactiveCommand.Create<string>(OnRootFSOpen);
+        RootFSCopyKeyCommand = ReactiveCommand.Create(OnRootFSCopyKey);
         DecryptOpenCommand = ReactiveCommand.Create<string>(OnDecryptOpen);
+        DecryptCommand = ReactiveCommand.Create(OnDecrypt);
         ExtractOpenCommand = ReactiveCommand.Create<string>(OnExtractOpen);
+        ExtractCommand = ReactiveCommand.Create(OnExtract);
+        ViewKeysCommand = ReactiveCommand.Create(OnViewKeys);
         FirmwareItemDecryptCommand = ReactiveCommand.Create<iDecryptIt.Controls.FirmwareItem>(OnFirmwareItemDecrypt);
 
         Subscribe();
@@ -67,7 +70,7 @@ public class MainWindowViewModel : ViewModelBase
                     VKBuildList.Clear();
                     VKBuildSelectedItem = null;
 
-                    OnViewKeysEnabled = false;
+                    ViewKeysCommandEnabled = false;
 
                     if (value is null || !Device.MappingGroupToDevices.ContainsKey(value.Value))
                         return;
@@ -85,7 +88,7 @@ public class MainWindowViewModel : ViewModelBase
                     VKBuildList.Clear();
                     VKBuildSelectedItem = null;
 
-                    OnViewKeysEnabled = false;
+                    ViewKeysCommandEnabled = false;
 
                     if (value is null)
                         return;
@@ -104,40 +107,43 @@ public class MainWindowViewModel : ViewModelBase
             .Subscribe(
                 value =>
                 {
-                    OnViewKeysEnabled = value?.HasKeys ?? false;
+                    ViewKeysCommandEnabled = value?.HasKeys ?? false;
                 });
     }
 
     [Reactive] public bool DecryptingRootFS { get; set; } = false;
-    public void OnDecryptingRootFSSwitch() =>
+    public ReactiveCommand<Unit, Unit> DecryptingRootFSSwitchCommand { get; }
+    private void OnDecryptingRootFSSwitch() =>
         DecryptingRootFS = !DecryptingRootFS;
 
     [Reactive] public string RootFSInput { get; set; } = "";
     [Reactive] public string RootFSOutput { get; set; } = "";
     [Reactive] public string RootFSKey { get; set; } = "";
-    public ReactiveCommand<string, Unit> RootFSOpenCommand { get; set; }
+    public ReactiveCommand<string, Unit> RootFSOpenCommand { get; }
     private void OnRootFSOpen(string parameter)
     { }
-    public void OnRootFSCopyKey()
+    public ReactiveCommand<Unit, Unit> RootFSCopyKeyCommand { get; }
+    private void OnRootFSCopyKey()
     { }
 
     [Reactive] public string DecryptInput { get; set; } = "";
     [Reactive] public string DecryptOutput { get; set; } = "";
     [Reactive] public string DecryptIV { get; set; } = "";
     [Reactive] public string DecryptKey { get; set; } = "";
-    public ReactiveCommand<string, Unit> DecryptOpenCommand { get; set; }
+    public ReactiveCommand<string, Unit> DecryptOpenCommand { get; }
     private void OnDecryptOpen(string parameter)
     { }
-    public void OnDecrypt()
+    public ReactiveCommand<Unit, Unit> DecryptCommand { get; }
+    private void OnDecrypt()
     { }
 
     [Reactive] public string ExtractInput { get; set; } = "";
     [Reactive] public string ExtractOutput { get; set; } = "";
-    public ReactiveCommand<string, Unit> ExtractOpenCommand { get; set; }
+    public ReactiveCommand<string, Unit> ExtractOpenCommand { get; }
     private void OnExtractOpen(string parameter)
     { }
-
-    public void OnExtract()
+    public ReactiveCommand<Unit, Unit> ExtractCommand { get; }
+    private void OnExtract()
     { }
 
     public ObservableCollection<DeviceGroup> VKGroupList { get; } = new(
@@ -153,8 +159,9 @@ public class MainWindowViewModel : ViewModelBase
     [Reactive] public ObservableCollection<VKBuildModel> VKBuildList { get; set; } = new();
     [Reactive] public VKBuildModel? VKBuildSelectedItem { get; set; } = null;
 
-    [Reactive] public bool OnViewKeysEnabled { get; set; }
-    public void OnViewKeys()
+    [Reactive] public bool ViewKeysCommandEnabled { get; set; }
+    public ReactiveCommand<Unit, Unit> ViewKeysCommand { get; }
+    private void OnViewKeys()
     {
         Debug.Assert(VKBuildSelectedItem?.HasKeys is true);
 
@@ -179,7 +186,7 @@ public class MainWindowViewModel : ViewModelBase
     [Reactive] public string KeysHeading { get; set; } = "";
     [Reactive] public ObservableCollection<FirmwareItemModel> KeyEntries { get; set; } = new();
 
-    public ReactiveCommand<iDecryptIt.Controls.FirmwareItem, Unit> FirmwareItemDecryptCommand { get; }
-    public void OnFirmwareItemDecrypt(iDecryptIt.Controls.FirmwareItem model)
+    private ReactiveCommand<iDecryptIt.Controls.FirmwareItem, Unit> FirmwareItemDecryptCommand { get; }
+    private void OnFirmwareItemDecrypt(iDecryptIt.Controls.FirmwareItem model)
     { }
 }
