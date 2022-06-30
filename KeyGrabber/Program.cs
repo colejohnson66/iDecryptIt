@@ -410,7 +410,9 @@ public static class Program
 
         if (props.TryGetValue("RootFS", out s))
         {
-            page.RootFS = new($"{s}.dmg");
+            // root filesystems don't have the extension due to historical mistake by me
+            // append '.dmg', but only if the filename is known (non-empty)
+            page.RootFS = new(s is "" ? "" : $"{s}.dmg");
             s = props["RootFSKey"];
             if (s is "Not Encrypted")
                 page.RootFS.Encrypted = false;
@@ -420,8 +422,8 @@ public static class Program
 
         if (props.TryGetValue("RootFSBeta", out s))
         {
-            // root filesystems don't have the extension due to historical mistake by me
-            page.RootFSBeta = new($"{s}.dmg");
+            // ditto
+            page.RootFSBeta = new(s is "" ? "" : $"{s}.dmg");
             s = props["RootFSBetaKey"];
             if (s is "Not Encrypted")
                 page.RootFSBeta.Encrypted = false;
@@ -438,9 +440,10 @@ public static class Program
             if (!props.TryGetValue(enumStr, out string? filename))
                 continue;
 
-            // ramdisks don't have the extension due to the same historical mistake
+            // ramdisks ALSO don't have the extension
+            // append '.dmg', but only if the filename is known (non-empty)
             if (enumStr.Contains("Ramdisk"))
-                filename += ".dmg";
+                filename = filename is "" ? "" : $"{filename}.dmg";
 
             FirmwareItem item = new(filename);
             // ALL firmware items must have an `...IV` prop (even unencrypted ones)
