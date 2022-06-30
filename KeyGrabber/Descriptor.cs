@@ -470,7 +470,6 @@ public static class Descriptor
     // ReSharper disable once IdentifierTypo
     private static readonly DeviceEntry IBRIDGE = new(
         "Firmware/iBridge/",
-
         new(
             "2.x",
             "v b k(iBridge1,1) r u h s",
@@ -708,7 +707,7 @@ public static class Descriptor
     );
 
     private static readonly DeviceEntry IPAD_AIR = new(
-        "Firmware/iPad_Air",
+        "Firmware/iPad_Air/",
         new(
             "7.x",
             "v b k(iPad4,1) r u h s d",
@@ -898,7 +897,7 @@ public static class Descriptor
     );
 
     private static readonly DeviceEntry IPAD_PRO_BETA = new(
-        "Beta_Firmware/iPad_Pro",
+        "Beta_Firmware/iPad_Pro/",
         new(
             "9.x",
             "v b k(iPad6,7) r u s",
@@ -1049,7 +1048,7 @@ public static class Descriptor
     );
 
     private static readonly DeviceEntry IPAD_MINI_BETA = new(
-        "Beta_Firmware/iPad_mini",
+        "Beta_Firmware/iPad_mini/",
         new(
             "6.x",
             "v b k(iPad2,5) r u i s",
