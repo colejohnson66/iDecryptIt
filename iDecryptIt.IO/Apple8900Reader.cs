@@ -79,12 +79,12 @@ public class Apple8900Reader : IDisposable
         Span<byte> headerSpan = header.AsSpan();
 
         // magic
-        if (!MAGIC.SequenceEqual(header[..4]))
+        if (!MAGIC.SequenceEqual(header[..7]))
             throw new InvalidDataException("Input file is not an \"8900\" file.");
 
         // format
         byte format = header[7];
-        if (format is not (1 or 2 or 3 or 4))
+        if (!Enum.GetValues<Apple8900Format>().Cast<int>().Contains(format))
             throw new InvalidDataException($"Unknown 8900 \"format\" {format}. Only values of 1, 2, 3, or 4 are supported.");
         Format = (Apple8900Format)format;
 
@@ -109,7 +109,7 @@ public class Apple8900Reader : IDisposable
         using MemoryStream ms = new(sha1.ComputeHash(header[..0x40])[..0x10]); // only the first 16 bytes of the hash are used
         using CryptoStream cs = new(ms, aes.CreateEncryptor(), CryptoStreamMode.Read);
         byte[] computedHeaderSig = new byte[16];
-        cs.Read(computedHeaderSig);
+        cs.Read(computedHeaderSig); // TODO: use return value
         HeaderSignatureCorrect = computedHeaderSig.SequenceEqual(header[0x40..0x50]);
 
         // sanity check
