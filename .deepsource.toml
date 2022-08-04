@@ -1,5 +1,7 @@
 version = 1
 
+exclude_patterns = ["iDecryptIt-WPF/**"]
+
 [[analyzers]]
 name = "csharp"
 enabled = true
