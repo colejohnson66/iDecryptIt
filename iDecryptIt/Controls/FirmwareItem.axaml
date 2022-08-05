@@ -36,6 +36,13 @@
         <converters:FirmwareItemTypeNameConverter x:Key="NameConverter" />
     </Styles.Resources>
 
+    <Style Selector="controls|FirmwareItem TextBlock">
+        <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="controls|FirmwareItem TextBox">
+        <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+
     <Style Selector="controls|FirmwareItem">
         <Setter Property="Template">
             <ControlTemplate>
@@ -50,7 +57,6 @@
                         DockPanel.Dock="Left"
                         Text="{TemplateBinding ItemKind, Converter={StaticResource NameConverter}}"
                         TextWrapping="Wrap"
-                        VerticalAlignment="Center"
                         Width="125" />
 
                     <Separator
@@ -72,7 +78,6 @@
                         DockPanel.Dock="Right"
                         Margin="{StaticResource PaddingY}"
                         Text="{TemplateBinding Filename}"
-                        VerticalAlignment="Center"
                         Watermark="Unknown"
                         Width="175" />
 
@@ -85,8 +90,7 @@
                         <TextBlock
                             HorizontalAlignment="Center"
                             IsVisible="{Binding !Encrypted, RelativeSource={RelativeSource TemplatedParent}}"
-                            Text="Not Encrypted"
-                            VerticalAlignment="Center" />
+                            Text="Not Encrypted" />
                         <UniformGrid
                             Columns="1"
                             IsVisible="{TemplateBinding Encrypted}">
@@ -98,8 +102,7 @@
                                     DockPanel.Dock="Left"
                                     HorizontalAlignment="Center"
                                     MinWidth="45"
-                                    Text="IV: "
-                                    VerticalAlignment="Center" />
+                                    Text="IV: " />
                                 <TextBox
                                     IsReadOnly="True"
                                     Text="{TemplateBinding IV}"
@@ -113,8 +116,7 @@
                                     DockPanel.Dock="Left"
                                     HorizontalAlignment="Center"
                                     MinWidth="45"
-                                    Text="Key: "
-                                    VerticalAlignment="Center" />
+                                    Text="Key: " />
                                 <TextBox
                                     IsReadOnly="True"
                                     Text="{TemplateBinding Key}"
@@ -129,8 +131,7 @@
                                 DockPanel.Dock="Left"
                                 HorizontalAlignment="Center"
                                 MinWidth="45"
-                                Text="KBAG: "
-                                VerticalAlignment="Center" />
+                                Text="KBAG: " />
                             <TextBox
                                 IsReadOnly="True"
                                 Text="{TemplateBinding KBag}"
