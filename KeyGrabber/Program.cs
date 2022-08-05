@@ -82,7 +82,7 @@ public static class Program
         foreach ((Device device, List<FirmwareVersionEntry> entries) in Versions)
         {
             Debug.Assert(
-                !entries.Any(entry => entry.Build.Contains('[') || entry.Version.Contains('[')),
+                entries.All(entry => !entry.Build.Contains('[') && !entry.Version.Contains('[')),
                 $"{device.ModelString} has bad {nameof(FirmwareVersionEntry)} object.");
         }
         Console.WriteLine("No issues found.");
@@ -536,7 +536,7 @@ public static class Program
             for (int row = 0; row < rowCount; row++)
             {
                 XmlNode cell = rows[row]!.ChildNodes[col]!;
-                Debug.Assert(cell != null);
+                Debug.Assert(cell is not null);
             restart:
                 foreach (XmlAttribute attr in cell.Attributes!)
                 {
