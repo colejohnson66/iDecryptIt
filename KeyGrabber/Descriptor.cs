@@ -1608,7 +1608,7 @@ public static class Descriptor
         new("15.x", "v b k(iPod9,1) r u s")
     );
 
-    public static readonly DeviceEntry[] ALL_DESCRIPTORS = new[]
+    public static readonly DeviceEntry[] ALL_DESCRIPTORS =
     {
         APPLE_TV,
         APPLE_WATCH,
