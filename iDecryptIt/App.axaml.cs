@@ -26,6 +26,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using iDecryptIt.ViewModels;
 using iDecryptIt.Views;
+using ReactiveUI;
 
 namespace iDecryptIt;
 
@@ -47,5 +48,7 @@ public class App : Application
         }
 
         base.OnFrameworkInitializationCompleted();
+
+        RxApp.DefaultExceptionHandler = new ReactiveUIExceptionHandler();
     }
 }
