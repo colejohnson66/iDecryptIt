@@ -15,7 +15,8 @@
                 <ui:Button
                     Classes="WithImage Vertical"
                     Command="{TemplateBinding Command}"
-                    HorizontalAlignment="Center">
+                    Height="72"
+                    Width="72">
                     <StackPanel Orientation="Vertical">
                         <Image Source="{TemplateBinding Image}" />
                         <TextBlock Text="{TemplateBinding Text}" />
