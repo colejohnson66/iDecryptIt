@@ -290,12 +290,14 @@ public static class Program
 
                         // cases "k..." and "bb..." handled below
 
-                        case "r": // Release date
+                        case "r": // Release date; TODO: handle "preinstalled"
                             if (DateTime.TryParse(cellText, out DateTime dt))
                                 version.ReleaseDate = dt;
                             continue;
 
                         case "u": // Download URL
+                            if (cellText is "?" or "N/A")
+                                continue;
                             version.Url = cell
                                 .SelectNodes(".//@href")!
                                 .Cast<XmlNode>()
