@@ -22,6 +22,7 @@
  */
 
 using Avalonia;
+using Avalonia.Data;
 using Avalonia.Data.Converters;
 using iDecryptIt.Shared;
 using System;
@@ -39,10 +40,8 @@ public sealed class FirmwareItemTypeNameConverter : IValueConverter
 
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        if (value is not FirmwareItemType item)
-            return AvaloniaProperty.UnsetValue;
-        if (targetType != typeof(string))
-            return AvaloniaProperty.UnsetValue;
+        if (value is not FirmwareItemType item || targetType.IsAssignableTo(typeof(string)))
+            return new BindingNotification(new InvalidCastException(), BindingErrorType.Error);
 
         return item switch
         {
@@ -99,10 +98,10 @@ public sealed class FirmwareItemTypeNameConverter : IValueConverter
             SEPFirmware or SEPFirmware2 => "SEP Firmware",
             SmartIOFirmware or SmartIOFirmware2 => "SmartIO Firmware",
             WirelessPower or WirelessPower2 => "Wireless Power",
-            _ => AvaloniaProperty.UnsetValue,
+            _ => new BindingNotification(new ArgumentOutOfRangeException(nameof(value)), BindingErrorType.Error),
         };
     }
 
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) =>
-        AvaloniaProperty.UnsetValue;
+        throw new NotSupportedException();
 }

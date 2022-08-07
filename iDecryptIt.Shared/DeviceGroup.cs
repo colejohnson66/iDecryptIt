@@ -54,6 +54,22 @@ public static class DeviceGroupExtensions
             DeviceGroup.IPad or DeviceGroup.IPadAir or DeviceGroup.IPadMini or DeviceGroup.IPadPro => "iPad",
             DeviceGroup.IPhone => "iPhone",
             DeviceGroup.IPodTouch => "iPod",
-            _ => throw new ArgumentException($"Unknown {nameof(DeviceGroup)}: {group}.", nameof(group)),
+            _ => throw new ArgumentOutOfRangeException(nameof(group), $"Unknown {nameof(DeviceGroup)}: {group}."),
+        };
+
+    public static string MarketingName(this DeviceGroup group) =>
+        group switch
+        {
+            DeviceGroup.AppleWatch => "Apple Watch",
+            DeviceGroup.AppleTV => "Apple TV",
+            DeviceGroup.AudioAccessory => "HomePod",
+            DeviceGroup.IBridge => "iBridge",
+            DeviceGroup.IPad => "iPad",
+            DeviceGroup.IPadAir => "iPad Air",
+            DeviceGroup.IPadMini => "iPad mini",
+            DeviceGroup.IPadPro => "iPad Pro",
+            DeviceGroup.IPhone => "iPhone",
+            DeviceGroup.IPodTouch => "iPod touch",
+            _ => throw new ArgumentOutOfRangeException(nameof(group), $"Unknown {nameof(DeviceGroup)}: {group}."),
         };
 }

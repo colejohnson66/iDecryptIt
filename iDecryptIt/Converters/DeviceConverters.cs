@@ -22,6 +22,7 @@
  */
 
 using Avalonia;
+using Avalonia.Data;
 using Avalonia.Data.Converters;
 using iDecryptIt.Shared;
 using System;
@@ -38,27 +39,19 @@ public sealed class DeviceGroupConverter : IValueConverter
 
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        if (value is not DeviceGroup group)
-            return AvaloniaProperty.UnsetValue;
-        if (targetType != typeof(string))
-            return AvaloniaProperty.UnsetValue;
+        if (value is not DeviceGroup group || targetType.IsAssignableTo(typeof(string)))
+            return new BindingNotification(new InvalidCastException(), BindingErrorType.Error);
 
-        return group switch
+        try
         {
-            DeviceGroup.AppleWatch => "Apple Watch",
-            DeviceGroup.AppleTV => "Apple TV",
-            DeviceGroup.AudioAccessory => "HomePod",
-            DeviceGroup.IBridge => "iBridge",
-            DeviceGroup.IPad => "iPad",
-            DeviceGroup.IPadAir => "iPad Air",
-            DeviceGroup.IPadMini => "iPad mini",
-            DeviceGroup.IPadPro => "iPad Pro",
-            DeviceGroup.IPhone => "iPhone",
-            DeviceGroup.IPodTouch => "iPod touch",
-            _ => AvaloniaProperty.UnsetValue,
-        };
+            return group.MarketingName();
+        }
+        catch (Exception ex)
+        {
+            return new BindingNotification(ex, BindingErrorType.Error);
+        }
     }
 
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) =>
-        AvaloniaProperty.UnsetValue;
+        throw new NotSupportedException();
 }
