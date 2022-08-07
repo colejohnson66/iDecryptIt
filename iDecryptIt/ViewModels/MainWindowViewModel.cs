@@ -21,9 +21,12 @@
  * =============================================================================
  */
 
+using Avalonia;
+using Avalonia.Controls.ApplicationLifetimes;
 using DynamicData;
 using iDecryptIt.Models;
 using iDecryptIt.Shared;
+using iDecryptIt.Views;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System;
@@ -38,6 +41,11 @@ namespace iDecryptIt.ViewModels;
 
 public class MainWindowViewModel : ViewModelBase
 {
+    // don't assume the window is ready when the VM is constructed; only get the object when we first need it
+    private MainWindow? _mainWindowInstance;
+    private MainWindow MainWindowInstance =>
+        _mainWindowInstance ??= (MainWindow)((ClassicDesktopStyleApplicationLifetime)Application.Current!.ApplicationLifetime!).MainWindow;
+
     public MainWindowViewModel()
     {
         DecryptingRootFSSwitchCommand = ReactiveCommand.Create(OnDecryptingRootFSSwitch);
@@ -52,7 +60,17 @@ public class MainWindowViewModel : ViewModelBase
 
         Subscribe();
 
-        RxApp.TaskpoolScheduler.Schedule(KeyHelpers.EnsureInit);
+        RxApp.TaskpoolScheduler.Schedule(() =>
+        {
+            try
+            {
+                KeyBundleHelper.Init();
+            }
+            catch (FormatException ex)
+            {
+                RxApp.MainThreadScheduler.Schedule(() => Program.FatalException(ex));
+            }
+        });
     }
 
     private void Subscribe()
@@ -95,12 +113,12 @@ public class MainWindowViewModel : ViewModelBase
 
                     VKBuildEnabled = true;
                     VKBuildList.AddRange(
-                        KeyHelpers.GetHasKeysList(value)
+                        KeyBundleHelper.GetHasKeysList(value)
                             .Select(entry => new VKBuildModel(entry))
                             .OrderBy(entry => entry));
 
                     // load the bundle up for faster key loading
-                    RxApp.TaskpoolScheduler.Schedule(() => KeyHelpers.EnsureBundleIsLoaded(value));
+                    RxApp.TaskpoolScheduler.Schedule(() => KeyBundleHelper.EnsureBundleIsLoaded(value));
                 });
 
         this.WhenAnyValue(vm => vm.VKBuildSelectedItem)
@@ -171,7 +189,7 @@ public class MainWindowViewModel : ViewModelBase
         KeysHeading = device.ModelString;
 
         KeyEntries.Clear();
-        KeyPage? page = KeyHelpers.ReadKeys(device, build);
+        KeyPage? page = KeyBundleHelper.ReadKeys(device, build);
         Debug.Assert(page is not null); // SAFETY: never null if the key grabber worked correctly
 
         if (page.RootFS is not null)
