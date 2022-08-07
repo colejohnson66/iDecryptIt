@@ -30,7 +30,7 @@ using static iDecryptIt.Shared.DeviceGroup;
 namespace iDecryptIt.Shared;
 
 [PublicAPI]
-public class Device : IComparable, IComparable<Device>, IEquatable<Device>
+public sealed class Device : IComparable, IComparable<Device>, IEquatable<Device>, IEquatable<string>
 {
     // NOTE: When adding new devices, ensure they are added to `AllDevices`, `MappingGroupToDevices`, and `FromModelString`
 
@@ -515,9 +515,9 @@ public class Device : IComparable, IComparable<Device>, IEquatable<Device>
     public override string ToString() => ModelString;
 
     public int CompareTo(object? obj) =>
-        obj is not Device device
-            ? throw new ArgumentException($"Object is not a {nameof(Device)}.", nameof(obj))
-            : CompareTo(device);
+        obj is Device device
+            ? CompareTo(device)
+            : throw new ArgumentException($"Object is not a {nameof(Device)}.", nameof(obj));
 
     public int CompareTo(Device? other)
     {
@@ -531,7 +531,10 @@ public class Device : IComparable, IComparable<Device>, IEquatable<Device>
     public bool Equals(Device? other) =>
         Group == other?.Group && MajorModelNumber == other.MajorModelNumber && MinorModelNumber == other.MinorModelNumber;
 
-    public static Device FromModelString(string str) =>
+    public bool Equals(string? other) =>
+        ModelString == other;
+
+    public static Device Parse(string str) =>
         str switch
         {
             "AppleTV2,1" => AppleTV2_1,

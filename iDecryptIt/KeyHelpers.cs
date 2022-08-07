@@ -56,7 +56,7 @@ public static class KeyHelpers
         {
             List<HasKeysEntry> entries = new();
 
-            Device device = Device.FromModelString(reader.ReadString());
+            Device device = Device.Parse(reader.ReadString());
             int entryCount = reader.ReadInt32();
             while (entryCount-- > 0)
                 entries.Add(HasKeysEntry.Deserialize(reader));

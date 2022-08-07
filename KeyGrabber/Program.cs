@@ -348,7 +348,7 @@ public static class Program
                     version.KeyPages = keyPages.ToArray();
                 }
                 foreach (FirmwareVersionEntryUrl url in version.KeyPages!)
-                    Versions[Device.FromModelString(url.Device)].Add(version.CloneOneDevice(url.Device));
+                    Versions[Device.Parse(url.Device)].Add(version.CloneOneDevice(url.Device));
             }
         }
     }
