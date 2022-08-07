@@ -18,6 +18,7 @@
         <StyleInclude Source="/Styles/Border.axaml" />
         <StyleInclude Source="/Styles/Button.axaml" />
         <StyleInclude Source="/Styles/SpacedGrid.axaml" />
+        <StyleInclude Source="/Styles/TextBox.axaml" />
     </Application.Styles>
 
     <Application.Resources>

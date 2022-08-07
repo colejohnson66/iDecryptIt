@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Design.PreviewWith>
-        <Border Padding="20">
+        <Border Padding="10">
             <!-- Add Controls for Previewer Here -->
         </Border>
     </Design.PreviewWith>

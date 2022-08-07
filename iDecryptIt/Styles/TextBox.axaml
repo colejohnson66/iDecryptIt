@@ -1,0 +1,15 @@
+<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Design.PreviewWith>
+        <Border Padding="10">
+            <!-- Add Controls for Previewer Here -->
+        </Border>
+    </Design.PreviewWith>
+
+    <Style Selector="TextBox">
+        <Setter Property="BorderBrush" Value="{DynamicResource ColorSlate300}" />
+    </Style>
+
+</Styles>
