@@ -56,13 +56,13 @@ public static class KeyBundleHelper
                 return;
             }
 
-            using BinaryReader reader = new(_loader.Open(new("avares://iDecryptIt/Assets/Keys/HasKeys.bin")));
-            if (reader.BaseStream.Length < IOHelpers.HEADER_HAS_KEYS.Length ||
-                IOHelpers.HEADER_HAS_KEYS.Any(c => reader.ReadByte() != (byte)c))
-                throw new FormatException("\"Has keys\" file is corrupt. Please redownload iDecryptIt.");
-
             try
             {
+                using BinaryReader reader = new(_loader.Open(new("avares://iDecryptIt/Assets/Keys/HasKeys.bin")));
+                if (reader.BaseStream.Length < IOHelpers.HEADER_HAS_KEYS.Length ||
+                    IOHelpers.HEADER_HAS_KEYS.Any(c => reader.ReadByte() != (byte)c))
+                    throw new FormatException(); // catch block adds message
+
                 Dictionary<Device, ReadOnlyCollection<HasKeysEntry>> hasKeys = new();
                 while (reader.BaseStream.Position != reader.BaseStream.Length)
                 {
@@ -81,6 +81,9 @@ public static class KeyBundleHelper
             }
             catch (Exception ex)
             {
+                if (Debugger.IsAttached)
+                    Debugger.Break();
+
                 throw new FormatException("\"Has keys\" file is corrupt. Please redownload iDecryptIt.", ex);
             }
         }

@@ -66,7 +66,7 @@ public class MainWindowViewModel : ViewModelBase
             {
                 KeyBundleHelper.Init();
             }
-            catch (FormatException ex)
+            catch (Exception ex)
             {
                 RxApp.MainThreadScheduler.Schedule(() => Program.FatalException(ex));
             }
