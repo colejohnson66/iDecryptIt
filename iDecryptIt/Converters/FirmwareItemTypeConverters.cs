@@ -30,11 +30,18 @@ using static iDecryptIt.Shared.FirmwareItemType;
 
 namespace iDecryptIt.Converters;
 
-public class FirmwareItemTypeNameConverter : IValueConverter
+public sealed class FirmwareItemTypeNameConverter : IValueConverter
 {
+    private FirmwareItemTypeNameConverter()
+    { }
+
+    public static FirmwareItemTypeNameConverter Instance { get; } = new();
+
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (value is not FirmwareItemType item)
+            return AvaloniaProperty.UnsetValue;
+        if (targetType != typeof(string))
             return AvaloniaProperty.UnsetValue;
 
         return item switch

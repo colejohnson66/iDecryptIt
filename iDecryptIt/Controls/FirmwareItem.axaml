@@ -32,10 +32,6 @@
     </Design.PreviewWith>
     <!-- ReSharper restore MarkupAttributeTypo -->
 
-    <Styles.Resources>
-        <converters:FirmwareItemTypeNameConverter x:Key="NameConverter" />
-    </Styles.Resources>
-
     <Style Selector="controls|FirmwareItem TextBlock">
         <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
@@ -55,7 +51,7 @@
 
                     <TextBlock
                         DockPanel.Dock="Left"
-                        Text="{TemplateBinding ItemKind, Converter={StaticResource NameConverter}}"
+                        Text="{TemplateBinding ItemKind, Converter={x:Static converters:FirmwareItemTypeNameConverter.Instance}}"
                         TextWrapping="Wrap"
                         Width="125" />
 

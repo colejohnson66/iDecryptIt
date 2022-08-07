@@ -27,10 +27,6 @@
         <vm:MainWindowViewModel />
     </Design.DataContext>
 
-    <Window.Resources>
-        <converters:DeviceGroupConverter x:Key="DeviceGroupConverter" />
-    </Window.Resources>
-
     <sg:SpacedGrid
         Margin="{DynamicResource Padding}"
         RowDefinitions="Auto,Auto,Auto,*"
@@ -42,7 +38,7 @@
             <Border Classes="MainWindowPanelContent">
                 <sg:SpacedGrid
                     ColumnDefinitions="Auto,*,Auto"
-                    Margin="{DynamicResource Padding}"
+                    Margin="{DynamicResource Padding2}"
                     RowDefinitions="32,32,32,32">
 
                     <controls:TitledButton
@@ -238,7 +234,7 @@
                             VerticalAlignment="Center">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate DataType="shared:DeviceGroup">
-                                    <TextBlock Text="{CompiledBinding ., Converter={StaticResource DeviceGroupConverter}}" />
+                                    <TextBlock Text="{CompiledBinding ., Converter={x:Static converters:DeviceGroupConverter.Instance}}" />
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>

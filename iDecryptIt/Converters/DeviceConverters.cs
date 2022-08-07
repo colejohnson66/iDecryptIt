@@ -29,11 +29,18 @@ using System.Globalization;
 
 namespace iDecryptIt.Converters;
 
-public class DeviceGroupConverter : IValueConverter
+public sealed class DeviceGroupConverter : IValueConverter
 {
+    private DeviceGroupConverter()
+    { }
+
+    public static DeviceGroupConverter Instance { get; } = new();
+
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (value is not DeviceGroup group)
+            return AvaloniaProperty.UnsetValue;
+        if (targetType != typeof(string))
             return AvaloniaProperty.UnsetValue;
 
         return group switch

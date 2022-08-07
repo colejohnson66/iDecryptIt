@@ -33,7 +33,7 @@ namespace iDecryptIt.Models;
  *   seconds (or more) to open *each time*. dotTrace suggests this is related to the multitude of converter calls.
  * Replacing that method with a wrapper model brings the opening time to less than a second. Hence, this class.
  */
-public class VKBuildModel : IComparable<VKBuildModel>, IEquatable<VKBuildModel>
+public sealed class VKBuildModel : IComparable<VKBuildModel>, IEquatable<VKBuildModel>
 {
     private static readonly SolidColorBrush BLACK = new(Colors.Black);
     private static readonly SolidColorBrush RED = new(Colors.Red);
