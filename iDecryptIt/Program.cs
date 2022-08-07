@@ -23,7 +23,12 @@
 
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.ReactiveUI;
+using iDecryptIt.Views;
+using MessageBox.Avalonia;
+using MessageBox.Avalonia.BaseWindows.Base;
+using MessageBox.Avalonia.Enums;
 using System;
 
 namespace iDecryptIt;
@@ -40,9 +45,32 @@ public static class Program
     }
 
     // Avalonia configuration, don't remove; also used by visual designer.
-    private static AppBuilder BuildAvaloniaApp()
-        => AppBuilder.Configure<App>()
+    private static AppBuilder BuildAvaloniaApp() =>
+        AppBuilder.Configure<App>()
             .UsePlatformDetect()
             .LogToTrace()
             .UseReactiveUI();
+
+    public static async void FatalException(Exception ex)
+    {
+        MainWindow? mw = (MainWindow?)((IClassicDesktopStyleApplicationLifetime?)Application.Current?.ApplicationLifetime)?.MainWindow;
+
+        // TODO: give the option for a dump for a bug report
+        string message =
+            "iDecryptIt has encountered a fatal error and must close.\r\n" +
+            "If this issue persists, please try redownloading iDecryptIt, or asking for help on GitHub.\r\n" +
+            $"The error encountered provided this message: {ex.Message}";
+        IMsBoxWindow<ButtonResult> result = MessageBoxManager.GetMessageBoxStandardWindow("iDecryptIt", message);
+        if (mw is null)
+        {
+            await result.Show();
+        }
+        else
+        {
+            await result.ShowDialog(mw);
+            mw.Close();
+        }
+
+        Environment.Exit(1);
+    }
 }
