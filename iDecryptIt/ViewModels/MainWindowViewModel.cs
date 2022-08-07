@@ -57,7 +57,6 @@ public class MainWindowViewModel : ViewModelBase
     {
         DecryptingRootFSSwitchCommand = ReactiveCommand.Create(OnDecryptingRootFSSwitch);
         RootFSOpenCommand = ReactiveCommand.Create<string>(OnRootFSOpen);
-        RootFSCopyKeyCommand = ReactiveCommand.Create(OnRootFSCopyKey);
         DecryptOpenCommand = ReactiveCommand.Create<string>(OnDecryptOpen);
         DecryptCommand = ReactiveCommand.Create(OnDecrypt);
         ExtractOpenCommand = ReactiveCommand.Create<string>(OnExtractOpen);
@@ -167,12 +166,12 @@ public class MainWindowViewModel : ViewModelBase
 
         Debug.Assert(result.Length is 1);
         RootFSInput = result[0];
+        RootFSOutput = Path.Combine(
+            Directory.GetParent(result[0])!.FullName, // SAFETY: only null if parameter is the root directory; never with files
+            Path.GetFileNameWithoutExtension(result[0]) + "-dec.dmg");
 
-        // TODO: validate file type
+        // TODO: validate file is actually a file vault volume
     }
-    public ReactiveCommand<Unit, Unit> RootFSCopyKeyCommand { get; }
-    private void OnRootFSCopyKey()
-    { }
 
     #endregion
 
@@ -183,8 +182,27 @@ public class MainWindowViewModel : ViewModelBase
     [Reactive] public string DecryptIV { get; set; } = "";
     [Reactive] public string DecryptKey { get; set; } = "";
     public ReactiveCommand<string, Unit> DecryptOpenCommand { get; }
-    private void OnDecryptOpen(string parameter)
-    { }
+    private async void OnDecryptOpen(string parameter)
+    {
+        Debug.Assert(parameter is "input" or "output");
+        if (!MainWindowIsDesktopLifetime.Value)
+            return;
+
+        OpenFileDialog dialog = new();
+
+        string[]? result = await dialog.ShowAsync(MainWindowInstance.Value);
+        if (result is null) // canceled
+            return;
+
+        Debug.Assert(result.Length is 1);
+        DecryptInput = result[0];
+        DecryptOutput = Path.Combine(
+            Directory.GetParent(result[0])!.FullName, // SAFETY: only null if parameter is the root directory; never with files
+            Path.GetFileNameWithoutExtension(result[0]) + "-dec" + Path.GetExtension(result[0]));
+        RootFSInput = result[0];
+
+        // TODO: validate file is actually one of 8900/IMG2/IMG3/IMG4/IM4P
+    }
     public ReactiveCommand<Unit, Unit> DecryptCommand { get; }
     private void OnDecrypt()
     { }
@@ -252,7 +270,20 @@ public class MainWindowViewModel : ViewModelBase
 
     private ReactiveCommand<FirmwareItemKeyBlock, Unit> FirmwareItemDecryptCommand { get; }
     private void OnFirmwareItemDecrypt(FirmwareItemKeyBlock model)
-    { }
+    {
+        if (model.ItemKind is FirmwareItemType.RootFS or FirmwareItemType.RootFSBeta)
+        {
+            DecryptingRootFS = true;
+            RootFSKey = model.Key ?? "";
+        }
+        else
+        {
+            // also handles unencrypted files by clearing the boxes
+            DecryptingRootFS = false;
+            DecryptIV = model.IV ?? "";
+            DecryptKey = model.Key ?? "";
+        }
+    }
 
     #endregion
 
