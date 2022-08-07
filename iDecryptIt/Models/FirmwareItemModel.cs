@@ -21,6 +21,7 @@
  * =============================================================================
  */
 
+using iDecryptIt.Controls;
 using iDecryptIt.Shared;
 using ReactiveUI;
 using System.Diagnostics;
@@ -35,15 +36,15 @@ public record FirmwareItemModel(
     string? IV,
     string? Key,
     string? KBag,
-    ReactiveCommand<iDecryptIt.Controls.FirmwareItem, Unit> DecryptCommand)
+    ReactiveCommand<FirmwareItemKeyBlock, Unit> DecryptCommand)
 {
-    public static FirmwareItemModel FromFirmwareItem(FirmwareItemType type, FirmwareItem item, ReactiveCommand<iDecryptIt.Controls.FirmwareItem, Unit> decryptCommand)
+    public static FirmwareItemModel FromFirmwareItem(FirmwareItemType type, FirmwareItem item, ReactiveCommand<FirmwareItemKeyBlock, Unit> decryptCommand)
     {
         Debug.Assert(type is not (FirmwareItemType.RootFS or FirmwareItemType.RootFSBeta));
         return new(type, item.Filename, item.Encrypted, item.IVKey?.IV, item.IVKey?.Key, item.KBag, decryptCommand);
     }
 
-    public static FirmwareItemModel FromRootFS(FirmwareItemType type, RootFS item, ReactiveCommand<iDecryptIt.Controls.FirmwareItem, Unit> decryptCommand)
+    public static FirmwareItemModel FromRootFS(FirmwareItemType type, RootFS item, ReactiveCommand<FirmwareItemKeyBlock, Unit> decryptCommand)
     {
         Debug.Assert(type is FirmwareItemType.RootFS or FirmwareItemType.RootFSBeta);
         return new(type, item.Filename, item.Encrypted, null, item.Key, null, decryptCommand);

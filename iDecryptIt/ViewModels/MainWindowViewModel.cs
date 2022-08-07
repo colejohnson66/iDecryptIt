@@ -25,6 +25,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using DynamicData;
+using iDecryptIt.Controls;
 using iDecryptIt.Models;
 using iDecryptIt.Shared;
 using iDecryptIt.Views;
@@ -62,7 +63,7 @@ public class MainWindowViewModel : ViewModelBase
         ExtractOpenCommand = ReactiveCommand.Create<string>(OnExtractOpen);
         ExtractCommand = ReactiveCommand.Create(OnExtract);
         ViewKeysCommand = ReactiveCommand.Create(OnViewKeys);
-        FirmwareItemDecryptCommand = ReactiveCommand.Create<iDecryptIt.Controls.FirmwareItem>(OnFirmwareItemDecrypt);
+        FirmwareItemDecryptCommand = ReactiveCommand.Create<FirmwareItemKeyBlock>(OnFirmwareItemDecrypt);
 
         Subscribe();
 
@@ -249,8 +250,8 @@ public class MainWindowViewModel : ViewModelBase
     [Reactive] public string KeysHeading { get; set; } = "";
     [Reactive] public ObservableCollection<FirmwareItemModel> KeyEntries { get; set; } = new();
 
-    private ReactiveCommand<iDecryptIt.Controls.FirmwareItem, Unit> FirmwareItemDecryptCommand { get; }
-    private void OnFirmwareItemDecrypt(iDecryptIt.Controls.FirmwareItem model)
+    private ReactiveCommand<FirmwareItemKeyBlock, Unit> FirmwareItemDecryptCommand { get; }
+    private void OnFirmwareItemDecrypt(FirmwareItemKeyBlock model)
     { }
 
     #endregion
@@ -264,7 +265,6 @@ public class MainWindowViewModel : ViewModelBase
     public Func<string, bool> RootFSKeyLengthValidator { get; } = key => key.Length is 72 && key.All(IsHexadecimal);
     public Func<string, bool> FirmwareItemIVLengthValidator { get; } = iv => iv.Length is 32 && iv.All(IsHexadecimal);
     public Func<string, bool> FirmwareItemKeyLengthValidator { get; } = key => key.Length is 32 or 64 && key.All(IsHexadecimal);
-
 
     #endregion
 }

@@ -9,37 +9,37 @@
         <StackPanel
             Margin="{StaticResource Padding}"
             Width="800">
-            <controls:FirmwareItem
+            <controls:FirmwareItemKeyBlock
                 ItemKind="RootFS"
                 Encrypted="True"
                 Filename="058-26545-063.dmg"
                 Key="495539be08c4a097045c5bb7298a053645089d2ea53fdc1847aef7618fbba22550aecb0e" />
-            <controls:FirmwareItem
+            <controls:FirmwareItemKeyBlock
                 ItemKind="UpdateRamdisk"
                 Encrypted="True"
                 Filename="058-26519-063.dmg"
                 IV="0b8f948b895ee63c3fdcb95b1d381c7f"
                 Key="980992e0ae6423821e7f54682eeb6eb478784893c46671b64a585ddfd241cb27" />
-            <controls:FirmwareItem
+            <controls:FirmwareItemKeyBlock
                 ItemKind="Dali"
                 Encrypted="False"
                 Filename="dali-ui.n27a.release.im4p" />
-            <controls:FirmwareItem
+            <controls:FirmwareItemKeyBlock
                 ItemKind="SEPFirmware"
                 Encrypted="True"
-                KBag="0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"></controls:FirmwareItem>
+                KBag="0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"></controls:FirmwareItemKeyBlock>
         </StackPanel>
     </Design.PreviewWith>
     <!-- ReSharper restore MarkupAttributeTypo -->
 
-    <Style Selector="controls|FirmwareItem TextBlock">
+    <Style Selector="controls|FirmwareItemKeyBlock TextBlock">
         <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
-    <Style Selector="controls|FirmwareItem TextBox">
+    <Style Selector="controls|FirmwareItemKeyBlock TextBox">
         <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
 
-    <Style Selector="controls|FirmwareItem">
+    <Style Selector="controls|FirmwareItemKeyBlock">
         <Setter Property="Template">
             <ControlTemplate>
                 <DockPanel LastChildFill="True">

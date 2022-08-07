@@ -1,5 +1,5 @@
 ﻿/* =============================================================================
- * File:   FirmwareItem.axaml.cs
+ * File:   FirmwareItemKeyBlock.axaml.cs
  * Author: Cole Tobin
  * =============================================================================
  * Copyright (c) 2022 Cole Tobin
@@ -28,10 +28,10 @@ using System.Windows.Input;
 
 namespace iDecryptIt.Controls;
 
-public class FirmwareItem : TemplatedControl
+public class FirmwareItemKeyBlock : TemplatedControl
 {
     public static readonly StyledProperty<FirmwareItemType> ItemKindProperty =
-        AvaloniaProperty.Register<FirmwareItem, FirmwareItemType>(nameof(ItemKind));
+        AvaloniaProperty.Register<FirmwareItemKeyBlock, FirmwareItemType>(nameof(ItemKind));
     public FirmwareItemType ItemKind
     {
         get => GetValue(ItemKindProperty);
@@ -39,7 +39,7 @@ public class FirmwareItem : TemplatedControl
     }
 
     public static readonly StyledProperty<string?> FilenameProperty =
-        AvaloniaProperty.Register<FirmwareItem, string?>(nameof(Filename));
+        AvaloniaProperty.Register<FirmwareItemKeyBlock, string?>(nameof(Filename));
     public string? Filename
     {
         get => GetValue(FilenameProperty);
@@ -47,7 +47,7 @@ public class FirmwareItem : TemplatedControl
     }
 
     public static readonly StyledProperty<bool> EncryptedProperty =
-        AvaloniaProperty.Register<FirmwareItem, bool>(nameof(Encrypted));
+        AvaloniaProperty.Register<FirmwareItemKeyBlock, bool>(nameof(Encrypted));
     public bool Encrypted
     {
         get => GetValue(EncryptedProperty);
@@ -55,7 +55,7 @@ public class FirmwareItem : TemplatedControl
     }
 
     public static readonly StyledProperty<string?> IVProperty =
-        AvaloniaProperty.Register<FirmwareItem, string?>(nameof(IV));
+        AvaloniaProperty.Register<FirmwareItemKeyBlock, string?>(nameof(IV));
     public string? IV
     {
         get => GetValue(IVProperty);
@@ -63,7 +63,7 @@ public class FirmwareItem : TemplatedControl
     }
 
     public static readonly StyledProperty<string?> KeyProperty =
-        AvaloniaProperty.Register<FirmwareItem, string?>(nameof(Key));
+        AvaloniaProperty.Register<FirmwareItemKeyBlock, string?>(nameof(Key));
     public string? Key
     {
         get => GetValue(KeyProperty);
@@ -71,7 +71,7 @@ public class FirmwareItem : TemplatedControl
     }
 
     public static readonly StyledProperty<string?> KBagProperty =
-        AvaloniaProperty.Register<FirmwareItem, string?>(nameof(KBag));
+        AvaloniaProperty.Register<FirmwareItemKeyBlock, string?>(nameof(KBag));
     public string? KBag
     {
         get => GetValue(KBagProperty);
@@ -79,7 +79,7 @@ public class FirmwareItem : TemplatedControl
     }
 
     public static readonly StyledProperty<ICommand?> DecryptCommandProperty =
-        AvaloniaProperty.Register<FirmwareItem, ICommand?>(nameof(DecryptCommand));
+        AvaloniaProperty.Register<FirmwareItemKeyBlock, ICommand?>(nameof(DecryptCommand));
     public ICommand? DecryptCommand
     {
         get => GetValue(DecryptCommandProperty);

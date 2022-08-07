@@ -303,7 +303,7 @@
                         <ItemsRepeater Items="{CompiledBinding KeyEntries}">
                             <ItemsRepeater.ItemTemplate>
                                 <DataTemplate DataType="models:FirmwareItemModel">
-                                    <controls:FirmwareItem
+                                    <controls:FirmwareItemKeyBlock
                                         ItemKind="{CompiledBinding ItemKind}"
                                         Filename="{CompiledBinding FileName}"
                                         Encrypted="{CompiledBinding Encrypted}"

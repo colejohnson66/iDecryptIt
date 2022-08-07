@@ -12,7 +12,7 @@
 
     <Application.Styles>
         <sty:FluentAvaloniaTheme />
-        <StyleInclude Source="/Controls/FirmwareItem.axaml" />
+        <StyleInclude Source="/Controls/FirmwareItemKeyBlock.axaml" />
         <StyleInclude Source="/Controls/TitledButton.axaml" />
         <StyleInclude Source="/Controls/ValidatingTextBox.axaml" />
         <StyleInclude Source="/Styles/Border.axaml" />
