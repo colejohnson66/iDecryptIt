@@ -1,0 +1,28 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+    xmlns:controls="using:iDecryptIt.Controls"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Design.PreviewWith>
+        <controls:TitledButton />
+    </Design.PreviewWith>
+
+    <Style Selector="controls|TitledButton">
+        <!-- Set Defaults -->
+        <Setter Property="Template">
+            <ControlTemplate>
+
+                <ui:Button
+                    Classes="WithImage Vertical"
+                    Command="{TemplateBinding Command}"
+                    HorizontalAlignment="Center">
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="{TemplateBinding Image}" />
+                        <TextBlock Text="{TemplateBinding Text}" />
+                    </StackPanel>
+                </ui:Button>
+
+            </ControlTemplate>
+        </Setter>
+    </Style>
+</Styles>

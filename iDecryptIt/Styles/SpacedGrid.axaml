@@ -1,0 +1,17 @@
+﻿<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:sg="clr-namespace:AvaloniaSpacedGrid;assembly=AvaloniaSpacedGrid"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <!-- Add Controls for Previewer Here -->
+        </Border>
+    </Design.PreviewWith>
+
+    <Style Selector="sg|SpacedGrid">
+        <Setter Property="ColumnSpacing" Value="{DynamicResource Padding2Double}" />
+        <Setter Property="RowSpacing" Value="{DynamicResource Padding2Double}" />
+    </Style>
+
+</Styles>
