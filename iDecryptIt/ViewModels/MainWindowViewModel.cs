@@ -22,6 +22,7 @@
  */
 
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using DynamicData;
 using iDecryptIt.Models;
@@ -36,15 +37,19 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Concurrency;
+using System.Threading;
 
 namespace iDecryptIt.ViewModels;
 
 public class MainWindowViewModel : ViewModelBase
 {
     // don't assume the window is ready when the VM is constructed; only get the object when we first need it
-    private MainWindow? _mainWindowInstance;
-    private MainWindow MainWindowInstance =>
-        _mainWindowInstance ??= (MainWindow)((ClassicDesktopStyleApplicationLifetime)Application.Current!.ApplicationLifetime!).MainWindow;
+    private Lazy<bool> MainWindowIsDesktopLifetime { get; } = new(
+        () => Application.Current!.ApplicationLifetime! is IClassicDesktopStyleApplicationLifetime,
+        LazyThreadSafetyMode.PublicationOnly);
+    private Lazy<MainWindow> MainWindowInstance { get; } = new(
+        () => (MainWindow)((IClassicDesktopStyleApplicationLifetime)Application.Current!.ApplicationLifetime!).MainWindow,
+        LazyThreadSafetyMode.PublicationOnly);
 
     public MainWindowViewModel()
     {
@@ -129,6 +134,8 @@ public class MainWindowViewModel : ViewModelBase
                 });
     }
 
+    #region Root FS Decryption
+
     [Reactive] public bool DecryptingRootFS { get; set; } = false;
     public ReactiveCommand<Unit, Unit> DecryptingRootFSSwitchCommand { get; }
     private void OnDecryptingRootFSSwitch() =>
@@ -138,11 +145,36 @@ public class MainWindowViewModel : ViewModelBase
     [Reactive] public string RootFSOutput { get; set; } = "";
     [Reactive] public string RootFSKey { get; set; } = "";
     public ReactiveCommand<string, Unit> RootFSOpenCommand { get; }
-    private void OnRootFSOpen(string parameter)
-    { }
+    private async void OnRootFSOpen(string parameter)
+    {
+        Debug.Assert(parameter is "input" or "output");
+        if (!MainWindowIsDesktopLifetime.Value)
+            return;
+
+        OpenFileDialog dialog = new();
+        dialog.Filters ??= new();
+        dialog.Filters.Add(new()
+        {
+            Name = "Apple Disk Images",
+            Extensions = { "dmg" },
+        });
+
+        string[]? result = await dialog.ShowAsync(MainWindowInstance.Value);
+        if (result is null) // canceled
+            return;
+
+        Debug.Assert(result.Length is 1);
+        RootFSInput = result[0];
+
+        // TODO: validate file type
+    }
     public ReactiveCommand<Unit, Unit> RootFSCopyKeyCommand { get; }
     private void OnRootFSCopyKey()
     { }
+
+    #endregion
+
+    #region Generic Decryption
 
     [Reactive] public string DecryptInput { get; set; } = "";
     [Reactive] public string DecryptOutput { get; set; } = "";
@@ -155,6 +187,10 @@ public class MainWindowViewModel : ViewModelBase
     private void OnDecrypt()
     { }
 
+    #endregion
+
+    #region Root FS Extraction
+
     [Reactive] public string ExtractInput { get; set; } = "";
     [Reactive] public string ExtractOutput { get; set; } = "";
     public ReactiveCommand<string, Unit> ExtractOpenCommand { get; }
@@ -163,6 +199,10 @@ public class MainWindowViewModel : ViewModelBase
     public ReactiveCommand<Unit, Unit> ExtractCommand { get; }
     private void OnExtract()
     { }
+
+    #endregion
+
+    #region View Keys Selector
 
     public ObservableCollection<DeviceGroup> VKGroupList { get; } = new(
         Enum.GetValues<DeviceGroup>().Where(group => group is not (DeviceGroup.AudioAccessory or DeviceGroup.IBridge)));
@@ -201,10 +241,16 @@ public class MainWindowViewModel : ViewModelBase
             KeyEntries.Add(FirmwareItemModel.FromFirmwareItem(item.Key, item.Value, FirmwareItemDecryptCommand));
     }
 
+    #endregion
+
+    #region Keys Area
+
     [Reactive] public string KeysHeading { get; set; } = "";
     [Reactive] public ObservableCollection<FirmwareItemModel> KeyEntries { get; set; } = new();
 
     private ReactiveCommand<iDecryptIt.Controls.FirmwareItem, Unit> FirmwareItemDecryptCommand { get; }
     private void OnFirmwareItemDecrypt(iDecryptIt.Controls.FirmwareItem model)
     { }
+
+    #endregion
 }
