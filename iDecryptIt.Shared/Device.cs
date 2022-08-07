@@ -25,6 +25,7 @@ using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using static iDecryptIt.Shared.DeviceGroup;
 
 namespace iDecryptIt.Shared;
@@ -32,7 +33,7 @@ namespace iDecryptIt.Shared;
 [PublicAPI]
 public sealed class Device : IComparable, IComparable<Device>, IEquatable<Device>, IEquatable<string>
 {
-    // NOTE: When adding new devices, ensure they are added to `AllDevices`, `MappingGroupToDevices`, and `FromModelString`
+    // NOTE: When adding new devices, ensure they are added to `AllDevices`, `MappingGroupToDevices`, and `TryParse`
 
     public static readonly Device AppleTV2_1 = new(AppleTV, 2, 1); // 2nd gen
     public static readonly Device AppleTV3_1 = new(AppleTV, 3, 1); // 3rd gen
@@ -534,8 +535,9 @@ public sealed class Device : IComparable, IComparable<Device>, IEquatable<Device
     public bool Equals(string? other) =>
         ModelString == other;
 
-    public static Device Parse(string str) =>
-        str switch
+    public static bool TryParse(string str, [NotNullWhen(true)] out Device? device)
+    {
+        device = str switch
         {
             "AppleTV2,1" => AppleTV2_1,
             "AppleTV3,1" => AppleTV3_1,
@@ -719,6 +721,13 @@ public sealed class Device : IComparable, IComparable<Device>, IEquatable<Device
             "iPod5,1" => iPod5_1,
             "iPod7,1" => iPod7_1,
             "iPod9,1" => iPod9_1,
-            _ => throw new ArgumentException($"Unknown model ID '{str}'.", nameof(str)),
+            _ => null,
         };
+        return device is not null;
+    }
+
+    public static Device Parse(string str) =>
+        TryParse(str, out Device? device)
+            ? device
+            : throw new ArgumentException($"Unknown model ID '{str}'.", nameof(str));
 }
