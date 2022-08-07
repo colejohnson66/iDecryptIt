@@ -40,7 +40,7 @@ public sealed class FirmwareItemTypeNameConverter : IValueConverter
 
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        if (value is not FirmwareItemType item || targetType.IsAssignableTo(typeof(string)))
+        if (value is not FirmwareItemType item || !targetType.IsAssignableTo(typeof(string)))
             return new BindingNotification(new InvalidCastException(), BindingErrorType.Error);
 
         return item switch
