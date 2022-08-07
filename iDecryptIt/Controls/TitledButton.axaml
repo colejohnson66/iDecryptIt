@@ -45,4 +45,9 @@
         </Setter>
     </Style>
 
+    <!-- for aesthetics, shift the unlock icon to the right a bit; it doesn't look centered otherwise -->
+    <Style Selector="controls|TitledButton.DecryptButton /template/ Image">
+        <Setter Property="Margin" Value="{DynamicResource PaddingL}" />
+    </Style>
+
 </Styles>

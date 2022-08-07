@@ -43,7 +43,7 @@
                     <controls:TitledButton
                         Grid.Column="0" Grid.Row="0"
                         Grid.RowSpan="2"
-                        Classes="Vertical"
+                        Classes="DecryptButton Vertical"
                         Command="{CompiledBinding DecryptCommand}"
                         Image="{svg:SvgImage /Assets/Icons/unlock.svg}"
                         Text="Decrypt" />
