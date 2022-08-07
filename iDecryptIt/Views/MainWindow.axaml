@@ -115,7 +115,7 @@
                         Validator="{CompiledBinding FirmwareItemKeyLengthValidator}"
                         ValidatorErrorMessage="Firmware Item IV must be 32 hexadecimal characters."
                         Watermark="Key" />
-                    <!-- select files buttons -->
+                    <!-- select input/output buttons -->
                     <ui:Button
                         Grid.Column="2" Grid.Row="0"
                         Content="Select Input..."
@@ -149,55 +149,40 @@
             Grid.Row="1"
             Classes="MainWindowPanelBorder">
             <Border Classes="MainWindowPanelContent">
-                <DockPanel
-                    LastChildFill="True"
-                    Margin="{DynamicResource Padding}">
 
-                    <Separator
-                        DockPanel.Dock="Left"
-                        Width="4" />
-
+                <sg:SpacedGrid
+                    ColumnDefinitions="Auto,*,Auto"
+                    Margin="{DynamicResource Padding2}"
+                    RowDefinitions="32,32">
+                    <controls:TitledButton
+                        Grid.Column="0" Grid.Row="0"
+                        Grid.RowSpan="2"
+                        Classes="Vertical"
+                        Command="{CompiledBinding ExtractCommand}"
+                        Image="{svg:SvgImage /Assets/Icons/file-earmark-zip.svg}"
+                        Text="Extract" />
+                    <!-- input file path / output directory -->
+                    <TextBox
+                        Grid.Column="1" Grid.Row="0"
+                        Text="{CompiledBinding ExtractInput}"
+                        Watermark="Input Path" />
+                    <TextBox
+                        Grid.Column="1" Grid.Row="1"
+                        Text="{CompiledBinding ExtractOutput}"
+                        Watermark="Output Folder" />
+                    <!-- select input/output buttons -->
                     <ui:Button
-                        DockPanel.Dock="Left"
-                        Classes="WithImage Vertical"
-                        Command="{CompiledBinding ExtractCommand}">
-                        <StackPanel>
-                            <Image Source="{svg:SvgImage /Assets/Icons/file-earmark-zip.svg}" />
-                            <TextBlock Text="Extract" />
-                        </StackPanel>
-                    </ui:Button>
+                        Grid.Column="2" Grid.Row="0"
+                        Content="Select Input..."
+                        Command="{CompiledBinding ExtractOpenCommand}"
+                        CommandParameter="input" />
+                    <ui:Button
+                        Grid.Column="2" Grid.Row="1"
+                        Content="Select Output..."
+                        Command="{CompiledBinding ExtractOpenCommand}"
+                        CommandParameter="output" />
+                </sg:SpacedGrid>
 
-                    <Separator
-                        DockPanel.Dock="Left"
-                        Width="4" />
-
-                    <UniformGrid
-                        DockPanel.Dock="Right"
-                        Rows="2">
-                        <ui:Button
-                            Content="Select Input..."
-                            Command="{CompiledBinding ExtractOpenCommand}"
-                            CommandParameter="input"
-                            Margin="{DynamicResource Padding}" />
-                        <ui:Button
-                            Content="Select Output..."
-                            Command="{CompiledBinding ExtractOpenCommand}"
-                            CommandParameter="output"
-                            Margin="{DynamicResource Padding}" />
-                    </UniformGrid>
-
-                    <UniformGrid Rows="2">
-                        <TextBox
-                            Margin="{DynamicResource Padding}"
-                            Text="{CompiledBinding ExtractInput}"
-                            Watermark="Input Path" />
-                        <TextBox
-                            Margin="{DynamicResource Padding}"
-                            Text="{CompiledBinding ExtractOutput}"
-                            Watermark="Output Folder" />
-                    </UniformGrid>
-
-                </DockPanel>
             </Border>
         </Border>
 
@@ -208,7 +193,6 @@
 
                 <sg:SpacedGrid
                     ColumnDefinitions="*,*,*,Auto"
-                    ColumnSpacing="{DynamicResource PaddingDouble}"
                     Margin="{DynamicResource Padding2}">
                     <ComboBox
                         Grid.Column="0"
