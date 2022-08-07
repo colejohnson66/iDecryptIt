@@ -22,12 +22,19 @@
 
     <Application.Resources>
         <Thickness x:Key="PaddingX">4,0</Thickness>
+        <Thickness x:Key="Padding2X">8,0</Thickness>
         <Thickness x:Key="PaddingY">0,4</Thickness>
+        <Thickness x:Key="Padding2Y">0,8</Thickness>
 
         <Thickness x:Key="PaddingL">4,0,0,0</Thickness>
+        <Thickness x:Key="Padding2L">8,0,0,0</Thickness>
         <Thickness x:Key="PaddingT">0,4,0,0</Thickness>
+        <Thickness x:Key="Padding2T">0,8,0,0</Thickness>
         <Thickness x:Key="PaddingR">0,0,4,0</Thickness>
+        <Thickness x:Key="Padding2R">0,0,8,0</Thickness>
         <Thickness x:Key="PaddingB">0,0,0,4</Thickness>
+        <Thickness x:Key="Padding2B">0,0,0,8</Thickness>
+
         <Thickness x:Key="Padding">4</Thickness>
         <Thickness x:Key="Padding2">8</Thickness>
         <sys:Double x:Key="PaddingDouble">4</sys:Double>

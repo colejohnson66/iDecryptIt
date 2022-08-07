@@ -25,7 +25,6 @@ using Avalonia;
 using Avalonia.Controls.Primitives;
 using ReactiveUI;
 using System;
-using System.Reactive.Linq;
 
 namespace iDecryptIt.Controls;
 
@@ -55,6 +54,14 @@ public class ValidatingTextBox : TemplatedControl
         set => SetValue(ValidatorProperty, value);
     }
 
+    public static readonly StyledProperty<string?> ValidatorErrorMessageProperty =
+        AvaloniaProperty.Register<ValidatingTextBox, string?>(nameof(ValidatorErrorMessage));
+    public string? ValidatorErrorMessage
+    {
+        get => GetValue(ValidatorErrorMessageProperty);
+        set => SetValue(ValidatorErrorMessageProperty, value);
+    }
+
     public static readonly StyledProperty<string> WatermarkProperty =
         AvaloniaProperty.Register<ValidatingTextBox, string>(nameof(Watermark), "");
     public string Watermark
@@ -66,12 +73,13 @@ public class ValidatingTextBox : TemplatedControl
     public ValidatingTextBox()
     {
         this.WhenAnyValue(control => control.Text)
-            .Where(s => !string.IsNullOrEmpty(s))
             .Subscribe(
                 value =>
                 {
-                    if (Validator is not null)
-                        ErrorIconVisible = Validator(value);
+                    if (Validator is null || string.IsNullOrWhiteSpace(value))
+                        ErrorIconVisible = false;
+                    else
+                        ErrorIconVisible = !Validator(value);
                 });
     }
 }

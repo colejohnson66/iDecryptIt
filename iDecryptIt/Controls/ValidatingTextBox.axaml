@@ -14,14 +14,16 @@
 
                 <Panel>
                     <TextBox
-                        Text="{TemplateBinding Text}"
+                        Text="{TemplateBinding Text, Mode=TwoWay}"
                         Watermark="{TemplateBinding Watermark}" />
                     <ContentControl
+                        ToolTip.Tip="{TemplateBinding ValidatorErrorMessage, Mode=TwoWay}"
+                        Background="White"
                         Content="{svg:SvgImage /Assets/Icons/exclamation-circle-red.svg}"
                         Height="16"
                         HorizontalAlignment="Right"
                         IsVisible="{TemplateBinding ErrorIconVisible}"
-                        Margin="{DynamicResource PaddingR}"
+                        Margin="{DynamicResource Padding2R}"
                         VerticalAlignment="Center"
                         Width="16" />
                 </Panel>

@@ -34,6 +34,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Concurrency;
@@ -136,7 +137,7 @@ public class MainWindowViewModel : ViewModelBase
 
     #region Root FS Decryption
 
-    [Reactive] public bool DecryptingRootFS { get; set; } = false;
+    [Reactive] public bool DecryptingRootFS { get; set; } = true;
     public ReactiveCommand<Unit, Unit> DecryptingRootFSSwitchCommand { get; }
     private void OnDecryptingRootFSSwitch() =>
         DecryptingRootFS = !DecryptingRootFS;
@@ -251,6 +252,19 @@ public class MainWindowViewModel : ViewModelBase
     private ReactiveCommand<iDecryptIt.Controls.FirmwareItem, Unit> FirmwareItemDecryptCommand { get; }
     private void OnFirmwareItemDecrypt(iDecryptIt.Controls.FirmwareItem model)
     { }
+
+    #endregion
+
+    #region Validators
+
+    private static bool IsHexadecimal(char c) =>
+        c is (>= '0' and <= '9') or (>= 'A' and <= 'F') or (>= 'a' and <= 'f');
+
+    public Func<string, bool> FileExistsValidator { get; } = File.Exists;
+    public Func<string, bool> RootFSKeyLengthValidator { get; } = key => key.Length is 72 && key.All(IsHexadecimal);
+    public Func<string, bool> FirmwareItemIVLengthValidator { get; } = iv => iv.Length is 32 && iv.All(IsHexadecimal);
+    public Func<string, bool> FirmwareItemKeyLengthValidator { get; } = key => key.Length is 32 or 64 && key.All(IsHexadecimal);
+
 
     #endregion
 }

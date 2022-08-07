@@ -9,7 +9,6 @@
     xmlns:sg="clr-namespace:AvaloniaSpacedGrid;assembly=AvaloniaSpacedGrid"
     xmlns:svg="clr-namespace:Avalonia.Svg.Skia;assembly=Avalonia.Svg.Skia"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
-    xmlns:uip="using:FluentAvalonia.UI.Controls.Primitives"
     xmlns:vm="clr-namespace:iDecryptIt.ViewModels"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="800"
@@ -70,15 +69,19 @@
                         Command="{CompiledBinding DecryptingRootFSSwitchCommand}"
                         Content="Switch" />
                     <!-- file paths and keys -->
-                    <TextBox
+                    <controls:ValidatingTextBox
                         Grid.Column="1" Grid.Row="0"
                         IsVisible="{CompiledBinding DecryptingRootFS}"
                         Text="{CompiledBinding RootFSInput}"
+                        Validator="{CompiledBinding FileExistsValidator}"
+                        ValidatorErrorMessage="The specified file does not exist."
                         Watermark="Input Path" />
-                    <TextBox
+                    <controls:ValidatingTextBox
                         Grid.Column="1" Grid.Row="0"
                         IsVisible="{CompiledBinding !DecryptingRootFS}"
                         Text="{CompiledBinding DecryptInput}"
+                        Validator="{CompiledBinding FileExistsValidator}"
+                        ValidatorErrorMessage="The specified file does not exist."
                         Watermark="Input Path" />
                     <TextBox
                         Grid.Column="1" Grid.Row="1"
@@ -90,20 +93,26 @@
                         IsVisible="{CompiledBinding !DecryptingRootFS}"
                         Text="{CompiledBinding DecryptOutput}"
                         Watermark="Output Path" />
-                    <TextBox
+                    <controls:ValidatingTextBox
                         Grid.Column="1" Grid.Row="2"
                         IsVisible="{CompiledBinding DecryptingRootFS}"
                         Text="{CompiledBinding RootFSKey}"
+                        Validator="{CompiledBinding RootFSKeyLengthValidator}"
+                        ValidatorErrorMessage="Root Filesystem key must be 72 hexadecimal characters."
                         Watermark="Key" />
-                    <TextBox
+                    <controls:ValidatingTextBox
                         Grid.Column="1" Grid.Row="2"
                         IsVisible="{CompiledBinding !DecryptingRootFS}"
                         Text="{CompiledBinding DecryptIV}"
+                        Validator="{CompiledBinding FirmwareItemIVLengthValidator}"
+                        ValidatorErrorMessage="Firmware Item key muse be 32 or 64 hexadecimal characters."
                         Watermark="IV" />
-                    <TextBox
+                    <controls:ValidatingTextBox
                         Grid.Column="1" Grid.Row="3"
                         IsVisible="{CompiledBinding !DecryptingRootFS}"
                         Text="{CompiledBinding DecryptKey}"
+                        Validator="{CompiledBinding FirmwareItemKeyLengthValidator}"
+                        ValidatorErrorMessage="Firmware Item IV must be 32 hexadecimal characters."
                         Watermark="Key" />
                     <!-- select files buttons -->
                     <ui:Button
