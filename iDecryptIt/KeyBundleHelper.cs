@@ -116,6 +116,7 @@ public static class KeyBundleHelper
         // this method does not have a lock as `ReadKeys` acquires it for us
         // however, due to the need to expose this as a public function, `EnsureBundleIsLoaded` exists to wrap this one
 
+        // do nothing if it's already loaded
         if (_readBundles.ContainsKey(device))
             return;
 

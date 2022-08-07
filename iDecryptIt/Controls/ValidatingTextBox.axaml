@@ -1,0 +1,32 @@
+﻿<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:controls="using:iDecryptIt.Controls"
+    xmlns:svg="clr-namespace:Avalonia.Svg.Skia;assembly=Avalonia.Svg.Skia"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Design.PreviewWith>
+        <controls:ValidatingTextBox />
+    </Design.PreviewWith>
+
+    <Style Selector="controls|ValidatingTextBox">
+        <Setter Property="Template">
+            <ControlTemplate>
+
+                <Panel>
+                    <TextBox
+                        Text="{TemplateBinding Text}"
+                        Watermark="{TemplateBinding Watermark}" />
+                    <ContentControl
+                        Content="{svg:SvgImage /Assets/Icons/exclamation-circle-red.svg}"
+                        Height="16"
+                        HorizontalAlignment="Right"
+                        IsVisible="{TemplateBinding ErrorIconVisible}"
+                        Margin="{DynamicResource PaddingR}"
+                        VerticalAlignment="Center"
+                        Width="16" />
+                </Panel>
+
+            </ControlTemplate>
+        </Setter>
+    </Style>
+</Styles>
