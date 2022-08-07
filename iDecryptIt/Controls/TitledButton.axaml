@@ -7,8 +7,26 @@
         <controls:TitledButton />
     </Design.PreviewWith>
 
-    <Style Selector="controls|TitledButton">
-        <!-- Set Defaults -->
+    <Style Selector="controls|TitledButton.Horizontal">
+        <Setter Property="Template">
+            <ControlTemplate>
+
+                <ui:Button
+                    Classes="WithImage Horizontal"
+                    Command="{TemplateBinding Command}"
+                    Height="48"
+                    MinWidth="72">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{TemplateBinding Image}" />
+                        <TextBlock Text="{TemplateBinding Text}" />
+                    </StackPanel>
+                </ui:Button>
+
+            </ControlTemplate>
+        </Setter>
+    </Style>
+
+    <Style Selector="controls|TitledButton.Vertical">
         <Setter Property="Template">
             <ControlTemplate>
 
@@ -26,4 +44,5 @@
             </ControlTemplate>
         </Setter>
     </Style>
+
 </Styles>

@@ -43,6 +43,7 @@
                     <controls:TitledButton
                         Grid.Column="0" Grid.Row="0"
                         Grid.RowSpan="2"
+                        Classes="Vertical"
                         Command="{CompiledBinding DecryptCommand}"
                         Image="{svg:SvgImage /Assets/Icons/unlock.svg}"
                         Text="Decrypt" />
@@ -204,84 +205,77 @@
             Grid.Row="2"
             Classes="MainWindowPanelBorder">
             <Border Classes="MainWindowPanelContent">
-                <DockPanel
-                    LastChildFill="True"
-                    Margin="{DynamicResource Padding}">
 
-                    <Separator
-                        DockPanel.Dock="Right"
-                        Width="4" />
-
-                    <ui:Button
-                        DockPanel.Dock="Right"
-                        Classes="WithImage Horizontal"
+                <sg:SpacedGrid
+                    ColumnDefinitions="*,*,*,Auto"
+                    ColumnSpacing="{DynamicResource PaddingDouble}"
+                    Margin="{DynamicResource Padding2}">
+                    <ComboBox
+                        Grid.Column="0"
+                        HorizontalAlignment="Stretch"
+                        Items="{CompiledBinding VKGroupList}"
+                        SelectedItem="{CompiledBinding VKGroupSelectedItem}"
+                        PlaceholderForeground="{DynamicResource ColorGray400}"
+                        PlaceholderText="Select Device"
+                        VerticalAlignment="Center">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate DataType="shared:DeviceGroup">
+                                <TextBlock Text="{CompiledBinding ., Converter={x:Static converters:DeviceGroupConverter.Instance}}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <ComboBox
+                        Grid.Column="1"
+                        HorizontalAlignment="Stretch"
+                        IsEnabled="{CompiledBinding VKModelEnabled}"
+                        Items="{CompiledBinding VKModelList}"
+                        SelectedItem="{CompiledBinding VKModelSelectedItem}"
+                        PlaceholderForeground="{DynamicResource ColorGray400}"
+                        PlaceholderText="Select Model"
+                        VerticalAlignment="Center">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate DataType="shared:Device">
+                                <TextBlock Text="{CompiledBinding}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <ComboBox
+                        Grid.Column="2"
+                        HorizontalAlignment="Stretch"
+                        IsEnabled="{CompiledBinding VKBuildEnabled}"
+                        Items="{CompiledBinding VKBuildList}"
+                        SelectedItem="{CompiledBinding VKBuildSelectedItem}"
+                        PlaceholderForeground="{DynamicResource ColorGray400}"
+                        PlaceholderText="Select Build"
+                        VerticalAlignment="Center">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate DataType="models:VKBuildModel">
+                                <TextBlock
+                                    Foreground="{CompiledBinding TextColor}"
+                                    Text="{CompiledBinding VersionText}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <controls:TitledButton
+                        Grid.Column="3"
+                        Classes="Horizontal"
                         Command="{CompiledBinding ViewKeysCommand}"
-                        HorizontalAlignment="Center"
-                        IsEnabled="{CompiledBinding ViewKeysCommandEnabled}">
-                        <StackPanel>
-                            <Image Source="{svg:SvgImage /Assets/Icons/key.svg}" />
-                            <TextBlock Text="View Keys" />
-                        </StackPanel>
-                    </ui:Button>
+                        Image="{svg:SvgImage /Assets/Icons/key.svg}"
+                        IsEnabled="{CompiledBinding ViewKeysCommandEnabled}"
+                        Text="View Keys" />
+                    <!-- <ui:Button -->
+                    <!--     Grid.Column="3" -->
+                    <!--     Classes="WithImage Horizontal" -->
+                    <!--     Command="{CompiledBinding ViewKeysCommand}" -->
+                    <!--     HorizontalAlignment="Center" -->
+                    <!--     IsEnabled="{CompiledBinding ViewKeysCommandEnabled}"> -->
+                    <!--     <StackPanel> -->
+                    <!--         <Image Source="{svg:SvgImage /Assets/Icons/key.svg}" /> -->
+                    <!--         <TextBlock Text="View Keys" /> -->
+                    <!--     </StackPanel> -->
+                    <!-- </ui:Button> -->
+                </sg:SpacedGrid>
 
-                    <Separator
-                        DockPanel.Dock="Right"
-                        Width="4" />
-
-                    <Separator
-                        DockPanel.Dock="Left"
-                        Width="4" />
-
-                    <UniformGrid Columns="3">
-                        <ComboBox
-                            HorizontalAlignment="Stretch"
-                            Items="{CompiledBinding VKGroupList}"
-                            Margin="{DynamicResource PaddingR}"
-                            SelectedItem="{CompiledBinding VKGroupSelectedItem}"
-                            PlaceholderForeground="{DynamicResource ColorGray400}"
-                            PlaceholderText="Select Device"
-                            VerticalAlignment="Center">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate DataType="shared:DeviceGroup">
-                                    <TextBlock Text="{CompiledBinding ., Converter={x:Static converters:DeviceGroupConverter.Instance}}" />
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>
-                        <ComboBox
-                            HorizontalAlignment="Stretch"
-                            IsEnabled="{CompiledBinding VKModelEnabled}"
-                            Items="{CompiledBinding VKModelList}"
-                            Margin="{DynamicResource PaddingR}"
-                            SelectedItem="{CompiledBinding VKModelSelectedItem}"
-                            PlaceholderForeground="{DynamicResource ColorGray400}"
-                            PlaceholderText="Select Model"
-                            VerticalAlignment="Center">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate DataType="shared:Device">
-                                    <TextBlock Text="{CompiledBinding}" />
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>
-                        <ComboBox
-                            HorizontalAlignment="Stretch"
-                            IsEnabled="{CompiledBinding VKBuildEnabled}"
-                            Items="{CompiledBinding VKBuildList}"
-                            Margin="{DynamicResource PaddingR}"
-                            SelectedItem="{CompiledBinding VKBuildSelectedItem}"
-                            PlaceholderForeground="{DynamicResource ColorGray400}"
-                            PlaceholderText="Select Build"
-                            VerticalAlignment="Center">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate DataType="models:VKBuildModel">
-                                    <TextBlock
-                                        Foreground="{CompiledBinding TextColor}"
-                                        Text="{CompiledBinding VersionText}" />
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>
-                    </UniformGrid>
-
-                </DockPanel>
             </Border>
         </Border>
 
