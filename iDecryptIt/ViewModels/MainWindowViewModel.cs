@@ -148,29 +148,50 @@ public class MainWindowViewModel : ViewModelBase
     public ReactiveCommand<string, Unit> RootFSOpenCommand { get; }
     private async void OnRootFSOpen(string parameter)
     {
-        Debug.Assert(parameter is "input" or "output");
         if (!MainWindowIsDesktopLifetime.Value)
             return;
 
-        OpenFileDialog dialog = new();
-        dialog.Filters ??= new();
-        dialog.Filters.Add(new()
+        if (parameter is "input")
         {
-            Name = "Apple Disk Images",
-            Extensions = { "dmg" },
-        });
+            OpenFileDialog dialog = new();
+            dialog.Filters ??= new();
+            dialog.Filters.Add(new()
+            {
+                Name = "Apple Disk Images",
+                Extensions = { "dmg" },
+            });
 
-        string[]? result = await dialog.ShowAsync(MainWindowInstance.Value);
-        if (result is null) // canceled
-            return;
+            string[]? results = await dialog.ShowAsync(MainWindowInstance.Value);
+            if (results is null) // canceled
+                return;
 
-        Debug.Assert(result.Length is 1);
-        RootFSInput = result[0];
-        RootFSOutput = Path.Combine(
-            Directory.GetParent(result[0])!.FullName, // SAFETY: only null if parameter is the root directory; never with files
-            Path.GetFileNameWithoutExtension(result[0]) + "-dec.dmg");
+            Debug.Assert(results.Length is 1);
+            string result = results[0];
 
-        // TODO: validate file is actually a file vault volume
+            RootFSInput = result;
+            RootFSOutput = Path.Combine(
+                Directory.GetParent(result)!.FullName, // SAFETY: only null if parameter is the root directory; never with files
+                Path.GetFileNameWithoutExtension(result) + "-dec.dmg");
+
+            // TODO: validate file is actually a file vault volume
+        }
+        else
+        {
+            Debug.Assert(parameter is "output");
+            SaveFileDialog dialog = new();
+            dialog.Filters ??= new();
+            dialog.Filters.Add(new()
+            {
+                Name = "Apple Disk Images",
+                Extensions = { "dmg" },
+            });
+
+            string? result = await dialog.ShowAsync(MainWindowInstance.Value);
+            if (result is null) // canceled
+                return;
+
+            RootFSOutput = result;
+        }
     }
 
     #endregion
@@ -184,24 +205,38 @@ public class MainWindowViewModel : ViewModelBase
     public ReactiveCommand<string, Unit> DecryptOpenCommand { get; }
     private async void OnDecryptOpen(string parameter)
     {
-        Debug.Assert(parameter is "input" or "output");
         if (!MainWindowIsDesktopLifetime.Value)
             return;
 
-        OpenFileDialog dialog = new();
+        if (parameter is "input")
+        {
+            OpenFileDialog dialog = new();
 
-        string[]? result = await dialog.ShowAsync(MainWindowInstance.Value);
-        if (result is null) // canceled
-            return;
+            string[]? results = await dialog.ShowAsync(MainWindowInstance.Value);
+            if (results is null) // canceled
+                return;
 
-        Debug.Assert(result.Length is 1);
-        DecryptInput = result[0];
-        DecryptOutput = Path.Combine(
-            Directory.GetParent(result[0])!.FullName, // SAFETY: only null if parameter is the root directory; never with files
-            Path.GetFileNameWithoutExtension(result[0]) + "-dec" + Path.GetExtension(result[0]));
-        RootFSInput = result[0];
+            Debug.Assert(results.Length is 1);
+            string result = results[0];
 
-        // TODO: validate file is actually one of 8900/IMG2/IMG3/IMG4/IM4P
+            DecryptInput = result;
+            DecryptOutput = Path.Combine(
+                Directory.GetParent(result)!.FullName, // SAFETY: only null if parameter is the root directory; never with files
+                Path.GetFileNameWithoutExtension(result) + "-dec" + Path.GetExtension(result));
+
+            // TODO: validate file is actually one of 8900/IMG2/IMG3/IMG4/IM4P
+        }
+        else
+        {
+            Debug.Assert(parameter is "output");
+            SaveFileDialog dialog = new();
+
+            string? result = await dialog.ShowAsync(MainWindowInstance.Value);
+            if (result is null) // canceled
+                return;
+
+            DecryptOutput = result;
+        }
     }
     public ReactiveCommand<Unit, Unit> DecryptCommand { get; }
     private void OnDecrypt()
