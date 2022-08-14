@@ -21,6 +21,8 @@
  * =============================================================================
  */
 
+using iDecryptIt.IO.Formats;
+
 namespace iDecryptIt.IO.FileSystem;
 
 public class HfsxReader : FileSystemReaderBase

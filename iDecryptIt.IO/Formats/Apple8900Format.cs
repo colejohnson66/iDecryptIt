@@ -1,6 +1,6 @@
 ﻿using JetBrains.Annotations;
 
-namespace iDecryptIt.IO;
+namespace iDecryptIt.IO.Formats;
 
 [PublicAPI]
 public enum Apple8900Format

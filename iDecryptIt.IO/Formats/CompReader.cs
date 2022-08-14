@@ -1,5 +1,5 @@
 ﻿/* =============================================================================
- * File:   Img2Reader.cs
+ * File:   CompReader.cs
  * Author: Cole Tobin
  * =============================================================================
  * Copyright (c) 2022 Cole Tobin
@@ -21,28 +21,29 @@
  * =============================================================================
  */
 
+using iDecryptIt.IO.Helpers;
 using JetBrains.Annotations;
 using System;
 using System.Diagnostics.Contracts;
 using System.IO;
 using System.Linq;
-using System.Text;
 
-namespace iDecryptIt.IO;
+namespace iDecryptIt.IO.Formats;
 
 [PublicAPI]
-public class Img2Reader : IDisposable
+public class CompReader : IDisposable
 {
     // when C# 11 is released, replace these with UTF-8 string literals
-    private static byte[] MAGIC = { (byte)'2', (byte)'g', (byte)'m', (byte)'I' };
-    private static byte[] MAGIC_VERSION_TAG = { (byte)'s', (byte)'r', (byte)'e', (byte)'v' };
+    private static byte[] MAGIC = { (byte)'c', (byte)'o', (byte)'m', (byte)'p' };
+    private static byte[] MAGIC_LZSS = { (byte)'s', (byte)'s', (byte)'z', (byte)'l' };
 
     private readonly Stream _input;
 
-    private int _paddedLength = 0; // offset 10
+    private uint _decompressedLength;
+    private uint _compressedLength;
     private byte[] _payload = Array.Empty<byte>();
 
-    private Img2Reader(Stream input)
+    private CompReader(Stream input)
     {
         if (!input.CanSeek)
             throw new ArgumentException("Input must be seekable.", nameof(input));
@@ -54,58 +55,46 @@ public class Img2Reader : IDisposable
         ExtractPayload();
     }
 
-    public static Img2Reader Parse(Stream input) =>
+    public static CompReader Parse(Stream input) =>
         new(input);
 
     private void ParseHeader()
     {
-        byte[] header = new byte[0x400];
-        if (_input.Read(header) != 0x400)
+        byte[] header = new byte[0x180];
+        if (_input.Read(header) != 0x180)
             throw new EndOfStreamException("Unexpected EOF while reading header.");
 
         Span<byte> headerSpan = header.AsSpan();
 
         // magic
         if (!MAGIC.SequenceEqual(header[..4]))
-            throw new InvalidDataException("Input file is not an \"IMG2\" file.");
+            throw new InvalidDataException("Input file is not a \"Comp\" file.");
+        if (!MAGIC_LZSS.SequenceEqual(header[4..8]))
+            throw new InvalidDataException($"Unknown compression format: \"{(char)header[0xB]}{(char)header[0xA]}{(char)header[9]}{(char)header[8]}\"");
 
-        // image type + epoch
-        ImageType = BitConverter.ToUInt32(headerSpan[4..8]);
-        SecurityEpoch = BitConverter.ToUInt16(headerSpan[8..0xA]);
+        // TODO: checksum
+        uint expectedChecksum = BitConverter.ToUInt32(headerSpan[8..0xC]);
 
-        // length
-        _paddedLength = BitConverter.ToInt32(headerSpan[0x10..0x14]);
-        Length = BitConverter.ToInt32(headerSpan[0x14..0x18]);
-        if (_paddedLength < Length)
-            throw new InvalidDataException("Payload's padded length cannot less than unpadded length.");
-
-        // version tag
-        if (!MAGIC_VERSION_TAG.SequenceEqual(header[0x70..0x74]))
-            throw new InvalidDataException("Input file's version ('vers') tag is missing.");
-        byte[] version = header[0x78..0x90].TakeWhile(b => b is not 0).ToArray();
-        VersionTagValue = Encoding.ASCII.GetString(version);
+        // lengths (stored in big endian)
+        _decompressedLength = BitConverter.ToUInt32(header[0xC..0x10].Reverse().ToArray());
+        _compressedLength = BitConverter.ToUInt32(header[0x10..0x14].Reverse().ToArray());
 
         // sanity check
-        SpuriousDataInHeaderPadding = header.Skip(0x90).Any(b => b is not 0);
+        SpuriousDataInHeaderPadding = header.Skip(0x14).Any(b => b is not 0);
     }
 
     private void ExtractPayload()
     {
-        Contract.Assert(_input.Position is 0x400);
-        _payload = new byte[Length];
-        _input.Read(_payload);
-
-        byte[] padding = new byte[_paddedLength - Length];
-        if (_input.Read(padding) != padding.Length)
+        Contract.Assert(_input.Position is 0x14);
+        byte[] payload = new byte[_compressedLength];
+        if (_input.Read(payload) != _compressedLength)
             throw new EndOfStreamException("Unexpected EOF while reading payload.");
-        SpuriousDataInPayloadPadding = padding.Any(b => b is not 0);
-    }
 
-    public uint ImageType { get; private set; }
-    public ushort SecurityEpoch { get; private set; }
-    public string VersionTagValue { get; private set; } = "";
+        _payload = Lzss.Decompress(payload);
+        if (_payload.Length != _decompressedLength)
+            throw new InvalidDataException($"Expected a decompressed length of {_decompressedLength}, but got a length of {_payload.Length}.");
+    }
     public bool SpuriousDataInHeaderPadding { get; private set; }
-    public bool SpuriousDataInPayloadPadding { get; private set; }
 
     public void Read(out byte[] payload)
     {
@@ -113,7 +102,7 @@ public class Img2Reader : IDisposable
         Array.Copy(_payload, payload, Length);
     }
 
-    public int Length { get; private set; }
+    public int Length => _payload.Length;
     public byte this[int index] => _payload[index];
 
 #region IDisposable

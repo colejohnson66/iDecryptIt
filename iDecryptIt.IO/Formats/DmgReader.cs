@@ -21,8 +21,8 @@
  * =============================================================================
  */
 
-using iDecryptIt.IO.DmgTypes;
 using iDecryptIt.IO.FileSystem;
+using iDecryptIt.IO.Formats.DmgTypes;
 using iDecryptIt.IO.Helpers;
 using JetBrains.Annotations;
 using PListLib;
@@ -34,7 +34,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Text;
 
-namespace iDecryptIt.IO;
+namespace iDecryptIt.IO.Formats;
 
 [PublicAPI]
 public class DmgReader : IDisposable

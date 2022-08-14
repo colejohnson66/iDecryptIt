@@ -24,7 +24,7 @@
 using iDecryptIt.IO.Helpers;
 using System.IO;
 
-namespace iDecryptIt.IO.DmgTypes;
+namespace iDecryptIt.IO.Formats.DmgTypes;
 
 internal record UdifResourceFile(
     uint Version,

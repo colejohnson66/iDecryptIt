@@ -1,5 +1,5 @@
 ﻿/* =============================================================================
- * File:   BlkxRun.cs
+ * File:   BlkxResource.cs
  * Author: Cole Tobin
  * =============================================================================
  * Copyright (c) 2022 Cole Tobin
@@ -23,24 +23,35 @@
 
 using iDecryptIt.IO.Helpers;
 
-namespace iDecryptIt.IO.DmgTypes;
+namespace iDecryptIt.IO.Formats.DmgTypes;
 
-internal record BlkxRun(
-    uint Type,
-    ulong SectorStart,
+internal record BlkxResource(
+    uint BlockSignature,
+    uint InfoVersion,
+    ulong FirstSectorNumber,
     ulong SectorCount,
-    ulong CompressOffset,
-    ulong CompressLength)
+    ulong DataStart,
+    uint DecompressBufferRequested,
+    uint BlockDescriptor,
+    UdifChecksum Checksum,
+    BlkxRun[] Runs)
 {
-    public static BlkxRun Read(BigEndianBinaryReader reader)
+    public static BlkxResource Read(BigEndianBinaryReader reader)
     {
-        uint type = reader.ReadUInt32();
-        reader.Skip(4);
-        ulong sectorStart = reader.ReadUInt64();
+        uint blockSignature = reader.ReadUInt32();
+        uint infoVersion = reader.ReadUInt32();
+        ulong firstSector = reader.ReadUInt64();
         ulong sectorCount = reader.ReadUInt64();
-        ulong compressOffset = reader.ReadUInt64();
-        ulong compressLength = reader.ReadUInt64();
+        ulong dataStart = reader.ReadUInt64();
+        uint decompressBufferReq = reader.ReadUInt32();
+        uint blockDescriptor = reader.ReadUInt32();
+        reader.Skip(4 * 6);
+        UdifChecksum checksum = UdifChecksum.Read(reader);
+        BlkxRun[] runs = new BlkxRun[reader.ReadUInt32()];
+        for (int i = 0; i < runs.Length; i++)
+            runs[i] = BlkxRun.Read(reader);
 
-        return new(type, sectorStart, sectorCount, compressOffset, compressLength);
+        return new(blockSignature, infoVersion, firstSector, sectorCount, dataStart, decompressBufferReq,
+            blockDescriptor, checksum, runs);
     }
 }

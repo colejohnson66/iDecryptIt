@@ -1,5 +1,5 @@
 ﻿/* =============================================================================
- * File:   UdifChecksum.cs
+ * File:   DmgResource.cs
  * Author: Cole Tobin
  * =============================================================================
  * Copyright (c) 2022 Cole Tobin
@@ -20,23 +20,10 @@
  *   iDecryptIt. If not, see <http://www.gnu.org/licenses/>.
  * =============================================================================
  */
+namespace iDecryptIt.IO.Formats.DmgTypes;
 
-using iDecryptIt.IO.Helpers;
-
-namespace iDecryptIt.IO.DmgTypes;
-
-internal record UdifChecksum(
-    uint Type,
-    uint Size,
-    uint[] Data)
-{
-    internal static UdifChecksum Read(BigEndianBinaryReader reader)
-    {
-        uint type = reader.ReadUInt32();
-        uint size = reader.ReadUInt32();
-        uint[] data = new uint[32];
-        for (int i = 0; i < 32; i++)
-            data[i] = reader.ReadUInt32();
-        return new(type, size, data);
-    }
-}
+internal record DmgResource(
+    uint Attributes,
+    object Data, // BlkxResource, SizeResource, CSumResource
+    int ID,
+    string Name);

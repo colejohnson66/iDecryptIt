@@ -25,7 +25,7 @@ using iDecryptIt.IO.Helpers;
 using System.Diagnostics;
 using System.IO;
 
-namespace iDecryptIt.IO.DmgTypes;
+namespace iDecryptIt.IO.Formats.DmgTypes;
 
 // AES key is the first 16 bytes (32 chars) of the Root FS key
 // HMAC key is the next 20 bytes (40 chars)

@@ -1,5 +1,5 @@
 ﻿/* =============================================================================
- * File:   SizeResource.cs
+ * File:   DeviceDescriptorRecord.cs
  * Author: Cole Tobin
  * =============================================================================
  * Copyright (c) 2022 Cole Tobin
@@ -23,30 +23,34 @@
 
 using iDecryptIt.IO.Helpers;
 
-namespace iDecryptIt.IO.DmgTypes;
+namespace iDecryptIt.IO.Formats.DmgTypes;
 
-internal record SizeResource(
-    ushort Version,
-    uint IsHfs,
-    byte[] Data,
-    bool VolumeModified,
-    ushort VolumeSignature,
-    bool SizePresent)
+internal record DeviceDescriptorRecord(
+    ushort Signature,
+    ushort BlockSize,
+    uint BlockCount,
+    ushort DeviceType,
+    ushort DeviceID,
+    uint Data,
+    ushort DriverCount,
+    uint DDBlock,
+    ushort DDSize,
+    ushort DDType)
 {
-    public static SizeResource Read(BigEndianBinaryReader reader)
+    public static DeviceDescriptorRecord Read(BigEndianBinaryReader reader)
     {
-        ushort version = reader.ReadUInt16();
-        uint isHfs = reader.ReadUInt32();
-        reader.Skip(4);
-        int length = reader.ReadUInt8();
-        byte[] data = reader.ReadBytes(length);
-        reader.Skip(255 - length);
-        reader.Skip(2 * 4);
-        bool modified = reader.ReadUInt32() is not 0;
-        reader.Skip(4);
-        ushort signature = reader.ReadUInt16();
-        bool sizePresent = reader.ReadUInt16() is not 0;
+        ushort sig = reader.ReadUInt16();
+        ushort blockSize = reader.ReadUInt16();
+        uint blockCount = reader.ReadUInt32();
+        ushort deviceType = reader.ReadUInt16();
+        ushort deviceID = reader.ReadUInt16();
+        uint data = reader.ReadUInt32();
+        ushort driverCount = reader.ReadUInt16();
+        uint ddBlock = reader.ReadUInt32();
+        ushort ddSize = reader.ReadUInt16();
+        ushort ddType = reader.ReadUInt16();
 
-        return new(version, isHfs, data, modified, signature, sizePresent);
+        reader.Skip(DmgReader.SECTOR_SIZE - 0x1A); // pad out to SECTOR_SIZE
+        return new(sig, blockSize, blockCount, deviceType, deviceID, data, driverCount, ddBlock, ddSize, ddType);
     }
 }

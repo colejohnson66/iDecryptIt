@@ -1,5 +1,5 @@
 ﻿/* =============================================================================
- * File:   CSumResource.cs
+ * File:   UdifChecksum.cs
  * Author: Cole Tobin
  * =============================================================================
  * Copyright (c) 2022 Cole Tobin
@@ -23,19 +23,20 @@
 
 using iDecryptIt.IO.Helpers;
 
-namespace iDecryptIt.IO.DmgTypes;
+namespace iDecryptIt.IO.Formats.DmgTypes;
 
-internal record CSumResource(
-    ushort Version,
+internal record UdifChecksum(
     uint Type,
-    uint Checksum)
+    uint Size,
+    uint[] Data)
 {
-    public static CSumResource Read(BigEndianBinaryReader reader)
+    internal static UdifChecksum Read(BigEndianBinaryReader reader)
     {
-        ushort version = reader.ReadUInt16();
         uint type = reader.ReadUInt32();
-        uint checksum = reader.ReadUInt32();
-
-        return new(version, type, checksum);
+        uint size = reader.ReadUInt32();
+        uint[] data = new uint[32];
+        for (int i = 0; i < 32; i++)
+            data[i] = reader.ReadUInt32();
+        return new(type, size, data);
     }
 }

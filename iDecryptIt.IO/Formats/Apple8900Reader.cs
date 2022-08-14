@@ -23,13 +23,12 @@
 
 using JetBrains.Annotations;
 using System;
-using System.Collections.ObjectModel;
 using System.Diagnostics.Contracts;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 
-namespace iDecryptIt.IO;
+namespace iDecryptIt.IO.Formats;
 
 [PublicAPI]
 public class Apple8900Reader : IDisposable
@@ -39,9 +38,9 @@ public class Apple8900Reader : IDisposable
         0x18, 0x84, 0x58, 0xA6, 0xD1, 0x50, 0x34, 0xDF,
         0xE3, 0x86, 0xF2, 0x3B, 0x61, 0xD4, 0x37, 0x74,
     };
-    public static ReadOnlyCollection<byte> KEY_0x837 { get; } = Array.AsReadOnly(KEY_0x837_ARRAY);
+    public static ReadOnlySpan<byte> KEY_0x837 => KEY_0x837_ARRAY;
     // when C# 11 is released, replace this with UTF-8 string literals
-    private static byte[] MAGIC = { (byte)'8', (byte)'9', (byte)'0', (byte)'0', (byte)'1', (byte)'.', (byte)'0' };
+    private static readonly byte[] MAGIC = { (byte)'8', (byte)'9', (byte)'0', (byte)'0', (byte)'1', (byte)'.', (byte)'0' };
 
     private readonly Stream _input;
 

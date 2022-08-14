@@ -1,5 +1,5 @@
 ﻿/* =============================================================================
- * File:   DmgResource.cs
+ * File:   CSumResource.cs
  * Author: Cole Tobin
  * =============================================================================
  * Copyright (c) 2022 Cole Tobin
@@ -20,10 +20,22 @@
  *   iDecryptIt. If not, see <http://www.gnu.org/licenses/>.
  * =============================================================================
  */
-namespace iDecryptIt.IO.DmgTypes;
 
-internal record DmgResource(
-    uint Attributes,
-    object Data, // BlkxResource, SizeResource, CSumResource
-    int ID,
-    string Name);
+using iDecryptIt.IO.Helpers;
+
+namespace iDecryptIt.IO.Formats.DmgTypes;
+
+internal record CSumResource(
+    ushort Version,
+    uint Type,
+    uint Checksum)
+{
+    public static CSumResource Read(BigEndianBinaryReader reader)
+    {
+        ushort version = reader.ReadUInt16();
+        uint type = reader.ReadUInt32();
+        uint checksum = reader.ReadUInt32();
+
+        return new(version, type, checksum);
+    }
+}

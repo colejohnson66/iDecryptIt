@@ -25,7 +25,7 @@ using iDecryptIt.IO.Helpers;
 using System.Linq;
 using System.Text;
 
-namespace iDecryptIt.IO.DmgTypes;
+namespace iDecryptIt.IO.Formats.DmgTypes;
 
 internal record Partition(
     ushort Signature, // 'PM'

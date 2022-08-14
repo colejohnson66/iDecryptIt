@@ -23,7 +23,7 @@
 
 using iDecryptIt.IO.Helpers;
 
-namespace iDecryptIt.IO.DmgTypes;
+namespace iDecryptIt.IO.Formats.DmgTypes;
 
 internal record UdifID(uint[] Data)
 {

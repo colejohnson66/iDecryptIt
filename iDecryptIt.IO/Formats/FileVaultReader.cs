@@ -21,13 +21,13 @@
  * =============================================================================
  */
 
-using iDecryptIt.IO.DmgTypes;
+using iDecryptIt.IO.Formats.DmgTypes;
 using JetBrains.Annotations;
 using System;
 using System.IO;
 using System.Security.Cryptography;
 
-namespace iDecryptIt.IO;
+namespace iDecryptIt.IO.Formats;
 
 [PublicAPI]
 public class FileVaultReader : IDisposable
