@@ -30,6 +30,7 @@ using MessageBox.Avalonia;
 using MessageBox.Avalonia.BaseWindows.Base;
 using MessageBox.Avalonia.Enums;
 using System;
+using System.Diagnostics;
 
 namespace iDecryptIt;
 
@@ -53,6 +54,9 @@ public static class Program
 
     public static async void FatalException(Exception ex)
     {
+        if (Debugger.IsAttached)
+            Debugger.Break();
+
         MainWindow? mw = (MainWindow?)((IClassicDesktopStyleApplicationLifetime?)Application.Current?.ApplicationLifetime)?.MainWindow;
 
         // TODO: give the option for a dump for a bug report
