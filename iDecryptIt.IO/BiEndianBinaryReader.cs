@@ -33,6 +33,7 @@ namespace iDecryptIt.IO;
 public sealed class BiEndianBinaryReader : IDisposable
 {
     private readonly Stream _stream;
+    private readonly bool _keepOpen;
     private readonly byte[] _buffer = new byte[8];
     private bool _disposed = false;
 
@@ -40,9 +41,10 @@ public sealed class BiEndianBinaryReader : IDisposable
         : this(new MemoryStream(buffer, false))
     { }
 
-    public BiEndianBinaryReader(Stream stream)
+    public BiEndianBinaryReader(Stream stream, bool keepOpen = false)
     {
         _stream = stream;
+        _keepOpen = keepOpen;
     }
 
     // ReSharper disable once ConvertToAutoPropertyWhenPossible
@@ -72,15 +74,31 @@ public sealed class BiEndianBinaryReader : IDisposable
             buffer.Reverse();
     }
 
+    /// <summary>
+    /// Skip a specified number of bytes forwards.
+    /// </summary>
+    /// <param name="count">The number of bytes to skip.</param>
+    /// <exception cref="NotSupportedException">If the input stream does not support seeking.</exception>
     public void Skip(int count)
     {
         _stream.Position += count;
     }
 
 
+    /// <summary>
+    /// Read bytes from the input stream, and place them in a provided buffer.
+    /// </summary>
+    /// <param name="buffer">The buffer to place the read bytes into.</param>
+    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle or the read.</exception>
     public void ReadBytes(Span<byte> buffer) =>
         _stream.ReadExact(buffer);
 
+    /// <summary>
+    /// Read bytes from the input stream, and get an array containing them.
+    /// </summary>
+    /// <param name="count">The number of bytes to read.</param>
+    /// <returns>An array of bytes with <paramref name="count" /> elements.</returns>
+    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle or the read.</exception>
     public byte[] ReadBytes(int count)
     {
         byte[] buffer = new byte[count];
@@ -88,13 +106,37 @@ public sealed class BiEndianBinaryReader : IDisposable
         return buffer;
     }
 
-    public string ReadAsciiChars(int length) =>
-        Encoding.ASCII.GetString(ReadBytes(length));
+    /// <summary>
+    /// Read bytes from the input stream, and interpret them as an ASCII string.
+    /// </summary>
+    /// <param name="length">The number of bytes to read.</param>
+    /// <param name="trimNulls">
+    /// If <c>true</c>, null characters will be trimmed from the end of the returned string.
+    /// </param>
+    /// <returns>A string containing the next <paramref name="length" /> bytes, if they were encoded in ASCII.</returns>
+    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle or the read.</exception>
+    public string ReadAsciiChars(int length, bool trimNulls = false)
+    {
+        byte[] buffer = ReadBytes(length);
+        return trimNulls
+            ? buffer.ToStringNoTrailingNulls()
+            : Encoding.ASCII.GetString(buffer);
+    }
 
 
+    /// <summary>
+    /// Read a single byte from the stream, and interpret it as a signed 8 bit integer.
+    /// </summary>
+    /// <returns>The next signed 8 bit integer from the stream.</returns>
+    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle or the read.</exception>
     public sbyte ReadInt8() =>
         unchecked((sbyte)ReadUInt8());
 
+    /// <summary>
+    /// Read a single byte from the stream.
+    /// </summary>
+    /// <returns>The next unsigned 8 bit integer from the stream.</returns>
+    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle or the read.</exception>
     public byte ReadUInt8()
     {
         int c = _stream.ReadByte();
@@ -104,9 +146,19 @@ public sealed class BiEndianBinaryReader : IDisposable
     }
 
 
+    /// <summary>
+    /// Read two bytes from the stream, and interpret them as a signed 16 bit little endian integer.
+    /// </summary>
+    /// <returns>The next signed 16 bit integer from the stream.</returns>
+    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle or the read.</exception>
     public short ReadInt16LE() =>
         unchecked((short)ReadUInt16LE());
 
+    /// <summary>
+    /// Read two bytes from the stream, and interpret them as an unsigned 16 bit little endian integer.
+    /// </summary>
+    /// <returns>The next unsigned 16 bit integer from the stream.</returns>
+    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle or the read.</exception>
     public ushort ReadUInt16LE()
     {
         Span<byte> span = BufferAsSpan(2);
@@ -114,9 +166,19 @@ public sealed class BiEndianBinaryReader : IDisposable
         return BitConverter.ToUInt16(span);
     }
 
+    /// <summary>
+    /// Read two bytes from the stream, and interpret them as a signed 16 bit big endian integer.
+    /// </summary>
+    /// <returns>The next signed 16 bit integer from the stream.</returns>
+    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle or the read.</exception>
     public short ReadInt16BE() =>
         unchecked((short)ReadUInt16BE());
 
+    /// <summary>
+    /// Read two bytes from the stream, and interpret them as an unsigned 16 bit big endian integer.
+    /// </summary>
+    /// <returns>The next unsigned 16 bit integer from the stream.</returns>
+    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle or the read.</exception>
     public ushort ReadUInt16BE()
     {
         Span<byte> span = BufferAsSpan(2);
@@ -125,9 +187,19 @@ public sealed class BiEndianBinaryReader : IDisposable
     }
 
 
+    /// <summary>
+    /// Read four bytes from the stream, and interpret them as a signed 32 bit little endian integer.
+    /// </summary>
+    /// <returns>The next signed 32 bit integer from the stream.</returns>
+    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle or the read.</exception>
     public int ReadInt32LE() =>
         unchecked((int)ReadUInt32LE());
 
+    /// <summary>
+    /// Read four bytes from the stream, and interpret them as an unsigned 32 bit little endian integer.
+    /// </summary>
+    /// <returns>The next unsigned 32 bit integer from the stream.</returns>
+    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle or the read.</exception>
     public uint ReadUInt32LE()
     {
         Span<byte> span = BufferAsSpan(4);
@@ -135,9 +207,19 @@ public sealed class BiEndianBinaryReader : IDisposable
         return BitConverter.ToUInt32(span);
     }
 
+    /// <summary>
+    /// Read four bytes from the stream, and interpret them as a signed 32 bit big endian integer.
+    /// </summary>
+    /// <returns>The next signed 32 bit integer from the stream.</returns>
+    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle or the read.</exception>
     public int ReadInt32BE() =>
         unchecked((int)ReadUInt32BE());
 
+    /// <summary>
+    /// Read four bytes from the stream, and interpret them as an unsigned 32 bit big endian integer.
+    /// </summary>
+    /// <returns>The next unsigned 32 bit integer from the stream.</returns>
+    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle or the read.</exception>
     public uint ReadUInt32BE()
     {
         Span<byte> span = BufferAsSpan(4);
@@ -146,9 +228,19 @@ public sealed class BiEndianBinaryReader : IDisposable
     }
 
 
+    /// <summary>
+    /// Read eight bytes from the stream, and interpret them as a signed 64 bit little endian integer.
+    /// </summary>
+    /// <returns>The next signed 64 bit integer from the stream.</returns>
+    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle or the read.</exception>
     public long ReadInt64LE() =>
         unchecked((long)ReadUInt64LE());
 
+    /// <summary>
+    /// Read eight bytes from the stream, and interpret them as an unsigned 64 bit little endian integer.
+    /// </summary>
+    /// <returns>The next unsigned 64 bit integer from the stream.</returns>
+    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle or the read.</exception>
     public ulong ReadUInt64LE()
     {
         Span<byte> span = BufferAsSpan(8);
@@ -156,9 +248,19 @@ public sealed class BiEndianBinaryReader : IDisposable
         return BitConverter.ToUInt64(span);
     }
 
+    /// <summary>
+    /// Read eight bytes from the stream, and interpret them as a signed 64 bit big endian integer.
+    /// </summary>
+    /// <returns>The next signed 64 bit integer from the stream.</returns>
+    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle or the read.</exception>
     public long ReadInt64BE() =>
         unchecked((long)ReadUInt64BE());
 
+    /// <summary>
+    /// Read eight bytes from the stream, and interpret them as an unsigned 64 bit big endian integer.
+    /// </summary>
+    /// <returns>The next unsigned 64 bit integer from the stream.</returns>
+    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle or the read.</exception>
     public ulong ReadUInt64BE()
     {
         Span<byte> span = BufferAsSpan(4);
@@ -167,33 +269,65 @@ public sealed class BiEndianBinaryReader : IDisposable
     }
 
 
+    /// <summary>
+    /// Read two bytes from the stream, and interpret them as a little endian half precision floating point number.
+    /// </summary>
+    /// <returns>The next half precision floating point number from the stream.</returns>
+    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle or the read.</exception>
     public Half ReadHalfLE() =>
         BitConverter.Int16BitsToHalf(ReadInt16LE());
 
+    /// <summary>
+    /// Read two bytes from the stream, and interpret them as a big endian half precision floating point number.
+    /// </summary>
+    /// <returns>The next half precision floating point number from the stream.</returns>
+    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle or the read.</exception>
     public Half ReadHalfBE() =>
         BitConverter.Int16BitsToHalf(ReadInt16BE());
 
 
+    /// <summary>
+    /// Read four bytes from the stream, and interpret them as a little endian single precision floating point number.
+    /// </summary>
+    /// <returns>The next single precision floating point number from the stream.</returns>
+    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle or the read.</exception>
     public float ReadSingleLE() =>
         BitConverter.Int32BitsToSingle(ReadInt32LE());
 
+    /// <summary>
+    /// Read four bytes from the stream, and interpret them as a big endian single precision floating point number.
+    /// </summary>
+    /// <returns>The next single precision floating point number from the stream.</returns>
+    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle or the read.</exception>
     public float ReadSingleBE() =>
         BitConverter.Int32BitsToSingle(ReadInt32BE());
 
 
+    /// <summary>
+    /// Read eight bytes from the stream, and interpret them as a little endian double precision floating point number.
+    /// </summary>
+    /// <returns>The next double precision floating point number from the stream.</returns>
+    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle or the read.</exception>
     public double ReadDoubleLE() =>
         BitConverter.Int64BitsToDouble(ReadInt64LE());
 
+    /// <summary>
+    /// Read eight bytes from the stream, and interpret them as a big endian double precision floating point number.
+    /// </summary>
+    /// <returns>The next double precision floating point number from the stream.</returns>
+    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle or the read.</exception>
     public double ReadDoubleBE() =>
         BitConverter.Int64BitsToDouble(ReadInt64BE());
 
 
+    /// <inheritdoc />
     public void Dispose()
     {
         if (!_disposed)
         {
             _disposed = true;
-            _stream.Dispose();
+            if (!_keepOpen)
+                _stream.Dispose();
         }
     }
 }

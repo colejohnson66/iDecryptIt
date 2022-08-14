@@ -31,17 +31,17 @@ internal static class StreamExtensions
     /// <summary>
     /// Read an exact number of bytes from a stream into a specified buffer.
     /// It does so by repeatedly asking the stream for as many bytes as needed until
-    ///   <paramref name="buf" />.<see cref="Span{T}.Length" /> bytes total have been read.
+    ///   <paramref name="buffer" />.<see cref="Span{T}.Length" /> bytes total have been read.
     /// </summary>
     /// <param name="s">The <see cref="Stream" /> to read from.</param>
-    /// <param name="buf">The buffer to place the read bytes into.</param>
+    /// <param name="buffer">The buffer to place the read bytes into.</param>
     /// <exception cref="EndOfStreamException">If any one read attempt reads zero bytes.</exception>
-    public static void ReadExact(this Stream s, Span<byte> buf)
+    public static void ReadExact(this Stream s, Span<byte> buffer)
     {
         int i = 0;
-        while (i != buf.Length)
+        while (i != buffer.Length)
         {
-            int thisRead = s.Read(buf[i..]);
+            int thisRead = s.Read(buffer[i..]);
             i += thisRead;
             if (thisRead is 0)
                 throw new EndOfStreamException($"Unexpected EOF in {nameof(ReadExact)}.");
