@@ -249,16 +249,15 @@ public class MainWindowViewModel : ViewModelBase
         KeysHeading = device.ModelString;
 
         KeyEntries.Clear();
-        KeyPage? page = KeyBundleHelper.ReadKeys(device, build);
-        Debug.Assert(page is not null); // SAFETY: never null if the key grabber worked correctly
+        KeyPage page = KeyBundleHelper.ReadKeys(device, build);
 
         if (page.RootFS is not null)
-            KeyEntries.Add(FirmwareItemModel.FromRootFS(FirmwareItemType.RootFS, page.RootFS, FirmwareItemDecryptCommand));
+            KeyEntries.Add(new(FirmwareItemType.RootFS, page.RootFS, FirmwareItemDecryptCommand));
         if (page.RootFSBeta is not null)
-            KeyEntries.Add(FirmwareItemModel.FromRootFS(FirmwareItemType.RootFSBeta, page.RootFSBeta, FirmwareItemDecryptCommand));
+            KeyEntries.Add(new(FirmwareItemType.RootFSBeta, page.RootFSBeta, FirmwareItemDecryptCommand));
 
         foreach (KeyValuePair<FirmwareItemType, FirmwareItem> item in page.FirmwareItems)
-            KeyEntries.Add(FirmwareItemModel.FromFirmwareItem(item.Key, item.Value, FirmwareItemDecryptCommand));
+            KeyEntries.Add(new(item.Key, item.Value, FirmwareItemDecryptCommand));
     }
 
     #endregion

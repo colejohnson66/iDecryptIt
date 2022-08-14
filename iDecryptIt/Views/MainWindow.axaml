@@ -283,7 +283,7 @@
                                 <DataTemplate DataType="models:FirmwareItemModel">
                                     <controls:FirmwareItemKeyBlock
                                         ItemKind="{CompiledBinding ItemKind}"
-                                        Filename="{CompiledBinding FileName}"
+                                        Filename="{CompiledBinding Filename}"
                                         Encrypted="{CompiledBinding Encrypted}"
                                         IV="{CompiledBinding IV}"
                                         Key="{CompiledBinding Key}"

@@ -29,24 +29,39 @@ using System.Reactive;
 
 namespace iDecryptIt.Models;
 
-public record FirmwareItemModel(
-    FirmwareItemType ItemKind,
-    string? FileName,
-    bool Encrypted,
-    string? IV,
-    string? Key,
-    string? KBag,
-    ReactiveCommand<FirmwareItemKeyBlock, Unit> DecryptCommand)
+public sealed class FirmwareItemModel
 {
-    public static FirmwareItemModel FromFirmwareItem(FirmwareItemType type, FirmwareItem item, ReactiveCommand<FirmwareItemKeyBlock, Unit> decryptCommand)
+    public FirmwareItemType ItemKind { get; }
+    public string? Filename { get; }
+    public bool Encrypted { get; }
+    public string? IV { get; }
+    public string? Key { get; }
+    public string? KBag { get; }
+    public ReactiveCommand<FirmwareItemKeyBlock, Unit> DecryptCommand { get; }
+
+    public FirmwareItemModel(FirmwareItemType type, FirmwareItem item, ReactiveCommand<FirmwareItemKeyBlock, Unit> decryptCommand)
     {
         Debug.Assert(type is not (FirmwareItemType.RootFS or FirmwareItemType.RootFSBeta));
-        return new(type, item.Filename, item.Encrypted, item.IVKey?.IV, item.IVKey?.Key, item.KBag, decryptCommand);
+
+        ItemKind = type;
+        Filename = item.Filename;
+        Encrypted = item.Encrypted;
+        IV = item.IVKey?.IV;
+        Key = item.IVKey?.Key;
+        KBag = item.KBag;
+        DecryptCommand = decryptCommand;
     }
 
-    public static FirmwareItemModel FromRootFS(FirmwareItemType type, RootFS item, ReactiveCommand<FirmwareItemKeyBlock, Unit> decryptCommand)
+    public FirmwareItemModel(FirmwareItemType type, RootFS item, ReactiveCommand<FirmwareItemKeyBlock, Unit> decryptCommand)
     {
         Debug.Assert(type is FirmwareItemType.RootFS or FirmwareItemType.RootFSBeta);
-        return new(type, item.Filename, item.Encrypted, null, item.Key, null, decryptCommand);
+
+        ItemKind = type;
+        Filename = item.Filename;
+        Encrypted = item.Encrypted;
+        IV = null;
+        Key = item.Key;
+        KBag = null;
+        DecryptCommand = decryptCommand;
     }
 }
