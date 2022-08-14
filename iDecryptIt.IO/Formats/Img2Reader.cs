@@ -23,86 +23,89 @@
 
 using JetBrains.Annotations;
 using System;
-using System.Diagnostics.Contracts;
+using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace iDecryptIt.IO.Formats;
 
 [PublicAPI]
-public class Img2Reader : IDisposable
+public sealed class Img2Reader : IDisposable
 {
-    // when C# 11 is released, replace these with UTF-8 string literals
-    private static byte[] MAGIC = { (byte)'2', (byte)'g', (byte)'m', (byte)'I' };
-    private static byte[] MAGIC_VERSION_TAG = { (byte)'s', (byte)'r', (byte)'e', (byte)'v' };
+    private const string MAGIC = "2gmI";
+    private const string MAGIC_VERSION_TAG = "srev";
 
-    private readonly Stream _input;
+    private readonly BiEndianBinaryReader _input;
 
     private int _paddedLength = 0; // offset 10
-    private byte[] _payload = Array.Empty<byte>();
+    private byte[] _payload;
 
-    private Img2Reader(Stream input)
+    private Img2Reader(BiEndianBinaryReader input)
     {
-        if (!input.CanSeek)
-            throw new ArgumentException("Input must be seekable.", nameof(input));
-
         _input = input;
-        _input.Position = 0;
 
         ParseHeader();
         ExtractPayload();
     }
 
-    public static Img2Reader Parse(Stream input) =>
+    public static Img2Reader Parse(BiEndianBinaryReader input) =>
         new(input);
 
+    [MemberNotNull(nameof(ImageType))]
+    [MemberNotNull(nameof(VersionTagValue))]
     private void ParseHeader()
     {
-        byte[] header = new byte[0x400];
-        if (_input.Read(header) != 0x400)
-            throw new EndOfStreamException("Unexpected EOF while reading header.");
-
-        Span<byte> headerSpan = header.AsSpan();
+        byte[] header = _input.ReadBytes(0x400);
+        using BiEndianBinaryReader reader = new(header);
 
         // magic
-        if (!MAGIC.SequenceEqual(header[..4]))
+        if (reader.ReadAsciiChars(4) is not MAGIC)
             throw new InvalidDataException("Input file is not an \"IMG2\" file.");
 
         // image type + epoch
-        ImageType = BitConverter.ToUInt32(headerSpan[4..8]);
-        SecurityEpoch = BitConverter.ToUInt16(headerSpan[8..0xA]);
+        byte[] imageType = reader.ReadBytes(4);
+        imageType.AsSpan().Reverse();
+        ImageType = imageType.ToStringNoTrailingNulls();
+        reader.Skip(2);
+        SecurityEpoch = reader.ReadUInt16LE();
+
+        // flags
+        reader.Skip(4);
 
         // length
-        _paddedLength = BitConverter.ToInt32(headerSpan[0x10..0x14]);
-        Length = BitConverter.ToInt32(headerSpan[0x14..0x18]);
+        _paddedLength = reader.ReadInt32LE();
+        Length = reader.ReadInt32LE();
         if (_paddedLength < Length)
             throw new InvalidDataException("Payload's padded length cannot less than unpadded length.");
 
+        reader.Seek(0x70);
+
         // version tag
-        if (!MAGIC_VERSION_TAG.SequenceEqual(header[0x70..0x74]))
+        // ReSharper disable once StringLiteralTypo
+        if (reader.ReadAsciiChars(4) is not MAGIC_VERSION_TAG)
             throw new InvalidDataException("Input file's version ('vers') tag is missing.");
-        VersionTagValue = header[0x78..0x90].ToStringNoTrailingNulls();
+        reader.Skip(4);
+        VersionTagValue = reader.ReadAsciiChars(24, true);
 
         // sanity check
         SpuriousDataInHeaderPadding = header.Skip(0x90).Any(b => b is not 0);
     }
 
+    [MemberNotNull(nameof(_payload))]
     private void ExtractPayload()
     {
-        Contract.Assert(_input.Position is 0x400);
-        _payload = new byte[Length];
-        _input.ReadExact(_payload);
+        Debug.Assert(_input.BaseStream.Position is 0x400);
 
-        byte[] padding = new byte[_paddedLength - Length];
-        if (_input.Read(padding) != padding.Length)
-            throw new EndOfStreamException("Unexpected EOF while reading payload.");
+        _payload = _input.ReadBytes(Length);
+
+        byte[] padding = _input.ReadBytes(_paddedLength - Length);
         SpuriousDataInPayloadPadding = padding.Any(b => b is not 0);
     }
 
-    public uint ImageType { get; private set; }
+    public string ImageType { get; private set; }
     public ushort SecurityEpoch { get; private set; }
-    public string VersionTagValue { get; private set; } = "";
+    public string VersionTagValue { get; private set; }
     public bool SpuriousDataInHeaderPadding { get; private set; }
     public bool SpuriousDataInPayloadPadding { get; private set; }
 
@@ -118,6 +121,5 @@ public class Img2Reader : IDisposable
     public void Dispose()
     {
         _input.Dispose();
-        GC.SuppressFinalize(this);
     }
 }

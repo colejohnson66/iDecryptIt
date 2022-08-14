@@ -33,8 +33,8 @@ internal record FileVaultV2Header(
     uint EncryptedIVSize,
     UdifID Uuid,
     uint BlockSize,
-    ulong DataSize,
-    ulong DataOffset,
+    long DataSize,
+    long DataOffset,
     uint KdfAlgorithm,
     uint KdfPRngAlgorithm,
     uint KdfIterationCount,
@@ -58,8 +58,8 @@ internal record FileVaultV2Header(
         reader.Skip(20);
         UdifID uuid = UdifID.Read(reader);
         uint blockSize = reader.ReadUInt32BE();
-        ulong dataSize = reader.ReadUInt64BE();
-        ulong dataOffset = reader.ReadUInt64BE();
+        long dataSize = reader.ReadInt64BE();
+        long dataOffset = reader.ReadInt64BE();
         reader.Skip(0x260);
         uint kdfAlgorithm = reader.ReadUInt32BE();
         uint kdfRngAlgo = reader.ReadUInt32BE();

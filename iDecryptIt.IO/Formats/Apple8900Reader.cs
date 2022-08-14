@@ -23,7 +23,8 @@
 
 using JetBrains.Annotations;
 using System;
-using System.Diagnostics.Contracts;
+using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
@@ -31,7 +32,7 @@ using System.Security.Cryptography;
 namespace iDecryptIt.IO.Formats;
 
 [PublicAPI]
-public class Apple8900Reader : IDisposable
+public sealed class Apple8900Reader : IDisposable
 {
     private static readonly byte[] KEY_0x837_ARRAY =
     {
@@ -39,27 +40,22 @@ public class Apple8900Reader : IDisposable
         0xE3, 0x86, 0xF2, 0x3B, 0x61, 0xD4, 0x37, 0x74,
     };
     public static ReadOnlySpan<byte> KEY_0x837 => KEY_0x837_ARRAY;
-    // when C# 11 is released, replace this with UTF-8 string literals
-    private static readonly byte[] MAGIC = { (byte)'8', (byte)'9', (byte)'0', (byte)'0', (byte)'1', (byte)'.', (byte)'0' };
+    private const string MAGIC_AND_VERSION = "89001.0";
 
-    private readonly Stream _input;
+    private readonly BiEndianBinaryReader _reader;
 
-    private uint _sigOffset; // offset 10
-    private uint _sigLength; // `_certOffset` - `_sigLength`
-    private uint _certOffset; // offset 14
-    private uint _certLength; // offset 18
-    private byte[] _salt = new byte[32]; // offset 1C
-    private byte[] _payload = Array.Empty<byte>();
-    private byte[] _signature = new byte[0x80];
-    private byte[] _certificate = Array.Empty<byte>();
+    private int _sigOffset; // offset 10
+    private int _sigLength; // `_certOffset` - `_sigLength`
+    private int _certOffset; // offset 14
+    private int _certLength; // offset 18
+    private byte[] _salt; // offset 1C
+    private byte[] _payload;
+    private byte[] _signature;
+    private byte[] _certificate;
 
-    private Apple8900Reader(Stream input)
+    private Apple8900Reader(BiEndianBinaryReader reader)
     {
-        if (!input.CanSeek)
-            throw new ArgumentException("Input must be seekable.", nameof(input));
-
-        _input = input;
-        _input.Position = 0;
+        _reader = reader;
 
         ParseHeader();
         ExtractPayload();
@@ -67,63 +63,74 @@ public class Apple8900Reader : IDisposable
         ExtractCertificate();
     }
 
-    public static Apple8900Reader Parse(Stream input) =>
+    // TODO: throws ArgumentException (if can't seek), InvalidDataException (if not 8900), EndOfStreamException
+    public static Apple8900Reader Parse(BiEndianBinaryReader input) =>
         new(input);
 
+    [MemberNotNull(nameof(_salt))]
     private void ParseHeader()
     {
-        byte[] header = new byte[0x800];
-        if (_input.Read(header) != 0x800)
-            throw new EndOfStreamException("Unexpected EOF while reading header.");
-
-        Span<byte> headerSpan = header.AsSpan();
+        byte[] header = _reader.ReadBytes(0x800);
+        using BiEndianBinaryReader reader = new(header);
 
         // magic
-        if (!MAGIC.SequenceEqual(header[..7]))
+        if (reader.ReadAsciiChars(7) is not MAGIC_AND_VERSION)
             throw new InvalidDataException("Input file is not an \"8900\" file.");
 
         // format
-        byte format = header[7];
+        byte format = reader.ReadUInt8();
         if (!Enum.GetValues<Apple8900Format>().Cast<int>().Contains(format))
             throw new InvalidDataException($"Unknown 8900 \"format\" {format}. Only values of 1, 2, 3, or 4 are supported.");
         Format = (Apple8900Format)format;
 
+        reader.Skip(4);
+
         // lengths + offsets
-        Length = (int)BitConverter.ToUInt32(headerSpan[0xC..0x10]);
-        _sigOffset = BitConverter.ToUInt32(headerSpan[0x10..0x14]);
-        _certOffset = BitConverter.ToUInt32(headerSpan[0x14..0x18]);
-        _certLength = BitConverter.ToUInt32(headerSpan[0x18..0x1C]);
+        Length = reader.ReadInt32LE();
+        _sigOffset = reader.ReadInt32LE();
+        _certOffset = reader.ReadInt32LE();
+        _certLength = reader.ReadInt32LE();
         _sigLength = _certOffset - _sigOffset;
 
         // salt + epoch
-        headerSpan[0x1C..0x3C].CopyTo(_salt);
-        SecurityEpoch = BitConverter.ToUInt16(headerSpan[0x3E..0x40]);
+        _salt = reader.ReadBytes(32);
+        reader.Skip(2);
+        SecurityEpoch = reader.ReadUInt16LE();
 
         // header signature
-        using SHA1 sha1 = SHA1.Create();
-        using Aes aes = Aes.Create(); // by default, it's CBC
-        aes.BlockSize = 128;
-        aes.Mode = CipherMode.CBC;
-        aes.IV = new byte[16];
-        aes.Key = KEY_0x837_ARRAY;
-        using MemoryStream ms = new(sha1.ComputeHash(header[..0x40])[..0x10]); // only the first 16 bytes of the hash are used
-        using CryptoStream cs = new(ms, aes.CreateEncryptor(), CryptoStreamMode.Read);
-        byte[] computedHeaderSig = new byte[16];
-        cs.ReadExact(computedHeaderSig);
-        HeaderSignatureCorrect = computedHeaderSig.SequenceEqual(header[0x40..0x50]);
+        using (Aes aes = Aes.Create())
+        {
+            aes.BlockSize = 128;
+            aes.Mode = CipherMode.CBC;
+            aes.IV = new byte[16];
+            aes.Key = KEY_0x837_ARRAY;
+
+            byte[] hash;
+            using (SHA1 sha1 = SHA1.Create())
+                hash = sha1.ComputeHash(header[..0x40])[..0x10]; // only the first 16 bytes of the hash are used
+
+            using (MemoryStream ms = new(hash))
+            {
+                using (CryptoStream cs = new(ms, aes.CreateEncryptor(), CryptoStreamMode.Read))
+                {
+                    byte[] computedHeaderSig = new byte[16];
+                    cs.ReadExact(computedHeaderSig);
+                    HeaderSignatureCorrect = computedHeaderSig.SequenceEqual(header[0x40..0x50]);
+                }
+            }
+        }
 
         // sanity check
         SpuriousDataInHeaderPadding = header.Skip(0x50).Any(b => b is not 0);
     }
 
+    [MemberNotNull(nameof(_payload))]
     private void ExtractPayload()
     {
-        Contract.Assert(_input.Position is 0x800);
-        byte[] payload = new byte[Length];
-        if (_input.Read(payload) != Length)
-            throw new EndOfStreamException("Unexpected EOF while reading payload.");
+        Debug.Assert(_reader.BaseStream.Position is 0x800);
 
-        // ReSharper disable once ConvertIfStatementToSwitchStatement
+        byte[] payload = _reader.ReadBytes(Length);
+
         if (Format is Apple8900Format.BootPayloadUnencrypted or
             Apple8900Format.GenericPayloadUnencrypted)
         {
@@ -152,17 +159,18 @@ public class Apple8900Reader : IDisposable
         }
     }
 
+    [MemberNotNull(nameof(_signature))]
     private void ExtractSignature()
     {
-        _input.Position = _sigOffset;
-        _input.ReadExact(_signature);
+        _reader.Seek(_sigOffset);
+        _signature = _reader.ReadBytes(0x80);
     }
 
+    [MemberNotNull(nameof(_certificate))]
     private void ExtractCertificate()
     {
-        _input.Position = _certOffset;
-        _certificate = new byte[_certLength];
-        _input.ReadExact(_certificate);
+        _reader.Seek(_certOffset);
+        _certificate = _reader.ReadBytes(_certLength);
     }
 
     public Apple8900Format Format { get; private set; }
@@ -182,7 +190,6 @@ public class Apple8900Reader : IDisposable
 
     public void Dispose()
     {
-        _input.Dispose();
-        GC.SuppressFinalize(this);
+        _reader.Dispose();
     }
 }

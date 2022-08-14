@@ -24,88 +24,79 @@
 using iDecryptIt.IO.Helpers;
 using JetBrains.Annotations;
 using System;
-using System.Diagnostics.Contracts;
+using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 
 namespace iDecryptIt.IO.Formats;
 
 [PublicAPI]
-public class IBootImageReader : IDisposable
+public sealed class IBootImageReader : IDisposable
 {
-    // when C# 11 is released, replace these with UTF-8 string literals
-    private static byte[] MAGIC = { (byte)'i', (byte)'B', (byte)'o', (byte)'o', (byte)'t', (byte)'I', (byte)'m', 0 };
-    private static byte[] MAGIC_LZSS = { (byte)'s', (byte)'s', (byte)'z', (byte)'l' };
-    private static byte[] MAGIC_ARGB = { (byte)'b', (byte)'g', (byte)'r', (byte)'a' };
-    private static byte[] MAGIC_GRAY = { (byte)'y', (byte)'e', (byte)'r', (byte)'g' };
+    private const string MAGIC = "iBootIm\0";
+    private const string MAGIC_LZSS = "sszl";
+    private const string MAGIC_ARGB = "bgra";
+    private const string MAGIC_GRAY = "yerg";
 
-    private readonly Stream _input;
+    private readonly BiEndianBinaryReader _input;
 
-    private byte[] _payload = Array.Empty<byte>();
+    private byte[] _payload;
 
-    private IBootImageReader(Stream input)
+    private IBootImageReader(BiEndianBinaryReader input)
     {
-        if (!input.CanSeek)
-            throw new ArgumentException("Input must be seekable.", nameof(input));
-
         _input = input;
-        _input.Position = 0;
 
         ParseHeader();
         ExtractPayload();
     }
 
-    public static IBootImageReader Parse(Stream input) =>
+    public static IBootImageReader Parse(BiEndianBinaryReader input) =>
         new(input);
 
     private void ParseHeader()
     {
-        byte[] header = new byte[0x40];
-        if (_input.Read(header) != 0x40)
-            throw new EndOfStreamException("Unexpected EOF while reading header.");
-
-        Span<byte> headerSpan = header.AsSpan();
+        byte[] header = _input.ReadBytes(0x40);
+        using BiEndianBinaryReader reader = new(header);
 
         // magic
-        if (!MAGIC.SequenceEqual(header[..8]))
+        if (reader.ReadAsciiChars(8) is not MAGIC)
             throw new InvalidDataException("Input file is not an \"iBootImage\" file.");
-        if (!MAGIC_LZSS.SequenceEqual(header[8..0xC]))
-            throw new InvalidDataException($"Unknown compression format: \"{(char)header[0xB]}{(char)header[0xA]}{(char)header[9]}{(char)header[8]}\"");
+        if (reader.ReadAsciiChars(4) is not MAGIC_LZSS)
+            throw new InvalidDataException($"Unknown compression format: \"{header[8..0xC].Reverse().ToStringNoTrailingNulls()}\".");
 
         // format
-        byte[] format = header[0xC..0x10];
-        if (MAGIC_ARGB.SequenceEqual(format))
-            Format = IBootImageFormat.Color;
-        else if (MAGIC_GRAY.SequenceEqual(format))
-            Format = IBootImageFormat.Grey;
-        else
-            throw new InvalidDataException($"Unknown color format: \"{(char)format[3]}{(char)format[2]}{(char)format[1]}{(char)format[0]}\"");
+        Format = reader.ReadAsciiChars(4) switch
+        {
+            MAGIC_ARGB => IBootImageFormat.Color,
+            MAGIC_GRAY => IBootImageFormat.Grey,
+            _ => throw new InvalidDataException($"Unknown color format: \"{header[0xC..0x10].Reverse().ToStringNoTrailingNulls()}\"."),
+        };
 
         // width + height
-        Width = BitConverter.ToUInt16(headerSpan[0x10..0x12]);
-        Height = BitConverter.ToUInt16(headerSpan[0x12..0x14]);
+        Width = reader.ReadUInt16LE();
+        Height = reader.ReadUInt16LE();
 
         // sanity check
         SpuriousDataInHeaderPadding = header.Skip(0x14).Any(b => b is not 0);
     }
 
+    [MemberNotNull(nameof(_payload))]
     private void ExtractPayload()
     {
-        Contract.Assert(_input.Position is 0x40);
-        byte[] payload = new byte[(int)_input.Length - 0x40];
-        if (_input.Read(payload) != payload.Length)
-            throw new EndOfStreamException("Unexpected EOF while reading payload.");
+        Debug.Assert(_input.BaseStream.Position is 0x40);
 
-        // gray images are two bytes per pixel; color are four
-        int expectedSize = Width * Height * (Format is IBootImageFormat.Color ? 4 : 2);
-        _payload = Lzss.Decompress(payload);
+        byte[] payload = _input.ReadBytes((int)_input.BaseStream.Length - 0x40);
+
+        int expectedSize = Width * Height * Format.BytesPerPixel();
+        _payload = Lzss.Decompress(payload, expectedSize);
         if (_payload.Length != expectedSize)
             throw new InvalidDataException($"Expected a decompressed length of {expectedSize}, but got a length of {_payload.Length}.");
     }
 
     public IBootImageFormat Format { get; private set; }
-    public int Width { get; private set; }
-    public int Height { get; private set; }
+    public ushort Width { get; private set; }
+    public ushort Height { get; private set; }
     public bool SpuriousDataInHeaderPadding { get; private set; }
 
     public void Read(out byte[] payload)
@@ -120,6 +111,5 @@ public class IBootImageReader : IDisposable
     public void Dispose()
     {
         _input.Dispose();
-        GC.SuppressFinalize(this);
     }
 }

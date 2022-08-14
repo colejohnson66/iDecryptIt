@@ -27,6 +27,7 @@ using JetBrains.Annotations;
 using PListLib;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
@@ -36,7 +37,7 @@ using System.Text;
 namespace iDecryptIt.IO.Formats;
 
 [PublicAPI]
-public class DmgReader : IDisposable
+public sealed class DmgReader : IDisposable
 {
     internal const int SECTOR_SIZE = 512;
 
@@ -46,7 +47,7 @@ public class DmgReader : IDisposable
     private const uint BLOCK_COMMENT = 0x7FFF_FFFEu;
     private const uint BLOCK_TERMINATOR = 0xFFFF_FFFFu;
 
-    private readonly Stream _input;
+    private readonly BiEndianBinaryReader _input;
 
     private readonly UdifResourceFile _resourceFile;
     private readonly PListDictionary _resourceFork;
@@ -60,43 +61,38 @@ public class DmgReader : IDisposable
     private long _cachedSectorsStart;
     private long _cachedSectorsCount;
 
-    private DmgReader(Stream input)
+    private DmgReader(BiEndianBinaryReader input)
     {
-        if (!input.CanSeek)
-            throw new ArgumentException("Input must be seekable.", nameof(input));
-
         _input = input;
-        _input.Position = 0;
 
         // UdifResourceFile structs are 0x200 bytes and located at the end of the file
         _input.Seek(-0x200, SeekOrigin.End);
-        _resourceFile = UdifResourceFile.Read(new(_input));
+        _resourceFile = UdifResourceFile.Read(_input);
 
         _resourceFork = ReadResourceFork();
         _resources = ParseResourceFork();
-        _blkxResources = _resources.Where(res => res.Data is BlkxResource).Select(res => res.Data).Cast<BlkxResource>().ToList();
+        _blkxResources = _resources.Where(res => res.Data is BlkxResource).Select(res => (BlkxResource)res.Data).ToList();
 
         (_primaryPartition, _deviceDescriptor) = FindPrimaryPartition();
         _primaryPartitionStart = _primaryPartition.PartitionStart * _deviceDescriptor.BlockSize;
     }
 
-    public static DmgReader Parse(Stream input) =>
+    public static DmgReader Parse(BiEndianBinaryReader input) =>
         new(input);
 
     private PListDictionary ReadResourceFork()
     {
-        _input.Seek((long)_resourceFile.XmlOffset, SeekOrigin.Begin);
-        byte[] fork = new byte[_resourceFile.XmlLength];
-        _input.ReadExact(fork);
+        _input.Seek(_resourceFile.XmlOffset, SeekOrigin.Begin);
 
+        byte[] fork = _input.ReadBytes(_resourceFile.XmlLength);
         PListDocument doc = new(Encoding.ASCII.GetString(fork));
 
         Debug.Assert(doc.Value.Type is PListElementType.Dictionary);
-        PListDictionary root = (PListDictionary)doc.Value;
+        Dictionary<string, IPListElement> root = ((PListDictionary)doc.Value).Value;
 
-        Debug.Assert(root.Value.Keys.Count is 1 && root.Value.Keys.First() is "resource-fork");
-        Debug.Assert(root.Value.Values.First().Type is PListElementType.Dictionary);
-        return (PListDictionary)root.Value["resource-fork"];
+        Debug.Assert(root.Keys.Count is 1 && root.Keys.First() is "resource-fork");
+        Debug.Assert(root.Values.First().Type is PListElementType.Dictionary);
+        return (PListDictionary)root["resource-fork"];
     }
 
     private List<DmgResource> ParseResourceFork()
@@ -186,26 +182,26 @@ public class DmgReader : IDisposable
         switch (run.Type)
         {
             case BLOCK_ZLIB:
-                // Don't do `_input.Read(Span<byte>)`; we only want `CompressLength` bytes (the rest are nulls up to the
-                //   sector size)
+                // use a Span so we can null pad the run data
                 byte[] compressed = new byte[runData.Length];
-                if ((ulong)_input.Read(compressed, 0, (int)run.CompressLength) != run.CompressLength)
-                    throw new EndOfStreamException("Unexpected EOF inside a BLKX run.");
+                _input.ReadBytes(compressed.AsSpan(..(int)run.CompressLength));
 
                 using (ZLibStream zlib = new(new MemoryStream(compressed), CompressionMode.Decompress, false))
                     zlib.ReadExact(runData);
                 break;
 
             case BLOCK_RAW:
-                // see comment above in `BLOCK_ZLIB` case
-                if ((ulong)_input.Read(runData, 0, (int)run.CompressLength) != run.CompressLength)
-                    throw new EndOfStreamException("Unexpected EOF inside a BLKX run.");
+                // use a Span so we can null pad the run data
+                _input.ReadBytes(runData.AsSpan(..(int)run.CompressLength));
                 break;
 
             case BLOCK_IGNORE:
             case BLOCK_COMMENT:
             case BLOCK_TERMINATOR:
                 break;
+
+            default:
+                throw new DataException("Unknown format.");
         }
 
         return runData;
@@ -278,6 +274,5 @@ public class DmgReader : IDisposable
     public void Dispose()
     {
         _input.Dispose();
-        GC.SuppressFinalize(this);
     }
 }

@@ -38,11 +38,17 @@ public sealed class BiEndianBinaryReader : IDisposable
     private bool _disposed = false;
 
     public BiEndianBinaryReader(byte[] buffer)
-        : this(new MemoryStream(buffer, false))
+        : this(new MemoryStream(buffer, false), false)
     { }
 
-    public BiEndianBinaryReader(Stream stream, bool keepOpen = false)
+    public BiEndianBinaryReader(Stream stream, bool resetPosition = true, bool keepOpen = false)
     {
+        if (!stream.CanSeek)
+            throw new ArgumentException("Input stream must be seekable.", nameof(stream));
+
+        if (resetPosition)
+            stream.Position = 0;
+
         _stream = stream;
         _keepOpen = keepOpen;
     }
@@ -78,10 +84,28 @@ public sealed class BiEndianBinaryReader : IDisposable
     /// Skip a specified number of bytes forwards.
     /// </summary>
     /// <param name="count">The number of bytes to skip.</param>
-    /// <exception cref="NotSupportedException">If the input stream does not support seeking.</exception>
     public void Skip(int count)
     {
         _stream.Position += count;
+    }
+
+    /// <summary>
+    /// Seek to a specific position.
+    /// </summary>
+    /// <param name="offset">The position, relative to the start of the stream, to seek to.</param>
+    public void Seek(long offset)
+    {
+        _stream.Seek(offset, SeekOrigin.Begin);
+    }
+
+    /// <summary>
+    /// Seek to a specific position.
+    /// </summary>
+    /// <param name="offset">The position, relative to <paramref name="origin" />, in the stream to seek to.</param>
+    /// <param name="origin">Where <paramref name="offset" /> is relative to.</param>
+    public void Seek(long offset, SeekOrigin origin)
+    {
+        _stream.Seek(offset, origin);
     }
 
 
@@ -100,6 +124,19 @@ public sealed class BiEndianBinaryReader : IDisposable
     /// <returns>An array of bytes with <paramref name="count" /> elements.</returns>
     /// <exception cref="EndOfStreamException">If the EOF is reached in the middle or the read.</exception>
     public byte[] ReadBytes(int count)
+    {
+        byte[] buffer = new byte[count];
+        ReadBytes(buffer);
+        return buffer;
+    }
+
+    /// <summary>
+    /// Read bytes from the input stream, and get an array containing them.
+    /// </summary>
+    /// <param name="count">The number of bytes to read.</param>
+    /// <returns>An array of bytes with <paramref name="count" /> elements.</returns>
+    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle or the read.</exception>
+    public byte[] ReadBytes(long count)
     {
         byte[] buffer = new byte[count];
         ReadBytes(buffer);

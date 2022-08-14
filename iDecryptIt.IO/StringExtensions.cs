@@ -22,7 +22,6 @@
  */
 
 using System.Linq;
-using System.Text;
 
 namespace iDecryptIt.IO;
 
@@ -30,7 +29,4 @@ internal static class StringExtensions
 {
     public static string TrimEndNulls(this string s) =>
         new(s.TakeWhile(c => c is not '\0').ToArray());
-
-    public static string ToStringNoTrailingNulls(this byte[] buf) =>
-        Encoding.ASCII.GetString(buf.TakeWhile(b => b is not 0).ToArray());
 }

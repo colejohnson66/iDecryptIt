@@ -46,8 +46,8 @@ internal record UdifResourceFile(
     UdifChecksum DataForkChecksum,
 
     //
-    ulong XmlOffset,
-    ulong XmlLength,
+    long XmlOffset,
+    long XmlLength,
 
     //
     // byte[] Reserved,
@@ -56,7 +56,7 @@ internal record UdifResourceFile(
 
     //
     uint ImageVariant,
-    ulong SectorCount
+    long SectorCount
 
     //
     // uint[] Reserved2,
@@ -85,15 +85,15 @@ internal record UdifResourceFile(
 
         UdifChecksum dataForkChecksum = UdifChecksum.Read(reader);
 
-        ulong xmlOffset = reader.ReadUInt64BE();
-        ulong xmlLength = reader.ReadUInt64BE();
+        long xmlOffset = reader.ReadInt64BE();
+        long xmlLength = reader.ReadInt64BE();
 
         reader.Skip(0x78);
 
         UdifChecksum masterChecksum = UdifChecksum.Read(reader);
 
         uint imageVariant = reader.ReadUInt32BE();
-        ulong sectorCount = reader.ReadUInt64BE();
+        long sectorCount = reader.ReadInt64BE();
 
         reader.Skip(12);
 

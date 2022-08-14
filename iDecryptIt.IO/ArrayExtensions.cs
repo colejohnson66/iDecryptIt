@@ -1,5 +1,5 @@
-﻿/* =============================================================================
- * File:   IBootImageFormat.cs
+/* =============================================================================
+ * File:   ArrayExtensions.cs
  * Author: Cole Tobin
  * =============================================================================
  * Copyright (c) 2022 Cole Tobin
@@ -21,23 +21,14 @@
  * =============================================================================
  */
 
-using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace iDecryptIt.IO.Formats;
+namespace iDecryptIt.IO;
 
-public enum IBootImageFormat
+internal static class ArrayExtensions
 {
-    Color,
-    Grey,
-}
-
-public static class IBootImageFormatExtensions
-{
-    public static int BytesPerPixel(this IBootImageFormat format) =>
-        format switch
-        {
-            IBootImageFormat.Color => 4, // 8 bits in order: ARGB
-            IBootImageFormat.Grey => 2, // 16 bit gray
-            _ => throw new ArgumentOutOfRangeException($"Unknown {nameof(IBootImageFormat)} value: {(int)format}."),
-        };
+    public static string ToStringNoTrailingNulls(this IEnumerable<byte> buffer) =>
+        Encoding.ASCII.GetString(buffer.TakeWhile(b => b is not 0).ToArray());
 }

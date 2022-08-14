@@ -24,73 +24,66 @@
 using iDecryptIt.IO.Helpers;
 using JetBrains.Annotations;
 using System;
-using System.Diagnostics.Contracts;
+using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 
 namespace iDecryptIt.IO.Formats;
 
 [PublicAPI]
-public class CompReader : IDisposable
+public sealed class CompReader : IDisposable
 {
-    // when C# 11 is released, replace these with UTF-8 string literals
-    private static byte[] MAGIC = { (byte)'c', (byte)'o', (byte)'m', (byte)'p' };
-    private static byte[] MAGIC_LZSS = { (byte)'s', (byte)'s', (byte)'z', (byte)'l' };
+    private const string MAGIC = "comp";
+    private const string MAGIC_LZSS = "sszl";
 
-    private readonly Stream _input;
+    private readonly BiEndianBinaryReader _input;
 
-    private uint _decompressedLength;
-    private uint _compressedLength;
-    private byte[] _payload = Array.Empty<byte>();
+    private int _decompressedLength;
+    private int _compressedLength;
+    private byte[] _payload;
 
-    private CompReader(Stream input)
+    private CompReader(BiEndianBinaryReader input)
     {
-        if (!input.CanSeek)
-            throw new ArgumentException("Input must be seekable.", nameof(input));
-
         _input = input;
-        _input.Position = 0;
 
         ParseHeader();
         ExtractPayload();
     }
 
-    public static CompReader Parse(Stream input) =>
+    public static CompReader Parse(BiEndianBinaryReader input) =>
         new(input);
 
     private void ParseHeader()
     {
-        byte[] header = new byte[0x180];
-        if (_input.Read(header) != 0x180)
-            throw new EndOfStreamException("Unexpected EOF while reading header.");
-
-        Span<byte> headerSpan = header.AsSpan();
+        byte[] header = _input.ReadBytes(0x180);
+        using BiEndianBinaryReader reader = new(header);
 
         // magic
-        if (!MAGIC.SequenceEqual(header[..4]))
+        if (reader.ReadAsciiChars(4) is not MAGIC)
             throw new InvalidDataException("Input file is not a \"Comp\" file.");
-        if (!MAGIC_LZSS.SequenceEqual(header[4..8]))
-            throw new InvalidDataException($"Unknown compression format: \"{(char)header[0xB]}{(char)header[0xA]}{(char)header[9]}{(char)header[8]}\"");
+        if (reader.ReadAsciiChars(4) is not MAGIC_LZSS)
+            throw new InvalidDataException($"Unknown compression format: \"{header[4..8].Reverse().ToStringNoTrailingNulls()}\".");
 
         // TODO: checksum
-        uint expectedChecksum = BitConverter.ToUInt32(headerSpan[8..0xC]);
+        // ReSharper disable once UnusedVariable
+        uint expectedChecksum = reader.ReadUInt32LE();
 
-        // lengths (stored in big endian)
-        _decompressedLength = BitConverter.ToUInt32(header[0xC..0x10].Reverse().ToArray());
-        _compressedLength = BitConverter.ToUInt32(header[0x10..0x14].Reverse().ToArray());
+        // lengths (big endian)
+        _decompressedLength = reader.ReadInt32BE();
+        _compressedLength = reader.ReadInt32BE();
 
         // sanity check
         SpuriousDataInHeaderPadding = header.Skip(0x14).Any(b => b is not 0);
     }
 
+    [MemberNotNull(nameof(_payload))]
     private void ExtractPayload()
     {
-        Contract.Assert(_input.Position is 0x14);
-        byte[] payload = new byte[_compressedLength];
-        if (_input.Read(payload) != _compressedLength)
-            throw new EndOfStreamException("Unexpected EOF while reading payload.");
+        Debug.Assert(_input.BaseStream.Position is 0x14);
 
-        _payload = Lzss.Decompress(payload);
+        byte[] compressedPayload = _input.ReadBytes(_compressedLength);
+        _payload = Lzss.Decompress(compressedPayload, _decompressedLength);
         if (_payload.Length != _decompressedLength)
             throw new InvalidDataException($"Expected a decompressed length of {_decompressedLength}, but got a length of {_payload.Length}.");
     }
@@ -108,6 +101,5 @@ public class CompReader : IDisposable
     public void Dispose()
     {
         _input.Dispose();
-        GC.SuppressFinalize(this);
     }
 }

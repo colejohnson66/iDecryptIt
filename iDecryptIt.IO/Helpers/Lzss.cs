@@ -39,9 +39,9 @@ internal static class Lzss
     // Based off of Haruhiko Okumura's LZSS.C which is in the public domain
     // ReSharper enable CommentTypo
 
-    internal static byte[] Decompress(byte[] input)
+    internal static byte[] Decompress(byte[] input, int expectedLength)
     {
-        List<byte> dest = new();
+        List<byte> dest = new(expectedLength);
         using MemoryStream src = new(input);
 
         byte[] buf = new byte[N - 1 + F];
