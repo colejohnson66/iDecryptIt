@@ -82,8 +82,7 @@ public class Img2Reader : IDisposable
         // version tag
         if (!MAGIC_VERSION_TAG.SequenceEqual(header[0x70..0x74]))
             throw new InvalidDataException("Input file's version ('vers') tag is missing.");
-        byte[] version = header[0x78..0x90].TakeWhile(b => b is not 0).ToArray();
-        VersionTagValue = Encoding.ASCII.GetString(version);
+        VersionTagValue = header[0x78..0x90].ToStringNoTrailingNulls();
 
         // sanity check
         SpuriousDataInHeaderPadding = header.Skip(0x90).Any(b => b is not 0);
@@ -116,13 +115,9 @@ public class Img2Reader : IDisposable
     public int Length { get; private set; }
     public byte this[int index] => _payload[index];
 
-#region IDisposable
-
     public void Dispose()
     {
         _input.Dispose();
         GC.SuppressFinalize(this);
     }
-
-#endregion
 }

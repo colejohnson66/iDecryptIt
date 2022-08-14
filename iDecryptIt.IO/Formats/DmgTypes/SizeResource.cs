@@ -21,8 +21,6 @@
  * =============================================================================
  */
 
-using iDecryptIt.IO.Helpers;
-
 namespace iDecryptIt.IO.Formats.DmgTypes;
 
 internal record SizeResource(
@@ -33,19 +31,19 @@ internal record SizeResource(
     ushort VolumeSignature,
     bool SizePresent)
 {
-    public static SizeResource Read(BigEndianBinaryReader reader)
+    public static SizeResource Read(BiEndianBinaryReader reader)
     {
-        ushort version = reader.ReadUInt16();
-        uint isHfs = reader.ReadUInt32();
+        ushort version = reader.ReadUInt16BE();
+        uint isHfs = reader.ReadUInt32BE();
         reader.Skip(4);
         int length = reader.ReadUInt8();
         byte[] data = reader.ReadBytes(length);
         reader.Skip(255 - length);
         reader.Skip(2 * 4);
-        bool modified = reader.ReadUInt32() is not 0;
+        bool modified = reader.ReadUInt32BE() is not 0;
         reader.Skip(4);
-        ushort signature = reader.ReadUInt16();
-        bool sizePresent = reader.ReadUInt16() is not 0;
+        ushort signature = reader.ReadUInt16BE();
+        bool sizePresent = reader.ReadUInt16BE() is not 0;
 
         return new(version, isHfs, data, modified, signature, sizePresent);
     }

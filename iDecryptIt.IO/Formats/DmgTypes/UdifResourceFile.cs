@@ -21,7 +21,6 @@
  * =============================================================================
  */
 
-using iDecryptIt.IO.Helpers;
 using System.IO;
 
 namespace iDecryptIt.IO.Formats.DmgTypes;
@@ -65,36 +64,36 @@ internal record UdifResourceFile(
 {
     private const string MAGIC = "koly";
 
-    public static UdifResourceFile Read(BigEndianBinaryReader reader)
+    public static UdifResourceFile Read(BiEndianBinaryReader reader)
     {
         // TODO: is this big endian?
         if (reader.ReadAsciiChars(4) is not MAGIC)
             throw new InvalidDataException("Stream does not contain a UDIF resource file at the expected location.");
-        uint version = reader.ReadUInt32();
-        uint headerSize = reader.ReadUInt32();
-        uint flags = reader.ReadUInt32();
+        uint version = reader.ReadUInt32BE();
+        uint headerSize = reader.ReadUInt32BE();
+        uint flags = reader.ReadUInt32BE();
 
-        ulong runningDataFork = reader.ReadUInt64();
-        ulong dataForkOffset = reader.ReadUInt64();
-        ulong dataForkLength = reader.ReadUInt64();
-        ulong resourceForkOffset = reader.ReadUInt64();
-        ulong resourceForkLength = reader.ReadUInt64();
+        ulong runningDataFork = reader.ReadUInt64BE();
+        ulong dataForkOffset = reader.ReadUInt64BE();
+        ulong dataForkLength = reader.ReadUInt64BE();
+        ulong resourceForkOffset = reader.ReadUInt64BE();
+        ulong resourceForkLength = reader.ReadUInt64BE();
 
-        uint segmentNumber = reader.ReadUInt32();
-        uint segmentCount = reader.ReadUInt32();
+        uint segmentNumber = reader.ReadUInt32BE();
+        uint segmentCount = reader.ReadUInt32BE();
         UdifID segmentID = UdifID.Read(reader);
 
         UdifChecksum dataForkChecksum = UdifChecksum.Read(reader);
 
-        ulong xmlOffset = reader.ReadUInt64();
-        ulong xmlLength = reader.ReadUInt64();
+        ulong xmlOffset = reader.ReadUInt64BE();
+        ulong xmlLength = reader.ReadUInt64BE();
 
         reader.Skip(0x78);
 
         UdifChecksum masterChecksum = UdifChecksum.Read(reader);
 
-        uint imageVariant = reader.ReadUInt32();
-        ulong sectorCount = reader.ReadUInt64();
+        uint imageVariant = reader.ReadUInt32BE();
+        ulong sectorCount = reader.ReadUInt64BE();
 
         reader.Skip(12);
 

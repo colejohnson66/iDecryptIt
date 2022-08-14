@@ -21,7 +21,6 @@
  * =============================================================================
  */
 
-using iDecryptIt.IO.Helpers;
 using System.Linq;
 using System.Text;
 
@@ -45,36 +44,32 @@ internal record Partition(
     string Processor,
     uint BootCode)
 {
-    public static Partition Read(BigEndianBinaryReader reader)
+    public static Partition Read(BiEndianBinaryReader reader)
     {
-        ushort sig = reader.ReadUInt16();
+        ushort sig = reader.ReadUInt16BE();
         reader.Skip(2);
-        uint mapBlockCount = reader.ReadUInt32();
-        uint partitionStart = reader.ReadUInt32();
-        uint partitionBlockCount = reader.ReadUInt32();
-        byte[] partitionName = reader.ReadBytes(32);
-        byte[] partitionType = reader.ReadBytes(32);
-        uint dataStart = reader.ReadUInt32();
-        uint dataCount = reader.ReadUInt32();
-        uint partitionStatus = reader.ReadUInt32();
-        uint bootStart = reader.ReadUInt32();
-        uint bootSize = reader.ReadUInt32();
-        uint bootAddress0 = reader.ReadUInt32();
-        uint bootAddress1 = reader.ReadUInt32();
-        uint bootEntry0 = reader.ReadUInt32();
-        uint bootEntry1 = reader.ReadUInt32();
-        uint bootChecksum = reader.ReadUInt32();
-        byte[] processor = reader.ReadBytes(16);
-        uint bootCode = reader.ReadUInt32();
+        uint mapBlockCount = reader.ReadUInt32BE();
+        uint partitionStart = reader.ReadUInt32BE();
+        uint partitionBlockCount = reader.ReadUInt32BE();
+        string partitionName = reader.ReadBytes(32).ToStringNoTrailingNulls();
+        string partitionType = reader.ReadBytes(32).ToStringNoTrailingNulls();
+        uint dataStart = reader.ReadUInt32BE();
+        uint dataCount = reader.ReadUInt32BE();
+        uint partitionStatus = reader.ReadUInt32BE();
+        uint bootStart = reader.ReadUInt32BE();
+        uint bootSize = reader.ReadUInt32BE();
+        uint bootAddress0 = reader.ReadUInt32BE();
+        uint bootAddress1 = reader.ReadUInt32BE();
+        uint bootEntry0 = reader.ReadUInt32BE();
+        uint bootEntry1 = reader.ReadUInt32BE();
+        uint bootChecksum = reader.ReadUInt32BE();
+        string processor = reader.ReadBytes(16).ToStringNoTrailingNulls();
+        uint bootCode = reader.ReadUInt32BE();
         reader.Skip(372); // pad to 0x200
 
-        string partitionNameStr = Encoding.ASCII.GetString(partitionName.TakeWhile(b => b is not 0).ToArray());
-        string partitionTypeStr = Encoding.ASCII.GetString(partitionType.TakeWhile(b => b is not 0).ToArray());
-        string processorStr = Encoding.ASCII.GetString(processor.TakeWhile(b => b is not 0).ToArray());
-
         return new(
-            sig, mapBlockCount, partitionStart, partitionBlockCount, partitionNameStr, partitionTypeStr, dataStart,
-            dataCount, partitionStatus, bootStart, bootSize, new[] { bootAddress0, bootAddress1 },
-            new[] { bootEntry0, bootEntry1 }, bootChecksum, processorStr, bootCode);
+            sig, mapBlockCount, partitionStart, partitionBlockCount, partitionName, partitionType, dataStart, dataCount,
+            partitionStatus, bootStart, bootSize, new[] { bootAddress0, bootAddress1 },
+            new[] { bootEntry0, bootEntry1 }, bootChecksum, processor, bootCode);
     }
 }

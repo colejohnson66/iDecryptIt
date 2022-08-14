@@ -23,7 +23,6 @@
 
 using iDecryptIt.IO.FileSystem;
 using iDecryptIt.IO.Formats.DmgTypes;
-using iDecryptIt.IO.Helpers;
 using JetBrains.Annotations;
 using PListLib;
 using System;
@@ -119,7 +118,7 @@ public class DmgReader : IDisposable
                 PListString id = (PListString)blkx1.Value["ID"];
                 PListString name = (PListString)blkx1.Value["Name"];
 
-                using BigEndianBinaryReader dataReader = new(new MemoryStream(data.Value));
+                using BiEndianBinaryReader dataReader = new(data.Value);
                 object dataObj = kvp.Key switch
                 {
                     "blkx" => BlkxResource.Read(dataReader),
@@ -144,7 +143,7 @@ public class DmgReader : IDisposable
     {
         byte[] ddmSector = ReadSector(0);
         DeviceDescriptorRecord ddm;
-        using (BigEndianBinaryReader reader = new(new MemoryStream(ddmSector)))
+        using (BiEndianBinaryReader reader = new(ddmSector))
             ddm = DeviceDescriptorRecord.Read(reader);
         Debug.Assert(ddm.Signature is 0x4552); // 'ER'
 
@@ -154,13 +153,13 @@ public class DmgReader : IDisposable
         // Why, Apple? Why not put it in the DeviceDescriptorRecord?
         Partition[] partitions = new Partition[1];
         byte[] partition0 = ReadSector(1);
-        using (BigEndianBinaryReader reader = new(new MemoryStream(partition0)))
+        using (BiEndianBinaryReader reader = new(partition0))
             partitions[0] = Partition.Read(reader);
         Debug.Assert(partitions[0].Signature is 0x504D); // 'PM'
 
         Array.Resize(ref partitions, (int)partitions[0].MapBlockCount);
         byte[] allPartitions = ReadSectors(1, partitions.Length * sectorsPerBlock);
-        using (BigEndianBinaryReader reader = new(new MemoryStream(allPartitions)))
+        using (BiEndianBinaryReader reader = new(allPartitions))
         {
             for (int i = 0; i < partitions.Length; i++)
             {
@@ -276,13 +275,9 @@ public class DmgReader : IDisposable
         throw new NotImplementedException();
     }
 
-#region IDisposable
-
     public void Dispose()
     {
         _input.Dispose();
         GC.SuppressFinalize(this);
     }
-
-#endregion
 }

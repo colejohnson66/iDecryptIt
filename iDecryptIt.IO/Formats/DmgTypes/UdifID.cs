@@ -21,17 +21,15 @@
  * =============================================================================
  */
 
-using iDecryptIt.IO.Helpers;
-
 namespace iDecryptIt.IO.Formats.DmgTypes;
 
 internal record UdifID(uint[] Data)
 {
-    public static UdifID Read(BigEndianBinaryReader reader)
+    public static UdifID Read(BiEndianBinaryReader reader)
     {
         uint[] data = new uint[4];
         for (int i = 0; i < 4; i++)
-            data[i] = reader.ReadUInt32();
+            data[i] = reader.ReadUInt32BE();
 
         return new(data);
     }

@@ -21,8 +21,6 @@
  * =============================================================================
  */
 
-using iDecryptIt.IO.Helpers;
-
 namespace iDecryptIt.IO.Formats.DmgTypes;
 
 internal record UdifChecksum(
@@ -30,13 +28,13 @@ internal record UdifChecksum(
     uint Size,
     uint[] Data)
 {
-    internal static UdifChecksum Read(BigEndianBinaryReader reader)
+    internal static UdifChecksum Read(BiEndianBinaryReader reader)
     {
-        uint type = reader.ReadUInt32();
-        uint size = reader.ReadUInt32();
+        uint type = reader.ReadUInt32BE();
+        uint size = reader.ReadUInt32BE();
         uint[] data = new uint[32];
         for (int i = 0; i < 32; i++)
-            data[i] = reader.ReadUInt32();
+            data[i] = reader.ReadUInt32BE();
         return new(type, size, data);
     }
 }

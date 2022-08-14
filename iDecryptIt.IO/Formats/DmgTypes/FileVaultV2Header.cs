@@ -21,7 +21,6 @@
  * =============================================================================
  */
 
-using iDecryptIt.IO.Helpers;
 using System.Diagnostics;
 using System.IO;
 
@@ -49,39 +48,39 @@ internal record FileVaultV2Header(
 {
     private const string MAGIC = "encrcdsa";
 
-    public static FileVaultV2Header Read(BigEndianBinaryReader reader)
+    public static FileVaultV2Header Read(BiEndianBinaryReader reader)
     {
         if (reader.ReadAsciiChars(8) is not MAGIC)
             throw new InvalidDataException("Stream does not contain a V2 FileVault header.");
 
-        uint version = reader.ReadUInt32();
-        uint encryptedIVSize = reader.ReadUInt32();
+        uint version = reader.ReadUInt32BE();
+        uint encryptedIVSize = reader.ReadUInt32BE();
         reader.Skip(20);
         UdifID uuid = UdifID.Read(reader);
-        uint blockSize = reader.ReadUInt32();
-        ulong dataSize = reader.ReadUInt64();
-        ulong dataOffset = reader.ReadUInt64();
+        uint blockSize = reader.ReadUInt32BE();
+        ulong dataSize = reader.ReadUInt64BE();
+        ulong dataOffset = reader.ReadUInt64BE();
         reader.Skip(0x260);
-        uint kdfAlgorithm = reader.ReadUInt32();
-        uint kdfRngAlgo = reader.ReadUInt32();
-        uint kdfIterationCount = reader.ReadUInt32();
+        uint kdfAlgorithm = reader.ReadUInt32BE();
+        uint kdfRngAlgo = reader.ReadUInt32BE();
+        uint kdfIterationCount = reader.ReadUInt32BE();
         //
-        uint kdfSaltLen = reader.ReadUInt32();
+        uint kdfSaltLen = reader.ReadUInt32BE();
         Debug.Assert(kdfSaltLen <= 32);
         byte[] kdfSalt = reader.ReadBytes((int)kdfSaltLen);
         reader.Skip(32 - (int)kdfSaltLen);
         //
-        uint blobEncIVSize = reader.ReadUInt32();
+        uint blobEncIVSize = reader.ReadUInt32BE();
         Debug.Assert(blobEncIVSize <= 32);
         byte[] blobEncryptedIV = reader.ReadBytes((int)blobEncIVSize);
         reader.Skip(32 - (int)blobEncIVSize);
         //
-        uint blobEncryptedKeyBits = reader.ReadUInt32();
-        uint blobEncryptionAlgorithm = reader.ReadUInt32();
-        uint blobEncryptionPadding = reader.ReadUInt32();
-        uint blobEncryptionMode = reader.ReadUInt32();
+        uint blobEncryptedKeyBits = reader.ReadUInt32BE();
+        uint blobEncryptionAlgorithm = reader.ReadUInt32BE();
+        uint blobEncryptionPadding = reader.ReadUInt32BE();
+        uint blobEncryptionMode = reader.ReadUInt32BE();
         //
-        uint encKeyBlobSize = reader.ReadUInt32();
+        uint encKeyBlobSize = reader.ReadUInt32BE();
         Debug.Assert(encKeyBlobSize <= 48);
         byte[] encryptedKeyBlob = reader.ReadBytes((int)encKeyBlobSize);
         reader.Skip(48 - (int)encKeyBlobSize);

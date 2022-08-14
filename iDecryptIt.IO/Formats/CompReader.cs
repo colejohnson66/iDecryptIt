@@ -105,13 +105,9 @@ public class CompReader : IDisposable
     public int Length => _payload.Length;
     public byte this[int index] => _payload[index];
 
-#region IDisposable
-
     public void Dispose()
     {
         _input.Dispose();
         GC.SuppressFinalize(this);
     }
-
-#endregion
 }

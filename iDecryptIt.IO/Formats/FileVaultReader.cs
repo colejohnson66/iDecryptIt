@@ -100,8 +100,6 @@ public class FileVaultReader : IDisposable
         return decrypted;
     }
 
-#region IDisposable
-
     public void Dispose()
     {
         _input.Dispose();
@@ -109,6 +107,4 @@ public class FileVaultReader : IDisposable
         _hmac.Dispose();
         GC.SuppressFinalize(this);
     }
-
-#endregion
 }

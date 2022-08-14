@@ -21,8 +21,6 @@
  * =============================================================================
  */
 
-using iDecryptIt.IO.Helpers;
-
 namespace iDecryptIt.IO.Formats.DmgTypes;
 
 internal record CSumResource(
@@ -30,11 +28,11 @@ internal record CSumResource(
     uint Type,
     uint Checksum)
 {
-    public static CSumResource Read(BigEndianBinaryReader reader)
+    public static CSumResource Read(BiEndianBinaryReader reader)
     {
-        ushort version = reader.ReadUInt16();
-        uint type = reader.ReadUInt32();
-        uint checksum = reader.ReadUInt32();
+        ushort version = reader.ReadUInt16BE();
+        uint type = reader.ReadUInt32BE();
+        uint checksum = reader.ReadUInt32BE();
 
         return new(version, type, checksum);
     }

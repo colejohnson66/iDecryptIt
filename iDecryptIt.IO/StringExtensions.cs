@@ -1,5 +1,5 @@
-﻿/* =============================================================================
- * File:   BlkxRun.cs
+/* =============================================================================
+ * File:   StringExtensions.cs
  * Author: Cole Tobin
  * =============================================================================
  * Copyright (c) 2022 Cole Tobin
@@ -21,24 +21,16 @@
  * =============================================================================
  */
 
-namespace iDecryptIt.IO.Formats.DmgTypes;
+using System.Linq;
+using System.Text;
 
-internal record BlkxRun(
-    uint Type,
-    ulong SectorStart,
-    ulong SectorCount,
-    ulong CompressOffset,
-    ulong CompressLength)
+namespace iDecryptIt.IO;
+
+internal static class StringExtensions
 {
-    public static BlkxRun Read(BiEndianBinaryReader reader)
-    {
-        uint type = reader.ReadUInt32BE();
-        reader.Skip(4); // reserved
-        ulong sectorStart = reader.ReadUInt64BE();
-        ulong sectorCount = reader.ReadUInt64BE();
-        ulong compressOffset = reader.ReadUInt64BE();
-        ulong compressLength = reader.ReadUInt64BE();
+    public static string TrimEndNulls(this string s) =>
+        new(s.TakeWhile(c => c is not '\0').ToArray());
 
-        return new(type, sectorStart, sectorCount, compressOffset, compressLength);
-    }
+    public static string ToStringNoTrailingNulls(this byte[] buf) =>
+        Encoding.ASCII.GetString(buf.TakeWhile(b => b is not 0).ToArray());
 }

@@ -21,8 +21,6 @@
  * =============================================================================
  */
 
-using iDecryptIt.IO.Helpers;
-
 namespace iDecryptIt.IO.Formats.DmgTypes;
 
 internal record BlkxResource(
@@ -36,18 +34,18 @@ internal record BlkxResource(
     UdifChecksum Checksum,
     BlkxRun[] Runs)
 {
-    public static BlkxResource Read(BigEndianBinaryReader reader)
+    public static BlkxResource Read(BiEndianBinaryReader reader)
     {
-        uint blockSignature = reader.ReadUInt32();
-        uint infoVersion = reader.ReadUInt32();
-        ulong firstSector = reader.ReadUInt64();
-        ulong sectorCount = reader.ReadUInt64();
-        ulong dataStart = reader.ReadUInt64();
-        uint decompressBufferReq = reader.ReadUInt32();
-        uint blockDescriptor = reader.ReadUInt32();
+        uint blockSignature = reader.ReadUInt32BE();
+        uint infoVersion = reader.ReadUInt32BE();
+        ulong firstSector = reader.ReadUInt64BE();
+        ulong sectorCount = reader.ReadUInt64BE();
+        ulong dataStart = reader.ReadUInt64BE();
+        uint decompressBufferReq = reader.ReadUInt32BE();
+        uint blockDescriptor = reader.ReadUInt32BE();
         reader.Skip(4 * 6);
         UdifChecksum checksum = UdifChecksum.Read(reader);
-        BlkxRun[] runs = new BlkxRun[reader.ReadUInt32()];
+        BlkxRun[] runs = new BlkxRun[reader.ReadUInt32BE()];
         for (int i = 0; i < runs.Length; i++)
             runs[i] = BlkxRun.Read(reader);
 

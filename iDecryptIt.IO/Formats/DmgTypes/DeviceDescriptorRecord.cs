@@ -21,8 +21,6 @@
  * =============================================================================
  */
 
-using iDecryptIt.IO.Helpers;
-
 namespace iDecryptIt.IO.Formats.DmgTypes;
 
 internal record DeviceDescriptorRecord(
@@ -37,20 +35,23 @@ internal record DeviceDescriptorRecord(
     ushort DDSize,
     ushort DDType)
 {
-    public static DeviceDescriptorRecord Read(BigEndianBinaryReader reader)
+    public static DeviceDescriptorRecord Read(BiEndianBinaryReader reader)
     {
-        ushort sig = reader.ReadUInt16();
-        ushort blockSize = reader.ReadUInt16();
-        uint blockCount = reader.ReadUInt32();
-        ushort deviceType = reader.ReadUInt16();
-        ushort deviceID = reader.ReadUInt16();
-        uint data = reader.ReadUInt32();
-        ushort driverCount = reader.ReadUInt16();
-        uint ddBlock = reader.ReadUInt32();
-        ushort ddSize = reader.ReadUInt16();
-        ushort ddType = reader.ReadUInt16();
+        ushort sig = reader.ReadUInt16BE();
+        ushort blockSize = reader.ReadUInt16BE();
+        uint blockCount = reader.ReadUInt32BE();
+        ushort deviceType = reader.ReadUInt16BE();
+        ushort deviceID = reader.ReadUInt16BE();
+        uint data = reader.ReadUInt32BE();
+        ushort driverCount = reader.ReadUInt16BE();
+        uint ddBlock = reader.ReadUInt32BE();
+        ushort ddSize = reader.ReadUInt16BE();
+        ushort ddType = reader.ReadUInt16BE();
 
+        // 0x1A == sizeof(ushort) * 7 + sizeof(uint) * 3
+        // 0x1A == 14 + 12
         reader.Skip(DmgReader.SECTOR_SIZE - 0x1A); // pad out to SECTOR_SIZE
+
         return new(sig, blockSize, blockCount, deviceType, deviceID, data, driverCount, ddBlock, ddSize, ddType);
     }
 }
