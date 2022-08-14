@@ -247,17 +247,6 @@
                         Image="{svg:SvgImage /Assets/Icons/key.svg}"
                         IsEnabled="{CompiledBinding ViewKeysCommandEnabled}"
                         Text="View Keys" />
-                    <!-- <ui:Button -->
-                    <!--     Grid.Column="3" -->
-                    <!--     Classes="WithImage Horizontal" -->
-                    <!--     Command="{CompiledBinding ViewKeysCommand}" -->
-                    <!--     HorizontalAlignment="Center" -->
-                    <!--     IsEnabled="{CompiledBinding ViewKeysCommandEnabled}"> -->
-                    <!--     <StackPanel> -->
-                    <!--         <Image Source="{svg:SvgImage /Assets/Icons/key.svg}" /> -->
-                    <!--         <TextBlock Text="View Keys" /> -->
-                    <!--     </StackPanel> -->
-                    <!-- </ui:Button> -->
                 </sg:SpacedGrid>
 
             </Border>
