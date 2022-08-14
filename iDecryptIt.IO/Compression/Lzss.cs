@@ -26,7 +26,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace iDecryptIt.IO.Helpers;
+namespace iDecryptIt.IO.Compression;
 
 [PublicAPI]
 internal static class Lzss

@@ -21,7 +21,7 @@
  * =============================================================================
  */
 
-using iDecryptIt.IO.Helpers;
+using iDecryptIt.IO.Compression;
 using JetBrains.Annotations;
 using System;
 using System.Diagnostics;
