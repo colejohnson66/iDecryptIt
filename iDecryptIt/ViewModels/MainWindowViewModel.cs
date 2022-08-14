@@ -249,8 +249,47 @@ public class MainWindowViewModel : ViewModelBase
     [Reactive] public string ExtractInput { get; set; } = "";
     [Reactive] public string ExtractOutput { get; set; } = "";
     public ReactiveCommand<string, Unit> ExtractOpenCommand { get; }
-    private void OnExtractOpen(string parameter)
-    { }
+    private async void OnExtractOpen(string parameter)
+    {
+        if (!MainWindowIsDesktopLifetime.Value)
+            return;
+
+        if (parameter is "input")
+        {
+            OpenFileDialog dialog = new();
+            dialog.Filters ??= new();
+            dialog.Filters.Add(new()
+            {
+                Name = "Apple Disk Images",
+                Extensions = { "dmg" },
+            });
+
+            string[]? results = await dialog.ShowAsync(MainWindowInstance.Value);
+            if (results is null) // canceled
+                return;
+
+            Debug.Assert(results.Length is 1);
+            string result = results[0];
+
+            ExtractInput = result;
+            ExtractOutput = Path.Combine(
+                Directory.GetParent(result)!.FullName, // SAFETY: only null if parameter is the root directory; never with files
+                Path.GetFileNameWithoutExtension(result));
+
+            // TODO: validate file is actually a DMG
+        }
+        else
+        {
+            Debug.Assert(parameter is "output");
+            OpenFolderDialog dialog = new();
+
+            string? result = await dialog.ShowAsync(MainWindowInstance.Value);
+            if (result is null) // canceled
+                return;
+
+            ExtractOutput = result;
+        }
+    }
     public ReactiveCommand<Unit, Unit> ExtractCommand { get; }
     private void OnExtract()
     { }
