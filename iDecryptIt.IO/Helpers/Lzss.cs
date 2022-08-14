@@ -51,7 +51,7 @@ internal static class Lzss
         uint flags = 0;
         while (true)
         {
-            if (((flags >>= 1) & 0x100) == 0)
+            if (((flags >>= 1) & 0x100) is 0)
             {
                 int b = src.ReadByte();
                 if (b is -1)
@@ -60,7 +60,7 @@ internal static class Lzss
                 flags = (uint)b | 0xFF00;
             }
 
-            if ((flags & 1) != 0)
+            if ((flags & 1) is not 0)
             {
                 int b = src.ReadByte();
                 if (b is -1)

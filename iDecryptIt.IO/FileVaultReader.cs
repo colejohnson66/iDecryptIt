@@ -96,7 +96,7 @@ public class FileVaultReader : IDisposable
         // decrypt
         byte[] decrypted = new byte[block.Length];
         using CryptoStream cs = new(new MemoryStream(block), _aes.CreateDecryptor(), CryptoStreamMode.Read);
-        cs.Read(decrypted);
+        cs.ReadExact(decrypted);
         return decrypted;
     }
 

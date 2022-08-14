@@ -109,7 +109,7 @@ public class Apple8900Reader : IDisposable
         using MemoryStream ms = new(sha1.ComputeHash(header[..0x40])[..0x10]); // only the first 16 bytes of the hash are used
         using CryptoStream cs = new(ms, aes.CreateEncryptor(), CryptoStreamMode.Read);
         byte[] computedHeaderSig = new byte[16];
-        cs.Read(computedHeaderSig); // TODO: use return value
+        cs.ReadExact(computedHeaderSig);
         HeaderSignatureCorrect = computedHeaderSig.SequenceEqual(header[0x40..0x50]);
 
         // sanity check
@@ -144,7 +144,7 @@ public class Apple8900Reader : IDisposable
             aes.Key = KEY_0x837_ARRAY;
 
             using CryptoStream cs = new(new MemoryStream(payload), aes.CreateDecryptor(), CryptoStreamMode.Read);
-            cs.Read(_payload);
+            cs.ReadExact(_payload);
         }
         catch (CryptographicException)
         {
@@ -155,14 +155,14 @@ public class Apple8900Reader : IDisposable
     private void ExtractSignature()
     {
         _input.Position = _sigOffset;
-        _input.Read(_signature);
+        _input.ReadExact(_signature);
     }
 
     private void ExtractCertificate()
     {
         _input.Position = _certOffset;
         _certificate = new byte[_certLength];
-        _input.Read(_certificate);
+        _input.ReadExact(_certificate);
     }
 
     public Apple8900Format Format { get; private set; }

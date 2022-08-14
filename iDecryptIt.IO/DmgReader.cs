@@ -88,7 +88,7 @@ public class DmgReader : IDisposable
     {
         _input.Seek((long)_resourceFile.XmlOffset, SeekOrigin.Begin);
         byte[] fork = new byte[_resourceFile.XmlLength];
-        _input.Read(fork);
+        _input.ReadExact(fork);
 
         PListDocument doc = new(Encoding.ASCII.GetString(fork));
 
@@ -194,7 +194,7 @@ public class DmgReader : IDisposable
                     throw new EndOfStreamException("Unexpected EOF inside a BLKX run.");
 
                 using (ZLibStream zlib = new(new MemoryStream(compressed), CompressionMode.Decompress, false))
-                    zlib.Read(runData);
+                    zlib.ReadExact(runData);
                 break;
 
             case BLOCK_RAW:
