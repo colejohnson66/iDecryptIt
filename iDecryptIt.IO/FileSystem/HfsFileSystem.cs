@@ -1,5 +1,5 @@
 ﻿/* =============================================================================
- * File:   HfsxReader.cs
+ * File:   HfsFileSystem.cs
  * Author: Cole Tobin
  * =============================================================================
  * Copyright (c) 2022 Cole Tobin
@@ -25,14 +25,14 @@ using iDecryptIt.IO.Formats;
 
 namespace iDecryptIt.IO.FileSystem;
 
-public class HfsxReader : FileSystemReaderBase
+public class HfsFileSystem : FileSystemReaderBase
 {
-    private readonly DmgReader _reader;
+    private readonly DmgFile _file;
     private readonly bool _hfsx;
 
-    internal HfsxReader(DmgReader reader, bool isX)
+    internal HfsFileSystem(DmgFile file, bool isX)
     {
-        _reader = reader;
+        _file = file;
         _hfsx = isX;
     }
 }

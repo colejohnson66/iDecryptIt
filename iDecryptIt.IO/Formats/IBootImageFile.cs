@@ -1,5 +1,5 @@
 ﻿/* =============================================================================
- * File:   CompReader.cs
+ * File:   IBootImageFile.cs
  * Author: Cole Tobin
  * =============================================================================
  * Copyright (c) 2022 Cole Tobin
@@ -32,18 +32,18 @@ using System.Linq;
 namespace iDecryptIt.IO.Formats;
 
 [PublicAPI]
-public sealed class CompReader : IDisposable
+public sealed class IBootImageFile : IDisposable
 {
-    private const string MAGIC = "comp";
+    private const string MAGIC = "iBootIm\0";
     private const string MAGIC_LZSS = "sszl";
+    private const string MAGIC_ARGB = "bgra";
+    private const string MAGIC_GRAY = "yerg";
 
     private readonly BiEndianBinaryReader _input;
 
-    private int _decompressedLength;
-    private int _compressedLength;
     private byte[] _payload;
 
-    private CompReader(BiEndianBinaryReader input)
+    private IBootImageFile(BiEndianBinaryReader input)
     {
         _input = input;
 
@@ -51,27 +51,31 @@ public sealed class CompReader : IDisposable
         ExtractPayload();
     }
 
-    public static CompReader Parse(BiEndianBinaryReader input) =>
+    public static IBootImageFile Parse(BiEndianBinaryReader input) =>
         new(input);
 
     private void ParseHeader()
     {
-        byte[] header = _input.ReadBytes(0x180);
+        byte[] header = _input.ReadBytes(0x40);
         using BiEndianBinaryReader reader = new(header);
 
         // magic
-        if (reader.ReadAsciiChars(4) is not MAGIC)
-            throw new InvalidDataException("Input file is not a \"Comp\" file.");
+        if (reader.ReadAsciiChars(8) is not MAGIC)
+            throw new InvalidDataException("Input file is not an \"iBootImage\" file.");
         if (reader.ReadAsciiChars(4) is not MAGIC_LZSS)
-            throw new InvalidDataException($"Unknown compression format: \"{header[4..8].Reverse().ToStringNoTrailingNulls()}\".");
+            throw new InvalidDataException($"Unknown compression format: \"{header[8..0xC].Reverse().ToStringNoTrailingNulls()}\".");
 
-        // TODO: checksum
-        // ReSharper disable once UnusedVariable
-        uint expectedChecksum = reader.ReadUInt32LE();
+        // format
+        Format = reader.ReadAsciiChars(4) switch
+        {
+            MAGIC_ARGB => IBootImageFormat.Color,
+            MAGIC_GRAY => IBootImageFormat.Grey,
+            _ => throw new InvalidDataException($"Unknown color format: \"{header[0xC..0x10].Reverse().ToStringNoTrailingNulls()}\"."),
+        };
 
-        // lengths (big endian)
-        _decompressedLength = reader.ReadInt32BE();
-        _compressedLength = reader.ReadInt32BE();
+        // width + height
+        Width = reader.ReadUInt16LE();
+        Height = reader.ReadUInt16LE();
 
         // sanity check
         SpuriousDataInHeaderPadding = header.Skip(0x14).Any(b => b is not 0);
@@ -80,13 +84,19 @@ public sealed class CompReader : IDisposable
     [MemberNotNull(nameof(_payload))]
     private void ExtractPayload()
     {
-        Debug.Assert(_input.BaseStream.Position is 0x14);
+        Debug.Assert(_input.BaseStream.Position is 0x40);
 
-        byte[] compressedPayload = _input.ReadBytes(_compressedLength);
-        _payload = Lzss.Decompress(compressedPayload, _decompressedLength);
-        if (_payload.Length != _decompressedLength)
-            throw new InvalidDataException($"Expected a decompressed length of {_decompressedLength}, but got a length of {_payload.Length}.");
+        byte[] payload = _input.ReadBytes((int)_input.BaseStream.Length - 0x40);
+
+        int expectedSize = Width * Height * Format.BytesPerPixel();
+        _payload = Lzss.Decompress(payload, expectedSize);
+        if (_payload.Length != expectedSize)
+            throw new InvalidDataException($"Expected a decompressed length of {expectedSize}, but got a length of {_payload.Length}.");
     }
+
+    public IBootImageFormat Format { get; private set; }
+    public ushort Width { get; private set; }
+    public ushort Height { get; private set; }
     public bool SpuriousDataInHeaderPadding { get; private set; }
 
     public void Read(out byte[] payload)

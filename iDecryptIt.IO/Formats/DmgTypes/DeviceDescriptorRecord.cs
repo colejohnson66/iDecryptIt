@@ -50,7 +50,7 @@ internal record DeviceDescriptorRecord(
 
         // 0x1A == sizeof(ushort) * 7 + sizeof(uint) * 3
         // 0x1A == 14 + 12
-        reader.Skip(DmgReader.SECTOR_SIZE - 0x1A); // pad out to SECTOR_SIZE
+        reader.Skip(DmgFile.SECTOR_SIZE - 0x1A); // pad out to SECTOR_SIZE
 
         return new(sig, blockSize, blockCount, deviceType, deviceID, data, driverCount, ddBlock, ddSize, ddType);
     }

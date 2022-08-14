@@ -1,5 +1,5 @@
 ﻿/* =============================================================================
- * File:   Img2Reader.cs
+ * File:   Img2File.cs
  * Author: Cole Tobin
  * =============================================================================
  * Copyright (c) 2022 Cole Tobin
@@ -31,7 +31,7 @@ using System.Linq;
 namespace iDecryptIt.IO.Formats;
 
 [PublicAPI]
-public sealed class Img2Reader : IDisposable
+public sealed class Img2File : IDisposable
 {
     private const string MAGIC = "2gmI";
     private const string MAGIC_VERSION_TAG = "srev";
@@ -41,7 +41,7 @@ public sealed class Img2Reader : IDisposable
     private int _paddedLength = 0; // offset 10
     private byte[] _payload;
 
-    private Img2Reader(BiEndianBinaryReader input)
+    private Img2File(BiEndianBinaryReader input)
     {
         _input = input;
 
@@ -49,7 +49,7 @@ public sealed class Img2Reader : IDisposable
         ExtractPayload();
     }
 
-    public static Img2Reader Parse(BiEndianBinaryReader input) =>
+    public static Img2File Parse(BiEndianBinaryReader input) =>
         new(input);
 
     [MemberNotNull(nameof(ImageType))]

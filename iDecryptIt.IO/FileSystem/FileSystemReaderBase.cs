@@ -24,6 +24,4 @@
 namespace iDecryptIt.IO.FileSystem;
 
 public abstract class FileSystemReaderBase
-{
-
-}
+{ }

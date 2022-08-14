@@ -1,5 +1,5 @@
 ﻿/* =============================================================================
- * File:   Apple8900Reader.cs
+ * File:   Apple8900File.cs
  * Author: Cole Tobin
  * =============================================================================
  * Copyright (c) 2022 Cole Tobin
@@ -32,7 +32,7 @@ using System.Security.Cryptography;
 namespace iDecryptIt.IO.Formats;
 
 [PublicAPI]
-public sealed class Apple8900Reader : IDisposable
+public sealed class Apple8900File : IDisposable
 {
     private static readonly byte[] KEY_0x837_ARRAY =
     {
@@ -53,7 +53,7 @@ public sealed class Apple8900Reader : IDisposable
     private byte[] _signature;
     private byte[] _certificate;
 
-    private Apple8900Reader(BiEndianBinaryReader reader)
+    private Apple8900File(BiEndianBinaryReader reader)
     {
         _reader = reader;
 
@@ -64,7 +64,7 @@ public sealed class Apple8900Reader : IDisposable
     }
 
     // TODO: throws ArgumentException (if can't seek), InvalidDataException (if not 8900), EndOfStreamException
-    public static Apple8900Reader Parse(BiEndianBinaryReader input) =>
+    public static Apple8900File Parse(BiEndianBinaryReader input) =>
         new(input);
 
     [MemberNotNull(nameof(_salt))]

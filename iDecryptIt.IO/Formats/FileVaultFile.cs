@@ -1,5 +1,5 @@
 ﻿/* =============================================================================
- * File:   FileVaultReader.cs
+ * File:   FileVaultFile.cs
  * Author: Cole Tobin
  * =============================================================================
  * Copyright (c) 2022 Cole Tobin
@@ -30,7 +30,7 @@ using System.Security.Cryptography;
 namespace iDecryptIt.IO.Formats;
 
 [PublicAPI]
-public sealed class FileVaultReader : IDisposable
+public sealed class FileVaultFile : IDisposable
 {
     private readonly BiEndianBinaryReader _input;
     private readonly Aes _aes;
@@ -39,7 +39,7 @@ public sealed class FileVaultReader : IDisposable
     private readonly FileVaultV2Header _header;
     private readonly int _lastBlockSize;
 
-    private FileVaultReader(BiEndianBinaryReader input, byte[] fullKey)
+    private FileVaultFile(BiEndianBinaryReader input, byte[] fullKey)
     {
         if (fullKey.Length is not 36)
             throw new ArgumentException("Key must be 36 bytes.", nameof(fullKey));
@@ -65,7 +65,7 @@ public sealed class FileVaultReader : IDisposable
         _lastBlockSize = (int)(_header.DataSize - (TotalBlocks - 1) * BlockSize);
     }
 
-    public static FileVaultReader Parse(BiEndianBinaryReader input, byte[] fullKey) =>
+    public static FileVaultFile Parse(BiEndianBinaryReader input, byte[] fullKey) =>
         new(input, fullKey);
 
     public int TotalBlocks { get; }

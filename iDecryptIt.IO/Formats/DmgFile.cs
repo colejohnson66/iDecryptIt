@@ -1,5 +1,5 @@
 ﻿/* =============================================================================
- * File:   DmgReader.cs
+ * File:   DmgFile.cs
  * Author: Cole Tobin
  * =============================================================================
  * Copyright (c) 2022 Cole Tobin
@@ -37,7 +37,7 @@ using System.Text;
 namespace iDecryptIt.IO.Formats;
 
 [PublicAPI]
-public sealed class DmgReader : IDisposable
+public sealed class DmgFile : IDisposable
 {
     internal const int SECTOR_SIZE = 512;
 
@@ -61,7 +61,7 @@ public sealed class DmgReader : IDisposable
     private long _cachedSectorsStart;
     private long _cachedSectorsCount;
 
-    private DmgReader(BiEndianBinaryReader input)
+    private DmgFile(BiEndianBinaryReader input)
     {
         _input = input;
 
@@ -77,7 +77,7 @@ public sealed class DmgReader : IDisposable
         _primaryPartitionStart = _primaryPartition.PartitionStart * _deviceDescriptor.BlockSize;
     }
 
-    public static DmgReader Parse(BiEndianBinaryReader input) =>
+    public static DmgFile Parse(BiEndianBinaryReader input) =>
         new(input);
 
     private PListDictionary ReadResourceFork()
@@ -267,7 +267,7 @@ public sealed class DmgReader : IDisposable
     public FileSystemReaderBase OpenFileSystem()
     {
         if (_primaryPartition.PartitionType is "Apple_HFS" or "Apple_HFSX")
-            return new HfsxReader(this, _primaryPartition.PartitionType is "Apple_HFSX");
+            return new HfsFileSystem(this, _primaryPartition.PartitionType is "Apple_HFSX");
         throw new NotImplementedException();
     }
 
