@@ -5,13 +5,13 @@
         <TargetFramework>net6.0</TargetFramework>
         <Nullable>enable</Nullable>
         <Authors>Cole Tobin</Authors>
-        <Description>Extract keys from The iPhone Wiki.</Description>
+        <Description>A tool to extract firmware keys from The iPhone Wiki.</Description>
         <Copyright>(c) 2022 Cole Tobin</Copyright>
         <Company>Cole Tobin</Company>
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\iDecryptIt.Shared\iDecryptIt.Shared.csproj" />
+        <ProjectReference Include="..\iDecryptIt.Shared\iDecryptIt.Shared.csproj" />
     </ItemGroup>
 
 </Project>

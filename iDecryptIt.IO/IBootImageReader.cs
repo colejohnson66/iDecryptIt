@@ -33,6 +33,7 @@ namespace iDecryptIt.IO;
 [PublicAPI]
 public class IBootImageReader : IDisposable
 {
+    // when C# 11 is released, replace these with UTF-8 string literals
     private static byte[] MAGIC = { (byte)'i', (byte)'B', (byte)'o', (byte)'o', (byte)'t', (byte)'I', (byte)'m', 0 };
     private static byte[] MAGIC_LZSS = { (byte)'s', (byte)'s', (byte)'z', (byte)'l' };
     private static byte[] MAGIC_ARGB = { (byte)'b', (byte)'g', (byte)'r', (byte)'a' };

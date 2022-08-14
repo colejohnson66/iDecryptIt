@@ -33,6 +33,7 @@ namespace iDecryptIt.IO;
 [PublicAPI]
 public class Img2Reader : IDisposable
 {
+    // when C# 11 is released, replace these with UTF-8 string literals
     private static byte[] MAGIC = { (byte)'2', (byte)'g', (byte)'m', (byte)'I' };
     private static byte[] MAGIC_VERSION_TAG = { (byte)'s', (byte)'r', (byte)'e', (byte)'v' };
 

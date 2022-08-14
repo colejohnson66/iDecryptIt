@@ -33,6 +33,7 @@ namespace iDecryptIt.IO;
 [PublicAPI]
 public class CompReader : IDisposable
 {
+    // when C# 11 is released, replace these with UTF-8 string literals
     private static byte[] MAGIC = { (byte)'c', (byte)'o', (byte)'m', (byte)'p' };
     private static byte[] MAGIC_LZSS = { (byte)'s', (byte)'s', (byte)'z', (byte)'l' };
 
