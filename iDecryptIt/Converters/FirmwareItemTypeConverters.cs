@@ -21,7 +21,6 @@
  * =============================================================================
  */
 
-using Avalonia;
 using Avalonia.Data;
 using Avalonia.Data.Converters;
 using iDecryptIt.Shared;

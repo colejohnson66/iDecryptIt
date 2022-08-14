@@ -21,9 +21,6 @@
  * =============================================================================
  */
 
-using System.Linq;
-using System.Text;
-
 namespace iDecryptIt.IO.Formats.DmgTypes;
 
 internal record Partition(

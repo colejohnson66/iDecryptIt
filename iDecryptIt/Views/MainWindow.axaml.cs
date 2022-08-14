@@ -27,7 +27,7 @@ using Avalonia.Markup.Xaml;
 
 namespace iDecryptIt.Views;
 
-public partial class MainWindow : Window
+public class MainWindow : Window
 {
     public MainWindow()
     {
