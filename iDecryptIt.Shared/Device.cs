@@ -71,6 +71,15 @@ public sealed class Device : IComparable, IComparable<Device>, IEquatable<Device
     public static readonly Device Watch6_7 = new(AppleWatch, 6, 7);
     public static readonly Device Watch6_8 = new(AppleWatch, 6, 8);
     public static readonly Device Watch6_9 = new(AppleWatch, 6, 9);
+    public static readonly Device Watch6_10 = new(AppleWatch, 6, 10); // SE 2nd gen
+    public static readonly Device Watch6_11 = new(AppleWatch, 6, 11);
+    public static readonly Device Watch6_12 = new(AppleWatch, 6, 12);
+    public static readonly Device Watch6_13 = new(AppleWatch, 6, 13);
+    public static readonly Device Watch6_14 = new(AppleWatch, 6, 14); // series 8
+    public static readonly Device Watch6_15 = new(AppleWatch, 6, 15);
+    public static readonly Device Watch6_16 = new(AppleWatch, 6, 16);
+    public static readonly Device Watch6_17 = new(AppleWatch, 6, 17);
+    public static readonly Device Watch6_18 = new(AppleWatch, 6, 18); // ultra
     public static readonly Device iBridge2_1 = new(IBridge, 2, 1);
     public static readonly Device iBridge2_3 = new(IBridge, 2, 3);
     public static readonly Device iBridge2_4 = new(IBridge, 2, 4);
@@ -210,6 +219,10 @@ public sealed class Device : IComparable, IComparable<Device>, IEquatable<Device
     public static readonly Device iPhone14_4 = new(IPhone, 14, 4); // 13 mini
     public static readonly Device iPhone14_5 = new(IPhone, 14, 5); // 13
     public static readonly Device iPhone14_6 = new(IPhone, 14, 6); // SE 3rd gen
+    public static readonly Device iPhone14_7 = new(IPhone, 14, 7); // 14
+    public static readonly Device iPhone14_8 = new(IPhone, 14, 8); // 14 Plus
+    public static readonly Device iPhone15_2 = new(IPhone, 15, 2); // 14 Pro
+    public static readonly Device iPhone15_3 = new(IPhone, 15, 3); // 14 Pro Max
     public static readonly Device iPod1_1 = new(IPodTouch, 1, 1); // (1st gen)
     public static readonly Device iPod2_1 = new(IPodTouch, 2, 1); // 2nd gen
     public static readonly Device iPod3_1 = new(IPodTouch, 3, 1); // 3rd gen
@@ -224,7 +237,8 @@ public sealed class Device : IComparable, IComparable<Device>, IEquatable<Device
             AppleTV2_1, AppleTV3_1, AppleTV3_2, AppleTV5_3, AppleTV6_2, AppleTV11_1, Watch1_1, Watch1_2, Watch2_3,
             Watch2_4, Watch2_6, Watch2_7, Watch3_1, Watch3_2, Watch3_3, Watch3_4, Watch4_1, Watch4_2, Watch4_3,
             Watch4_4, Watch5_1, Watch5_2, Watch5_3, Watch5_4, Watch5_9, Watch5_10, Watch5_11, Watch5_12, Watch6_1,
-            Watch6_2, Watch6_3, Watch6_4, Watch6_6, Watch6_7, Watch6_8, Watch6_9, iBridge2_1, iBridge2_3, iBridge2_4,
+            Watch6_2, Watch6_3, Watch6_4, Watch6_6, Watch6_7, Watch6_8, Watch6_9, Watch6_10, Watch6_11, Watch6_12,
+            Watch6_13, Watch6_14, Watch6_15, Watch6_16, Watch6_17, Watch6_18, iBridge2_1, iBridge2_3, iBridge2_4,
             iBridge2_5, iBridge2_6, iBridge2_7, iBridge2_8, iBridge2_10, iBridge2_12, iBridge2_14, iBridge2_15,
             iBridge2_16, iBridge2_19, iBridge2_20, iBridge2_21, iBridge2_22, AudioAccessory1_1, AudioAccessory1_2,
             AudioAccessory5_1, iPad1_1, iPad2_1, iPad2_2, iPad2_3, iPad2_4, iPad2_5, iPad2_6, iPad2_7, iPad3_1, iPad3_2,
@@ -239,7 +253,8 @@ public sealed class Device : IComparable, IComparable<Device>, IEquatable<Device
             iPhone9_1, iPhone9_2, iPhone9_3, iPhone9_4, iPhone10_1, iPhone10_2, iPhone10_3, iPhone10_4, iPhone10_5,
             iPhone10_6, iPhone11_2, iPhone11_4, iPhone11_6, iPhone11_8, iPhone12_1, iPhone12_3, iPhone12_5, iPhone12_8,
             iPhone13_1, iPhone13_2, iPhone13_3, iPhone13_4, iPhone14_2, iPhone14_3, iPhone14_4, iPhone14_5, iPhone14_6,
-            iPod1_1, iPod2_1, iPod3_1, iPod4_1, iPod5_1, iPod7_1, iPod9_1,
+            iPhone14_7, iPhone14_8, iPhone15_2, iPhone15_3, iPod1_1, iPod2_1, iPod3_1, iPod4_1, iPod5_1, iPod7_1,
+            iPod9_1,
         });
 
     public static readonly ReadOnlyDictionary<DeviceGroup, ReadOnlyCollection<Device>> MappingGroupToDevices = new(
@@ -575,6 +590,15 @@ public sealed class Device : IComparable, IComparable<Device>, IEquatable<Device
             "Watch6,7" => Watch6_7,
             "Watch6,8" => Watch6_8,
             "Watch6,9" => Watch6_9,
+            "Watch6,10" => Watch6_10,
+            "Watch6,11" => Watch6_11,
+            "Watch6,12" => Watch6_12,
+            "Watch6,13" => Watch6_13,
+            "Watch6,14" => Watch6_14,
+            "Watch6,15" => Watch6_15,
+            "Watch6,16" => Watch6_16,
+            "Watch6,17" => Watch6_17,
+            "Watch6,18" => Watch6_18,
             "iBridge2,1" => iBridge2_1,
             "iBridge2,3" => iBridge2_3,
             "iBridge2,4" => iBridge2_4,
@@ -714,6 +738,10 @@ public sealed class Device : IComparable, IComparable<Device>, IEquatable<Device
             "iPhone14,4" => iPhone14_4,
             "iPhone14,5" => iPhone14_5,
             "iPhone14,6" => iPhone14_6,
+            "iPhone14,7" => iPhone14_7,
+            "iPhone14,8" => iPhone14_8,
+            "iPhone15,2" => iPhone15_2,
+            "iPhone15,3" => iPhone15_3,
             "iPod1,1" => iPod1_1,
             "iPod2,1" => iPod2_1,
             "iPod3,1" => iPod3_1,
