@@ -150,7 +150,14 @@ public static class Descriptor
             "v b k(AppleTV5,3) r u s",
             "v b k(AppleTV6,2) r",
             "v b k(AppleTV11,1) r"
-        ));
+        ),
+        new(
+            "16.x",
+            "v b k(AppleTV5,3) r u s",
+            "v b k(AppleTV6,2) r",
+            "v b k(AppleTV11,1) r"
+        )
+    );
 
     private static readonly DeviceEntry APPLE_WATCH = new(
         "Firmware/Apple_Watch/",
@@ -391,6 +398,29 @@ public static class Descriptor
             "vm v b k(Watch6,7) r",
             "vm v b k(Watch6,8) bb r",
             "vm v b k(Watch6,9) bb r"
+        ),
+        new(
+            "9.x",
+            "vm v b k(Watch4,1) r",
+            "vm v b k(Watch4,2) r",
+            "vm v b k(Watch4,3) bb r",
+            "vm v b k(Watch4,4) bb r",
+            "vm v b k(Watch5,1) r",
+            "vm v b k(Watch5,2) r",
+            "vm v b k(Watch5,3) bb r",
+            "vm v b k(Watch5,4) bb r",
+            "vm v b k(Watch5,9) r",
+            "vm v b k(Watch5,10) r",
+            "vm v b k(Watch5,11) bb r",
+            "vm v b k(Watch5,12) bb r",
+            "vm v b k(Watch6,1) r",
+            "vm v b k(Watch6,2) r",
+            "vm v b k(Watch6,3) bb r",
+            "vm v b k(Watch6,4) bb r",
+            "vm v b k(Watch6,6) r",
+            "vm v b k(Watch6,7) r",
+            "vm v b k(Watch6,8) bb r",
+            "vm v b k(Watch6,9) bb r"
         )
     );
 
@@ -423,6 +453,11 @@ public static class Descriptor
             "15.x",
             "v b k(AudioAccessory1,1;AudioAccessory1,2) r",
             "v b k(AudioAccessory5,1) r"
+        ),
+        new(
+            "16.x",
+            "v b k(AudioAccessory1,1;AudioAccessory1,2) r",
+            "v b k(AudioAccessory5,1) r"
         )
     );
 
@@ -444,7 +479,10 @@ public static class Descriptor
             "v b k(Macmini9,1) r u h s d",
             "v b k(iMac21,1;iMac21,2) r u h s d",
             "v b k(MacBookPro18,3;MacBookPro18,4) r u h s d",
-            "v b k(MacBookPro18,1;MacBookPro18,2) r u h s d"
+            "v b k(MacBookPro18,1;MacBookPro18,2) r u h s d",
+            "v b k(Mac13,1;Mac13,2) r u h s d",
+            "v b k(Mac14,2) r u h s d",
+            "v b k(Mac14,7) r u h s d"
         )
     );
 
@@ -462,7 +500,23 @@ public static class Descriptor
             "v b k(MacBookAir10,1) r u s",
             "v b k(MacBookPro17,1) r u s",
             "v b k(Macmini9,1) r u s",
-            "v b k(iMac21,1;iMac21,2) r u s"
+            "v b k(iMac21,1;iMac21,2) r u s",
+            "v b k(MacBookPro18,3;MacBookPro18,4) r u h s d",
+            "v b k(MacBookPro18,1;MacBookPro18,2) r u h s d",
+            "v b k(Mac13,1;Mac13,2) r u h s d",
+            "v b k(Mac14,2) r u h s d",
+            "v b k(Mac14,7) r u h s d"
+        ),
+        new("13.x",
+            "v b k(MacBookAir10,1) r u s",
+            "v b k(MacBookPro17,1) r u s",
+            "v b k(Macmini9,1) r u s",
+            "v b k(iMac21,1;iMac21,2) r u s",
+            "v b k(MacBookPro18,3;MacBookPro18,4) r u h s d",
+            "v b k(MacBookPro18,1;MacBookPro18,2) r u h s d",
+            "v b k(Mac13,1;Mac13,2) r u h s d",
+            "v b k(Mac14,2) r u h s d",
+            "v b k(Mac14,7) r u h s d"
         )
     );
 
@@ -703,6 +757,14 @@ public static class Descriptor
             "v b k(iPad7,11;iPad7,12) bb r u s",
             "v b k(iPad11,6;iPad11,7) bb r u s",
             "v b k(iPad12,1;iPad12,2) bb r u s"
+        ),
+        new(
+            "16.x",
+            "v b k(iPad6,11;iPad6,12) bb r u s",
+            "v b k(iPad7,5;iPad7,6) bb r u s",
+            "v b k(iPad7,11;iPad7,12) bb r u s",
+            "v b k(iPad11,6;iPad11,7) bb r u s",
+            "v b k(iPad12,1;iPad12,2) bb r u s"
         )
     );
 
@@ -819,6 +881,12 @@ public static class Descriptor
         new(
             "15.x",
             "v b k(iPad5,3;iPad5,4) bb r u s",
+            "v b k(iPad11,3;iPad11,4) bb r u s",
+            "v b k(iPad13,1;iPad13,2) bb r u s",
+            "v b k(iPad13,16;iPad13,17) bb r u s"
+        ),
+        new(
+            "16.x",
             "v b k(iPad11,3;iPad11,4) bb r u s",
             "v b k(iPad13,1;iPad13,2) bb r u s",
             "v b k(iPad13,16;iPad13,17) bb r u s"
@@ -954,6 +1022,19 @@ public static class Descriptor
         ),
         new(
             "15.x",
+            "v b k(iPad6,7;iPad6,8) bb r u s",
+            "v b k(iPad6,3;iPad6,4) bb r u s",
+            "v b k(iPad7,1;iPad7,2) bb r u s",
+            "v b k(iPad7,3;iPad7,4) bb r u s",
+            "v b k(iPad8,1;iPad8,2;iPad8,3;iPad8,4) bb r u s",
+            "v b k(iPad8,5;iPad8,6;iPad8,7;iPad8,8) bb r u s",
+            "v b k(iPad8,9;iPad8,10) bb r u s",
+            "v b k(iPad8,11;iPad8,12) bb r u s",
+            "v b k(iPad13,4;iPad13,5;iPad13,6;iPad13,7) bb r u s",
+            "v b k(iPad13,8;iPad13,9;iPad13,10;iPad13,11) bb r u s"
+        ),
+        new(
+            "16.x",
             "v b k(iPad6,7;iPad6,8) bb r u s",
             "v b k(iPad6,3;iPad6,4) bb r u s",
             "v b k(iPad7,1;iPad7,2) bb r u s",
@@ -1121,6 +1202,11 @@ public static class Descriptor
         new(
             "15.x",
             "v b k(iPad5,1;iPad5,2) bb r u s",
+            "v b k(iPad11,1;iPad11,2) bb r u s",
+            "v b k(iPad14,1;iPad14,2) bb r u s"
+        ),
+        new(
+            "16.x",
             "v b k(iPad11,1;iPad11,2) bb r u s",
             "v b k(iPad14,1;iPad14,2) bb r u s"
         )
@@ -1314,6 +1400,32 @@ public static class Descriptor
             "v b k(iPhone14,2) bb r u h s d",
             "v b k(iPhone14,3) bb r u h s d",
             "v b k(iPhone14,6) bb r u h s d"
+        ),
+        new(
+            "16.x",
+            "v b k(iPhone10,1;iPhone10,4) bb(iPhone10,1) bb(iPhone10,4) r u h s d",
+            "v b k(iPhone10,2;iPhone10,5) bb(iPhone10,2) bb(iPhone10,5) r u h s d",
+            "v b k(iPhone10,3;iPhone10,6) bb(iPhone10,3) bb(iPhone10,6) r u h s d",
+            "v b k(iPhone11,8) bb r u h s d",
+            "v b k(iPhone11,2) bb r u h s d",
+            "v b k(iPhone11,4;iPhone11,6) bb r u h s d",
+            "v b k(iPhone12,1) bb r u h s d",
+            "v b k(iPhone12,3) bb r u h s d",
+            "v b k(iPhone12,5) bb r u h s d",
+            "v b k(iPhone12,8) bb r u h s d",
+            "v b k(iPhone13,1) bb r u h s d",
+            "v b k(iPhone13,2) bb r u h s d",
+            "v b k(iPhone13,3) bb r u h s d",
+            "v b k(iPhone13,4) bb r u h s d",
+            "v b k(iPhone14,4) bb r u h s d",
+            "v b k(iPhone14,5) bb r u h s d",
+            "v b k(iPhone14,2) bb r u h s d",
+            "v b k(iPhone14,3) bb r u h s d",
+            "v b k(iPhone14,6) bb r u h s d",
+            "v b k(iPhone14,7) bb r u h s d",
+            "v b k(iPhone14,8) bb r u h s d",
+            "v b k(iPhone15,2) bb r u h s d",
+            "v b k(iPhone15,3) bb r u h s d"
         )
     );
 
@@ -1485,6 +1597,28 @@ public static class Descriptor
             "v b k(iPhone8,4) bb r u s",
             "v b k(iPhone9,1;iPhone9,3) bb(iPhone9,1) bb(iPhone9,3) r u s",
             "v b k(iPhone9,2;iPhone9,4) bb(iPhone9,2) bb(iPhone9,4) r u s",
+            "v b k(iPhone10,1;iPhone10,4) bb(iPhone10,1) bb(iPhone10,4) r u s",
+            "v b k(iPhone10,2;iPhone10,5) bb(iPhone10,2) bb(iPhone10,5) r u s",
+            "v b k(iPhone10,3;iPhone10,6) bb(iPhone10,3) bb(iPhone10,6) r u s",
+            "v b k(iPhone11,8) bb r u s",
+            "v b k(iPhone11,2) bb r u s",
+            "v b k(iPhone11,4;iPhone11,6) bb r u s",
+            "v b k(iPhone12,1) bb r u s",
+            "v b k(iPhone12,3) bb r u s",
+            "v b k(iPhone12,5) bb r u s",
+            "v b k(iPhone12,8) bb r u s",
+            "v b k(iPhone13,1) bb r u s",
+            "v b k(iPhone13,2) bb r u s",
+            "v b k(iPhone13,3) bb r u s",
+            "v b k(iPhone13,4) bb r u s",
+            "v b k(iPhone14,4) bb r u s",
+            "v b k(iPhone14,5) bb r u s",
+            "v b k(iPhone14,2) bb r u s",
+            "v b k(iPhone14,3) bb r u s",
+            "v b k(iPhone14,6) bb r u s"
+        ),
+        new(
+            "16.x",
             "v b k(iPhone10,1;iPhone10,4) bb(iPhone10,1) bb(iPhone10,4) r u s",
             "v b k(iPhone10,2;iPhone10,5) bb(iPhone10,2) bb(iPhone10,5) r u s",
             "v b k(iPhone10,3;iPhone10,6) bb(iPhone10,3) bb(iPhone10,6) r u s",
