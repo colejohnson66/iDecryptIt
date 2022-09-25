@@ -23,6 +23,7 @@
 
 using iDecryptIt.IO.Compression;
 using JetBrains.Annotations;
+using SkiaSharp;
 using System;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
@@ -106,8 +107,36 @@ public sealed class IBootImageFile : IDisposable
         return buf;
     }
 
-    public int Length => _payload.Length;
-    public byte this[int index] => _payload[index];
+    public SKBitmap ToBitmap()
+    {
+        SKBitmap? bitmap = null;
+        try
+        {
+            bitmap = new(new(Width, Height));
+
+            int idx = 0;
+            int bpp = Format.BytesPerPixel();
+            for (int row = 0; row < Height; row++)
+            {
+                for (int col = 0; col < Width; col++)
+                {
+                    SKColor pixel = Format is IBootImageFormat.Color
+                        ? new(_payload[idx + 3], _payload[idx], _payload[idx + 1], _payload[idx + 2])
+                        : new(_payload[idx], _payload[idx], _payload[idx], _payload[idx]);
+                    idx += bpp;
+
+                    bitmap.SetPixel(row, col, pixel);
+                }
+            }
+
+            return bitmap;
+        }
+        catch
+        {
+            bitmap?.Dispose();
+            throw;
+        }
+    }
 
     public void Dispose()
     {
