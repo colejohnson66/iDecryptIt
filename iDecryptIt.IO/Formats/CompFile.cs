@@ -89,10 +89,11 @@ public sealed class CompFile : IDisposable
     }
     public bool SpuriousDataInHeaderPadding { get; private set; }
 
-    public void Read(out byte[] payload)
+    public byte[] Read()
     {
-        payload = new byte[Length];
-        Array.Copy(_payload, payload, Length);
+        byte[] buf = new byte[_payload.Length];
+        Array.Copy(_payload, buf, _payload.Length);
+        return buf;
     }
 
     public int Length => _payload.Length;
