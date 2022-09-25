@@ -5,7 +5,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Design.PreviewWith>
-        <controls:ValidatingTextBox />
+        <controls:ValidatingTextBox
+            Text="abc"
+            ErrorIconVisible="True" />
     </Design.PreviewWith>
 
     <Style Selector="controls|ValidatingTextBox">
