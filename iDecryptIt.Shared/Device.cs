@@ -306,6 +306,15 @@ public sealed class Device : IComparable, IComparable<Device>, IEquatable<Device
                         Watch6_7,
                         Watch6_8,
                         Watch6_9,
+                        Watch6_10, // SE 2nd gen
+                        Watch6_11,
+                        Watch6_12,
+                        Watch6_13,
+                        Watch6_14, // series 8
+                        Watch6_15,
+                        Watch6_16,
+                        Watch6_17,
+                        Watch6_18, // ultra
                     })
             },
             {
@@ -487,6 +496,10 @@ public sealed class Device : IComparable, IComparable<Device>, IEquatable<Device
                         iPhone14_4, // 13 mini
                         iPhone14_5, // 13
                         iPhone14_6, // SE 3rd gen
+                        iPhone14_7, // 14
+                        iPhone14_8, // 14 Plus
+                        iPhone15_2, // 14 Pro
+                        iPhone15_3, // 14 Pro Max
                     })
             },
             {
