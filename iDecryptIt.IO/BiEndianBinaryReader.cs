@@ -23,18 +23,18 @@
 
 using JetBrains.Annotations;
 using System;
-using System.Diagnostics;
+using System.Buffers;
+using System.Buffers.Binary;
 using System.IO;
 using System.Text;
+using System.Threading;
 
 namespace iDecryptIt.IO;
 
 [PublicAPI]
 public sealed class BiEndianBinaryReader : IDisposable
 {
-    private readonly Stream _stream;
     private readonly bool _keepOpen;
-    private readonly byte[] _buffer = new byte[8];
     private bool _disposed = false;
 
     public BiEndianBinaryReader(byte[] buffer)
@@ -49,36 +49,16 @@ public sealed class BiEndianBinaryReader : IDisposable
         if (resetPosition)
             stream.Position = 0;
 
-        _stream = stream;
+        BaseStream = stream;
         _keepOpen = keepOpen;
     }
 
-    // ReSharper disable once ConvertToAutoPropertyWhenPossible
-    public Stream BaseStream => _stream;
 
-    private Span<byte> BufferAsSpan(int length)
-    {
-        Debug.Assert(length is >= 0 and < 8);
-        return _buffer.AsSpan()[..length];
-    }
+    /// <summary>
+    /// Get the underlying stream.
+    /// </summary>
+    public Stream BaseStream { get; }
 
-    private void ReadLE(Span<byte> buffer)
-    {
-        _stream.ReadExact(buffer);
-
-        // if computer is BE, swap the buffer to that endianness
-        if (!BitConverter.IsLittleEndian)
-            buffer.Reverse();
-    }
-
-    private void ReadBE(Span<byte> buffer)
-    {
-        _stream.ReadExact(buffer);
-
-        // if computer is LE, swap the buffer to that endianness
-        if (BitConverter.IsLittleEndian)
-            buffer.Reverse();
-    }
 
     /// <summary>
     /// Skip a specified number of bytes forwards.
@@ -86,7 +66,7 @@ public sealed class BiEndianBinaryReader : IDisposable
     /// <param name="count">The number of bytes to skip.</param>
     public void Skip(int count)
     {
-        _stream.Position += count;
+        BaseStream.Position += count;
     }
 
     /// <summary>
@@ -95,7 +75,7 @@ public sealed class BiEndianBinaryReader : IDisposable
     /// <param name="offset">The position, relative to the start of the stream, to seek to.</param>
     public void Seek(long offset)
     {
-        _stream.Seek(offset, SeekOrigin.Begin);
+        BaseStream.Seek(offset, SeekOrigin.Begin);
     }
 
     /// <summary>
@@ -105,7 +85,7 @@ public sealed class BiEndianBinaryReader : IDisposable
     /// <param name="origin">Where <paramref name="offset" /> is relative to.</param>
     public void Seek(long offset, SeekOrigin origin)
     {
-        _stream.Seek(offset, origin);
+        BaseStream.Seek(offset, origin);
     }
 
 
@@ -113,16 +93,16 @@ public sealed class BiEndianBinaryReader : IDisposable
     /// Read bytes from the input stream, and place them in a provided buffer.
     /// </summary>
     /// <param name="buffer">The buffer to place the read bytes into.</param>
-    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle or the read.</exception>
+    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle of the read.</exception>
     public void ReadBytes(Span<byte> buffer) =>
-        _stream.ReadExact(buffer);
+        BaseStream.ReadExact(buffer);
 
     /// <summary>
     /// Read bytes from the input stream, and get an array containing them.
     /// </summary>
     /// <param name="count">The number of bytes to read.</param>
     /// <returns>An array of bytes with <paramref name="count" /> elements.</returns>
-    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle or the read.</exception>
+    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle of the read.</exception>
     public byte[] ReadBytes(int count)
     {
         byte[] buffer = new byte[count];
@@ -135,7 +115,7 @@ public sealed class BiEndianBinaryReader : IDisposable
     /// </summary>
     /// <param name="count">The number of bytes to read.</param>
     /// <returns>An array of bytes with <paramref name="count" /> elements.</returns>
-    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle or the read.</exception>
+    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle of the read.</exception>
     public byte[] ReadBytes(long count)
     {
         byte[] buffer = new byte[count];
@@ -148,16 +128,33 @@ public sealed class BiEndianBinaryReader : IDisposable
     /// </summary>
     /// <param name="length">The number of bytes to read.</param>
     /// <param name="trimNulls">
-    /// If <c>true</c>, null characters will be trimmed from the end of the returned string.
+    /// If <c>true</c>, anything from the first null character on will be removed from the returned string.
     /// </param>
-    /// <returns>A string containing the next <paramref name="length" /> bytes, if they were encoded in ASCII.</returns>
-    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle or the read.</exception>
+    /// <returns>A string containing, at most, <paramref name="length" /> bytes, when interpreted as ASCII.</returns>
+    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle of the read.</exception>
     public string ReadAsciiChars(int length, bool trimNulls = false)
     {
-        byte[] buffer = ReadBytes(length);
-        return trimNulls
-            ? buffer.ToStringNoTrailingNulls()
-            : Encoding.ASCII.GetString(buffer);
+        byte[]? pool = null;
+        try
+        {
+            pool = ArrayPool<byte>.Shared.Rent(length);
+            Span<byte> buf = pool.AsSpan()[..length];
+            BaseStream.ReadExact(buf);
+
+            if (trimNulls)
+            {
+                int lastNull = buf.IndexOf((byte)0);
+                if (lastNull is not -1)
+                    buf = buf[..lastNull];
+            }
+
+            return Encoding.ASCII.GetString(buf);
+        }
+        finally
+        {
+            if (pool is not null)
+                ArrayPool<byte>.Shared.Return(pool);
+        }
     }
 
 
@@ -165,7 +162,7 @@ public sealed class BiEndianBinaryReader : IDisposable
     /// Read a single byte from the stream, and interpret it as a signed 8 bit integer.
     /// </summary>
     /// <returns>The next signed 8 bit integer from the stream.</returns>
-    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle or the read.</exception>
+    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle of the read.</exception>
     public sbyte ReadInt8() =>
         unchecked((sbyte)ReadUInt8());
 
@@ -173,10 +170,10 @@ public sealed class BiEndianBinaryReader : IDisposable
     /// Read a single byte from the stream.
     /// </summary>
     /// <returns>The next unsigned 8 bit integer from the stream.</returns>
-    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle or the read.</exception>
+    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle of the read.</exception>
     public byte ReadUInt8()
     {
-        int c = _stream.ReadByte();
+        int c = BaseStream.ReadByte();
         if (c is -1)
             throw new EndOfStreamException($"Unexpected EOF in {nameof(ReadUInt8)}.");
         return (byte)c;
@@ -187,40 +184,48 @@ public sealed class BiEndianBinaryReader : IDisposable
     /// Read two bytes from the stream, and interpret them as a signed 16 bit little endian integer.
     /// </summary>
     /// <returns>The next signed 16 bit integer from the stream.</returns>
-    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle or the read.</exception>
-    public short ReadInt16LE() =>
-        unchecked((short)ReadUInt16LE());
+    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle of the read.</exception>
+    public short ReadInt16LE()
+    {
+        Span<byte> buf = stackalloc byte[2];
+        BaseStream.ReadExact(buf);
+        return BinaryPrimitives.ReadInt16LittleEndian(buf);
+    }
 
     /// <summary>
     /// Read two bytes from the stream, and interpret them as an unsigned 16 bit little endian integer.
     /// </summary>
     /// <returns>The next unsigned 16 bit integer from the stream.</returns>
-    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle or the read.</exception>
+    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle of the read.</exception>
     public ushort ReadUInt16LE()
     {
-        Span<byte> span = BufferAsSpan(2);
-        ReadLE(span);
-        return BitConverter.ToUInt16(span);
+        Span<byte> buf = stackalloc byte[2];
+        BaseStream.ReadExact(buf);
+        return BinaryPrimitives.ReadUInt16LittleEndian(buf);
     }
 
     /// <summary>
     /// Read two bytes from the stream, and interpret them as a signed 16 bit big endian integer.
     /// </summary>
     /// <returns>The next signed 16 bit integer from the stream.</returns>
-    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle or the read.</exception>
-    public short ReadInt16BE() =>
-        unchecked((short)ReadUInt16BE());
+    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle of the read.</exception>
+    public short ReadInt16BE()
+    {
+        Span<byte> buf = stackalloc byte[2];
+        BaseStream.ReadExact(buf);
+        return BinaryPrimitives.ReadInt16BigEndian(buf);
+    }
 
     /// <summary>
     /// Read two bytes from the stream, and interpret them as an unsigned 16 bit big endian integer.
     /// </summary>
     /// <returns>The next unsigned 16 bit integer from the stream.</returns>
-    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle or the read.</exception>
+    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle of the read.</exception>
     public ushort ReadUInt16BE()
     {
-        Span<byte> span = BufferAsSpan(2);
-        ReadBE(span);
-        return BitConverter.ToUInt16(span);
+        Span<byte> buf = stackalloc byte[2];
+        BaseStream.ReadExact(buf);
+        return BinaryPrimitives.ReadUInt16BigEndian(buf);
     }
 
 
@@ -228,40 +233,48 @@ public sealed class BiEndianBinaryReader : IDisposable
     /// Read four bytes from the stream, and interpret them as a signed 32 bit little endian integer.
     /// </summary>
     /// <returns>The next signed 32 bit integer from the stream.</returns>
-    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle or the read.</exception>
-    public int ReadInt32LE() =>
-        unchecked((int)ReadUInt32LE());
+    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle of the read.</exception>
+    public int ReadInt32LE()
+    {
+        Span<byte> buf = stackalloc byte[4];
+        BaseStream.ReadExact(buf);
+        return BinaryPrimitives.ReadInt32LittleEndian(buf);
+    }
 
     /// <summary>
     /// Read four bytes from the stream, and interpret them as an unsigned 32 bit little endian integer.
     /// </summary>
     /// <returns>The next unsigned 32 bit integer from the stream.</returns>
-    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle or the read.</exception>
+    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle of the read.</exception>
     public uint ReadUInt32LE()
     {
-        Span<byte> span = BufferAsSpan(4);
-        ReadLE(span);
-        return BitConverter.ToUInt32(span);
+        Span<byte> buf = stackalloc byte[4];
+        BaseStream.ReadExact(buf);
+        return BinaryPrimitives.ReadUInt32LittleEndian(buf);
     }
 
     /// <summary>
     /// Read four bytes from the stream, and interpret them as a signed 32 bit big endian integer.
     /// </summary>
     /// <returns>The next signed 32 bit integer from the stream.</returns>
-    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle or the read.</exception>
-    public int ReadInt32BE() =>
-        unchecked((int)ReadUInt32BE());
+    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle of the read.</exception>
+    public int ReadInt32BE()
+    {
+        Span<byte> buf = stackalloc byte[4];
+        BaseStream.ReadExact(buf);
+        return BinaryPrimitives.ReadInt32BigEndian(buf);
+    }
 
     /// <summary>
     /// Read four bytes from the stream, and interpret them as an unsigned 32 bit big endian integer.
     /// </summary>
     /// <returns>The next unsigned 32 bit integer from the stream.</returns>
-    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle or the read.</exception>
+    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle of the read.</exception>
     public uint ReadUInt32BE()
     {
-        Span<byte> span = BufferAsSpan(4);
-        ReadBE(span);
-        return BitConverter.ToUInt32(span);
+        Span<byte> buf = stackalloc byte[4];
+        BaseStream.ReadExact(buf);
+        return BinaryPrimitives.ReadUInt32BigEndian(buf);
     }
 
 
@@ -269,92 +282,124 @@ public sealed class BiEndianBinaryReader : IDisposable
     /// Read eight bytes from the stream, and interpret them as a signed 64 bit little endian integer.
     /// </summary>
     /// <returns>The next signed 64 bit integer from the stream.</returns>
-    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle or the read.</exception>
-    public long ReadInt64LE() =>
-        unchecked((long)ReadUInt64LE());
+    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle of the read.</exception>
+    public long ReadInt64LE()
+    {
+        Span<byte> buf = stackalloc byte[8];
+        BaseStream.ReadExact(buf);
+        return BinaryPrimitives.ReadInt64LittleEndian(buf);
+    }
 
     /// <summary>
     /// Read eight bytes from the stream, and interpret them as an unsigned 64 bit little endian integer.
     /// </summary>
     /// <returns>The next unsigned 64 bit integer from the stream.</returns>
-    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle or the read.</exception>
+    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle of the read.</exception>
     public ulong ReadUInt64LE()
     {
-        Span<byte> span = BufferAsSpan(8);
-        ReadLE(span);
-        return BitConverter.ToUInt64(span);
+        Span<byte> buf = stackalloc byte[8];
+        BaseStream.ReadExact(buf);
+        return BinaryPrimitives.ReadUInt64LittleEndian(buf);
     }
 
     /// <summary>
     /// Read eight bytes from the stream, and interpret them as a signed 64 bit big endian integer.
     /// </summary>
     /// <returns>The next signed 64 bit integer from the stream.</returns>
-    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle or the read.</exception>
-    public long ReadInt64BE() =>
-        unchecked((long)ReadUInt64BE());
+    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle of the read.</exception>
+    public long ReadInt64BE()
+    {
+        Span<byte> buf = stackalloc byte[8];
+        BaseStream.ReadExact(buf);
+        return BinaryPrimitives.ReadInt64BigEndian(buf);
+    }
 
     /// <summary>
     /// Read eight bytes from the stream, and interpret them as an unsigned 64 bit big endian integer.
     /// </summary>
     /// <returns>The next unsigned 64 bit integer from the stream.</returns>
-    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle or the read.</exception>
+    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle of the read.</exception>
     public ulong ReadUInt64BE()
     {
-        Span<byte> span = BufferAsSpan(4);
-        ReadBE(span);
-        return BitConverter.ToUInt64(span);
+        Span<byte> buf = stackalloc byte[8];
+        BaseStream.ReadExact(buf);
+        return BinaryPrimitives.ReadUInt64BigEndian(buf);
     }
 
 
     /// <summary>
-    /// Read two bytes from the stream, and interpret them as a little endian half precision floating point number.
+    /// Read two bytes from the stream, and interpret them as a half precision little endian floating point number.
     /// </summary>
     /// <returns>The next half precision floating point number from the stream.</returns>
-    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle or the read.</exception>
-    public Half ReadHalfLE() =>
-        BitConverter.Int16BitsToHalf(ReadInt16LE());
+    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle of the read.</exception>
+    public Half ReadHalfLE()
+    {
+        Span<byte> buf = stackalloc byte[2];
+        BaseStream.ReadExact(buf);
+        return BinaryPrimitives.ReadHalfLittleEndian(buf);
+    }
 
     /// <summary>
-    /// Read two bytes from the stream, and interpret them as a big endian half precision floating point number.
+    /// Read two bytes from the stream, and interpret them as a half precision big endian floating point number.
     /// </summary>
     /// <returns>The next half precision floating point number from the stream.</returns>
-    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle or the read.</exception>
-    public Half ReadHalfBE() =>
-        BitConverter.Int16BitsToHalf(ReadInt16BE());
+    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle of the read.</exception>
+    public Half ReadHalfBE()
+    {
+        Span<byte> buf = stackalloc byte[2];
+        BaseStream.ReadExact(buf);
+        return BinaryPrimitives.ReadHalfBigEndian(buf);
+    }
 
 
     /// <summary>
-    /// Read four bytes from the stream, and interpret them as a little endian single precision floating point number.
+    /// Read four bytes from the stream, and interpret them as a single precision little endian floating point number.
     /// </summary>
     /// <returns>The next single precision floating point number from the stream.</returns>
-    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle or the read.</exception>
-    public float ReadSingleLE() =>
-        BitConverter.Int32BitsToSingle(ReadInt32LE());
+    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle of the read.</exception>
+    public float ReadSingleLE()
+    {
+        Span<byte> buf = stackalloc byte[4];
+        BaseStream.ReadExact(buf);
+        return BinaryPrimitives.ReadSingleLittleEndian(buf);
+    }
 
     /// <summary>
-    /// Read four bytes from the stream, and interpret them as a big endian single precision floating point number.
+    /// Read four bytes from the stream, and interpret them as a single precision big endian floating point number.
     /// </summary>
     /// <returns>The next single precision floating point number from the stream.</returns>
-    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle or the read.</exception>
-    public float ReadSingleBE() =>
-        BitConverter.Int32BitsToSingle(ReadInt32BE());
+    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle of the read.</exception>
+    public float ReadSingleBE()
+    {
+        Span<byte> buf = stackalloc byte[4];
+        BaseStream.ReadExact(buf);
+        return BinaryPrimitives.ReadSingleBigEndian(buf);
+    }
 
 
     /// <summary>
-    /// Read eight bytes from the stream, and interpret them as a little endian double precision floating point number.
+    /// Read eight bytes from the stream, and interpret them as a double precision little endian floating point number.
     /// </summary>
     /// <returns>The next double precision floating point number from the stream.</returns>
-    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle or the read.</exception>
-    public double ReadDoubleLE() =>
-        BitConverter.Int64BitsToDouble(ReadInt64LE());
+    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle of the read.</exception>
+    public double ReadDoubleLE()
+    {
+        Span<byte> buf = stackalloc byte[8];
+        BaseStream.ReadExact(buf);
+        return BinaryPrimitives.ReadSingleLittleEndian(buf);
+    }
 
     /// <summary>
-    /// Read eight bytes from the stream, and interpret them as a big endian double precision floating point number.
+    /// Read eight bytes from the stream, and interpret them as a double precision big endian floating point number.
     /// </summary>
     /// <returns>The next double precision floating point number from the stream.</returns>
-    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle or the read.</exception>
-    public double ReadDoubleBE() =>
-        BitConverter.Int64BitsToDouble(ReadInt64BE());
+    /// <exception cref="EndOfStreamException">If the EOF is reached in the middle of the read.</exception>
+    public double ReadDoubleBE()
+    {
+        Span<byte> buf = stackalloc byte[8];
+        BaseStream.ReadExact(buf);
+        return BinaryPrimitives.ReadDoubleBigEndian(buf);
+    }
 
 
     /// <inheritdoc />
@@ -364,7 +409,7 @@ public sealed class BiEndianBinaryReader : IDisposable
         {
             _disposed = true;
             if (!_keepOpen)
-                _stream.Dispose();
+                BaseStream.Dispose();
         }
     }
 }

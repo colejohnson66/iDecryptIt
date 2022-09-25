@@ -23,6 +23,7 @@
 
 using System;
 using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace iDecryptIt.IO;
 
@@ -35,8 +36,9 @@ internal static class StreamExtensions
     /// </summary>
     /// <param name="s">The <see cref="Stream" /> to read from.</param>
     /// <param name="buffer">The buffer to place the read bytes into.</param>
+    /// <param name="caller">The calling function; Do not pass anything, and use the default.</param>
     /// <exception cref="EndOfStreamException">If any one read attempt reads zero bytes.</exception>
-    public static void ReadExact(this Stream s, Span<byte> buffer)
+    public static void ReadExact(this Stream s, Span<byte> buffer, [CallerMemberName] string? caller = null)
     {
         int i = 0;
         while (i != buffer.Length)
@@ -44,7 +46,7 @@ internal static class StreamExtensions
             int thisRead = s.Read(buffer[i..]);
             i += thisRead;
             if (thisRead is 0)
-                throw new EndOfStreamException($"Unexpected EOF in {nameof(ReadExact)}.");
+                throw new EndOfStreamException($"Unexpected EOF in {caller} (from {nameof(ReadExact)}).");
         }
     }
 }
