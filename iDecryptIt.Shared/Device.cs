@@ -172,8 +172,14 @@ public sealed class Device : IComparable, IComparable<Device>, IEquatable<Device
     public static readonly Device iPad13_11 = new(IPadPro, 13, 11);
     public static readonly Device iPad13_16 = new(IPadAir, 13, 16); // Air 5th gen
     public static readonly Device iPad13_17 = new(IPadAir, 13, 17);
+    public static readonly Device iPad13_18 = new(IPadAir, 13, 18); // 10th gen
+    public static readonly Device iPad13_19 = new(IPadAir, 13, 19);
     public static readonly Device iPad14_1 = new(IPadMini, 14, 1); // mini 6th gen
     public static readonly Device iPad14_2 = new(IPadMini, 14, 2);
+    public static readonly Device iPad14_3 = new(IPadMini, 14, 3); // Pro 6th gen 11"
+    public static readonly Device iPad14_4 = new(IPadMini, 14, 4);
+    public static readonly Device iPad14_5 = new(IPadMini, 14, 5); // Pro 6th gen 12.9"
+    public static readonly Device iPad14_6 = new(IPadMini, 14, 6);
     public static readonly Device iPhone1_1 = new(IPhone, 1, 1); // (1st gen)
     public static readonly Device iPhone1_2 = new(IPhone, 1, 2); // 3G
     public static readonly Device iPhone2_1 = new(IPhone, 2, 1); // 3GS
@@ -231,7 +237,7 @@ public sealed class Device : IComparable, IComparable<Device>, IEquatable<Device
     public static readonly Device iPod7_1 = new(IPodTouch, 7, 1); // 6th gen
     public static readonly Device iPod9_1 = new(IPodTouch, 9, 1); // 7th gen
 
-    public static readonly ReadOnlyCollection<Device> AllDevices = Array.AsReadOnly(
+    public static readonly ReadOnlyCollection<Device> AllDevices = new(
         new[]
         {
             AppleTV2_1, AppleTV3_1, AppleTV3_2, AppleTV5_3, AppleTV6_2, AppleTV11_1, Watch1_1, Watch1_2, Watch2_3,
@@ -247,14 +253,14 @@ public sealed class Device : IComparable, IComparable<Device>, IEquatable<Device
             iPad7_1, iPad7_2, iPad7_3, iPad7_4, iPad7_5, iPad7_6, iPad7_11, iPad7_12, iPad8_1, iPad8_2, iPad8_3,
             iPad8_4, iPad8_5, iPad8_6, iPad8_7, iPad8_8, iPad8_9, iPad8_10, iPad8_11, iPad8_12, iPad11_1, iPad11_2,
             iPad11_3, iPad11_4, iPad11_6, iPad11_7, iPad12_1, iPad12_2, iPad13_1, iPad13_2, iPad13_4, iPad13_5,
-            iPad13_6, iPad13_7, iPad13_8, iPad13_9, iPad13_10, iPad13_11, iPad13_16, iPad13_17, iPad14_1, iPad14_2,
-            iPhone1_1, iPhone1_2, iPhone2_1, iPhone3_1, iPhone3_2, iPhone3_3, iPhone4_1, iPhone5_1, iPhone5_2,
-            iPhone5_3, iPhone5_4, iPhone6_1, iPhone6_2, iPhone7_1, iPhone7_2, iPhone8_1, iPhone8_2, iPhone8_4,
-            iPhone9_1, iPhone9_2, iPhone9_3, iPhone9_4, iPhone10_1, iPhone10_2, iPhone10_3, iPhone10_4, iPhone10_5,
-            iPhone10_6, iPhone11_2, iPhone11_4, iPhone11_6, iPhone11_8, iPhone12_1, iPhone12_3, iPhone12_5, iPhone12_8,
-            iPhone13_1, iPhone13_2, iPhone13_3, iPhone13_4, iPhone14_2, iPhone14_3, iPhone14_4, iPhone14_5, iPhone14_6,
-            iPhone14_7, iPhone14_8, iPhone15_2, iPhone15_3, iPod1_1, iPod2_1, iPod3_1, iPod4_1, iPod5_1, iPod7_1,
-            iPod9_1,
+            iPad13_6, iPad13_7, iPad13_8, iPad13_9, iPad13_10, iPad13_11, iPad13_16, iPad13_17, iPad13_18, iPad13_19,
+            iPad14_1, iPad14_2, iPad14_3, iPad14_4, iPad14_5, iPad14_6, iPhone1_1, iPhone1_2, iPhone2_1, iPhone3_1,
+            iPhone3_2, iPhone3_3, iPhone4_1, iPhone5_1, iPhone5_2, iPhone5_3, iPhone5_4, iPhone6_1, iPhone6_2,
+            iPhone7_1, iPhone7_2, iPhone8_1, iPhone8_2, iPhone8_4, iPhone9_1, iPhone9_2, iPhone9_3, iPhone9_4,
+            iPhone10_1, iPhone10_2, iPhone10_3, iPhone10_4, iPhone10_5, iPhone10_6, iPhone11_2, iPhone11_4, iPhone11_6,
+            iPhone11_8, iPhone12_1, iPhone12_3, iPhone12_5, iPhone12_8, iPhone13_1, iPhone13_2, iPhone13_3, iPhone13_4,
+            iPhone14_2, iPhone14_3, iPhone14_4, iPhone14_5, iPhone14_6, iPhone14_7, iPhone14_8, iPhone15_2, iPhone15_3,
+            iPod1_1, iPod2_1, iPod3_1, iPod4_1, iPod5_1, iPod7_1, iPod9_1,
         });
 
     public static readonly ReadOnlyDictionary<DeviceGroup, ReadOnlyCollection<Device>> MappingGroupToDevices = new(
@@ -373,6 +379,8 @@ public sealed class Device : IComparable, IComparable<Device>, IEquatable<Device
                         iPad11_7,
                         iPad12_1, // 9th gen
                         iPad12_2,
+                        iPad13_18, // 10th gen
+                        iPad13_19,
                     })
             },
             {
@@ -445,6 +453,10 @@ public sealed class Device : IComparable, IComparable<Device>, IEquatable<Device
                         iPad13_9,
                         iPad13_10,
                         iPad13_11,
+                        iPad14_3, // 4th (6th*) gen 11"
+                        iPad14_4,
+                        iPad14_5, // 6th gen 11"
+                        iPad14_6,
                     })
             },
             {
@@ -558,7 +570,9 @@ public sealed class Device : IComparable, IComparable<Device>, IEquatable<Device
     }
 
     public bool Equals(Device? other) =>
-        Group == other?.Group && MajorModelNumber == other.MajorModelNumber && MinorModelNumber == other.MinorModelNumber;
+        Group == other?.Group &&
+        MajorModelNumber == other.MajorModelNumber &&
+        MinorModelNumber == other.MinorModelNumber;
 
     public bool Equals(string? other) =>
         ModelString == other;
@@ -704,8 +718,14 @@ public sealed class Device : IComparable, IComparable<Device>, IEquatable<Device
             "iPad13,11" => iPad13_11,
             "iPad13,16" => iPad13_16,
             "iPad13,17" => iPad13_17,
+            "iPad13,18" => iPad13_18,
+            "iPad13,19" => iPad13_19,
             "iPad14,1" => iPad14_1,
             "iPad14,2" => iPad14_2,
+            "iPad14,3" => iPad14_3,
+            "iPad14,4" => iPad14_4,
+            "iPad14,5" => iPad14_5,
+            "iPad14,6" => iPad14_6,
             "iPhone1,1" => iPhone1_1,
             "iPhone1,2" => iPhone1_2,
             "iPhone2,1" => iPhone2_1,
@@ -770,5 +790,5 @@ public sealed class Device : IComparable, IComparable<Device>, IEquatable<Device
     public static Device Parse(string str) =>
         TryParse(str, out Device? device)
             ? device
-            : throw new ArgumentException($"Unknown model ID '{str}'.", nameof(str));
+            : throw new ArgumentException($"Unknown device ID '{str}'.", nameof(str));
 }

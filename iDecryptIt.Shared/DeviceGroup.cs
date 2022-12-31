@@ -23,10 +23,12 @@
 
 using JetBrains.Annotations;
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace iDecryptIt.Shared;
 
 [PublicAPI]
+[SuppressMessage("ReSharper", "InconsistentNaming")]
 public enum DeviceGroup
 {
     AppleTV,
@@ -54,7 +56,7 @@ public static class DeviceGroupExtensions
             DeviceGroup.IPad or DeviceGroup.IPadAir or DeviceGroup.IPadMini or DeviceGroup.IPadPro => "iPad",
             DeviceGroup.IPhone => "iPhone",
             DeviceGroup.IPodTouch => "iPod",
-            _ => throw new ArgumentOutOfRangeException(nameof(group), $"Unknown {nameof(DeviceGroup)}: {group}."),
+            _ => throw new ArgumentOutOfRangeException(nameof(group), group, $"Unknown {nameof(DeviceGroup)}: {group}."),
         };
 
     public static string MarketingName(this DeviceGroup group) =>
@@ -70,6 +72,6 @@ public static class DeviceGroupExtensions
             DeviceGroup.IPadPro => "iPad Pro",
             DeviceGroup.IPhone => "iPhone",
             DeviceGroup.IPodTouch => "iPod touch",
-            _ => throw new ArgumentOutOfRangeException(nameof(group), $"Unknown {nameof(DeviceGroup)}: {group}."),
+            _ => throw new ArgumentOutOfRangeException(nameof(group), group, $"Unknown {nameof(DeviceGroup)}: {group}."),
         };
 }
